@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "PASS migration / stable identity / binding / deletion / reassignment / restore",
+    "PASS path / category / missing-ID / malformed-or-ambiguous binding boundaries",
+    "PASS selected-root navigation / focus-page restoration / bounded history",
+    "PASS authenticated encryption / fresh IV / tampering / wrong key / v5 record compatibility",
+    "PASS assistant interruption / pending autoplay generation / late-focus ordering"
+  ],
+  "productionJava": true,
+  "jvmJsonTestOnly": true,
+  "androidKeyStore": false,
+  "androidActivity": false,
+  "realDevice": false
+}

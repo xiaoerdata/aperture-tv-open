@@ -1,0 +1,184 @@
+[
+  {
+    "repo": "XiaoMi/ha_xiaomi_home",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/XiaoMi/ha_xiaomi_home/blob/main/README.md",
+      "blob": "264bafdf961fe946a2ffa4aa92152afca0a179bd"
+    },
+    "license": {
+      "url": "https://github.com/XiaoMi/ha_xiaomi_home/blob/main/LICENSE.md",
+      "blob": "1c4b2011113e1d32fc908878e9b2da9578796fcd",
+      "header": "# 许可证\n\n版权声明 (C) 2024 小米公司。\n\n在本许可证下提供的 Home Assistant 米家集成（Xiaomi Home Integration）和相关米家云服务"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "homeassistant-ai/ha-mcp",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/homeassistant-ai/ha-mcp/blob/master/README.md",
+      "blob": "fe4b12ea78a79cdadf17f5f6b7781cb2af650fe0"
+    },
+    "license": {
+      "url": "https://github.com/homeassistant-ai/ha-mcp/blob/master/LICENSE",
+      "blob": "674ca8ab77c22b6e6bddc907f5786e8134650c39",
+      "header": "MIT License\n\nCopyright (c) 2024 Julien\n\nPermission is hereby granted, free of charge, to a"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "Do1e/mijia-api",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/Do1e/mijia-api/blob/main/README.md",
+      "blob": "e27e6ba592ffab56c9189a077322293b669ae9ba"
+    },
+    "license": {
+      "url": "https://github.com/Do1e/mijia-api/blob/main/LICENSE",
+      "blob": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "header": "                    GNU GENERAL PUBLIC LICENSE\n                       Version 3, 29 June 2"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "fengyucn/hefeng-qweather-mcp",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/fengyucn/hefeng-qweather-mcp/blob/main/README.md",
+      "blob": "5dcdb127ab8e3563e6cebf8710d8c8e13b1331f9"
+    },
+    "license": {
+      "url": "https://github.com/fengyucn/hefeng-qweather-mcp/blob/main/license",
+      "blob": "1dc7e1ddeff13e1912b04832142578a6ebae0389",
+      "header": "MIT; Copyright 2025 yeisme"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "Joooook/12306-mcp",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/Joooook/12306-mcp/blob/main/README.md",
+      "blob": "e06aaaef5aae10530a6561d34ee88fa0605f28c4"
+    },
+    "license": {
+      "url": "https://github.com/Joooook/12306-mcp/blob/main/LICENSE",
+      "blob": "f95efca11285825110e3bc5a9f647dcc8d065411",
+      "header": "MIT License\n\nCopyright (c) 2025 Jok\n\nPermission is hereby granted, free of charge, to any "
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "Martinqi826/dida-mcp",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/Martinqi826/dida-mcp/blob/main/README.md",
+      "blob": "178427913ef8e82ce0580a5733f55ed56cda1fd5"
+    },
+    "license": {
+      "url": "https://github.com/Martinqi826/dida-mcp/blob/main/LICENSE",
+      "blob": "5c949e2f598bfba05e81c8acd8d798904bdaf1c7",
+      "header": "MIT License\n\nCopyright (c) 2026 dida-mcp contributors\n\nPermission is hereby granted, free "
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "sugarforever/amap-mcp-server",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/sugarforever/amap-mcp-server/blob/main/README.md",
+      "blob": "e35176d1e098a2761080518d2ef3d9e667a8b641"
+    },
+    "license": {
+      "url": "https://github.com/sugarforever/amap-mcp-server/blob/main/LICENSE",
+      "blob": "bce381e9f94c090f7a10a3b10af5a6c8a6fb42d5",
+      "header": "MIT License\n\nCopyright (c) 2025 sugarforever\n\nPermission is hereby granted, free of charge"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "larksuite/lark-openapi-mcp",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/larksuite/lark-openapi-mcp/blob/main/README.md",
+      "blob": "b367f22f8b9fbb2597111a15dd83a9db7f168380"
+    },
+    "license": {
+      "url": "https://github.com/larksuite/lark-openapi-mcp/blob/main/LICENSE",
+      "blob": "66bcc79847790013105231723f86756514c9992e",
+      "header": "MIT License\n\nCopyright (c) 2025 Lark Technologies Pte. Ltd.\n\nPermission is hereby granted,"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "mambucodev/mcp-memos",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/mambucodev/mcp-memos/blob/main/README.md",
+      "blob": "9243f702997d10518e611b9affc1e0b810ba1f47"
+    },
+    "license": {
+      "url": "https://github.com/mambucodev/mcp-memos/blob/main/LICENSE",
+      "blob": "8d34f368d3535d27242cf9dab9b13bb39d004ad1",
+      "header": "MIT License\n\nCopyright (c) 2026 Mambuco\n\nPermission is hereby granted, free of charge, to "
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "Fromsko/siyuan-mcp-server",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/Fromsko/siyuan-mcp-server/blob/main/README.md",
+      "blob": "882ceead0996a00f283abd0fe6d83635165b441d"
+    },
+    "license": {
+      "url": "https://github.com/Fromsko/siyuan-mcp-server/blob/main/LICENSE",
+      "blob": "08bc9e8f2396b91dcf9bb1dae4e5218840f6d7e4",
+      "header": "ISC License\n\nCopyright (c) 2024 onigeya\n\nPermission to use, copy, modify, and/or distribut"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "mattmaas/immich-mcp",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/mattmaas/immich-mcp/blob/main/README.md",
+      "blob": "82eed9b5059699cb5fe6021b39e41e3c7336099b"
+    },
+    "license": {
+      "url": "https://github.com/mattmaas/immich-mcp/blob/main/LICENSE",
+      "blob": "1532c44da259e11493c7b843f00626c6ff85c981",
+      "header": "MIT License\n\nCopyright (c) 2026 Matt Maas\n\nPermission is hereby granted, free of charge, t"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "timo-reymann/mealie-mcp-server",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/timo-reymann/mealie-mcp-server/blob/main/README.md",
+      "blob": "3345ea9d2bfefd26a7abf19f02dbc06fe03c7091"
+    },
+    "license": {
+      "url": "https://github.com/timo-reymann/mealie-mcp-server/blob/main/LICENSE",
+      "blob": "2e5eadde04fff5b3ae29115e42ffe8036b7f1457",
+      "header": "MIT License\n\nCopyright (c) 2026 Timo Reymann\n\nPermission is hereby granted, free of charge"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  },
+  {
+    "repo": "attmous/grocy-mcp",
+    "reviewedOn": "2026-10-23",
+    "readme": {
+      "url": "https://github.com/attmous/grocy-mcp/blob/main/README.md",
+      "blob": "ce5e0adbba52d9ec07922a8570ade0fe55d9aa03"
+    },
+    "license": {
+      "url": "https://github.com/attmous/grocy-mcp/blob/main/LICENSE",
+      "blob": "e849105a4fcdf564cab0d10a165b33d8d259ca18",
+      "header": "MIT License\n\nCopyright (c) 2026 Moustafa Attia\n\nPermission is hereby granted, free of char"
+    },
+    "level": "source-review-only; no vendor account or mainland connectivity test"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "productionJavaReceiver": true,
+  "realWebCrypto": true,
+  "rsaOaepSha256Mgf1Sha256": true,
+  "aes256GcmRequestBound": true,
+  "validDraftAccepted": true,
+  "tamperedWrongTvOrDisposedKeyRejected": true,
+  "unknownFieldsAndXiaomiDavRejected": true,
+  "androidKeyStore": false,
+  "androidActivity": false,
+  "realDevice": false
+}

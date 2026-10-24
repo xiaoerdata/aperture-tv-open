@@ -1,0 +1,32 @@
+{
+  "method": "Local package-lock declarations, installed Pillow metadata/full LICENSE, Android notice manifest; not a legal opinion or credential audit",
+  "node": {
+    "lockedPackages": 126,
+    "declaredLicenses": {
+      "MIT": 108,
+      "ISC": 14,
+      "BSD-3-Clause": 2,
+      "Apache-2.0": 1,
+      "BSD-2-Clause": 1
+    },
+    "resolvedHosts": {
+      "registry.npmmirror.com": 94,
+      "registry.npmjs.org": 32
+    },
+    "missingIntegrity": [],
+    "missingLicenseMetadata": [],
+    "nodeModulesBundledInSourceArchive": false
+  },
+  "pillow": {
+    "version": "11.1.0",
+    "installedLicenseMetadata": "MIT-CMU",
+    "fullLicensePath": "docs/third-party/Pillow-11.1.0-LICENSE.txt",
+    "fullLicenseSha256": "f576d3937d21161eac59b0b6f7807a2f5f30fe77d72abfe0d5b4d8e939b31288",
+    "binariesBundledInSourceArchive": false
+  },
+  "android": {
+    "artifactsInExistingNoticeManifest": 12,
+    "existingLicenseAndNoticeFiles": 13
+  },
+  "publicationApproved": false
+}

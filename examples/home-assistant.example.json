@@ -1,0 +1,15 @@
+{
+  "format": "aperture-home-assistant/v1",
+  "url": "http://127.0.0.1:8123",
+  "bearerEnv": "APERTURE_HA_TOKEN",
+  "label": "家里的米家与设备",
+  "queries": [{
+    "id": "living",
+    "label": "看看客厅",
+    "entities": [
+      {"id":"temperature","entityId":"sensor.living_room_temperature","title":"客厅温度","unit":"℃","ttlSeconds":300},
+      {"id":"light","entityId":"light.living_room","title":"客厅的灯","ttlSeconds":300},
+      {"id":"air","entityId":"climate.living_room","attribute":"current_temperature","title":"空调温度","unit":"℃","ttlSeconds":300}
+    ]
+  }]
+}

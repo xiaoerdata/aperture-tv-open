@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "eight first-level entries, native key-name navigation without KeyboardEvent, dialog trap/return and honest browser-only app state",
+    "standard UI at 720p/1080p/4K and 320/390/430/760/761 widths",
+    "four populated content sections, native-key entry/back focus, four manual carousel slides and user-input pause",
+    "NAS direct action in cinema, eight tools fit 720p/1080p and photos retain a NAS entry with populated/empty collections",
+    "parents: three core entries plus four smaller pinned apps and all-apps; key navigation/dialog return and edition preserved",
+    "parents NAS source labels update as safe text without resetting focus; NAS photo settings reachable with visible native-key focus at 720p; browser simulation does not test Android source dispatch",
+    "parents UI at 720p/1080p/4K and phone boundaries with large text",
+    "packaged-file page works without network, ES5 local interaction and safe text labels; actual Android intents remain a device test",
+    "authenticated household read, historical-date label, expired snapshots masked and content cleared on next read after logout; anonymous empty state"
+  ],
+  "errors": [],
+  "actualAndroidIntentsTested": false,
+  "actualXiaomiHardwareTested": false,
+  "parentsUserStudyCompleted": false
+}

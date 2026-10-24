@@ -1,0 +1,118 @@
+{
+  "documents": 71,
+  "localFileLinksChecked": 148,
+  "missing": [
+    {
+      "document": "docs/ANDROID-LOCAL.md",
+      "line": 55,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/ANDROID-PRIVATE-TEST.md",
+      "line": 3,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/ANDROID-PRIVATE-TEST.md",
+      "line": 9,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/ANDROID.md",
+      "line": 34,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/HOME-MODES.md",
+      "line": 3,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/LOBBY-AND-PARENTS.md",
+      "line": 47,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/NAS-SETUP.md",
+      "line": 3,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/NAS.md",
+      "line": 3,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/QUICKSTART.md",
+      "line": 82,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/XIAOMI-VOICE.md",
+      "line": 3,
+      "target": "../private-preview/README.md"
+    },
+    {
+      "document": "docs/process/README.md",
+      "line": 33,
+      "target": "../../private-preview/README.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 14,
+      "target": "INSTALL.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 14,
+      "target": "docs/ANDROID-LOCAL.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 18,
+      "target": "docs/WORKBUDDY.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 31,
+      "target": "docs/DEPLOYMENT.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 31,
+      "target": "docs/ANDROID-LOCAL.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 31,
+      "target": "docs/XIAOMI-COMPATIBILITY.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 31,
+      "target": "docs/DEVELOPMENT.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 33,
+      "target": "docs/process/README.md"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 39,
+      "target": "LICENSE"
+    },
+    {
+      "document": "docs/release/README-public.md",
+      "line": 39,
+      "target": "THIRD_PARTY_NOTICES.md"
+    }
+  ],
+  "scope": "Inline Markdown links/images and reference definitions; file existence only. Excludes code, anchors, service routes and external URL availability.",
+  "archiveName": "aperture-tv-public-v13-r2.tar.gz",
+  "archiveSha256": "fc8c67954614ae30c35445f61f7d2ae20ae5e8e7779fb1de8ba4599ea82db0ca",
+  "result": "missing-local-files",
+  "externalUrlsRequested": false,
+  "hardwareTested": false,
+  "workBuddyApplicationTested": false
+}

@@ -1,0 +1,86 @@
+{
+  "stage": "S29",
+  "build": "local-free",
+  "gradleInvocations": 1,
+  "buildSecondsReportedByGradle": 35,
+  "tasks": {
+    "total": 66,
+    "executed": 22,
+    "upToDate": 44
+  },
+  "sourceWorkingTreeDirtyAtBuild": false,
+  "candidates": [
+    {
+      "edition": "standard",
+      "versionCode": 8,
+      "bytes": 7178059,
+      "sha256": "05e0b6374762194d37853d0f2a79ade637aa7dc6e40a4ef99bba099ffab6d004",
+      "sourceCommit": "5f5891c7e9104c691953916a9fe32e29e6ae5319",
+      "androidSourceInputsMatch": true,
+      "sameSignatureAsV7": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/NasLibrary",
+        "org/zhixiaoce/aperture/NasCipher",
+        "org/zhixiaoce/aperture/NasNavigation",
+        "org/zhixiaoce/aperture/NasDraft",
+        "org/zhixiaoce/aperture/NasSetupActivity",
+        "org/zhixiaoce/aperture/NasSetupClient",
+        "org/zhixiaoce/aperture/NasSetupCrypto",
+        "org/zhixiaoce/aperture/NasSetupImport",
+        "org/zhixiaoce/aperture/PlaybackSession",
+        "org/zhixiaoce/aperture/PlaybackAudioFocus",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient"
+      ],
+      "packagedNativeSetupNotExported": true,
+      "permissions": [
+        "android.permission.INTERNET"
+      ],
+      "path": "private-preview/launcher-v8/standard/aperture-tv-standard-debug.apk"
+    },
+    {
+      "edition": "parents",
+      "versionCode": 8,
+      "bytes": 7178207,
+      "sha256": "500df359bc7054f312cfb700aadef090cd7782341ce0f7c7360a911d4658ceef",
+      "sourceCommit": "5f5891c7e9104c691953916a9fe32e29e6ae5319",
+      "androidSourceInputsMatch": true,
+      "sameSignatureAsV7": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/NasLibrary",
+        "org/zhixiaoce/aperture/NasCipher",
+        "org/zhixiaoce/aperture/NasNavigation",
+        "org/zhixiaoce/aperture/NasDraft",
+        "org/zhixiaoce/aperture/NasSetupActivity",
+        "org/zhixiaoce/aperture/NasSetupClient",
+        "org/zhixiaoce/aperture/NasSetupCrypto",
+        "org/zhixiaoce/aperture/NasSetupImport",
+        "org/zhixiaoce/aperture/PlaybackSession",
+        "org/zhixiaoce/aperture/PlaybackAudioFocus",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient"
+      ],
+      "packagedNativeSetupNotExported": true,
+      "permissions": [
+        "android.permission.INTERNET"
+      ],
+      "path": "private-preview/launcher-v8/parents/aperture-tv-parents-debug.apk"
+    }
+  ],
+  "installed": false,
+  "realXiaomiTV": false,
+  "realNasHardware": false,
+  "realWorkBuddy": false,
+  "hostedRunner": false,
+  "publicRelease": false
+}

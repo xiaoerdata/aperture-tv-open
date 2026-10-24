@@ -1,0 +1,36 @@
+{
+  "stage": "S31 interrupted candidate",
+  "sourceCommit": "4b5a9d9f07d54dd0f9456dd208428c73f525adf3",
+  "build": "local-free",
+  "seconds": 58,
+  "tasks": {
+    "total": 66,
+    "executed": 26,
+    "upToDate": 40
+  },
+  "sourceFiles": 444,
+  "sourceArchiveSha256": "6f1de829dca204fbe8cbbe394d10770a0535a6ac62ab1c2665b9c40bdb8f23be",
+  "candidates": [
+    {
+      "edition": "standard",
+      "versionCode": "9",
+      "apkBytes": 7180563,
+      "sha256": "eca5421b837c351528f37da6895413f7c001173219669fce20f69019a896e21c",
+      "androidSourceSha256": "ee2c2ca72998399dcaee093bb7a633b5275f728cd0654b1e4666e950f28c3a39",
+      "signatureVerified": true,
+      "workingTreeDirty": false
+    },
+    {
+      "edition": "parents",
+      "versionCode": "9",
+      "apkBytes": 7180703,
+      "sha256": "73d6d915e5ffe11555712879822a16b80774da177b3c483dcd261f4e5d25dd0c",
+      "androidSourceSha256": "ee2c2ca72998399dcaee093bb7a633b5275f728cd0654b1e4666e950f28c3a39",
+      "signatureVerified": true,
+      "workingTreeDirty": false
+    }
+  ],
+  "promotedToDownloadIndex": false,
+  "deviceInstalled": false,
+  "reason": "User requested TV navigation/copy refactor and sharper default background after this build completed; retain locally and advance to versionCode10."
+}

@@ -1,0 +1,29 @@
+{
+  "reviewedSourceCommit": "b344ed84a07b965d1f459ffba4d5f55e52ba6d3e",
+  "scope": "All local refs as of source commit; remote heads observed at start of S34; no unreachable objects or binary text scan",
+  "commitsVisited": 41,
+  "uniqueBlobsInventoried": 1002,
+  "textEntriesScanned": 801,
+  "binaryOrLargeEntriesNotTextScanned": 223,
+  "privateAccountTextPathVersions": 5,
+  "codeGuardLiteralPathVersions": 1,
+  "credentialPatternFindings": 0,
+  "sensitiveRuntimePathLocations": 0,
+  "remoteHeadsObserved": 5,
+  "frozenArchive": {
+    "sha256": "3a0ef0574957210da91fca81e89468087e7222860e975a85e993f72ececb940f",
+    "filesIncludingSourceManifest": 493,
+    "textEntriesScanned": 317,
+    "binaryOrLargeEntriesNotTextScanned": 176,
+    "privateDistributionPaths": 0,
+    "codeGuardLiteralPathVersions": 1
+  },
+  "syntheticVerifierTests": {
+    "passed": 3,
+    "total": 3
+  },
+  "manualMediaAndPrivacyReviewComplete": false,
+  "publicationApproved": false,
+  "apkRebuilt": false,
+  "remoteHistoryModified": false
+}

@@ -1,0 +1,9 @@
+{
+  "name": "合成示例：周末电影",
+  "brand": "Xiaomi 智能存储 · 新款 NAS",
+  "root": "smb://192.168.1.20/Family/电影",
+  "user": "REPLACE_LOCALLY_WITH_READONLY_USER",
+  "password": "REPLACE_LOCALLY_DO_NOT_PASTE_IN_CHAT",
+  "domain": "",
+  "role": "movies"
+}

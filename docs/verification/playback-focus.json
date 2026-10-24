@@ -1,0 +1,52 @@
+{
+  "checks": [
+    "PASS foreground selection / user pause / explicit resume / completion / replay / reset",
+    "PASS audio-only loss during preparation / no late autoplay / explicit continue",
+    "PASS audio-only loss during playback / repeated prepared and active events stay paused",
+    "PASS denied focus / no delayed playback / user retry",
+    "PASS loss callback before request returns / late grant is ignored",
+    "PASS stale source and focus callbacks / replacement stays playing / late events after reset",
+    "PASS window interruption / surface teardown and restoration / background play denied",
+    "PASS user pause during preparation / inactive selection / no focus request in background",
+    "PASS decoder / focus request / abandon exceptions fail without playback intent",
+    "PASS playback error releases focus / late lifecycle and prepared events cannot revive"
+  ],
+  "traces": [
+    "TRACE prepare-loss PREPARING -> INTERRUPTED -> INTERRUPTED -> PLAYING",
+    "TRACE playing-loss PREPARING -> PLAYING -> INTERRUPTED -> INTERRUPTED",
+    "TRACE denied FOCUS_DENIED -> FOCUS_DENIED -> PLAYING"
+  ],
+  "productionJava": true,
+  "syntheticAudioAndPlayer": true,
+  "androidAudioManagerExecuted": false,
+  "androidMediaPlayerExecuted": false,
+  "xiaomiAssistantTested": false,
+  "realDevice": false,
+  "stage": "S26",
+  "nodeTestsPassed": 7,
+  "sourceProvenanceTestsPassed": 5,
+  "nasLibraryScenarioGroupsPassed": 5,
+  "productionPlaybackScenarioGroupsPassed": 10,
+  "standardAndParentsApiCompilation": true,
+  "apiReport": {
+    "standardAndParentsApiCompilation": true,
+    "policyHarnessPassed": true,
+    "microphonePermission": false,
+    "apkBuilt": false,
+    "deviceVoiceKeysTested": false,
+    "xiaomiFarFieldTested": false,
+    "standbyWakeTested": false,
+    "output": "Native policy: overlay/resume/destroy transitions and exact local HTTPS resources passed"
+  },
+  "initialFailure": {
+    "kind": "JVM test compilation",
+    "cause": "duplicate local variable paused in PlaybackSessionTest.main",
+    "corrected": "renamed callback local variable",
+    "productionAndroidExecuted": false
+  },
+  "sources": [
+    "https://developer.android.com/media/optimize/audio-focus",
+    "https://developer.android.com/reference/android/media/AudioFocusRequest.Builder"
+  ],
+  "scope": "Native NAS playback only; no external app or household web player control"
+}

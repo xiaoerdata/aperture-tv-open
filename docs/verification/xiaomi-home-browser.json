@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "configured HA read -> unchecked preview -> only chosen device shared",
+    "standard TV data and account/device guide share the same selected snapshot"
+  ],
+  "errors": [],
+  "fixtureData": true,
+  "realXiaomiAccount": false,
+  "realHomeAssistant": false,
+  "realTV": false,
+  "automaticRefresh": false
+}

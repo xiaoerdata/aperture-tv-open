@@ -1,0 +1,64 @@
+{
+  "stage": "S25",
+  "build": "local-free",
+  "gradleInvocations": 1,
+  "buildSecondsReportedByGradle": 53,
+  "tasks": {
+    "total": 66,
+    "executed": 26,
+    "upToDate": 40
+  },
+  "sourceWorkingTreeDirtyAtBuild": false,
+  "candidates": [
+    {
+      "edition": "standard",
+      "versionCode": 6,
+      "bytes": 7164227,
+      "sha256": "d82ba81eadf03bb1676d9beae90c72cc72c37003147959b125a3607967493ef1",
+      "sourceCommit": "a056b4f15ad79d02d445e5c32549028ed33c8375",
+      "androidSourceInputsMatch": true,
+      "sameSignatureAsV5": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/NasLibrary",
+        "org/zhixiaoce/aperture/NasCipher",
+        "org/zhixiaoce/aperture/NasNavigation",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient"
+      ],
+      "path": "private-preview/launcher-v6/standard/aperture-tv-standard-debug.apk"
+    },
+    {
+      "edition": "parents",
+      "versionCode": 6,
+      "bytes": 7164299,
+      "sha256": "3eef208c9eed86c939e8f737dd655247c40c4af3b67bb5bd872cb0f7b1e31f36",
+      "sourceCommit": "a056b4f15ad79d02d445e5c32549028ed33c8375",
+      "androidSourceInputsMatch": true,
+      "sameSignatureAsV5": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/NasLibrary",
+        "org/zhixiaoce/aperture/NasCipher",
+        "org/zhixiaoce/aperture/NasNavigation",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient"
+      ],
+      "path": "private-preview/launcher-v6/parents/aperture-tv-parents-debug.apk"
+    }
+  ],
+  "installed": false,
+  "realXiaomiTV": false,
+  "realNasHardware": false,
+  "realWorkBuddy": false,
+  "hostedRunner": false,
+  "publicRelease": false
+}

@@ -1,0 +1,23 @@
+{
+  "format": "aperture-media-config/v1",
+  "sources": [
+    {
+      "id": "family",
+      "name": "家庭录像",
+      "type": "local",
+      "path": "/srv/family-videos"
+    },
+    {
+      "id": "nas",
+      "name": "我的 Jellyfin",
+      "type": "jellyfin",
+      "url": "https://jellyfin.example.invalid",
+      "tokenEnv": "APERTURE_JELLYFIN_TOKEN",
+      "userId": "REPLACE_WITH_USER_ID",
+      "libraryId": "REPLACE_WITH_LIBRARY_ID"
+    }
+  ],
+  "allowedOrigins": [
+    "https://media.example.invalid"
+  ]
+}

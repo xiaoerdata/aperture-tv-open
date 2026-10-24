@@ -1,0 +1,180 @@
+{
+  "stages": [
+    "S18",
+    "S19"
+  ],
+  "status": "private-development-preview",
+  "node": {
+    "healthTests": 4,
+    "cinemaTests": 6,
+    "homeAssistantTests": 1,
+    "existingLifeTests": 6,
+    "es5AndLiteTests": 3,
+    "allPassed": true,
+    "execution": "separate targeted batches; not a full repository regression"
+  },
+  "browser": {
+    "launcher": {
+      "checks": [
+        "eight first-level entries, native key-name navigation without KeyboardEvent, dialog trap/return and honest browser-only app state",
+        "standard UI at 720p/1080p/4K and 320/390/430/760/761 widths",
+        "four populated content sections, native-key entry/back focus, four manual carousel slides and user-input pause",
+        "parents: three core entries plus four smaller pinned apps and all-apps; key navigation/dialog return and edition preserved",
+        "parents UI at 720p/1080p/4K and phone boundaries with large text",
+        "packaged-file page works without network, ES5 local interaction and safe text labels; actual Android intents remain a device test",
+        "authenticated household read, historical-date label, expired snapshots masked and content cleared on next read after logout; anonymous empty state"
+      ],
+      "errors": [],
+      "actualAndroidIntentsTested": false,
+      "actualXiaomiHardwareTested": false,
+      "parentsUserStudyCompleted": false
+    },
+    "cinema": {
+      "checks": [
+        "opt-in and configured library selection through owner UI",
+        "real VP9 WebM decode, pause, range seek and remote back",
+        "actual HLS manifest rewrite + segment proxy + hls.js playback",
+        "first-level channel and library routes filter actual service results and return to lobby",
+        "parents three categories: backend classification, series/movie separation, large controls and preserved edition",
+        "owner disables cinema; active player stops and clears source",
+        "guide scenario switch, animation pause, persistent reduced-transparency control",
+        "18 guide/settings/player width checks; expanded phone installation instructions",
+        "guide respects system reduced motion"
+      ],
+      "errors": [],
+      "realVendorAccounts": false,
+      "realXiaomiHardware": false
+    },
+    "homeAssistant": {
+      "checks": [
+        "configured HA read -> unchecked preview -> only chosen device shared",
+        "standard TV data and account/device guide share the same selected snapshot"
+      ],
+      "errors": [],
+      "fixtureData": true,
+      "realXiaomiAccount": false,
+      "realHomeAssistant": false,
+      "realTV": false,
+      "automaticRefresh": false
+    },
+    "xiaomi": {
+      "checks": [
+        "actual Java whitelist serves offline HTML/CSS/JS/PNG/WOFF2 from local HTTPS; fonts load with no household API request",
+        "shared web remote contract does not consume voice/assist/search/volume key names or move focus",
+        "native focus contract pauses carousel without navigation/reload/focus loss and does not restart automatically",
+        "voice guidance opens from tools and returns to current section; wake state explicitly depends on firmware",
+        "private/unknown/undeclared resource paths are denied by the real Java policy, without network fallback"
+      ],
+      "resources": [
+        {
+          "url": "https://appassets.androidplatform.net/assets/index.html",
+          "allowed": true,
+          "file": "index.html",
+          "mime": "text/html"
+        },
+        {
+          "url": "https://appassets.androidplatform.net/assets/style.css",
+          "allowed": true,
+          "file": "style.css",
+          "mime": "text/css"
+        },
+        {
+          "url": "https://appassets.androidplatform.net/assets/launcher.js",
+          "allowed": true,
+          "file": "launcher.js",
+          "mime": "text/javascript"
+        },
+        {
+          "url": "https://appassets.androidplatform.net/assets/fonts/clock-reader.woff2",
+          "allowed": true,
+          "file": "fonts/clock-reader.woff2",
+          "mime": "font/woff2"
+        },
+        {
+          "url": "https://appassets.androidplatform.net/assets/fonts/aperture-song.woff2",
+          "allowed": true,
+          "file": "fonts/aperture-song.woff2",
+          "mime": "font/woff2"
+        },
+        {
+          "url": "https://appassets.androidplatform.net/assets/alpine-dusk.png",
+          "allowed": true,
+          "file": "alpine-dusk.png",
+          "mime": "image/png"
+        },
+        {
+          "url": "https://appassets.androidplatform.net/api/board",
+          "allowed": false
+        },
+        {
+          "url": "https://appassets.androidplatform.net/assets/fonts/Newsreader-OFL.txt",
+          "allowed": false
+        },
+        {
+          "url": "https://appassets.androidplatform.net/assets/missing.js",
+          "allowed": false
+        }
+      ],
+      "errors": [],
+      "localHttpsSimulated": true,
+      "actualAndroidWebView": false,
+      "xiaomiHotwordTested": false,
+      "physicalVoiceKeyTested": false,
+      "apkBuilt": false
+    }
+  },
+  "capture": {
+    "method": "actual Chromium screenshots",
+    "syntheticHouseholdData": true,
+    "aiLandscape": true,
+    "realTV": false,
+    "apkUpdated": false,
+    "typography": {
+      "clockPx": 92.16,
+      "datePx": 31.68,
+      "weekdayPx": 19.2,
+      "clockFontLoaded": true,
+      "dateFontLoaded": true
+    },
+    "errors": []
+  },
+  "native": {
+    "apiCompilation": "both editions, Android35 via javac",
+    "policyHarnessPassed": true,
+    "apkBuilt": false,
+    "actualLaunchTested": false,
+    "actualXiaomiVoiceTested": false,
+    "xiaomiAccountSettingsTested": false
+  },
+  "features": {
+    "parentsCore": [
+      "看电视",
+      "看电视剧",
+      "看电影"
+    ],
+    "smallerAppSlots": 4,
+    "allAppsEntry": true,
+    "appBinding": "local private preferences; fixed slots; enabled/exported launch components checked again on launch",
+    "mediaHealthIntervalSeconds": 900,
+    "networkProbeTimeoutSeconds": 6,
+    "healthConcurrency": 2,
+    "healthCooldownSeconds": 30,
+    "homeAssistant": "fixed read-only GET; manual selective snapshots",
+    "newAPKAvailable": false
+  },
+  "screenshots": {
+    "parents": "docs/images/parents-shortcuts-1920.png",
+    "parents720": "docs/images/parents-shortcuts-1280.png",
+    "mediaAdmin": "docs/images/parents-media-admin.png",
+    "series": "docs/images/parents-series-1920.png",
+    "devices": "docs/images/xiaomi-home-data-1920.png"
+  },
+  "limitations": [
+    "browser fixtures and AI landscape, not real TV or Xiaomi/HA account evidence",
+    "upstream media sampling does not verify entire stream, keys, DRM or hardware decoding",
+    "third-party TVBox internal configuration remains in that app",
+    "cinema requires WebView89+",
+    "existing v3 APK not updated",
+    "no public release or production deployment"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "real viewer pairing cookie via stdin Java proxy; uploaded normalized JPEG decoded; five photos reachable through pagination",
+    "six data cards paginated; remote opens full detail; refresh updates it, expiry masks it and closing clears hidden private text with focus restored",
+    "real viewer revocation denies next proxy read, clears household cards and closes/clears open private detail",
+    "native inactive callback stops new polling; a replacement source without a session cannot inherit prior data"
+  ],
+  "errors": [],
+  "productionJavaHttpProxy": true,
+  "realIsolatedHouseholdAuth": true,
+  "simulatedLocalHttps": true,
+  "androidWebView": false,
+  "xiaomiDevice": false,
+  "nasTested": false
+}

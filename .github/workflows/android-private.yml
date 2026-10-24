@@ -1,0 +1,54 @@
+name: Android private install candidate
+# Optional hosted runner. Free local verification is the default.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: android-private-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  apk:
+    strategy:
+      matrix:
+        edition: [standard, parents]
+    env:
+      ANDROID_EDITION: ${{ matrix.edition }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Install fixed Android SDK components
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Compile private debug APK
+        run: |
+          case "$ANDROID_EDITION" in
+            standard) task=assembleStandardDebug ;;
+            parents) task=assembleParentsDebug ;;
+            *) exit 1 ;;
+          esac
+          gradle --no-daemon --stacktrace -p android ":app:$task"
+      - name: Verify package, signature and checksum
+        env:
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          BUILD_SHA: ${{ github.sha }}
+        run: |
+          mkdir -p artifacts/android
+          cp "android/app/build/outputs/apk/$ANDROID_EDITION/debug/app-$ANDROID_EDITION-debug.apk" artifacts/android/aperture-tv-debug.apk
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs artifacts/android/aperture-tv-debug.apk > artifacts/android/signature.txt
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging artifacts/android/aperture-tv-debug.apk > artifacts/android/package.txt
+          python3 scripts/android-artifact.py --directory artifacts/android
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aperture-tv-${{ matrix.edition }}-private-debug-${{ github.event.pull_request.head.sha || github.sha }}
+          path: artifacts/android/
+          retention-days: 14
+          if-no-files-found: error

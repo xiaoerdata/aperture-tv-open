@@ -1,0 +1,67 @@
+{
+  "stage": "S20",
+  "cinemaPairing": {
+    "checks": [
+      "unpaired cinema -> explicit viewer code -> independent owner approval -> same parents movie view and item focus; stale unauthorized read ignored; modal trap/back and 720p/mobile bounds",
+      "saved HttpOnly viewer session reopens library without pairing again",
+      "revocation clears media and offers direct reconnection without navigating through family settings",
+      "expired code hides old code and requires explicit retry; no automatic re-pair or token in URL/storage",
+      "dismissal aborts in-flight pairing; delayed reply cannot reopen or refill dialog"
+    ],
+    "errors": [],
+    "fixtureData": true,
+    "realTV": false,
+    "actualVideoDecode": false,
+    "livePairingCodeCaptured": false
+  },
+  "cinemaRegression": {
+    "checks": [
+      "opt-in and configured library selection through owner UI",
+      "real VP9 WebM decode, pause, range seek and remote back",
+      "actual HLS manifest rewrite + segment proxy + hls.js playback",
+      "first-level channel and library routes filter actual service results and return to lobby",
+      "parents three categories: backend classification, series/movie separation, large controls and preserved edition",
+      "owner disables cinema; active player stops and clears source",
+      "guide scenario switch, animation pause, persistent reduced-transparency control",
+      "18 guide/settings/player width checks; expanded phone installation instructions",
+      "guide respects system reduced motion"
+    ],
+    "errors": [],
+    "realVendorAccounts": false,
+    "realXiaomiHardware": false
+  },
+  "sharedApiRegression": {
+    "date": "2026-10-23",
+    "checks": [
+      "owner login through UI",
+      "independent TV context paired through owner approval",
+      "phone write reaches paired TV via real service",
+      "TV session write denied",
+      "revision conflict preserves draft; explicit refresh allows resubmission",
+      "image upload and protected image displayed on TV",
+      "revoked TV clears previously rendered private content",
+      "D-pad scene selection and immersive return",
+      "dialog focus trap and focus restoration",
+      "TV sizes 720p / 1080p / 4K and phone preview",
+      "studio 24 tab/width combinations, 760/761 boundary",
+      "phone draft survives tab changes",
+      "validated JSON content upload previews and imports",
+      "declarative scene pack import and apply",
+      "reduced-motion remains still"
+    ],
+    "errors": [],
+    "hardwareTested": false
+  },
+  "androidSourceTests": {
+    "passed": 5,
+    "apkBuiltByTheseTests": false
+  },
+  "realTV": false,
+  "realWorkBuddy": false,
+  "newApk": "recorded separately after source freeze",
+  "captureRetry": {
+    "firstRepeat": "phone studio full-page screenshot timed out after functional checks",
+    "finalRepeat": "passed independently with static animation-disabled capture",
+    "nativeViewportExplicit": true
+  }
+}

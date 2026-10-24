@@ -1,0 +1,32 @@
+{
+  "stage": "S28",
+  "nodeTestsPassed": 33,
+  "fullNpmTest": false,
+  "groups": {
+    "source": 5,
+    "localAgent": 5,
+    "nasLibrary": 1,
+    "nasProtocol": 4,
+    "nasSetupHttpAndMcp": 2,
+    "nasSetupPolicyAndCrypto": 4,
+    "playback": 1,
+    "familyHttp": 11
+  },
+  "standardAndParentsAndroid35ApiCompilation": true,
+  "reports": [
+    "nas-setup-crypto.json",
+    "nas-setup-integration.json",
+    "nas-setup-browser.json"
+  ],
+  "initialFailures": [
+    "contract module missing one closing brace",
+    "MCP structuredContent rejected an array; changed to an object with requests"
+  ],
+  "androidActivity": false,
+  "androidKeyStore": false,
+  "xiaomiDevice": false,
+  "brandNas": false,
+  "workBuddyApplication": false,
+  "published": false,
+  "finalTargetedCliInvalidJsonNoLeakPassed": true
+}

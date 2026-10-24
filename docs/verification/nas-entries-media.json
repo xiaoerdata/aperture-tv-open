@@ -1,0 +1,18 @@
+{
+  "file": "media/output/parents-nas-entries-1920x1080.mp4",
+  "width": 1920,
+  "height": 1080,
+  "fps": 12,
+  "seconds": 12,
+  "audio": false,
+  "method": "144 browser screenshots sampled into a walkthrough, not a wall-clock latency or TV performance measurement",
+  "syntheticNasLabels": true,
+  "realNasConnected": false,
+  "androidActivity": false,
+  "xiaomiDevice": false,
+  "credentialsOrQrInFrames": false,
+  "errors": [],
+  "archivedFile": "private-preview/media/parents-nas-entries-v6.mp4",
+  "decodedFramesVerified": 144,
+  "fullDecodePassed": true
+}

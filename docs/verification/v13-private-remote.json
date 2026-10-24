@@ -1,0 +1,31 @@
+{
+  "checkedAtUTC": "2026-10-24 15:19:17 UTC",
+  "repository": "xiaoerdata/aperture-tv",
+  "visibility": "private",
+  "pullRequest": "https://github.com/xiaoerdata/aperture-tv/pull/4",
+  "draft": true,
+  "branch": "feat/dark-glass-and-clock",
+  "head": "e789fa27860d5427cb4f970f784f610ae4de19ec",
+  "manifests": [
+    {
+      "edition": "standard",
+      "remoteManifestBlob": "4214cff4e210213a65f6d0632250a9ae66645549",
+      "versionCode": "13",
+      "apkSha256": "6e247f5effac79c38805c313f7d0d75646fe963378b1c879dbd1dcc6135dad76",
+      "sourceCommit": "4f2fc4c3e14b7b342d7dd2fe906282772ab5dfb1",
+      "androidSourceSha256": "d012ba41ec14b9366a680be24e7c3bb68a3f174bd7b658866dd2f8fa7b0c7871"
+    },
+    {
+      "edition": "parents",
+      "remoteManifestBlob": "79783e8a750fedcae0ed8efc80a09073700630a4",
+      "versionCode": "13",
+      "apkSha256": "8352365464aa6c526118a97bf42ef7739c5b66aca8c9fe624995a27894f77141",
+      "sourceCommit": "4f2fc4c3e14b7b342d7dd2fe906282772ab5dfb1",
+      "androidSourceSha256": "d012ba41ec14b9366a680be24e7c3bb68a3f174bd7b658866dd2f8fa7b0c7871"
+    }
+  ],
+  "binaryFilesDownloadedForReadback": false,
+  "publicRelease": false,
+  "remoteManifestsMatchLocalGitBlobs": true,
+  "evidenceScope": "Frozen e789fa2 snapshot; this receipt is committed afterwards without changing APKs or source archives"
+}

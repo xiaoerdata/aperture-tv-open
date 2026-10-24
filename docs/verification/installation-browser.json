@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "standard: installation entry in settings; native key activation; browser-only status; Back restores focus",
+    "parents: installation entry in settings; native key activation; browser-only status; Back restores focus",
+    "guide: own APK, system installation route, in-app binding, in-place upgrades; 1920/390 widths"
+  ],
+  "errors": [],
+  "androidInstallationTested": false,
+  "xiaomiTVTested": false
+}

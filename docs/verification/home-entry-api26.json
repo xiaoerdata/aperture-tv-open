@@ -1,0 +1,28 @@
+{
+  "stage": "S36",
+  "runtime": "Android TV API26 x86, WebView58, software CPU, not Xiaomi hardware",
+  "edition": "standard",
+  "versionCode": 11,
+  "sourceCommit": "2639c45512744e5d7600ccfc29ae4a809f0962d7",
+  "apkSha256": "7b5bbbb3bdba6adaa67100be1c15fd6ab01b8386e0085c9e91661870b8cb7dab",
+  "upgradeFrom": 10,
+  "installedVersionAndApkHashReadBack": true,
+  "installClientExitCode": 143,
+  "installStdoutSuccessObserved": false,
+  "simpleHomePreferencePreserved": true,
+  "homeAbsentAfterUpgrade": true,
+  "homeEnabledThroughProductionUI": true,
+  "homeRemovedThroughProductionUI": true,
+  "otherEditionStillV10AndUnchanged": true,
+  "defaultHomeBeforeAndAfter": "com.google.android.tvlauncher/.MainActivity",
+  "systemSettingsPageSelectionObserved": false,
+  "xiaomiTVTested": false,
+  "screenshot": "docs/images/s36-native-home-api26.png",
+  "failuresAndLimits": [
+    "Host adb install client exited143 before Success output; did not resend. Later PackageManager version11 and installed APK SHA256 matched the intermediate exactly.",
+    "Second menu traversal reached cinema picker instead of Home settings. Back returned; observing settings selection before navigation corrected it. No source was changed to hide this.",
+    "pm path timed out after60s; cmd package path is unsupported on API26. Used dumpsys package codePath and native sha256sum for successful installed APK readback.",
+    "Original TV Launcher remained the default; did not set our alias as system default or test migration of an already selected v10 default.",
+    "This is v11 HOME runtime evidence, not v12 standard installation or Xiaomi ecosystem evidence."
+  ]
+}

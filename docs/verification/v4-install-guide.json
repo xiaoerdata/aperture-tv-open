@@ -1,0 +1,18 @@
+{
+  "frames": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "path": "docs/images/v4-install-guide-desktop.png"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "path": "docs/images/v4-install-guide-phone.png"
+    }
+  ],
+  "errors": [],
+  "realBrowser": true,
+  "realTV": false,
+  "credentialsShown": false
+}

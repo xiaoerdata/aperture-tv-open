@@ -1,0 +1,21 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {createApp} from '../server/app.mjs';
+import {validateSources} from '../server/life/config.mjs';
+test('HA fixed GET entities, selected attributes, private preview, sharing and offline masking',async t=>{
+ let offline=false,requests=[];process.env.APERTURE_HA_TEST_TOKEN='synthetic-private-token';t.after(()=>delete process.env.APERTURE_HA_TEST_TOKEN);
+ const upstream=createServer((req,res)=>{requests.push({path:req.url,method:req.method,auth:req.headers.authorization});res.setHeader('Content-Type','application/json');res.end(JSON.stringify({entity_id:'climate.living_room',state:offline?'unavailable':'heat',attributes:{current_temperature:24,private_secret:'NEVER_SHARE',temperature:27},last_updated:'2001-01-01T00:00:00Z'}));});await new Promise(r=>upstream.listen(0,'127.0.0.1',r));t.after(()=>new Promise(r=>upstream.close(r)));
+ const source={id:'home-assistant',catalogId:'home-assistant',label:'米家 · 合成设备',transport:'home-assistant',url:`http://127.0.0.1:${upstream.address().port}`,bearerEnv:'APERTURE_HA_TEST_TOKEN',queries:[{id:'living',label:'客厅设备',entities:[{id:'temperature',entityId:'climate.living_room',attribute:'current_temperature',title:'客厅温度',unit:'℃',ttlSeconds:300}]}]};
+ const directory=await mkdtemp(join(tmpdir(),'aperture-ha-')),app=await createApp({directory,ownerKey:'home-assistant-owner-123456789',origin:'http://127.0.0.1:4391',sources:[source]});await new Promise(r=>app.server.listen(4391,'127.0.0.1',r));t.after(async()=>{await new Promise(r=>app.server.close(r));await rm(directory,{recursive:true,force:true});});
+ const call=async(path,body,cookie='')=>{const res=await fetch('http://127.0.0.1:4391'+path,{method:body?'POST':'GET',headers:{cookie,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});return {status:res.status,data:await res.json(),cookie:res.headers.get('set-cookie')?.split(';')[0]};};
+ const cookie=(await call('/api/login',{key:'home-assistant-owner-123456789'})).cookie;assert.equal((await call('/api/life/sources')).status,401);
+ const list=await call('/api/life/sources',null,cookie);assert.ok(!JSON.stringify(list).includes(source.url));
+ const p=await call('/api/life/preview',{sourceId:source.id,queryId:'living',entityId:'sensor.private',tool:'turn_on'},cookie);assert.equal(p.status,200);assert.equal(p.data.signals[0].value,'24');assert.equal(p.data.signals[0].observedAt,null);assert.ok(!JSON.stringify(p).includes('NEVER_SHARE'));assert.equal(app.service.read().life,undefined);
+ await call('/api/life/publish',{token:p.data.token,ids:[p.data.signals[0].id],execution:{key:'ha-share',revision:0}},cookie);assert.equal(app.service.read().life[0].value,'24');offline=true;const down=await call('/api/life/preview',{sourceId:source.id,queryId:'living'},cookie);assert.equal(down.data.signals[0].value,'离线 / 状态未知');assert.ok(requests.every(r=>r.method==='GET'&&r.path==='/api/states/climate.living_room'&&r.auth==='Bearer synthetic-private-token'));
+ const invalid=structuredClone(source);invalid.queries[0].entities[0].attribute='private_secret';assert.throws(()=>validateSources([invalid]));
+ await call('/api/logout',{},cookie);assert.equal((await call('/api/life/preview',{sourceId:source.id,queryId:'living'},cookie)).status,401);
+});

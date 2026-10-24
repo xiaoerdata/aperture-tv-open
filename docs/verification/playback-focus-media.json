@@ -1,0 +1,31 @@
+{
+  "file": "media/output/playback-focus-logic-1920x1080.mp4",
+  "width": 1920,
+  "height": 1080,
+  "fps": 12,
+  "seconds": 12,
+  "audio": false,
+  "states": [
+    "PREPARING",
+    "INTERRUPTED",
+    "INTERRUPTED",
+    "PLAYING"
+  ],
+  "sourceReport": "artifacts/playback-session-report.json",
+  "method": "144 sampled editorial frames driven by production JVM trace; not a UI recording or latency measurement",
+  "androidAudioManagerExecuted": false,
+  "androidMediaPlayerExecuted": false,
+  "xiaomiDevice": false,
+  "realNasConnected": false,
+  "credentialsOrQrInFrames": false,
+  "errors": [],
+  "fullDecodeVerified": true,
+  "decodedFrames": 144,
+  "screenshotsReviewed": [
+    "docs/images/s26-playback-focus-paused-1920.png",
+    "docs/images/s26-playback-focus-continued-1920.png"
+  ],
+  "bytes": 297671,
+  "sha256": "829a8bc9002b70e2faa5519efc468eeba569f718d206ccc636ddf2a75e02dee9",
+  "privateCopy": "private-preview/media/playback-focus-logic-v7.mp4"
+}

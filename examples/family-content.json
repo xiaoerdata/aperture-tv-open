@@ -1,0 +1,7 @@
+{
+  "format": "aperture-content/v1",
+  "entries": [
+    {"type":"note","title":"周末去散步","body":"选一条没走过的路，带一瓶水。","author":"家人","pinned":false},
+    {"type":"metric","title":"本周一起阅读","value":3,"target":7,"unit":"天","source":"家庭手工记录","date":"2026-10-23"}
+  ]
+}

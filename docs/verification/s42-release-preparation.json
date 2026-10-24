@@ -1,0 +1,59 @@
+{
+  "format": "aperture-release-preparation/v1",
+  "buildTools": "35.0.0",
+  "signingFlagsPresentInActualToolHelp": [
+    "--out",
+    "--ks",
+    "--ks-key-alias",
+    "--ks-pass",
+    "--key-pass",
+    "--debuggable-apk-permitted",
+    "--v2-signing-enabled",
+    "--v4-signing-enabled",
+    "--alignment-preserved"
+  ],
+  "passwordFileSyntaxAvailable": true,
+  "passwordFileReadingNote": "When one file is shared for keystore and key passwords, apksigner reads consecutive lines; instructions use separate files.",
+  "zipalign16KiBOptionAvailable": true,
+  "inspectedApks": [
+    {
+      "edition": "standard",
+      "applicationId": "org.zhixiaoce.aperture",
+      "versionCode": "13",
+      "version": "0.2.0-alpha.10",
+      "sha256": "6e247f5effac79c38805c313f7d0d75646fe963378b1c879dbd1dcc6135dad76",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "applicationDebuggable": true,
+      "signatureVerificationMinSdk": 26,
+      "signatureVerified": true,
+      "formalRelease": false
+    },
+    {
+      "edition": "parents",
+      "applicationId": "org.zhixiaoce.aperture.parents",
+      "versionCode": "13",
+      "version": "0.2.0-alpha.10-parents",
+      "sha256": "8352365464aa6c526118a97bf42ef7739c5b66aca8c9fe624995a27894f77141",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "applicationDebuggable": true,
+      "signatureVerificationMinSdk": 26,
+      "signatureVerified": true,
+      "formalRelease": false
+    }
+  ],
+  "existingBuilderVariant": "debug",
+  "existingGradleReleaseBuildType": true,
+  "releaseBuildExecuted": false,
+  "signingKeyCreated": false,
+  "productionSigningExecuted": false,
+  "newApkGenerated": false,
+  "hardwareTested": false,
+  "workBuddyApplicationTested": false,
+  "published": false,
+  "scope": "Read-only inspection of current v13 debug APKs and installed Android Build Tools help. Release commands documented, not end-to-end executed.",
+  "releaseBashBlocksSyntaxChecked": 2,
+  "releaseCommandsExecuted": false,
+  "changedDocumentationLocalLinksChecked": 82,
+  "changedDocumentationMissingLocalFiles": 0,
+  "documentationLinkScope": "File existence only; not anchors or remote URL availability."
+}

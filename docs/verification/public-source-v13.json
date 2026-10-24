@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0-alpha.10",
+  "upstreamSource": {
+    "commit": "fb7425ab076a1a00deeeb637b05e0eb4672d74ab",
+    "workingTreeDirty": false
+  },
+  "publicSourceFiles": 560,
+  "androidSourceSha256": "d012ba41ec14b9366a680be24e7c3bb68a3f174bd7b658866dd2f8fa7b0c7871",
+  "androidMatchesTestingApks": true,
+  "archiveBytes": 148266317,
+  "archiveSha256": "af1091ed1194631c9124f3d253ec4d57800a3490eed0a0c346b5b38a0aef9112",
+  "historyIncluded": false,
+  "privatePreviewIncluded": false,
+  "remotePublished": false,
+  "hardwareAcceptance": "maintainer to test WorkBuddy and Xiaomi TV",
+  "provenance": {
+    "kind": "source-archive",
+    "sourceCommit": "fb7425ab076a1a00deeeb637b05e0eb4672d74ab",
+    "buildCommit": null,
+    "workingTreeDirty": null,
+    "exportWorkingTreeDirty": false,
+    "sourceManifestSha256": "cd6b9d2d21fb809d387b2f46088eb58ad470e387b9a2d6e9f1df9a8849e310a7",
+    "androidMatchesExport": true
+  },
+  "review": {
+    "textEntriesScanned": 368,
+    "binaryOrLargeEntriesNotTextScanned": 193,
+    "privateDistributionPaths": 0,
+    "sensitivePaths": 0,
+    "privateEvidencePaths": 0,
+    "patternFindings": [
+      {
+        "path": "scripts/verify-source-android.mjs",
+        "classification": "existing defensive code guard, not an account record or credential"
+      }
+    ],
+    "publicationApproved": false,
+    "limits": "Finite text rules; binary/privacy/license review remains a maintainer responsibility"
+  }
+}

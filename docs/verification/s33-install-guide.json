@@ -1,0 +1,32 @@
+{
+  "frames": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "path": "docs/images/s33-install-guide-desktop.png"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "path": "docs/images/s33-install-guide-phone.png"
+    }
+  ],
+  "errors": [],
+  "previewRoutesFollowed": [
+    "/launcher/index.html?demo=1",
+    "/launcher/index.html?edition=parents&demo=1"
+  ],
+  "missingAnchors": [],
+  "widths": [
+    320,
+    390,
+    430,
+    760,
+    761,
+    1440
+  ],
+  "expandedDeploymentSteps": true,
+  "realBrowser": true,
+  "realTV": false,
+  "credentialsShown": false
+}

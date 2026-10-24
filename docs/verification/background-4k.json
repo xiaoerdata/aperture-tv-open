@@ -1,0 +1,30 @@
+{
+  "file": "public/launcher/carezza-4k.jpg",
+  "width": 3840,
+  "height": 2160,
+  "bytes": 2471360,
+  "sha256": "071a29a0ac25ea897f7369a989cac71c7c55ec9ef27257c971cfdb10165c37b2",
+  "author": "Cem Sagisman",
+  "license": "CC0-1.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Lake_near_the_mountains_in_Carezza_(Unsplash).jpg",
+  "sourceRevision": 1090880360,
+  "originalWidth": 5760,
+  "originalHeight": 3240,
+  "localPixelEditing": false,
+  "upscaled": false,
+  "deviceTested": false,
+  "aiAttempts": [
+    {
+      "kind": "edit",
+      "width": 1672,
+      "height": 941,
+      "selected": false
+    },
+    {
+      "kind": "new generation",
+      "width": 1672,
+      "height": 941,
+      "selected": false
+    }
+  ]
+}

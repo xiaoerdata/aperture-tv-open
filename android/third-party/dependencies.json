@@ -1,0 +1,66 @@
+[
+  {
+    "artifact": "smbj-0.14.0.jar",
+    "sha256": "f5cd63af2f343bfa13d41dbf50cfd251d2b99c4118fbe82b0e94ee0f93d1cc14",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "okhttp-4.12.0.jar",
+    "sha256": "b1050081b14bb7a3a7e55a4d3ef01b5dcfabc453b4573a4fc019767191d5f4e0",
+    "embeddedNotices": [
+      "okhttp-4.12.0-okhttp3_internal_publicsuffix_NOTICE"
+    ]
+  },
+  {
+    "artifact": "asn-one-0.6.0.jar",
+    "sha256": "e4f70fd92849b52240048b8ebace0c9a17d3bb7b9c882b3c7778cec3458495f5",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "slf4j-api-2.0.9.jar",
+    "sha256": "0818930dc8d7debb403204611691da58e49d42c50b6ffcfdce02dadb7c3c2b6c",
+    "embeddedNotices": [
+      "slf4j-api-2.0.9-META-INF_LICENSE.txt"
+    ]
+  },
+  {
+    "artifact": "bcprov-jdk18on-1.79.jar",
+    "sha256": "0d81ecc3124536b539bce9aa3fe9621b7f84c9cee371b635a5b31c78b79ab1da",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "mbassador-1.3.0.jar",
+    "sha256": "f065031a490c88c9b20d34f3c9c4eb6e0dffe329c090788c383574e1ac7c6bba",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "okio-jvm-3.6.0.jar",
+    "sha256": "67543f0736fc422ae927ed0e504b98bc5e269fda0d3500579337cb713da28412",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "kotlin-stdlib-jdk8-1.9.10.jar",
+    "sha256": "a4c74d94d64ce1abe53760fe0389dd941f6fc558d0dab35e47c085a11ec80f28",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "kotlin-stdlib-jdk7-1.9.10.jar",
+    "sha256": "ac6361bf9ad1ed382c2103d9712c47cdec166232b4903ed596e8876b0681c9b7",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "kotlin-stdlib-1.9.10.jar",
+    "sha256": "55e989c512b80907799f854309f3bc7782c5b3d13932442d0379d5c472711504",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "kotlin-stdlib-common-1.9.10.jar",
+    "sha256": "cde3341ba18a2ba262b0b7cf6c55b20c90e8d434e42c9a13e6a3f770db965a88",
+    "embeddedNotices": []
+  },
+  {
+    "artifact": "annotations-13.0.jar",
+    "sha256": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+    "embeddedNotices": []
+  }
+]

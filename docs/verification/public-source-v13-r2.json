@@ -1,0 +1,98 @@
+{
+  "format": "aperture-public-source-handoff/v1",
+  "archiveName": "aperture-tv-public-v13-r2.tar.gz",
+  "version": "0.2.0-alpha.10",
+  "upstreamSource": {
+    "commit": "aef55f4c1cc31e7781f3d2eeb2c60f81c8151c30",
+    "workingTreeDirty": false
+  },
+  "publicSourceFiles": 564,
+  "androidSourceSha256": "d012ba41ec14b9366a680be24e7c3bb68a3f174bd7b658866dd2f8fa7b0c7871",
+  "androidMatchesTestingApks": true,
+  "archiveBytes": 148273502,
+  "archiveSha256": "fc8c67954614ae30c35445f61f7d2ae20ae5e8e7779fb1de8ba4599ea82db0ca",
+  "historyIncluded": false,
+  "privatePreviewIncluded": false,
+  "remotePublished": false,
+  "hardwareAcceptance": "maintainer to test WorkBuddy and Xiaomi TV",
+  "archiveIntegrityRechecked": true,
+  "inventoryReview": {
+    "format": "aperture-publication-inventory/v1",
+    "scope": "frozen-source-archive",
+    "archiveName": "aperture-tv-public-v13-r2.tar.gz",
+    "archiveSha256": "fc8c67954614ae30c35445f61f7d2ae20ae5e8e7779fb1de8ba4599ea82db0ca",
+    "filesInventoried": 565,
+    "privateDistributionPaths": 0,
+    "textEntriesScanned": 372,
+    "patternFindings": [
+      {
+        "path": "scripts/verify-source-android.mjs",
+        "rules": [
+          {
+            "rule": "private-ci-evidence",
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "sensitivePaths": [],
+    "privateEvidencePaths": [],
+    "binaryOrLargeEntriesNotTextScanned": 193,
+    "manualAssetReviewRequired": true,
+    "patternRules": [
+      "github-token-pattern",
+      "provider-key-pattern",
+      "aws-access-id-pattern",
+      "private-key-block",
+      "private-ci-evidence"
+    ],
+    "maxTextBytes": 2097152,
+    "remoteRefsFetched": false,
+    "unreachableGitObjectsReviewed": false,
+    "matchedValuesIncluded": false,
+    "publicationApproved": false,
+    "limitations": [
+      "Pattern matches require classification; a match is not a confirmed credential.",
+      "Pattern detection cannot prove absence of secrets or private information.",
+      "Binary assets, provenance, consent and licenses require human review.",
+      "Local refs do not establish the complete remote ref inventory."
+    ]
+  },
+  "runtimeComparison": {
+    "comparedToTestedArchiveSha256": "af1091ed1194631c9124f3d253ec4d57800a3490eed0a0c346b5b38a0aef9112",
+    "runtimeFilesChanged": [],
+    "changedPaths": [
+      "SOURCE-MANIFEST.json",
+      "docs/DEVELOPMENT.md",
+      "docs/OPEN-SOURCE-PREPARATION.md",
+      "docs/PRIVATE-RELEASE.md",
+      "docs/QUICKSTART.md",
+      "docs/RELEASE-CHECKLIST.md",
+      "docs/WORKBUDDY.md",
+      "docs/process/JOURNAL.md",
+      "docs/process/README.md",
+      "docs/verification/public-source-v13.json",
+      "docs/verification/v13-private-remote.json",
+      "docs/verification/v13-public-onboarding.json",
+      "media/DEVLOG-026.md",
+      "scripts/verify-source-install.mjs"
+    ],
+    "scope": "Runtime bytes match the directly tested v13 public archive; r2 changes documentation, developer verifier and evidence only",
+    "freshInstallRerunOnR2": false
+  },
+  "directFreshInstall": {
+    "archiveName": "aperture-tv-public-v13.tar.gz",
+    "archiveSha256": "af1091ed1194631c9124f3d253ec4d57800a3490eed0a0c346b5b38a0aef9112",
+    "report": "v13-public-onboarding.json",
+    "status": "passed",
+    "hostPlatform": "linux",
+    "browserToolingReused": true,
+    "freshInstallRerunOnR2": false
+  },
+  "support": "Xiaomi TVs only; Android 8+ is a minimum technical requirement, not a model/firmware acceptance claim",
+  "hardwareTested": false,
+  "workBuddyApplicationTested": false,
+  "apkRebuilt": false,
+  "publicationApproved": false,
+  "evidencePlacement": "External receipt recorded after the frozen archive; not inserted into that archive"
+}

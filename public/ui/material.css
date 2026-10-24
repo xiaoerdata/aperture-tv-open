@@ -1,0 +1,38 @@
+/* 窗光 v1: content stays solid; small control surfaces transmit light. */
+:root{--ink:#223632;--muted:#53655f;--line:#d9e2de;--accent:#246754;--paper:#f8faf9;--window-glass:#f5f8f6;--window-edge:#ffffff;--window-shadow:0 2px 3px #213b3005,0 10px 28px #213b300a;--window-ease:cubic-bezier(.2,.7,.2,1)}
+body{background:var(--paper)}
+.scene-nav,.toolbar,.studio-tabs,.guide-nav nav,.day-switch{background:var(--window-glass);border:1px solid #d8e2dc;border-top-color:var(--window-edge);box-shadow:inset 0 1px 0 #fff, var(--window-shadow);border-radius:32px}
+.scene-nav,.toolbar,.day-switch{padding:4px}
+.studio-tabs{padding:4px 8px;border-radius:18px;position:relative}
+.studio-tabs button{border-bottom-color:transparent}
+.studio-tabs button[aria-current=page]{background:#e0ece5;border-radius:12px;color:#183f31}
+.guide-nav nav{padding:4px 16px;min-height:48px}
+.day-switch{width:fit-content;margin-left:auto;margin-right:auto}
+.day-switch button[aria-pressed=true]{background:#dfeae3;border-radius:24px;color:#173f30}
+.scene-nav button[aria-pressed=true]{background:#244d3f;box-shadow:0 3px 8px #244d3f24}
+.scene-nav button,.day-switch button{transition:background 180ms var(--window-ease),box-shadow 180ms var(--window-ease)}
+.scene-stage{border-radius:16px;border:1px solid #dae5dd;box-shadow:inset 0 1px 0 #fff}
+.scene-stage[data-scene=gallery] .photo-mat{box-shadow:0 12px 35px #233b3017}
+.guide-hero h1{font-weight:600;letter-spacing:-1.5px;color:#213b33}
+.hero-lead{color:#4c6258}.hero-caption,.scene-note{font-size:13px;color:#526459}
+.house-window{background:linear-gradient(125deg,#ecf2e9,#f5f8ee 55%,#e6eee7);border:1px solid #d4e1d5;box-shadow:inset 0 0 0 9px #ffffff85,inset 0 0 0 10px #d7e3d9;border-radius:230px 230px 24px 24px}
+.house-window:before{content:'';position:absolute;width:60%;height:100%;left:16%;top:0;transform:skewX(-24deg);background:linear-gradient(90deg,transparent,#ffffff65,transparent);pointer-events:none}
+.mini-tv{border-color:#31483d;box-shadow:0 12px 30px #2d493322}
+.mini-label{left:10px;right:auto}
+.scene-phone{border-color:#3e584c;box-shadow:0 8px 20px #233d3520}
+.guide-actions .guide-primary{background:#275940;border-radius:12px;box-shadow:0 4px 12px #27594018}
+.guide-section{gap:64px}.section-lead h2{font-weight:600}
+.guide-outro{background:#edf4ee}.guide-nav{border-bottom:0}
+.material-toggle{font-size:12px;white-space:nowrap;min-height:44px;border-radius:20px;padding:8px 12px;background:transparent}
+.material-toggle[aria-pressed=true]{background:#dfeae3}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ :root{--window-glass:rgba(246,250,247,.88)}
+ .scene-nav,.toolbar,.studio-tabs,.guide-nav nav,.day-switch{-webkit-backdrop-filter:blur(12px) saturate(115%);backdrop-filter:blur(12px) saturate(115%)}
+}
+html[data-material=solid]{--window-glass:#f4f8f5}
+html[data-material=solid] :is(.scene-nav,.toolbar,.studio-tabs,.guide-nav nav,.day-switch){-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:inset 0 1px 0 #fff}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){:root{--window-glass:#f4f8f5}.scene-nav,.toolbar,.studio-tabs,.guide-nav nav,.day-switch{-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}}
+@media(max-width:760px){.guide-nav{align-items:flex-start;gap:10px}.guide-nav nav{gap:12px;padding:4px 10px;flex-wrap:wrap;justify-content:flex-end}.guide-nav .studio-brand small{display:none}.guide-nav .material-toggle{font-size:11px}.guide-section{gap:28px}.guide-hero h1{font-size:34px}.hero-caption,.scene-note{font-size:12px}.day-switch{gap:2px}.studio-tabs{border-radius:14px}.scene-nav{gap:0}.toolbar{flex-wrap:wrap}.scene-stage{border-radius:12px}.material-toggle{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.scene-nav button,.day-switch button{transition:none}}
+/* Only inserted by the isolated recording script; never present in product routes. */
+.recording-label{position:fixed;right:24px;bottom:10px;padding:7px 14px;border:1px solid #d6e1d9;border-radius:20px;background:#f8faf9;color:#42574c;font-size:13px;z-index:100;pointer-events:none}

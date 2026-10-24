@@ -1,0 +1,19 @@
+{
+  "stage": "S24",
+  "nodeTestsPassed": 5,
+  "failed": 0,
+  "skipped": 0,
+  "modelScenarioGroups": 5,
+  "productionLibraryAndCipher": true,
+  "realLoopbackSmbProtocols": [
+    "SMB2.1",
+    "SMB3.1.1"
+  ],
+  "boundSubdirectoryReadViaProductionLibrary": true,
+  "httpsWebDavRegressionPassed": true,
+  "jvmJsonImplementation": "org.json 20240303, test-only, fixed SHA256",
+  "androidActivityDispatchTested": false,
+  "androidKeyStoreTested": false,
+  "realNasHardwareTested": false,
+  "realXiaomiTvTested": false
+}

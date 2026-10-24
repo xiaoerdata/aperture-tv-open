@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "PASS legacy/missing providers use native home while capable legacy family lite remains available",
+    "PASS modern default, explicit simple-home selection and reset do not alter family web availability",
+    "PASS renderer exit is idempotent and blocks implicit web recreation across Home/preference changes",
+    "PASS a newly opened Activity can retry without clearing the user's independent simple-home preference"
+  ],
+  "traces": [
+    "TRACE WebView64 -> NATIVE_OLD_ENGINE; family lite allowed",
+    "TRACE WebView140 -> GLASS -> renderer exit -> NATIVE_RECOVERY; no automatic retry",
+    "TRACE new Activity + simple preference -> NATIVE_SELECTED; family web allowed"
+  ],
+  "productionJava": true,
+  "androidActivityExecuted": false,
+  "actualRendererKilled": false,
+  "actualLegacyWebViewTested": false,
+  "realDevice": false
+}

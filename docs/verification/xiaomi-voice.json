@@ -1,0 +1,104 @@
+{
+  "stage": "S17",
+  "native": {
+    "standardAndParentsApiCompilation": true,
+    "policyHarnessPassed": true,
+    "microphonePermission": false,
+    "apkBuilt": false,
+    "deviceVoiceKeysTested": false,
+    "xiaomiFarFieldTested": false,
+    "standbyWakeTested": false,
+    "output": "Native policy: overlay/resume/destroy transitions and exact local HTTPS resources passed"
+  },
+  "browser": {
+    "checks": [
+      "actual Java whitelist serves offline HTML/CSS/JS/PNG/WOFF2 from local HTTPS; fonts load with no household API request",
+      "shared web remote contract does not consume voice/assist/search/volume key names or move focus",
+      "native focus contract pauses carousel without navigation/reload/focus loss and does not restart automatically",
+      "voice guidance opens from tools and returns to current section; wake state explicitly depends on firmware",
+      "private/unknown/undeclared resource paths are denied by the real Java policy, without network fallback"
+    ],
+    "resources": [
+      {
+        "url": "https://appassets.androidplatform.net/assets/index.html",
+        "allowed": true,
+        "file": "index.html",
+        "mime": "text/html"
+      },
+      {
+        "url": "https://appassets.androidplatform.net/assets/style.css",
+        "allowed": true,
+        "file": "style.css",
+        "mime": "text/css"
+      },
+      {
+        "url": "https://appassets.androidplatform.net/assets/launcher.js",
+        "allowed": true,
+        "file": "launcher.js",
+        "mime": "text/javascript"
+      },
+      {
+        "url": "https://appassets.androidplatform.net/assets/alpine-dusk.png",
+        "allowed": true,
+        "file": "alpine-dusk.png",
+        "mime": "image/png"
+      },
+      {
+        "url": "https://appassets.androidplatform.net/assets/fonts/aperture-song.woff2",
+        "allowed": true,
+        "file": "fonts/aperture-song.woff2",
+        "mime": "font/woff2"
+      },
+      {
+        "url": "https://appassets.androidplatform.net/assets/fonts/clock-reader.woff2",
+        "allowed": true,
+        "file": "fonts/clock-reader.woff2",
+        "mime": "font/woff2"
+      },
+      {
+        "url": "https://appassets.androidplatform.net/api/board",
+        "allowed": false
+      },
+      {
+        "url": "https://appassets.androidplatform.net/assets/fonts/Newsreader-OFL.txt",
+        "allowed": false
+      },
+      {
+        "url": "https://appassets.androidplatform.net/assets/missing.js",
+        "allowed": false
+      }
+    ],
+    "errors": [],
+    "localHttpsSimulated": true,
+    "actualAndroidWebView": false,
+    "xiaomiHotwordTested": false,
+    "physicalVoiceKeyTested": false,
+    "apkBuilt": false
+  },
+  "launcher": {
+    "checks": [
+      "eight first-level entries, native key-name navigation without KeyboardEvent, dialog trap/return and honest browser-only app state",
+      "standard UI at 720p/1080p/4K and 320/390/430/760/761 widths",
+      "four populated content sections, native-key entry/back focus, four manual carousel slides and user-input pause",
+      "parents edition: three large solid entries, live initial focus, no mood control, family settings and lite family-screen round trip preserve edition",
+      "parents UI at 720p/1080p/4K and phone boundaries with large text",
+      "packaged-file page works without network, ES5 local interaction and safe text labels; actual Android intents remain a device test",
+      "authenticated household read, historical-date label, expired snapshots masked and content cleared on next read after logout; anonymous empty state"
+    ],
+    "errors": [],
+    "actualAndroidIntentsTested": false,
+    "actualXiaomiHardwareTested": false,
+    "parentsUserStudyCompleted": false
+  },
+  "devices": {
+    "adbAvailable": true,
+    "connectedDevices": 0,
+    "authorizedDevices": 0,
+    "installationPerformed": false
+  },
+  "androidInputSha256": "d992f98126da491afa86add28c940b9971b797e3a95259cf71b3b4a1997ab811",
+  "physicalXiaomiAcceptance": false,
+  "recordAudio": false,
+  "privilegedHotword": false,
+  "apkUpdated": false
+}

@@ -1,0 +1,16 @@
+{
+  "defaultAppsScopesUnchecked": true,
+  "installGrantedThroughActualUI": true,
+  "uninstallNotImplied": true,
+  "discoveryRevalidated": true,
+  "scopeNotice": "本项目仅适配小米电视",
+  "widths": [
+    390,
+    1440,
+    1920
+  ],
+  "errors": [],
+  "workBuddyApplicationTested": false,
+  "xiaomiHardwareTested": false,
+  "androidInstallerExecuted": false
+}

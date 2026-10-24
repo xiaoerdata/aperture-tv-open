@@ -1,0 +1,6 @@
+#EXTM3U
+#EXTINF:-1,自己的家庭录像示例
+https://media.example.invalid/family-trip.mp4
+#EXTINF:-1,自己的直播地址示例
+https://media.example.invalid/live/index.m3u8
+

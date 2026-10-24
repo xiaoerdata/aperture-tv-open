@@ -1,0 +1,107 @@
+{
+  "checks": [
+    "standard 720p/1080p/4K: eight entries in two rows, same-column vertical moves, row edges stay put, settings reachable without Menu/pointer, linear menu and back focus",
+    "parents 720p/1080p/4K: three core entries, five smaller application controls, explicit core/shortcut/header paths and retained settings return focus",
+    "real configured library with eight non-playable layout fixtures: standard four-column / parents three-column remote grid, same-column moves and no row-edge diagonal jumps; no decoding claim"
+  ],
+  "measurements": [
+    {
+      "label": "standard 1280",
+      "minimumControlHeight": 64.078125,
+      "minimumControlWidth": 64.078125
+    },
+    {
+      "label": "photos 1280",
+      "minimumControlHeight": 64.078125,
+      "minimumControlWidth": 74
+    },
+    {
+      "label": "data 1280",
+      "minimumControlHeight": 64.078125,
+      "minimumControlWidth": 74
+    },
+    {
+      "label": "information 1280",
+      "minimumControlHeight": 64.078125,
+      "minimumControlWidth": 74
+    },
+    {
+      "label": "tools 1280",
+      "minimumControlHeight": 64.078125,
+      "minimumControlWidth": 74
+    },
+    {
+      "label": "standard 1920",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 96
+    },
+    {
+      "label": "photos 1920",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 101.75
+    },
+    {
+      "label": "data 1920",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 101.75
+    },
+    {
+      "label": "information 1920",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 101.75
+    },
+    {
+      "label": "tools 1920",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 101.75
+    },
+    {
+      "label": "standard 3840",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 96
+    },
+    {
+      "label": "photos 3840",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 110
+    },
+    {
+      "label": "data 3840",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 110
+    },
+    {
+      "label": "information 3840",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 110
+    },
+    {
+      "label": "tools 3840",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 110
+    },
+    {
+      "label": "parents 1280",
+      "minimumControlHeight": 64.078125,
+      "minimumControlWidth": 90
+    },
+    {
+      "label": "parents 1920",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 134.390625
+    },
+    {
+      "label": "parents 3840",
+      "minimumControlHeight": 96,
+      "minimumControlWidth": 140
+    }
+  ],
+  "errors": [],
+  "es5Parsed": true,
+  "browser": "desktop Chromium",
+  "realTelevision": false,
+  "physicalRemote": false,
+  "nativeControlsRendered": false,
+  "mediaDecoded": false,
+  "realNas": false
+}

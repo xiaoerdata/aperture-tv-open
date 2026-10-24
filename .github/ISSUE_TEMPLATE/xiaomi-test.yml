@@ -1,0 +1,48 @@
+name: 小米电视测试反馈
+description: 记录安装、遥控器、小爱、NAS或WorkBuddy的实际结果。
+title: "[测试] "
+body:
+  - type: markdown
+    attributes:
+      value: "本项目仅适配小米电视。请使用测试资料，不要上传账号、序列号、口令、二维码或家庭照片。安全问题走仓库Security私密报告。"
+  - type: input
+    id: model
+    attributes:
+      label: 小米电视型号与系统版本
+      description: 型号、Android、固件、WebView；不知道的写未确认。
+    validations:
+      required: true
+  - type: dropdown
+    id: edition
+    attributes:
+      label: 使用版本
+      options:
+        - 标准版
+        - 爸妈版
+        - 自行构建
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: APK版本与来源
+      description: 例如v13 / 0.2.0-alpha.10；从哪个测试发布或提交获得。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 操作与结果
+      description: 具体按了什么、期望什么、实际看到什么；未测项写未测，不猜原因。
+    validations:
+      required: true
+  - type: textarea
+    id: original
+    attributes:
+      label: 原系统体验
+      description: 原桌面、Home、小爱按键/远场、音量、电源、小米账号与米家是否正常；仅填写已测项。
+  - type: textarea
+    id: environment
+    attributes:
+      label: NAS / WorkBuddy（如涉及）
+      description: 品牌、协议、客户端版本、错误文字；不上传NAS密码、IP、配对码或token。

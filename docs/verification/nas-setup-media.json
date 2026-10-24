@@ -1,0 +1,25 @@
+{
+  "file": "media/output/nas-setup-handoff-1080x1440.mp4",
+  "width": 1080,
+  "height": 1440,
+  "fps": 12,
+  "seconds": 12,
+  "audio": false,
+  "screenshots": [
+    "docs/images/s28-nas-setup-phone-390.png",
+    "docs/images/s28-nas-setup-awaiting-390.png",
+    "docs/images/s28-nas-setup-receipt-390.png"
+  ],
+  "method": "144 sampled editorial frames from actual browser screenshots, with synthetic data/JVM receiver/synthetic saved ack; not a wall-clock UI or device recording",
+  "credentialsOrQrInFrames": false,
+  "realNasInFrames": false,
+  "androidActivity": false,
+  "xiaomiDevice": false,
+  "fullDecodeVerified": true,
+  "decodedFrames": 144,
+  "bytes": 490730,
+  "sha256": "ef10f2de1d5fdc31ecf0a07b166b5e70cc93cd821cb97c0829a8a9d79ce363ac",
+  "privateCopy": "private-preview/media/nas-setup-handoff-v8.mp4",
+  "finalReceiptCropReviewed": true,
+  "initialCropPreserved": "private-preview/media/nas-setup-handoff-v8-before-receipt-crop.mp4"
+}

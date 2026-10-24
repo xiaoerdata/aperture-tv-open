@@ -1,0 +1,68 @@
+{
+  "stage": "S27",
+  "build": "local-free",
+  "gradleInvocations": 1,
+  "buildSecondsReportedByGradle": 34,
+  "tasks": {
+    "total": 66,
+    "executed": 22,
+    "upToDate": 44
+  },
+  "sourceWorkingTreeDirtyAtBuild": false,
+  "candidates": [
+    {
+      "edition": "standard",
+      "versionCode": 7,
+      "bytes": 7167795,
+      "sha256": "7fe124f485d0de78aaac587227be53d77ee0a6727dd4a153f931df247adc4496",
+      "sourceCommit": "7ec6102dc750095c692515ad2918e33053eb42f7",
+      "androidSourceInputsMatch": true,
+      "sameSignatureAsV6": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/NasLibrary",
+        "org/zhixiaoce/aperture/NasCipher",
+        "org/zhixiaoce/aperture/NasNavigation",
+        "org/zhixiaoce/aperture/PlaybackSession",
+        "org/zhixiaoce/aperture/PlaybackAudioFocus",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient"
+      ],
+      "path": "private-preview/launcher-v7/standard/aperture-tv-standard-debug.apk"
+    },
+    {
+      "edition": "parents",
+      "versionCode": 7,
+      "bytes": 7167947,
+      "sha256": "7398a34bb0f6c21f13cb3348b9b29b02f2cecfd30f8637e6fac2ad1e7e7ea06b",
+      "sourceCommit": "7ec6102dc750095c692515ad2918e33053eb42f7",
+      "androidSourceInputsMatch": true,
+      "sameSignatureAsV6": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/NasLibrary",
+        "org/zhixiaoce/aperture/NasCipher",
+        "org/zhixiaoce/aperture/NasNavigation",
+        "org/zhixiaoce/aperture/PlaybackSession",
+        "org/zhixiaoce/aperture/PlaybackAudioFocus",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient"
+      ],
+      "path": "private-preview/launcher-v7/parents/aperture-tv-parents-debug.apk"
+    }
+  ],
+  "installed": false,
+  "realXiaomiTV": false,
+  "realNasHardware": false,
+  "realWorkBuddy": false,
+  "hostedRunner": false,
+  "publicRelease": false
+}

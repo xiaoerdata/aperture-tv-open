@@ -1,0 +1,44 @@
+{
+  "name": "aperture-tv",
+  "version": "0.2.0-alpha.10",
+  "private": true,
+  "description": "开窗 · 小米电视家庭中枢",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server/main.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "qa": "node scripts/browser-qa.mjs",
+    "media": "node scripts/render-media.mjs",
+    "export:source": "node scripts/export-source.mjs",
+    "clean:images": "node scripts/clean-images.mjs",
+    "qa:life": "node scripts/browser-life-qa.mjs",
+    "qa:cinema": "node scripts/browser-cinema-qa.mjs",
+    "qa:assistant": "node scripts/browser-agent-qa.mjs",
+    "demo:life": "node scripts/life-demo.mjs",
+    "media:hub": "node scripts/capture-homehub.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "start:checked": "node scripts/start-local.mjs",
+    "start:lan": "node scripts/start-lan.mjs",
+    "qa:lite": "node scripts/browser-lite-qa.mjs",
+    "qa:native": "node scripts/browser-native-remote-qa.mjs",
+    "qa:diagnostics": "node scripts/browser-diagnostics-qa.mjs",
+    "qa:lan": "node scripts/browser-lan-qa.mjs",
+    "qa:launcher": "node scripts/browser-launcher-qa.mjs",
+    "android:apk": "node scripts/build-android-local.mjs",
+    "qa:xiaomi": "node scripts/browser-xiaomi-qa.mjs",
+    "check:native": "node scripts/check-native-compat.mjs",
+    "qa:household": "node scripts/browser-household-proxy-qa.mjs",
+    "test:nas": "node --test tests/nas-protocol.test.mjs tests/nas-library.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "hls.js": "1.7.3",
+    "qrcode": "1.5.4"
+  },
+  "devDependencies": {
+    "acorn": "8.15.0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "checks": [
+    "standard: 720p/1080p and 320/390/430/760/761 widths; settings reachable with native key names, visible unclipped focus, one fixed native action and return focus",
+    "parents: 720p/1080p and 320/390/430/760/761 widths; settings reachable with native key names, visible unclipped focus, one fixed native action and return focus"
+  ],
+  "screenshots": [
+    "docs/images/s31-home-mode-standard-1280.png",
+    "docs/images/s31-home-mode-standard-1920.png",
+    "docs/images/s31-home-mode-standard-390.png",
+    "docs/images/s31-home-mode-parents-1280.png",
+    "docs/images/s31-home-mode-parents-1920.png",
+    "docs/images/s31-home-mode-parents-390.png"
+  ],
+  "errors": [],
+  "simulatedPackagedHttps": true,
+  "actualAndroidIntents": false,
+  "nativeSimpleHomeRendered": false,
+  "actualRendererKilled": false,
+  "legacyWebViewExecuted": false,
+  "realDevice": false
+}

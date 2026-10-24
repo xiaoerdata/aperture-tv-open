@@ -1,0 +1,19 @@
+// Synthetic HA endpoint; actual UI, no Xiaomi account or physical appliances.
+import assert from 'node:assert/strict';
+import {mkdtemp,rm,mkdir,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {createServer} from 'node:http';
+import {createApp} from '../server/app.mjs';
+import {launchBrowser} from './browser.mjs';
+const directory=await mkdtemp(join(tmpdir(),'aperture-ha-ui-')),origin='http://127.0.0.1:4392',key='ha-browser-owner-12345678901234';
+process.env.APERTURE_HA_UI_TOKEN='synthetic-local-token';
+const upstream=createServer((req,res)=>{const entity=req.url.split('/').pop();res.setHeader('Content-Type','application/json');res.end(JSON.stringify({entity_id:entity,state:entity.startsWith('light.')?'off':'24.6',attributes:{private_note:'DO_NOT_SHARE'}}));});await new Promise(r=>upstream.listen(0,'127.0.0.1',r));
+const source={id:'home-assistant',label:'家里的米家 · 合成演示',catalogId:'home-assistant',transport:'home-assistant',url:`http://127.0.0.1:${upstream.address().port}`,bearerEnv:'APERTURE_HA_UI_TOKEN',queries:[{id:'living',label:'客厅设备',entities:[{id:'temperature',entityId:'sensor.living_temperature',title:'客厅温度',unit:'℃',ttlSeconds:300},{id:'light',entityId:'light.living_room',title:'客厅的灯',ttlSeconds:300}]}]};
+const app=await createApp({directory,origin,ownerKey:key,sources:[source]});await new Promise(r=>app.server.listen(4392,'127.0.0.1',r));const browser=await launchBrowser(),errors=[],checks=[];
+try{
+ await mkdir('docs/images',{recursive:true});const context=await browser.newContext(),page=await context.newPage({viewport:{width:1440,height:1000}});page.on('pageerror',e=>errors.push(e.message));await context.request.post(origin+'/api/login',{data:{key}});await page.goto(origin+'/studio?tab=life');await page.locator('#life-sources button').click();await page.locator('#life-preview').waitFor({state:'visible'});assert.equal(await page.locator('#life-preview input:checked').count(),0);assert.ok(!(await page.locator('#life-preview').textContent()).includes('DO_NOT_SHARE'));await page.locator('#life-preview input').first().check();await page.locator('#life-publish').click();await page.waitForFunction(()=>document.querySelector('#life-published').textContent.includes('24.6'));assert.equal(app.service.read().life.length,1);checks.push('configured HA read -> unchecked preview -> only chosen device shared');
+ await page.goto(origin+'/home');await page.locator('#entry-data').click();await page.waitForFunction(()=>document.querySelector('#collection-body').textContent.includes('24.6'));assert.ok(!(await page.locator('#collection-body').textContent()).includes('客厅的灯'));await page.setViewportSize({width:1920,height:1080});await page.screenshot({path:'docs/images/xiaomi-home-data-1920.png'});await page.keyboard.press('Escape');await page.locator('#entry-tools').click();await page.getByRole('button',{name:/小米账号与家电/}).click();assert.match(await page.locator('#pane-description').textContent(),/Home Assistant/);await page.locator('[data-action=show-data]').click();assert.match(await page.locator('#collection-body').textContent(),/24.6/);checks.push('standard TV data and account/device guide share the same selected snapshot');
+ for(const width of [390,760,1920]){await page.setViewportSize({width,height:1080});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);}
+ assert.deepEqual(errors,[]);await writeFile('docs/verification/xiaomi-home-browser.json',JSON.stringify({checks,errors,fixtureData:true,realXiaomiAccount:false,realHomeAssistant:false,realTV:false,automaticRefresh:false},null,2));console.log({checks,errors});
+}finally{await browser.close();await new Promise(r=>app.server.close(r));await new Promise(r=>upstream.close(r));await rm(directory,{recursive:true,force:true});delete process.env.APERTURE_HA_UI_TOKEN;}

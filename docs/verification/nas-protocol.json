@@ -1,0 +1,42 @@
+{
+  "stage": "S22",
+  "productionJavaTransports": true,
+  "syntheticLocalServers": true,
+  "checks": [
+    {
+      "name": "root/path contract and DAV href scope, traversal, entity rejection",
+      "passed": true
+    },
+    {
+      "name": "HTTPS DAV Depth1, Range/ETag, auth, redirects, MIME, oversize, closure",
+      "passed": true
+    },
+    {
+      "name": "SMB2.1 signed login, Unicode directories, random reads, wrong password, closure",
+      "passed": true
+    },
+    {
+      "name": "SMB3.1.1 signed login, Unicode directories, random reads, wrong password, closure",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "failed": 0,
+  "skipped": 0,
+  "fixture": "Loopback Samba 4.15.13 and Node HTTPS; JDK17",
+  "initialFailures": [
+    "Impacket signed tree response rejected; retained signing requirement and replaced positive fixture with Samba",
+    "Samba LCT=0 synthetic account expired; corrected fixture timestamp",
+    "ordinary empty FileAttributes collection rejected by SMBJ EnumSet.copyOf; fixed production reader to EnumSet.noneOf",
+    "Samba cleanup shared process group affected initial test; isolated fixture process group"
+  ],
+  "androidDevice": false,
+  "androidKeystore": false,
+  "androidMediaPlayerDecode": false,
+  "xiaomiNasHardware": false,
+  "hiksemiNasHardware": false,
+  "ugreenNasHardware": false,
+  "synologyHardware": false,
+  "truenasHardware": false,
+  "apkBuilt": false
+}

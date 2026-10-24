@@ -1,0 +1,12 @@
+{
+  "realJavaHttpTransport": true,
+  "realWebCrypto": true,
+  "realSignedSmb311": true,
+  "productionImportValidation": true,
+  "jvmLibraryAndCipherSave": true,
+  "cancelWrongPasswordAndPostTestRevokeRejected": true,
+  "androidActivity": false,
+  "androidKeyStore": false,
+  "mediaDecode": false,
+  "brandHardware": false
+}

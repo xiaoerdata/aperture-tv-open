@@ -1,0 +1,54 @@
+{
+  "stage": "S39",
+  "build": "local-free",
+  "gradleInvocations": 1,
+  "buildSeconds": 26,
+  "tasks": {
+    "total": 66,
+    "executed": 22,
+    "upToDate": 44
+  },
+  "sourceWorkingTreeDirtyAtBuild": false,
+  "candidates": [
+    {
+      "edition": "standard",
+      "applicationId": "org.zhixiaoce.aperture",
+      "version": "0.2.0-alpha.10",
+      "versionCode": "13",
+      "sha256": "6e247f5effac79c38805c313f7d0d75646fe963378b1c879dbd1dcc6135dad76",
+      "apkBytes": 7621182,
+      "sourceCommit": "4f2fc4c3e14b7b342d7dd2fe906282772ab5dfb1",
+      "androidSourceSha256": "d012ba41ec14b9366a680be24e7c3bb68a3f174bd7b658866dd2f8fa7b0c7871",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "path": "private-preview/launcher-v13/standard/aperture-tv-standard-debug.apk",
+      "sameSignatureAsV12": true,
+      "assetsMatched": 10,
+      "noticesMatched": 13,
+      "nativeTypesMatched": 20,
+      "homeAliasDisabled": true,
+      "installProviderAndAgentActivityExported": false
+    },
+    {
+      "edition": "parents",
+      "applicationId": "org.zhixiaoce.aperture.parents",
+      "version": "0.2.0-alpha.10-parents",
+      "versionCode": "13",
+      "sha256": "8352365464aa6c526118a97bf42ef7739c5b66aca8c9fe624995a27894f77141",
+      "apkBytes": 7621366,
+      "sourceCommit": "4f2fc4c3e14b7b342d7dd2fe906282772ab5dfb1",
+      "androidSourceSha256": "d012ba41ec14b9366a680be24e7c3bb68a3f174bd7b658866dd2f8fa7b0c7871",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "path": "private-preview/launcher-v13/parents/aperture-tv-parents-debug.apk",
+      "sameSignatureAsV12": true,
+      "assetsMatched": 10,
+      "noticesMatched": 13,
+      "nativeTypesMatched": 20,
+      "homeAliasDisabled": true,
+      "installProviderAndAgentActivityExported": false
+    }
+  ],
+  "officialSupportedDeviceFamily": "Xiaomi TV only",
+  "workBuddyAndXiaomiOnsiteAcceptance": "maintainer per P34",
+  "androidInstallUninstallExecuted": false,
+  "publicRelease": false
+}

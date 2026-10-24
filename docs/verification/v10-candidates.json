@@ -1,0 +1,110 @@
+{
+  "stage": "S32",
+  "build": "local-free",
+  "gradleInvocations": 1,
+  "buildSecondsReportedByGradle": 49,
+  "tasks": {
+    "total": 66,
+    "executed": 26,
+    "upToDate": 40
+  },
+  "sourceWorkingTreeDirtyAtBuild": false,
+  "candidates": [
+    {
+      "edition": "standard",
+      "versionCode": 10,
+      "bytes": 7597902,
+      "sha256": "efe4f4e4039afe44881dbff961edd84cb421f8a89ce932114a77add90118237f",
+      "sourceCommit": "fb147cde704457b81d6e9d358b00887537ec2384",
+      "androidSourceInputsMatch": true,
+      "sameSignatureAsV8": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/NasLibrary",
+        "org/zhixiaoce/aperture/NasCipher",
+        "org/zhixiaoce/aperture/NasNavigation",
+        "org/zhixiaoce/aperture/NasDraft",
+        "org/zhixiaoce/aperture/NasSetupActivity",
+        "org/zhixiaoce/aperture/NasSetupClient",
+        "org/zhixiaoce/aperture/NasSetupCrypto",
+        "org/zhixiaoce/aperture/NasSetupImport",
+        "org/zhixiaoce/aperture/PlaybackSession",
+        "org/zhixiaoce/aperture/PlaybackAudioFocus",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient",
+        "org/zhixiaoce/aperture/LobbyMode",
+        "org/zhixiaoce/aperture/LobbyAssets"
+      ],
+      "background": {
+        "path": "assets/carezza-4k.jpg",
+        "width": 3840,
+        "height": 2160,
+        "bytes": 2471360,
+        "sha256": "071a29a0ac25ea897f7369a989cac71c7c55ec9ef27257c971cfdb10165c37b2",
+        "matchesSource": true
+      },
+      "packagedNativeSetupNotExported": true,
+      "permissions": [
+        "android.permission.INTERNET"
+      ],
+      "debuggable": true,
+      "usesCleartextTraffic": true,
+      "path": "private-preview/launcher-v10/standard/aperture-tv-standard-debug.apk"
+    },
+    {
+      "edition": "parents",
+      "versionCode": 10,
+      "bytes": 7598026,
+      "sha256": "23d74abb248301027e606ad5cae00a2addd3d0686cf26ce3401649233354f28d",
+      "sourceCommit": "fb147cde704457b81d6e9d358b00887537ec2384",
+      "androidSourceInputsMatch": true,
+      "sameSignatureAsV8": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/NasLibrary",
+        "org/zhixiaoce/aperture/NasCipher",
+        "org/zhixiaoce/aperture/NasNavigation",
+        "org/zhixiaoce/aperture/NasDraft",
+        "org/zhixiaoce/aperture/NasSetupActivity",
+        "org/zhixiaoce/aperture/NasSetupClient",
+        "org/zhixiaoce/aperture/NasSetupCrypto",
+        "org/zhixiaoce/aperture/NasSetupImport",
+        "org/zhixiaoce/aperture/PlaybackSession",
+        "org/zhixiaoce/aperture/PlaybackAudioFocus",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient",
+        "org/zhixiaoce/aperture/LobbyMode",
+        "org/zhixiaoce/aperture/LobbyAssets"
+      ],
+      "background": {
+        "path": "assets/carezza-4k.jpg",
+        "width": 3840,
+        "height": 2160,
+        "bytes": 2471360,
+        "sha256": "071a29a0ac25ea897f7369a989cac71c7c55ec9ef27257c971cfdb10165c37b2",
+        "matchesSource": true
+      },
+      "packagedNativeSetupNotExported": true,
+      "permissions": [
+        "android.permission.INTERNET"
+      ],
+      "debuggable": true,
+      "usesCleartextTraffic": true,
+      "path": "private-preview/launcher-v10/parents/aperture-tv-parents-debug.apk"
+    }
+  ],
+  "installed": false,
+  "realXiaomiTV": false,
+  "realNasHardware": false,
+  "realWorkBuddy": false,
+  "hostedRunner": false,
+  "publicRelease": false
+}

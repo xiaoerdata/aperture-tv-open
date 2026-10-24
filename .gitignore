@@ -1,0 +1,16 @@
+.data/
+.env
+node_modules/
+artifacts/
+android/.gradle/
+android/local.properties
+android/**/build/
+*.keystore
+*.jks
+.venv/
+media/output/
+integrations/
+
+.android-local/
+__pycache__/
+*.pyc

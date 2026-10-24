@@ -1,0 +1,57 @@
+{
+  "stage": "S23",
+  "build": "local-free",
+  "gradleInvocations": 1,
+  "buildSecondsReportedByGradle": 86,
+  "tasks": {
+    "total": 66,
+    "executed": 32,
+    "upToDate": 34
+  },
+  "sourceWorkingTreeDirtyAtBuild": false,
+  "candidates": [
+    {
+      "edition": "standard",
+      "versionCode": 5,
+      "bytes": 7157103,
+      "sha256": "90013027f2bcd8929b0b2dfde34ae408f5480cea2009d0148ebe19fcd5353aaa",
+      "sourceCommit": "18ca8da81facc06cda9373e8930c21ff8fb733cb",
+      "sameSignatureAsV4": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient"
+      ],
+      "path": "private-preview/launcher-v5/standard/aperture-tv-standard-debug.apk"
+    },
+    {
+      "edition": "parents",
+      "versionCode": 5,
+      "bytes": 7156983,
+      "sha256": "47f0816c2a5e100d4be3d3b5aa277257c4cad904218425cb1d098036bb7848ff",
+      "sourceCommit": "18ca8da81facc06cda9373e8930c21ff8fb733cb",
+      "sameSignatureAsV4": true,
+      "assetsMatched": 10,
+      "thirdPartyNoticesMatched": 13,
+      "nativeTypesPresent": [
+        "org/zhixiaoce/aperture/NasActivity",
+        "org/zhixiaoce/aperture/NasVault",
+        "org/zhixiaoce/aperture/HouseholdProxy",
+        "com/hierynomus/smbj/SMBClient",
+        "okhttp3/OkHttpClient"
+      ],
+      "path": "private-preview/launcher-v5/parents/aperture-tv-parents-debug.apk"
+    }
+  ],
+  "copiedApkHashesVerified": true,
+  "installed": false,
+  "realXiaomiTV": false,
+  "realNasHardware": false,
+  "realWorkBuddy": false,
+  "publicRelease": false,
+  "hostedRunner": false
+}

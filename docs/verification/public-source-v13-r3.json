@@ -1,0 +1,166 @@
+{
+  "format": "aperture-public-source-handoff/v1",
+  "version": "0.2.0-alpha.10",
+  "upstreamSource": {
+    "commit": "8ae4c7e0d2cb4ffe8cac5d1464741e82ae46e6c3",
+    "workingTreeDirty": false
+  },
+  "publicSourceFiles": 568,
+  "androidSourceSha256": "d012ba41ec14b9366a680be24e7c3bb68a3f174bd7b658866dd2f8fa7b0c7871",
+  "androidMatchesTestingApks": true,
+  "archiveBytes": 148280770,
+  "archiveSha256": "3240fdfec545435755b6f794e838d21c59bfad0928c6617b571926434914251d",
+  "historyIncluded": false,
+  "privatePreviewIncluded": false,
+  "documentationLinks": {
+    "documents": 73,
+    "localFileLinksChecked": 167,
+    "missing": [],
+    "scope": "Inline Markdown links/images and reference definitions; file existence only. Excludes code, anchors, service routes and external URL availability."
+  },
+  "privateDownloadLinksReplaced": [
+    {
+      "path": "docs/ANDROID-LOCAL.md",
+      "links": 1
+    },
+    {
+      "path": "docs/ANDROID-PRIVATE-TEST.md",
+      "links": 2
+    },
+    {
+      "path": "docs/ANDROID.md",
+      "links": 1
+    },
+    {
+      "path": "docs/HOME-MODES.md",
+      "links": 1
+    },
+    {
+      "path": "docs/LOBBY-AND-PARENTS.md",
+      "links": 1
+    },
+    {
+      "path": "docs/NAS-SETUP.md",
+      "links": 1
+    },
+    {
+      "path": "docs/NAS.md",
+      "links": 1
+    },
+    {
+      "path": "docs/QUICKSTART.md",
+      "links": 1
+    },
+    {
+      "path": "docs/XIAOMI-VOICE.md",
+      "links": 1
+    },
+    {
+      "path": "docs/process/README.md",
+      "links": 1
+    }
+  ],
+  "remotePublished": false,
+  "hardwareAcceptance": "maintainer to test WorkBuddy and Xiaomi TV",
+  "review": {
+    "format": "aperture-publication-inventory/v1",
+    "scope": "frozen-source-archive",
+    "archiveName": "aperture-tv-public-v13-r3.tar.gz",
+    "archiveSha256": "3240fdfec545435755b6f794e838d21c59bfad0928c6617b571926434914251d",
+    "filesInventoried": 569,
+    "privateDistributionPaths": 0,
+    "textEntriesScanned": 376,
+    "patternFindings": [
+      {
+        "path": "scripts/verify-source-android.mjs",
+        "rules": [
+          {
+            "rule": "private-ci-evidence",
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "sensitivePaths": [],
+    "privateEvidencePaths": [],
+    "binaryOrLargeEntriesNotTextScanned": 193,
+    "manualAssetReviewRequired": true,
+    "patternRules": [
+      "github-token-pattern",
+      "provider-key-pattern",
+      "aws-access-id-pattern",
+      "private-key-block",
+      "private-ci-evidence"
+    ],
+    "maxTextBytes": 2097152,
+    "remoteRefsFetched": false,
+    "unreachableGitObjectsReviewed": false,
+    "matchedValuesIncluded": false,
+    "publicationApproved": false,
+    "limitations": [
+      "Pattern matches require classification; a match is not a confirmed credential.",
+      "Pattern detection cannot prove absence of secrets or private information.",
+      "Binary assets, provenance, consent and licenses require human review.",
+      "Local refs do not establish the complete remote ref inventory."
+    ]
+  },
+  "comparison": {
+    "archiveSha256": "3240fdfec545435755b6f794e838d21c59bfad0928c6617b571926434914251d",
+    "sourceCommit": "8ae4c7e0d2cb4ffe8cac5d1464741e82ae46e6c3",
+    "sourceFilesVerified": 568,
+    "oldArchivesUnchanged": {
+      "r1": true,
+      "r2": true
+    },
+    "comparedToDirectlyTestedArchive": "aperture-tv-public-v13.tar.gz",
+    "comparedToDirectlyTestedArchiveSha256": "af1091ed1194631c9124f3d253ec4d57800a3490eed0a0c346b5b38a0aef9112",
+    "runtimeFilesChanged": [],
+    "changedPaths": [
+      "INSTALL.md",
+      "README.md",
+      "SOURCE-MANIFEST.json",
+      "docs/ANDROID-LOCAL.md",
+      "docs/ANDROID-PRIVATE-TEST.md",
+      "docs/ANDROID.md",
+      "docs/DEVELOPMENT.md",
+      "docs/DOWNLOADS.md",
+      "docs/HOME-MODES.md",
+      "docs/LOBBY-AND-PARENTS.md",
+      "docs/NAS-SETUP.md",
+      "docs/NAS.md",
+      "docs/OPEN-SOURCE-PREPARATION.md",
+      "docs/PRIVATE-RELEASE.md",
+      "docs/QUICKSTART.md",
+      "docs/RELEASE-CHECKLIST.md",
+      "docs/WORKBUDDY.md",
+      "docs/XIAOMI-VOICE.md",
+      "docs/process/JOURNAL.md",
+      "docs/process/README.md",
+      "docs/release/README-public.md",
+      "docs/verification/public-source-v13-r2.json",
+      "docs/verification/public-source-v13.json",
+      "docs/verification/s41-link-baseline.json",
+      "docs/verification/v13-private-remote.json",
+      "docs/verification/v13-public-onboarding.json",
+      "media/DEVLOG-026.md",
+      "media/DEVLOG-027.md",
+      "scripts/prepare-public-source.py",
+      "scripts/verify-source-install.mjs",
+      "tests/public-source-preparation.test.mjs"
+    ],
+    "originalPromptVolumesUnchanged": 1,
+    "freshInstallRerunOnR3": false,
+    "apkRebuilt": false,
+    "hardwareTested": false,
+    "workBuddyApplicationTested": false
+  },
+  "directFreshInstallReport": "v13-public-onboarding.json",
+  "directFreshInstallArchive": "aperture-tv-public-v13.tar.gz",
+  "freshInstallRerunOnR3": false,
+  "packagedLinkCheckerExecuted": true,
+  "hardwareTested": false,
+  "workBuddyApplicationTested": false,
+  "apkRebuilt": false,
+  "publicationApproved": false,
+  "evidencePlacement": "External receipt recorded after the frozen archive; not inserted into that archive"
+}

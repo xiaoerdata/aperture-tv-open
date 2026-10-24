@@ -1,0 +1,23 @@
+{
+  "format": "aperture-private-source-check/v1",
+  "version": "0.2.0-alpha.5",
+  "sourceCommit": "5f5891c7e9104c691953916a9fe32e29e6ae5319",
+  "filesHashed": 411,
+  "sha256": "510898dacfdc380f9f2cd607f54e8b20392f7bbdeb035a5700574c2b2b471af2",
+  "bytes": 83397671,
+  "privatePreviewExcluded": true,
+  "credentialsAndRuntimePathsExcluded": true,
+  "allListedFileHashesMatch": true,
+  "androidSourceSha256": "92b4da26391f3df8677dcbed5db176afec8576d72976865d72cdb3c43f98341d",
+  "extractedAndroidInputsMatchApk": true,
+  "gitIndependentProvenance": {
+    "kind": "source-archive",
+    "sourceCommit": "5f5891c7e9104c691953916a9fe32e29e6ae5319",
+    "buildCommit": null,
+    "workingTreeDirty": null,
+    "exportWorkingTreeDirty": false,
+    "sourceManifestSha256": "9eb0133a62fd318e22481601b46127b1740b173051ea694cdf2a1ea1ee2b63df",
+    "androidMatchesExport": true
+  },
+  "published": false
+}

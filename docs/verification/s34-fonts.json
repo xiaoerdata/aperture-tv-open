@@ -1,0 +1,62 @@
+{
+  "method": "fontTools name-table inspection of actual bundled WOFF2; hashes compared with subset manifest",
+  "fonts": [
+    {
+      "path": "public/launcher/fonts/clock-reader.woff2",
+      "sha256": "e700b72b8d9b10842a55c879a925f73bef3d0e206eaf133680c92a2ac6790254",
+      "licensePath": "public/launcher/fonts/Newsreader-OFL.txt",
+      "licenseSha256": "fdfad38143ec470553cae82a1e45320bdd1b9ec70415d37bd0171051d8a4ded8",
+      "nameTable": {
+        "0": [
+          "Copyright 2020 The Newsreader Project Authors (http://github.com/productiontype/Newsreader)"
+        ],
+        "1": [
+          "Lab Reader"
+        ],
+        "4": [
+          "Lab Reader Regular"
+        ],
+        "6": [
+          "LabReader-Regular"
+        ],
+        "13": [
+          "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: http://scripts.sil.org/OFL"
+        ],
+        "14": [
+          "http://scripts.sil.org/OFL"
+        ]
+      }
+    },
+    {
+      "path": "public/launcher/fonts/aperture-song.woff2",
+      "sha256": "d696f63dcfd7f2cfc5652198cc19f35dca13ff5becdd67f16b97112b44a1e3d2",
+      "licensePath": "public/launcher/fonts/SourceHanSerif-OFL.txt",
+      "licenseSha256": "9ff5bb567e1b92c801fc1069e5fbf992ff8efccacb9db94e5959a5b3ba9bb903",
+      "nameTable": {
+        "0": [
+          "© 2017-2024 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'."
+        ],
+        "1": [
+          "Aperture Song"
+        ],
+        "4": [
+          "Aperture Song Regular"
+        ],
+        "6": [
+          "ApertureSong-Regular"
+        ],
+        "13": [
+          "This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font Software is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the SIL Open Font License for the specific language, permissions and limitations governing your use of this Font Software."
+        ],
+        "14": [
+          "http://scripts.sil.org/OFL"
+        ]
+      }
+    }
+  ],
+  "sourceHanInstalledSourceMatchesManifest": true,
+  "sourceHanInstalledSourceSha256": "3754ea669c530e2473354f8f6d9f79680a44d7e26ec7d00eeabee4a7e0753c5d",
+  "sourceHanAttributionCorrection": "Bundled font and installed source both identify Adobe 2017-2024. The unmodified upstream OFL text snapshot retains 2017-2022. THIRD_PARTY_NOTICES now states both.",
+  "apkRebuilt": false,
+  "publicationApproved": false
+}

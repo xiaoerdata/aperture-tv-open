@@ -1,0 +1,72 @@
+{
+  "startedAt": "2026-10-24T15:30:28.940Z",
+  "archiveName": "aperture-tv-public-v13.tar.gz",
+  "archiveSha256": "af1091ed1194631c9124f3d253ec4d57800a3490eed0a0c346b5b38a0aef9112",
+  "status": "passed",
+  "hardwareTested": false,
+  "workBuddyApplicationTested": false,
+  "apkBuilt": false,
+  "sourceFilesVerified": 560,
+  "sourceCommit": "fb7425ab076a1a00deeeb637b05e0eb4672d74ab",
+  "noGitDirectory": true,
+  "version": "0.2.0-alpha.10",
+  "npmCi": true,
+  "npmLifecycleScriptsEnabled": true,
+  "freshPythonVenv": true,
+  "pillowInstalledFromRequirements": true,
+  "doctor": {
+    "ready": true,
+    "checks": [
+      {
+        "name": "Node.js 22+",
+        "ok": true,
+        "detail": "v22.5.1"
+      },
+      {
+        "name": "@modelcontextprotocol/sdk",
+        "ok": true
+      },
+      {
+        "name": "hls.js",
+        "ok": true
+      },
+      {
+        "name": "qrcode",
+        "ok": true
+      },
+      {
+        "name": "Python 3.10+ / Pillow",
+        "ok": true,
+        "detail": "python3 3.10.12 / 11.1.0"
+      },
+      {
+        "name": "家庭数据目录",
+        "ok": true,
+        "detail": "首次启动时创建私有目录"
+      }
+    ],
+    "exposure": "默认仅本机访问；跨设备需配置正确 PUBLIC_ORIGIN、监听与HTTPS。",
+    "television": "完整模式WebView89+；轻量模式面向旧内核，尚待真机验证。"
+  },
+  "checkedStart": true,
+  "healthVersion": "0.2.0-alpha.10",
+  "ownerKeyMode": 384,
+  "familyDirectoryMode": 448,
+  "browserErrors": [],
+  "routes": [
+    "/guide",
+    "/home?demo=1",
+    "/home?edition=parents&demo=1",
+    "/tv?demo=1",
+    "/tv-lite?demo=1"
+  ],
+  "privateStateStatus": 401,
+  "machineInterfaceDefaultStatus": 503,
+  "serviceStopped": true,
+  "temporaryDirectoryRemoved": true,
+  "finishedAt": "2026-10-24T15:30:44.803Z",
+  "hostPlatform": "linux",
+  "browserToolingReused": true,
+  "browserToolingNote": "Application dependencies and Python venv are fresh; developer Playwright/Chromium harness is reused",
+  "derivedFrom": "artifacts/v13-public-onboarding.json"
+}

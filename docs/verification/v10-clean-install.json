@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-24T12:16:17.974Z",
+  "archive": "artifacts/aperture-tv-v0.2.0-alpha.7-source.tar.gz",
+  "sha256": "3a0ef0574957210da91fca81e89468087e7222860e975a85e993f72ececb940f",
+  "npmCi": true,
+  "doctor": {
+    "ready": true,
+    "checks": [
+      {
+        "name": "Node.js 22+",
+        "ok": true,
+        "detail": "v22.5.1"
+      },
+      {
+        "name": "@modelcontextprotocol/sdk",
+        "ok": true
+      },
+      {
+        "name": "hls.js",
+        "ok": true
+      },
+      {
+        "name": "qrcode",
+        "ok": true
+      },
+      {
+        "name": "Python 3.10+ / Pillow",
+        "ok": true,
+        "detail": "python3 3.10.12 / 11.1.0"
+      },
+      {
+        "name": "家庭数据目录",
+        "ok": true,
+        "detail": "首次启动时创建私有目录"
+      }
+    ],
+    "exposure": "默认仅本机访问；跨设备需配置正确 PUBLIC_ORIGIN、监听与HTTPS。",
+    "television": "完整模式WebView89+；轻量模式面向旧内核，尚待真机验证。"
+  },
+  "checkedStart": true,
+  "routes": [
+    "/guide",
+    "/tv?demo=1",
+    "/tv-lite?demo=1"
+  ],
+  "privateStateStatus": 401,
+  "errors": [],
+  "hardwareTested": false,
+  "sourceCommit": "fb147cde704457b81d6e9d358b00887537ec2384",
+  "scope": "Frozen v10 source archive before subsequent guide edits; no Android rebuild or hardware installation"
+}

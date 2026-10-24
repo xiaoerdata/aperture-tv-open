@@ -1,0 +1,41 @@
+{
+  "stage": "S20",
+  "build": "local-free",
+  "gradleInvocations": 1,
+  "buildSecondsReportedByGradle": 53,
+  "tasks": {
+    "total": 66,
+    "executed": 26,
+    "upToDate": 40
+  },
+  "sourceWorkingTreeDirtyAtBuild": false,
+  "candidates": [
+    {
+      "edition": "standard",
+      "versionCode": 4,
+      "bytes": 2237201,
+      "sha256": "70eea962371b696b9a7ad98c419d78e8c68478df6a68edd9feb48e1359e341d9",
+      "sourceCommit": "1933282ecfca7729ac730d60f8faad6efc0a66c0",
+      "sameSignatureAsV3": true,
+      "assetsMatched": 10,
+      "path": "private-preview/launcher-v4/standard/aperture-tv-standard-debug.apk"
+    },
+    {
+      "edition": "parents",
+      "versionCode": 4,
+      "bytes": 2237193,
+      "sha256": "0742853651a9aa39549274ddb3c1e59d54e5dff4e445937dc6d92d0ebf7da64e",
+      "sourceCommit": "1933282ecfca7729ac730d60f8faad6efc0a66c0",
+      "sameSignatureAsV3": true,
+      "assetsMatched": 10,
+      "path": "private-preview/launcher-v4/parents/aperture-tv-parents-debug.apk"
+    }
+  ],
+  "copiedApkHashesVerified": true,
+  "installed": false,
+  "realXiaomiTV": false,
+  "realWorkBuddy": false,
+  "publicRelease": false,
+  "hostedRunner": false,
+  "knownFunctionalGap": "packaged standard lobby does not fetch household summaries; actual shared data is available through family view"
+}

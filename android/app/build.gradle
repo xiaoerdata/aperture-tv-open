@@ -1,0 +1,29 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'org.zhixiaoce.aperture'
+    compileSdk 35
+    buildToolsVersion '35.0.0'
+    defaultConfig { applicationId 'org.zhixiaoce.aperture'; minSdk 26; targetSdk 35; versionCode 13; versionName '0.2.0-alpha.10' }
+    flavorDimensions += 'edition'
+    productFlavors {
+        standard { dimension 'edition'; buildConfigField 'boolean', 'PARENTS_EDITION', 'false'; manifestPlaceholders = [appLabel: '开窗'] }
+        parents { dimension 'edition'; applicationIdSuffix '.parents'; versionNameSuffix '-parents'; buildConfigField 'boolean', 'PARENTS_EDITION', 'true'; manifestPlaceholders = [appLabel: '开窗·爸妈版'] }
+    }
+    buildFeatures { buildConfig true }
+    // Self-contained offline first-level entry; no household data or server assets.
+    sourceSets { main { assets.srcDirs = ['../../public/launcher', '../third-party'] } }
+    buildTypes { release { minifyEnabled false } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    packaging { resources { excludes += ['META-INF/versions/9/OSGI-INF/MANIFEST.MF'] } }
+}
+dependencies {
+    implementation 'com.hierynomus:smbj:0.14.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+}
+// Resolve the exact runtime classpath for targeted JVM/API checks, without building an APK.
+tasks.register('nasClasspath') {
+    doLast {
+        def destination = providers.gradleProperty('nasClasspathFile').get()
+        file(destination).text = configurations.standardDebugRuntimeClasspath.files.findAll { it.name.endsWith('.jar') }.collect { it.absolutePath }.join(File.pathSeparator)
+    }
+}

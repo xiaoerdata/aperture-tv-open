@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "opt-in and configured library selection through owner UI",
+    "real VP9 WebM decode, pause, range seek and remote back",
+    "actual HLS manifest rewrite + segment proxy + hls.js playback",
+    "first-level channel and library routes filter actual service results and return to lobby",
+    "parents three categories: backend classification, series/movie separation, large controls and preserved edition",
+    "owner disables cinema; active player stops and clears source",
+    "guide scenario switch, animation pause, persistent reduced-transparency control",
+    "18 guide/settings/player width checks; expanded phone installation instructions",
+    "guide respects system reduced motion"
+  ],
+  "errors": [],
+  "realVendorAccounts": false,
+  "realXiaomiHardware": false
+}

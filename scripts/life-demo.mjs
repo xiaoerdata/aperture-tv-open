@@ -1,0 +1,10 @@
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {createApp} from '../server/app.mjs';
+import {demoSource} from '../examples/life-source.mjs';
+const directory=await mkdtemp(join(tmpdir(),'aperture-life-demo-'));
+const origin='http://127.0.0.1:4321';
+const {server}=await createApp({directory,ownerKey:'aperture-life-demo-owner-00000001',origin,sources:[demoSource()]});
+server.listen(4321,'127.0.0.1',()=>console.log('Synthetic MCP demo only: '+origin+'/studio?tab=life\nDemo-only owner key: aperture-life-demo-owner-00000001\nNo vendor credentials or real devices. Stop with Ctrl+C.'));
+for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>server.close(async()=>{await rm(directory,{recursive:true,force:true});process.exit(0);}));

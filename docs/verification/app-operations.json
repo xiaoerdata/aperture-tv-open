@@ -1,0 +1,23 @@
+{
+  "stage": "S39",
+  "versionCode": 13,
+  "scope": "Xiaomi televisions only",
+  "productionInstallCacheJvmChecks": 22,
+  "domainOperationTests": 7,
+  "realStdioMcpAndHttpLifecycle": true,
+  "tvReceiptsSynthetic": true,
+  "existingLocalAgentAndNasCryptoTargetedTestsPassed": true,
+  "bothEditionsAndroid35ApiCompiled": true,
+  "browserDefaultAppsScopesOff": true,
+  "installScopeDoesNotImplyUninstall": true,
+  "hostilePublicArchivesRejectedBeforeExtraction": 5,
+  "androidInstallerExecuted": false,
+  "androidUninstallerExecuted": false,
+  "workBuddyApplicationTested": false,
+  "xiaomiHardwareTested": false,
+  "onsiteAcceptanceOwner": "project maintainer per P34",
+  "publicRelease": false,
+  "apkBuilt": true,
+  "apkSourceCommit": "4f2fc4c3e14b7b342d7dd2fe906282772ab5dfb1",
+  "androidSourceSha256": "d012ba41ec14b9366a680be24e7c3bb68a3f174bd7b658866dd2f8fa7b0c7871"
+}

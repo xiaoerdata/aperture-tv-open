@@ -1,0 +1,68 @@
+{
+  "stage": "S15-S16",
+  "browser": {
+    "checks": [
+      "eight first-level entries, native key-name navigation without KeyboardEvent, dialog trap/return and honest browser-only app state",
+      "standard UI at 720p/1080p/4K and 320/390/430/760/761 widths",
+      "four populated content sections, native-key entry/back focus, four manual carousel slides and user-input pause",
+      "parents edition: three large solid entries, live initial focus, no mood control, family settings and lite family-screen round trip preserve edition",
+      "parents UI at 720p/1080p/4K and phone boundaries with large text",
+      "packaged-file page works without network, ES5 local interaction and safe text labels; actual Android intents remain a device test",
+      "authenticated household read, historical-date label, expired snapshots masked and content cleared on next read after logout; anonymous empty state"
+    ],
+    "errors": [],
+    "actualAndroidIntentsTested": false,
+    "actualXiaomiHardwareTested": false,
+    "parentsUserStudyCompleted": false
+  },
+  "capture": {
+    "method": "actual Chromium screenshots",
+    "syntheticHouseholdData": true,
+    "aiLandscape": true,
+    "realTV": false,
+    "apkUpdated": false,
+    "typography": {
+      "clockPx": 92.16,
+      "datePx": 31.68,
+      "weekdayPx": 19.2,
+      "clockFontLoaded": true,
+      "dateFontLoaded": true
+    },
+    "errors": []
+  },
+  "androidInputSha256": "fdc61869e6ba629e37cfa249431ef54dcf66fc03d648bb0398f1927ac28bafd0",
+  "screenshots": {
+    "docs/images/typography-overview-1920.png": {
+      "bytes": 1759223,
+      "sha256": "2de8588f6ec164f76709c11f6e6780fc7e72102d5e202a5946a5109c1bc499ce"
+    },
+    "docs/images/typography-photos-1920.png": {
+      "bytes": 1786261,
+      "sha256": "4c02573c70570658ba5b5f43068b339f3e2bb2ed0bc7d82cd2af2e57a28043a9"
+    },
+    "docs/images/typography-data-1920.png": {
+      "bytes": 1400094,
+      "sha256": "88fe1031b325e6f1b4654370468ac4a39349c2c9f299c86aece884fe3a932c39"
+    },
+    "docs/images/typography-information-1920.png": {
+      "bytes": 1508725,
+      "sha256": "6d5ff58e85ff02c120444bcfc00566dc78bfee8568cc1d7cf78f25478e23605b"
+    },
+    "docs/images/typography-tools-1920.png": {
+      "bytes": 1556074,
+      "sha256": "aa30a5eba8a3e7aaf1ff6f48d5fdf38e7755939953ef833402af9de87578eca1"
+    },
+    "docs/images/typography-cinema-1920.png": {
+      "bytes": 471576,
+      "sha256": "80a581069e27280b7d8d1bad6b67875e319913e0199996246b5e4c0e2d2fa89b"
+    },
+    "docs/images/typography-parents-1920.png": {
+      "bytes": 1425458,
+      "sha256": "c6da430b18382efdaa0c6ef7c30738ca79e49af0cfb7bc6c39da6630e3694dd0"
+    }
+  },
+  "apkBuiltForThisStage": false,
+  "privateApkStillVersionCode": 3,
+  "televisionHardwareVerified": false,
+  "workbuddyApplicationVerified": false
+}

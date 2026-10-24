@@ -1,0 +1,7 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {mkdtemp,rm,mkdir,writeFile} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join,resolve,delimiter} from 'node:path';import {execFile} from 'node:child_process';import {promisify} from 'node:util';import {nasTestJson} from '../scripts/nas-test-json.mjs';
+test('production native NAS library, encryption, selected-root navigation and assistant lifecycle',async t=>{
+ const directory=await mkdtemp(join(tmpdir(),'aperture-nas-library-'));t.after(()=>rm(directory,{recursive:true,force:true}));const cp=await nasTestJson(),jdk=process.env.JAVA_HOME||'/tmp/aperture-android-runtime/jdk-unpack/jdk-17.0.21+9',exec=promisify(execFile),source=resolve('android/app/src/main/java/org/zhixiaoce/aperture');
+ await exec(join(jdk,'bin/javac'),['-cp',cp,'-d',directory,...['NasLibrary','NasDraft','NasLocation','NasCipher','NasNavigation','DisplayLifecycle'].map(n=>join(source,n+'.java')),resolve('tests/java/NasLibraryTest.java')]);
+ const {stdout}=await exec(join(jdk,'bin/java'),['-cp',directory+delimiter+cp,'org.zhixiaoce.aperture.NasLibraryTest']);const checks=stdout.trim().split('\n');assert.equal(checks.length,5);assert.ok(checks.every(s=>s.startsWith('PASS ')));
+ await mkdir('artifacts',{recursive:true});await writeFile('artifacts/nas-library-report.json',JSON.stringify({checks,productionJava:true,jvmJsonTestOnly:true,androidKeyStore:false,androidActivity:false,realDevice:false},null,2)+'\n');console.log(checks.join('\n'));
+});

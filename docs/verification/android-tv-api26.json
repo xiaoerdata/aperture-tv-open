@@ -1,0 +1,208 @@
+{
+  "format": "aperture-android-emulator-check/v1",
+  "runtime": {
+    "emulator": {
+      "version": "37.2.12.0",
+      "officialArchive": "https://dl.google.com/android/repository/emulator-linux_x64-16428233.zip",
+      "bytes": 349654171,
+      "metadataSha1": "cd7362ea55dfb86a418958138dc396e74165dd01",
+      "sha256": "b08fc43d8608d2955f607f1b287beb525041e730086bdca3af152accac3af9c1"
+    },
+    "image": {
+      "api": 26,
+      "android": "8.0.0",
+      "tag": "android-tv",
+      "abi": "x86",
+      "revision": 14,
+      "officialArchive": "https://dl.google.com/android/repository/sys-img/android-tv/x86-26_r14.zip",
+      "bytes": 401675862,
+      "metadataSha1": "f908b3c81a03513a756c17a197faecfc91e437df",
+      "sha256": "79f21d2e9d2f9f5d54ab52c16536b290c242b37902d884c347e7ee7f06db5604"
+    },
+    "downloadMetadataChecksumVerified": true,
+    "kvmAvailable": false,
+    "acceleration": "off",
+    "gpu": "swiftshader",
+    "avd": "ApertureTvApi26Local",
+    "serial": "emulator-5578",
+    "adbServerPort": 5049,
+    "viewport": {
+      "width": 1280,
+      "height": 720,
+      "density": 213
+    },
+    "initialDownloadsInterrupted": true,
+    "resumedDownloadsSucceeded": true,
+    "localSdkRegistration": "emulator package metadata registered from verified official revision; avdmanager generated image metadata",
+    "sdkToolWarning": "CLI supports schema v3 while existing package inventory includes v4",
+    "apkRebuilt": false,
+    "xiaomiTVTested": false,
+    "state": "Both existing v10 editions installed and native homes observed; not Xiaomi hardware"
+  },
+  "androidBootCompleted": true,
+  "webViewVersion": "58.0.3029.125",
+  "packages": [
+    {
+      "edition": "standard",
+      "applicationId": "org.zhixiaoce.aperture",
+      "version": "0.2.0-alpha.7",
+      "versionCode": "10",
+      "sourceCommit": "fb147cde704457b81d6e9d358b00887537ec2384",
+      "sha256": "efe4f4e4039afe44881dbff961edd84cb421f8a89ce932114a77add90118237f",
+      "emulatorInstalled": true,
+      "emulatorLaunched": true
+    },
+    {
+      "edition": "parents",
+      "applicationId": "org.zhixiaoce.aperture.parents",
+      "version": "0.2.0-alpha.7-parents",
+      "versionCode": "10",
+      "sourceCommit": "fb147cde704457b81d6e9d358b00887537ec2384",
+      "sha256": "23d74abb248301027e606ad5cae00a2addd3d0686cf26ce3401649233354f28d",
+      "emulatorInstalled": true,
+      "emulatorLaunched": true
+    }
+  ],
+  "standardNativeRows": [
+    {
+      "text": "开窗",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,34][1220,97]"
+    },
+    {
+      "text": "当前使用简洁本机首页，适合这台电视的网页内核。",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,97][1220,130]"
+    },
+    {
+      "text": "直播",
+      "focused": true,
+      "selected": false,
+      "bounds": "[60,138][1220,234]"
+    },
+    {
+      "text": "影视",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,250][1220,346]"
+    },
+    {
+      "text": "原桌面",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,362][1220,458]"
+    },
+    {
+      "text": "家庭屏",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,474][1220,570]"
+    },
+    {
+      "text": "NAS",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,586][1220,682]"
+    },
+    {
+      "text": "设置",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,698][1220,720]"
+    }
+  ],
+  "parentsNativeRows": [
+    {
+      "text": "开窗 · 爸妈版",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,34][1220,105]"
+    },
+    {
+      "text": "当前使用简洁本机首页，适合这台电视的网页内核。",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,105][1220,138]"
+    },
+    {
+      "text": "看电视",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,146][1220,242]"
+    },
+    {
+      "text": "看电视剧",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,258][1220,354]"
+    },
+    {
+      "text": "看电影",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,370][1220,466]"
+    },
+    {
+      "text": "未设置",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,482][1220,578]"
+    },
+    {
+      "text": "未设置",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,594][1220,690]"
+    },
+    {
+      "text": "未设置",
+      "focused": false,
+      "selected": false,
+      "bounds": "[60,706][1220,720]"
+    }
+  ],
+  "standardSettingsReachedWithoutMenuKey": true,
+  "standardHomeModeDialogReached": true,
+  "standardSimpleHomeRetainedAfterForceStopAndReopen": true,
+  "preferencesAfterBothEditionsLaunched": {
+    "standard": {
+      "preferencesFilePresent": true,
+      "simpleHomeFlag": true
+    },
+    "parents": {
+      "preferencesFilePresent": false,
+      "simpleHomeFlag": false
+    }
+  },
+  "homeCandidatesBeforeP30Fix": [
+    "com.google.android.tvlauncher/.MainActivity",
+    "org.zhixiaoce.aperture/.MainActivity",
+    "org.zhixiaoce.aperture.parents/org.zhixiaoce.aperture.MainActivity",
+    "com.android.tv.settings/.system.FallbackHome"
+  ],
+  "resolvedHomeAfterInstallingBoth": "com.google.android.tvlauncher/.MainActivity",
+  "nativeHomeButtonPhysicalHeightPx": 96,
+  "nativeSettingsListRowPhysicalHeightPx": 64,
+  "screenshots": [
+    "docs/images/s35-native-standard-api26.png",
+    "docs/images/s35-native-settings-api26.png",
+    "docs/images/s35-native-parents-api26.png"
+  ],
+  "failuresAndLimits": [
+    "Initial standard launch was attempted before installation completed and reported Activity not found; corrected after actual install Success.",
+    "am start -W returned timeout twice; same Activity/PID and native view tree were subsequently observed without treating timeout as a process failure.",
+    "Initial parents command incorrectly expanded the application ID into the Activity class; PackageManager resolved the shared Java namespace and launch then succeeded.",
+    "Emulator event console rejected the symbolic SYN_REPORT code; numeric sync was accepted but no menu change was observed. Console events are not counted as successful key evidence. ADB shell input keyevent was used for observed navigation.",
+    "The image media.codec process crashed in libstagefright_soft_hevcdec before app launch. No media decoder, audio focus or playback claim is made from this image.",
+    "Home candidate filters are currently active in v10 by default; P30 requires a subsequent explicit opt-in change."
+  ],
+  "xiaomiTVTested": false,
+  "physicalRemoteTested": false,
+  "xiaomiAccountTested": false,
+  "mijiaRealDevicesTested": false,
+  "realNasTested": false,
+  "workBuddyClientTested": false,
+  "apkRebuilt": false
+}

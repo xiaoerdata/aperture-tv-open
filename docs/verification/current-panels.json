@@ -1,0 +1,15 @@
+{
+  "method": "actual Chromium screenshots",
+  "syntheticHouseholdData": true,
+  "aiLandscape": true,
+  "realTV": false,
+  "apkUpdated": false,
+  "typography": {
+    "clockPx": 92.16,
+    "datePx": 31.68,
+    "weekdayPx": 19.2,
+    "clockFontLoaded": true,
+    "dateFontLoaded": true
+  },
+  "errors": []
+}

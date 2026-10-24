@@ -1,0 +1,31 @@
+{
+  "method": "SSH git push, GitHub connector metadata readback",
+  "repository": "xiaoerdata/aperture-tv",
+  "visibility": "private",
+  "branch": "feat/dark-glass-and-clock",
+  "verifiedDeliveryCommit": "7fdc09573564fff9e64e7ebff968082b5516d04d",
+  "pullRequest": "https://github.com/xiaoerdata/aperture-tv/pull/4",
+  "draft": true,
+  "merged": false,
+  "manifests": [
+    {
+      "edition": "standard",
+      "apk": "aperture-tv-standard-debug.apk",
+      "sha256": "efe4f4e4039afe44881dbff961edd84cb421f8a89ce932114a77add90118237f",
+      "versionCode": 10,
+      "sourceCommit": "fb147cde704457b81d6e9d358b00887537ec2384",
+      "remoteManifestBlob": "6c0099773975c60ae0fddacf9f8a13fefe311bc6"
+    },
+    {
+      "edition": "parents",
+      "apk": "aperture-tv-parents-debug.apk",
+      "sha256": "23d74abb248301027e606ad5cae00a2addd3d0686cf26ce3401649233354f28d",
+      "versionCode": 10,
+      "sourceCommit": "fb147cde704457b81d6e9d358b00887537ec2384",
+      "remoteManifestBlob": "d155e13bbe44265a2304920a9fac7024470c90f7"
+    }
+  ],
+  "remoteApkDownloaded": false,
+  "deviceInstalled": false,
+  "publicRelease": false
+}

@@ -1,0 +1,41 @@
+{
+  "stage": "S37",
+  "build": "local-free",
+  "gradleInvocations": 1,
+  "buildSeconds": 46,
+  "tasks": {
+    "total": 66,
+    "executed": 26,
+    "upToDate": 40
+  },
+  "sourceWorkingTreeDirtyAtBuild": false,
+  "candidates": [
+    {
+      "edition": "standard",
+      "applicationId": "org.zhixiaoce.aperture",
+      "version": "0.2.0-alpha.9",
+      "versionCode": "12",
+      "sha256": "0ba549704cf8e8c475f493ff8b9b4f0b243a8f0937aa9bdadcf8a98008b6c273",
+      "apkBytes": 7600298,
+      "sourceCommit": "1bb90cde28553bac4d5711982b0623d72efdf41a",
+      "androidSourceSha256": "af08618ae43b3fb836595f4453fd9095a5329fdae48f65fe1d631472d2cde62a",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9"
+    },
+    {
+      "edition": "parents",
+      "applicationId": "org.zhixiaoce.aperture.parents",
+      "version": "0.2.0-alpha.9-parents",
+      "versionCode": "12",
+      "sha256": "01f8ef28c78f4f3c666b0ba700b95a12b06906f647a36c9231f491e442f2f51e",
+      "apkBytes": 7600378,
+      "sourceCommit": "1bb90cde28553bac4d5711982b0623d72efdf41a",
+      "androidSourceSha256": "af08618ae43b3fb836595f4453fd9095a5329fdae48f65fe1d631472d2cde62a",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9"
+    }
+  ],
+  "assetsAndNoticesMatchSource": true,
+  "homeAliasDisabledByDefault": true,
+  "microphoneOrInstallPackagesPermission": false,
+  "xiaomiTVTested": false,
+  "publicRelease": false
+}
