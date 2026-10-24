@@ -50,6 +50,12 @@
         "path": "docs/process/README.md",
         "links": 1
       }
+    ],
+    "publicCorrections": [
+      {
+        "path": "docs/DOWNLOADS.md",
+        "reason": "Use GitHub tag source archive after duplicate release source upload failed; APK bytes unchanged"
+      }
     ]
   },
   "files": [
@@ -440,8 +446,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4432,
-      "sha256": "c65b0295b6001655bd2c50ad6110410328b3a6207ff14a16effeb9c1adc114ae"
+      "bytes": 4467,
+      "sha256": "565fc6f365c9e17065cf052a47145ac6216bfe4aa72fe5a490701456168bb16b"
     },
     {
       "path": "docs/FAMILY-CINEMA.md",
