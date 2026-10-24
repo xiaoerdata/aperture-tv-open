@@ -533,3 +533,12 @@ P35原文“我通过开源方式测试”已追加。这改变了公开测试�
 重新核对本机gh登录已恢复为xiaoerdata；GitHub连接器仍无新建仓库和Release上传能力，因此使用已认证gh创建xiaoerdata/aperture-tv-open空公共库，API回读private=false。现有aperture-tv保持私有，避免旧Git历史随公开暴露；新库已启用并回读Private vulnerability reporting。仓库/Issue/安全入口、测试下载页、两版包名与截图标签准备为公开版本。
 
 不重建APK：拟公开的两版测试附件严格复用私有v13相同字节与签名。会从最新干净源码生成无旧历史的公开首提交，逐份校验清单、Android输入和文档链接后推送，再以prerelease发布明确debug的两版与源码。实际推送、Release和匿名回读另补，不提前记为完成。现有r1/r2/r3源码包保持冻结。
+
+
+S43发布结果（2026-10-25，Asia/Shanghai）：公开仓库xiaoerdata/aperture-tv-open已建立，MIT可匿名读取，原aperture-tv仍Private。公开历史从27d55d0干净首提交开始，后续077be55与4ad2d7f修正源码下载入口和派生清单；不包含私有Git父提交。575项公开源码与清单逐份核对、76份Markdown/188个本地文件链接通过，Android输入仍d012ba41…0c7871。原提示词含P35逐字一致，旧r1/r2/r3包不改。
+
+Release v0.2.0-alpha.10已于2026-10-25 00:24:09（Asia/Shanghai）发布，prerelease=true、draft=false，源码标签固定4ad2d7f7f18f33082d12fb8d4abc9ecf6d596963。两版APK沿用原v13字节和证书，未重建或换签。匿名完整下载标准7,621,182字节/6e247f5e…5dad76，爸妈7,621,366字节/83523654…7141；测试清单和SHA256SUMS也逐字节匹配。源码采用GitHub标签自动归档，HEAD200；没有重复完整下载149MB源码或声称做了新一轮真机/WorkBuddy测试。公开回执见verification/public-alpha-v13.json。
+
+保留失败：旧gh不支持--latest和release edit；两次大源码附件上传unexpected EOF，查询确认未落库；HTTP/1兼容尝试在读API时即EOF，未产生新附件。改为GitHub自带标签归档，并在仍为draft时更新元数据/校验和。旧CLI查草稿和部分API连接不稳定，改用现有gh认证的只针对本仓库的REST请求；未打印或持久化凭证，写请求不自动重试。草稿tag/target同时显式设置后核对四个附件服务器摘要，再公开。一次下载说明修正使用错工作目录，源码清单未同时更新；后续公开提交4ad2d7f修正并逐项核对，未重写已推送历史。
+
+匿名REST API后来返回403额度限制，因此最终用无Authorization的发布页、Git refs、raw指引与四个完整附件下载核对公开可用；不把受限API说成正常。先前Hub真实匿名取数为0 Star/MIT，18项既有定向测试及四个隔离浏览器页面通过；已查看手机/桌面图，本地目录/静态页接入公开仓库与Alpha下载，保留取数时间和缓存/空态。Hub并发工作均保留，未提交其其他改动或部署生产。后续小米真机、WorkBuddy、正式稳定签名与小红书上传仍分开记录。

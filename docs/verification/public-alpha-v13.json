@@ -1,0 +1,62 @@
+{
+  "publicReleasePageStatus": 200,
+  "authorizationHeaderUsed": false,
+  "assets": [
+    {
+      "file": "aperture-tv-v13-parents-debug.apk",
+      "bytes": 7621366,
+      "sha256": "8352365464aa6c526118a97bf42ef7739c5b66aca8c9fe624995a27894f77141",
+      "anonymousFullDownloadVerified": true
+    },
+    {
+      "file": "aperture-tv-v13-standard-debug.apk",
+      "bytes": 7621182,
+      "sha256": "6e247f5effac79c38805c313f7d0d75646fe963378b1c879dbd1dcc6135dad76",
+      "anonymousFullDownloadVerified": true
+    },
+    {
+      "file": "testing-manifest.json",
+      "bytes": 2831,
+      "sha256": "dd811317cbdd10407d876bfe7fa7927a9c14df2c301fc020f644f0e478d2b3b2",
+      "anonymousFullDownloadVerified": true
+    },
+    {
+      "file": "SHA256SUMS",
+      "bytes": 289,
+      "sha256": "4dfac0551c27ed3f466bb5fbae71cdb68b7b2e14bd7e4633bb3cc67ed445afaa",
+      "anonymousFullDownloadVerified": true
+    }
+  ],
+  "anonymousApiRateLimited": true,
+  "verifiedAtUtc": "2026-10-24T16:26:57.836211+00:00",
+  "repository": "xiaoerdata/aperture-tv-open",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.10",
+  "releaseId": 422838272,
+  "publishedAtUtc": "2026-10-24T16:24:09Z",
+  "draft": false,
+  "prerelease": true,
+  "tagCommit": "4ad2d7f7f18f33082d12fb8d4abc9ecf6d596963",
+  "tagVerifiedViaAnonymousGitRefs": true,
+  "publicSourceLicense": "MIT",
+  "sourceArchiveUrl": "https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.10.tar.gz",
+  "sourceArchiveHeadStatus": 200,
+  "sourceArchiveFullyDownloaded": false,
+  "xiaomiDeviceTested": false,
+  "workBuddyApplicationTested": false,
+  "apkRebuilt": false,
+  "apiRateLimitNote": "Anonymous REST API returned 403 rate limit; public release HTML, Git refs, raw docs and full asset downloads were verified without credentials.",
+  "support": "Xiaomi TVs only, Android 8+; model/firmware testing remains pending",
+  "publicationAuthorizedBy": "P35: 我通过开源方式测试",
+  "originalDevelopmentRepositoryPrivate": true,
+  "hub": {
+    "developmentOnly": true,
+    "productionDeployed": false,
+    "testsPassed": 18,
+    "browserPagesChecked": 4,
+    "realAnonymousStarsObserved": 0,
+    "starsCheckedAtUtc": "2026-10-24T16:18:16.624Z",
+    "cacheMinutes": 10,
+    "browserRefreshSeconds": 60
+  },
+  "archiveNote": "The initially frozen 148293892-byte tar was not uploaded. The published tag includes public download-documentation corrections and a consistent per-file SOURCE-MANIFEST."
+}

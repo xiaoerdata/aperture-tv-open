@@ -55,6 +55,15 @@
       {
         "path": "docs/DOWNLOADS.md",
         "reason": "Use GitHub tag source archive after duplicate release source upload failed; APK bytes unchanged"
+      },
+      {
+        "paths": [
+          "docs/process/JOURNAL.md",
+          "docs/process/README.md",
+          "media/DEVLOG-029.md",
+          "docs/verification/public-alpha-v13.json"
+        ],
+        "reason": "Post-publication receipt; immutable Alpha tag remains 4ad2d7f7f18f33082d12fb8d4abc9ecf6d596963; runtime unchanged"
       }
     ]
   },
@@ -1491,8 +1500,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 100298,
-      "sha256": "6ab348fd42e8d1523e455e322de3533acf31974b8c54efb9a7e203292d3baa40"
+      "bytes": 102571,
+      "sha256": "634ba8439d53d7adfd3aa65ff257bfae0644fd6f675dd48b7d2ecf376800e8ad"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -1501,8 +1510,8 @@
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 7629,
-      "sha256": "0a19b73a158c5d4c8924ed3a4d5bec6b883f9ce4d9895317d0950a9e536f9411"
+      "bytes": 7936,
+      "sha256": "a2e8839666ea1ab004089068c9c4f02c635dac958c7a2d30cae62ada93de350d"
     },
     {
       "path": "docs/release/README-public.md",
@@ -1648,6 +1657,11 @@
       "path": "docs/verification/playback-focus.json",
       "bytes": 2387,
       "sha256": "b7e06b4b9ca88c792aef940882e824794ef494e837b831ee6f58b3b5a77005b3"
+    },
+    {
+      "path": "docs/verification/public-alpha-v13.json",
+      "bytes": 2503,
+      "sha256": "1f8eb65cd80b00b713cd8319c6f04e53f3e764d7d05fc731821a8d88ed8c02dd"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -2026,8 +2040,8 @@
     },
     {
       "path": "media/DEVLOG-029.md",
-      "bytes": 908,
-      "sha256": "e875530128ccd554c320bfbd39b67563f5fd6f94ff34daba11a166ade7786538"
+      "bytes": 1299,
+      "sha256": "29576e9928db96bcda82d84cd7a688fd70982182ec1c182d90e11497def6761d"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",

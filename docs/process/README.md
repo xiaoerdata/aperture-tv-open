@@ -61,3 +61,5 @@ S41结果：[r3源码交接与链接检查](../verification/public-source-v13-r3
 S42：[release交接说明](../ANDROID-RELEASE.md)、[现有双版APK与工具参数检查](../verification/s42-release-preparation.json)、[第二十八期底稿](../../media/DEVLOG-028.md)。命令帮助核对不等于完成正式构建或签名。
 
 S43：[P35开源测试原文](PROMPTS-001.md#p35--通过开源方式测试)、[Alpha下载说明](../DOWNLOADS.md)、[第二十九期底稿](../../media/DEVLOG-029.md)。按用户最新顺序，先公开测试，真机结果后补。
+
+S43公开结果：[公开仓库](https://github.com/xiaoerdata/aperture-tv-open)、[Alpha测试发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.10)、[匿名下载核对](../verification/public-alpha-v13.json)。APK/清单下载已验证，真机与WorkBuddy结果待补。
