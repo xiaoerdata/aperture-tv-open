@@ -1,5 +1,7 @@
 # 可选家庭影院
 
+当前本地v15新增[APK内嵌直播与影视](EMBEDDED-CINEMA.md)，支持M3U与TVBox type=1 JSON直链站点。下文主要描述既有家庭服务Web播放器；两者配置与权限分别说明。
+
 定位是用户自己家庭的片库入口，默认关闭。管理员可在工作台开启、选择已配置的媒体库、导入/替换/移除 M3U；电视与已连接家庭成员只读浏览播放。媒体目录被选中意味着其中所有可索引视频对全家可见。
 
 ## 三条已实现路径
@@ -22,7 +24,7 @@
 
 电脑本机目录可以直接作为路径。SMB/NFS/WebDAV/个人网盘先由主机挂载到本地目录，或交给 Jellyfin 管理，再接入。挂载只读，使用独立家庭共享文件夹。当前没有自动扫描局域网、网盘登录/二维码、DLNA discovery 或电视端 smb:// 协议。
 
-参考了 [FongMi/TV README](https://github.com/FongMi/TV) 对浏览/播放/直播的能力划分，以及 [Jellyfin 网络文档](https://jellyfin.org/docs/general/post-install/networking/)。没有复制它们的界面或代码。FongMi 的爬虫扩展是另一种执行机制，本项目不解释任意 TVBox JSON、JAR、Python、QuickJS 或第三方解析脚本；现有播放器可经 Android 原生应用菜单打开，仍由原应用管理自己的配置。这里没有提供解锁付费内容或绕过 DRM 的功能。
+参考了 [FongMi/TV README](https://github.com/FongMi/TV) 对浏览/播放/直播的能力划分，以及 [Jellyfin 网络文档](https://jellyfin.org/docs/general/post-install/networking/)。没有复制它们的界面或代码。FongMi 的爬虫扩展是另一种执行机制，本页所述服务端播放器不解释任意 TVBox JSON、JAR、Python、QuickJS 或第三方解析脚本；现有播放器可经 Android 原生应用菜单打开，仍由原应用管理自己的配置。这里没有提供解锁付费内容或绕过 DRM 的功能。
 
 ## 授权、资源限制和撤销
 

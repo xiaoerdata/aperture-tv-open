@@ -3,11 +3,11 @@ android {
     namespace 'org.zhixiaoce.aperture'
     compileSdk 35
     buildToolsVersion '35.0.0'
-    defaultConfig { applicationId 'org.zhixiaoce.aperture'; minSdk 26; targetSdk 35; versionCode 13; versionName '0.2.0-alpha.10' }
+    defaultConfig { applicationId 'org.zhixiaoce.aperture'; minSdk 26; targetSdk 35; versionCode 16; versionName '0.2.0-alpha.13' }
     flavorDimensions += 'edition'
     productFlavors {
-        standard { dimension 'edition'; buildConfigField 'boolean', 'PARENTS_EDITION', 'false'; manifestPlaceholders = [appLabel: '开窗'] }
-        parents { dimension 'edition'; applicationIdSuffix '.parents'; versionNameSuffix '-parents'; buildConfigField 'boolean', 'PARENTS_EDITION', 'true'; manifestPlaceholders = [appLabel: '开窗·爸妈版'] }
+        standard { dimension 'edition'; buildConfigField 'boolean', 'PARENTS_EDITION', 'false'; manifestPlaceholders = [appLabel: '开视'] }
+        parents { dimension 'edition'; applicationIdSuffix '.parents'; versionNameSuffix '-parents'; buildConfigField 'boolean', 'PARENTS_EDITION', 'true'; manifestPlaceholders = [appLabel: '开视·爸妈版'] }
     }
     buildFeatures { buildConfig true }
     // Self-contained offline first-level entry; no household data or server assets.

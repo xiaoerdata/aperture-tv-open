@@ -1,4 +1,4 @@
-# 开窗：从一句想法到家庭屏
+# 开视：从一句想法到家庭屏
 
 用户要求开发与记录同步进行。本目录是过程底稿，media 是可编辑传播稿，两者互相引用。
 
@@ -7,6 +7,9 @@
 - [窗光设计语言](../DESIGN-LANGUAGE.md)：参考、取舍和实现位置。
 - [深色玻璃与大时钟](../DARK-GLASS-DESIGN.md)：S15/S16当前电视首页设计、文案、字体与截图复现。
 - [当前验收边界](../ACCEPTANCE.md)：开发测试、真实客户端、真机分开。
+- [下一阶段系统框架](../SYSTEM-FRAMEWORK-ROADMAP.md)：P36–P38、架构参考、权限分层与 Open-MiTV 候选命名。
+- [开视 v14 电视画面适配](../TV-VIEWPORT.md)：P39正式中文名、安装布局反馈、低逻辑分辨率修正与两版预览。
+- [v15内嵌直播与影视](../EMBEDDED-CINEMA.md)：P40、TVBox兼容子集、原生目录/播放器、来源配置、协议与APK证据。
 - [家庭中枢篇分镜](../../media/HOME-HUB-STORY.md)：可用于小红书剪辑。
 
 本次是补录与新增记录并行。更早轮次的逐字提示、原始工具时间和未保留的探索画面不可从摘要还原；没有把事后补录伪装成完整实时记录。自本规范起，新阶段持续追加原文、过程和证据。
@@ -63,3 +66,9 @@ S42：[release交接说明](../ANDROID-RELEASE.md)、[现有双版APK与工具�
 S43：[P35开源测试原文](PROMPTS-001.md#p35--通过开源方式测试)、[Alpha下载说明](../DOWNLOADS.md)、[第二十九期底稿](../../media/DEVLOG-029.md)。按用户最新顺序，先公开测试，真机结果后补。
 
 S43公开结果：[公开仓库](https://github.com/xiaoerdata/aperture-tv-open)、[Alpha测试发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.10)、[匿名下载核对](../verification/public-alpha-v13.json)。APK/清单下载已验证，真机与WorkBuddy结果待补。
+
+S44：[系统框架研究与路线](../SYSTEM-FRAMEWORK-ROADMAP.md)、[定向文档检查](../verification/s44-framework-docs.json)、[第三十期底稿](../../media/DEVLOG-030.md)。Open-MiTV仍为候选；本轮没有改名、构建或发布。
+
+S46：[内嵌影院](../EMBEDDED-CINEMA.md)、[生产解析/HTTP检查](../verification/s46-embedded-cinema.json)、[v15包核对](../verification/s46-v15-candidates.json)、[第三十二期底稿](../../media/DEVLOG-032.md)。新原生UI和解码尚未设备运行，TVBox仅兼容所列子集，公开版本仍为v13。
+
+S47：[发布前验证矩阵](../verification/s47-acceptance-plan.json)、[浏览器汇总](../verification/s47-browser-summary.json)、[模拟器H264诊断](../verification/s47-emulator-h264-diagnosis.json)、[第三十三期底稿](../../media/DEVLOG-033.md)。保留失败原因与验证边界；发布结果在完成后续记。

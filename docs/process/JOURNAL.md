@@ -1,5 +1,7 @@
 # 阶段日志：为什么电视要成为家庭中枢
 
+最新阶段：[S44 系统框架方向、研究与候选命名](#s44--系统框架方向研究与候选命名)。
+
 本轮整理于2026-10-24。S01–S04包含前序已完成工作的补录，来源为现存源码、文档和上下文交接；不能当作原始逐分钟日志。S05起在当前执行阶段同步记录。提示词编号见PROMPTS-001。
 
 | 阶段 | 需求 | 选择与实际结果 | 可查看证据 |
@@ -542,3 +544,63 @@ Release v0.2.0-alpha.10已于2026-10-25 00:24:09（Asia/Shanghai）发布，prer
 保留失败：旧gh不支持--latest和release edit；两次大源码附件上传unexpected EOF，查询确认未落库；HTTP/1兼容尝试在读API时即EOF，未产生新附件。改为GitHub自带标签归档，并在仍为draft时更新元数据/校验和。旧CLI查草稿和部分API连接不稳定，改用现有gh认证的只针对本仓库的REST请求；未打印或持久化凭证，写请求不自动重试。草稿tag/target同时显式设置后核对四个附件服务器摘要，再公开。一次下载说明修正使用错工作目录，源码清单未同时更新；后续公开提交4ad2d7f修正并逐项核对，未重写已推送历史。
 
 匿名REST API后来返回403额度限制，因此最终用无Authorization的发布页、Git refs、raw指引与四个完整附件下载核对公开可用；不把受限API说成正常。先前Hub真实匿名取数为0 Star/MIT，18项既有定向测试及四个隔离浏览器页面通过；已查看手机/桌面图，本地目录/静态页接入公开仓库与Alpha下载，保留取数时间和缓存/空态。Hub并发工作均保留，未提交其其他改动或部署生产。后续小米真机、WorkBuddy、正式稳定签名与小红书上传仍分开记录。
+
+## S44 · 系统框架方向、研究与候选命名
+
+P36–P38按可见会话原文追加，不补造单条时间。P37明确下一阶段核心目标为能承担部分电视系统职责的框架；不是只改首页。新增SYSTEM-FRAMEWORK-ROADMAP，PRODUCT、DEVELOPMENT和README提供入口，首版设计标为历史起点，深色玻璃与遥控方向保留。
+
+查阅AOSP TV Input/CEC/特权权限、webOS OSE架构、Thunder架构与README、Plasma Bigscreen开发文档与README、LineageOS支持要求目录及设备安装资料。按Shell、共用能力、执行端、设备适配、家庭服务分层，区分原固件共存、条件性的系统扩展、远期固件研究，列F1–F4验收。未构建外部项目或完成移植，不把README阅读说成源码深度审阅。LineageOS官方Wiki直接访问403，补用项目GitHub支持要求与同项目GitHub Pages设备资料；未据此推断小米解锁能力。
+
+P38的Open-MiTV记为候选；Medianet官网公司沿革直接确认2016年已有Open MiTV服务。此前第三方目录线索经一手出处补证；GitHub精确名称搜索无结果不能证明独占，未作商标法律结论。未改仓库名、包名、签名、发布标签或Alpha附件。P37授权的长期目标另存专用记忆增补，避免下一轮退回单纯Launcher定位。
+
+第三十期只有文案与分镜底稿，没有新截图、视频或小红书上传。按文档变更做本地文件链接与提示词历史前缀检查，证据见[本轮检查](../verification/s44-framework-docs.json)；不构建APK、不做全量测试、不提交推送。小米与WorkBuddy现场验收仍由维护者进行。
+
+定向检查结果：8份文档的127个本地文件链接均存在，原P01–P35字节前缀保持一致，工作区修改仅涉及文档与媒体底稿。检查不覆盖标题锚点、外部网址或设备功能。
+
+
+## S45 · 开视正式中文名与电视安装布局反馈
+
+P39保留原文。用户提供真实电视照片，观察到相册按钮/轮播行重叠、底部裁切、原桌面副标题重复；未由照片推断型号或固件。原附件含个人拍摄信息，不复制至公开素材。浏览器空家庭960×540复现标准scrollHeight572、footerBottom563.77，爸妈591/582.72，证据为s45-before-layout.json与浏览器复现图，不冒充真机尺寸读取。
+
+将首页改为1920×1080电视画布按可用窗口统一缩放，留5%安全边距。主操作与轮播正常分行；分区/两版/菜单用同一尺度，焦点不滚动整个画布。保留手机流式预览、黑灰玻璃、原生功能及权限边界。正式中文名开视，更新可见界面、原生提示、安装指引与发布模板，保留包名、签名、偏好、协议路径和历史。新APK保留v13旧协议标签以兼容旧家庭服务，新服务接受新旧名并显示开视；不靠名称获得授权。
+
+定向验证：两版各8组窗口的安全区、截断、重叠、遥控返回、长菜单、四分区和离线页通过，已查看标准/爸妈/工具/设置及手机截图。既有首页浏览器9组检查通过。首次旧回归在resize事件前测量导致1280宽度断言失败，补等待两帧后通过，不是删除溢出断言。应用操作与加密NAS两组领域测试13项通过，包括新旧名称交接；其中保留生产Java接收端互通。
+
+一次免费本地双版debug构建通过，Gradle24秒、66任务（38执行/28复用），v14/alpha.11。工作区未提交，manifest明确dirty=true，不擅自提交获得clean标记，也不调用要求干净提交的候选发布门禁冒充通过。实际APK标签、包名、版本、三项权限、签名、摘要、10份内置资源和三方声明逐字核对。标准7,621,638字节/407f981c…34e0719，爸妈7,621,826字节/029558de…772b0eb；证书与v13相同。输入摘要b9077c75…925a4d5。两包另存artifacts/kaishi-v14，旧private-preview与公开Alpha不覆盖。
+
+[布局说明](../TV-VIEWPORT.md)、[窗口检查](../verification/s45-tv-viewport.json)、[APK检查](../verification/s45-v14-candidates.json)、[第三十一期底稿](../../media/DEVLOG-031.md)。没有新的小米真机/WorkBuddy客户端测试、正式稳定签发、远程推送或社媒上传；本轮提供本地可安装成果交维护者复测。
+
+S45收尾检查：18份本轮文档共181个本地文件链接存在，旧提示词字节前缀保留；最终Android输入与实际两版APK摘要再次核对一致，结果见verification/s45-documentation.json。未重复构建或扩大测试范围。
+
+
+## S46 · 内嵌直播、影视目录与原生播放
+
+P40原文已追加，要求直播和影视仓资源集成内嵌，参考TVBox。现有server/cinema已支持M3U/HLS、共享目录、Jellyfin，但原生首页优先外部应用不足以满足要求。新增CinemaCatalog/Http/Cipher/Vault/Activity五类，浏览、分类、搜索、选集、频道与MediaPlayer留在APK。标准版改内置优先，外部应用独立可选；爸妈三核心入口进入内置模块，NAS与家庭服务片库保留。原服务端Web影院未改作第三方站点代理，家庭账号与第三方来源不混用。
+
+研究失败与出处：GitHub/搜索连接器传输失败，FongMi/TV与部分旧路径404，匿名API403额度限制。改用公开raw及已认证只读树查询，实际读取takagen99/Box的ApiConfig、SourceViewModel及AGPL-3.0 LICENSE，记录摘要。只参考sites/type/api、JSON请求参数与播放结构，没有导入上游源码或二进制，不改标其许可。type0/3/4、spider、parses、特殊header与网页解析当前未支持，导入预览列出跳过项，不冒充完整TVBox引擎。
+
+来源从URL或系统content文件导入，512KB、12站点/12直播来源等上限，确认后规范化加密保存。HTTP需导入时明确允许；APK为此允许cleartext，但家庭/NAS原HTTPS规则不变。原生MediaPlayer后续重定向与HLS分片不受同一目录HTTP校验约束，未宣称全链路来源限制。没有新增权限、service或receiver，CinemaActivity不导出，HOME默认关闭。Agent来源配置能力仅规划，旧scope不扩大，不新增公开Skill或虚假MCP工具。
+
+自动检测在保存后及模块前台每15分钟运行，有整体25秒网络预算、最多12来源、轮换起点与未检查标记。检查首个直播频道样本，不以HTTP200或样本通过冒充全部可播放，不自动删源或切源。复核发现NAS密文记录限制不适合512KB来源配置，改用独立Cipher/AAD/密钥与限制，保留NAS基础；补大记录与篡改测试。分类根请求改为不强加ac，按查到的实际源码补测试。
+
+实际验证：生产Java解析/OkHttp/AES-GCM与隔离HTTP源36项断言通过，含配置规范化、M3U分组与HLS区分、多线路选集、分类/搜索/详情、HTTP授权、拒跳转、超限、HTML伪媒体与时限。两版Android35 API编译/原策略Harness和首页浏览器9组检查通过。没有执行新Activity、AndroidKeyStore或实际MediaPlayer，未拍新原生UI，未做小米或WorkBuddy客户端验收。首页菜单浏览器图不冒充播放器截图。
+
+一次免费本地双版构建，Gradle29秒、66任务（26执行/40复用），v15/alpha.12。两版显示名、原包名、递增版本、三项原有权限、签名和10份首页资源核对，7个新增/复用核心类型在DEX中存在。AAPT二进制Manifest确认CinemaActivity非导出、HOME禁用、无服务接收器与cleartext实际开启。标准7,653,538字节/fad12f4f…9886ea9，爸妈7,653,674字节/278e92d7…1372645；证书与v14/v13相同，输入b372109f…06e41ecf。本地工作区含未提交修改，manifest明确dirty=true。包另存artifacts/kaishi-v15，v14与公开v13保持冻结，没有提交推送或更新Release。
+
+[功能与边界](../EMBEDDED-CINEMA.md)、[研究出处](../verification/s46-tvbox-research.json)、[协议检查](../verification/s46-embedded-cinema.json)、[APK核对](../verification/s46-v15-candidates.json)、[二进制Manifest](../verification/s46-manifest.json)、[第三十二期底稿](../../media/DEVLOG-032.md)。实际可上手程度仍需维护者用自己的兼容配置、小米解码与小爱恢复验证。
+
+## S47 · 发布前完整软件回归（进行中）
+
+P41要求“请做好完整的测试，确保验证可用性，确认后就更新开源版本”，授权在软件验证通过后更新公开Alpha。小米真机和WorkBuddy客户端仍按P34由维护者验收，不从模拟器结果推导小米固件通过。
+
+完整Node回归首轮76项中74通过，两项NAS HTTP编译失败定位为测试harness漏列HouseholdCommandClient，补齐后完整重跑76/76通过；Python公开准备规则测试通过。19个浏览器脚本最终均通过，保留首轮失败。修正异步文件导入等待、旧指引/小爱标签选择器、按电视画布缩放归一化的控件测量，以及反复resize后的手机截图采集方式；功能、焦点、溢出和真实浏览器媒体解码断言保留。[浏览器汇总](../verification/s47-browser-summary.json)。批次执行前备份截图，已恢复被脚本覆盖的历史图片，新S47图独立保存。
+
+在专用API26 Android TV软件模拟器安装v15两版，新增独立签名instrumentation测试APK，只用于研发，不进入产品或Release附件。驱动通过实际可见View回调和KeyEvent检查入口、来源、MediaPlayer、AndroidKeyStore、音频焦点与返回。早期的MP4失败日志定位为测试驱动在Preparing时调用getDuration触发-38；修正驱动以实际prepared状态保护读取，保留失败证据，不把测试错误当产品bug。下一轮来源导入超时也保留为失败，不称通过，不放宽生产网络超时。
+
+审阅发现频道及跨页选集返回总聚焦首项：修正为每个当前列表持有游标，分页和播放下一项后返回到当前频道/集数；播放器错误时清除prepared标记，避免错误状态下继续执行seek/pause。递增至v16/alpha.13，免费本地两版候选构建通过，专用模拟器覆盖安装标准版成功；原生流程仍在验证。最终发布、双版实测与干净来源核对完成后在本节续记，不提前宣布通过。
+
+S47原生排查续记：v16覆盖后来源可解密、导入和MP4时钟推进通过，但SurfaceView彩色像素断言失败，黑屏不能算播放通过。logcat显示系统media.codec进程在libstagefright_soft_avcdec.so的ih264d_init_decoder+479发生SIGILL；从官方模拟器拉取库只用于本机反汇编，确认0xd2bf为SSE4.1的pinsrd，而/proc/cpuinfo仅列至SSSE3。为排除环境CPU模型与系统镜像不匹配，关闭专用5578/5049模拟器、备份其userdata加密磁盘，保留数据以android32,+sse4.1,+sse4.2重启。不改变产品网络预算、播放器或H264/AAC MP4和MPEGTS HLS样本，不拿WebM代替此检查。[诊断](../verification/s47-emulator-h264-diagnosis.json)。
+
+启用SSE4.1后，同一v16 APK和同一媒体已实际解码MP4、HLS与第13集，像素/时钟、真实AudioManager焦点打断、手动恢复、换台和跨页返回通过。第一次完整流程在最后“取消清除→返回片库”检查停下：截图仍在来源设置，配置未删除；没有将部分通过称为全版验收。测试驱动原先在弹窗关闭后立即发Back，现等待Activity窗口恢复焦点，并在该步骤通过真实D-pad下移、滚动到“返回”、按确认来恢复目录；保留原失败报告与截图，重新跑完整流程。其他播放、HTTP与焦点断言保持。
+
+S47软件门槛结果：标准版与爸妈版API26完整原生流程均通过；爸妈版额外验证看电视剧一级入口。两版均有升级后来源解密、实际MP4/HLS像素、音频打断、换台/选集返回和失效恢复证据。[总记录](../verification/s47-software-acceptance.json)、[标准版](../verification/s47-native-standard.json)、[爸妈版](../verification/s47-native-parents.json)。后续执行干净来源构建、源码新目录安装和公开下载回读，不以软件门槛代替发布门槛。

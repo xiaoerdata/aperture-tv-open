@@ -1,0 +1,24 @@
+{
+  "method": "public raw first-party source retrieval after connector transport errors",
+  "referenceRepository": "takagen99/Box",
+  "license": "AGPL-3.0",
+  "sourceCodeImported": false,
+  "verified": [
+    {
+      "url": "https://raw.githubusercontent.com/takagen99/Box/main/LICENSE",
+      "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+      "bytes": 34523
+    },
+    {
+      "url": "https://raw.githubusercontent.com/takagen99/Box/main/app/src/main/java/com/github/tvbox/osc/api/ApiConfig.java",
+      "sha256": "bb35cbf064cae4bce217620192386209f4545e178bcb401d641b1340d6b4c142",
+      "bytes": 42150
+    },
+    {
+      "url": "https://raw.githubusercontent.com/takagen99/Box/main/app/src/main/java/com/github/tvbox/osc/viewmodel/SourceViewModel.java",
+      "sha256": "844863585e1c3ad9a5825a055f4f6dd3f4fcf6208927aa139c8e5500b965277c",
+      "bytes": 62322
+    }
+  ],
+  "failedReferences": "FongMi/TV and old TVBox paths returned 404; anonymous API rate-limited; not treated as read sources."
+}

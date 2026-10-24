@@ -20,12 +20,12 @@ async function active(page){return page.evaluate(()=>document.activeElement.id||
 async function geometry(page,label){
  const result=await page.evaluate(()=>{
   const rows=[...document.querySelectorAll('button:not(:disabled),a[href]')].filter(n=>n.offsetWidth&&n.offsetHeight).map(n=>{const r=n.getBoundingClientRect(),c=getComputedStyle(n);return {id:n.id||n.dataset.action||n.textContent.trim(),width:r.width,height:r.height,font:parseFloat(c.fontSize)};});
-  return {overflow:document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight,width:innerWidth,height:innerHeight,scrollHeight:document.documentElement.scrollHeight,scrollWidth:document.documentElement.scrollWidth,rows};
+  return {overflow:document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight,width:innerWidth,height:innerHeight,scrollHeight:document.documentElement.scrollHeight,scrollWidth:document.documentElement.scrollWidth,canvasScale:document.querySelector('#lobby')&&innerWidth/innerHeight>4/3?Math.min(innerWidth/1920,innerHeight/1080):1,rows};
  });
  if(result.overflow) await page.screenshot({path:'artifacts/s31-overflow-'+label.replace(/[^a-z0-9]/g,'-')+'.png',fullPage:true});
  assert.equal(result.overflow,false,label+' viewport '+JSON.stringify({height:result.height,scrollHeight:result.scrollHeight,width:result.width,scrollWidth:result.scrollWidth}));
- for(const row of result.rows){assert.ok(row.height>=63,label+' small control '+JSON.stringify(row));assert.ok(row.width>=63,label+' narrow control '+JSON.stringify(row));}
- measurements.push({label,minimumControlHeight:Math.min(...result.rows.map(n=>n.height)),minimumControlWidth:Math.min(...result.rows.map(n=>n.width))});
+ for(const row of result.rows){assert.ok(row.height/result.canvasScale>=63,label+' small control '+JSON.stringify(row));assert.ok(row.width/result.canvasScale>=63,label+' narrow control '+JSON.stringify(row));}
+ measurements.push({label,canvasScale:result.canvasScale,normalizedTo1920x1080Canvas:true,minimumControlHeight:Math.min(...result.rows.map(n=>n.height)),minimumControlWidth:Math.min(...result.rows.map(n=>n.width))});
 }
 try{
  const page=await browser.newPage({viewport:{width:1920,height:1080}});page.on('pageerror',e=>errors.push(e.message));

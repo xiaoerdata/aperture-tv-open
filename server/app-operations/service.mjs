@@ -20,7 +20,7 @@ export function createAppOperations({store,now=Date.now}) {
   if(r.writer&&!terminal.has(r.state)){const s=store.read().sessions[r.writer];if(!s||s.expiresAt<=now()||(s.role!=='owner'&&!(s.role==='controller'&&s.scopes?.includes('apps.'+r.kind)))){r.state=r.state==='awaiting_system'?'unknown':'cancelled';delete r.command;fail('Agent操作授权已撤销',403,'operation_revoked');}}
  }
  function device(actor,r,secret){session(actor);if(r.actor!==actor.id||!equal(r.secretHash,hash(typeof secret==='string'?secret:'')))fail('不是当前电视窗口',403,'device_mismatch');alive(r);}
- const meta=r=>({id:r.id,kind:r.kind,label:r.label,fingerprint:r.secretHash,targets:structuredClone(r.targets),state:r.state,revision:r.revision,expiresAt:r.expiresAt});
+ const meta=r=>({id:r.id,kind:r.kind,label:r.label.replace(/^开窗/,'开视'),fingerprint:r.secretHash,targets:structuredClone(r.targets),state:r.state,revision:r.revision,expiresAt:r.expiresAt});
  const receipt=r=>({id:r.id,kind:r.kind,state:r.state,revision:r.revision,outcome:r.state==='succeeded'?'reported_by_tv':r.state==='awaiting_system'?'awaiting_system_confirmation':r.state,expiresAt:r.expiresAt});
  function command(r,value){
   if(r.kind==='install'){
@@ -31,7 +31,7 @@ export function createAppOperations({store,now=Date.now}) {
  return {
   start(actor,input){
    const s=session(actor);if(!['owner','viewer'].includes(s.role))fail('请在电视发起操作授权',403,'forbidden');
-   if(!fields(input,'id,secretHash,label,kind,targets')||!uuid.test(input.id||'')||!sha.test(input.secretHash||'')||!['install','uninstall'].includes(input.kind)||!['开窗 · 标准版','开窗 · 爸妈版'].includes(input.label)||!Array.isArray(input.targets)||input.targets.length>100)fail('电视授权格式无效');
+   if(!fields(input,'id,secretHash,label,kind,targets')||!uuid.test(input.id||'')||!sha.test(input.secretHash||'')||!['install','uninstall'].includes(input.kind)||!['开窗 · 标准版','开窗 · 爸妈版','开视 · 标准版','开视 · 爸妈版'].includes(input.label)||!Array.isArray(input.targets)||input.targets.length>100)fail('电视授权格式无效');
    const seen=new Set();for(const t of input.targets){if(!fields(t,'id,name')||!(input.kind==='install'?uuid:pkg).test(t.id||'')||seen.has(t.id)||typeof t.name!=='string'||t.name.length<1||t.name.length>100||/[\p{Cc}]/u.test(t.name)||['org.zhixiaoce.aperture','org.zhixiaoce.aperture.parents'].includes(t.id))fail('授权目标无效');seen.add(t.id);}
    prune();const old=windows.get(input.id);if(old){if(old.actor!==actor.id||old.secretHash!==input.secretHash||old.kind!==input.kind||JSON.stringify(old.targets)!==JSON.stringify(input.targets))fail('授权窗口标识冲突',409,'window_conflict');return meta(old);}
    if(windows.size>=64)fail('操作窗口已满',429,'quota');

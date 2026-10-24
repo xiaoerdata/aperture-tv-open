@@ -1,0 +1,40 @@
+{
+  "kind": "local-debug-working-tree-preview",
+  "editions": [
+    {
+      "edition": "standard",
+      "label": "开视",
+      "versionCode": 14,
+      "applicationId": "org.zhixiaoce.aperture",
+      "apkBytes": 7621638,
+      "sha256": "407f981c9cfeb885c4825f6872a619e4bae1c5365e53fcc6abe36b38934e0719",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "sameSigningCertificateAsV13": true,
+      "packagedLauncherFilesMatch": 10,
+      "packagedNoticesMatch": true,
+      "androidSourceSha256": "b9077c75fc9dfe35e294752c4ef3b18b3777c7b6083e09d8e6b14b513925a4d5",
+      "workingTreeDirty": true,
+      "deviceInstalled": false,
+      "xiaomiRetested": false,
+      "published": false
+    },
+    {
+      "edition": "parents",
+      "label": "开视·爸妈版",
+      "versionCode": 14,
+      "applicationId": "org.zhixiaoce.aperture.parents",
+      "apkBytes": 7621826,
+      "sha256": "029558de466b5ed9af8ea79e6d03dc2d0fbd0b44153e842c01ac6445f772b0eb",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "sameSigningCertificateAsV13": true,
+      "packagedLauncherFilesMatch": 10,
+      "packagedNoticesMatch": true,
+      "androidSourceSha256": "b9077c75fc9dfe35e294752c4ef3b18b3777c7b6083e09d8e6b14b513925a4d5",
+      "workingTreeDirty": true,
+      "deviceInstalled": false,
+      "xiaomiRetested": false,
+      "published": false
+    }
+  ],
+  "scope": "AAPT display name/version/permissions, apksigner output, actual APK hashes and packaged input bytes. Does not claim a clean source commit or actual on-device upgrade."
+}

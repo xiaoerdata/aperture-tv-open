@@ -124,3 +124,7 @@ S19按P23增加四个常用应用小快捷与所有应用；首页专项补充�
 ## S28：手机/Agent加密交接NAS配置
 
 生产WebCrypto→Java RSA-OAEP/AES-GCM互通，真实Java HTTP客户端、本地600权限加密CLI、真实stdio MCP交付和回执、隔离SMB3.1.1目录测试后JVM模型/GCM保存均有专项证据。未执行Android Activity/CookieManager/Keystore或电视/NAS硬件。手机浏览器检查登录续接、校验码、六种宽度、输入保持、响应丢失后查原回执而不重发；saved画面由明确合成的接收回执驱动，不能作为Android保存证据。具体数量以本期报告/JOURNAL为准，不把历史测试累加成完整回归。
+
+## S47 · 开视v16软件验证（2026-10-25）
+
+此前章节为历史记录。本轮76项Node完整回归、3项公开准备规则测试、19个浏览器验证脚本，以及标准/爸妈两版API26模拟器完整原生影院流程通过。[证据与边界](verification/s47-software-acceptance.json)。首次失败与修正留在开发日志；真机、小爱唤醒、米家与WorkBuddy仍由维护者验收，未宣称稳定ROM、全部TVBox兼容或硬件通过。

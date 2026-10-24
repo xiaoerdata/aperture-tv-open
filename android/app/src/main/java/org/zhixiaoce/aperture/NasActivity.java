@@ -105,7 +105,7 @@ public final class NasActivity extends Activity {
             content.addView(label("本机连接记录无法解密，请重新添加。",20,INK));
             button("清除无法读取的记录",()->new AlertDialog.Builder(this).setMessage("清除本机 NAS 连接记录？不会修改 NAS 文件。").setPositiveButton("清除",(d,w)->{vault.reset();connections();}).setNegativeButton("返回",null).show());
         }
-        button("返回开窗",this::finish);
+        button("返回开视",this::finish);
     }
     private void choose(JSONObject item) {
         new AlertDialog.Builder(this).setTitle(item.optString("name")).setItems(new String[]{"浏览这个文件夹","忘记本机连接"},(d,w)->{
@@ -123,7 +123,7 @@ public final class NasActivity extends Activity {
             filter = "photos".equals(category) ? "photo" : "video"; connect(false);
         } catch (Exception unavailable) {
             invalidate(); release(); disconnect(); mode="error";
-            screen("这个片库还没准备好", "请家人检查NAS连接或重新选择首页片库。不会自动打开另一个NAS目录。"); button("返回开窗",this::finish);
+            screen("这个片库还没准备好", "请家人检查NAS连接或重新选择首页片库。不会自动打开另一个NAS目录。"); button("返回开视",this::finish);
         }
     }
     private void exitLibrary() { if (category.isEmpty()) connections(); else finish(); }
@@ -172,7 +172,7 @@ public final class NasActivity extends Activity {
                 main.post(()->{if(destroyed||generation!=turn){closeLater(connected);return;}busy=false;
                     try{if(save)connection=vault.add(config);reader=connected;entries=found;listing();}catch(Exception error){closeLater(connected);message("未保存连接","本机加密记录不可用或已满，请返回后重试。");exitLibrary();}
                 });
-            }catch(Exception error){quietClose(next);String reason=error instanceof IOException?error.getMessage():"NAS 地址或服务不可读取";main.post(()->{if(destroyed||generation!=turn)return;busy=false;mode="error";screen("暂时连不上",reason);button("重试",()->connect(save));button(category.isEmpty()?"返回连接列表":"返回开窗",this::exitLibrary);});}
+            }catch(Exception error){quietClose(next);String reason=error instanceof IOException?error.getMessage():"NAS 地址或服务不可读取";main.post(()->{if(destroyed||generation!=turn)return;busy=false;mode="error";screen("暂时连不上",reason);button("重试",()->connect(save));button(category.isEmpty()?"返回连接列表":"返回开视",this::exitLibrary);});}
             finally{Arrays.fill(password,'\0');}
         });
     }
@@ -187,7 +187,7 @@ public final class NasActivity extends Activity {
         View restore=null,first=null;
         for(int i=page*20;i<Math.min(visible.size(),page*20+20);i++){NasReader.Entry item=visible.get(i);String type=item.directory?"文件夹":NasLocation.kind(item.name).equals("photo")?"照片":NasLocation.kind(item.name).equals("video")?"影片":InstallCache.apkName(item.name)?"安装包":"文件";Button file=button(type+"  ·  "+item.name,()->{focusedPath=item.path;navigation.save(folder,page,focusedPath);if(item.directory)load(item.path);else if(type.equals("照片"))photo(item);else if(type.equals("影片"))video(item);else if(type.equals("安装包"))installer.fromNas(reader,item);else message("暂不打开此格式","当前只读照片和视频，不执行文件中的程序或配置。");});if(first==null)first=file;if(item.path.equals(focusedPath))restore=file;}
         if(page>0)button("上一页",()->{page--;listing();});if(page+1<pages)button("下一页",()->{page++;listing();});
-        button(navigation.parent(folder)==null?(category.isEmpty()?"返回连接列表":"返回开窗"):"返回上一级",()->{String parent=navigation.parent(folder);if(parent==null)exitLibrary();else load(parent);});button("重新连接 / 检测",()->connect(false));
+        button(navigation.parent(folder)==null?(category.isEmpty()?"返回连接列表":"返回开视"):"返回上一级",()->{String parent=navigation.parent(folder);if(parent==null)exitLibrary();else load(parent);});button("重新连接 / 检测",()->connect(false));
         if(category.isEmpty())button("家人设置 · 将当前目录用于首页入口",this::assignHome);
         if(restore!=null)restore.requestFocus();else if(first!=null)first.requestFocus();
     }

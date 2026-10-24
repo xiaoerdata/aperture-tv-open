@@ -6,7 +6,7 @@ const chapters=[
   {scene:'daylight',kicker:'01 / 想说的话，不必等到见面',title:'手机留一句话。\n客厅，多一点牵挂。',subtitle:'家人编辑，电视展示。内容只留在自己的家。',caption:'一张便签，就是一件小小的在意'},
   {scene:'gallery',kicker:'02 / 让好时光，回到眼前',title:'相册不该只在\n手机里睡着。',subtitle:'上传照片，用遥控器慢慢看。',caption:'记忆展厅 · 每个家都有自己的收藏'},
   {scene:'landscape',kicker:'03 / 把日常，慢慢堆成山',title:'一起做的小事，\n也有自己的风景。',subtitle:'目标完成的比例，长成三座小小的岛。',caption:'示例数据 · 山体高度对应目标进度'},
-  {scene:'daylight',kicker:'智小策 · 首个拟开源项目',title:'给生活，\n开一扇窗。',subtitle:'场景源码、内容服务和电视外壳，准备一起开放。',caption:'开窗 Aperture TV · 开发预览'}
+  {scene:'daylight',kicker:'智小策 · 首个拟开源项目',title:'给生活，\n开一扇窗。',subtitle:'场景源码、内容服务和电视外壳，准备一起开放。',caption:'开视 Aperture TV · 开发预览'}
 ];
 const $=s=>document.querySelector(s);
 function render(time){

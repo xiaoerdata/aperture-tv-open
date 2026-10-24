@@ -1,5 +1,7 @@
 # 二次开发指南
 
+下一阶段按 [系统框架路线图](SYSTEM-FRAMEWORK-ROADMAP.md) 演进：Shell、共用能力、电视执行端、设备适配与家庭服务分层，UI 与 Agent 复用领域能力。路线图中的新契约和系统扩展是规划，不是当前 API。
+
 ## 边界与依赖
 
 入口 `server/main.mjs` 只读取配置/口令并启动，`server/app.mjs` 装配可替换依赖。领域状态在 `shared/model.mjs`，业务写入在 `server/service.mjs`；HTTP只负责协议。电视和手机使用同一真实家庭数据，不各自维护业务副本。测试创建独立临时目录，不连接生产Hub数据库。
@@ -64,6 +66,10 @@ Node22运行源文件，无前端构建。`server/image.py` 需要Python/Pillow�
 HTTP适配器禁止直接 `photo.add`，只能经过图像处理入口。领域服务依赖的照片asset必须是可信处理器结果；未来增加其他协议不能绕过这个前置条件。
 
 ## 验证与素材再生成
+
+完整Node回归还会编译、运行原生Java协议/策略测试，需要JDK17、Android SDK的platforms;android-35/build-tools;35.0.0和Gradle8.9。先按[免费本地Android环境](ANDROID-LOCAL.md)准备，再设置实际的JAVA_HOME、ANDROID_HOME、GRADLE_BIN及私有APERTURE_ANDROID_RUNTIME；不要依赖测试工具里的本机/tmp回退路径。本轮验证命令为 `node --test --test-concurrency=2 tests/*.test.mjs`，76项通过。真实SMB测试另需按[NAS测试说明](NAS.md)准备隔离Samba及Python运行时；缺少时会明确skip，不能把skip当作SMB通过。
+
+浏览器验证另需实际Chromium与Playwright；原生媒体运行另使用[影院模块说明](EMBEDDED-CINEMA.md)中的模拟器/独立instrumentation测试驱动。测试APK不属于产品。手动GitHub工作流不是默认验收途径，本轮使用免费本地验证，没有执行托管CI。
 
 ```bash
 npm test

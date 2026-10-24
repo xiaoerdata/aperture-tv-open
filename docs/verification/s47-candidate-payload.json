@@ -1,0 +1,38 @@
+[
+  {
+    "edition": "standard",
+    "sha256": "b14ddd458fd38bc77d8e2c5446dcdbcde938640d0e0b90cc53a6a18d8ca7fdd4",
+    "bytes": 7654358,
+    "sameCertificateAndPackage": true,
+    "versionCode": 16,
+    "sourceSha256": "5936d5beb4a8ab6034da199f90590e1f127deae23cb3e3242d55e60e0ae6a6ec",
+    "cinemaTypesInDex": [
+      "CinemaActivity",
+      "CinemaCatalog",
+      "CinemaHttp",
+      "CinemaCipher",
+      "CinemaVault"
+    ],
+    "launcherAssetsMatch": 10,
+    "testDriverPackaged": false,
+    "workingTreeDirty": true
+  },
+  {
+    "edition": "parents",
+    "sha256": "029c6bb541c91e56244a60e14582a6ab61f134c86a47fea0e22e5a5ca2d82cfc",
+    "bytes": 7654510,
+    "sameCertificateAndPackage": true,
+    "versionCode": 16,
+    "sourceSha256": "5936d5beb4a8ab6034da199f90590e1f127deae23cb3e3242d55e60e0ae6a6ec",
+    "cinemaTypesInDex": [
+      "CinemaActivity",
+      "CinemaCatalog",
+      "CinemaHttp",
+      "CinemaCipher",
+      "CinemaVault"
+    ],
+    "launcherAssetsMatch": 10,
+    "testDriverPackaged": false,
+    "workingTreeDirty": true
+  }
+]

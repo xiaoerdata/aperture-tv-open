@@ -1,0 +1,38 @@
+{
+  "kind": "local-debug-working-tree-preview",
+  "editions": [
+    {
+      "edition": "standard",
+      "versionCode": 15,
+      "applicationId": "org.zhixiaoce.aperture",
+      "apkBytes": 7653538,
+      "sha256": "fad12f4f287ae0aa11df943d4d9cb67838182ec32a50a2fd7c3dcc2e09886ea9",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "sameSignatureAsV14": true,
+      "packagedLauncherFilesMatch": 10,
+      "embeddedCinemaClassesPresent": true,
+      "androidSourceSha256": "b372109ff608eb2b288317197478c6255d2449d55abc268c77013dea06e41ecf",
+      "workingTreeDirty": true,
+      "deviceInstalled": false,
+      "xiaomiTested": false,
+      "published": false
+    },
+    {
+      "edition": "parents",
+      "versionCode": 15,
+      "applicationId": "org.zhixiaoce.aperture.parents",
+      "apkBytes": 7653674,
+      "sha256": "278e92d7c4871c629eb583838cd453030a85b7cc86fb85b150cde96c21372645",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "sameSignatureAsV14": true,
+      "packagedLauncherFilesMatch": 10,
+      "embeddedCinemaClassesPresent": true,
+      "androidSourceSha256": "b372109ff608eb2b288317197478c6255d2449d55abc268c77013dea06e41ecf",
+      "workingTreeDirty": true,
+      "deviceInstalled": false,
+      "xiaomiTested": false,
+      "published": false
+    }
+  ],
+  "scope": "Actual APK signatures, hashes, display name, version/permissions, bundled launcher files and embedded native types. No hardware playback or clean-commit claim."
+}

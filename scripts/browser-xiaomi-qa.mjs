@@ -19,10 +19,10 @@ try{
   const [file,mime]=result.stdout.split('\n');resources.push({url,allowed:true,file,mime});await route.fulfill({status:200,contentType:mime,body:await readFile(resolve('public/launcher',file))});
  });
  await page.goto(base+'/assets/index.html');await page.evaluate(()=>document.fonts.ready);
- assert.match(await page.locator('#environment').textContent(),/电视本机入口/);
+ assert.equal(await page.locator('#environment').textContent(),'');assert.match(await page.title(),/开视/);
  assert.equal(await page.evaluate(()=>document.fonts.check('92px "Aperture Clock"','0123456789:')&&document.fonts.check('32px "Aperture Song"','年月日星期')),true);
- assert.ok(resources.some(r=>r.file==='alpine-dusk.png'));assert.ok(resources.some(r=>r.file==='fonts/clock-reader.woff2'));assert.equal(resources.some(r=>r.url.includes('/api/')),false);
- checks.push('actual Java whitelist serves offline HTML/CSS/JS/PNG/WOFF2 from local HTTPS; fonts load with no household API request');
+ assert.ok(resources.some(r=>r.file==='carezza-4k.jpg'));assert.ok(resources.some(r=>r.file==='fonts/clock-reader.woff2'));assert.equal(resources.some(r=>r.url.includes('/api/')),false);
+ checks.push('actual Java whitelist serves offline HTML/CSS/JS/JPEG/WOFF2 from local HTTPS; fonts load with no household API request');
  const focused=await page.evaluate(()=>document.activeElement.id);
  for(const name of ['VoiceAssist','Assist','Search','AudioVolumeUp','AudioVolumeDown'])assert.equal(await page.evaluate(n=>window.apertureRemoteKey(n),name),false);
  assert.equal(await page.evaluate(()=>document.activeElement.id),focused);
@@ -31,9 +31,9 @@ try{
  const url=page.url(),focus=await page.evaluate(()=>document.activeElement.id);await page.evaluate(()=>window.apertureNativeFocus(false));
  assert.equal(await page.locator('#slide-play').getAttribute('aria-pressed'),'false');await page.evaluate(()=>window.apertureNativeFocus(true));assert.equal(await page.locator('#slide-play').getAttribute('aria-pressed'),'false');assert.equal(page.url(),url);assert.equal(await page.evaluate(()=>document.activeElement.id),focus);
  checks.push('native focus contract pauses carousel without navigation/reload/focus loss and does not restart automatically');
- await page.locator('#entry-tools').click();await page.getByRole('button',{name:/小爱同学与语音/}).click();
+ await page.locator('#entry-tools').click();await page.getByRole('button',{name:'小爱同学',exact:true}).click();
  assert.match(await page.locator('#pane-title').textContent(),/小爱/);assert.equal(await page.locator('[data-action=open-assistant]').count(),1);assert.equal(await page.locator('[data-action=voice-help]').count(),1);assert.equal(await page.locator('[data-action=voice-settings]').count(),1);
- await mkdir('docs/images',{recursive:true});await page.screenshot({path:'docs/images/s18-xiaomi-voice-browser-1920.png'});
+ await mkdir('docs/images',{recursive:true});await page.screenshot({path:'docs/images/s47-xiaomi-voice-browser-1920.png'});
  await page.evaluate(()=>window.apertureBack());assert.equal(await page.locator('#collection-view').isVisible(),true);
  checks.push('voice guidance opens from tools and returns to current section; wake state explicitly depends on firmware');
  for(const path of ['/api/board','/assets/fonts/Newsreader-OFL.txt','/assets/missing.js'])assert.equal(await page.evaluate(async p=>(await fetch(p)).status,path),403);

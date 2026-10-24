@@ -3,11 +3,11 @@ import assert from 'node:assert/strict';
 import {randomUUID,createHash} from 'node:crypto';
 import {createAppOperations} from '../server/app-operations/service.mjs';
 const hash=s=>createHash('sha256').update(s).digest('hex');
-function fixture(){
+function fixture(label='开窗 · 标准版'){
  let now=100000;const sessions={tv:{role:'viewer',expiresAt:999999},tv2:{role:'viewer',expiresAt:999999},agent:{role:'controller',scopes:['home.read','apps.install','apps.uninstall'],expiresAt:999999},read:{role:'controller',scopes:['home.read'],expiresAt:999999},owner:{role:'owner',expiresAt:999999}};
  const actors=Object.fromEntries(Object.entries(sessions).map(([id,s])=>[id,{id,role:s.role}]));const service=createAppOperations({store:{read:()=>({sessions})},now:()=>now});
  const connectionId=randomUUID();
- function window(kind='install',actor=actors.tv){const secret='test-tv-secret-'+randomUUID();const hello={id:randomUUID(),secretHash:hash(secret),label:'开窗 · 标准版',kind,targets:[{id:kind==='install'?connectionId:'org.example.player',name:'测试目标'}]};return {hello,identity:{id:hello.id,secret},request:service.start(actor,hello)};}
+ function window(kind='install',actor=actors.tv){const secret='test-tv-secret-'+randomUUID();const hello={id:randomUUID(),secretHash:hash(secret),label,kind,targets:[{id:kind==='install'?connectionId:'org.example.player',name:'测试目标'}]};return {hello,identity:{id:hello.id,secret},request:service.start(actor,hello)};}
  const command={connectionId,path:'Apps/电视.APK',sha256:'a'.repeat(64),packageName:'org.example.player'};
  return {sessions,actors,service,window,command,advance:ms=>now+=ms};
 }
@@ -62,4 +62,13 @@ test('a new TV window cannot report an already handed-off operation cancelled; r
 test('bounded windows reject overflow without changing the latest active grant',()=>{
  const f=fixture();let last;for(let i=0;i<64;i++)last=f.window();assert.throws(()=>f.window(),e=>e.code==='quota');
  assert.equal(f.service.poll(f.actors.tv,last.identity).state,'waiting');f.advance(600001);assert.equal(f.window().request.state,'waiting');
+});
+
+test('renamed and legacy television editions keep the same application operation contract',()=>{
+ for(const label of ['开窗 · 标准版','开窗 · 爸妈版','开视 · 标准版','开视 · 爸妈版']){
+  const f=fixture(label),w=f.window();
+  assert.equal(w.request.label,label.replace(/^开窗/,'开视'));
+  assert.equal(send(f,w).state,'delivered');
+  assert.equal(f.service.poll(f.actors.tv,w.identity).command.packageName,'org.example.player');
+ }
 });

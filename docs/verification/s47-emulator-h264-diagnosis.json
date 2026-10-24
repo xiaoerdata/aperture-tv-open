@@ -1,0 +1,24 @@
+{
+  "environment": "Android TV API26 x86 under TCG without KVM",
+  "result": "Native playback clock advanced but SurfaceView pixel test failed; keep release gate closed",
+  "systemCrash": "media.codec SIGILL in libstagefright_soft_avcdec.so at ih264d_init_decoder+479, PC offset 0xd2bf",
+  "instructionAtCrash": "66 0f 3a 22 8b 94 fe ff ff 01: pinsrd $0x1,-0x16c(%ebx),%xmm1 (SSE4.1)",
+  "advertisedCpuFlags": "sse sse2 pni ssse3; no sse4_1",
+  "diagnosis": "System image software H264 decoder executes SSE4.1 absent from default android32 CPU model",
+  "fixScope": "Restart only dedicated emulator with android32,+sse4.1,+sse4.2; preserve existing AVD userdata and APK configurations. No product decoder or media fixture substitution.",
+  "hardwareInference": false,
+  "logsRetainedLocally": [
+    "artifacts/s47-v16-standard-run1-logcat.txt",
+    "artifacts/s47-emulator-cpuinfo.txt",
+    "artifacts/s47-instrument-v16-standard-run1.log"
+  ],
+  "environmentFixVerified": {
+    "cpuFlagsAfterRestart": [
+      "sse4_1",
+      "sse4_2"
+    ],
+    "sameProductApk": true,
+    "sameH264AacMp4AndMpegtsHlsFixture": true,
+    "mp4AndHlsPixelAssertions": "passed in ongoing v16 standard run; complete edition flow still pending"
+  }
+}

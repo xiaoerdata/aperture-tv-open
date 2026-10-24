@@ -46,12 +46,13 @@ public final class AppAgentActivity extends Activity {
         ScrollView scroll=new ScrollView(this);scroll.addView(layout);setContentView(scroll);
         installer=new ApkInstaller(this,()->new DestinationApps(this,getSharedPreferences("aperture",MODE_PRIVATE),slot->{}).shortcuts());
         try{
-            JSONArray offered=offered();if(offered.length()==0){status.setText(kind.equals("install")?"请先在开窗连接一个NAS，用它存放APK。":"没有可供此次卸载的非系统电视应用。");return;}
+            JSONArray offered=offered();if(offered.length()==0){status.setText(kind.equals("install")?"请先在开视连接一个NAS，用它存放APK。":"没有可供此次卸载的非系统电视应用。");return;}
             String origin=getSharedPreferences("aperture",MODE_PRIVATE).getString("origin","");
             client=new HouseholdCommandClient(origin,origin.isEmpty()?"":CookieManager.getInstance().getCookie(origin),BuildConfig.DEBUG);
             hash=digest(secret);label(layout,"校验码  "+hash.substring(0,4)+" "+hash.substring(4,8)+" "+hash.substring(8,12),28);
+            // Keep the v13 wire label so renamed APKs still work with older household servers.
             JSONObject hello=new JSONObject().put("id",id).put("secretHash",hash).put("kind",kind).put("label",BuildConfig.PARENTS_EDITION?"开窗 · 爸妈版":"开窗 · 标准版").put("targets",offered);
-            io.execute(()->{try{JSONObject response=client.call("app-operations","start",hello);if(!id.equals(response.getString("id"))||!hash.equals(response.getString("fingerprint")))throw new IOException();expiresAt=response.getLong("expiresAt");main.post(()->{if(closed)return;started=true;status.setText("等待已授权的WorkBuddy提交操作。\n"+(kind.equals("install")?"安装范围：本次列出的NAS连接，包名和SHA-256必须一致。":"卸载范围：本次列出的非系统应用，不含开窗与原生系统组件。"));schedule();});}catch(Exception failure){main.post(()->failure("无法开启操作窗口，请检查家庭HTTPS连接和电视配对。"));}});
+            io.execute(()->{try{JSONObject response=client.call("app-operations","start",hello);if(!id.equals(response.getString("id"))||!hash.equals(response.getString("fingerprint")))throw new IOException();expiresAt=response.getLong("expiresAt");main.post(()->{if(closed)return;started=true;status.setText("等待已授权的WorkBuddy提交操作。\n"+(kind.equals("install")?"安装范围：本次列出的NAS连接，包名和SHA-256必须一致。":"卸载范围：本次列出的非系统应用，不含开视与原生系统组件。"));schedule();});}catch(Exception failure){main.post(()->failure("无法开启操作窗口，请检查家庭HTTPS连接和电视配对。"));}});
         }catch(Exception failure){status.setText("请先连接并配对可信HTTPS家庭服务，再开启WorkBuddy操作。");}
     }
     private TextView label(LinearLayout parent,String text,int size){TextView view=new TextView(this);view.setText(text);view.setTextColor(Color.WHITE);view.setTextSize(size);view.setPadding(0,12,0,16);parent.addView(view);return view;}

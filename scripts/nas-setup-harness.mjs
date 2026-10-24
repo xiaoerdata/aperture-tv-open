@@ -9,7 +9,7 @@ export async function nasSetupHarness(){
   const cp=await nasTestJson()+':'+libraries,source=resolve('android/app/src/main/java/org/zhixiaoce/aperture');
   let child,lines;
   try{
-    await promisify(execFile)(join(jdk,'bin/javac'),['-cp',cp,'-d',directory,...['NasSetupCrypto','NasSetupClient','NasSetupImport','NasDraft','NasLocation','NasLibrary','NasCipher','NasReader','NasSocketFactory','SmbNasReader','DavNasReader','LobbyAssets'].map(n=>join(source,n+'.java')),resolve('tests/java/NasSetupHarness.java')]);
+    await promisify(execFile)(join(jdk,'bin/javac'),['-cp',cp,'-d',directory,...['HouseholdCommandClient','NasSetupCrypto','NasSetupClient','NasSetupImport','NasDraft','NasLocation','NasLibrary','NasCipher','NasReader','NasSocketFactory','SmbNasReader','DavNasReader','LobbyAssets'].map(n=>join(source,n+'.java')),resolve('tests/java/NasSetupHarness.java')]);
     child=spawn(join(jdk,'bin/java'),['-cp',directory+':'+cp,'org.zhixiaoce.aperture.NasSetupHarness'],{stdio:['pipe','pipe','pipe']});child.stderr.resume();
     lines=createInterface({input:child.stdout})[Symbol.asyncIterator]();
     async function read(){const line=await lines.next();if(line.done)throw new Error('Synthetic setup receiver stopped');return JSON.parse(line.value);}

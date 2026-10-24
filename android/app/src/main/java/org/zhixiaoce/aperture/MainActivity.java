@@ -145,6 +145,7 @@ public class MainActivity extends Activity {
         web.loadUrl(uri.build().toString());
     }
     private void action(String path) {
+        if ("/cinema-settings".equals(path)) { cinema("settings"); return; }
         if ("/nas".equals(path) || "/nas-photos".equals(path)) {
             Intent intent=new Intent(this,NasActivity.class).putExtra("filter","/nas-photos".equals(path)?"photo":"all");
             if("/nas-photos".equals(path)){try{if(new NasVault(this).library().route("photos")!=null)intent.putExtra("category","photos");}catch(Exception unavailable){nasUnavailable();return;}}
@@ -163,7 +164,8 @@ public class MainActivity extends Activity {
         if ("/family-series".equals(path)) { family("series"); return; }
         if ("/family-movies".equals(path)) { family("movies"); return; }
         if ("/family-library".equals(path)) { family("library"); return; }
-        if ("/open-live".equals(path)) destinations.launch("live"); else if ("/open-cinema".equals(path)) destinations.launch("cinema"); else if ("/open-system".equals(path)) destinations.launch("system");
+        if ("/open-live".equals(path)) cinema("live"); else if ("/open-cinema".equals(path)) cinema("library");
+        else if ("/external-live".equals(path)) destinations.launch("live"); else if ("/external-cinema".equals(path)) destinations.launch("cinema"); else if ("/open-system".equals(path)) destinations.launch("system");
         else if ("/choose-live".equals(path)) destinations.pick("live", false); else if ("/choose-cinema".equals(path)) destinations.pick("cinema", false); else if ("/choose-system".equals(path)) destinations.pick("system", false);
         else if ("/home-settings".equals(path)) destinations.settings(true); else if ("/configure".equals(path)) setup(); else if ("/apps".equals(path)) destinations.all();
     }
@@ -176,27 +178,17 @@ public class MainActivity extends Activity {
             intent.setClassName(resolved.activityInfo.packageName, resolved.activityInfo.name); startActivity(intent);
         }
         catch (RuntimeException unavailable) {
-            new AlertDialog.Builder(this).setTitle("小米账号在原系统管理").setMessage("请切回原来的桌面，在系统设置里查看或登录小米账号。米家设备需要在自己的 Home Assistant 中另行授权，开窗不读取电视账号凭证。")
+            new AlertDialog.Builder(this).setTitle("小米账号在原系统管理").setMessage("请切回原来的桌面，在系统设置里查看或登录小米账号。米家设备需要在自己的 Home Assistant 中另行授权，开视不读取电视账号凭证。")
                 .setPositiveButton("回原桌面", (dialog, which) -> destinations.launch("system")).setNegativeButton("返回", null).show();
         }
     }
     private void family(String view) {
-        if ("movies".equals(view) || "series".equals(view)) {
-            try { if (new NasVault(this).library().route(view) != null) { startActivity(new Intent(this,NasActivity.class).putExtra("category",view)); return; } }
-            catch (Exception unavailable) { nasUnavailable(); return; }
-        }
-        if("library".equals(view)){
-            try{
-                NasLibrary library=new NasVault(this).library();java.util.List<String> labels=new java.util.ArrayList<>(),roles=new java.util.ArrayList<>();
-                for(String role:new String[]{"movies","series"}){NasLibrary.Route route=library.route(role);if(route!=null){labels.add(NasLibrary.title(role)+" · NAS · "+route.connection.optString("name"));roles.add(role);}}
-                if(!roles.isEmpty()){labels.add("家庭服务的完整片库");new AlertDialog.Builder(this).setTitle("想看哪个片库？").setItems(labels.toArray(new String[0]),(d,index)->{if(index<roles.size())startActivity(new Intent(this,NasActivity.class).putExtra("category",roles.get(index)));else familyServer("library");}).setNegativeButton("返回",null).show();return;}
-            }catch(Exception unavailable){nasUnavailable();return;}
-        }
-        familyServer(view);
+        if (view == null) familyServer(null); else cinema(view);
     }
+    private void cinema(String view) { startActivityForResult(new Intent(this,CinemaActivity.class).putExtra("view",view),4602); }
     private void familyServer(String view) {
         String origin = preferences.getString("origin", ""); if (origin.isEmpty()) { setup(); return; }
-        if (!lobby.webAvailable(webViewVersion())) { fallback(lobby.recoveryRequired() ? "网页显示组件刚刚退出，已保留简洁本机首页。请先使用本机应用或NAS；完全关闭开窗后重新打开，再尝试家庭屏。" : "当前内核无法显示家庭屏，请从原系统更新WebView。其他应用入口仍可使用。"); return; }
+        if (!lobby.webAvailable(webViewVersion())) { fallback(lobby.recoveryRequired() ? "网页显示组件刚刚退出，已保留简洁本机首页。请先使用本机应用或NAS；完全关闭开视后重新打开，再尝试家庭屏。" : "当前内核无法显示家庭屏，请从原系统更新WebView。其他应用入口仍可使用。"); return; }
         if (view != null && webViewVersion() < 89) { fallback("家庭影院需要 WebView 89 或更新版本。请在原系统更新内核；暂时可回原桌面使用原有播放器。"); return; }
         trusted = Uri.parse(origin); createWeb(false);
         boolean lite = BuildConfig.PARENTS_EDITION || webViewVersion() < 89 || preferences.getBoolean("lite", false);
@@ -227,14 +219,14 @@ public class MainActivity extends Activity {
     }
     private void showNative(LinearLayout layout) { ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.addView(layout); setContentView(scroll); }
     private void homeMode() {
-        String reason = lobby.recoveryRequired() ? "网页显示组件刚刚退出，本次先使用简洁首页。完全关闭开窗后重新打开，才能再尝试玻璃首页。" : !lobby.glassAvailable(webViewVersion()) ? "当前WebView版本不满足玻璃首页要求，已自动使用简洁首页。家庭轻量屏与NAS分别判断，不会清除配置。" : "玻璃首页保留照片、数据与信息分区；简洁首页不运行网页或背景动效，适合感觉操作吃力的电视。此设置不改变系统默认桌面。";
+        String reason = lobby.recoveryRequired() ? "网页显示组件刚刚退出，本次先使用简洁首页。完全关闭开视后重新打开，才能再尝试玻璃首页。" : !lobby.glassAvailable(webViewVersion()) ? "当前WebView版本不满足玻璃首页要求，已自动使用简洁首页。家庭轻量屏与NAS分别判断，不会清除配置。" : "玻璃首页保留照片、数据与信息分区；简洁首页不运行网页或背景动效，适合感觉操作吃力的电视。此设置不改变系统默认桌面。";
         new AlertDialog.Builder(this).setTitle("首页样式").setMessage(reason)
             .setPositiveButton("简洁首页", (d,w) -> { preferences.edit().putBoolean("simple_home", true).apply(); showLobby(""); })
             .setNeutralButton(lobby.glassAvailable(webViewVersion()) ? "玻璃首页" : "保留自动选择", (d,w) -> { preferences.edit().remove("simple_home").apply(); showLobby(""); })
             .setNegativeButton("返回", null).show();
     }
     private void nativeLobby() {
-        destroyWeb(); lobbyMode = true; LinearLayout layout = column(BuildConfig.PARENTS_EDITION ? "开窗 · 爸妈版" : "开窗");
+        destroyWeb(); lobbyMode = true; LinearLayout layout = column(BuildConfig.PARENTS_EDITION ? "开视 · 爸妈版" : "开视");
         LobbyMode.Choice choice = lobby.choose(webViewVersion(), preferences.getBoolean("simple_home", false));
         TextView note = new TextView(this); note.setText(choice == LobbyMode.Choice.NATIVE_RECOVERY ? "网页显示组件刚刚退出，先用这些本机入口。不会自动反复重开网页。" : choice == LobbyMode.Choice.NATIVE_OLD_ENGINE ? "当前使用简洁本机首页，适合这台电视的网页内核。" : "简洁本机首页 · 在设置中可切换"); note.setTextSize(18); note.setTextColor(Color.rgb(196,210,224)); layout.addView(note);
         if (BuildConfig.PARENTS_EDITION) {
@@ -242,12 +234,12 @@ public class MainActivity extends Activity {
             for (String slot : new String[] {"quick1", "quick2", "quick3", "quick4"}) { String name = destinations.label(slot); Button shortcut = button(layout, name.isEmpty() ? "未设置" : name, () -> destinations.launchShortcut(slot)); shortcut.setTextSize(24); }
             button(layout, "所有应用", destinations::all); button(layout, "设置", this::quickMenu); showNative(layout); return;
         }
-        button(layout, "直播", () -> destinations.launch("live")); button(layout, "影视", () -> destinations.launch("cinema")); button(layout, "原桌面", () -> destinations.launch("system"));
+        button(layout, "直播", () -> cinema("live")); button(layout, "影视", () -> cinema("library")); button(layout, "原桌面", () -> destinations.launch("system"));
         if (!BuildConfig.PARENTS_EDITION) button(layout, "家庭屏", () -> family(null)); button(layout, "NAS", () -> action("/nas")); button(layout, "设置", this::quickMenu); showNative(layout);
     }
     private void setup() {
         if (!lobby.webAvailable(webViewVersion())) {
-            new AlertDialog.Builder(this).setTitle("暂时不能打开家庭网页").setMessage(lobby.recoveryRequired() ? "网页显示组件刚刚退出。请先使用本机应用或NAS；在系统应用设置结束开窗后重开，或重启电视，再尝试连接。" : "这台电视的网页组件不可用。请在原系统检查WebView；本机应用、原桌面和NAS仍可使用。")
+            new AlertDialog.Builder(this).setTitle("暂时不能打开家庭网页").setMessage(lobby.recoveryRequired() ? "网页显示组件刚刚退出。请先使用本机应用或NAS；在系统应用设置结束开视后重开，或重启电视，再尝试连接。" : "这台电视的网页组件不可用。请在原系统检查WebView；本机应用、原桌面和NAS仍可使用。")
                 .setPositiveButton("返回客厅入口", (d,w) -> showLobby("")).setNegativeButton("返回", null).show(); return;
         }
         destroyWeb(); lobbyMode = false; LinearLayout layout = column("连接家庭服务\n请家人输入电脑或 NAS 的服务地址。");
@@ -262,7 +254,7 @@ public class MainActivity extends Activity {
         button(layout, "返回客厅入口", () -> showLobby("")); showNative(layout); input.requestFocus();
     }
     private void fallback(String message) {
-        destroyWeb(); lobbyMode = false; LinearLayout layout = column("开窗\n" + message);
+        destroyWeb(); lobbyMode = false; LinearLayout layout = column("开视\n" + message);
         button(layout, "返回客厅入口", () -> showLobby("")); button(layout, "重试家庭屏", () -> family(null)); button(layout, "更换家庭服务地址", this::setup); button(layout, "切回原生桌面", () -> destinations.launch("system")); showNative(layout);
     }
     private void installation() {
@@ -271,23 +263,25 @@ public class MainActivity extends Activity {
         }).setNegativeButton("返回",null).show();
     }
     @Override protected void onActivityResult(int request, int result, Intent data) {
+        if(request==4602&&result==RESULT_OK&&data!=null){String view=data.getStringExtra("cinemaServer");if("live".equals(view)||"series".equals(view)||"movies".equals(view)||"library".equals(view))familyServer(view);return;}
         if (installer != null && installer.result(request, result, data)) return;
         super.onActivityResult(request, result, data);
     }
     private void quickMenu() {
         if (BuildConfig.PARENTS_EDITION) {
-            new AlertDialog.Builder(this).setTitle("设置").setItems(new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", "家人留言与相册", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用"}, (dialog, which) -> {
-                if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else destinations.all();
+            new AlertDialog.Builder(this).setTitle("设置").setItems(new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", "家人留言与相册", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源"}, (dialog, which) -> {
+                if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else destinations.all();
             }).setNegativeButton("返回", null).show(); return;
         }
-        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", BuildConfig.PARENTS_EDITION ? "家人留言和相册" : "切换轻量 / 完整窗景", "小爱同学与语音唤醒", "NAS", "玻璃 / 简洁本机首页", "安装应用"};
+        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", BuildConfig.PARENTS_EDITION ? "家人留言和相册" : "切换轻量 / 完整窗景", "小爱同学与语音唤醒", "NAS", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源"};
         new AlertDialog.Builder(this).setTitle("设置").setItems(options, (dialog, which) -> {
-            if (which == 0) showLobby(""); else if (which == 1) destinations.launch("live"); else if (which == 2) destinations.launch("cinema"); else if (which == 3) destinations.launch("system");
+            if (which == 0) showLobby(""); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
             else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) destinations.settings(true); else if (which == 7) setup(); else if (which == 8) destinations.all();
             else if (which == 10) assistant.help();
             else if (which == 11) action("/nas");
             else if (which == 12) homeMode();
             else if (which == 13) installation();
+            else if (which == 14) cinema("settings");
             else if (BuildConfig.PARENTS_EDITION) family(null);
             else { preferences.edit().putBoolean("lite", !preferences.getBoolean("lite", false)).apply(); family(null); }
         }).setNegativeButton("返回", null).show();
@@ -303,7 +297,7 @@ public class MainActivity extends Activity {
     }
     private void leavePage() {
         if (!lobbyMode || BuildConfig.PARENTS_EDITION) { showLobby(""); return; }
-        new AlertDialog.Builder(this).setTitle("回到哪里？").setItems(new String[] {"留在开窗", "切回原生桌面", "系统默认桌面设置"}, (dialog, which) -> { if (which == 1) destinations.launch("system"); else if (which == 2) destinations.settings(true); }).show();
+        new AlertDialog.Builder(this).setTitle("回到哪里？").setItems(new String[] {"留在开视", "切回原生桌面", "系统默认桌面设置"}, (dialog, which) -> { if (which == 1) destinations.launch("system"); else if (which == 2) destinations.settings(true); }).show();
     }
     @Override public void onBackPressed() { if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }
     @Override protected void onPause() { display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }

@@ -1,0 +1,124 @@
+{
+  "environment": "Chromium with temporary local services and synthetic household data",
+  "scripts": [
+    {
+      "script": "browser-qa.mjs",
+      "exitCode": 0,
+      "seconds": 39.4
+    },
+    {
+      "script": "browser-life-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 15.4
+    },
+    {
+      "script": "browser-agent-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 11.9
+    },
+    {
+      "script": "browser-lite-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 15.4
+    },
+    {
+      "script": "browser-native-remote-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 5.5
+    },
+    {
+      "script": "browser-diagnostics-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 6.1
+    },
+    {
+      "script": "browser-lan-qa.mjs",
+      "exitCode": 0,
+      "seconds": 13.7
+    },
+    {
+      "script": "browser-launcher-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 43.5
+    },
+    {
+      "script": "browser-xiaomi-qa.mjs",
+      "exitCode": 0,
+      "seconds": 11.3
+    },
+    {
+      "script": "browser-household-proxy-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 21.1
+    },
+    {
+      "script": "browser-home-mode-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 15.4
+    },
+    {
+      "script": "browser-installation-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 12.3
+    },
+    {
+      "script": "browser-nas-setup-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 16.5
+    },
+    {
+      "script": "browser-nas-grant-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 5.8
+    },
+    {
+      "script": "browser-cinema-pairing-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 20.1
+    },
+    {
+      "script": "browser-app-management-qa.mjs",
+      "exitCode": 0,
+      "timedOut": false,
+      "seconds": 7.1
+    },
+    {
+      "script": "browser-tv-controls-qa.mjs",
+      "exitCode": 0,
+      "seconds": 33.6
+    },
+    {
+      "script": "browser-cinema-qa.mjs",
+      "exitCode": 0,
+      "evidence": "artifacts/s47-cinema-browser-driver-final.log"
+    },
+    {
+      "script": "browser-tv-viewport-qa.mjs",
+      "exitCode": 0,
+      "evidence": "artifacts/s47-tv-viewport.log"
+    }
+  ],
+  "passed": true,
+  "realXiaomi": false,
+  "nativeMediaPlayerExecuted": false,
+  "preservedFirstFailures": true,
+  "corrections": [
+    "Wait for asynchronous preference file read before assertion",
+    "Use current guide and Xiaomi UI selectors",
+    "Normalize TV control measurements to the actual 1920x1080 design canvas without removing overflow/focus checks",
+    "Capture mobile cinema on a fresh 390px page after all width checks; preserve functional playback assertions"
+  ],
+  "logsRetainedInLocalArtifacts": true
+}

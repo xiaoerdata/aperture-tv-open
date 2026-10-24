@@ -37,6 +37,7 @@ public final class NasSetupActivity extends Activity {
             try{
                 NasSetupCrypto next=new NasSetupCrypto();crypto=next;
                 if(closed){next.close();return;}
+                // Keep the v13 wire label so renamed APKs still work with older household servers.
                 JSONObject request=client.start(next,BuildConfig.PARENTS_EDITION?"开窗 · 爸妈版":"开窗 · 标准版");
                 String fingerprint=request.getString("fingerprint");
                 if(!next.fingerprint.equals(fingerprint)||!next.id.equals(request.getString("id")))throw new IllegalStateException();

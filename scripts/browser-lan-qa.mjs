@@ -64,18 +64,18 @@ try {
   checks.push('a browser at the actual selected interface completes viewer pairing and receives a synthetic note');
   const guide = await browser.newPage({viewport: {width: 390, height: 844}});
   guide.on('pageerror', error => errors.push(error.message));
-  await guide.goto(origin + '/guide#start');
-  await guide.locator('#start summary').first().click();
-  assert.match(await guide.locator('#start').textContent(), /npm run start:lan/);
+  await guide.goto(origin + '/guide#family');
+  await guide.locator('#family summary').first().click();
+  assert.match(await guide.locator('#family').textContent(), /npm run start:lan/);
   assert.equal(await guide.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-  const boundaries = await guide.locator('#start .guide-steps article').first().evaluate(article => {
+  const boundaries = await guide.locator('#family .guide-steps article').first().evaluate(article => {
     const outer = article.getBoundingClientRect();
     return [...article.querySelectorAll('div,p,pre,h3')].every(node => {
       const rect = node.getBoundingClientRect(); return rect.left >= outer.left - 1 && rect.right <= outer.right + 1;
     });
   });
   assert.equal(boundaries, true, 'expanded instructions must fit inside their step, not merely avoid page scroll');
-  await guide.locator('#start').screenshot({path: 'docs/images/lan-guide-phone.png'});
+  await guide.locator('#family').screenshot({path: 'docs/images/lan-guide-phone.png'});
   checks.push('phone guide exposes LAN startup instructions without horizontal overflow; synthetic screenshots retained');
   assert.deepEqual(errors, []);
   const stopped = once(child, 'exit'); child.kill('SIGTERM'); await stopped;

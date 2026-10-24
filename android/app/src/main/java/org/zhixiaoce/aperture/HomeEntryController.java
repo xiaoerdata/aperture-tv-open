@@ -28,7 +28,7 @@ final class HomeEntryController {
     }
     private void confirm(boolean enable) {
         new AlertDialog.Builder(activity).setTitle(enable ? "允许本版作为桌面？" : "移除本版桌面候选？")
-            .setMessage(enable ? "开启后，请在系统设置中选择默认桌面。部分小米固件不支持更换；开窗仍可作为普通应用使用。" : "仅移除本版开窗。若当前用它作为默认桌面，请在系统设置中重新选择原桌面。")
+            .setMessage(enable ? "开启后，请在系统设置中选择默认桌面。部分小米固件不支持更换；开视仍可作为普通应用使用。" : "仅移除本版开视。若当前用它作为默认桌面，请在系统设置中重新选择原桌面。")
             .setPositiveButton(enable ? "开启并选择" : "移除并选择", (dialog, which) -> {
                 try {
                     activity.getPackageManager().setComponentEnabledSetting(entry,
@@ -44,7 +44,7 @@ final class HomeEntryController {
     private void systemSettings() {
         try { activity.startActivity(new Intent(Settings.ACTION_HOME_SETTINGS)); }
         catch (RuntimeException error) {
-            new AlertDialog.Builder(activity).setMessage("当前固件未提供桌面选择页面。请用遥控器进入原系统设置；开窗仍可从应用列表打开。")
+            new AlertDialog.Builder(activity).setMessage("当前固件未提供桌面选择页面。请用遥控器进入原系统设置；开视仍可从应用列表打开。")
                 .setPositiveButton("知道了", null).show();
         }
     }

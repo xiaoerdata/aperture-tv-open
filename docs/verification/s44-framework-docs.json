@@ -1,0 +1,25 @@
+{
+  "stage": "S44",
+  "checkedAt": "2026-10-25T00:41:42.498565+08:00",
+  "documents": [
+    "README.md",
+    "docs/DEVELOPMENT.md",
+    "docs/PRODUCT.md",
+    "docs/SYSTEM-FRAMEWORK-ROADMAP.md",
+    "docs/process/PROMPTS-001.md",
+    "docs/process/JOURNAL.md",
+    "docs/process/README.md",
+    "media/DEVLOG-030.md"
+  ],
+  "localFileLinksChecked": 127,
+  "missing": [],
+  "priorPromptBytesPreserved": true,
+  "priorPromptSha256": "0c3b3b9cd7c542201102765a2e5bcd59e211c284af0de11342fd2670e9bc9424",
+  "newPrompts": [
+    "P36",
+    "P37",
+    "P38"
+  ],
+  "workspaceChangesDocumentationOnly": true,
+  "scope": "Existing inline Markdown and reference parser; file existence only. Does not validate anchors, external URL availability, rendering, TV hardware or new framework functionality. No build executed."
+}

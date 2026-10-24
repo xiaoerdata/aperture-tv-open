@@ -9,13 +9,13 @@ import {nasTestJson} from '../scripts/nas-test-json.mjs';
 import {createNasSetup} from '../server/nas-setup/service.mjs';
 import {sealNas} from '../public/nas-setup/seal.mjs';
 const digest=value=>createHash('sha256').update(value).digest('hex');
-function fixture(){
+function fixture(label='开窗 · 标准版'){
   let clock=1000;const sessions={tv:{role:'viewer',expiresAt:10000000},other:{role:'viewer',expiresAt:10000000},owner:{role:'owner',expiresAt:10000000},editor:{role:'editor',expiresAt:10000000},agent:{role:'controller',scopes:['home.read','nas.configure'],expiresAt:10000000},reader:{role:'controller',scopes:['home.read'],expiresAt:10000000}};
   const store={read:()=>({sessions:structuredClone(sessions)})},service=createNasSetup({store,now:()=>clock});
   const actors=Object.fromEntries(Object.entries(sessions).map(([id,s])=>[id,{id,role:s.role}]));
   const {publicKey}=generateKeyPairSync('rsa',{modulusLength:2048});const encoded=publicKey.export({format:'der',type:'spki'}).toString('base64url');
   const identity={id:randomUUID(),secret:'synthetic-ephemeral-secret-12345678901234567890'};
-  const hello={id:identity.id,secretHash:digest(identity.secret),publicKey:encoded,label:'开窗 · 标准版'};
+  const hello={id:identity.id,secretHash:digest(identity.secret),publicKey:encoded,label};
   const request=service.start(actors.tv,hello);
   return {service,sessions,actors,identity,hello,request,setTime:value=>clock=value};
 }
@@ -73,4 +73,15 @@ test('real WebCrypto sealing interoperates with production Java receiver and rej
   await assert.rejects(sealNas({...request,fingerprint:'0'.repeat(64)},draft,webcrypto));
   receiver.stdin.end();
   await mkdir('artifacts',{recursive:true});await writeFile('artifacts/nas-setup-crypto-report.json',JSON.stringify({productionJavaReceiver:true,realWebCrypto:true,rsaOaepSha256Mgf1Sha256:true,aes256GcmRequestBound:true,validDraftAccepted:true,tamperedWrongTvOrDisposedKeyRejected:true,unknownFieldsAndXiaomiDavRejected:true,androidKeyStore:false,androidActivity:false,realDevice:false},null,2)+'\n');
+});
+
+test('renamed and legacy television labels can complete the encrypted NAS relay',async()=>{
+ for(const label of ['开窗 · 标准版','开窗 · 爸妈版','开视 · 标准版','开视 · 爸妈版']){
+  const f=fixture(label);
+  assert.equal(f.request.label,label.replace(/^开窗/,'开视'));
+  const sealed=await sealNas(f.request,draft,webcrypto);
+  f.service.send(f.actors.owner,{id:f.identity.id,envelope:sealed,execution:{key:'rename-relay-check',revision:0}});
+  assert.deepEqual(f.service.poll(f.actors.tv,f.identity).envelope,sealed);
+  assert.equal(f.service.finish(f.actors.tv,{...f.identity,state:'saved',revision:1}).outcome,'saved_on_tv');
+ }
 });

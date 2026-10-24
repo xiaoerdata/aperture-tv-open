@@ -1,0 +1,27 @@
+{
+  "documents": [
+    "INSTALL.md",
+    "README.md",
+    "docs/APP-INSTALLATION.md",
+    "docs/DEVELOPMENT.md",
+    "docs/DOWNLOADS.md",
+    "docs/PRODUCT.md",
+    "docs/SUPPORT.md",
+    "docs/SYSTEM-FRAMEWORK-ROADMAP.md",
+    "docs/TV-VIEWPORT.md",
+    "docs/WORKBUDDY.md",
+    "docs/XIAOMI-COMPATIBILITY.md",
+    "docs/XIAOMI-HOME.md",
+    "docs/process/JOURNAL.md",
+    "docs/process/PROMPTS-001.md",
+    "docs/process/README.md",
+    "docs/release/README-public.md",
+    "media/DEVLOG-030.md",
+    "media/DEVLOG-031.md"
+  ],
+  "localFileLinksChecked": 181,
+  "missing": [],
+  "priorPromptBytesPreserved": true,
+  "androidInputsStillMatchBuiltCandidates": true,
+  "scope": "Targeted local file existence and unchanged Android source/actual APK hashes. Not external URLs, anchors or hardware."
+}

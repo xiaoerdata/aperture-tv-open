@@ -7,93 +7,129 @@
   "measurements": [
     {
       "label": "standard 1280",
-      "minimumControlHeight": 64.078125,
-      "minimumControlWidth": 64.078125
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 42.666656494140625,
+      "minimumControlWidth": 48
     },
     {
       "label": "photos 1280",
-      "minimumControlHeight": 64.078125,
-      "minimumControlWidth": 74
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 48,
+      "minimumControlWidth": 66.66665649414062
     },
     {
       "label": "data 1280",
-      "minimumControlHeight": 64.078125,
-      "minimumControlWidth": 74
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 48,
+      "minimumControlWidth": 66.66665649414062
     },
     {
       "label": "information 1280",
-      "minimumControlHeight": 64.078125,
-      "minimumControlWidth": 74
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 48,
+      "minimumControlWidth": 66.66665649414062
     },
     {
       "label": "tools 1280",
-      "minimumControlHeight": 64.078125,
-      "minimumControlWidth": 74
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 48,
+      "minimumControlWidth": 66.66665649414062
     },
     {
       "label": "standard 1920",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 96
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 64,
+      "minimumControlWidth": 72
     },
     {
       "label": "photos 1920",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 101.75
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 72,
+      "minimumControlWidth": 100
     },
     {
       "label": "data 1920",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 101.75
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 72,
+      "minimumControlWidth": 100
     },
     {
       "label": "information 1920",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 101.75
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 72,
+      "minimumControlWidth": 100
     },
     {
       "label": "tools 1920",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 101.75
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 72,
+      "minimumControlWidth": 100
     },
     {
       "label": "standard 3840",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 96
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 128,
+      "minimumControlWidth": 144
     },
     {
       "label": "photos 3840",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 110
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 144,
+      "minimumControlWidth": 200
     },
     {
       "label": "data 3840",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 110
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 144,
+      "minimumControlWidth": 200
     },
     {
       "label": "information 3840",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 110
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 144,
+      "minimumControlWidth": 200
     },
     {
       "label": "tools 3840",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 110
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 144,
+      "minimumControlWidth": 200
     },
     {
       "label": "parents 1280",
-      "minimumControlHeight": 64.078125,
-      "minimumControlWidth": 90
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 53.333335876464844,
+      "minimumControlWidth": 93.333251953125
     },
     {
       "label": "parents 1920",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 134.390625
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 80,
+      "minimumControlWidth": 140
     },
     {
       "label": "parents 3840",
-      "minimumControlHeight": 96,
-      "minimumControlWidth": 140
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 160,
+      "minimumControlWidth": 280
     }
   ],
   "errors": [],

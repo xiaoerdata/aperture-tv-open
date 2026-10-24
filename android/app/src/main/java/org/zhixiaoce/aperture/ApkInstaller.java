@@ -91,7 +91,7 @@ final class ApkInstaller {
     private void permission() {
         if(pending==null)return;
         if(activity.getPackageManager().canRequestPackageInstalls()){handoff();return;}
-        new AlertDialog.Builder(activity).setTitle("允许开窗发起安装")
+        new AlertDialog.Builder(activity).setTitle("允许开视发起安装")
             .setMessage("请在原系统设置中允许此来源，返回后再确认安装。此权限不会允许静默安装。")
             .setPositiveButton("系统授权",(d,w)->{
                 try{activity.startActivityForResult(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,Uri.parse("package:"+activity.getPackageName())),SOURCES);}

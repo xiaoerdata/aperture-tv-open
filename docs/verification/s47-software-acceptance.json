@@ -1,0 +1,49 @@
+{
+  "version": "0.2.0-alpha.13",
+  "versionCode": 16,
+  "date": "2026-10-25",
+  "nodeTests": {
+    "passed": 76,
+    "failed": 0,
+    "fullRerunAfterHarnessFix": true
+  },
+  "browserVerificationScripts": 19,
+  "publicPreparationRuleTests": 3,
+  "nativeEmulator": {
+    "api": 26,
+    "device": "dedicated Android TV x86 software emulator",
+    "cpu": "android32 with SSE4.1/SSE4.2; no KVM",
+    "unchangedH264AacFixture": true,
+    "standard": {
+      "passed": true,
+      "checks": 59,
+      "report": "s47-native-standard.json"
+    },
+    "parents": {
+      "passed": true,
+      "checks": 64,
+      "report": "s47-native-parents.json"
+    },
+    "coverage": [
+      "actual installed home entry into embedded cinema",
+      "confirmed URL import and AndroidKeyStore encrypted persistence",
+      "v15 to v16 source decryption after in-place upgrade",
+      "MP4 H264/AAC and MPEGTS HLS: playback clock plus decoded SurfaceView pixels",
+      "pause, explicit resume, real AudioManager transient interruption without automatic resume",
+      "next channel and Back restores current selection",
+      "JSON search/detail/line, episode 13 page retention, native seek",
+      "missing media error and return",
+      "offline API and HTTP200 HTML rejected by health check",
+      "cancel clear preserves configuration; real D-pad scrolls to Return",
+      "catalogue recovery after source returns online",
+      "parents live/movie/series first-level entry routing"
+    ]
+  },
+  "softwareGatePassed": true,
+  "scopeLimits": [
+    "Xiaomi hardware and firmware not tested",
+    "WorkBuddy application not tested",
+    "No device performance, 2-hour soak, all codecs or all TVBox engines claim",
+    "Final clean APK/source/export and public download checks are separate release gates"
+  ]
+}

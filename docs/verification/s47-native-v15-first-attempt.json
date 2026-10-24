@@ -1,0 +1,15 @@
+{
+  "error": "java.lang.AssertionError: source import: click 来源\n\tat org.zhixiaoce.aperture.test.CinemaRunner.check(CinemaRunner.java:43)\n\tat org.zhixiaoce.aperture.test.CinemaRunner.click(CinemaRunner.java:55)\n\tat org.zhixiaoce.aperture.test.CinemaRunner.runChecks(CinemaRunner.java:78)\n\tat org.zhixiaoce.aperture.test.CinemaRunner.onStart(CinemaRunner.java:38)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)\n",
+  "passed": false,
+  "stage": "source import",
+  "checks": [
+    "synthetic source control request",
+    "click 直播",
+    "home opens embedded activity in target APK"
+  ],
+  "images": [
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.aperture",
+  "realXiaomi": false
+}

@@ -7,6 +7,13 @@
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function $(id) { return document.getElementById(id); }
   function text(id, value) { $(id).textContent = value; }
+  // Fit the same 16:9 composition to the WebView's actual logical viewport.
+  // The canvas includes a 5% vertical / 5% horizontal television safe area.
+  function fitTelevision() {
+    document.documentElement.style.setProperty('--tv-scale', String(Math.min(innerWidth / 1920, innerHeight / 1080)));
+  }
+  fitTelevision();
+  window.addEventListener('resize', fitTelevision);
   location.search.slice(1).split('&').forEach(function (part) {
     var bits = part.split('=');
     try { query[decodeURIComponent(bits[0])] = decodeURIComponent((bits[1] || '').replace(/\+/g, ' ')); } catch (ignored) {}
@@ -14,7 +21,7 @@
   labels.live = query.live || ''; labels.cinema = query.cinema || ''; labels.system = query.system || '';
   parents = query.edition === 'parents';
   if (parents) {
-    document.body.className = 'parents'; document.title = '开窗 · 爸妈版';
+    document.body.className = 'parents'; document.title = '开视 · 爸妈版';
     ['entry-family', 'entry-photos', 'entry-data', 'entry-information', 'entry-tools', 'entry-system'].forEach(function (id) { $(id).hidden = true; });
     $('entry-series').hidden = false; $('parents-shortcuts').hidden = false;
     document.querySelector('.wordmark small').textContent = '爸妈版';
@@ -33,17 +40,17 @@
     text('environment', '');
     text('local-note', '');
   }
-  if (!parents && labels.live) text('live-label', labels.live);
-  if (!parents && labels.cinema) text('cinema-label', labels.cinema);
-  if (labels.system) text('system-label', labels.system);
+  // Bound external apps remain optional shortcuts; primary media is embedded.
+  
+  if (labels.system && !/^(桌面|原桌面|原生桌面|系统桌面)$/.test(labels.system)) text('system-label', labels.system);
   var specs = {
     live: {title:'直播', actions:[
-      ['open-live','直播应用',labels.live || '未设置','primary'],
-      ['family-live','家庭频道','',''], ['choose-live','更换直播应用','','']
+      ['open-live','直播频道','','primary'], ['cinema-settings','来源设置','',''],
+      ['external-live','外部直播应用',labels.live || '未设置',''], ['choose-live','选择外部应用','','']
     ]},
     cinema: {title:'影视', actions:[
-      ['open-cinema','影视应用',labels.cinema || '未设置','primary'],
-      ['nas','NAS','',''], ['family-library','家庭片库','',''], ['choose-cinema','更换影视应用','','']
+      ['open-cinema','影片与剧集','','primary'], ['nas','NAS','',''], ['cinema-settings','来源设置','',''],
+      ['external-cinema','外部影视应用',labels.cinema || '未设置',''], ['choose-cinema','选择外部应用','','']
     ]},
     system: {title:'原桌面', actions:[
       ['open-system','返回原桌面',labels.system || '','primary'],
@@ -58,7 +65,7 @@
     ]},
     settings: {title:'设置', actions:[
       ['configure','家庭服务','','primary'], ['voice-help','小爱同学','',''], ['apps','所有应用','',''],
-      ['home-settings','默认桌面','',''], ['home-mode','首页样式','',''], ['material','透明效果','',''], ['install-apps','安装应用','','']
+      ['home-settings','默认桌面','',''], ['home-mode','首页样式','',''], ['material','透明效果','',''], ['install-apps','安装应用','',''], ['cinema-settings','直播与影视来源','','']
     ]}
   };
   if (parents) {
@@ -66,7 +73,7 @@
       ['configure','家庭服务','','primary'], ['choose-shortcuts','常用应用','',''], ['nas','NAS','',''],
       ['nas-photos','NAS 相册','',''], ['home-mode','首页样式','',''], ['open-system','返回原桌面','',''],
       ['choose-system','选择桌面','',''], ['home-settings','默认桌面','',''], ['voice-help','小爱同学','',''],
-      ['family','家庭屏','',''], ['install-apps','安装应用','','']
+      ['family','家庭屏','',''], ['install-apps','安装应用','',''], ['cinema-settings','直播与影视来源','','']
     ];
   }
   function nativeAction(action) {
@@ -232,7 +239,7 @@
     } else if (section === 'tools') {
       actionTile('应用', '查看所有已安装的可启动应用', function () { if (local) nativeAction('apps'); else openPane('settings'); });
       actionTile('NAS', '直接浏览照片与影片 · 无需电脑中转', function () { nativeAction('nas'); });
-      actionTile('家庭服务', '连接电脑 / NAS 上的开窗服务', function () { if (local) nativeAction('configure'); else familyPage('family'); });
+      actionTile('家庭服务', '连接电脑 / NAS 上的开视服务', function () { if (local) nativeAction('configure'); else familyPage('family'); });
       actionTile('米家', '原系统账号、米家授权与家庭状态', function () { openPane('devices'); });
       actionTile('小爱同学', '原生语音键、远场唤醒与系统设置', function () { openPane('voice'); });
       actionTile('原桌面', '原来的桌面与 Home 键设置', function () { openPane('system'); });
@@ -345,7 +352,11 @@
   }
   function focusNode(node) {
     if (node && !node.disabled && node.offsetWidth && node.offsetHeight) {
-      node.focus(); node.scrollIntoView({block:'nearest'}); return true;
+      node.focus({preventScroll:true});
+      // Only content lists scroll. Scrolling the transformed television canvas
+      // would move the complete screen after a remote-control focus change.
+      if (pane || innerWidth / innerHeight <= 4/3 || node.closest('.collection-tile')) node.scrollIntoView({block:'nearest'});
+      return true;
     }
     return false;
   }
@@ -415,7 +426,7 @@
       var nextScore = main + Math.abs(horizontal ? dy : dx) * 2.4;
       if (main > 4 && nextScore < score) { score = nextScore; best = nodes[k]; }
     }
-    if (best) { best.focus(); best.scrollIntoView({block: 'nearest'}); }
+    if (best) focusNode(best);
   }
   document.addEventListener('keydown', key);
   window.apertureRemoteKey = function (name) { var handled = false; key({key: name, preventDefault: function () { handled = true; }}); return handled; };

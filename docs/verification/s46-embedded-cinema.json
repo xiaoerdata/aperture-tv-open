@@ -1,0 +1,10 @@
+{
+  "productionJavaParser": true,
+  "productionOkHttpClient": true,
+  "isolatedLocalHttpFixtures": true,
+  "androidActivitiesExecuted": false,
+  "androidKeyStoreTested": false,
+  "mediaDecoded": false,
+  "xiaomiTested": false,
+  "output": "Embedded cinema: 36 parser/HTTP assertions passed; no device playback claim"
+}

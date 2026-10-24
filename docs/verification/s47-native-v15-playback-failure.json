@@ -1,0 +1,26 @@
+{
+  "error": "java.lang.AssertionError: native live MP4: native playback did not start: MP4 channel\n\tat org.zhixiaoce.aperture.test.CinemaRunner.until(CinemaRunner.java:52)\n\tat org.zhixiaoce.aperture.test.CinemaRunner.playing(CinemaRunner.java:86)\n\tat org.zhixiaoce.aperture.test.CinemaRunner.runChecks(CinemaRunner.java:104)\n\tat org.zhixiaoce.aperture.test.CinemaRunner.onStart(CinemaRunner.java:42)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)\n",
+  "passed": false,
+  "stage": "native live MP4",
+  "checks": [
+    "synthetic source control request",
+    "visible native UI callback: 直播",
+    "home opens embedded activity in target APK",
+    "visible native UI callback: 来源",
+    "set actual native source/search field",
+    "visible native UI callback: 允许本次导入 HTTP 来源",
+    "visible native UI callback: 读取地址",
+    "visible native UI callback: 保存",
+    "AndroidKeyStore-backed source record is not plaintext",
+    "visible native UI callback: 直播清单",
+    "visible native UI callback: 客厅",
+    "visible native UI callback: 台一"
+  ],
+  "images": [
+    "sources-empty.png",
+    "channels.png",
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.aperture",
+  "realXiaomi": false
+}

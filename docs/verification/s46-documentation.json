@@ -1,0 +1,30 @@
+{
+  "documents": [
+    "INSTALL.md",
+    "README.md",
+    "docs/APP-INSTALLATION.md",
+    "docs/DEVELOPMENT.md",
+    "docs/DOWNLOADS.md",
+    "docs/EMBEDDED-CINEMA.md",
+    "docs/FAMILY-CINEMA.md",
+    "docs/PRODUCT.md",
+    "docs/SUPPORT.md",
+    "docs/SYSTEM-FRAMEWORK-ROADMAP.md",
+    "docs/TV-VIEWPORT.md",
+    "docs/WORKBUDDY.md",
+    "docs/XIAOMI-COMPATIBILITY.md",
+    "docs/XIAOMI-HOME.md",
+    "docs/process/JOURNAL.md",
+    "docs/process/PROMPTS-001.md",
+    "docs/process/README.md",
+    "docs/release/README-public.md",
+    "media/DEVLOG-030.md",
+    "media/DEVLOG-031.md",
+    "media/DEVLOG-032.md"
+  ],
+  "localFileLinksChecked": 203,
+  "missing": [],
+  "priorPromptBytesPreserved": true,
+  "androidSourceAndActualApkHashesStillMatch": true,
+  "scope": "Local documentation file existence and final source/APK byte comparison only; excludes anchors, external URL availability, UI rendering and hardware."
+}

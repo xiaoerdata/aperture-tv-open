@@ -85,10 +85,10 @@ home.read 可读取已共享家庭内容与自己的操作回执；scene.write �
 
 1. 按上面的配对流程，在手机家庭工作台分别勾选“让WorkBuddy发起电视应用安装”与“让WorkBuddy发起非系统应用卸载”。两项默认不勾选，已有令牌不会自动获得权限；需要时新建授权。对应`apps.install`、`apps.uninstall`，不会因为能改留言就自动允许卸载。
 2. 安装用APK先放在电视已经连接的NAS共享目录中。让WorkBuddy在你指定的本地文件上计算SHA-256并读取包名；没有可信文件或包名时先准备资料，不猜校验值，也不把NAS账号密码发到聊天。支持独立`.apk`，不支持`.apks`/`.xapk`拆分安装包，单文件不超过200MB。
-3. 电视设置 → 安装应用 → WorkBuddy安装应用，或WorkBuddy卸载应用。页面显示校验码及本次范围。安装只提供已保存NAS的连接ID和名称，不上传保存的密码；卸载只提供本次可启动的非系统应用，不含两版开窗与原系统组件。离开页面、超时或服务重启后，不得盲目重建相同操作。
+3. 电视设置 → 安装应用 → WorkBuddy安装应用，或WorkBuddy卸载应用。页面显示校验码及本次范围。安装只提供已保存NAS的连接ID和名称，不上传保存的密码；卸载只提供本次可启动的非系统应用，不含两版开视与原系统组件。离开页面、超时或服务重启后，不得盲目重建相同操作。
 4. 让WorkBuddy发现并调用`aperture_install_requests`或`aperture_uninstall_requests`，核对电视校验码、版本和目标。`fingerprint`完整值的前12位应与电视显示一致。
 5. 安装调用`aperture_install_send`，`command`包含电视提供的`connectionId`、相对`path`、确定的`sha256`与`packageName`。卸载调用`aperture_uninstall_send`，只提交本次允许列表中的`packageName`。都使用该窗口的`id`、当前`revision`及固定`execution.key`；重试相同意图使用同一个key，不能换键绕开冲突。
-6. 电视读取APK到自己的缓存，核对包名与SHA-256；资料不一致就停止。首次安装需在原系统允许开窗作为安装来源，然后返回复核。卸载可能清除该应用数据，原NAS里的APK文件不会被删除。不能因为安装失败就自动卸载旧应用来“修复”。
+6. 电视读取APK到自己的缓存，核对包名与SHA-256；资料不一致就停止。首次安装需在原系统允许开视作为安装来源，然后返回复核。卸载可能清除该应用数据，原NAS里的APK文件不会被删除。不能因为安装失败就自动卸载旧应用来“修复”。
 7. 用`aperture_install_status`或`aperture_uninstall_status`查询同一`id`和原`key`。等待系统确认不等于完成；只有`succeeded / reported_by_tv`表示原生应用已经得到系统成功回执并读取了相应安装版本或卸载结果。`unknown`、回执超时或过期都不代表“没执行”，需要在电视系统应用管理核对后再决定。
 
 给WorkBuddy的示例：

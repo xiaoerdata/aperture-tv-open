@@ -83,7 +83,7 @@ final class DestinationApps {
             .setItems(new String[] {"安装方式", "本机应用", "管理应用", "设置直播入口", "设置影视入口", "设置常用应用"}, (dialog, which) -> {
                 if (which == 0) {
                     new AlertDialog.Builder(activity).setTitle("通过原系统安装")
-                        .setMessage("从原系统应用商店安装电视版应用。安装APK时，用原系统文件管理打开U盘文件，按系统提示确认。部分固件限制外部安装，以电视提示为准。\n\n安装后回到开窗，在直播、影视或常用应用里添加入口。原应用的账号和数据仍由它自己管理。")
+                        .setMessage("从原系统应用商店安装电视版应用。安装APK时，用原系统文件管理打开U盘文件，按系统提示确认。部分固件限制外部安装，以电视提示为准。\n\n安装后回到开视，在直播、影视或常用应用里添加入口。原应用的账号和数据仍由它自己管理。")
                         .setPositiveButton("原桌面", (notice, index) -> launch("system")).setNegativeButton("返回", (notice, index) -> installation()).show();
                 } else if (which == 1) all();
                 else if (which == 2) {

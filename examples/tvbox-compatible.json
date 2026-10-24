@@ -1,0 +1,9 @@
+{
+  "sites": [
+    {"key": "family-json", "name": "家庭影视", "type": 1, "api": "https://media.example.invalid/api.php/provide/vod/"}
+  ],
+  "lives": [
+    {"name": "家庭频道清单", "url": "https://media.example.invalid/channels.m3u"},
+    {"name": "家庭录像", "channels": [{"name": "家庭短片", "group": "家庭", "urls": ["https://media.example.invalid/videos/family.mp4"]}]}
+  ]
+}

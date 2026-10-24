@@ -1,0 +1,19 @@
+{
+  "actualBinaryManifest": true,
+  "editions": [
+    {
+      "edition": "standard",
+      "cinemaActivityNonExported": true,
+      "homeAliasDisabled": true,
+      "serviceAndReceiverAbsent": true,
+      "cleartextFlagEnabledForOptionalHttpMedia": true
+    },
+    {
+      "edition": "parents",
+      "cinemaActivityNonExported": true,
+      "homeAliasDisabled": true,
+      "serviceAndReceiverAbsent": true,
+      "cleartextFlagEnabledForOptionalHttpMedia": true
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import {join, resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createApp} from '../server/app.mjs';
 import {launchBrowser} from './browser.mjs';
+async function viewport(page,size){await page.setViewportSize(size);await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));}
 const imagePrefix=process.env.APERTURE_QA_IMAGE_PREFIX||'s22';
 const directory=await mkdtemp(join(tmpdir(),'aperture-launcher-')),origin='http://127.0.0.1:4357';
 const app=await createApp({directory,origin,ownerKey:'launcher-fixture-owner-1234567890'});
@@ -29,14 +30,14 @@ try {
  await page.locator('#entry-cinema').click();await page.screenshot({path:'docs/images/'+imagePrefix+'-s18-glass-cinema-qa-1920.png'});await page.keyboard.press('Escape');
  await page.locator('#entry-system').click();assert.match(await page.locator('#pane-title').textContent(),/原桌面/);await page.screenshot({path:'docs/images/'+imagePrefix+'-s18-glass-system-1920.png'});await page.keyboard.press('Escape');
  for(const [w,h] of [[1280,720],[1920,1080],[3840,2160],[320,844],[390,844],[430,900],[760,900],[761,900]]){
-  await page.setViewportSize({width:w,height:h});
+  await viewport(page,{width:w,height:h});
   const box=await page.evaluate(()=>({x:document.documentElement.scrollWidth>innerWidth,y:document.documentElement.scrollHeight>innerHeight,rects:[...document.querySelectorAll('.destinations>.destination')].map(n=>{const r=n.getBoundingClientRect();return {top:r.top,bottom:r.bottom};})}));
   assert.equal(box.x,false,'standard width '+w);if(w>=1280)assert.equal(box.y,false,'standard height '+h);
   if(w===390)await page.screenshot({path:'docs/images/'+imagePrefix+'-s18-glass-standard-qa-phone.png',fullPage:true});
  }
  checks.push('standard UI at 720p/1080p/4K and 320/390/430/760/761 widths');
  // Content tabs and return work with the native key-name contract; no view requires typing.
- await page.setViewportSize({width:1920,height:1080});
+ await viewport(page,{width:1920,height:1080});
  for(const section of ['photos','data','information','tools']) {
   await page.locator('#entry-'+section).focus();await page.evaluate(()=>window.apertureRemoteKey('Enter'));
   assert.equal(await page.locator('#collection-view').isVisible(),true);assert.ok(await page.locator('#collection-body .collection-tile').count()>0);
@@ -48,7 +49,7 @@ try {
  await page.evaluate(()=>window.apertureRemoteKey('ArrowLeft'));assert.equal(await page.locator('#slide-play').getAttribute('aria-pressed'),'false');
  checks.push('four populated content sections, native-key entry/back focus, four manual carousel slides and user-input pause');
  for(const [width,height] of [[1280,720],[1920,1080]]){
-  await page.setViewportSize({width,height});await page.locator('#entry-cinema').click();assert.equal(await page.locator('[data-action=nas]').count(),1);await page.locator('[data-action=nas]').focus();await page.screenshot({path:'docs/images/'+imagePrefix+'-nas-entry-'+width+'.png'});await page.evaluate(()=>apertureBack());
+  await viewport(page,{width,height});await page.locator('#entry-cinema').click();assert.equal(await page.locator('[data-action=nas]').count(),1);await page.locator('[data-action=nas]').focus();await page.screenshot({path:'docs/images/'+imagePrefix+'-nas-entry-'+width+'.png'});await page.evaluate(()=>apertureBack());
   await page.locator('#entry-tools').click();assert.equal(await page.locator('#collection-body button').count(),8);
   assert.equal(await page.evaluate(()=>document.querySelector('#collection-body').getBoundingClientRect().bottom<=innerHeight),true,'eight tools fit above shortcuts');
   await page.evaluate(()=>apertureBack());await page.locator('#entry-photos').click();assert.equal(await page.locator('#collection-nas').isVisible(),true);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await page.screenshot({path:'docs/images/'+imagePrefix+'-nas-photos-'+width+'.png'});await page.evaluate(()=>apertureBack());
@@ -73,19 +74,19 @@ try {
  await parents.evaluate(()=>apertureNasLabels('NAS · 周末电影','NAS · 一起追的剧'));
  assert.equal(await parents.evaluate(()=>document.activeElement.id),'entry-series');
  assert.equal(await parents.locator('#cinema-label').textContent(),'NAS · 周末电影');assert.equal(await parents.locator('#series-label').textContent(),'NAS · 一起追的剧');
- for(const [width,height]of [[1280,720],[1920,1080],[390,844]]){await parents.setViewportSize({width,height});await parents.screenshot({path:'docs/images/'+imagePrefix+'-parents-nas-'+width+'.png',fullPage:width<761});assert.equal(await parents.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);if(width>=1280)assert.equal(await parents.evaluate(()=>document.documentElement.scrollHeight<=innerHeight),true);}
+ for(const [width,height]of [[1280,720],[1920,1080],[390,844]]){await viewport(parents,{width,height});await parents.screenshot({path:'docs/images/'+imagePrefix+'-parents-nas-'+width+'.png',fullPage:width<761});assert.equal(await parents.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);if(width>=1280)assert.equal(await parents.evaluate(()=>document.documentElement.scrollHeight<=innerHeight),true);}
  await parents.evaluate(()=>apertureNasLabels('<img src=x onerror=alert(1)>','NAS · 一起追的剧'));assert.equal(await parents.locator('#cinema-label img').count(),0);assert.match(await parents.locator('#cinema-label').textContent(),/<img/);await parents.evaluate(()=>apertureNasLabels('NAS · 周末电影','NAS · 一起追的剧'));
- await parents.setViewportSize({width:1280,height:720});await parents.locator('#settings-open').click();await parents.evaluate(()=>{apertureRemoteKey('ArrowDown');apertureRemoteKey('ArrowDown');apertureRemoteKey('ArrowDown');});assert.equal(await parents.evaluate(()=>document.activeElement.dataset.action),'nas-photos');assert.equal(await parents.evaluate(()=>getComputedStyle(document.activeElement).outlineStyle),'solid');assert.ok(await parents.evaluate(()=>parseFloat(getComputedStyle(document.activeElement).outlineWidth))>=3);assert.ok(await parents.evaluate(()=>parseFloat(getComputedStyle(document.activeElement).outlineOffset))<0);assert.equal(await parents.locator('[data-action=nas-photos]').count(),1);assert.equal(await parents.evaluate(()=>{var r=document.activeElement.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}),true);await parents.screenshot({path:'docs/images/'+imagePrefix+'-parents-nas-settings-1280.png'});await parents.keyboard.press('Escape');
+ await viewport(parents,{width:1280,height:720});await parents.locator('#settings-open').click();await parents.evaluate(()=>{apertureRemoteKey('ArrowDown');apertureRemoteKey('ArrowDown');apertureRemoteKey('ArrowDown');});assert.equal(await parents.evaluate(()=>document.activeElement.dataset.action),'nas-photos');assert.equal(await parents.evaluate(()=>getComputedStyle(document.activeElement).outlineStyle),'solid');assert.ok(await parents.evaluate(()=>parseFloat(getComputedStyle(document.activeElement).outlineWidth))>=3);assert.ok(await parents.evaluate(()=>parseFloat(getComputedStyle(document.activeElement).outlineOffset))<0);assert.equal(await parents.locator('[data-action=nas-photos]').count(),1);assert.equal(await parents.evaluate(()=>{var r=document.activeElement.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}),true);await parents.screenshot({path:'docs/images/'+imagePrefix+'-parents-nas-settings-1280.png'});await parents.keyboard.press('Escape');
  checks.push('parents NAS source labels update as safe text without resetting focus; NAS photo settings reachable with visible native-key focus at 720p; browser simulation does not test Android source dispatch');
 
  for(const [w,h] of [[1280,720],[1920,1080],[3840,2160],[390,844],[760,900],[761,900]]){
-  await parents.setViewportSize({width:w,height:h});assert.equal(await parents.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'parents width '+w);
+  await viewport(parents,{width:w,height:h});assert.equal(await parents.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'parents width '+w);
   if(w>=1280)assert.equal(await parents.evaluate(()=>document.documentElement.scrollHeight>innerHeight),false,'parents height '+h);
   if(w===1280)await parents.screenshot({path:'docs/images/'+imagePrefix+'-parents-shortcuts-1280.png'});
   if(w===390)await parents.screenshot({path:'docs/images/'+imagePrefix+'-s18-glass-parents-phone.png',fullPage:true});
  }
  checks.push('parents UI at 720p/1080p/4K and phone boundaries with large text');
- await page.setViewportSize({width:1920,height:1080});await page.reload();await page.waitForFunction(()=>typeof window.apertureRemoteKey==='function');assert.equal(await page.evaluate(()=>localStorage.getItem('aperture-launcher-solid')),'0');
+ await viewport(page,{width:1920,height:1080});await page.reload();await page.waitForFunction(()=>typeof window.apertureRemoteKey==='function');assert.equal(await page.evaluate(()=>localStorage.getItem('aperture-launcher-solid')),'0');
  const offline=await browser.newPage({viewport:{width:1280,height:720}}),requests=[];offline.on('request',r=>requests.push(r.url()));offline.on('pageerror',e=>errors.push(e.message));
  await offline.goto(pathToFileURL(resolve('public/launcher/index.html')).href+'?edition=parents&live='+encodeURIComponent('<img src=x onerror=alert(1)>'));
  await offline.waitForFunction(()=>typeof window.apertureRemoteKey==='function');

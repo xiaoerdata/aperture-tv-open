@@ -1,0 +1,38 @@
+{
+  "method": "desktop Chromium, empty isolated household",
+  "realTelevision": false,
+  "measurements": [
+    {
+      "edition": "standard",
+      "width": 960,
+      "height": 540,
+      "heroControlsOverlap": true,
+      "footerBottom": 563.765625,
+      "scrollHeight": 572
+    },
+    {
+      "edition": "standard",
+      "width": 1280,
+      "height": 720,
+      "heroControlsOverlap": false,
+      "footerBottom": 706.25,
+      "scrollHeight": 720
+    },
+    {
+      "edition": "parents",
+      "width": 960,
+      "height": 540,
+      "heroControlsOverlap": false,
+      "footerBottom": 582.71875,
+      "scrollHeight": 591
+    },
+    {
+      "edition": "parents",
+      "width": 1280,
+      "height": 720,
+      "heroControlsOverlap": false,
+      "footerBottom": 708.59375,
+      "scrollHeight": 720
+    }
+  ]
+}

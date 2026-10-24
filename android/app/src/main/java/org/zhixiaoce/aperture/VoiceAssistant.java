@@ -74,9 +74,9 @@ final class VoiceAssistant {
     }
     void help() {
         String entry = label();
-        String message = "遥控器：蓝牙语音遥控器需要按住语音键说话，说完再松开。开窗不把语音键当成确认键。\n\n远场：支持的电视需在原系统小爱同学中开启语音唤醒；检查电视麦克风开关和遮挡。协同唤醒可能由家里另一台设备应答。待机唤醒由电视固件和硬件决定。\n\n";
+        String message = "遥控器：蓝牙语音遥控器需要按住语音键说话，说完再松开。开视不把语音键当成确认键。\n\n远场：支持的电视需在原系统小爱同学中开启语音唤醒；检查电视麦克风开关和遮挡。协同唤醒可能由家里另一台设备应答。待机唤醒由电视固件和硬件决定。\n\n";
         message += entry.isEmpty() ? "当前没有确认可直接打开的公开系统语音入口，这不代表电视没有小爱；仍可用原遥控器语音键。" : "发现可打开的系统入口：" + entry + "。这不代表已确认远场或待机唤醒开启。";
-        message += "\n\n设备：" + Build.MANUFACTURER + " / " + Build.MODEL + " · Android API " + Build.VERSION.SDK_INT + "\n开窗不录音，不修改小爱默认助手和唤醒开关。";
+        message += "\n\n设备：" + Build.MANUFACTURER + " / " + Build.MODEL + " · Android API " + Build.VERSION.SDK_INT + "\n开视不录音，不修改小爱默认助手和唤醒开关。";
         new AlertDialog.Builder(activity).setTitle("小爱同学与语音唤醒").setMessage(message).setPositiveButton("语音设置", (dialog, which) -> settings()).setNegativeButton("返回", null).show();
     }
 }

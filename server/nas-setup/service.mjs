@@ -24,12 +24,12 @@ export function createNasSetup({store,now=Date.now}){
   function targetAlive(r){const target=store.read().sessions[r.actor];if(!target||target.expiresAt<=now()||!['viewer','owner'].includes(target.role)){if(['waiting','delivered'].includes(r.state)){r.state='cancelled';delete r.envelope;}fail('电视连接已撤销',410,'target_revoked');}}
   function writerAlive(r){if(!r.writer||r.state!=='delivered')return;const s=store.read().sessions[r.writer];if(!s||s.expiresAt<=now()||(s.role!=='owner'&&!(s.role==='controller'&&s.scopes?.includes('nas.configure')))){r.state='cancelled';delete r.envelope;fail('配置授权已撤销',403,'delivery_revoked');}}
   function device(actor,r,secret){session(actor);if(r.actor!==actor.id||typeof secret!=='string'||!same(r.secretHash,hash(secret)))fail('不是当前电视的请求',403,'device_mismatch');targetAlive(r);}
-  const metadata=r=>({id:r.id,label:r.label,publicKey:r.publicKey,fingerprint:r.fingerprint,state:r.state,revision:r.revision,expiresAt:r.expiresAt});
+  const metadata=r=>({id:r.id,label:r.label.replace(/^开窗/,'开视'),publicKey:r.publicKey,fingerprint:r.fingerprint,state:r.state,revision:r.revision,expiresAt:r.expiresAt});
   const result=r=>({id:r.id,state:r.state,revision:r.revision,outcome:r.state==='saved'?'saved_on_tv':r.state==='delivered'?'awaiting_tv':r.state==='waiting'?'waiting_for_configuration':r.state});
   return {
     start(actor,input){
       const active=session(actor);if(!['viewer','owner'].includes(active.role))fail('请在电视上发起配置',403,'forbidden');
-      if(!input||Object.keys(input).sort().join(',')!=='id,label,publicKey,secretHash'||!idPattern.test(input.id||'')||!/^[a-f0-9]{64}$/.test(input.secretHash||'')||!['开窗 · 标准版','开窗 · 爸妈版'].includes(input.label))fail('电视请求格式无效');
+      if(!input||Object.keys(input).sort().join(',')!=='id,label,publicKey,secretHash'||!idPattern.test(input.id||'')||!/^[a-f0-9]{64}$/.test(input.secretHash||'')||!['开窗 · 标准版','开窗 · 爸妈版','开视 · 标准版','开视 · 爸妈版'].includes(input.label))fail('电视请求格式无效');
       const encoded=bytes(input.publicKey,270,600);let key;
       try{key=createPublicKey({key:encoded,format:'der',type:'spki'});}catch{fail('电视公钥无效');}
       if(key.asymmetricKeyType!=='rsa'||key.asymmetricKeyDetails?.modulusLength!==2048||key.asymmetricKeyDetails?.publicExponent!==65537n)fail('电视公钥规格无效');

@@ -1,0 +1,43 @@
+{
+  "stage": "S47",
+  "objective": "请做好完整的测试，确保验证可用性，确认后就更新开源版本",
+  "requirements": [
+    {
+      "requirement": "完整服务/领域回归",
+      "evidence": "artifacts/s47-full-tests-after-harness-fix.log",
+      "status": "passed: 76/76 after fixing missing javac harness input; original failures retained"
+    },
+    {
+      "requirement": "浏览器核心任务与低逻辑分辨率布局",
+      "evidence": "docs/verification/s47-browser-summary.json",
+      "status": "passed: 19 browser verification scripts; original selector/async/capture failures retained"
+    },
+    {
+      "requirement": "Android实际安装、加密导入、原生MP4/HLS播放、选集、换台、暂停与焦点打断",
+      "status": "passed: installed standard 59 checks; parents 64 checks; actual H264 MP4 and MPEGTS HLS pixels, focus, seek, failure recovery",
+      "evidence": "docs/verification/s47-software-acceptance.json"
+    },
+    {
+      "requirement": "两版覆盖升级、配置保留与失败恢复",
+      "status": "passed: both v15 to v16 in-place upgrade with saved configuration decrypting through AndroidKeyStore",
+      "evidence": "docs/verification/s47-native-standard.json; docs/verification/s47-native-parents.json"
+    },
+    {
+      "requirement": "干净来源、双版签名、APK资源与源码一致",
+      "status": "final code freeze and candidates pending"
+    },
+    {
+      "requirement": "公开源码可安装、链接与隐私/许可审阅",
+      "status": "fresh export, clean install and readback pending"
+    },
+    {
+      "requirement": "更新开源Alpha并匿名核对下载",
+      "status": "authorized by P41; not performed before testing gates pass"
+    },
+    {
+      "requirement": "过程提示词/失败/分镜与实测边界留存",
+      "status": "recording in S47; final report pending"
+    }
+  ],
+  "previousGoalTurnClassification": "progress: real implementation, APKs and bounded protocol evidence; incomplete runtime coverage is now being tested"
+}
