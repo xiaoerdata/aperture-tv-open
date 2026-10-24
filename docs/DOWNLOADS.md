@@ -10,8 +10,8 @@
 | --- | --- |
 | [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.10/aperture-tv-v13-standard-debug.apk) | `aperture-tv-v13-standard-debug.apk` |
 | [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.10/aperture-tv-v13-parents-debug.apk) | `aperture-tv-v13-parents-debug.apk` |
-| [源码包](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.10/aperture-tv-v13-public-source.tar.gz) | 电脑/NAS运行服务、二次开发或自行构建 |
-| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.10/SHA256SUMS) | 两版APK、源码包及测试清单的SHA-256 |
+| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.10.tar.gz) | 电脑/NAS运行服务、二次开发或自行构建 |
+| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.10/SHA256SUMS) | 两版APK及测试清单的SHA-256 |
 | [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.10/testing-manifest.json) | 版本、包名、签名、来源与待测范围 |
 
 历史文档中的“私有候选”“内测下载”统一指向本页。它们是开发阶段记录，历史版本不因此全部公开；以本页所列Alpha附件为准。也可按[免费本地构建](ANDROID-LOCAL.md)自行生成APK。
@@ -29,7 +29,7 @@
 
 本地构建产物分别位于 `artifacts/android-local` 和 `artifacts/android-local-parents`。每个目录包含 APK、`manifest.json`、`SHA256SUMS`、`signature.txt` 与 `package.txt`。核对包名、版本、APK 摘要及签名；校验和要与同一可信来源的资料比较，不能只看文件名。
 
-从测试发布下载APK和SHA256SUMS后，可分别核对所需文件；源码包与清单同时下载后也可一并核对。本地构建的SHA256SUMS在各自产物目录。Linux完整下载附件后执行：
+从测试发布下载APK和SHA256SUMS后，可分别核对所需文件。源码使用GitHub标签自动归档，解压后的逐文件摘要见SOURCE-MANIFEST.json，不将其压缩包混入APK校验和。本地构建的SHA256SUMS在各自产物目录。Linux完整下载附件后执行：
 
 ```bash
 sha256sum -c SHA256SUMS
