@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0-alpha.13",
+  "scope": "prepared frozen export before post-release receipts",
+  "textEntriesScanned": 423,
+  "privateDistributionPaths": 0,
+  "sensitivePaths": [],
+  "privateEvidencePaths": [],
+  "patternFindingClassification": "Existing verify-source-android.mjs guard literal, not raw CI account evidence",
+  "binaryOrLargeEntriesNotTextScanned": 283,
+  "manualScope": "Representative new screenshots inspected; own synthetic fixture and original screenshot attachment not exported. Existing licensed assets retained. Not a complete binary or legal audit.",
+  "documentationLinksChecked": 266,
+  "missingDocumentationFileLinks": 0,
+  "privateGitHistoryIncluded": false,
+  "sourceTreeCleanAtBuild": true
+}

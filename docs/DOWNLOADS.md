@@ -48,3 +48,5 @@ macOS 可执行 `shasum -a 256 -c SHA256SUMS`。Windows PowerShell 可用 `Get-F
 两版APK沿用对应旧版本的包名与签名，版本号递增。软件回归包括76项Node测试、19个浏览器脚本和两版API26模拟器的实际媒体解码、来源加密与覆盖升级，见[本轮记录](verification/s47-software-acceptance.json)。发行字节与干净源码的对应关系另见Release的testing-manifest.json。浏览器、协议和模拟器证据分别保留；WorkBuddy 客户端与小米真机由维护者测试，未测型号不标为兼容。设备范围见[支持说明](SUPPORT.md)，发布准备见[开源准备](OPEN-SOURCE-PREPARATION.md)。
 
 维护者生成正式包时使用[release构建与签名说明](ANDROID-RELEASE.md)；当前说明中的命令尚未完整执行，不能据此标为已发行。
+
+本次发行已完成[匿名下载与源码回读](verification/public-alpha-v16.json)，以及[冻结公开源码的新目录安装](verification/s47-public-clean-install.json)。后补发布回执只修改文档，不覆盖既有标签或APK。

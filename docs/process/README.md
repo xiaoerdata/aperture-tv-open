@@ -71,4 +71,4 @@ S44：[系统框架研究与路线](../SYSTEM-FRAMEWORK-ROADMAP.md)、[定向文
 
 S46：[内嵌影院](../EMBEDDED-CINEMA.md)、[生产解析/HTTP检查](../verification/s46-embedded-cinema.json)、[v15包核对](../verification/s46-v15-candidates.json)、[第三十二期底稿](../../media/DEVLOG-032.md)。新原生UI和解码尚未设备运行，TVBox仅兼容所列子集，公开版本仍为v13。
 
-S47：[发布前验证矩阵](../verification/s47-acceptance-plan.json)、[浏览器汇总](../verification/s47-browser-summary.json)、[模拟器H264诊断](../verification/s47-emulator-h264-diagnosis.json)、[第三十三期底稿](../../media/DEVLOG-033.md)。保留失败原因与验证边界；发布结果在完成后续记。
+S47：[发布前验证矩阵](../verification/s47-acceptance-plan.json)、[浏览器汇总](../verification/s47-browser-summary.json)、[模拟器H264诊断](../verification/s47-emulator-h264-diagnosis.json)、[第三十三期底稿](../../media/DEVLOG-033.md)。保留失败原因与验证边界；发布结果见[匿名下载与源码回读](../verification/public-alpha-v16.json)。

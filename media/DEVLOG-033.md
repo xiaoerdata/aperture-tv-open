@@ -15,3 +15,5 @@
 素材位置：docs/images/s45-*.png为浏览器布局图；S47原生模拟器画面将按版别另存，合成媒体由scripts/emulator-media-fixture.mjs生成；测试驱动tests/android/CinemaRunner.java不进入产品。原始日志和失败截屏保留本地artifacts，不公开真实账号、配置、凭证或测试APK。
 
 实际完成：标准版59项、爸妈版64项完整原生模拟器检查通过，含爸妈版三个首页入口。H264黑屏另定位到默认模拟器CPU缺少SSE4.1，保留系统崩溃与反汇编证据；调整专用模拟器后，用原APK和原MP4/HLS样本通过，不说成修复了小米解码器。可用画面为docs/images/s47-native-standard-{live-mp4,live-hls,episode-13,health,recovered}.png和s47-native-parents-parents-series.png，均为API26软件模拟器、合成内容。
+
+发布镜头已具备：[v16 Alpha](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.13)，两版和元数据匿名完整下载、摘要核对通过。可拍摄发布页与安装包选择；不要称“小米真机通过”“稳定系统”“全面兼容TVBox”。本期仍为素材与编辑底稿，未上传自媒体。

@@ -589,7 +589,7 @@ P40原文已追加，要求直播和影视仓资源集成内嵌，参考TVBox。
 
 [功能与边界](../EMBEDDED-CINEMA.md)、[研究出处](../verification/s46-tvbox-research.json)、[协议检查](../verification/s46-embedded-cinema.json)、[APK核对](../verification/s46-v15-candidates.json)、[二进制Manifest](../verification/s46-manifest.json)、[第三十二期底稿](../../media/DEVLOG-032.md)。实际可上手程度仍需维护者用自己的兼容配置、小米解码与小爱恢复验证。
 
-## S47 · 发布前完整软件回归（进行中）
+## S47 · 发布前完整软件回归与开源Alpha更新
 
 P41要求“请做好完整的测试，确保验证可用性，确认后就更新开源版本”，授权在软件验证通过后更新公开Alpha。小米真机和WorkBuddy客户端仍按P34由维护者验收，不从模拟器结果推导小米固件通过。
 
@@ -604,3 +604,11 @@ S47原生排查续记：v16覆盖后来源可解密、导入和MP4时钟推进�
 启用SSE4.1后，同一v16 APK和同一媒体已实际解码MP4、HLS与第13集，像素/时钟、真实AudioManager焦点打断、手动恢复、换台和跨页返回通过。第一次完整流程在最后“取消清除→返回片库”检查停下：截图仍在来源设置，配置未删除；没有将部分通过称为全版验收。测试驱动原先在弹窗关闭后立即发Back，现等待Activity窗口恢复焦点，并在该步骤通过真实D-pad下移、滚动到“返回”、按确认来恢复目录；保留原失败报告与截图，重新跑完整流程。其他播放、HTTP与焦点断言保持。
 
 S47软件门槛结果：标准版与爸妈版API26完整原生流程均通过；爸妈版额外验证看电视剧一级入口。两版均有升级后来源解密、实际MP4/HLS像素、音频打断、换台/选集返回和失效恢复证据。[总记录](../verification/s47-software-acceptance.json)、[标准版](../verification/s47-native-standard.json)、[爸妈版](../verification/s47-native-parents.json)。后续执行干净来源构建、源码新目录安装和公开下载回读，不以软件门槛代替发布门槛。
+
+S47发布完成：从干净提交ac4aae184a112b07b45728029946cd0466d58e55构建两版v16，字节与已安装实测候选完全一致；标准b14ddd45…ca7fdd4、爸妈029c6bb5…2d82cfc，原签名与包名保留。源码公开标签v0.2.0-alpha.13指向4aea7204b6b067b382a336e1c6ebf17ee42680d9，705份Git对象内容逐项核对SOURCE-MANIFEST。公开快照不含私有Git历史、家庭数据、SDK、签名密钥或测试APK。
+
+新目录实装：npm ci、独立Python venv/Pillow、doctor/start、两版首页与五条路由、私人状态401及默认机器入口503均通过。266个文档文件链接无缺失；有限扫描423文本条目，唯一匹配为既有防泄漏检查代码，283份二进制/大文件不属于文本扫描证明范围。不是全面安全或法律审计。
+
+[开源Alpha](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.13)发布后，匿名完整下载两版APK、测试清单和校验和，与本地逐字节摘要一致；Release及源码归档HEAD均200，旧alpha.10标签和四个附件摘要未变，原研发库仍Private。[发布回读](../verification/public-alpha-v16.json)、[首次安装](../verification/s47-public-clean-install.json)、[包检查](../verification/s47-final-candidates.json)。测试源服务、专用模拟器与5049 ADB server已停止，证据/AVD数据保留；其他服务未动。
+
+本补记与发布回执晚于发行标签冻结，仅更新文档/清单，不重建APK、不改标签。首次安装直接验证的是705文件的冻结公开快照，后补文档不宣称第二次安装实测。小米硬件、小爱/米家和WorkBuddy客户端仍由维护者验收；未上传小红书或部署Hub。

@@ -50,7 +50,16 @@
         "path": "docs/process/README.md",
         "links": 1
       }
-    ]
+    ],
+    "postPublicationEvidenceAddedAfterTag": "v0.2.0-alpha.13",
+    "androidInputsUnchanged": true,
+    "publicationDocsPrivateLinksReplaced": [
+      {
+        "path": "docs/process/README.md",
+        "links": 1
+      }
+    ],
+    "publicationDocumentationLinksChecked": 272
   },
   "files": [
     {
@@ -465,8 +474,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4940,
-      "sha256": "37394f53d00e7f425c5ca9c37c3bc0166d4b469af90449d0c5affb9693112f93"
+      "bytes": 5188,
+      "sha256": "d2a82cb9ad099ea263bb47a19914ab9ba17fadfc90c25648353bad44caea4545"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -1975,8 +1984,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 114813,
-      "sha256": "273b83a44f4baa64a14f87b3458201b16fa2e87fb90405b7c879007e1d74cd86"
+      "bytes": 116523,
+      "sha256": "aaf011b79ae5a147b095ec17611d262fa63ba36ad4c827e1c3dbd91671a70d1d"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -1985,8 +1994,8 @@
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 9256,
-      "sha256": "a15eb4287bc3f4e17b5c1b733688acc91bcce63326c002749c117e7bd0249754"
+      "bytes": 9309,
+      "sha256": "381ccfa4382686db5ba95a65404d8e85ed22cd96efcb947005b9a74f85ccbf10"
     },
     {
       "path": "docs/release/README-public.md",
@@ -2139,6 +2148,11 @@
       "sha256": "1f8eb65cd80b00b713cd8319c6f04e53f3e764d7d05fc731821a8d88ed8c02dd"
     },
     {
+      "path": "docs/verification/public-alpha-v16.json",
+      "bytes": 3619,
+      "sha256": "ac886c47176f6a39b6c47d6c5ca599b270bd6947b6b3f001a10062c334f73b85"
+    },
+    {
       "path": "docs/verification/public-source-v13-r2.json",
       "bytes": 3710,
       "sha256": "2a9c3b33c4f005a115bfaf9b5eeab53692559822e0d88e2c526ad5849a2030e8"
@@ -2275,8 +2289,8 @@
     },
     {
       "path": "docs/verification/s47-acceptance-plan.json",
-      "bytes": 2056,
-      "sha256": "b446bfcc4622546f376cf220a6953ae0208ffafd619cb93532a7dc82f438756a"
+      "bytes": 2716,
+      "sha256": "30ca22569bfadbf3d72ac371b0a40f916cae9b1a39ebdde85c6c2482539f4376"
     },
     {
       "path": "docs/verification/s47-browser-summary.json",
@@ -2292,6 +2306,11 @@
       "path": "docs/verification/s47-emulator-h264-diagnosis.json",
       "bytes": 1230,
       "sha256": "330f2a9fab05510df7caaa267a128131184e81e11785705c5a89980d82ce8bb3"
+    },
+    {
+      "path": "docs/verification/s47-final-candidates.json",
+      "bytes": 2825,
+      "sha256": "a7b252b234334d905938d6e25a65ced6ec36e36078513506db467d056c5eecff"
     },
     {
       "path": "docs/verification/s47-native-parents.json",
@@ -2317,6 +2336,16 @@
       "path": "docs/verification/s47-native-v15-playback-failure.json",
       "bytes": 1286,
       "sha256": "74a3a12d6a5233aada77bcb747d4e54ed8f74c37398a7b5a3166d8f71482aee8"
+    },
+    {
+      "path": "docs/verification/s47-public-clean-install.json",
+      "bytes": 1820,
+      "sha256": "77a8e73d685491348f6978abcc592928f21a95b9a96a473cf1c90d6710ecd9cb"
+    },
+    {
+      "path": "docs/verification/s47-publication-review.json",
+      "bytes": 728,
+      "sha256": "088f47587a2177d049b5ed0da95f9e1e93188fef9be0582d20aefbc709ed1d69"
     },
     {
       "path": "docs/verification/s47-software-acceptance.json",
@@ -2640,8 +2669,8 @@
     },
     {
       "path": "media/DEVLOG-033.md",
-      "bytes": 2304,
-      "sha256": "b44572510662276b4bd2585581ec3b420655b25a7c1fecd2656404c3bcfb82cf"
+      "bytes": 2654,
+      "sha256": "0c1487e29d453969693f568c21f92b83a1a4025c04ad028e2afc3b340328bb6e"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -3404,14 +3433,14 @@
       "sha256": "72bae18209d6d1d1c7430a53f7b8c0c496391be059127d918f2ee25717325235"
     },
     {
-      "path": "tests/android/CinemaRunner.java",
-      "bytes": 17203,
-      "sha256": "f601264a2fcc99a2cdb68dc0e2d97a060c83c2de2493f334ca23eb30dd1d74a0"
-    },
-    {
       "path": "tests/android-source.test.mjs",
       "bytes": 4726,
       "sha256": "3b3e8639bfd64aa441177ea6425379274fc20fa278461ed2af5df3eae14309b2"
+    },
+    {
+      "path": "tests/android/CinemaRunner.java",
+      "bytes": 17203,
+      "sha256": "f601264a2fcc99a2cdb68dc0e2d97a060c83c2de2493f334ca23eb30dd1d74a0"
     },
     {
       "path": "tests/app-operations-mcp.test.mjs",

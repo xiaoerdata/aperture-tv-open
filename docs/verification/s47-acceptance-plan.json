@@ -24,20 +24,26 @@
     },
     {
       "requirement": "干净来源、双版签名、APK资源与源码一致",
-      "status": "final code freeze and candidates pending"
+      "status": "passed: clean ac4aae1 build, both signature/package/resource checks, exact bytes match installed candidates",
+      "evidence": "docs/verification/s47-final-candidates.json"
     },
     {
       "requirement": "公开源码可安装、链接与隐私/许可审阅",
-      "status": "fresh export, clean install and readback pending"
+      "status": "passed: fresh npm ci, Python venv/Pillow, doctor/start, browser routes; bounded privacy/license/link review",
+      "evidence": "docs/verification/s47-public-clean-install.json; docs/verification/s47-publication-review.json"
     },
     {
       "requirement": "更新开源Alpha并匿名核对下载",
-      "status": "authorized by P41; not performed before testing gates pass"
+      "status": "passed: public Alpha13, complete anonymous downloads/digests, tag content and previous assets verified",
+      "evidence": "docs/verification/public-alpha-v16.json"
     },
     {
       "requirement": "过程提示词/失败/分镜与实测边界留存",
-      "status": "recording in S47; final report pending"
+      "status": "passed: P41 original, failures/repairs, screenshots and DEVLOG-033 retained; no social post performed",
+      "evidence": "docs/process/JOURNAL.md; media/DEVLOG-033.md"
     }
   ],
-  "previousGoalTurnClassification": "progress: real implementation, APKs and bounded protocol evidence; incomplete runtime coverage is now being tested"
+  "previousGoalTurnClassification": "progress: real implementation, APKs and bounded protocol evidence; incomplete runtime coverage is now being tested",
+  "completedAtUtc": "2026-10-24T20:09:46.274972+00:00",
+  "status": "complete within documented software/Alpha scope"
 }

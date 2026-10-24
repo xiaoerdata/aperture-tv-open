@@ -1,0 +1,73 @@
+{
+  "versionCode": 16,
+  "version": "0.2.0-alpha.13",
+  "packages": [
+    {
+      "format": "aperture-private-android/v1",
+      "applicationId": "org.zhixiaoce.aperture",
+      "edition": "standard",
+      "version": "0.2.0-alpha.13",
+      "versionCode": "16",
+      "minSdk": 26,
+      "targetSdk": 35,
+      "variant": "debug",
+      "buildEnvironment": "local-free",
+      "workingTreeDirty": false,
+      "androidSourceSha256": "5936d5beb4a8ab6034da199f90590e1f127deae23cb3e3242d55e60e0ae6a6ec",
+      "privateTestingOnly": true,
+      "sourceCommit": "ac4aae184a112b07b45728029946cd0466d58e55",
+      "buildCommit": "ac4aae184a112b07b45728029946cd0466d58e55",
+      "apk": "aperture-tv-debug.apk",
+      "apkBytes": 7654358,
+      "sha256": "b14ddd458fd38bc77d8e2c5446dcdbcde938640d0e0b90cc53a6a18d8ca7fdd4",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "signatureVerified": true,
+      "deviceInstalled": false,
+      "xiaomiTested": false,
+      "sourceProvenance": {
+        "kind": "git-checkout",
+        "sourceCommit": "ac4aae184a112b07b45728029946cd0466d58e55",
+        "buildCommit": "ac4aae184a112b07b45728029946cd0466d58e55",
+        "workingTreeDirty": false
+      }
+    },
+    {
+      "format": "aperture-private-android/v1",
+      "applicationId": "org.zhixiaoce.aperture.parents",
+      "edition": "parents",
+      "version": "0.2.0-alpha.13-parents",
+      "versionCode": "16",
+      "minSdk": 26,
+      "targetSdk": 35,
+      "variant": "debug",
+      "buildEnvironment": "local-free",
+      "workingTreeDirty": false,
+      "androidSourceSha256": "5936d5beb4a8ab6034da199f90590e1f127deae23cb3e3242d55e60e0ae6a6ec",
+      "privateTestingOnly": true,
+      "sourceCommit": "ac4aae184a112b07b45728029946cd0466d58e55",
+      "buildCommit": "ac4aae184a112b07b45728029946cd0466d58e55",
+      "apk": "aperture-tv-debug.apk",
+      "apkBytes": 7654510,
+      "sha256": "029c6bb541c91e56244a60e14582a6ab61f134c86a47fea0e22e5a5ca2d82cfc",
+      "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+      "signatureVerified": true,
+      "deviceInstalled": false,
+      "xiaomiTested": false,
+      "sourceProvenance": {
+        "kind": "git-checkout",
+        "sourceCommit": "ac4aae184a112b07b45728029946cd0466d58e55",
+        "buildCommit": "ac4aae184a112b07b45728029946cd0466d58e55",
+        "workingTreeDirty": false
+      }
+    }
+  ],
+  "byteIdenticalToInstalledTestCandidates": true,
+  "standardRuntimeChecks": 59,
+  "parentsRuntimeChecks": 64,
+  "nativeManifestCheckedBothEditions": true,
+  "cinemaExported": false,
+  "homeEnabledByDefault": false,
+  "newPermissions": false,
+  "newServiceOrReceiver": false,
+  "runtimeEnvironment": "dedicated API26 Android TV software emulator with SSE4.1; no Xiaomi claim"
+}
