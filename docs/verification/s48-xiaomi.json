@@ -1,0 +1,110 @@
+{
+  "checks": [
+    "Java lifecycle and exact allowlist tests include all new wallpaper files and reject unknown/traversal paths",
+    "actual Java whitelist serves offline HTML/CSS/JS/JPEG/WOFF2 from local HTTPS; fonts load with no household API request",
+    "shared web remote contract does not consume voice/assist/search/volume key names or move focus",
+    "native focus contract pauses carousel without navigation/reload/focus loss and does not restart automatically",
+    "voice guidance opens from tools and returns to current section; wake state explicitly depends on firmware",
+    "private/unknown/undeclared resource paths are denied by the real Java policy, without network fallback"
+  ],
+  "resources": [
+    {
+      "url": "https://appassets.androidplatform.net/assets/index.html",
+      "allowed": true,
+      "file": "index.html",
+      "mime": "text/html"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/launcher.js",
+      "allowed": true,
+      "file": "launcher.js",
+      "mime": "text/javascript"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/style.css",
+      "allowed": true,
+      "file": "style.css",
+      "mime": "text/css"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/carezza-4k.jpg",
+      "allowed": true,
+      "file": "carezza-4k.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/fonts/clock-reader.woff2",
+      "allowed": true,
+      "file": "fonts/clock-reader.woff2",
+      "mime": "font/woff2"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/fonts/aperture-song.woff2",
+      "allowed": true,
+      "file": "fonts/aperture-song.woff2",
+      "mime": "font/woff2"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/carezza-4k.jpg",
+      "allowed": true,
+      "file": "carezza-4k.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/namib-thumb.jpg",
+      "allowed": true,
+      "file": "namib-thumb.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/lofoten-thumb.jpg",
+      "allowed": true,
+      "file": "lofoten-thumb.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/fuji-thumb.jpg",
+      "allowed": true,
+      "file": "fuji-thumb.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/namib-4k.jpg",
+      "allowed": true,
+      "file": "namib-4k.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/namib-4k.jpg",
+      "allowed": true,
+      "file": "namib-4k.jpg",
+      "mime": "image/jpeg"
+    },
+    {
+      "url": "https://appassets.androidplatform.net/api/board",
+      "allowed": false
+    },
+    {
+      "url": "https://appassets.androidplatform.net/api/board",
+      "allowed": false
+    },
+    {
+      "url": "https://appassets.androidplatform.net/api/board",
+      "allowed": false
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/fonts/Newsreader-OFL.txt",
+      "allowed": false
+    },
+    {
+      "url": "https://appassets.androidplatform.net/assets/missing.js",
+      "allowed": false
+    }
+  ],
+  "errors": [],
+  "localHttpsSimulated": true,
+  "actualAndroidWebView": false,
+  "xiaomiHotwordTested": false,
+  "physicalVoiceKeyTested": false,
+  "apkBuilt": false
+}

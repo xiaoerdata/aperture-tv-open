@@ -18,10 +18,21 @@ public final class EmbeddedCinemaTest {
     public static void main(String[] args) throws Exception {
         String fixture="{\"spider\":\"https://example.invalid/plugin.jar\",\"sites\":[{\"name\":\"家庭库\",\"type\":1,\"api\":\"/api\"},{\"name\":\"脚本站\",\"type\":3,\"api\":\"csp_Plugin\"}],\"lives\":[{\"name\":\"直播\",\"channels\":[{\"name\":\"家庭短片\",\"urls\":[\"https://media.example.invalid/a.m3u8\"]}]}]}";
         CinemaCatalog.Config c=CinemaCatalog.config(fixture,"https://media.example.invalid/config.json",false);
-        check(c.sites.size()==1&&c.lives.size()==1&&c.skipped.size()==2,"only compatible sites imported with explicit skipped summary");
+        check(c.sites.size()==2&&c.lives.size()==1&&c.skipped.isEmpty(),"plugin references import without executing code");
         check(c.sites.get(0).api.equals("https://media.example.invalid/api"),"relative config API resolves against file URL");
-        check(!c.json().contains("spider")&&!c.json().contains("csp_Plugin"),"normalization drops executable extension data");
+        check(c.json().contains("spider")&&c.json().contains("csp_Plugin"),"normalization preserves plugin reference for explicit trust gate");
         check(CinemaCatalog.config(c.json(),null,false).lives.get(0).channels.get(0).urls.size()==1,"normalized config round-trips");
+        check(CinemaCatalog.config("{\"sites\":[{\"type\":3,\"api\":\"csp_Test\",\"ext\":\"  preserve  \"}]}","https://example.invalid/config",false).sites.get(0).ext.equals("  preserve  "),"extension strings preserve significant whitespace");
+        CinemaCatalog.Site restored=CinemaCatalog.config(c.json(),null,false).sites.get(1);
+        check(restored.type==3&&restored.spider.equals("https://example.invalid/plugin.jar")&&restored.base.equals("https://media.example.invalid/config.json"),"plugin location survives encrypted config round trip");
+        CinemaCatalog.Item opaque=new CinemaCatalog.Item(new JSONObject().put("vod_id","url-id".repeat(100)).put("vod_name","插件集数").put("vod_play_url","第1集$opaque+token==#第2集$https://example.invalid/watch/2"));
+        check(CinemaCatalog.lines(opaque,false,java.util.Collections.emptyMap(),true).get(0).episodes.size()==2,"plugin opaque IDs preserved until playerContent");
+        CinemaCatalog.Episode episode=new CinemaCatalog.Episode("第一集","opaque+token==");
+        check(CinemaHttp.resolved(episode,"{\"url\":\"https://example.invalid/video.m3u8\",\"parse\":0,\"header\":{\"User-Agent\":\"Fixture\"}}",false).headers.get("User-Agent").equals("Fixture"),"resolved media carries explicit player headers");
+        check(CinemaHttp.resolved(episode,new JSONObject().put("url","https://example.invalid/a.mp4").put("header",new JSONObject().put("Referer","https://example.invalid/").toString()).toString(),false).headers.containsKey("Referer"),"JSON string player headers are validated and retained");
+        reject(()->CinemaFormats.headers(new JSONObject().put("header","not-json")),"malformed encoded headers reject rather than silently drop");
+        reject(()->CinemaHttp.resolved(episode,"{\"url\":\"https://example.invalid/watch/a\",\"parse\":1}",false),"web-parser required output remains explicit");
+        reject(()->CinemaHttp.resolved(episode,"{\"url\":\"javascript:alert(1)\",\"parse\":0}",false),"final player address rejects script schemes");
         javax.crypto.KeyGenerator keys=javax.crypto.KeyGenerator.getInstance("AES");keys.init(256);javax.crypto.SecretKey key=keys.generateKey();String largeRecord="x".repeat(140000),sealed=CinemaCipher.encrypt(largeRecord,key);
         check(CinemaCipher.decrypt(sealed,key).equals(largeRecord),"media ciphertext does not inherit the smaller NAS record limit");
         byte[] damaged=java.util.Base64.getDecoder().decode(sealed.split("\\.")[1]);damaged[0]^=1;
@@ -41,11 +52,15 @@ public final class EmbeddedCinemaTest {
         List<CinemaCatalog.Line> lines=CinemaCatalog.lines(parsed.items.get(0),false);check(lines.size()==1&&lines.get(0).episodes.size()==2,"direct episodes grouped; web resolver links excluded");
         reject(()->CinemaCatalog.lines(new CinemaCatalog.Item(new JSONObject().put("vod_id","8").put("vod_name","网页").put("vod_play_url","https://example.invalid/watch/8")),false),"resolver requirement is explicit");
         reject(()->CinemaCatalog.page("<html>error</html>",1),"HTML is not a catalogue");
-        HttpServer server=HttpServer.create(new InetSocketAddress("127.0.0.1",0),0);AtomicInteger api=new AtomicInteger(),redirected=new AtomicInteger();CountDownLatch entered=new CountDownLatch(1);String[] query={""};
+        HttpServer server=HttpServer.create(new InetSocketAddress("127.0.0.1",0),0);AtomicInteger api=new AtomicInteger(),redirected=new AtomicInteger();java.util.concurrent.atomic.AtomicReference<String> received=new java.util.concurrent.atomic.AtomicReference<>();CountDownLatch entered=new CountDownLatch(1);String[] query={""};
         java.util.concurrent.ExecutorService threads=java.util.concurrent.Executors.newCachedThreadPool(r->{Thread t=new Thread(r);t.setDaemon(true);return t;});server.setExecutor(threads);
         server.createContext("/api",e->{api.incrementAndGet();query[0]=e.getRequestURI().getRawQuery();byte[] b=page.getBytes(StandardCharsets.UTF_8);e.sendResponseHeaders(200,b.length);e.getResponseBody().write(b);e.close();});
+        server.createContext("/play",e->{query[0]=e.getRequestURI().getRawQuery();byte[] b="{\"url\":\"https://example.invalid/final.mp4\",\"parse\":0}".getBytes();e.sendResponseHeaders(200,b.length);e.getResponseBody().write(b);e.close();});
         server.createContext("/redirect",e->{e.getResponseHeaders().set("Location","/target");e.sendResponseHeaders(302,-1);e.close();});
         server.createContext("/target",e->{redirected.incrementAndGet();e.sendResponseHeaders(200,-1);e.close();});
+        server.createContext("/headers",e->{received.set(e.getRequestHeaders().getFirst("Authorization")+"|"+e.getRequestHeaders().getFirst("Cookie")+"|"+e.getRequestHeaders().getFirst("X-Test"));byte[] b="#EXTM3U\n#EXT-X-TARGETDURATION:6\n".getBytes();e.sendResponseHeaders(200,b.length);e.getResponseBody().write(b);e.close();});
+        server.createContext("/cross",e->{e.getResponseHeaders().set("Location","http://localhost:"+server.getAddress().getPort()+"/headers");e.sendResponseHeaders(302,-1);e.close();});
+        server.createContext("/loop",e->{e.getResponseHeaders().set("Location","/loop");e.sendResponseHeaders(302,-1);e.close();});
         server.createContext("/html",e->{byte[] b="<html>unavailable</html>".getBytes();e.sendResponseHeaders(200,b.length);e.getResponseBody().write(b);e.close();});
         server.createContext("/stream",e->{byte[] b="#EXTM3U\n#EXT-X-TARGETDURATION:6\n#EXTINF:6,\na.ts\n".getBytes();e.sendResponseHeaders(200,b.length);e.getResponseBody().write(b);e.close();});
         server.createContext("/large",e->{e.sendResponseHeaders(200,CinemaCatalog.MAX_BYTES+100L);e.close();});
@@ -58,9 +73,18 @@ public final class EmbeddedCinemaTest {
             http.catalogue(site,null,1,null,"7",true);check(query[0].contains("ids=7")&&!query[0].contains("wd="),"detail request uses selected ID");
             check(http.home(new CinemaCatalog.Site("目录",base+"/api?token=synthetic"),true).categories.size()==1&&!query[0].contains("ac="),"home categories use the base API without forcing detail mode");
             reject(()->http.catalogue(site,null,501,null,null,true),"bounded catalogue pagination");
-            reject(()->http.text(base+"/redirect",true),"catalogue redirect rejected");check(redirected.get()==0,"redirect destination never fetched");
+            http.home(new CinemaCatalog.Site("T4Home",base+"/api","t4",4,java.util.Collections.emptyMap(),"needs+extension","","",base),true);check(query[0].contains("extend=needs%2Bextension"),"type4 home receives extension");
+            CinemaCatalog.Site resolver=new CinemaCatalog.Site("T4",base+"/play","t4",4,java.util.Collections.emptyMap(),"custom+ext","","",base);
+            check(http.resolve(resolver,"线路",episode,true).url.endsWith("final.mp4")&&query[0].contains("play=opaque%2Btoken%3D%3D")&&query[0].contains("extend=custom%2Bext"),"type4 resolves opaque IDs with flag and extension");
+            http.text(base+"/redirect",true);check(redirected.get()==1,"bounded same-origin redirect followed");
+            java.util.Map<String,String> secrets=new java.util.LinkedHashMap<>();secrets.put("Authorization","Bearer synthetic");secrets.put("Cookie","synthetic=1");secrets.put("X-Test","synthetic");secrets.put("User-Agent","Test");
+            http.document(base+"/headers",true,secrets);check(received.get().contains("Bearer synthetic"),"explicit same-origin headers delivered");
+            CinemaHttp.Document cross=http.document(base+"/cross",true,secrets);check(received.get().equals("null|null|null")&&cross.headers.size()==1,"cross-origin redirect drops credentials and custom headers");
+            check(http.live(new CinemaCatalog.Live("test",base+"/cross",new java.util.ArrayList<>(),secrets),true).get(0).request(0).size()==1,"HLS channel does not reattach credentials dropped by redirect");
+            reject(()->http.text(base+"/loop",true),"redirect loop bounded");
             reject(()->http.probe(base+"/html",true),"HTTP200 HTML is not healthy media");check(http.probe(base+"/stream",true).contains("播放待验证"),"HLS probe does not claim decoding");
             reject(()->http.text(base+"/large",true),"content-length bound");
+            java.util.concurrent.ExecutorService cancelThread=java.util.concurrent.Executors.newSingleThreadExecutor();try{java.util.concurrent.Future<Boolean> future=cancelThread.submit(()->{try{http.text(base+"/slow",true);return false;}catch(Exception cancelled){return true;}});check(entered.await(2,TimeUnit.SECONDS),"cancellation fixture entered");http.cancel();check(future.get(2,TimeUnit.SECONDS),"active request cancellation");}finally{cancelThread.shutdownNow();}
             http.deadline(System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(200));long start=System.nanoTime();reject(()->http.text(base+"/slow",true),"health request deadline");check(System.nanoTime()-start<TimeUnit.SECONDS.toNanos(2),"deadline bounded");http.deadline(0);
         }finally{http.cancel();server.stop(0);threads.shutdownNow();}
         System.out.println("Embedded cinema: "+assertions+" parser/HTTP assertions passed; no device playback claim");

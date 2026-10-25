@@ -4,10 +4,11 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0c1119">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; object-src 'none'; base-uri 'none'">
-  <title>开视</title><link rel="stylesheet" href="./style.css"><script src="./launcher.js" defer></script>
+  <title>开视</title><link rel="stylesheet" href="./style.css"><script src="./home-personal.js" defer></script><script src="./launcher.js" defer></script>
 </head>
 <body>
-<div class="lobby" id="lobby" data-section="overview">
+<div class="scenic-background" aria-hidden="true"><div class="scenic-shade"></div><div class="scenic-blur"></div></div>
+<div class="lobby" id="lobby" data-section="overview" data-home-page="0">
   <header class="lobby-header">
     <a class="wordmark" href="#" id="brand-home" aria-label="首页"><span class="arch-logo" aria-hidden="true"></span><span>开视<small></small></span></a>
     <nav class="section-nav glass" aria-label="分区">
@@ -16,7 +17,39 @@
     <div class="header-time"><time id="clock">--:--</time><span><b id="date-day">今天</b><small id="date-week"></small></span></div>
     <button class="settings-button glass" id="settings-open">设置</button>
   </header>
-  <main>
+  <main id="home-pages">
+    <section id="ambient-home" class="home-screen ambient-screen" aria-label="首页">
+      <aside id="personal-panel" class="personal-panel glass" hidden aria-label="家庭摘要">
+        <img class="personal-archive" src="./art/memory-archive-v1.webp" alt="" aria-hidden="true"><img id="personal-photo" class="personal-photo" alt="" hidden><div id="personal-copy" class="personal-copy"><span id="personal-kind" class="personal-kind"></span><h1 id="personal-title"></h1><p id="personal-value"></p><small id="personal-meta"></small></div>
+        <div class="personal-actions"><button id="personal-open"></button><span id="personal-count"></span><button id="personal-pause" aria-pressed="true">暂停</button><button id="personal-next" aria-label="下一条摘要">›</button></div>
+      </aside>
+      <nav id="home-watch" class="home-watch" aria-label="直接观看">
+        <button id="home-live" class="watch-entry glass" data-watch="family-live"><span class="watch-glyph"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="15" width="34" height="25" rx="6"/><path d="m17 7 7 8 7-8M17 45h14m-10-22 9 5-9 5Z"/></svg></span><strong>看电视</strong></button>
+        <button id="home-series" class="watch-entry glass" data-watch="family-series"><span class="watch-glyph"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="12" width="34" height="28" rx="6"/><path d="M13 7h22M18 3h12M21 22l9 5-9 5Z"/></svg></span><strong>看电视剧</strong></button>
+        <button id="home-movies" class="watch-entry glass" data-watch="family-movies"><span class="watch-glyph"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18h32v20a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4Z"/><path d="m8 18-2-9 31-6 2 9ZM14 7l6 8m5-10 6 8m-10 12 9 5-9 5Z"/></svg></span><strong>看电影</strong></button>
+      </nav>
+      <nav id="home-dock" class="home-dock" aria-label="首页应用"><button id="dock-toggle" class="dock-toggle" aria-expanded="false" aria-controls="home-app-list"><span id="dock-stack" class="dock-stack" aria-hidden="true"></span><span class="dock-group-label">常用应用<small id="dock-total"></small></span><span class="dock-fold-arrow" aria-hidden="true">⌄</span></button><div id="home-app-list" class="home-app-list" hidden><div id="home-apps" class="home-apps"></div><button id="home-app-add" class="dock-add" aria-label="添加首页应用"><span>＋</span><small>添加应用</small></button></div></nav>
+      <div class="landscape-caption"><span id="wallpaper-place">意大利 · 卡雷扎湖</span><span class="landscape-caption-line"></span></div>
+      <button id="page-down" class="page-down" aria-label="向下进入片库与应用"><span>片库与应用</span><span class="down-chevron" aria-hidden="true"></span></button>
+    </section>
+    <section id="apps-home" class="home-screen apps-screen" aria-labelledby="apps-title" hidden>
+      <div class="entry-heading"><h1 id="apps-title">片库与应用</h1><span id="environment"></span></div>
+      <nav class="destinations" aria-label="观看入口">
+        <button class="destination live glass" id="entry-live" data-pane="live"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="15" width="34" height="25" rx="6"/><path d="m17 7 7 8 7-8M17 45h14m-10-22 9 5-9 5Z"/></svg></span><span class="entry-text"><strong>直播</strong><span id="live-label"></span></span></button>
+        <button class="destination series glass" id="entry-series" hidden><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="10" width="34" height="29" rx="6"/><path d="M15 6h20M20 20l10 5-10 5Z"/></svg></span><span class="entry-text"><strong>看电视剧</strong><span id="series-label"></span></span></button>
+        <button class="destination cinema glass" id="entry-cinema" data-pane="cinema"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="9" width="32" height="32" rx="6"/><path d="M16 9v32m16-32v32M8 19h8m-8 12h8m16-12h8m-8 12h8m-18-11 7 5-7 5Z"/></svg></span><span class="entry-text"><strong>影视</strong><span id="cinema-label"></span></span></button>
+      </nav>
+    <section id="parents-shortcuts" class="parents-shortcuts" aria-labelledby="shortcuts-title"><div class="shortcuts-heading"><h2 id="shortcuts-title">常用应用</h2></div><nav class="shortcuts-row" aria-label="常用应用"><button id="quick1" class="shortcut glass"><strong>未设置</strong></button><button id="quick2" class="shortcut glass"><strong>未设置</strong></button><button id="quick3" class="shortcut glass"><strong>未设置</strong></button><button id="quick4" class="shortcut glass"><strong>未设置</strong></button><button id="shortcut-all" class="shortcut glass"><strong>所有应用</strong></button></nav></section>
+      <button id="apps-next" class="screen-next" aria-label="向下进入家庭内容">家庭内容 <span aria-hidden="true">↓</span></button>
+    </section>
+    <section id="content-home" class="home-screen content-screen" aria-label="家庭内容" hidden>
+      <div class="screen-heading"><h1>家庭</h1></div>
+      <nav class="content-links" aria-label="家庭分区">
+        <button class="destination glass" id="entry-photos" data-section="photos"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="7"/><circle cx="18" cy="18" r="3"/><path d="m9 34 11-10 7 7 6-6 7 8"/></svg></span><span class="entry-text"><strong>相册</strong></span></button>
+        <button class="destination glass" id="entry-data" data-section="data"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 39h32M14 31V21m10 10V10m10 21V16"/><circle cx="14" cy="18" r="2"/><circle cx="24" cy="7" r="2"/><circle cx="34" cy="13" r="2"/></svg></span><span class="entry-text"><strong>数据</strong></span></button>
+        <button class="destination glass" id="entry-information" data-section="information"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 10h28v23H23l-10 7v-7h-3Z"/><path d="M17 18h14m-14 8h9"/></svg></span><span class="entry-text"><strong>消息</strong></span></button>
+        <button class="destination glass" id="entry-tools" data-section="tools"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="4"/><rect x="28" y="8" width="12" height="12" rx="4"/><rect x="8" y="28" width="12" height="12" rx="4"/><path d="M28 34h12m-6-6v12"/></svg></span><span class="entry-text"><strong>工具</strong></span></button>
+      </nav>
     <div class="home-content">
       <section class="welcome-space glass" aria-label="内容轮播">
         <div class="welcome-copy"><p class="eyebrow" id="hero-eyebrow"></p><h1 id="hero-title">相册</h1><p class="welcome-description" id="hero-description">暂无照片</p><div class="hero-actions"><button class="hero-primary" id="hero-open">查看相册</button><span id="hero-source"></span></div></div>
@@ -29,27 +62,19 @@
         <button class="summary-card note-card glass" data-section="information"><span class="card-eyebrow">消息</span><span class="note-title" id="note-title">暂无消息</span><span class="note-body" id="note-body"></span><span class="card-detail" id="note-author"></span></button>
       </section>
     </div>
+      <nav class="system-links" aria-label="家庭与系统">
+        <button class="destination family glass" id="entry-family"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 39V21a12 12 0 0 1 24 0v18H12Zm0-16h24M24 10v29"/></svg></span><span class="entry-text"><strong>家庭屏</strong></span></button>
+        <button class="destination system glass" id="entry-system" data-pane="system"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M23 8H10v32h13m1-16h18m-8-8 8 8-8 8"/></svg></span><span class="entry-text"><strong>原桌面</strong><span id="system-label"></span></span></button>
+      </nav>
+    </section>
     <section id="collection-view" class="collection-view" hidden aria-labelledby="collection-title">
       <div class="collection-header"><div><p class="eyebrow" id="collection-kicker" hidden></p><h1 id="collection-title">相册</h1><p id="collection-description" hidden></p></div><div class="collection-controls"><button id="collection-nas" hidden>NAS 相册</button><button class="back-overview" data-section="overview">返回首页</button></div></div>
       <nav id="collection-paging" class="collection-paging" hidden aria-label="翻页"><button id="collection-prev">上一页</button><span id="collection-page" role="status"></span><button id="collection-next">下一页</button></nav>
       <div id="collection-body" class="collection-body"></div>
     </section>
-    <div class="entry-heading"><h2>应用与内容</h2><span id="environment"></span></div>
-    <nav class="destinations" aria-label="首页入口">
-      <button class="destination live glass" id="entry-live" data-pane="live"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="15" width="34" height="25" rx="6"/><path d="m17 7 7 8 7-8M17 45h14m-10-22 9 5-9 5Z"/></svg></span><span class="entry-text"><strong>直播</strong><span id="live-label"></span></span></button>
-      <button class="destination series glass" id="entry-series" hidden><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="10" width="34" height="29" rx="6"/><path d="M15 6h20M20 20l10 5-10 5Z"/></svg></span><span class="entry-text"><strong>看电视剧</strong><span id="series-label"></span></span></button>
-      <button class="destination cinema glass" id="entry-cinema" data-pane="cinema"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="9" width="32" height="32" rx="6"/><path d="M16 9v32m16-32v32M8 19h8m-8 12h8m16-12h8m-8 12h8m-18-11 7 5-7 5Z"/></svg></span><span class="entry-text"><strong>影视</strong><span id="cinema-label"></span></span></button>
-      <button class="destination glass" id="entry-photos" data-section="photos"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="7"/><circle cx="18" cy="18" r="3"/><path d="m9 34 11-10 7 7 6-6 7 8"/></svg></span><span class="entry-text"><strong>相册</strong></span></button>
-      <button class="destination family glass" id="entry-family"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 39V21a12 12 0 0 1 24 0v18H12Zm0-16h24M24 10v29"/></svg></span><span class="entry-text"><strong>家庭屏</strong></span></button>
-      <button class="destination glass" id="entry-data" data-section="data"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 39h32M14 31V21m10 10V10m10 21V16"/><circle cx="14" cy="18" r="2"/><circle cx="24" cy="7" r="2"/><circle cx="34" cy="13" r="2"/></svg></span><span class="entry-text"><strong>数据</strong></span></button>
-      <button class="destination glass" id="entry-information" data-section="information"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 10h28v23H23l-10 7v-7h-3Z"/><path d="M17 18h14m-14 8h9"/></svg></span><span class="entry-text"><strong>消息</strong></span></button>
-      <button class="destination glass" id="entry-tools" data-section="tools"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="4"/><rect x="28" y="8" width="12" height="12" rx="4"/><rect x="8" y="28" width="12" height="12" rx="4"/><path d="M28 34h12m-6-6v12"/></svg></span><span class="entry-text"><strong>工具</strong></span></button>
-      <button class="destination system glass" id="entry-system" data-pane="system"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M23 8H10v32h13m1-16h18m-8-8 8 8-8 8"/></svg></span><span class="entry-text"><strong>原桌面</strong><span id="system-label"></span></span></button>
-    </nav>
-    <section id="parents-shortcuts" class="parents-shortcuts" hidden aria-labelledby="shortcuts-title"><div class="shortcuts-heading"><h2 id="shortcuts-title">常用应用</h2></div><nav class="shortcuts-row" aria-label="常用应用"><button id="quick1" class="shortcut glass"><strong>未设置</strong></button><button id="quick2" class="shortcut glass"><strong>未设置</strong></button><button id="quick3" class="shortcut glass"><strong>未设置</strong></button><button id="quick4" class="shortcut glass"><strong>未设置</strong></button><button id="shortcut-all" class="shortcut glass"><strong>所有应用</strong></button></nav></section>
   </main>
-  <footer class="lobby-footer"><span class="remote-guide">方向键选择　确定键打开　返回键返回</span><span id="local-note"></span></footer>
+  <footer class="lobby-footer"><span class="remote-guide">方向键选择　确定键打开</span><span id="local-note"></span><nav class="screen-dots" aria-label="首页翻屏"><button data-home-screen="0" aria-label="首页" aria-pressed="true"></button><button data-home-screen="1" aria-label="片库与应用" aria-pressed="false"></button><button data-home-screen="2" aria-label="家庭内容" aria-pressed="false"></button></nav></footer>
 </div>
-<div class="pane-backdrop" id="pane-backdrop" hidden><section class="entry-pane glass" role="dialog" aria-modal="true" aria-labelledby="pane-title"><header class="pane-header"><span id="pane-kicker" hidden></span><button id="pane-close" class="pane-close">返回</button></header><div class="pane-body"><div class="pane-intro"><p class="eyebrow" id="pane-eyebrow" hidden></p><h2 id="pane-title">设置</h2><p id="pane-description" hidden></p><span id="pane-art" hidden></span></div><div class="pane-actions" id="pane-actions"></div></div><p class="pane-footnote" id="pane-footnote" hidden></p><p id="action-status" role="status" class="action-status"></p></section></div>
+<div class="pane-backdrop" id="pane-backdrop" hidden><section class="entry-pane glass" role="dialog" aria-modal="true" aria-labelledby="pane-title"><header class="pane-header"><span id="pane-kicker" hidden></span><button id="pane-close" class="pane-close">返回</button></header><div class="pane-body"><div class="pane-intro"><img id="pane-swallow" class="pane-swallow" src="./art/glass-swallow-v1.webp" alt="" aria-hidden="true" hidden><p class="eyebrow" id="pane-eyebrow" hidden></p><h2 id="pane-title">设置</h2><p id="pane-description" hidden></p><span id="pane-art" hidden></span></div><div class="pane-actions" id="pane-actions"></div></div><p class="pane-footnote" id="pane-footnote" hidden></p><p id="action-status" role="status" class="action-status"></p></section></div>
 <noscript><p>请启用 JavaScript，或使用原生简洁首页。</p></noscript>
 </body></html>

@@ -9,7 +9,7 @@ import {appOperationsHttp} from './app-operations/http.mjs';
 import {nasSetupHttp} from './nas-setup/http.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const version=JSON.parse(await readFile(join(root,'package.json'),'utf8')).version;
-const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.jpg':'image/jpeg','.png':'image/png','.woff2':'font/woff2'};
+const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.json':'application/json; charset=utf-8','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.woff2':'font/woff2'};
 export function createHttp({service,store,auth,images,origin,life,cinema,nasSetup,appOperations,localAgent,localAutomation,trustedProxies=[]}) {
   const allowed=new URL(origin); const buckets=new Map();let eventClients=0;
   function rate(req,group,limit) {

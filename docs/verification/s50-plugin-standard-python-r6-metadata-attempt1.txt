@@ -1,0 +1,47 @@
+INSTRUMENTATION_STATUS: check=python production detects correct runtime
+INSTRUMENTATION_STATUS: stage=python: prepare and trust
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python starts unapproved
+INSTRUMENTATION_STATUS: stage=python: prepare and trust
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python refuses execution before approval
+INSTRUMENTATION_STATUS: stage=python: prepare and trust
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python stores explicit approval
+INSTRUMENTATION_STATUS: stage=python: prepare and trust
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python native runtime home/init executes
+INSTRUMENTATION_STATUS: stage=python: execute runtime
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python category receives page and category
+INSTRUMENTATION_STATUS: stage=python: execute runtime
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python detail returns episode IDs
+INSTRUMENTATION_STATUS: stage=python: execute runtime
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python search passes Unicode and page
+INSTRUMENTATION_STATUS: stage=python: execute runtime
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python player resolves opaque ID and request headers
+INSTRUMENTATION_STATUS: stage=python: execute runtime
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python changed bundle/module bytes change approval digest
+INSTRUMENTATION_STATUS: stage=python: changed bundle approval
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python changed bytes are not implicitly approved
+INSTRUMENTATION_STATUS: stage=python: changed bundle approval
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python changed bundle refuses execution before renewed approval
+INSTRUMENTATION_STATUS: stage=python: changed bundle approval
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python approved changed bundle executes
+INSTRUMENTATION_STATUS: stage=python: changed bundle approval
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python revocation removes both approvals
+INSTRUMENTATION_STATUS: stage=python: revoke
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: check=python revocation blocks next call
+INSTRUMENTATION_STATUS: stage=python: revoke
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: writeError=android.content.pm.PackageManager$NameNotFoundException: com.google.android.webview
+INSTRUMENTATION_CODE: -1

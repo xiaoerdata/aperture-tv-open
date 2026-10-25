@@ -1,0 +1,148 @@
+{
+  "stage": "S50",
+  "status": "passed",
+  "candidateSnapshot": true,
+  "softwareGatePassed": false,
+  "finalPublicationReuseAllowed": false,
+  "reuseBlockedReason": "Final publication snapshot has not yet been compared with this frozen build archive. Root may reuse only after proving runtime and executable inputs are identical; overall Android and final APK provenance remain separate acceptance gates.",
+  "finalReuseCondition": "Later publication may reuse this result only after proving all non-documentation files and runtime assets are unchanged. Documentation and evidence updates may change the full manifest. Any executable/runtime change requires a new frozen archive and new-directory install.",
+  "sourceArchive": "s50-onboarding-source-r3.tar.gz",
+  "publicArchive": "aperture-tv-public-v17-final-build.tar.gz",
+  "publicArchiveSha256": "55ccc56c134c88afe816e127f050b34a43188c0b629273459cf994fdce4b49a2",
+  "publicArchiveBytes": 450723275,
+  "androidSourceSha256": "541bbed16344f6d2cd171d42bffe9d2366db38f2097f5131248706094019c050",
+  "androidDigestMeaning": "Public archive inputs match the supplied frozen source digest; this does not independently prove an APK binary matches.",
+  "sourceFilesVerified": 1006,
+  "documentationLinks": {
+    "documents": 93,
+    "localFileLinksChecked": 360,
+    "missing": [],
+    "scope": "Inline Markdown links/images and reference definitions; file existence only. Excludes code, anchors, service routes and external URL availability."
+  },
+  "installation": {
+    "startedAt": "2026-10-25T06:36:35.146Z",
+    "archiveName": "aperture-tv-public-v17-final-build.tar.gz",
+    "archiveSha256": "55ccc56c134c88afe816e127f050b34a43188c0b629273459cf994fdce4b49a2",
+    "status": "passed",
+    "hardwareTested": false,
+    "workBuddyApplicationTested": false,
+    "apkBuilt": false,
+    "sourceFilesVerified": 1006,
+    "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+    "noGitDirectory": true,
+    "version": "0.2.0-alpha.14",
+    "npmCi": true,
+    "npmLifecycleScriptsEnabled": true,
+    "freshPythonVenv": true,
+    "pillowInstalledFromRequirements": true,
+    "doctor": {
+      "ready": true,
+      "checks": [
+        {
+          "name": "Node.js 22+",
+          "ok": true,
+          "detail": "v22.5.1"
+        },
+        {
+          "name": "@modelcontextprotocol/sdk",
+          "ok": true
+        },
+        {
+          "name": "hls.js",
+          "ok": true
+        },
+        {
+          "name": "qrcode",
+          "ok": true
+        },
+        {
+          "name": "Python 3.10+ / Pillow",
+          "ok": true,
+          "detail": "python3 3.10.12 / 11.1.0"
+        },
+        {
+          "name": "家庭数据目录",
+          "ok": true,
+          "detail": "首次启动时创建私有目录"
+        }
+      ],
+      "exposure": "默认仅本机访问；跨设备需配置正确 PUBLIC_ORIGIN、监听与HTTPS。",
+      "television": "完整模式WebView89+；轻量模式面向旧内核，尚待真机验证。"
+    },
+    "checkedStart": true,
+    "healthVersion": "0.2.0-alpha.14",
+    "ownerKeyMode": 384,
+    "familyDirectoryMode": 448,
+    "browserErrors": [],
+    "routes": [
+      "/guide",
+      "/home?demo=1",
+      "/home?edition=parents&demo=1",
+      "/tv?demo=1",
+      "/tv-lite?demo=1"
+    ],
+    "privateStateStatus": 401,
+    "machineInterfaceDefaultStatus": 503,
+    "serviceStopped": true,
+    "temporaryDirectoryRemoved": true,
+    "finishedAt": "2026-10-25T06:37:04.424Z"
+  },
+  "priorAttempts": [
+    {
+      "archive": "aperture-tv-public-v17-onboarding.tar.gz",
+      "sha256": "a8e489a960298b2b8d7fc31acfc6ba2f4a6367542b4d178e1c0ef777c70ae3f2",
+      "status": "passed",
+      "supersededByRuntimeChange": true,
+      "report": "artifacts/s50-onboarding-clean-install.json"
+    },
+    {
+      "archive": "aperture-tv-public-v17-final-build.tar.gz",
+      "sha256": "55ccc56c134c88afe816e127f050b34a43188c0b629273459cf994fdce4b49a2",
+      "status": "failed",
+      "phase": "Pillow install",
+      "report": "artifacts/s50-final-build-clean-install.json",
+      "note": "Dependency install process exited 1; stderr was not retained by the verifier. Same archive passed in a second new directory. Do not assert a diagnosed root cause."
+    }
+  ],
+  "inventory": {
+    "filesInventoried": 1007,
+    "textEntriesScanned": 557,
+    "privateDistributionPaths": 0,
+    "sensitivePaths": [],
+    "privateEvidencePaths": [],
+    "patternFindingLocations": 1,
+    "classification": [
+      {
+        "path": "scripts/verify-source-android.mjs",
+        "line": 27,
+        "rule": "private-ci-evidence",
+        "classification": "scan-rule-self-match",
+        "evidence": "Literal forbidden-text assertion scans exported Markdown and rejects private CI evidence; this is test code, not exported account evidence.",
+        "credential": false,
+        "reviewedMatchedContext": true
+      }
+    ],
+    "binaryOrLargeEntriesNotTextScanned": 450,
+    "manualAssetReviewRequired": true,
+    "limitations": [
+      "Pattern matches require classification; a match is not a confirmed credential.",
+      "Pattern detection cannot prove absence of secrets or private information.",
+      "Binary assets, provenance, consent and licenses require human review.",
+      "Local refs do not establish the complete remote ref inventory."
+    ]
+  },
+  "logs": [
+    "artifacts/s50-onboarding-export-r3.log",
+    "artifacts/s50-onboarding-prepare-r3.log",
+    "artifacts/s50-final-build-public-review.log",
+    "artifacts/s50-final-build-public-review.json",
+    "artifacts/s50-final-build-clean-install.log",
+    "artifacts/s50-final-build-clean-install.json",
+    "artifacts/s50-final-build-clean-install-retry.log",
+    "artifacts/s50-final-build-clean-install-retry.json"
+  ],
+  "apkBuilt": false,
+  "remotePublished": false,
+  "xiaomiTVTested": false,
+  "workBuddyApplicationTested": false
+}

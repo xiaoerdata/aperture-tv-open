@@ -1,0 +1,20 @@
+Kaishi TV plugin runtime dependency notices
+
+The licenses in this directory apply to the named dependencies, separately from the
+MIT license of the original Kaishi TV host and test fixtures. Exact versions,
+upstream URLs and license file SHA-256 values are listed in dependencies.json.
+
+Python packages were obtained from PyPI and the official Chaquopy Android wheel
+index (https://chaquo.com/pypi-13.1/). Their wheel license files are preserved here;
+jsonpath's MIT copyright/license block is preserved from its distributed source
+because that wheel has no separate LICENSE file. CPython's license was obtained
+from the exact v3.10.15 tag. Chaquopy's source and reproducible Python target build
+recipes are available at https://github.com/chaquo/chaquopy/tree/16.1.0.
+
+The SQLite component is dedicated to the public domain by its authors. See
+https://sqlite.org/copyright.html. liblzma is the XZ library component; XZ command
+line tools are not shipped. See xz-5.4.6-COPYING.txt for its component-specific terms.
+
+The unmodified certifi certificate data is MPL-2.0 covered source. A matching
+source distribution is available at https://pypi.org/project/certifi/2026.10.23/#files.
+No third-party provider plugin or drpy implementation is included in this directory.

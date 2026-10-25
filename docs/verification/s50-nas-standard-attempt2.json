@@ -1,0 +1,37 @@
+{
+  "error": "java.lang.AssertionError: unified NAS reopen and resume: NAS media clock advances from SMB bytes\n\tat org.zhixiaoce.aperture.test.NasProgressRunner.check(NasProgressRunner.java:41)\n\tat org.zhixiaoce.aperture.test.NasProgressRunner.runChecks(NasProgressRunner.java:65)\n\tat org.zhixiaoce.aperture.test.NasProgressRunner.onStart(NasProgressRunner.java:30)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)\n",
+  "playerAtFailure": {
+    "prepared": true,
+    "position": 40107,
+    "duration": 120021,
+    "playing": true,
+    "width": 320,
+    "state": "PLAYING"
+  },
+  "recordAtFailure": {
+    "kind": "nas",
+    "source": "19594987-12fd-4abf-a95f-f18d7af15c48",
+    "id": "电影\/周末\/家庭测试.mp4",
+    "title": "家庭测试.mp4",
+    "group": "NAS",
+    "root": "电影",
+    "line": "NAS",
+    "episode": "家庭测试.mp4",
+    "position": 40000,
+    "duration": 120021,
+    "complete": false,
+    "watchedAt": 1792908687017
+  },
+  "passed": false,
+  "stage": "unified NAS reopen and resume",
+  "checks": [
+    "AndroidKeyStore shared shelf is encrypted",
+    "unified cinema saved-item route opens native NAS Activity",
+    "actual NAS MediaPlayer resumes saved position",
+    "saved item restores its parent folder",
+    "saved item restores its file page instead of forcing first page"
+  ],
+  "targetPackage": "org.zhixiaoce.aperture",
+  "syntheticSmb": true,
+  "realXiaomi": false
+}

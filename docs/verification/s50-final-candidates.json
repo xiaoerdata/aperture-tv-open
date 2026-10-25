@@ -1,0 +1,98 @@
+{
+  "packages": [
+    {
+      "edition": "standard",
+      "manifest": {
+        "format": "aperture-private-android/v1",
+        "applicationId": "org.zhixiaoce.aperture",
+        "edition": "standard",
+        "version": "0.2.0-alpha.14",
+        "versionCode": "17",
+        "minSdk": 26,
+        "targetSdk": 35,
+        "variant": "debug",
+        "buildEnvironment": "local-free",
+        "workingTreeDirty": null,
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "privateTestingOnly": true,
+        "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+        "buildCommit": null,
+        "apk": "aperture-tv-debug.apk",
+        "apkBytes": 85686459,
+        "sha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+        "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+        "signatureVerified": true,
+        "deviceInstalled": false,
+        "xiaomiTested": false,
+        "sourceProvenance": {
+          "kind": "source-archive",
+          "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+          "buildCommit": null,
+          "workingTreeDirty": null,
+          "exportWorkingTreeDirty": true,
+          "sourceManifestSha256": "088b2f7ea28d89d4eafa8b24e0b1e37d4747eb51a6f102efa41337b2a80df61e",
+          "androidMatchesExport": true
+        }
+      },
+      "bundledAssetsVerified": 62,
+      "pythonAbis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "actualApkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+      "signatureMatchesV16": true,
+      "zipCrcVerified": true
+    },
+    {
+      "edition": "parents",
+      "manifest": {
+        "format": "aperture-private-android/v1",
+        "applicationId": "org.zhixiaoce.aperture.parents",
+        "edition": "parents",
+        "version": "0.2.0-alpha.14-parents",
+        "versionCode": "17",
+        "minSdk": 26,
+        "targetSdk": 35,
+        "variant": "debug",
+        "buildEnvironment": "local-free",
+        "workingTreeDirty": null,
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "privateTestingOnly": true,
+        "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+        "buildCommit": null,
+        "apk": "aperture-tv-debug.apk",
+        "apkBytes": 85686531,
+        "sha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+        "certificateSha256": "e07157a0cddec578e21d034660831f1174fa682e1d00fdb92151714f48a867e9",
+        "signatureVerified": true,
+        "deviceInstalled": false,
+        "xiaomiTested": false,
+        "sourceProvenance": {
+          "kind": "source-archive",
+          "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+          "buildCommit": null,
+          "workingTreeDirty": null,
+          "exportWorkingTreeDirty": true,
+          "sourceManifestSha256": "088b2f7ea28d89d4eafa8b24e0b1e37d4747eb51a6f102efa41337b2a80df61e",
+          "androidMatchesExport": true
+        }
+      },
+      "bundledAssetsVerified": 62,
+      "pythonAbis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "actualApkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+      "signatureMatchesV16": true,
+      "zipCrcVerified": true
+    }
+  ],
+  "xiaomiTested": false,
+  "stage": "S50",
+  "candidate": "r6",
+  "meaning": "Packaging and build-source verification only. Device installation fields in build manifests describe build-time state; native execution is recorded independently in s50-software-acceptance.json."
+}

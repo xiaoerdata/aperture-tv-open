@@ -31,6 +31,20 @@ public final class NasActivity extends Activity {
     private final ExecutorService io = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(android.os.Looper.getMainLooper());
     private NasVault vault;
+    private CinemaVault viewing;
+    private JSONObject watching;
+    private NasReader.Entry playingEntry;
+    private boolean hasPlayed, savedLaunch;
+    private long resumePosition;
+    private String pendingVideoPath="", progressWarning="";
+    private Button favorite;
+    private final Runnable checkpoint=new Runnable(){public void run(){if(!destroyed){saveProgress(false);updatePlayback();main.postDelayed(this,15000);}}};
+
+    /** Called only by the native library. Never passes NAS credentials or URLs through an Intent. */
+    static void openSaved(Activity owner,JSONObject item)throws Exception {
+        NasWatchRoute route=NasWatchRoute.resolve(item,new NasVault(owner).library());
+        owner.startActivity(new Intent(owner,NasActivity.class).putExtra("watch-id",route.connection.getString("id")).putExtra("watch-path",route.path).putExtra("watch-root",route.root));
+    }
     private ApkInstaller installer;
     private final DisplayLifecycle display = new DisplayLifecycle();
     private final NasNavigation navigation = new NasNavigation();
@@ -61,18 +75,19 @@ public final class NasActivity extends Activity {
         "同一家庭网络内，输入共享地址和专用只读账号。WebDAV 必须 HTTPS，保留证书校验。"
     };
     @Override public void onCreate(Bundle state) {
-        super.onCreate(state); getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE); vault = new NasVault(this);
+        super.onCreate(state); getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE); vault = new NasVault(this); viewing = new CinemaVault(this);
         installer = new ApkInstaller(this, () -> new DestinationApps(this, getSharedPreferences("aperture", MODE_PRIVATE), slot -> {}).shortcuts());
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         session = new PlaybackSession(new PlaybackAudioFocus((AudioManager)getSystemService(AUDIO_SERVICE),main), new PlaybackSession.Output() {
             public void start() { if (player == null || !prepared) throw new IllegalStateException(); player.start(); }
             public void pause() { if (player != null && prepared && player.isPlaying()) player.pause(); }
-            public void changed(PlaybackSession.State state) { updatePlayback(); }
+            public void changed(PlaybackSession.State state) { if(state==PlaybackSession.State.PLAYING)hasPlayed=true;saveProgress(state==PlaybackSession.State.COMPLETED);updatePlayback(); }
         });
         display.bind(session::active);
         filter = "photo".equals(getIntent().getStringExtra("filter")) ? "photo" : "all";
         String requested = getIntent().getStringExtra("category"); category = NasLibrary.role(requested) ? requested : "";
-        if (category.isEmpty()) connections(); else launchCategory();
+        main.postDelayed(checkpoint,15000);
+        if(getIntent().hasExtra("watch-id"))launchSaved();else if (category.isEmpty()) connections(); else launchCategory();
     }
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
     private TextView label(String text, int size, int color) { TextView view = new TextView(this); view.setText(text); view.setTextSize(size); view.setTextColor(color); view.setPadding(0, dp(8), 0, dp(10)); view.setTextIsSelectable(false); return view; }
@@ -92,7 +107,7 @@ public final class NasActivity extends Activity {
     private Button button(String title, Runnable action) { return button(content,title,action); }
     private void message(String title, String text) { if (!destroyed) new AlertDialog.Builder(this).setTitle(title).setMessage(text).setPositiveButton("知道了",null).show(); }
     private void connections() {
-        category=""; navigation.reset(""); focusedPath=""; resumeId="";
+        category=""; savedLaunch=false; pendingVideoPath=""; navigation.reset(""); focusedPath=""; resumeId="";
         mode="connections"; invalidate(); release(); disconnect(); connection=null;
         screen("NAS", "SMB 2/3 · HTTPS WebDAV");
         try {
@@ -126,7 +141,32 @@ public final class NasActivity extends Activity {
             screen("这个片库还没准备好", "请家人检查NAS连接或重新选择首页片库。不会自动打开另一个NAS目录。"); button("返回开视",this::finish);
         }
     }
-    private void exitLibrary() { if (category.isEmpty()) connections(); else finish(); }
+    private void launchSaved() {
+        savedLaunch=true;
+        try {
+            JSONObject ref=NasWatchRoute.ref(getIntent().getStringExtra("watch-id"),getIntent().getStringExtra("watch-path"),getIntent().getStringExtra("watch-root"));
+            NasWatchRoute route=NasWatchRoute.resolve(ref,vault.library());
+            connection=route.connection;navigation.reset(route.root);folder=route.folder;filter="video";page=0;focusedPath=route.path;pendingVideoPath=route.path;connect(false);
+        } catch(Exception missing) { savedUnavailable(missing); }
+    }
+    private void savedUnavailable(Exception reason) {
+        invalidate();release();disconnect();mode="error";
+        screen("无法打开这条记录",reason instanceof IOException?reason.getMessage():"原 NAS 连接或文件路径无效，请从片库重新选择。");button("返回观看记录",this::finish);
+    }
+    private void connectedListing() {
+        String requested=pendingVideoPath;pendingVideoPath="";
+        if(!requested.isEmpty()) {
+            int visibleIndex=0;
+            for(NasReader.Entry entry:entries){
+                boolean visible=entry.directory||NasLocation.kind(entry.name).equals("video");
+                if(!entry.directory&&entry.path.equals(requested)&&visible){focusedPath=entry.path;page=visibleIndex/20;navigation.save(folder,page,focusedPath);video(entry);return;}
+                if(visible)visibleIndex++;
+            }
+            listing();message("影片已移动或无法读取","原目录里没有找到这部影片，请重新选择。观看记录仍保留。");
+        } else listing();
+    }
+    private void exitLibrary() { if(savedLaunch)finish();else if (category.isEmpty()) connections(); else finish(); }
+    private String exitLabel(){return savedLaunch?"返回观看记录":category.isEmpty()?"返回连接列表":"返回开视";}
     private void homeRoutes() {
         try {
             NasLibrary library=vault.library(); String[] labels=new String[NasLibrary.ROLES.length];
@@ -170,9 +210,9 @@ public final class NasActivity extends Activity {
             try {
                 next=NasReader.connect(new NasLocation(config.getString("root")),config.getString("user"),password,config.optString("domain"));List<NasReader.Entry> found=next.list(folder);NasReader connected=next;
                 main.post(()->{if(destroyed||generation!=turn){closeLater(connected);return;}busy=false;
-                    try{if(save)connection=vault.add(config);reader=connected;entries=found;listing();}catch(Exception error){closeLater(connected);message("未保存连接","本机加密记录不可用或已满，请返回后重试。");exitLibrary();}
+                    try{if(save)connection=vault.add(config);reader=connected;entries=found;connectedListing();}catch(Exception error){closeLater(connected);message("未保存连接","本机加密记录不可用或已满，请返回后重试。");exitLibrary();}
                 });
-            }catch(Exception error){quietClose(next);String reason=error instanceof IOException?error.getMessage():"NAS 地址或服务不可读取";main.post(()->{if(destroyed||generation!=turn)return;busy=false;mode="error";screen("暂时连不上",reason);button("重试",()->connect(save));button(category.isEmpty()?"返回连接列表":"返回开视",this::exitLibrary);});}
+            }catch(Exception error){quietClose(next);String reason=error instanceof IOException?error.getMessage():"NAS 地址或服务不可读取";main.post(()->{if(destroyed||generation!=turn)return;busy=false;mode="error";screen("暂时连不上",reason);button("重试",()->connect(save));button(exitLabel(),this::exitLibrary);});}
             finally{Arrays.fill(password,'\0');}
         });
     }
@@ -187,7 +227,7 @@ public final class NasActivity extends Activity {
         View restore=null,first=null;
         for(int i=page*20;i<Math.min(visible.size(),page*20+20);i++){NasReader.Entry item=visible.get(i);String type=item.directory?"文件夹":NasLocation.kind(item.name).equals("photo")?"照片":NasLocation.kind(item.name).equals("video")?"影片":InstallCache.apkName(item.name)?"安装包":"文件";Button file=button(type+"  ·  "+item.name,()->{focusedPath=item.path;navigation.save(folder,page,focusedPath);if(item.directory)load(item.path);else if(type.equals("照片"))photo(item);else if(type.equals("影片"))video(item);else if(type.equals("安装包"))installer.fromNas(reader,item);else message("暂不打开此格式","当前只读照片和视频，不执行文件中的程序或配置。");});if(first==null)first=file;if(item.path.equals(focusedPath))restore=file;}
         if(page>0)button("上一页",()->{page--;listing();});if(page+1<pages)button("下一页",()->{page++;listing();});
-        button(navigation.parent(folder)==null?(category.isEmpty()?"返回连接列表":"返回开视"):"返回上一级",()->{String parent=navigation.parent(folder);if(parent==null)exitLibrary();else load(parent);});button("重新连接 / 检测",()->connect(false));
+        button(navigation.parent(folder)==null?exitLabel():"返回上一级",()->{String parent=navigation.parent(folder);if(parent==null)exitLibrary();else load(parent);});button("重新连接 / 检测",()->connect(false));
         if(category.isEmpty())button("家人设置 · 将当前目录用于首页入口",this::assignHome);
         if(restore!=null)restore.requestFocus();else if(first!=null)first.requestFocus();
     }
@@ -210,11 +250,22 @@ public final class NasActivity extends Activity {
         }catch(IOException invalid){return image;}
     }
     private void video(NasReader.Entry entry){
-        if(busy)return;invalidate();release();session.begin();int turn=generation;busy=true;mode="video";NasReader source=reader;screen(entry.name,"正在打开影片…");button("返回文件夹",()->{invalidate();release();listing();});
+        if(busy)return;invalidate();release();
+        try {
+            watching=NasWatchRoute.ref(connection.getString("id"),entry.path,navigation.root());
+            playingEntry=entry;resumePosition=viewing.shelf().resume(watching,"NAS",watching.optString("title"));progressWarning="";
+        }catch(Exception unavailable){resumePosition=0;progressWarning="观看记录暂不可读取";}
+        session.begin();int turn=generation;busy=true;mode="video";NasReader source=reader;screen(entry.name,"正在打开影片…");button("返回文件夹",()->{invalidate();release();listing();});
         io.execute(()->{try{NasReader.Resource opened=source.open(entry.path);main.post(()->{if(destroyed||generation!=turn){closeLater(opened);return;}busy=false;resource=opened;mode="video";screen(entry.name,"NAS 原文件直放 · 解码取决于电视，当前不转码。");
             FrameLayout stage=new FrameLayout(this);stage.setBackgroundColor(Color.BLACK);SurfaceView surface=new SurfaceView(this);stage.addView(surface,new FrameLayout.LayoutParams(-1,-1,android.view.Gravity.CENTER));content.addView(stage,new LinearLayout.LayoutParams(-1,dp(230)));playback=label("准备中，请稍候…",18,MUTED);content.addView(playback);
             LinearLayout controls=new LinearLayout(this);content.addView(controls);
-            button(controls,"播放 / 暂停",()->{if(session.state()==PlaybackSession.State.PLAYING||session.state()==PlaybackSession.State.PREPARING)session.pause();else session.play();});button(controls,"后退30秒",()->seek(-30000));button(controls,"前进30秒",()->seek(30000));for(int i=0;i<controls.getChildCount();i++){LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0,-2,1);params.setMargins(dp(3),0,dp(3),0);controls.getChildAt(i).setLayoutParams(params);}button("返回文件夹",()->{invalidate();release();listing();});
+            Button playButton=button(controls,"播放 / 暂停",()->{if(session.state()==PlaybackSession.State.PLAYING||session.state()==PlaybackSession.State.PREPARING)session.pause();else session.play();});button(controls,"后退30秒",()->seek(-30000));button(controls,"前进30秒",()->seek(30000));for(int i=0;i<controls.getChildCount();i++){LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0,-2,1);params.setMargins(dp(3),0,dp(3),0);controls.getChildAt(i).setLayoutParams(params);}
+            LinearLayout options=new LinearLayout(this);content.addView(options);
+            favorite=button(options,"收藏",this::toggleFavorite);updateFavorite();
+            button(options,"从头播放",this::startOver);
+            button(options,"重试",()->video(entry));
+            for(int i=0;i<options.getChildCount();i++){LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0,-2,1);params.setMargins(dp(3),0,dp(3),0);options.getChildAt(i).setLayoutParams(params);}
+            button("返回文件夹",()->{invalidate();release();listing();});playButton.requestFocus();
             surface.getHolder().addCallback(new SurfaceHolder.Callback(){public void surfaceCreated(SurfaceHolder holder){if(generation!=turn||destroyed)return;session.surface(true);prepare(holder,opened,turn,surface,stage);}public void surfaceChanged(SurfaceHolder h,int f,int w,int t){}public void surfaceDestroyed(SurfaceHolder holder){if(generation!=turn||destroyed)return;session.surface(false);if(player!=null)player.setDisplay(null);}});
         });}catch(Exception error){main.post(()->{if(destroyed||generation!=turn)return;busy=false;release();listing();message("影片不可读取",error instanceof IOException?error.getMessage():"请检查文件与权限。");});}});
     }
@@ -223,8 +274,45 @@ public final class NasActivity extends Activity {
         if(player!=null){player.setDisplay(surface);return;}
         try{player=new MediaPlayer();MediaPlayer current=player;current.setAudioAttributes(PlaybackAudioFocus.attributes());current.setDisplay(surface);current.setDataSource(new MediaDataSource(){public long getSize(){return file.size();}public int readAt(long p,byte[] b,int o,int n)throws IOException{return file.readAt(p,b,o,n);}public void close(){closeLater(file);}});
             current.setOnVideoSizeChangedListener((p,w,h)->{if(player!=p||w<1||h<1)return;stage.post(()->{if(player!=p)return;int width=stage.getWidth(),height=stage.getHeight();double scale=Math.min((double)width/w,(double)height/h);view.setLayoutParams(new FrameLayout.LayoutParams(Math.max(1,(int)(w*scale)),Math.max(1,(int)(h*scale)),android.view.Gravity.CENTER));});});
-            current.setOnPreparedListener(p->{if(player!=p||generation!=turn)return;prepared=true;session.prepared();});current.setOnCompletionListener(p->{if(player==p&&generation==turn)session.completed();});current.setOnErrorListener((p,a,b)->{if(player==p&&generation==turn){prepared=false;session.error();}return true;});current.prepareAsync();
+            current.setOnPreparedListener(p->{
+                if(player!=p||generation!=turn)return;prepared=true;
+                long position=resumePosition;resumePosition=0;
+                if(position>0&&p.getDuration()>position+3000) {
+                    p.setOnSeekCompleteListener(seek->{if(player==seek&&generation==turn){seek.setOnSeekCompleteListener(null);session.prepared();}});
+                    p.seekTo((int)Math.min(Integer.MAX_VALUE,position));
+                }else session.prepared();
+            });
+            current.setOnCompletionListener(p->{if(player==p&&generation==turn){saveProgress(true);session.completed();}});
+            current.setOnErrorListener((p,a,b)->{if(player==p&&generation==turn){saveProgress(false);prepared=false;session.error();}return true;});current.prepareAsync();
+            main.postDelayed(()->{if(player==current&&generation==turn&&!prepared)session.error();},25000);
         }catch(Exception error){prepared=false;session.error();}
+    }
+    private void toggleFavorite(){
+        if(watching==null)return;
+        try{viewing.updateShelf(next->next.toggle(watching,"favorite"));progressWarning="";updateFavorite();}
+        catch(Exception unavailable){progressWarning="收藏未保存，请检查本机记录";updatePlayback();}
+    }
+    private void updateFavorite(){
+        if(favorite==null||watching==null)return;
+        try{JSONObject record=viewing.shelf().get(watching);favorite.setText(record!=null&&record.optBoolean("favorite")?"取消收藏":"收藏");}
+        catch(Exception unavailable){favorite.setText("收藏");}
+    }
+    private void startOver(){
+        if(player==null||!prepared)return;
+        try{final MediaPlayer selected=player;session.pause();selected.setOnSeekCompleteListener(p->{if(player==p){p.setOnSeekCompleteListener(null);hasPlayed=true;saveAtStart();session.play();}});selected.seekTo(0);}
+        catch(RuntimeException ignored){}
+    }
+    private void saveAtStart(){
+        if(watching==null||playingEntry==null)return;
+        try{long duration=Math.max(0,player.getDuration());viewing.updateShelf(next->next.watch(watching,"NAS",watching.optString("title"),0,duration,false,System.currentTimeMillis()));progressWarning="";}
+        catch(Exception unavailable){progressWarning="进度未保存，请检查本机记录";}
+    }
+    private void saveProgress(boolean complete){
+        if(watching==null||playingEntry==null||player==null||!prepared||!hasPlayed)return;
+        try{
+            long position=player.getCurrentPosition(),duration=player.getDuration();boolean finished=complete||session.state()==PlaybackSession.State.COMPLETED;
+            viewing.updateShelf(next->next.watch(watching,"NAS",watching.optString("title"),position,duration,finished,System.currentTimeMillis()));progressWarning="";
+        }catch(Exception unavailable){progressWarning="进度未保存，请检查本机记录";}
     }
     private void updatePlayback(){
         if(playback==null||session==null)return;
@@ -240,20 +328,20 @@ public final class NasActivity extends Activity {
             default:title="已暂停，按播放继续";
         }
         if(player!=null&&prepared)try{title+=" · "+player.getCurrentPosition()/1000+" / "+player.getDuration()/1000+" 秒";}catch(RuntimeException ignored){}
-        playback.setText(title);
+        playback.setText(title+(progressWarning.isEmpty()?"":" · "+progressWarning));
     }
     private void seek(int delta){if(player!=null&&prepared)try{player.seekTo(Math.max(0,Math.min(player.getDuration(),player.getCurrentPosition()+delta)));updatePlayback();}catch(RuntimeException ignored){}}
     private void invalidate(){generation++;busy=false;}
     private void closeLater(java.io.Closeable object){if(object==null)return;try{io.execute(()->quietClose(object));}catch(RejectedExecutionException stopped){Thread closer=new Thread(()->quietClose(object),"nas-close");closer.setDaemon(true);closer.start();}}
     private static void quietClose(java.io.Closeable object){try{if(object!=null)object.close();}catch(Exception ignored){}}
     private void disconnect(){NasReader old=reader;reader=null;if(old!=null)closeLater(old);}
-    private void release(){if(session!=null)session.reset();prepared=false;if(player!=null){player.release();player=null;}playback=null;NasReader.Resource old=resource;resource=null;if(old!=null)closeLater(old);}
+    private void release(){saveProgress(false);if(session!=null)session.reset();prepared=false;hasPlayed=false;watching=null;playingEntry=null;resumePosition=0;favorite=null;if(player!=null){player.release();player=null;}playback=null;NasReader.Resource old=resource;resource=null;if(old!=null)closeLater(old);}
     @Override public void onBackPressed(){if(mode.equals("video")||mode.equals("photo")||mode.equals("loading-folder")){invalidate();release();listing();}else if(mode.equals("listing")){String parent=navigation.parent(folder);if(parent==null)exitLibrary();else load(parent);}else if(mode.equals("connections"))finish();else exitLibrary();}
     @Override protected void onResume(){super.onResume();display.resumed(true);}
-    @Override protected void onPause(){display.resumed(false);super.onPause();}
+    @Override protected void onPause(){display.resumed(false);saveProgress(false);super.onPause();}
     @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);display.focused(focus);}
     @Override protected void onStop(){resumeId=connection==null?"":connection.optString("id");if(connection!=null)navigation.save(folder,page,focusedPath);invalidate();release();disconnect();connection=null;super.onStop();}
     @Override protected void onActivityResult(int request,int result,Intent data){if(installer!=null&&installer.result(request,result,data))return;super.onActivityResult(request,result,data);}
-    @Override protected void onRestart(){super.onRestart();if(!category.isEmpty()){launchCategory();return;}try{JSONObject saved=vault.library().find(resumeId);if(saved!=null){connection=saved;connect(false);return;}}catch(Exception ignored){}connections();}
+    @Override protected void onRestart(){super.onRestart();if(!category.isEmpty()){launchCategory();return;}try{JSONObject saved=vault.library().find(resumeId);if(saved!=null){connection=saved;connect(false);return;}if(savedLaunch){savedUnavailable(new IOException("原 NAS 连接已移除，请重新添加并从片库打开影片"));return;}}catch(Exception invalid){if(savedLaunch){savedUnavailable(invalid);return;}}connections();}
     @Override protected void onDestroy(){if(installer!=null)installer.destroy();destroyed=true;display.bind(null);invalidate();release();disconnect();io.shutdown();main.removeCallbacksAndMessages(null);super.onDestroy();}
 }

@@ -1,0 +1,67 @@
+{
+  "error": "java.io.IOException: 插件执行超时，请退出影视后重试\n\tat org.zhixiaoce.aperture.CinemaPlugins.nativeCall(CinemaPlugins.java:91)\n\tat org.zhixiaoce.aperture.CinemaPlugins.call(CinemaPlugins.java:83)\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat org.zhixiaoce.aperture.test.PluginRunner.call(PluginRunner.java:34)\n\tat org.zhixiaoce.aperture.test.PluginRunner.execute(PluginRunner.java:43)\n\tat org.zhixiaoce.aperture.test.PluginRunner.runtime(PluginRunner.java:54)\n\tat org.zhixiaoce.aperture.test.PluginRunner.onStart(PluginRunner.java:21)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)\n",
+  "runtimeThreadsAtFailure": [
+    {
+      "name": "cinema-native-plugin",
+      "state": "RUNNABLE",
+      "stack": [
+        "com.chaquo.python.PyObject.callAttrThrowsNative(Native Method)",
+        "com.chaquo.python.PyObject.callAttrThrows(PyObject.java:232)",
+        "com.chaquo.python.PyObject.callAttr(PyObject.java:221)",
+        "java.lang.reflect.Method.invoke(Native Method)",
+        "org.zhixiaoce.aperture.CinemaPlugins.python(CinemaPlugins.java:107)",
+        "org.zhixiaoce.aperture.CinemaPlugins.lambda$nativeCall$1(CinemaPlugins.java:89)",
+        "org.zhixiaoce.aperture.CinemaPlugins.$r8$lambda$qLfveXInlMzRXGe3LVNuxQZe4Y4(Unknown Source:0)",
+        "org.zhixiaoce.aperture.CinemaPlugins$$ExternalSyntheticLambda1.call(D8$$SyntheticClass:0)",
+        "java.util.concurrent.FutureTask.run(FutureTask.java:266)",
+        "java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)",
+        "java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)",
+        "java.lang.Thread.run(Thread.java:764)"
+      ]
+    }
+  ],
+  "passed": false,
+  "stage": "python: execute runtime",
+  "selectedKind": "python",
+  "environment": {
+    "api": 26,
+    "abi": [
+      "x86"
+    ],
+    "versionCode": 17,
+    "versionName": "0.2.0-alpha.14",
+    "webView": {
+      "packageName": "com.google.android.webview",
+      "versionName": "58.0.3029.125",
+      "versionCode": 303012510,
+      "signerSha256": [
+        "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+      ]
+    }
+  },
+  "checks": [
+    "python production detects correct runtime",
+    "python starts unapproved",
+    "python refuses execution before approval",
+    "python stores explicit approval"
+  ],
+  "runtimes": {},
+  "targetPackage": "org.zhixiaoce.aperture",
+  "syntheticFixtures": true,
+  "realXiaomi": false,
+  "mediaPlayed": false,
+  "diagnosticReceipt": {
+    "diagnosticOnly": true,
+    "originalSha256": "d03cc601754b31d05d0d635cd09264a65536593785e26b887f0703fb78a9a172",
+    "diagnosticSha256": "dc57dd59ab63ed953426b0d1a7cdf5fec7b295d0b24b29e036eaa038734d1486",
+    "productionTimeoutChanged": false,
+    "productionColdStartAcceptance": false,
+    "instrumentExitCode": 0,
+    "fixtureRestored": true,
+    "wallSeconds": 41.354
+  },
+  "pythonStack": "START 3229.208408459\nTimeout (0:00:05)!\nThread 0x89a75970 (most recent call first):\n  File \"<frozen zipimport>\", line 628 in _get_data\n  File \"<frozen zipimport>\", line 759 in _get_module_code\n  File \"<frozen zipimport>\", line 196 in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 879 in exec_module\n  File \"./java/android/importer.py\", line 326 in exec_module\n  File \"<frozen importlib._bootstrap>\", line 688 in _load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1006 in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1027 in _find_and_load\n  File \"/data/data/org.zhixiaoce.aperture/files/chaquopy/AssetFinder/requirements/urllib3/fields.py\", line 4 in <module>\n  File \"<frozen importlib._bootstrap>\", line 241 in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap_external>\", line 883 in exec_module\n  File \"./java/android/importer.py\", line 630 in exec_module\n  File \"./java/android/importer.py\", line 718 in exec_module\n  File \"<frozen importlib._bootstrap>\", line 688 in _load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1006 in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1027 in _find_and_load\n  File \"/data/data/org.zhixiaoce.aperture/files/chaquopy/AssetFinder/requirements/urllib3/filepost.py\", line 9 in <module>\n  File \"<frozen importlib._bootstrap>\", line 241 in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap_external>\", line 883 in exec_module\n  File \"./java/android/importer.py\", line 630 in exec_module\n  File \"./java/android/importer.py\", line 718 in exec_module\n  File \"<frozen importlib._bootstrap>\", line 688 in _load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1006 in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1027 in _find_and_load\n  File \"/data/data/org.zhixiaoce.aperture/files/chaquopy/AssetFinder/requirements/urllib3/_request_methods.py\", line 9 in <module>\n  File \"<frozen importlib._bootstrap>\", line 241 in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap_external>\", line 883 in exec_module\n  File \"./java/android/importer.py\", line 630 in exec_module\n  File \"./java/android/importer.py\", line 718 in exec_module\n  File \"<frozen importlib._bootstrap>\", line 688 in _load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1006 in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1027 in _find_and_load\n  File \"/data/data/org.zhixiaoce.aperture/files/chaquopy/AssetFinder/requirements/urllib3/connectionpool.py\", line 15 in <module>\n  File \"<frozen importlib._bootstrap>\", line 241 in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap_external>\", line 883 in exec_module\n  File \"./java/android/importer.py\", line 630 in exec_module\n  File \"./java/android/importer.py\", line 718 in exec_module\n  File \"<frozen importlib._bootstrap>\", line 688 in _load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1006 in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1027 in _find_and_load\n  File \"/data/data/org.zhixiaoce.aperture/files/chaquopy/AssetFinder/requirements/urllib3/__init__.py\", line 18 in <module>\n  File \"<frozen importlib._bootstrap>\", line 241 in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap_external>\", line 883 in exec_module\n  File \"./java/android/importer.py\", line 630 in exec_module\n  File \"./java/android/importer.py\", line 718 in exec_module\n  File \"<frozen importlib._bootstrap>\", line 688 in _load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1006 in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1027 in _find_and_load\n  File \"/data/data/org.zhixiaoce.aperture/files/chaquopy/AssetFinder/requirements/requests/__init__.py\", line 43 in <module>\n  File \"<frozen importlib._bootstrap>\", line 241 in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap_external>\", line 883 in exec_module\n  File \"./java/android/importer.py\", line 630 in exec_module\n  File \"./java/android/importer.py\", line 718 in exec_module\n  File \"<frozen importlib._bootstrap>\", line 688 in _load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1006 in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1027 in _find_and_load\n  File \"/data/data/org.zhixiaoce.aperture/files/chaquopy/AssetFinder/app/base/spider.py\", line 9 in <module>\n  File \"<frozen importlib._bootstrap>\", line 241 in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap_external>\", line 883 in exec_module\n  File \"./java/android/importer.py\", line 630 in exec_module\n  File \"./java/android/importer.py\", line 718 in exec_module\n  File \"<frozen importlib._bootstrap>\", line 688 in _load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1006 in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 1027 in _find_and_load\n  File \"/data/user/0/org.zhixiaoce.aperture/code_cache/cinema-plugins/dc57dd59ab63ed953426b0d1a7cdf5fec7b295d0b24b29e036eaa038734d1486.py\", line 11 in <module>\n  File \"<frozen importlib._bootstrap>\", line 241 in _call_with_frames_removed\n  File \"<frozen importlib._bootstrap_external>\", line 883 in exec_module\n  File \"/data/data/org.zhixiaoce.aperture/files/chaquopy/AssetFinder/app/kaishi_plugins.py\", line 22 in call\n",
+  "markers": "--------- beginning of main\n--------- beginning of system\n--------- beginning of crash\nI/python.stdout( 3967): KAISHI_PY_DIAG before_base 3229.226250066\n",
+  "observedStage": "Packaged base.spider imports requests/urllib3; no after_base, Session, plugin init, or home marker observed",
+  "diagnosticInterpretation": "First packaged dependency loading consumes the production native-call budget; exact total bootstrap duration was not measured by this fixture"
+}

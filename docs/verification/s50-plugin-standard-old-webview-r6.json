@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "stage": "completed",
+  "selectedKind": "javascript",
+  "checks": [
+    "javascript production detects correct runtime",
+    "javascript starts unapproved",
+    "javascript refuses execution before approval",
+    "javascript stores explicit approval",
+    "old WebView returns explicit JS engine requirement"
+  ],
+  "runtimes": {
+    "javascript": {
+      "executed": false,
+      "expectedUnavailable": true,
+      "error": "当前 WebView 58.0.3029.125；JS 插件需要 WebView 61 或以上（ES 模块）。请检查电视系统或官方 WebView 更新；JAR 和 Python 来源可继续使用",
+      "elapsedMs": 240
+    }
+  },
+  "targetPackage": "org.zhixiaoce.aperture",
+  "syntheticFixtures": true,
+  "realXiaomi": false,
+  "mediaPlayed": false,
+  "environment": {
+    "api": 26,
+    "abi": [
+      "x86"
+    ],
+    "versionCode": 17,
+    "versionName": "0.2.0-alpha.14",
+    "webView": {
+      "packageName": "com.google.android.webview",
+      "versionName": "58.0.3029.125",
+      "versionCode": 303012510,
+      "signerSha256": [
+        "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+      ],
+      "signerCollectionStatus": "collected",
+      "signerCollectionSource": "getCurrentWebViewPackage"
+    }
+  },
+  "candidate": "aperture-tv-public-v17-r6",
+  "candidateApkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+  "instrumentationSha256": "daa4869b2a0fae26c5693a1e1a9e9f16b8a57b8a9a6dc7688be1c3495d5690f8",
+  "instrumentationLog": "artifacts/s50-plugin-standard-old-webview-r6.txt",
+  "recordedAt": "2026-10-25T08:17:54.023613+00:00"
+}

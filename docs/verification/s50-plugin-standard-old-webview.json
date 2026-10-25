@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "stage": "completed",
+  "selectedKind": "javascript",
+  "environment": {
+    "api": 26,
+    "abi": [
+      "x86"
+    ],
+    "versionCode": 17,
+    "versionName": "0.2.0-alpha.14",
+    "webView": {
+      "packageName": "com.google.android.webview",
+      "versionName": "58.0.3029.125",
+      "versionCode": 303012510,
+      "signerSha256": [
+        "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+      ]
+    }
+  },
+  "checks": [
+    "javascript production detects correct runtime",
+    "javascript starts unapproved",
+    "javascript refuses execution before approval",
+    "javascript stores explicit approval",
+    "old WebView returns explicit JS engine requirement"
+  ],
+  "runtimes": {
+    "javascript": {
+      "executed": false,
+      "expectedUnavailable": true,
+      "error": "当前 WebView 58.0.3029.125；JS 插件需要 WebView 61 或以上（ES 模块）。请检查电视系统或官方 WebView 更新；JAR 和 Python 来源可继续使用",
+      "elapsedMs": 329
+    }
+  },
+  "targetPackage": "org.zhixiaoce.aperture",
+  "syntheticFixtures": true,
+  "realXiaomi": false,
+  "mediaPlayed": false,
+  "candidateApkSha256": "d00ce14bd21ca9a1b6781fcc340313e4eb08873b7d2cb18198db130da2a043e7"
+}

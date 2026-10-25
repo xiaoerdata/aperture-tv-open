@@ -1,0 +1,82 @@
+{
+  "scope": "Dedicated official Android TV API28/x86 software emulator environment",
+  "realXiaomi": false,
+  "productChanged": false,
+  "issues": [
+    {
+      "observed": "Default emulator rewrote data partition to 6 GiB and demanded 7372.80 MB before userdata creation; explicit partition-size 2048 did not change that gate.",
+      "evidence": [
+        "../../artifacts/s50-api28-emulator-attempt1.log",
+        "../../artifacts/s50-api28-emulator-attempt2.log"
+      ],
+      "action": "Use an independent tmpfs data image after checking available memory and filesystem capacity. Retain data and encryption key with their overlays; archive them after shutdown.",
+      "productPolicyChanged": false
+    },
+    {
+      "observed": "First-stage init repeatedly failed mounting PCI06.0/by-name/vendor and rebooted to bootloader. Kernel identified vendor GPT as vde1; QEMU monitor proved vendor at PCI07.0 and encryption drive at06.0.",
+      "evidence": [
+        "../../artifacts/s50-api28-emulator-kernel.log",
+        "../../artifacts/s50-api28-emulator-verbose.log",
+        "../../artifacts/s50-api28-monitor-pci.txt",
+        "../../artifacts/s50-api28-monitor-qtree.txt",
+        "../../artifacts/s50-api28-encryption-path-fix.json"
+      ],
+      "cause": "Emulator AVD discovery checks contentDir/encryptionkey.img for vendor PCI slot calculation; automatic encryption key creation follows the -data directory. External tmpfs data directory split those paths. x86 uses ACPI; no default.dtb file or -dtb parameter was present.",
+      "action": "Stop emulator; copy the same raw encryption key into the AVD discovery directory and verify identical SHA-256. Keep actual key and overlay at original tmpfs path using explicit -encryption-key. Cold-start with all official image bytes and CPU unchanged.",
+      "verifiedAfterAction": "Vendor mount succeeded; init advanced to surfaceflinger/bootanim and adb state became device. System boot completion and JS results are recorded separately.",
+      "sources": [
+        "https://android.googlesource.com/platform/external/qemu/+/refs/heads/emu-master-dev/android/emu/avd/src/android/avd/info.c",
+        "https://android.googlesource.com/platform/external/qemu/+/refs/heads/emu-master-dev/android/emu/main/main.cpp",
+        "https://android.googlesource.com/platform/external/qemu/+/refs/heads/emu-master-dev/hw/i386/acpi-build.c"
+      ],
+      "noDataWipe": true
+    },
+    {
+      "observed": "After mount repair, initial system package setup spent software-emulation time in TVLauncher first-boot dex2oat quicken. Crash log buffer was empty.",
+      "evidence": [
+        "../../artifacts/s50-api28-userland-startup-logcat.txt",
+        "../../artifacts/s50-api28-first-boot-crash-logcat.txt",
+        "../../artifacts/s50-api28-development-dexopt.txt"
+      ],
+      "action": "Dedicated development AVD only: change pm.dexopt.first-boot from quicken and pm.dexopt.install from speed-profile to extract for subsequent package preparation. Let active system compilation finish. Do not prewarm JS or change product execution timeout.",
+      "restore": "Non-persistent properties reset on cold boot; may restore quicken/speed-profile with setprop."
+    }
+  ],
+  "bootReadback": {
+    "sys.boot_completed": "1",
+    "api": 28,
+    "abi": "x86",
+    "webView": {
+      "packageName": "com.google.android.webview",
+      "versionName": "66.0.3359.158",
+      "versionCode": 336015815,
+      "valid": true,
+      "enabled": true,
+      "dirty": false,
+      "relroStarted": 1,
+      "relroFinished": 1
+    },
+    "bootCompletionWaitSeconds": 417.77,
+    "timingScope": "Time spent in the final boot polling command; not total cold-start duration or a television performance measurement",
+    "evidence": [
+      "../../artifacts/s50-api28-properties.txt",
+      "../../artifacts/s50-api28-webview.txt"
+    ]
+  },
+  "finalRuntimeResults": {
+    "standard": {
+      "report": "s50-plugin-standard-javascript-r6.json",
+      "checks": 15,
+      "passed": true,
+      "executed": true,
+      "mediaPlayed": false
+    },
+    "parents": {
+      "report": "s50-plugin-parents-javascript-r6.json",
+      "checks": 15,
+      "passed": true,
+      "executed": true,
+      "mediaPlayed": false
+    }
+  }
+}

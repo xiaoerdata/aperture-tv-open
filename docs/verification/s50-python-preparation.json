@@ -1,0 +1,32 @@
+{
+  "change": "Separate built-in Python preparation from user plugin execution",
+  "runtimeSha256": "6920ac15c1f7a4cd4a912c60a6daabf38d63b0b23a3d0c83f18a0437e2aa41fd",
+  "preparationTimeoutSeconds": 60,
+  "userPluginTimeoutSeconds": 20,
+  "preloadedBuiltinModules": [
+    "kaishi_plugins",
+    "base.spider",
+    "requests"
+  ],
+  "preparationReceivesUserPath": false,
+  "preparationExecutesUserCode": false,
+  "preparationInitiatesUserNetworkRequest": false,
+  "scope": "Production coordination executed in JVM with controlled initializer; packaged CPython still requires r6 Android validation",
+  "passedAssertions": 27,
+  "regressionAssertions": 38,
+  "verification": "docs/verification/s50-plugin-execution.json",
+  "failureEvidenceRetained": [
+    "docs/verification/s50-plugin-standard-python-attempt1.json",
+    "docs/verification/s50-plugin-standard-python-attempt2.json",
+    "docs/verification/s50-python-fixture-diagnostic.json"
+  ],
+  "failureInterpretation": "r5 first Python call exceeded the combined 20s budget while importing packaged base.spider -> requests -> urllib3. Diagnostic has no after_base/init/home marker and does not measure each import duration.",
+  "lifecycleCodeReviewed": [
+    "CinemaActivity.invalidate -> cancelPending",
+    "CinemaActivity.onPause -> cancelPending",
+    "CinemaActivity.onDestroy -> invalidate + clear"
+  ],
+  "lifecycleAndroidExecuted": false,
+  "packagedCPythonExecuted": false,
+  "xiaomiDeviceTested": false
+}

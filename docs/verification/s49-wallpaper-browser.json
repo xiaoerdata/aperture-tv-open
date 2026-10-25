@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "ambient screen contains no content cards; Down reaches viewing/apps then household; Back restores previous shortcut",
+    "5 wallpaper choices (4 CC0 photos, 1 generated) reachable by remote; selection persists; cancel/fetch failure retain previous photo; thumbnails released when closed",
+    "wallpaper and transparency preferences independent per edition, persistent after reload; reduced transparency removes lower blur",
+    "invalid stored ID never becomes a request; all resources local; 4 original/derivative photos at least 3840 by 2160; reduced-motion removes screen animation"
+  ],
+  "errors": [],
+  "es5": true,
+  "simulatedPackagedOrigin": true,
+  "actualAndroid": false,
+  "realTelevision": false,
+  "localImageEditing": false
+}

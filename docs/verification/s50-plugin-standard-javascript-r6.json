@@ -1,0 +1,117 @@
+{
+  "passed": true,
+  "stage": "completed",
+  "selectedKind": "javascript",
+  "checks": [
+    "javascript production detects correct runtime",
+    "javascript starts unapproved",
+    "javascript refuses execution before approval",
+    "javascript stores explicit approval",
+    "javascript native runtime home/init executes",
+    "javascript category receives page and category",
+    "javascript detail returns episode IDs",
+    "javascript search passes Unicode and page",
+    "javascript player resolves opaque ID and request headers",
+    "javascript changed bundle/module bytes change approval digest",
+    "javascript changed bytes are not implicitly approved",
+    "javascript changed bundle refuses execution before renewed approval",
+    "javascript approved changed bundle executes",
+    "javascript revocation removes both approvals",
+    "javascript revocation blocks next call"
+  ],
+  "runtimes": {
+    "javascript": {
+      "executed": true,
+      "digest": "b202a3bd259126819c795dba677b9edfacb2ba994ff18be21e748f620185f55a",
+      "firstHomeElapsedMs": 18906,
+      "operations": {
+        "home": {
+          "class": [
+            {
+              "type_id": "films",
+              "type_name": "影片"
+            }
+          ],
+          "list": [
+            {
+              "vod_id": "one",
+              "vod_name": "S50 测试短片"
+            }
+          ]
+        },
+        "category": {
+          "page": 2,
+          "pagecount": 3,
+          "list": [
+            {
+              "vod_id": "films-one",
+              "vod_name": "S50 测试短片"
+            }
+          ]
+        },
+        "detail": {
+          "list": [
+            {
+              "vod_id": "one",
+              "vod_name": "测试短片",
+              "vod_play_from": "测试线路",
+              "vod_play_url": "第一集$opaque-episode-1#第二集$opaque-episode-2"
+            }
+          ]
+        },
+        "search": {
+          "page": 2,
+          "pagecount": 3,
+          "list": [
+            {
+              "vod_id": "search-one",
+              "vod_name": "周末"
+            }
+          ]
+        },
+        "play": {
+          "parse": 0,
+          "url": "https://media.example.test/opaque-episode-1.mp4",
+          "header": {
+            "Referer": "https://media.example.test/"
+          }
+        }
+      },
+      "changedDigest": "f2927ae1fc4e2e360e14b0c425ac71ea3daf9e5a97c8930d5df8d4cbc9691e4d"
+    }
+  },
+  "targetPackage": "org.zhixiaoce.aperture",
+  "syntheticFixtures": true,
+  "realXiaomi": false,
+  "mediaPlayed": false,
+  "environment": {
+    "api": 28,
+    "abi": [
+      "x86"
+    ],
+    "versionCode": 17,
+    "versionName": "0.2.0-alpha.14",
+    "webView": {
+      "packageName": "com.google.android.webview",
+      "versionName": "66.0.3359.158",
+      "versionCode": 336015815,
+      "signerSha256": [
+        "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+      ],
+      "signerCollectionStatus": "collected",
+      "signerCollectionSource": "getCurrentWebViewPackage"
+    }
+  },
+  "candidate": "aperture-tv-public-v17-r6",
+  "candidateApkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+  "instrumentationSha256": "daa4869b2a0fae26c5693a1e1a9e9f16b8a57b8a9a6dc7688be1c3495d5690f8",
+  "instrumentationLog": "artifacts/s50-plugin-standard-javascript-r6.txt",
+  "recordedAt": "2026-10-25T09:37:04.049942+00:00",
+  "installationReceipt": {
+    "targetPackage": "org.zhixiaoce.aperture",
+    "installedApkPath": "/data/app/org.zhixiaoce.aperture-pGk3pCjZ7pk2JA4RZdjSlg==/base.apk",
+    "installedApkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+    "candidateApkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+    "matchesCandidate": true
+  }
+}

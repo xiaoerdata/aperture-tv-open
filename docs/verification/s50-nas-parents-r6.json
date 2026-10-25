@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "stage": "completed",
+  "checks": [
+    "AndroidKeyStore shared shelf is encrypted",
+    "unified cinema saved-item route opens native NAS Activity",
+    "actual NAS MediaPlayer resumes saved position",
+    "saved item restores its parent folder",
+    "saved item restores its file page instead of forcing first page",
+    "NAS media clock advances from SMB bytes",
+    "native control: 播放 / 暂停",
+    "pause persists current NAS position",
+    "native control: 收藏",
+    "NAS favorite persisted in unified vault",
+    "native control: 播放 / 暂停",
+    "periodic NAS checkpoint persists without leaving player",
+    "player remains active before completion seek",
+    "native completion is recorded",
+    "native control: 从头播放",
+    "start over clears completed record",
+    "native control: 前进30秒",
+    "native control: 返回文件夹",
+    "exit saves final position",
+    "Cinema Activity refresh sees NAS favorite and latest progress",
+    "native control: 我的",
+    "native control: 收藏 NAS",
+    "unified cinema saved-item route opens native NAS Activity",
+    "second unified reopen resumes latest progress",
+    "removed NAS fails explicitly without using another connection",
+    "source removal retains favorite record for explicit user removal"
+  ],
+  "timings": {
+    "advance250msWaitMs": 1380,
+    "completionAfterSeekWaitMs": 18688
+  },
+  "targetPackage": "org.zhixiaoce.aperture.parents",
+  "syntheticSmb": true,
+  "realXiaomi": false,
+  "environment": {
+    "api": 26,
+    "abi": [
+      "x86"
+    ],
+    "versionCode": 17,
+    "versionName": "0.2.0-alpha.14-parents",
+    "webView": {
+      "packageName": "com.google.android.webview",
+      "versionName": "58.0.3029.125",
+      "versionCode": 303012510
+    }
+  },
+  "candidate": "aperture-tv-public-v17-r6",
+  "candidateApkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+  "instrumentationSha256": "f41d0fff18d7b3e0ecf8b642c1ccd065a99196e59dff39892a313975d5193b10",
+  "instrumentationLog": "artifacts/s50-nas-parents-r6.txt",
+  "recordedAt": "2026-10-25T08:30:48.887751+00:00"
+}

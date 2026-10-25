@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "stage": "completed",
+  "checks": [
+    "AndroidKeyStore shared shelf is encrypted",
+    "unified cinema saved-item route opens native NAS Activity",
+    "actual NAS MediaPlayer resumes saved position",
+    "saved item restores its parent folder",
+    "saved item restores its file page instead of forcing first page",
+    "NAS media clock advances from SMB bytes",
+    "native control: 播放 / 暂停",
+    "pause persists current NAS position",
+    "native control: 收藏",
+    "NAS favorite persisted in unified vault",
+    "native control: 播放 / 暂停",
+    "periodic NAS checkpoint persists without leaving player",
+    "player remains active before completion seek",
+    "native completion is recorded",
+    "native control: 从头播放",
+    "start over clears completed record",
+    "native control: 前进30秒",
+    "native control: 返回文件夹",
+    "exit saves final position",
+    "Cinema Activity refresh sees NAS favorite and latest progress",
+    "native control: 我的",
+    "native control: 收藏 NAS",
+    "unified cinema saved-item route opens native NAS Activity",
+    "second unified reopen resumes latest progress",
+    "removed NAS fails explicitly without using another connection",
+    "source removal retains favorite record for explicit user removal"
+  ],
+  "timings": {
+    "advance250msWaitMs": 455,
+    "completionAfterSeekWaitMs": 22393
+  },
+  "targetPackage": "org.zhixiaoce.aperture",
+  "syntheticSmb": true,
+  "realXiaomi": false,
+  "candidateApkSha256": "d00ce14bd21ca9a1b6781fcc340313e4eb08873b7d2cb18198db130da2a043e7",
+  "candidate": "s50-r5/standard.apk",
+  "emulator": "Android TV API 26 x86, unaccelerated; original SSE4.1/SSE4.2 CPU flags"
+}

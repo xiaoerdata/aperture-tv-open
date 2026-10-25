@@ -1,0 +1,43 @@
+{
+  "reviewedCallingConvention": "CatVod public class and method signatures; independent implementations",
+  "referenceLicense": "AGPL-3.0",
+  "implementationSourceCopied": false,
+  "verified": [
+    {
+      "url": "https://github.com/takagen99/Box/blob/main/app/src/main/java/com/github/catvod/crawler/JarLoader.java",
+      "sha256": "5c32d3a25a4d556ba70905b5c06badbfaf84dd93c727456dfe9a073d0d8886cb",
+      "bytes": 8963
+    },
+    {
+      "url": "https://github.com/takagen99/Box/blob/main/app/src/main/java/com/github/catvod/crawler/Spider.java",
+      "sha256": "75bac8ccc0e214364dff3de46be0077f3be146a84c45f2147a14bd451d0b1665",
+      "bytes": 2673
+    },
+    {
+      "url": "https://github.com/takagen99/Box/blob/main/app/src/main/java/com/github/catvod/crawler/JsLoader.java",
+      "sha256": "0dff6a7b1fdb4357b5b47335a89242017d7fa263fecd8d11b513ddf0d3787d78",
+      "bytes": 5337
+    },
+    {
+      "url": "https://github.com/takagen99/Box/blob/main/app/src/main/java/com/github/tvbox/osc/util/js/JsSpider.java",
+      "sha256": "e97f5d4f9a4fdbf48efdfc51f95a33dc5aaabe5c17dd18ed89870dc8fcdbebee",
+      "bytes": 16526
+    },
+    {
+      "url": "https://github.com/takagen99/Box/blob/main/app/src/main/java/com/github/tvbox/osc/viewmodel/SourceViewModel.java",
+      "sha256": "844863585e1c3ad9a5825a055f4f6dd3f4fcf6208927aa139c8e5500b965277c",
+      "bytes": 62322
+    }
+  ],
+  "drpy": {
+    "repository": "hjdhnx/dr_py",
+    "license": "LGPL-3.0",
+    "sourceBundled": false,
+    "executionEvidence": "s50-drpy-execution.json"
+  },
+  "productionRuntime": {
+    "jar": "Android DexClassLoader with original ABI adapter",
+    "javascript": "Android platform WebView ES modules",
+    "python": "Chaquopy 16.1.0 / CPython 3.10"
+  }
+}

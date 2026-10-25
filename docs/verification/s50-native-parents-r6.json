@@ -1,0 +1,132 @@
+{
+  "passed": true,
+  "stage": "completed",
+  "checks": [
+    "synthetic source control request",
+    "visible native UI callback: 看电视",
+    "home opens embedded activity in target APK",
+    "encrypted source configuration survives APK upgrade",
+    "saved source decrypts through AndroidKeyStore after APK upgrade",
+    "visible native UI callback: 来源",
+    "set actual native source/search field",
+    "visible native UI callback: 读取地址",
+    "visible native UI callback: 保存",
+    "AndroidKeyStore-backed source record is not plaintext",
+    "visible native UI callback: 直播清单",
+    "visible native UI callback: 台一",
+    "native playback clock advances: MP4 channel",
+    "native SurfaceView contains decoded synthetic video: live-mp4",
+    "visible native UI callback: 下一台",
+    "native playback clock advances: HLS channel",
+    "native SurfaceView contains decoded synthetic video: live-hls",
+    "visible native UI callback: 播放 / 暂停",
+    "pause remains explicit",
+    "visible native UI callback: 播放 / 暂停",
+    "native playback clock advances: explicit resume",
+    "real Android AudioManager grants a transient competing focus request",
+    "audio focus return does not auto-resume",
+    "visible native UI callback: 播放 / 暂停",
+    "native playback clock advances: resume after transient focus",
+    "back releases native playback view",
+    "back restores selected live channel focus; actual=台二",
+    "visible native UI callback: 看电影",
+    "home opens embedded activity in target APK",
+    "visible native UI callback: 家庭JSON站",
+    "visible native UI callback: 搜索",
+    "set actual native source/search field",
+    "visible native UI callback: 搜索",
+    "visible native UI callback: 周末短片\n测试影片",
+    "visible native UI callback: 家庭线路",
+    "visible native UI callback: 下一页",
+    "visible native UI callback: 第13集",
+    "native playback clock advances: selected episode",
+    "native SurfaceView contains decoded synthetic video: episode-13",
+    "visible native UI callback: 后退30秒",
+    "visible native UI callback: 前进30秒",
+    "visible native UI callback: 收藏",
+    "visible native UI callback: 播放 / 暂停",
+    "real native episode checkpoint preserves progress and favorite",
+    "viewing shelf uses AndroidKeyStore encrypted storage",
+    "back restores selected episode and page; actual=第13集",
+    "visible native UI callback: 全部",
+    "visible native UI callback: 失效影片",
+    "visible native UI callback: 错误线路",
+    "visible native UI callback: 播放",
+    "failed media can return to the catalogue",
+    "synthetic source control request",
+    "visible native UI callback: 来源",
+    "visible native UI callback: 检查来源",
+    "synthetic source control request",
+    "visible native UI callback: 返回来源设置",
+    "visible native UI callback: 清除本机来源",
+    "visible native UI callback: 返回",
+    "cancelling clear retains encrypted source record",
+    "real D-pad reaches and activates scrolled source settings Return",
+    "visible native UI callback: 家庭JSON站",
+    "catalogue recovers after source returns online",
+    "visible native UI callback: 看电视剧",
+    "home opens embedded activity in target APK",
+    "parents third core entry routes into embedded series view",
+    "visible native UI callback: 家庭JSON站",
+    "visible native UI callback: 家庭剧集"
+  ],
+  "images": [
+    "sources-empty.png",
+    "channels.png",
+    "live-mp4.png",
+    "live-hls.png",
+    "search.png",
+    "episode-13.png",
+    "media-error.png",
+    "health.png",
+    "recovered.png",
+    "parents-series.png"
+  ],
+  "clockSamples": [
+    {
+      "label": "MP4 channel",
+      "mediaAdvanceMs": 474,
+      "wallMs": 1261
+    },
+    {
+      "label": "HLS channel",
+      "mediaAdvanceMs": 430,
+      "wallMs": 940
+    },
+    {
+      "label": "explicit resume",
+      "mediaAdvanceMs": 275,
+      "wallMs": 356
+    },
+    {
+      "label": "resume after transient focus",
+      "mediaAdvanceMs": 320,
+      "wallMs": 327
+    },
+    {
+      "label": "selected episode",
+      "mediaAdvanceMs": 332,
+      "wallMs": 2851
+    }
+  ],
+  "targetPackage": "org.zhixiaoce.aperture.parents",
+  "realXiaomi": false,
+  "candidateApkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+  "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+  "environment": {
+    "api": 26,
+    "abi": [
+      "x86"
+    ],
+    "versionCode": 17,
+    "versionName": "0.2.0-alpha.14-parents",
+    "webView": {
+      "packageName": "com.google.android.webview",
+      "versionName": "58.0.3029.125"
+    },
+    "host": "Android TV software emulator with SSE4.1/SSE4.2"
+  },
+  "installedApkHashVerified": true,
+  "syntheticMedia": true,
+  "savedImagePrefix": "s50-native-parents-r6-"
+}

@@ -1,0 +1,43 @@
+{
+  "source": "https://dl.google.com/android/repository/sys-img/android-tv/x86-28_r10.zip",
+  "officialMetadata": "https://dl.google.com/android/repository/sys-img/android-tv/sys-img2-3.xml",
+  "archiveBytes": 475216948,
+  "archiveSha1": "4c13edca32c1abb899a0702fe6972087712bcb78",
+  "archiveChecksumVerified": true,
+  "extractedPath": "x86/system.img:/system/app/WebViewGoogle/WebViewGoogle.apk",
+  "apkPath": "/tmp/aperture-official-images/WebViewGoogle-tv28-r10.apk",
+  "apkBytes": 71170773,
+  "apkSha256": "f9642fe566b838919b4bb026e99931749aed4e210b91c0fa24b2d4157f3c7e5d",
+  "packageName": "com.google.android.webview",
+  "versionName": "66.0.3359.158",
+  "versionCode": 336015815,
+  "minSdkVersion": 21,
+  "targetSdkVersion": 28,
+  "nativeCode": [
+    "x86"
+  ],
+  "apkSignatureVerified": true,
+  "signerSha256": "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991",
+  "installed": false,
+  "currentProviderSignerCompared": true,
+  "runtimeCompatibilityVerified": false,
+  "candidateMatchesInstalledSigner": true,
+  "candidateContainsDex": false,
+  "installSucceeded": false,
+  "installError": "Failure [INSTALL_FAILED_INVALID_APK: Package couldn't be installed in /data/app/com.google.android.webview-YJBjgW_rw_aJce7Tb2OrnQ==: Package /data/app/com.google.android.webview-YJBjgW_rw_aJce7Tb2OrnQ==/base.apk code is missing]",
+  "device": "dedicated API26 Android TV emulator",
+  "productApkChanged": false,
+  "repackedOrResigned": false,
+  "realXiaomi": false,
+  "providerAfterFailure": {
+    "packageName": "com.google.android.webview",
+    "versionName": "58.0.3029.125",
+    "versionCode": 303012510,
+    "valid": true,
+    "enabledForAllUsers": true,
+    "relrosStarted": 1,
+    "relrosFinished": 1,
+    "packageDirty": false
+  },
+  "providerAfterFailureEvidence": "Current WebView Update Service state\n  Fallback logic enabled: true\n  Current WebView package (name, version): (com.google.android.webview, 58.0.3029.125)\n  Minimum WebView version code: -1\n  Number of relros started: 1\n  Number of relros finished: 1\n  WebView package dirty: false\n  Any WebView package installed: true\n  Preferred WebView package (name, version): (com.google.android.webview, 58.0.3029.125)\n  WebView packages:\n    Valid package com.google.android.webview (versionName: 58.0.3029.125, versionCode: 303012510, targetSdkVersion: 26) is  installed/enabled for all users\n"
+}

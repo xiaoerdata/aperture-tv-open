@@ -10,7 +10,7 @@ runtime = Path(os.environ.get('APERTURE_ANDROID_RUNTIME', '/tmp/aperture-android
 sdk = Path(os.environ.get('ANDROID_HOME', runtime / 'android-sdk'))
 jdk = Path(os.environ.get('JAVA_HOME', runtime / 'jdk17'))
 tools = sdk / 'build-tools/35.0.0'
-out = root / 'artifacts/s47-instrumentation' / args.edition
+out = root / 'artifacts/s50-instrumentation' / args.edition
 out.mkdir(parents=True, exist_ok=True)
 (out / 'classes').mkdir(exist_ok=True)
 (out / 'dex').mkdir(exist_ok=True)

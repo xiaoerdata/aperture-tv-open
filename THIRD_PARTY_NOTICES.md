@@ -38,3 +38,33 @@ SMBJ0.14.0、ASN.1 ONE0.6.0、OkHttp4.12.0、Okio3.6.0、Kotlin1.9.10与JetBrain
 - License: https://creativecommons.org/publicdomain/zero/1.0/ . The photograph is CC0, separately from the project code license.
 - Downloaded Commons 3840px derivative unchanged; source photograph is 5760×3240. No local resizing, sharpening, recoloring or AI upscaling. UI shading is a separate CSS layer.
 - SHA-256: `071a29a0ac25ea897f7369a989cac71c7c55ec9ef27257c971cfdb10165c37b2`.
+
+## S48 · Additional landscape wallpapers
+
+All three photographs are CC0 1.0, separately from the code license. Downloaded original JPEGs unchanged; UI cropping, shading and lower-screen blur are CSS layers. No local pixel edits or AI upscaling. Commons API per-file license metadata, revision, original dimensions and checksums are retained in `docs/verification/s48-wallpapers.json`.
+
+- `public/launcher/namib-4k.jpg`: Keith Hardy keithhardy2001; 3872×2592, 3488606 bytes. Source: https://commons.wikimedia.org/wiki/File:Namib_Desert,_Namibia_(Unsplash).jpg (revision 1114346687). SHA-256 `24455afd8623857e7e2f6c847d4cab45390049aafd7387629f2717e49c2a55db`.
+  Picker thumbnail: Commons-generated derivative downloaded unchanged from https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Namib_Desert%2C_Namibia_%28Unsplash%29.jpg/500px-Namib_Desert%2C_Namibia_%28Unsplash%29.jpg; SHA-256 `c1edf76b2be47ef1453e6cfbbf5463cc9c212dffd23bb6ecb5c27c44b5025a63`.
+- `public/launcher/fuji-4k.jpg`: J iamtheoldmanofthemountain; 4096×2731, 1510187 bytes. Source: https://commons.wikimedia.org/wiki/File:Mt._Fuji,_Fujinomiya,_Japan_(Unsplash).jpg (revision 1180488708). SHA-256 `af85a25491970757164623434ab1978f870d85bda60aab4d545d6037e9058f15`.
+  Picker thumbnail: Commons-generated derivative downloaded unchanged from https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mt._Fuji%2C_Fujinomiya%2C_Japan_%28Unsplash%29.jpg/500px-Mt._Fuji%2C_Fujinomiya%2C_Japan_%28Unsplash%29.jpg; SHA-256 `6745460bd3015a6ac175560403ff081771582c90a1d2dddde83273eeb085e871`.
+- `public/launcher/lofoten-4k.jpg`: Johannes Groll followhansi; 5059×3373, 9905230 bytes. Source: https://commons.wikimedia.org/wiki/File:Lofoten,_Norway_(Unsplash).jpg (revision 1290120845). SHA-256 `3bccf7c95c7e453f448da8f2d660737adc01eaad8a5f115767321537143136a5`.
+  Picker thumbnail: Commons-generated derivative downloaded unchanged from https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Lofoten%2C_Norway_%28Unsplash%29.jpg/960px-Lofoten%2C_Norway_%28Unsplash%29.jpg; SHA-256 `2ffb65ad74904c300bbe3119c59dd91afc62e9e8d4004ea428ba63b4b366a91b`.
+
+CC0: https://creativecommons.org/publicdomain/zero/1.0/ . Japan option is labelled Fujinomiya cloudscape; the photo does not show Mount Fuji’s summit. Research images with a visible person/pool were not selected or bundled.
+
+
+## S49应用名称与生成素材
+
+哔哩哔哩、腾讯视频、爱奇艺、优酷、芒果TV、咪咕、Netflix、Apple TV、YouTube、Disney+、Plex、Kodi及对应标志属于各自权利人。目录只用于识别本机应用/提供建议，不表示合作、官方认证或内容订阅授权。随包不复制这些应用的正式logo；原生运行时从用户已安装软件读取图标，缺失时显示文字占位。
+
+暮色湖面、玻璃档案和玻璃燕子由内置imagegen工具按项目提示词生成，见[原图与提示词](design-assets/s49/README.md)。它们不是CC0摄影，不冒用现有四张风景摄影的署名。项目LICENSE适用于项目可授权部分，不作排他版权保证。
+
+## S50 · 影视插件运行时
+
+本项目的 CatVod ABI 兼容类、插件信任/下载/调用层、JS 适配脚本、Python `base.spider` 和原创测试插件为独立实现，沿用项目 MIT。协议研究读取过 `takagen99/Box` 的 AGPL-3.0 源码，但没有把其 loader、播放器或爬虫实现复制进本项目。`hjdhnx/dr_py`（仓库 LGPL-3.0）的源码只用于本机互操作验证，位于不导出的 `artifacts/drpy-reference`，没有随 APK 或源码包分发。出处、摘要和执行范围见 `docs/verification/s50-plugin-research.json`、`s50-drpy-execution.json`。
+
+随 APK 的运行时依赖保留原许可证：Chaquopy 16.1.0 为 MIT；CPython 3.10.15 保留 Python/PSF 许可及其附带声明；jsoup 1.18.3 为 MIT；Gson 2.11.0 为 Apache-2.0。Python 包包含 requests、Beautiful Soup、lxml、pyquery、PyCryptodome、jsonpath、cachetools 及固定的传递依赖。其中 certifi 的证书源适用 MPL-2.0，lxml 及其 libxml2/libxslt、PyCryptodome 等保留各自 BSD/MIT 式或公共领域声明，不能统一改标 MIT。
+
+完整许可、实际版本、原始来源与许可 SHA-256 放在 `android/third-party/plugins/`，随离线资源进入 APK；其中 `dependencies.json` 记录 Python target 带入的 OpenSSL、libffi、bzip2、liblzma 和 SQLite。未修改的 certifi 证书源可从对应版本 PyPI 源分发包取得：https://pypi.org/project/certifi/2026.10.23/#files 。Python target 构建配方与依赖源出处：https://github.com/chaquo/chaquopy/blob/16.1.0/target/python/build.sh 。Java 构建依赖 error_prone_annotations 2.27.0 沿用 Apache-2.0（与 Gson 同许可文本），上游 https://github.com/google/error-prone/tree/v2.27.0 。
+
+用户另行配置的 JAR、JS、Python、规则、媒体与账号不属于开视发行物，继续适用其原许可证、版权和服务条款。提供兼容入口不表示获得第三方内容授权或官方合作认证。

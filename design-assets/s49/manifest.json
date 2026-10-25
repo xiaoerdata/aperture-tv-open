@@ -1,0 +1,60 @@
+{
+  "tool": "built-in imagegen",
+  "modelVersionReported": false,
+  "generatedLandscapeIsFictional": true,
+  "native4kGenerated": false,
+  "originals": [
+    {
+      "path": "design-assets/s49/originals/dusk-lake.png",
+      "width": 1672,
+      "height": 941,
+      "alpha": false,
+      "bytes": 1903766,
+      "sha256": "ad7339e8480c3accb8dfc6269a659e432e1823fbeb8690d058d768c3d950d5ed",
+      "prompt": "design-assets/s49/prompts/dusk.txt"
+    },
+    {
+      "path": "design-assets/s49/originals/memory-archive.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true,
+      "bytes": 1781737,
+      "sha256": "2b917baaae1b914ea179505cd750951b04bd93706f3a3e7ba06322f7e7066760",
+      "prompt": "design-assets/s49/prompts/archive.txt"
+    },
+    {
+      "path": "design-assets/s49/originals/glass-swallow.png",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true,
+      "bytes": 791426,
+      "sha256": "7ad97662011759216e5c179347294ff5fd10ca0094eac757a589c7bbdd34b1cc",
+      "prompt": "design-assets/s49/prompts/swallow.txt"
+    }
+  ],
+  "runtime": [
+    {
+      "path": "public/launcher/art/dusk-lake-v1.webp",
+      "bytes": 151844,
+      "sha256": "6c9860b21a2c6f857f2b2b0620ae0d4d44ce2509a1761731db83bb98f3cef6c8"
+    },
+    {
+      "path": "public/launcher/art/dusk-lake-thumb-v1.webp",
+      "bytes": 11622,
+      "sha256": "12651b5c905564bb2ec3baa62f6eef26b8f6214c3262f0ed939bd6597e491535"
+    },
+    {
+      "path": "public/launcher/art/memory-archive-v1.webp",
+      "bytes": 34700,
+      "sha256": "6a29118929bb4a2acb3de2a405773fe66c8d9ca90ed33898de0676d646f95c5e"
+    },
+    {
+      "path": "public/launcher/art/glass-swallow-v1.webp",
+      "bytes": 17990,
+      "sha256": "c9ec05d5a105935db94b33bda57f027249f738af01c0cd9c2a79b73e794818d7"
+    }
+  ],
+  "totalRuntimeBytes": 216156,
+  "processing": "ImageMagick format encoding and downscaling only; no enlargement, retouching, cropping or alpha removal",
+  "apkBuilt": false
+}

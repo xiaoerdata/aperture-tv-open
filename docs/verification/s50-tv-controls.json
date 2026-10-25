@@ -1,0 +1,185 @@
+{
+  "checks": [
+    "standard 720p/1080p/4K: three screens, core-to-shortcut-to-household moves, row edges stay put, settings reachable without Menu/pointer, linear menu and back focus",
+    "parents 720p/1080p/4K: three core entries, five smaller application controls, explicit core/shortcut/header paths and retained settings return focus",
+    "real configured library with eight non-playable layout fixtures: standard four-column / parents three-column remote grid, same-column moves and no row-edge diagonal jumps; no decoding claim"
+  ],
+  "measurements": [
+    {
+      "label": "standard 1280",
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 42.6666259765625,
+      "minimumControlWidth": 42.6666259765625
+    },
+    {
+      "label": "applications 1280",
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 42.6666259765625,
+      "minimumControlWidth": 42.6666259765625
+    },
+    {
+      "label": "household 1280",
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 42.6666259765625,
+      "minimumControlWidth": 42.6666259765625
+    },
+    {
+      "label": "photos 1280",
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 42.6666259765625,
+      "minimumControlWidth": 42.6666259765625
+    },
+    {
+      "label": "data 1280",
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 42.6666259765625,
+      "minimumControlWidth": 42.6666259765625
+    },
+    {
+      "label": "information 1280",
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 42.6666259765625,
+      "minimumControlWidth": 42.6666259765625
+    },
+    {
+      "label": "tools 1280",
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 42.6666259765625,
+      "minimumControlWidth": 42.6666259765625
+    },
+    {
+      "label": "standard 1920",
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 64,
+      "minimumControlWidth": 64
+    },
+    {
+      "label": "applications 1920",
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 64,
+      "minimumControlWidth": 64
+    },
+    {
+      "label": "household 1920",
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 64,
+      "minimumControlWidth": 64
+    },
+    {
+      "label": "photos 1920",
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 64,
+      "minimumControlWidth": 64
+    },
+    {
+      "label": "data 1920",
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 64,
+      "minimumControlWidth": 64
+    },
+    {
+      "label": "information 1920",
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 64,
+      "minimumControlWidth": 64
+    },
+    {
+      "label": "tools 1920",
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 64,
+      "minimumControlWidth": 64
+    },
+    {
+      "label": "standard 3840",
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 128,
+      "minimumControlWidth": 128
+    },
+    {
+      "label": "applications 3840",
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 128,
+      "minimumControlWidth": 128
+    },
+    {
+      "label": "household 3840",
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 128,
+      "minimumControlWidth": 128
+    },
+    {
+      "label": "photos 3840",
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 128,
+      "minimumControlWidth": 128
+    },
+    {
+      "label": "data 3840",
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 128,
+      "minimumControlWidth": 128
+    },
+    {
+      "label": "information 3840",
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 128,
+      "minimumControlWidth": 128
+    },
+    {
+      "label": "tools 3840",
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 128,
+      "minimumControlWidth": 128
+    },
+    {
+      "label": "parents 1280",
+      "canvasScale": 0.6666666666666666,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 48,
+      "minimumControlWidth": 66.6666259765625
+    },
+    {
+      "label": "parents 1920",
+      "canvasScale": 1,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 72,
+      "minimumControlWidth": 100
+    },
+    {
+      "label": "parents 3840",
+      "canvasScale": 2,
+      "normalizedTo1920x1080Canvas": true,
+      "minimumControlHeight": 144,
+      "minimumControlWidth": 200
+    }
+  ],
+  "errors": [],
+  "es5Parsed": true,
+  "browser": "desktop Chromium",
+  "realTelevision": false,
+  "physicalRemote": false,
+  "nativeControlsRendered": false,
+  "mediaDecoded": false,
+  "realNas": false
+}

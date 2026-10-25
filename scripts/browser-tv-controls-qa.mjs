@@ -22,7 +22,7 @@ async function geometry(page,label){
   const rows=[...document.querySelectorAll('button:not(:disabled),a[href]')].filter(n=>n.offsetWidth&&n.offsetHeight).map(n=>{const r=n.getBoundingClientRect(),c=getComputedStyle(n);return {id:n.id||n.dataset.action||n.textContent.trim(),width:r.width,height:r.height,font:parseFloat(c.fontSize)};});
   return {overflow:document.documentElement.scrollWidth>innerWidth||document.documentElement.scrollHeight>innerHeight,width:innerWidth,height:innerHeight,scrollHeight:document.documentElement.scrollHeight,scrollWidth:document.documentElement.scrollWidth,canvasScale:document.querySelector('#lobby')&&innerWidth/innerHeight>4/3?Math.min(innerWidth/1920,innerHeight/1080):1,rows};
  });
- if(result.overflow) await page.screenshot({path:'artifacts/s31-overflow-'+label.replace(/[^a-z0-9]/g,'-')+'.png',fullPage:true});
+ if(result.overflow) await page.screenshot({path:'artifacts/s50-controls-overflow-'+label.replace(/[^a-z0-9]/g,'-')+'.png',fullPage:true});
  assert.equal(result.overflow,false,label+' viewport '+JSON.stringify({height:result.height,scrollHeight:result.scrollHeight,width:result.width,scrollWidth:result.scrollWidth}));
  for(const row of result.rows){assert.ok(row.height/result.canvasScale>=63,label+' small control '+JSON.stringify(row));assert.ok(row.width/result.canvasScale>=63,label+' narrow control '+JSON.stringify(row));}
  measurements.push({label,canvasScale:result.canvasScale,normalizedTo1920x1080Canvas:true,minimumControlHeight:Math.min(...result.rows.map(n=>n.height)),minimumControlWidth:Math.min(...result.rows.map(n=>n.width))});
@@ -33,37 +33,42 @@ try{
   await page.setViewportSize({width,height});await page.goto(origin+'/home?demo=1');await page.waitForFunction(()=>typeof apertureRemoteKey==='function');await page.evaluate(()=>document.fonts.ready);
   await geometry(page,'standard '+width);
   const backdrop=await page.evaluate(()=>new Promise((resolve,reject)=>{
-   var image=new Image();image.onload=function(){resolve({width:image.naturalWidth,height:image.naturalHeight,background:getComputedStyle(document.body).backgroundImage,size:getComputedStyle(document.body).backgroundSize});};image.onerror=reject;image.src=new URL('./carezza-4k.jpg',location.href).href;
+   var image=new Image();image.onload=function(){resolve({width:image.naturalWidth,height:image.naturalHeight,background:getComputedStyle(document.querySelector('.scenic-background')).backgroundImage,size:getComputedStyle(document.querySelector('.scenic-background')).backgroundSize});};image.onerror=reject;image.src=new URL('./carezza-4k.jpg',location.href).href;
   }));
   assert.equal(backdrop.width,3840);assert.equal(backdrop.height,2160);assert.ok(backdrop.background.includes('carezza-4k.jpg'));assert.ok(backdrop.size.split(',').every(value=>value.trim()==='cover'));
-  await page.screenshot({path:'docs/images/s31-standard-'+width+'.png'});
-  const ids=await page.locator('.destinations>.destination:visible').evaluateAll(nodes=>nodes.map(n=>n.id));
-  assert.deepEqual(ids,['entry-live','entry-cinema','entry-photos','entry-family','entry-data','entry-information','entry-tools','entry-system']);
-  for(let i=0;i<ids.length;i++){
-   await page.locator('#'+ids[i]).focus();await press(page,'ArrowRight');assert.equal(await active(page),ids[i%4<3?i+1:i]);
-   await page.locator('#'+ids[i]).focus();await press(page,'ArrowLeft');assert.equal(await active(page),ids[i%4>0?i-1:i]);
-   await page.locator('#'+ids[i]).focus();await press(page,i<4?'ArrowDown':'ArrowUp');assert.equal(await active(page),ids[i<4?i+4:i-4]);
+  await page.screenshot({path:'docs/images/s50-controls-standard-'+width+'.png'});
+  assert.equal(await active(page),'home-live');
+  for (const target of ['dock-toggle','home-app-add','page-down','entry-live']) { await press(page,'ArrowDown');assert.equal(await active(page),target); }
+  await geometry(page,'applications '+width);
+  await press(page,'ArrowRight');assert.equal(await active(page),'entry-cinema');
+  await press(page,'ArrowRight');assert.equal(await active(page),'entry-cinema');
+  await press(page,'ArrowDown');assert.equal(await active(page),'quick3');
+  await press(page,'ArrowDown');assert.equal(await active(page),'entry-photos');
+  await geometry(page,'household '+width);
+  for(const id of ['entry-photos','entry-data','entry-information','entry-tools']){
+    await page.locator('#'+id).focus();await press(page,'ArrowDown');assert.equal(await active(page),'hero-open');
+    await press(page,'ArrowUp');assert.equal(await active(page),'entry-photos');
   }
-  // Reach settings without pointer, Menu or DOM focus changes from the normal initial entry.
-  await page.locator('#entry-live').focus();await press(page,'ArrowUp');assert.equal(await active(page),'hero-open');
-  await press(page,'ArrowUp');for(let i=0;i<5;i++)await press(page,'ArrowRight');assert.equal(await active(page),'settings-open');
+  await press(page,'Escape');await press(page,'Escape');
+  await press(page,'ArrowUp');await press(page,'ArrowUp');await press(page,'ArrowUp');assert.equal(await active(page),'settings-open');
   await press(page,'Enter');assert.equal(await active(page),'configure');
   await press(page,'ArrowUp');assert.equal(await active(page),'pane-close');await press(page,'ArrowDown');assert.equal(await active(page),'configure');
   const actions=await page.locator('#pane-actions>button').evaluateAll(nodes=>nodes.map(n=>n.dataset.action));
   for(const action of actions.slice(1)){await press(page,'ArrowDown');assert.equal(await active(page),action);}
   await press(page,'ArrowDown');assert.equal(await active(page),actions.at(-1));
   await press(page,'Escape');assert.equal(await active(page),'settings-open');
+  await page.locator('[data-home-screen="2"]').click();
   for(const section of ['photos','data','information','tools']){
    await page.locator('#entry-'+section).focus();await press(page,'Enter');assert.equal(await page.locator('#lobby').getAttribute('data-section'),section);
    assert.equal(await page.locator('.destinations').isVisible(),false);await geometry(page,section+' '+width);
    await press(page,'Escape');assert.equal(await active(page),'entry-'+section);
   }
  }
- checks.push('standard 720p/1080p/4K: eight entries in two rows, same-column vertical moves, row edges stay put, settings reachable without Menu/pointer, linear menu and back focus');
+ checks.push('standard 720p/1080p/4K: three screens, core-to-shortcut-to-household moves, row edges stay put, settings reachable without Menu/pointer, linear menu and back focus');
  for(const [width,height] of [[1280,720],[1920,1080],[3840,2160]]){
   await page.setViewportSize({width,height});await page.goto(origin+'/home?edition=parents&demo=1&quick1='+encodeURIComponent('视频 · 示例')+'&quick2='+encodeURIComponent('音乐 · 示例'));
   await page.waitForFunction(()=>typeof apertureRemoteKey==='function');await geometry(page,'parents '+width);
-  await page.screenshot({path:'docs/images/s31-parents-'+width+'.png'});
+  await page.screenshot({path:'docs/images/s50-controls-parents-'+width+'.png'});
   assert.equal(await active(page),'entry-live');await press(page,'ArrowRight');assert.equal(await active(page),'entry-series');await press(page,'ArrowRight');assert.equal(await active(page),'entry-cinema');await press(page,'ArrowRight');assert.equal(await active(page),'entry-cinema');
   await page.locator('#entry-live').focus();await press(page,'ArrowDown');assert.equal(await active(page),'quick1');await press(page,'ArrowUp');assert.equal(await active(page),'entry-live');
   await press(page,'ArrowUp');assert.equal(await active(page),'settings-open');await press(page,'Enter');assert.equal(await active(page),'configure');await press(page,'Escape');assert.equal(await active(page),'settings-open');
@@ -81,6 +86,6 @@ try{
  }
  checks.push('real configured library with eight non-playable layout fixtures: standard four-column / parents three-column remote grid, same-column moves and no row-edge diagonal jumps; no decoding claim');
  assert.deepEqual(errors,[]);
- await writeFile('docs/verification/tv-controls.json',JSON.stringify({checks,measurements,errors,es5Parsed:true,browser:'desktop Chromium',realTelevision:false,physicalRemote:false,nativeControlsRendered:false,mediaDecoded:false,realNas:false},null,2)+'\n');
+ await writeFile('docs/verification/s50-tv-controls.json',JSON.stringify({checks,measurements,errors,es5Parsed:true,browser:'desktop Chromium',realTelevision:false,physicalRemote:false,nativeControlsRendered:false,mediaDecoded:false,realNas:false},null,2)+'\n');
  console.log({checks,measurements,errors});
 }finally{await browser.close();await new Promise(r=>app.server.close(r));await rm(directory,{recursive:true,force:true});}

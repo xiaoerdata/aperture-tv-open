@@ -1,6 +1,6 @@
 # 首次公开发布前的具体任务
 
-P35更新：已授权先公开Alpha用于测试，公共仓库为`xiaoerdata/aperture-tv-open`。以下稳定签名、硬件/WorkBuddy验收及生产部署是后续正式稳定发行清单；Alpha提供同一v13 debug包并标明待测，不冒称正式稳定版。
+P35与P47更新：已授权先公开Alpha用于测试，公共仓库为`xiaoerdata/aperture-tv-open`。以下稳定签名、硬件/WorkBuddy验收及生产部署是后续正式稳定发行清单；Alpha提供debug测试包，当前版本和实测范围以[下载与版本](DOWNLOADS.md)及对应Release测试清单为准，不冒称正式稳定版。
 
 本地开发交付已准备；以下不是已完成的发布声明。本项目仅适配小米电视，WorkBuddy与真机现场验收由项目维护者完成。
 

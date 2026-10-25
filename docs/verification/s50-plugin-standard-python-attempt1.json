@@ -1,0 +1,33 @@
+{
+  "error": "java.io.IOException: 插件执行超时，请退出影视后重试\n\tat org.zhixiaoce.aperture.CinemaPlugins.nativeCall(CinemaPlugins.java:91)\n\tat org.zhixiaoce.aperture.CinemaPlugins.call(CinemaPlugins.java:83)\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat org.zhixiaoce.aperture.test.PluginRunner.call(PluginRunner.java:34)\n\tat org.zhixiaoce.aperture.test.PluginRunner.execute(PluginRunner.java:43)\n\tat org.zhixiaoce.aperture.test.PluginRunner.runtime(PluginRunner.java:54)\n\tat org.zhixiaoce.aperture.test.PluginRunner.onStart(PluginRunner.java:21)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)\n",
+  "passed": false,
+  "stage": "python: execute runtime",
+  "selectedKind": "python",
+  "environment": {
+    "api": 26,
+    "abi": [
+      "x86"
+    ],
+    "versionCode": 17,
+    "versionName": "0.2.0-alpha.14",
+    "webView": {
+      "packageName": "com.google.android.webview",
+      "versionName": "58.0.3029.125",
+      "versionCode": 303012510,
+      "signerSha256": [
+        "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+      ]
+    }
+  },
+  "checks": [
+    "python production detects correct runtime",
+    "python starts unapproved",
+    "python refuses execution before approval",
+    "python stores explicit approval"
+  ],
+  "runtimes": {},
+  "targetPackage": "org.zhixiaoce.aperture",
+  "syntheticFixtures": true,
+  "realXiaomi": false,
+  "mediaPlayed": false
+}

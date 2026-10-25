@@ -1,0 +1,359 @@
+{
+  "scope": "Plugin runtime dependencies from standardDebug build; excludes downloaded user plugins",
+  "dependencies": [
+    {
+      "name": "beautifulsoup4",
+      "version": "4.12.3",
+      "license": "MIT License",
+      "home": "https://pypi.org/project/beautifulsoup4/4.12.3/",
+      "licenseFiles": [
+        "beautifulsoup4-4.12.3.dist-info-licenses_LICENSE"
+      ],
+      "licenseSha256": {
+        "beautifulsoup4-4.12.3.dist-info-licenses_LICENSE": "55b4d8d4b1e5bc86d10efac91b74c87bcb77526b0f5b9edaf8b9cd2adc7397b2"
+      },
+      "upstreamProjectURLs": [
+        "Download, https://www.crummy.com/software/BeautifulSoup/bs4/download/",
+        "Homepage, https://www.crummy.com/software/BeautifulSoup/bs4/"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "cachetools",
+      "version": "5.5.0",
+      "license": "MIT",
+      "home": "https://github.com/tkem/cachetools/",
+      "licenseFiles": [
+        "cachetools-5.5.0.dist-info-LICENSE"
+      ],
+      "licenseSha256": {
+        "cachetools-5.5.0.dist-info-LICENSE": "2f4d2ff05f05c5da3879f40292b7600332d775dc7ed320d43dd42f3cd7d92c9b"
+      },
+      "upstreamProjectURLs": [],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.23",
+      "license": "MPL-2.0",
+      "home": "https://github.com/certifi/python-certifi",
+      "licenseFiles": [
+        "certifi-2026.10.23.dist-info-licenses_LICENSE"
+      ],
+      "licenseSha256": {
+        "certifi-2026.10.23.dist-info-licenses_LICENSE": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7"
+      },
+      "upstreamProjectURLs": [
+        "Source, https://github.com/certifi/python-certifi"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "chaquopy-libxml2",
+      "version": "2.9.8",
+      "license": "MIT-style; see exact upstream COPYING",
+      "home": "https://chaquo.com/pypi-13.1/chaquopy-libxml2/",
+      "licenseFiles": [
+        "chaquopy_libxml2-2.9.8.dist-info-COPYING"
+      ],
+      "licenseSha256": {
+        "chaquopy_libxml2-2.9.8.dist-info-COPYING": "c5c63674f8a83c4d2e385d96d1c670a03cb871ba2927755467017317878574bd"
+      },
+      "upstreamProjectURLs": [],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "chaquopy-libxslt",
+      "version": "1.1.32",
+      "license": "MIT-style; see exact upstream COPYING",
+      "home": "https://chaquo.com/pypi-13.1/chaquopy-libxslt/",
+      "licenseFiles": [
+        "chaquopy_libxslt-1.1.32.dist-info-COPYING"
+      ],
+      "licenseSha256": {
+        "chaquopy_libxslt-1.1.32.dist-info-COPYING": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819"
+      },
+      "upstreamProjectURLs": [],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.2",
+      "license": "MIT",
+      "home": "https://pypi.org/project/charset-normalizer/3.5.2/",
+      "licenseFiles": [
+        "charset_normalizer-3.5.2.dist-info-licenses_LICENSE"
+      ],
+      "licenseSha256": {
+        "charset_normalizer-3.5.2.dist-info-licenses_LICENSE": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887"
+      },
+      "upstreamProjectURLs": [
+        "Changelog, https://github.com/jawah/charset_normalizer/blob/master/CHANGELOG.md",
+        "Documentation, https://charset-normalizer.readthedocs.io/",
+        "Code, https://github.com/jawah/charset_normalizer",
+        "Issue tracker, https://github.com/jawah/charset_normalizer/issues"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "cssselect",
+      "version": "1.5.0",
+      "license": "BSD-3-Clause",
+      "home": "https://pypi.org/project/cssselect/1.5.0/",
+      "licenseFiles": [
+        "cssselect-1.5.0.dist-info-licenses_LICENSE"
+      ],
+      "licenseSha256": {
+        "cssselect-1.5.0.dist-info-licenses_LICENSE": "5c8da9f744e0afba81a48c9b5dbe73048f798b3287d6f1af8a05ee08ebb10892"
+      },
+      "upstreamProjectURLs": [
+        "Homepage, https://github.com/scrapy/cssselect"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "license": "BSD-3-Clause",
+      "home": "https://pypi.org/project/idna/3.20/",
+      "licenseFiles": [
+        "idna-3.20.dist-info-licenses_LICENSE.md"
+      ],
+      "licenseSha256": {
+        "idna-3.20.dist-info-licenses_LICENSE.md": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04"
+      },
+      "upstreamProjectURLs": [
+        "Changelog, https://github.com/kjd/idna/blob/master/HISTORY.md",
+        "Issue tracker, https://github.com/kjd/idna/issues",
+        "Source, https://github.com/kjd/idna"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "jsonpath",
+      "version": "0.82.2",
+      "license": "MIT",
+      "home": "http://www.ultimate.com/phil/python/#jsonpath",
+      "licenseFiles": [
+        "jsonpath-0.82.2-MIT.txt"
+      ],
+      "licenseSha256": {
+        "jsonpath-0.82.2-MIT.txt": "636a26f6e1c9d0beab174f3fc463819f0508bde0e044a956236bfd99e91bd772"
+      },
+      "upstreamProjectURLs": [],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "lxml",
+      "version": "5.3.0",
+      "license": "BSD-3-Clause",
+      "home": "https://lxml.de/",
+      "licenseFiles": [
+        "lxml-5.3.0.dist-info-LICENSE.txt",
+        "lxml-5.3.0.dist-info-LICENSES.txt"
+      ],
+      "licenseSha256": {
+        "lxml-5.3.0.dist-info-LICENSE.txt": "69edb445c1335a8312d4c09271847e9956d84f0d9f724d125340cc3fad767b2a",
+        "lxml-5.3.0.dist-info-LICENSES.txt": "41d49dd406aa0e1548a6d5f21a30d6bf638b3cd96eb7289dd348d83ed2e40392"
+      },
+      "upstreamProjectURLs": [
+        "Source, https://github.com/lxml/lxml"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "pycryptodome",
+      "version": "3.21.0",
+      "license": "BSD, Public Domain",
+      "home": "https://www.pycryptodome.org",
+      "licenseFiles": [
+        "pycryptodome-3.21.0.dist-info-LICENSE.rst"
+      ],
+      "licenseSha256": {
+        "pycryptodome-3.21.0.dist-info-LICENSE.rst": "4e04660d77c1c64e89d79537919fb8240fa21484a7e3db29f358b2c7f84ea073"
+      },
+      "upstreamProjectURLs": [
+        "Source, https://github.com/Legrandin/pycryptodome/",
+        "Changelog, https://www.pycryptodome.org/src/changelog"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "pyquery",
+      "version": "2.0.1",
+      "license": "BSD",
+      "home": "https://github.com/gawel/pyquery",
+      "licenseFiles": [
+        "pyquery-2.0.1.dist-info-LICENSE.txt"
+      ],
+      "licenseSha256": {
+        "pyquery-2.0.1.dist-info-LICENSE.txt": "6e96459ce221aca0d34a41d909f55d2bc8898b14e5e24e74cdd2a51ceb603cb6"
+      },
+      "upstreamProjectURLs": [],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "requests",
+      "version": "2.32.3",
+      "license": "Apache-2.0",
+      "home": "https://requests.readthedocs.io",
+      "licenseFiles": [
+        "requests-2.32.3.dist-info-LICENSE"
+      ],
+      "licenseSha256": {
+        "requests-2.32.3.dist-info-LICENSE": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b"
+      },
+      "upstreamProjectURLs": [
+        "Documentation, https://requests.readthedocs.io",
+        "Source, https://github.com/psf/requests"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "soupsieve",
+      "version": "2.10",
+      "license": "MIT",
+      "home": "https://pypi.org/project/soupsieve/2.10/",
+      "licenseFiles": [
+        "soupsieve-2.10.dist-info-licenses_LICENSE.md"
+      ],
+      "licenseSha256": {
+        "soupsieve-2.10.dist-info-licenses_LICENSE.md": "76a0acdb98c3a63681e20b6f096699ef8cad5fb35d56eef8387e0fa71d797a9a"
+      },
+      "upstreamProjectURLs": [
+        "Homepage, https://github.com/facelessuser/soupsieve"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "license": "MIT",
+      "home": "https://pypi.org/project/urllib3/2.8.0/",
+      "licenseFiles": [
+        "urllib3-2.8.0.dist-info-licenses_LICENSE.txt"
+      ],
+      "licenseSha256": {
+        "urllib3-2.8.0.dist-info-licenses_LICENSE.txt": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686"
+      },
+      "upstreamProjectURLs": [
+        "Changelog, https://github.com/urllib3/urllib3/blob/main/CHANGES.rst",
+        "Documentation, https://urllib3.readthedocs.io",
+        "Code, https://github.com/urllib3/urllib3",
+        "Issue tracker, https://github.com/urllib3/urllib3/issues",
+        "Security policy, https://urllib3.readthedocs.io/en/latest/security.html"
+      ],
+      "licenseSource": "Exact distributed wheel .dist-info license files, copied without edits"
+    },
+    {
+      "name": "jsoup",
+      "version": "1.18.3",
+      "license": "MIT",
+      "home": "https://github.com/jhy/jsoup",
+      "licenseFiles": [
+        "jsoup-1.18.3-MIT.txt"
+      ],
+      "licenseSha256": {
+        "jsoup-1.18.3-MIT.txt": "7b175df01644812d2163a51c0cf1a2d1b93433585dabd2a4a80494f84cba085a"
+      }
+    },
+    {
+      "name": "Gson",
+      "version": "2.11.0",
+      "license": "Apache-2.0",
+      "home": "https://github.com/google/gson",
+      "licenseFiles": [
+        "gson-Apache-2.0.txt"
+      ],
+      "licenseSha256": {
+        "gson-Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      }
+    },
+    {
+      "name": "Chaquopy",
+      "version": "16.1.0",
+      "license": "MIT",
+      "home": "https://github.com/chaquo/chaquopy",
+      "licenseFiles": [
+        "chaquopy-MIT.txt"
+      ],
+      "licenseSha256": {
+        "chaquopy-MIT.txt": "338d9a4f0a43079c18d24e374443cc6f1065234668f488b4c559650eb7b60f17"
+      }
+    },
+    {
+      "name": "CPython",
+      "version": "3.10.15",
+      "license": "Python-2.0 and embedded notices",
+      "home": "https://github.com/python/cpython/tree/v3.10.15",
+      "licenseFiles": [
+        "CPython-3.10-LICENSE.txt"
+      ],
+      "licenseSha256": {
+        "CPython-3.10-LICENSE.txt": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+      }
+    },
+    {
+      "name": "OpenSSL",
+      "version": "3.0.15",
+      "license": "Apache-2.0",
+      "home": "https://github.com/openssl/openssl/tree/openssl-3.0.15",
+      "licenseFiles": [
+        "OpenSSL-3.0.15-LICENSE.txt"
+      ],
+      "includedBy": "Chaquopy Python target build",
+      "licenseSha256": {
+        "OpenSSL-3.0.15-LICENSE.txt": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+      }
+    },
+    {
+      "name": "libffi",
+      "version": "3.4.4",
+      "license": "MIT",
+      "home": "https://github.com/libffi/libffi/tree/v3.4.4",
+      "licenseFiles": [
+        "libffi-3.4.4-LICENSE.txt"
+      ],
+      "includedBy": "Chaquopy Python target build",
+      "licenseSha256": {
+        "libffi-3.4.4-LICENSE.txt": "2c9c2acb9743e6b007b91350475308aee44691d96aa20eacef8e199988c8c388"
+      }
+    },
+    {
+      "name": "bzip2",
+      "version": "1.0.8",
+      "license": "bzip2-1.0.6",
+      "home": "https://github.com/libarchive/bzip2/tree/bzip2-1.0.8",
+      "licenseFiles": [
+        "bzip2-1.0.8-LICENSE.txt"
+      ],
+      "includedBy": "Chaquopy Python target build",
+      "licenseSha256": {
+        "bzip2-1.0.8-LICENSE.txt": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3"
+      }
+    },
+    {
+      "name": "liblzma",
+      "version": "5.4.6",
+      "license": "Public domain library; see upstream per-component COPYING",
+      "home": "https://github.com/tukaani-project/xz/tree/v5.4.6",
+      "licenseFiles": [
+        "xz-5.4.6-COPYING.txt"
+      ],
+      "includedBy": "Chaquopy Python target build",
+      "licenseSha256": {
+        "xz-5.4.6-COPYING.txt": "29a1e305b2e34eefe5d4602d00cde1d528b71c5d9f2eec5106972cf6ddb6f73f"
+      }
+    },
+    {
+      "name": "SQLite",
+      "version": "3.45.3",
+      "license": "Public domain",
+      "home": "https://sqlite.org/copyright.html",
+      "licenseFiles": [],
+      "includedBy": "Chaquopy Python target build",
+      "licenseSha256": {}
+    }
+  ],
+  "pythonBuildRecipe": "https://github.com/chaquo/chaquopy/blob/16.1.0/target/python/build.sh"
+}

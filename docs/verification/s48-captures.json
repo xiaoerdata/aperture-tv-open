@@ -1,0 +1,16 @@
+{
+  "images": [
+    "docs/images/s48-standard-home.png",
+    "docs/images/s48-standard-apps.png",
+    "docs/images/s48-standard-family.png",
+    "docs/images/s48-wallpapers.png",
+    "docs/images/s48-standard-namib.png",
+    "docs/images/s48-standard-fuji.png",
+    "docs/images/s48-standard-lofoten.png",
+    "docs/images/s48-parents-home.png",
+    "docs/images/s48-parents-lofoten.png"
+  ],
+  "errors": [],
+  "method": "desktop Chromium; 1920x1080; empty isolated household; synthetic application names; reduced motion",
+  "television": false
+}

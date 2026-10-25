@@ -1,0 +1,28 @@
+{
+  "checks": [
+    "collapsed group hides individual targets; Down/Enter unfolds; arrows select; Back collapses",
+    "12s carousel survives 5s polling; focus/native-overlay pause; reduced-motion fallback",
+    "empty/single/multiple summaries; NAS saved state; access removal clears household; 540p/720p/1080p no collisions; D-pad dock and page return",
+    "standard: 12 app presets, installed distinction and D-pad grid, removing apps clears both surfaces",
+    "standard: Hub entry reserved, login explicitly unavailable",
+    "parents: 12 app presets, installed distinction and D-pad grid, removing apps clears both surfaces",
+    "parents: Hub entry reserved, login explicitly unavailable"
+  ],
+  "images": [
+    "docs/images/s49-standard-empty.png",
+    "docs/images/s49-standard-apps.png",
+    "docs/images/s49-standard-apps-expanded.png",
+    "docs/images/s49-standard-nas.png",
+    "docs/images/s49-standard-portrait.png",
+    "docs/images/s49-standard-personal.png",
+    "docs/images/s49-standard-presets.png",
+    "docs/images/s49-standard-hub-entry.png",
+    "docs/images/s49-parents-apps.png",
+    "docs/images/s49-parents-presets.png",
+    "docs/images/s49-parents-hub-entry.png"
+  ],
+  "errors": [],
+  "method": "Chromium packaged HTTPS mock; synthetic household and installed-state callbacks; textual brand placeholders only",
+  "nativePackageManager": false,
+  "television": false
+}

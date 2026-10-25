@@ -43,7 +43,7 @@ v8也可在连接列表选择「用手机 / 助手配置NAS」，无需在电视
 
 **已补齐（源码v6）：**用固定连接ID与相对目录绑定电影、剧集、相册。绑定保存在原有加密记录中，不靠列表索引，不合并凭证；爸妈版日常直达，标准版明确选择NAS或家庭服务。已有v5记录增加ID，原加密格式和JSON数组保持兼容，迁移/改绑/忘记均只改本机记录。
 
-**尚未完成：**自动合并NAS与服务器的海报/搜索/播放进度、自动海报刮削、首页NAS照片轮播、局域网自动发现、NAS健康周期巡检、上传/备份、原厂相册/影视数据库私有API及跨设备同步。本轮实现的是明确选择来源和目录，不宣称已有整合数据库。
+**尚未完成：**自动合并NAS与服务器的海报/搜索、与家庭服务网页及其他设备同步播放进度、自动海报刮削、首页NAS照片轮播、局域网自动发现、NAS健康周期巡检、上传/备份、原厂相册/影视数据库私有API及跨设备同步。本轮实现的是明确选择来源和目录，不宣称已有整合数据库。
 
 `NasReader.list/open/readAt` 是人机共用能力的原生边界，UI与传输分层。v8新增受nas.configure保护的aperture_nas_requests/send/status，只交接当前电视请求的密文，不读取已存NAS。未来设备能力`nas.connections`（脱敏已存连接）、`nas.list`（连接ID与相对目录）、`nas.open`（经授权只读资源）仍**未开放**。本轮复用原配对/身份/scope/撤销，使用独立请求版本和限时幂等回执；不增设匿名本地HTTP端口、不把NAS密码发给WorkBuddy，Hub商业Agent权益也不由此获得。
 
@@ -61,3 +61,24 @@ JDK17/SDK35/Gradle8.9与依赖通过既有隔离运行时使用；测试额外�
 v6入口绑定证据：[模型与生命周期](verification/nas-library.json)、[来源标签与遥控浏览器](verification/nas-routing-browser.json)。SMB2.1/3.1.1真实隔离服务另覆盖了“绑定相册子目录→解析来源→只读该子目录”，仍不是Android Intent派发或真机验证。
 
 v7播放控制证据：[音频焦点](verification/playback-focus.json)。`node --test tests/playback-session.test.mjs`实际运行生产意图控制器的10组JVM场景；没有运行Android音频服务/解码器，没有品牌实机结论。
+
+
+## S50：电视本机统一观看记录
+
+NAS 原生播放器与内嵌影视模块现在使用同一个本机加密观看库。「影视 → 我的 → 最近观看」同时显示来源影片、直播与 NAS 影片；「收藏 NAS」独立列出家庭文件收藏。NAS 播放开始、每 15 秒、暂停、音频或窗口中断、退出时保存进度，播完标为已看完。再次选择影片会续播；「从头播放」清除完成状态并从零开始。收藏和清空历史互不替代，清空历史保留收藏。
+
+记录中的 NAS 身份是连接 UUID、相对文件路径及原浏览根，不保存服务器地址、账号或密码。由「我的」打开时重新查询当前加密连接、读取原目录并查找同一文件；原连接删除、文件移动或读取失败都会明确提示，不换到另一台 NAS。打开后仍限原浏览根。更改文件名或重新添加连接会形成新身份，不根据相同标题猜测同一文件。
+
+两个 Activity 的每次修改都在同一进程锁下读取最新记录再写入，避免先打开的页面覆盖后来保存的 NAS 进度。密钥首次创建也使用同一把锁。读取或解密失败时保留原记录，不自动以空列表覆盖。这里的统一范围是这台电视；不声称已经与家庭服务网页、NAS 厂商影视库、Hub 或另一台电视同步。
+
+定向模型验证：`node --test tests/nas-viewing.test.mjs`，证据 [s50-nas-viewing.json](verification/s50-nas-viewing.json)。它验证稳定身份、目录恢复、连接删除、续播/收藏/完成、并发事务、失败保留和 JVM AES-GCM；不替代 Android 解码验收。
+
+独立模拟器验收入口：先运行 `node scripts/emulator-nas-fixture.mjs`（仅回环高端口、合成 MP4、只读 Samba），安装本轮产品候选 APK 后运行 `python scripts/build-nas-emulator-tests.py --edition standard`，按输出的 instrumentation 名称在专用模拟器执行 `adb -s <serial> shell am instrument -w -e user <本机测试用户名> <instrumentation>`。爸妈版使用 `--edition parents`。驱动测试真实 MediaPlayer、AndroidKeyStore、暂停/定时/退出保存、完成/从头播放、统一「我的」路由与连接移除；结果在目标应用 `files/s50-nas-tests/report.json`。测试驱动不随产品发布，运行结果与小米真机验收分开记录。
+
+标准版 r5 的 API 26 / x86 合成模拟器验证已完成：[26 项实际运行记录](verification/s50-nas-standard.json)。实际运行 AndroidKeyStore、签名 SMB 读取、H.264/AAC 解码、40 秒续播、第二页文件恢复、收藏、周期与退出保存、完成回调、从头播放、跨 Activity 刷新和删连接后的明确失败。250 毫秒媒体进度推进等待 455 毫秒，末段 seek 后实际完成回调等待 22.393 秒；这些是本次无硬件加速模拟器的观测值，不是电视性能指标。爸妈版的运行结果另记，不能由标准版结果代替。
+
+爸妈版 r6 已独立完成同样的 [26 项实际运行记录](verification/s50-nas-parents-r6.json)：通过「影视 → 我的」重开 NAS 文件，恢复原目录、第二页与 40 秒进度，收藏、周期保存、播完与从头播放，再返回「我的」读取最新记录并再次续播。删除原连接后明确拒绝重开，不改用另一连接，收藏记录保留供用户移除。实读环境为 API 26 / x86、`versionCode 17`、`0.2.0-alpha.14-parents`；媒体推进 250 毫秒等待 1.380 秒，末段 seek 后完成回调等待 18.688 秒。回执记录产品 APK 与测试驱动的 SHA-256。标准版 NAS 证据仍明确对应 r5，未将其改记为 r6 重跑。
+
+测试使用隔离的只读 Samba 与合成短片，证明上述模拟器路径实际运行；小米电视、各品牌 NAS、长期稳定性与不同媒体格式仍需对应设备验收。这里不把模拟器耗时当作电视性能，也不将本机观看库称为跨设备或 Hub 同步。
+
+保留了先前两次失败及修正经过：[开发问题](verification/s50-nas-development-issues.json)、[首次完成等待失败](verification/s50-nas-standard-attempt1.json)、[固定墙钟性能断言失败](verification/s50-nas-standard-attempt2.json)。测试改为等待真实媒体时钟和完成回调；同时因专用模拟器安装服务退化，撤销未封存的测试安装后保留数据冷启动。没有更换媒体样本或伪造完成事件，没有改变生产播放超时或协议策略。

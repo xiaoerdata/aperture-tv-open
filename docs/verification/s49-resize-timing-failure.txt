@@ -1,0 +1,14 @@
+node:internal/modules/run_main:115
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: {"s":".header-time","x":-370,"y":-40,"r":158.046875,"b":261.5}
+    at file:///home/team-projects/individual-tools/aperture-tv/scripts/browser-home-personal-qa.mjs:44:33 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '=='
+}
+
+Node.js v22.5.1

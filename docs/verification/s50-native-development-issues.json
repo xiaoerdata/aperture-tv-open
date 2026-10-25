@@ -1,0 +1,31 @@
+{
+  "stage": "S50",
+  "issues": [
+    {
+      "scope": "API26 development WebView",
+      "observed": "The official Android TV API26 image provides WebView 58.0.3029.125; static ES modules are unavailable and the JS plugin initialization previously waited until timeout.",
+      "change": "Read the actual provider version on the UI thread before constructing the plugin WebView. Unknown versions and Chromium below 61 fail immediately with a specific update message; JAR and Python remain independent.",
+      "verification": "Six provider gate assertions passed. Native error and modern-provider execution are separate pending instrumentation checks."
+    },
+    {
+      "scope": "unaccelerated development emulator",
+      "observed": "Two r4 installation clients timed out. Inspection found an unsealed installation session; the installed application still pointed to the preceding candidate.",
+      "change": "Abandon the identified pending session using the platform package command, then cold-start the same dedicated AVD with its userdata and SSE4.1/SSE4.2 CPU flags preserved. Do not uninstall the application or treat a client timeout as completed installation.",
+      "verification": "Boot and package service returned; final APK installation and instrumentation remain separate checks."
+    },
+    {
+      "scope": "native playback test driver",
+      "observed": "The emulator advanced its media clock much slower than a fixed wall-clock sleep. A fixed 1.2-second wait would mix functional playback correctness with emulated performance.",
+      "change": "Keep a bounded 45-second wait for at least 250ms of actual playback progression, require playing state, and record actual wall-clock and media-clock deltas. Decoded SurfaceView pixels are still required.",
+      "verification": "No claim of real-device speed or smooth playback follows from this test."
+    },
+    {
+      "scope": "original plugin playback fixture build",
+      "observed": "The first isolated fixture compiler omitted the production ABI okhttp3 dependency and failed at Spider.safeDns.",
+      "change": "Use the existing pinned NAS/dependency classpath for the fixture compilation; production plugin code was not changed.",
+      "verification": "The separate synthetic plugin fixture starts on loopback port 4401; end-to-end native playback evidence follows independently."
+    }
+  ],
+  "productionXiaomiDeviceTested": false,
+  "hardwarePerformanceClaim": false
+}

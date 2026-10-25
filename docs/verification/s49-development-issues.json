@@ -1,0 +1,51 @@
+{
+  "issues": [
+    {
+      "finding": "Household poll reset the 12-second carousel timer every five seconds",
+      "evidence": "code review and virtual-clock browser check",
+      "fix": "Retain existing timer; cancel only for inactive/paused states"
+    },
+    {
+      "finding": "Parents fallback app wordmarks were clipped",
+      "evidence": "initial S49 browser screenshot reviewed; same-name image later regenerated",
+      "fix": "Compact single-character fallback, real installed icon remains primary"
+    },
+    {
+      "finding": "Generated swallow overlapped the return button",
+      "evidence": "intermediate S49 preset screenshot reviewed; same-name image later regenerated",
+      "fix": "Separate title area and rectangle non-overlap assertion"
+    },
+    {
+      "finding": "Leaving player cleared playing flag before progress save",
+      "evidence": "native source review",
+      "fix": "Save/release before clearing playing view flag; device verification pending"
+    },
+    {
+      "finding": "Single-group channel back path returned to itself",
+      "evidence": "native source review",
+      "fix": "Back returns to source list for single group; device verification pending"
+    },
+    {
+      "finding": "Per-line request headers bled between channel URLs",
+      "evidence": "JVM fixture with different User-Agent headers",
+      "fix": "Persist and read independent line headers"
+    },
+    {
+      "finding": "Cross-origin HLS redirect could reattach discarded credentials",
+      "evidence": "isolated HTTP redirect fixture",
+      "fix": "Carry only final sanitized headers into channel"
+    },
+    {
+      "finding": "Generated wallpaper did not reach requested ideal 4K dimensions",
+      "evidence": "actual PNG header: 1672x941",
+      "fix": "Label generated optional wallpaper; keep default 4K photograph; do not upscale"
+    },
+    {
+      "finding": "Initial catalogue load could clear browser query-label fallback without a native snapshot",
+      "evidence": "source review",
+      "fix": "Reset quick slots only after an authoritative native callback"
+    }
+  ],
+  "originalIntermediateScreenshotsRetained": false,
+  "notes": "Issues recorded without invented timestamps; final scenario images replace intermediate files. No claim of a raw failure archive."
+}

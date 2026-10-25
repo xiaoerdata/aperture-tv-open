@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Kaishi Hub display projection v1 (draft; no live adapter)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "revision", "expiresAt", "cards"],
+  "properties": {
+    "version": {"const": 1},
+    "revision": {"type": "integer", "minimum": 0},
+    "expiresAt": {"type": "string", "format": "date-time"},
+    "cards": {
+      "type": "array", "maxItems": 12,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "kind", "title", "value", "updatedAt", "expiresAt"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-zA-Z0-9_-]{1,80}$"},
+          "kind": {"enum": ["movies", "weight", "travel", "ledger"]},
+          "title": {"type": "string", "minLength": 1, "maxLength": 40},
+          "value": {"type": "string", "maxLength": 80},
+          "unit": {"type": "string", "maxLength": 16},
+          "detail": {"type": "string", "maxLength": 200},
+          "updatedAt": {"type": "string", "format": "date-time"},
+          "expiresAt": {"type": "string", "format": "date-time"}
+        }
+      }
+    }
+  }
+}

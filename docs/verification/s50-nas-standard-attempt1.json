@@ -1,0 +1,22 @@
+{
+  "error": "java.lang.AssertionError: completion and start over: NAS did not complete\n\tat org.zhixiaoce.aperture.test.NasProgressRunner.until(NasProgressRunner.java:42)\n\tat org.zhixiaoce.aperture.test.NasProgressRunner.runChecks(NasProgressRunner.java:67)\n\tat org.zhixiaoce.aperture.test.NasProgressRunner.onStart(NasProgressRunner.java:30)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)\n",
+  "passed": false,
+  "stage": "completion and start over",
+  "checks": [
+    "AndroidKeyStore shared shelf is encrypted",
+    "unified cinema saved-item route opens native NAS Activity",
+    "actual NAS MediaPlayer resumes saved position",
+    "saved item restores its parent folder",
+    "saved item restores its file page instead of forcing first page",
+    "NAS media clock advances from SMB bytes",
+    "native control: 播放 \/ 暂停",
+    "pause persists current NAS position",
+    "native control: 收藏",
+    "NAS favorite persisted in unified vault",
+    "native control: 播放 \/ 暂停",
+    "periodic NAS checkpoint persists without leaving player"
+  ],
+  "targetPackage": "org.zhixiaoce.aperture",
+  "syntheticSmb": true,
+  "realXiaomi": false
+}

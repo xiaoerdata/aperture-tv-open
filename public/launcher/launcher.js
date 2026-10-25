@@ -2,6 +2,7 @@
   'use strict';
   var local = location.protocol === 'file:' || (location.protocol === 'https:' && location.host === 'appassets.androidplatform.net' && location.pathname === '/assets/index.html'), pane = null, prior = null, disposed = false, parents = false;
   var labels = {}, query = {}, timer, contentTimer, request = null, detailState = null;
+  var homePage = 0, homeFocus = {}, sectionReturn = null, wallpaperId = 'carezza', wallpaperLoad = 0, personal = null, sectionHomePage = 2, homeWatchFocus = 'home-live';
   var section = 'overview', contentPage = 0, slide = 0, photoIndex = 0, playing = false, carouselTimer = null, board = null;
   var virtualHome = local && location.protocol === 'https:', nativeActive = !virtualHome;
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -26,7 +27,7 @@
     $('entry-series').hidden = false; $('parents-shortcuts').hidden = false;
     document.querySelector('.wordmark small').textContent = '爸妈版';
     document.querySelector('.mood-switch').hidden = true;
-    document.querySelector('.entry-heading h2').textContent = '观看';
+    document.querySelector('#apps-title').textContent = '观看';
     document.querySelector('#entry-live strong').textContent = '看电视';
     document.querySelector('#entry-cinema strong').textContent = '看电影';
     document.querySelector('#entry-system strong').textContent = '原来的桌面';
@@ -35,6 +36,8 @@
     $('settings-open').textContent = '设置';
     $('settings-open').setAttribute('aria-label', '设置');
   }
+  if (!parents) document.body.className = 'standard';
+  homePage = parents ? 1 : 0;
   window.apertureNasLabels = function (movies, series) { if (!parents) return; text('cinema-label', String(movies)); text('series-label', String(series)); };
   if (local) {
     text('environment', '');
@@ -64,14 +67,14 @@
       ['open-assistant','打开小爱同学',query.assistant || '','primary'], ['voice-help','语音帮助','',''], ['voice-settings','语音设置','','']
     ]},
     settings: {title:'设置', actions:[
-      ['configure','家庭服务','','primary'], ['voice-help','小爱同学','',''], ['apps','所有应用','',''],
-      ['home-settings','默认桌面','',''], ['home-mode','首页样式','',''], ['material','透明效果','',''], ['install-apps','安装应用','',''], ['cinema-settings','直播与影视来源','','']
+      ['configure','家庭服务','','primary'], ['hub','智小策 Hub','',''], ['voice-help','小爱同学','',''], ['apps','所有应用','',''],
+      ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['motion','动画','',''], ['presets','添加应用','',''], ['choose-shortcuts','常用应用','',''], ['home-settings','默认桌面','',''], ['home-mode','首页样式','',''], ['material','透明效果','',''], ['install-apps','安装应用','',''], ['cinema-settings','直播与影视来源','','']
     ]}
   };
   if (parents) {
     specs.settings.actions = [
-      ['configure','家庭服务','','primary'], ['choose-shortcuts','常用应用','',''], ['nas','NAS','',''],
-      ['nas-photos','NAS 相册','',''], ['home-mode','首页样式','',''], ['open-system','返回原桌面','',''],
+      ['configure','家庭服务','','primary'], ['hub','智小策 Hub','',''], ['choose-shortcuts','常用应用','',''], ['nas','NAS','',''],
+      ['nas-photos','NAS 相册','',''], ['motion','动画','',''], ['presets','添加应用','',''], ['wallpapers','壁纸','',''], ['material','透明效果','',''], ['home-mode','首页样式','',''], ['open-system','返回原桌面','',''],
       ['choose-system','选择桌面','',''], ['home-settings','默认桌面','',''], ['voice-help','小爱同学','',''],
       ['family','家庭屏','',''], ['install-apps','安装应用','',''], ['cinema-settings','直播与影视来源','','']
     ];
@@ -85,14 +88,81 @@
     var demo = query.demo === '1';
     location.href = page === 'family' ? (parents ? '/tv-lite?edition=parents' + (demo ? '&demo=1' : '') : '/tv' + (demo ? '?demo=1' : '')) : '/cinema?from=home' + (parents ? '&edition=parents' : '') + '&view=' + (page === 'family-live' ? 'live' : page === 'family-series' ? 'series' : page === 'family-movies' ? 'movies' : 'library');
   }
+  var wallpapers = [
+    {id:'dusk',name:'暮色湖面',country:'生成背景',file:'art/dusk-lake-v1.webp',thumb:'art/dusk-lake-thumb-v1.webp',author:'imagegen · 1672×941',generated:true,position:'center'},
+    {id:'carezza', name:'卡雷扎湖', country:'意大利', file:'carezza-4k.jpg', author:'Cem Sagisman', position:'center'},
+    {id:'namib', name:'纳米布沙漠', country:'纳米比亚', file:'namib-4k.jpg', thumb:'namib-thumb.jpg', author:'Keith Hardy', position:'center 58%'},
+    {id:'fuji', name:'富士宫云海', country:'日本', file:'fuji-4k.jpg', thumb:'fuji-thumb.jpg', author:'J', position:'center 55%'},
+    {id:'lofoten', name:'罗弗敦极光', country:'挪威', file:'lofoten-4k.jpg', thumb:'lofoten-thumb.jpg', author:'Johannes Groll', position:'center'}
+  ];
   function material(value) {
-    if (parents) value = true;
     $('lobby').className = value ? 'lobby solid' : 'lobby';
-    try { if (!parents) localStorage.setItem('aperture-launcher-solid', value ? '1' : '0'); } catch (ignored) {}
+    document.body.className = (parents ? 'parents' : 'standard') + (value ? ' reduced-transparency' : '');
+    try { localStorage.setItem(parents ? 'aperture-launcher-solid-parents' : 'aperture-launcher-solid', value ? '1' : '0'); } catch (ignored) {}
     var control = document.querySelector('[data-action=material]');
     if (control) { control.setAttribute('aria-pressed', String(value)); control.querySelector('strong').textContent = value ? '开启透明效果' : '关闭透明效果'; }
   }
+  function wallpaperInfo(id) { for (var n = 0; n < wallpapers.length; n++) if (wallpapers[n].id === id) return wallpapers[n]; return null; }
+  function applyWallpaper(id, save, close) {
+    var info = wallpaperInfo(id); if (!info) return;
+    var serial = ++wallpaperLoad;
+    var image = new Image(); image.onload = function () {
+      if (disposed || serial !== wallpaperLoad) return;
+      wallpaperId = id; document.documentElement.style.setProperty('--landscape', 'url("./' + info.file + '")');
+      document.documentElement.style.setProperty('--landscape-position', info.position);
+      text('wallpaper-place', info.country + ' · ' + info.name);
+      if (save) { try { localStorage.setItem('kaishi-wallpaper-' + (parents ? 'parents' : 'standard'), id); } catch (ignored) {} }
+      if (close) closePane();
+    }; image.onerror = function () { if (!disposed && serial === wallpaperLoad && pane === 'wallpapers') text('action-status', '壁纸无法读取，请重试'); }; image.src = './' + info.file;
+  }
+  function wallpaperPane() {
+    $('pane-actions').className = 'wallpaper-grid';
+    wallpapers.forEach(function (info) {
+      var option = element('button', 'wallpaper-option'), picture = element('img'), caption = element('span', '', info.name);
+      picture.src = './' + (info.thumb || info.file); picture.alt = info.country + ' · ' + info.name;
+      option.setAttribute('data-wallpaper', info.id); option.setAttribute('aria-pressed', String(wallpaperId === info.id)); option.appendChild(picture); option.appendChild(caption);
+      option.onfocus = function () { text('pane-footnote', info.country + ' · ' + info.author + (info.generated ? ' · 生成素材' : ' · CC0')); };
+      option.onclick = function () { applyWallpaper(info.id, true, true); }; $('pane-actions').appendChild(option);
+    });
+    $('pane-footnote').hidden = false;
+  }
+  function pageId(at) { return ['ambient-home', 'apps-home', 'content-home'][at]; }
+  function firstHomeControl(at) { return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : 'entry-photos'); }
+  function restoreHomeFocus(at) {
+    var saved = homeFocus[at];
+    // Leaving the first screen folds the group. Restore its visible group target.
+    if (at === 0 && /^(dock-quick|home-app-add)/.test(saved || '')) saved = 'dock-toggle';
+    if (!focusNode($(saved || ''))) focusNode(firstHomeControl(at));
+  }
+  function setHomePage(at, focus) {
+    at = parents ? 1 : Math.max(0, Math.min(2, at));
+    var previous = $(pageId(homePage));
+    if (previous && previous.contains(document.activeElement) && document.activeElement.id) homeFocus[homePage] = document.activeElement.id;
+    pauseCarousel(); homePage = at; $('lobby').setAttribute('data-home-page', String(at));
+    for (var n = 0; n < 3; n++) $(pageId(n)).hidden = section !== 'overview' || n !== at;
+    if (personal) {if(at!==0)personal.setApps(false,false);personal.schedule();}
+    var dots = document.querySelectorAll('[data-home-screen]');
+    for (n = 0; n < dots.length; n++) dots[n].setAttribute('aria-pressed', String(Number(dots[n].getAttribute('data-home-screen')) === at));
+    if (focus !== false && section === 'overview') restoreHomeFocus(at);
+  }
+  $('page-down').onclick = function () { setHomePage(1); };
+  $('apps-next').onclick = function () { setHomePage(2); };
+  var screenButtons = document.querySelectorAll('[data-home-screen]');
+  for (i = 0; i < screenButtons.length; i++) screenButtons[i].onclick = function () { setHomePage(Number(this.getAttribute('data-home-screen'))); };
+  specs.wallpapers = {title:'壁纸', actions:[]};
+  specs.hub = {title:'智小策 Hub',description:'未连接\n电影 · 体重 · 旅行 · 账本',footnote:'扫码登录服务尚未接入。连接后，由你选择允许显示的内容。',actions:[['hub-connect','扫码登录','',''],['close-detail','返回','','']]};
+  specs.presets = {title:'添加应用', actions:[]};
+  specs['home-panels'] = {title:'首页轮播', actions:[['panels-auto','自动轮播','配置内容后显示',''],['panels-static','静态展示','使用方向键切换',''],['panels-hidden','隐藏','','']]};
+  var decorativeMotion = true;
+  try { decorativeMotion = localStorage.getItem('kaishi-motion') !== 'off'; } catch (ignored) {}
+  function motionState() { document.documentElement.setAttribute('data-motion', decorativeMotion && nativeActive && !document.hidden ? 'on' : 'off'); }
+  motionState(); document.addEventListener('visibilitychange', motionState);
   function act(action) {
+    if (action === 'motion') { decorativeMotion = !decorativeMotion; try { localStorage.setItem('kaishi-motion', decorativeMotion ? 'on' : 'off'); } catch (ignored) {} motionState(); var label=document.querySelector('[data-action=motion] strong');if(label)label.textContent=decorativeMotion?'关闭动画':'开启动画'; return; }
+
+    if (action.indexOf('panels-') === 0) { personal.setMode(action.slice(7)); closePane(); return; }
+    if (action === 'presets' || action === 'home-panels' || action === 'hub') { openPane(action); return; }
+    if (action === 'wallpapers') { openPane('wallpapers'); return; }
     if (action === 'close-detail') { closePane(); return; }
     if (action === 'show-data') { closePane(); setSection('data'); return; }
     if (action === 'material') { material($('lobby').className.indexOf('solid') === -1); return; }
@@ -101,10 +171,13 @@
   }
   function openPane(name) {
     var spec = specs[name]; if (!spec) return;
+    if (name === 'presets') { spec.actions = personal ? personal.presetActions() : []; if (!spec.actions.length) spec.actions = [['choose-shortcuts','管理常用应用','','']]; }
     if (!pane) prior = document.activeElement;
     pane = name;
     text('pane-title', spec.title); text('pane-eyebrow', ''); text('pane-description', spec.description || ''); text('pane-footnote', spec.footnote || ''); text('action-status', '');
     $('pane-description').hidden = !spec.description; $('pane-footnote').hidden = !spec.footnote;
+    $('pane-swallow').hidden = name !== 'presets';
+    $('pane-swallow').parentNode.className='pane-intro'+(name==='presets'?' preset-intro':'');
     $('pane-art').setAttribute('data-pane', name); $('pane-actions').textContent = '';
     for (var i = 0; i < spec.actions.length; i++) {
       (function (entry) {
@@ -114,31 +187,44 @@
         button.onclick = function () { act(entry[0]); }; $('pane-actions').appendChild(button);
       }(spec.actions[i]));
     }
+    $('pane-actions').className = 'pane-actions';
+    if (name === 'hub') {var pending=document.querySelector('[data-action=hub-connect]');pending.disabled=true;pending.setAttribute('aria-disabled','true');}
+    if (name === 'wallpapers') wallpaperPane();
+    if (name === 'presets' && personal) personal.decorate($('pane-actions'));
+    if (personal) personal.schedule();
     $('pane-backdrop').hidden = false; $('lobby').setAttribute('aria-hidden', 'true');
     material($('lobby').className.indexOf('solid') !== -1);
-    $('pane-actions').querySelector('button').focus();
+    var motionLabel=document.querySelector('[data-action=motion] strong');if(motionLabel)motionLabel.textContent=decorativeMotion?'关闭动画':'开启动画';
+    $('pane-actions').querySelector('button:not(:disabled)').focus();
   }
   function closePane() {
     if (!pane) return false;
     if (pane === 'detail') { if (detailState) { var key = (detailState.metric ? 'metric:' : 'life:') + detailState.id, candidates = $('collection-body').querySelectorAll('[data-content-id]'); for (var j = 0; j < candidates.length; j++) if (candidates[j].getAttribute('data-content-id') === key) prior = candidates[j]; } detailState = null; delete specs.detail; text('pane-title', ''); text('pane-description', ''); text('pane-footnote', ''); }
-    pane = null; $('pane-backdrop').hidden = true; $('lobby').removeAttribute('aria-hidden');
-    if (prior && prior.focus && prior.offsetWidth) prior.focus(); else $(parents && /^quick[1-4]$/.test(query.focus || '') ? query.focus : parents ? 'entry-live' : 'entry-live').focus();
+    if (pane === 'wallpapers') $('pane-actions').textContent = '';
+    pane = null; $('pane-backdrop').hidden = true;
+    if (personal) personal.schedule(); $('lobby').removeAttribute('aria-hidden');
+    if (prior && prior.focus && prior.offsetWidth) prior.focus(); else focusNode(firstHomeControl(homePage));
     return true;
   }
   var panes = document.querySelectorAll('[data-pane]');
   for (var i = 0; i < panes.length; i++) panes[i].onclick = function () { var name = this.getAttribute('data-pane'); if (parents && name === 'live') familyPage('family-live'); else if (parents && name === 'cinema') familyPage('family-movies'); else openPane(name); };
   $('entry-series').onclick = function () { familyPage('family-series'); };
+  var watchButtons = $('home-watch').querySelectorAll('[data-watch]');
+  for (i = 0; i < watchButtons.length; i++) watchButtons[i].onclick = function () { familyPage(this.getAttribute('data-watch')); };
+  $('home-watch').addEventListener('focusin', function (event) { if (event.target.id) homeWatchFocus = event.target.id; });
   ['quick1', 'quick2', 'quick3', 'quick4'].forEach(function (slot) {
     var name = query[slot] || '';
-    $(slot).querySelector('strong').textContent = name || '未设置';
+    $(slot).querySelector('strong').textContent = name || '添加应用';
+    var glyph = element('span', 'shortcut-glyph', name ? name.slice(0, 1) : '+'); glyph.setAttribute('aria-hidden', 'true'); $(slot).insertBefore(glyph, $(slot).firstChild);
     $(slot).setAttribute('aria-label', name ? '打开常用应用 ' + name : '常用应用 ' + slot.slice(-1) + '，未设置');
-    $(slot).onclick = function () { if (local) nativeAction('open-' + slot); else openPane('shortcuts'); };
+    $(slot).onclick = function () { if (local) nativeAction(name ? 'open-' + slot : 'choose-shortcuts'); else openPane('shortcuts'); };
   });
+  var allGlyph = element('span', 'shortcut-glyph', '▦'); allGlyph.setAttribute('aria-hidden', 'true'); $('shortcut-all').insertBefore(allGlyph, $('shortcut-all').firstChild);
   $('shortcut-all').onclick = function () { if (local) nativeAction('apps'); else openPane('shortcuts'); };
 
   $('entry-family').onclick = function () { familyPage('family'); };
   $('settings-open').onclick = function () { openPane('settings'); };
-  $('brand-home').onclick = function (event) { event.preventDefault(); closePane(); setSection('overview'); $(parents ? 'entry-live' : 'entry-live').focus(); };
+  $('brand-home').onclick = function (event) { event.preventDefault(); closePane(); setSection('overview'); setHomePage(parents ? 1 : 0); };
   $('pane-close').onclick = closePane;
   $('pane-backdrop').onclick = function (event) { if (event.target === this) closePane(); };
   // Household content is read through the existing authenticated service. No new token or native bridge.
@@ -250,14 +336,15 @@
   }
   function setSection(name) {
     if (['overview', 'photos', 'data', 'information', 'tools'].indexOf(name) < 0) return;
+    if (name !== 'overview') { sectionReturn = document.activeElement; if (section === 'overview') sectionHomePage = homePage; }
     pauseCarousel(); if (section !== name) contentPage = 0; section = name; $('lobby').setAttribute('data-section', name);
     document.querySelector('.welcome-space').hidden = name !== 'overview';
     document.querySelector('.dashboard').hidden = name !== 'overview'; $('collection-view').hidden = name === 'overview';
     var tabs = document.querySelectorAll('.section-nav [data-section]');
     for (var n = 0; n < tabs.length; n++) tabs[n].setAttribute('aria-pressed', String(tabs[n].getAttribute('data-section') === name));
-    contentView();
+    setHomePage(homePage, false); contentView();
     // The activated summary/hero may now be hidden; move focus to a visible, stable control.
-    if (!document.activeElement.offsetWidth) (name === 'overview' ? $('entry-live') : document.querySelector('.back-overview')).focus();
+    if (!document.activeElement.offsetWidth) (name === 'overview' ? firstHomeControl(homePage) : document.querySelector('.back-overview')).focus();
   }
   var sectionButtons = document.querySelectorAll('button[data-section]');
   for (i = 0; i < sectionButtons.length; i++) sectionButtons[i].onclick = function () { setSection(this.getAttribute('data-section')); };
@@ -298,6 +385,7 @@
   document.addEventListener('touchstart', function (event) { if (event.target.id !== 'slide-play') pauseCarousel(); });
   document.addEventListener('focusin', function () { if (playing) pauseCarousel(); });
   function renderContent() {
+    if (personal) personal.update();
     var m = entries('metric')[0], n = entries('note')[0], p = photos()[0];
     text('metric-value', m ? String(m.value) : '—'); text('metric-title', m ? m.title + ' · ' + m.unit : '暂无数据');
     text('metric-detail', m ? '目标 ' + m.target + ' ' + m.unit + ' · ' + m.source : '');
@@ -339,15 +427,18 @@
       {type: 'event', title: '去楼下散散步', date: today(), time: '20:00', person: '全家'}
     ], photos: []}; text('local-note', '演示内容');
   }
+  personal = window.KaishiHome({visible:function(){return !parents && homePage===0 && section==='overview' && !pane && !document.hidden && nativeActive;},data:function(){return {photos:photos(),metrics:entries('metric'),notes:entries('note'),events:entries('event').filter(function(e){return e.date===today();}),life:(board&&board.life)||[],today:today()};},action:nativeAction,open:function(action){if(action==='nas'||action==='nas-photos')nativeAction(action);else setSection(action);},presets:function(){openPane('presets');}});
   renderContent(); loadContent(); contentTimer = setInterval(loadContent, virtualHome ? 5000 : 30000);
   function back() {
+    if (!pane && section==='overview' && homePage===0 && personal.appsExpanded()) {personal.setApps(false,true);return true;}
     if (closePane()) return true;
-    if (section !== 'overview') { var old = section; setSection('overview'); $(parents ? 'entry-live' : 'entry-' + old).focus(); return true; }
+    if (section !== 'overview') { var old = section, target = sectionReturn; setSection('overview'); setHomePage(parents ? 1 : sectionHomePage, false); if (!focusNode(target && target.offsetWidth ? target : $(parents ? 'entry-live' : 'entry-' + old))) restoreHomeFocus(homePage); return true; }
+    if (!parents && homePage > 0) { setHomePage(homePage - 1); return true; }
     return false;
   }
   function items() {
     var root = pane ? $('pane-backdrop') : $('lobby'), nodes = root.querySelectorAll('button,a[href],[tabindex="0"]'), result = [];
-    for (var j = 0; j < nodes.length; j++) if (!nodes[j].disabled && nodes[j].offsetWidth && nodes[j].offsetHeight) result.push(nodes[j]);
+    for (var j = 0; j < nodes.length; j++) if (!nodes[j].disabled && nodes[j].tabIndex !== -1 && nodes[j].offsetWidth && nodes[j].offsetHeight) result.push(nodes[j]);
     return result;
   }
   function focusNode(node) {
@@ -363,6 +454,14 @@
   // Menus are linear lists; home entries are rows. Do not jump to a diagonal control.
   function rowKey(name) {
     if (pane) {
+      if (pane === 'wallpapers' || pane === 'presets') {
+        var choices = Array.prototype.slice.call($('pane-actions').querySelectorAll('button')), at = choices.indexOf(document.activeElement), cols = innerWidth / innerHeight > 4/3 ? 3 : 2;
+        if (at < 0) return focusNode(choices[0]) || true;
+        if (name === 'ArrowUp') return focusNode(at >= cols ? choices[at-cols] : $('pane-close')) || true;
+        if (name === 'ArrowDown') return focusNode(choices[at+cols]) || true;
+        if (name === 'ArrowLeft') return focusNode(at % cols > 0 ? choices[at-1] : null) || true;
+        if (name === 'ArrowRight') return focusNode(at % cols < cols-1 ? choices[at+1] : null) || true;
+      }
       var menu = Array.prototype.slice.call($('pane-actions').querySelectorAll('button:not(:disabled)'));
       var index = menu.indexOf(document.activeElement);
       if (name === 'ArrowLeft' || name === 'ArrowRight') return true;
@@ -370,15 +469,74 @@
       if (name === 'ArrowUp') return focusNode(index > 0 ? menu[index-1] : $('pane-close')) || true;
     }
     var active = document.activeElement;
+    if (section === 'overview' && !parents) {
+      if (homePage === 0) {
+        var inWatch = active.closest && active.closest('.home-watch');
+        if (inWatch) {
+          var watchItems = Array.prototype.slice.call(inWatch.querySelectorAll('button')), watchIndex = watchItems.indexOf(active);
+          if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(name === 'ArrowRight' && watchIndex === watchItems.length-1 && !$('personal-panel').hidden ? $('personal-open') : watchItems[watchIndex + (name === 'ArrowLeft' ? -1 : 1)]) || true;
+          if (name === 'ArrowDown') return focusNode($('dock-toggle')) || true;
+          if (name === 'ArrowUp') return focusNode($('settings-open')) || true;
+        }
+        if (active === $('dock-toggle')) {
+          if (name === 'ArrowDown' || name === 'ArrowRight') { personal.setApps(true,true); return true; }
+          if (name === 'ArrowUp') return focusNode($(homeWatchFocus)) || true;
+          return true;
+        }
+        if (active.closest && active.closest('.home-app-list')) {
+          if (name === 'ArrowUp') { personal.setApps(false,true); return true; }
+          if (name === 'ArrowDown') return focusNode($('page-down')) || true;
+          var apps = Array.prototype.slice.call($('home-app-list').querySelectorAll('button')).filter(function (n) { return n.tabIndex !== -1 && n.offsetWidth; }), appIndex = apps.indexOf(active);
+          if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(apps[appIndex + (name === 'ArrowLeft' ? -1 : 1)]) || true;
+        }
+        if (active.closest && active.closest('.personal-actions')) {
+          var buttons = Array.prototype.slice.call(active.parentNode.querySelectorAll('button')).filter(function (n) { return n.offsetWidth; }), where = buttons.indexOf(active);
+          if (name === 'ArrowLeft') return focusNode(where > 0 ? buttons[where-1] : $(homeWatchFocus)) || true;
+          if (name === 'ArrowRight') return focusNode(buttons[where+1]) || true;
+          if (name === 'ArrowUp') return focusNode($('settings-open')) || true;
+          if (name === 'ArrowDown') return focusNode($('page-down')) || true;
+        }
+        if (active === $('page-down')) {
+          if (name === 'ArrowDown') { setHomePage(1); return true; }
+          if (name === 'ArrowLeft' || name === 'ArrowUp') return focusNode($('dock-toggle')) || true;
+          if (name === 'ArrowRight') return focusNode($('personal-panel').hidden ? $('settings-open') : $('personal-open')) || true;
+        }
+        if (active === $('settings-open')) {
+          if (name === 'ArrowDown') return focusNode($(homeWatchFocus)) || true;
+          if (name === 'ArrowLeft') return focusNode($('brand-home')) || true;
+        }
+        if (active === $('brand-home')) {
+          if (name === 'ArrowDown') return focusNode($(homeWatchFocus)) || true;
+          if (name === 'ArrowRight') return focusNode($('settings-open')) || true;
+        }
+      }
+      if (active === $('apps-next')) { if (name === 'ArrowDown') { setHomePage(2); return true; } if (name === 'ArrowUp') return focusNode($('quick1')) || true; }
+      if (active === $('settings-open') && name === 'ArrowDown') return focusNode(firstHomeControl(homePage)) || true;
+    }
     if (active === $('hero-open')) {
-      if (name === 'ArrowUp') return focusNode(document.querySelector('.section-nav [aria-pressed="true"]')) || true;
+      if (name === 'ArrowUp') return focusNode(section === 'overview' ? $('entry-photos') : document.querySelector('.section-nav [aria-pressed="true"]')) || true;
       if (name === 'ArrowDown') return focusNode($('slide-prev')) || true;
       if (name === 'ArrowRight') return focusNode(document.querySelector('.data-card')) || true;
     }
-    var group = active.closest ? active.closest('.destinations,.shortcuts-row,.section-nav,.carousel-controls,.tools-grid') : null;
+    var group = active.closest ? active.closest('.destinations,.shortcuts-row,.section-nav,.carousel-controls,.tools-grid,.content-links,.system-links,.screen-dots') : null;
     if (!group) return false;
     var visible = Array.prototype.slice.call(group.querySelectorAll('button')).filter(function(n){return !n.disabled && n.offsetWidth && n.offsetHeight;});
     var position = visible.indexOf(active), columns = visible.length;
+    if (!parents && section === 'overview' && group.className.indexOf('destinations') !== -1) {
+      if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(visible[position + (name === 'ArrowLeft' ? -1 : 1)]) || true;
+      if (name === 'ArrowUp') { setHomePage(0); return true; }
+      if (name === 'ArrowDown') return focusNode($(position === 0 ? 'quick1' : 'quick3')) || true;
+    }
+    if (!parents && group.className.indexOf('shortcuts-row') !== -1) {
+      if (name === 'ArrowUp') return focusNode($(position < 2 ? 'entry-live' : 'entry-cinema')) || true;
+      if (name === 'ArrowDown') { setHomePage(2); return true; }
+    }
+    if (group.className.indexOf('content-links') !== -1) {
+      if (name === 'ArrowUp') { setHomePage(1); return true; }
+      if (name === 'ArrowDown') return focusNode($('hero-open')) || true;
+    }
+    if (group.className.indexOf('system-links') !== -1 && name === 'ArrowUp') return focusNode($('hero-open')) || true;
+    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode($(homePage === 0 ? 'page-down' : homePage === 1 ? 'quick1' : 'entry-photos')) || true;
     if (group.className.indexOf('destinations') !== -1 || group.className.indexOf('tools-grid') !== -1) {
       var tools = group.className.indexOf('tools-grid') !== -1;
       columns = !tools && parents ? (innerWidth / innerHeight > 4/3 ? 3 : 1) : (innerWidth / innerHeight > 4/3 ? 4 : 2);
@@ -399,7 +557,7 @@
     if (group.className.indexOf('section-nav') !== -1 && name === 'ArrowDown') return focusNode(section === 'overview' ? $('hero-open') : document.querySelector('.back-overview')) || true;
     if (group.className.indexOf('section-nav') !== -1 && name === 'ArrowRight' && position === visible.length-1) return focusNode($('settings-open')) || true;
     if (group.className.indexOf('section-nav') !== -1 && name === 'ArrowLeft' && position === 0) return focusNode($('brand-home')) || true;
-    if (group.className.indexOf('carousel-controls') !== -1 && name === 'ArrowDown') return focusNode($('entry-live')) || true;
+    if (group.className.indexOf('carousel-controls') !== -1 && name === 'ArrowDown') return focusNode($('entry-family')) || true;
     if (group.className.indexOf('carousel-controls') !== -1 && name === 'ArrowUp') return focusNode($('hero-open')) || true;
     if (name === 'ArrowLeft' || name === 'ArrowRight') {
       return focusNode(visible[position+(name === 'ArrowLeft' ? -1 : 1)]) || true;
@@ -409,6 +567,7 @@
   function key(event) {
     var map = {37: 'ArrowLeft', 38: 'ArrowUp', 39: 'ArrowRight', 40: 'ArrowDown', 13: 'Enter', 27: 'Escape', 4: 'BrowserBack', 9: 'Tab'};
     var name = event.key || map[event.keyCode || event.which], nodes = items(), current = nodes.indexOf(document.activeElement);
+    if (name === 'Menu' || name === 'ContextMenu' || name === 'F10') { event.preventDefault(); openPane('settings'); return; }
     if (name !== 'Enter' || document.activeElement.id !== 'slide-play') pauseCarousel();
     if (name === 'Escape' || name === 'BrowserBack') { if (back()) event.preventDefault(); return; }
     if (name === 'Tab' && pane) { event.preventDefault(); nodes[(current + (event.shiftKey ? -1 : 1) + nodes.length) % nodes.length].focus(); return; }
@@ -431,18 +590,24 @@
   document.addEventListener('keydown', key);
   window.apertureRemoteKey = function (name) { var handled = false; key({key: name, preventDefault: function () { handled = true; }}); return handled; };
   window.apertureBack = back;
-  window.apertureNativeFocus = function (active) { nativeActive = !!active; if (!active) { pauseCarousel(); if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
+  window.apertureNativeFocus = function (active) { nativeActive = !!active; motionState(); if(personal)personal.schedule(); if (!active) { pauseCarousel(); if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
   function clock() {
     if (disposed || document.hidden) return;
     var date = new Date(); text('clock', ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2));
     text('date-day', (date.getMonth() + 1) + '月' + date.getDate() + '日');
     text('date-week', ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][date.getDay()]);
   }
-  try { material(localStorage.getItem('aperture-launcher-solid') === '1'); } catch (ignored) {}
+  try { material(localStorage.getItem(parents ? 'aperture-launcher-solid-parents' : 'aperture-launcher-solid') === '1'); } catch (ignored) {}
+  setHomePage(homePage, false);
+  var storedWallpaper = null; try { storedWallpaper = localStorage.getItem('kaishi-wallpaper-' + (parents ? 'parents' : 'standard')); } catch (ignored) {}
+  applyWallpaper(wallpaperInfo(query.wallpaper) ? query.wallpaper : wallpaperInfo(storedWallpaper) ? storedWallpaper : 'carezza', false, false);
   clock(); timer = setInterval(clock, 15000);
   document.addEventListener('visibilitychange', function () { clock(); if (document.hidden) pauseCarousel(); else loadContent(); });
   if (window.matchMedia) { var preference = window.matchMedia('(prefers-reduced-motion: reduce)'); var changed = function () { reduced = preference.matches; pauseCarousel(); $('slide-play').disabled = reduced; if (reduced) text('slide-play', '轮播关闭'); }; if (preference.addListener) preference.addListener(changed); }
   window.addEventListener('pagehide', function () { disposed = true; clearInterval(timer); clearInterval(contentTimer); pauseCarousel(); if (request) { var pending = request; request = null; pending.abort(); } });
   window.addEventListener('pageshow', function (event) { if (event.persisted) location.reload(); });
-  if (specs[query.pane] && !parents) openPane(query.pane); else $(parents && /^quick[1-4]$/.test(query.focus || '') ? query.focus : parents ? 'entry-live' : 'entry-live').focus();
+  if (/^quick[1-4]$/.test(query.focus || '')) { setHomePage(1, false); focusNode($(query.focus)); }
+  else if (specs[query.pane] && !parents) { setHomePage(query.pane === 'system' ? 2 : query.pane === 'live' || query.pane === 'cinema' ? 1 : 0, false); focusNode($(query.pane === 'system' ? 'entry-system' : query.pane === 'live' ? 'entry-live' : query.pane === 'cinema' ? 'entry-cinema' : 'settings-open')); openPane(query.pane); }
+  else focusNode(firstHomeControl(homePage));
+  var wheelAt = 0; document.addEventListener('wheel', function (event) { if (parents || pane || section !== 'overview' || innerWidth / innerHeight <= 4/3 || Math.abs(event.deltaY) < 20) return; event.preventDefault(); if (Date.now() - wheelAt < 600) return; wheelAt = Date.now(); setHomePage(homePage + (event.deltaY > 0 ? 1 : -1)); }, {passive:false});
 }());

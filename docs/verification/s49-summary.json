@@ -1,0 +1,36 @@
+{
+  "stage": "S49 local development",
+  "browser": [
+    "collapsed group hides individual targets; Down/Enter unfolds; arrows select; Back collapses",
+    "12s carousel survives 5s polling; focus/native-overlay pause; reduced-motion fallback",
+    "empty/single/multiple summaries; NAS saved state; access removal clears household; 540p/720p/1080p no collisions; D-pad dock and page return",
+    "standard: 12 app presets, installed distinction and D-pad grid, removing apps clears both surfaces",
+    "standard: Hub entry reserved, login explicitly unavailable",
+    "parents: 12 app presets, installed distinction and D-pad grid, removing apps clears both surfaces",
+    "parents: Hub entry reserved, login explicitly unavailable"
+  ],
+  "cinema": [
+    "Embedded cinema: 41 parser/HTTP assertions passed; no device playback claim",
+    "Home/Cinema state: 29 assertions passed"
+  ],
+  "androidApi": true,
+  "generatedAssets": "design-assets/s49/manifest.json",
+  "motion": "media/captures/s49-fold-and-art.webm",
+  "hub": {
+    "entryReserved": true,
+    "displaySchemaDraft": true,
+    "qrLoginImplemented": false,
+    "closedProductDataConnected": false
+  },
+  "limits": {
+    "apkBuilt": false,
+    "xiaomiPhysicalDevice": false,
+    "nativeNewPlaybackFlowExecuted": false,
+    "tvboxPluginEngine": false,
+    "nasUnifiedWatchHistory": false,
+    "pushed": false,
+    "released": false
+  },
+  "failureRecord": "docs/verification/s49-resize-timing-failure.txt",
+  "publication": "Existing alpha.13 unchanged"
+}

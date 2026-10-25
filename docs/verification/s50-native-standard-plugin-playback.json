@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "stage": "completed",
+  "checks": [
+    "visible native UI callback: 看电影",
+    "home opens embedded activity in target APK",
+    "visible native UI callback: 来源",
+    "set actual native source/search field",
+    "visible native UI callback: 读取地址",
+    "visible native UI callback: 保存",
+    "visible native UI callback: 来源",
+    "visible native UI callback: 撤销插件授权",
+    "visible native UI callback: 撤销",
+    "visible native UI callback: 返回",
+    "visible native UI callback: 原生插件播放测试",
+    "plugin cannot play before explicit approval",
+    "visible native UI callback: 信任并运行",
+    "visible native UI callback: 插件测试短片",
+    "visible native UI callback: 插件线路",
+    "visible native UI callback: 插件第一集",
+    "native playback clock advances: approved JAR opaque episode",
+    "native SurfaceView contains decoded synthetic video: jar-decoded",
+    "native plugin resolves opaque episode before MediaPlayer",
+    "visible native UI callback: 前进30秒",
+    "visible native UI callback: 收藏",
+    "visible native UI callback: 播放 / 暂停",
+    "plugin playback writes shared progress and favorite",
+    "plugin back restores selected episode"
+  ],
+  "images": [
+    "approval.png",
+    "jar-decoded.png"
+  ],
+  "clockSamples": [
+    {
+      "label": "approved JAR opaque episode",
+      "mediaAdvanceMs": 386,
+      "wallMs": 1087
+    }
+  ],
+  "targetPackage": "org.zhixiaoce.aperture",
+  "realXiaomi": false,
+  "candidateApkSha256": "d00ce14bd21ca9a1b6781fcc340313e4eb08873b7d2cb18198db130da2a043e7",
+  "androidSourceSha256": "541bbed16344f6d2cd171d42bffe9d2366db38f2097f5131248706094019c050",
+  "environment": "Android TV API26 x86 software emulator with SSE4.1/SSE4.2; WebView58 for this run",
+  "syntheticMedia": true,
+  "savedImagePrefix": "s50-native-standard-plugin-playback-"
+}

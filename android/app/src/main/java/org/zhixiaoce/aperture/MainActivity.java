@@ -63,9 +63,12 @@ public class MainActivity extends Activity {
     }
     private WebResourceResponse blockedAsset() { return new WebResourceResponse("text/plain", "UTF-8", 403, "Blocked", Collections.singletonMap("Cache-Control", "no-store"), new ByteArrayInputStream(new byte[0])); }
     private WebResourceResponse packagedAsset(Uri uri) {
+        if("https".equals(uri.getScheme())&&LobbyAssets.HOST.equals(uri.getHost())&&uri.getPort()==-1&&uri.getUserInfo()==null&&uri.getQuery()==null&&uri.getFragment()==null&&uri.getPath()!=null&&uri.getPath().matches("/apps/icons/[a-z0-9]{2,20}\\.png")){
+            String key=uri.getPath().substring(12,uri.getPath().length()-4);byte[] icon=destinations.icon(key);return icon==null?blockedAsset():new WebResourceResponse("image/png",null,200,"OK",householdHeaders(),new ByteArrayInputStream(icon));
+        }
         String file = LobbyAssets.file(uri.getScheme(), uri.getHost(), uri.getPort(), uri.getPath());
         if (file == null) return blockedAsset();
-        try { return new WebResourceResponse(LobbyAssets.mime(file), file.endsWith(".woff2") || file.endsWith(".png") || file.endsWith(".jpg") ? null : "UTF-8", 200, "OK", Collections.singletonMap("Cache-Control", "no-store"), getAssets().open(file)); }
+        try { return new WebResourceResponse(LobbyAssets.mime(file), file.endsWith(".woff2") || file.endsWith(".png") || file.endsWith(".jpg") || file.endsWith(".webp") ? null : "UTF-8", 200, "OK", Collections.singletonMap("Cache-Control", "no-store"), getAssets().open(file)); }
         catch (IOException error) { return blockedAsset(); }
     }
     private void destroyWeb() { destroyWeb(false); }
@@ -135,6 +138,7 @@ public class MainActivity extends Activity {
         WebView current = web; display.bind(active -> webActive(current, active));
     }
     private void showLobby(String pane) {
+        destinations.initializeShortcuts();
         if (lobby.choose(webViewVersion(), preferences.getBoolean("simple_home", false)) != LobbyMode.Choice.GLASS) { nativeLobby(); return; }
         createWeb(true);
         Uri.Builder uri = Uri.parse(LOBBY).buildUpon().appendQueryParameter("edition", BuildConfig.PARENTS_EDITION ? "parents" : "standard");
@@ -145,6 +149,7 @@ public class MainActivity extends Activity {
         web.loadUrl(uri.build().toString());
     }
     private void action(String path) {
+        if (path != null && path.startsWith("/preset-")) { destinations.addPreset(path.substring(8)); return; }
         if ("/cinema-settings".equals(path)) { cinema("settings"); return; }
         if ("/nas".equals(path) || "/nas-photos".equals(path)) {
             Intent intent=new Intent(this,NasActivity.class).putExtra("filter","/nas-photos".equals(path)?"photo":"all");
@@ -155,6 +160,7 @@ public class MainActivity extends Activity {
         if ("/install-apps".equals(path)) { installation(); return; }
         if ("/open-quick1".equals(path) || "/open-quick2".equals(path) || "/open-quick3".equals(path) || "/open-quick4".equals(path)) { destinations.launchShortcut(path.substring(6)); return; }
         if ("/open-assistant".equals(path)) { assistant.open(); return; }
+        if ("/hub-connect".equals(path)) { hubConnection(); return; }
         if ("/account-settings".equals(path)) { accountSettings(); return; }
         if ("/voice-help".equals(path)) { assistant.help(); return; }
         if ("/voice-settings".equals(path)) { assistant.settings(); return; }
@@ -200,11 +206,12 @@ public class MainActivity extends Activity {
             .setPositiveButton("NAS设置",(d,w)->startActivity(new Intent(this,NasActivity.class))).setNegativeButton("返回",null).show();
     }
     private void nasLabels() {
-        if(!BuildConfig.PARENTS_EDITION||!lobbyMode||web==null||!ready)return;
-        String movies="家人统一配置电影",series="家人统一配置电视剧";
-        try { NasLibrary library=new NasVault(this).library();NasLibrary.Route movie=library.route("movies"),serial=library.route("series");if(movie!=null)movies="NAS · "+movie.connection.optString("name");if(serial!=null)series="NAS · "+serial.connection.optString("name"); }
-        catch(Exception unavailable){movies="请家人检查片库";series="请家人检查片库";}
-        web.evaluateJavascript("window.apertureNasLabels&&window.apertureNasLabels("+JSONObject.quote(movies)+","+JSONObject.quote(series)+")",null);
+        if(!lobbyMode||web==null||!ready)return;
+        String movies="家人统一配置电影",series="家人统一配置剧集";JSONObject summary=new JSONObject();
+        try {NasLibrary library=new NasVault(this).library();NasLibrary.Route movie=library.route("movies"),serial=library.route("series");if(movie!=null)movies="NAS · "+movie.connection.optString("name");if(serial!=null)series="NAS · "+serial.connection.optString("name");
+            summary.put("nasCount",library.connections().length()).put("nasPhotos",library.route("photos")!=null).put("nasMovies",movie!=null).put("nasSeries",serial!=null);
+        }catch(Exception unavailable){movies="请家人检查片库";series="请家人检查片库";}
+        JSONObject apps=destinations.homeApps();web.evaluateJavascript("(function(){if(window.apertureNasLabels)window.apertureNasLabels("+JSONObject.quote(movies)+","+JSONObject.quote(series)+");if(window.apertureHomeSources)window.apertureHomeSources("+summary+");if(window.apertureHomeApps)window.apertureHomeApps("+apps+");})()",null);
     }
     private LinearLayout column(String title) {
         LinearLayout layout = new LinearLayout(this); layout.setOrientation(LinearLayout.VERTICAL); layout.setPadding(60, 34, 60, 34); layout.setBackgroundColor(Color.rgb(11, 16, 23));
@@ -234,7 +241,7 @@ public class MainActivity extends Activity {
             for (String slot : new String[] {"quick1", "quick2", "quick3", "quick4"}) { String name = destinations.label(slot); Button shortcut = button(layout, name.isEmpty() ? "未设置" : name, () -> destinations.launchShortcut(slot)); shortcut.setTextSize(24); }
             button(layout, "所有应用", destinations::all); button(layout, "设置", this::quickMenu); showNative(layout); return;
         }
-        button(layout, "直播", () -> cinema("live")); button(layout, "影视", () -> cinema("library")); button(layout, "原桌面", () -> destinations.launch("system"));
+        button(layout, "看电视", () -> cinema("live")); button(layout, "看电视剧", () -> cinema("series")); button(layout, "看电影", () -> cinema("movies")); button(layout, "原桌面", () -> destinations.launch("system"));
         if (!BuildConfig.PARENTS_EDITION) button(layout, "家庭屏", () -> family(null)); button(layout, "NAS", () -> action("/nas")); button(layout, "设置", this::quickMenu); showNative(layout);
     }
     private void setup() {
@@ -267,13 +274,14 @@ public class MainActivity extends Activity {
         if (installer != null && installer.result(request, result, data)) return;
         super.onActivityResult(request, result, data);
     }
+    private void hubConnection(){new AlertDialog.Builder(this).setTitle("智小策 Hub").setMessage("未连接\n\n电影 · 体重 · 旅行 · 账本\n\n扫码登录服务尚未接入。连接后，由你选择允许显示的内容。").setPositiveButton("返回",null).show();}
     private void quickMenu() {
         if (BuildConfig.PARENTS_EDITION) {
-            new AlertDialog.Builder(this).setTitle("设置").setItems(new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", "家人留言与相册", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源"}, (dialog, which) -> {
-                if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else destinations.all();
+            new AlertDialog.Builder(this).setTitle("设置").setItems(new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", "家人留言与相册", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"}, (dialog, which) -> {
+                if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else if (which == 14) hubConnection(); else destinations.all();
             }).setNegativeButton("返回", null).show(); return;
         }
-        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", BuildConfig.PARENTS_EDITION ? "家人留言和相册" : "切换轻量 / 完整窗景", "小爱同学与语音唤醒", "NAS", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源"};
+        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", BuildConfig.PARENTS_EDITION ? "家人留言和相册" : "切换轻量 / 完整窗景", "小爱同学与语音唤醒", "NAS", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"};
         new AlertDialog.Builder(this).setTitle("设置").setItems(options, (dialog, which) -> {
             if (which == 0) showLobby(""); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
             else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) destinations.settings(true); else if (which == 7) setup(); else if (which == 8) destinations.all();
@@ -282,6 +290,7 @@ public class MainActivity extends Activity {
             else if (which == 12) homeMode();
             else if (which == 13) installation();
             else if (which == 14) cinema("settings");
+            else if (which == 15) hubConnection();
             else if (BuildConfig.PARENTS_EDITION) family(null);
             else { preferences.edit().putBoolean("lite", !preferences.getBoolean("lite", false)).apply(); family(null); }
         }).setNegativeButton("返回", null).show();

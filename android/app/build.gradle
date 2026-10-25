@@ -1,9 +1,9 @@
-plugins { id 'com.android.application' }
+plugins { id 'com.android.application'; id 'com.chaquo.python' }
 android {
     namespace 'org.zhixiaoce.aperture'
     compileSdk 35
     buildToolsVersion '35.0.0'
-    defaultConfig { applicationId 'org.zhixiaoce.aperture'; minSdk 26; targetSdk 35; versionCode 16; versionName '0.2.0-alpha.13' }
+    defaultConfig { ndk { abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64' }; applicationId 'org.zhixiaoce.aperture'; minSdk 26; targetSdk 35; versionCode 17; versionName '0.2.0-alpha.14' }
     flavorDimensions += 'edition'
     productFlavors {
         standard { dimension 'edition'; buildConfigField 'boolean', 'PARENTS_EDITION', 'false'; manifestPlaceholders = [appLabel: '开视'] }
@@ -19,11 +19,41 @@ android {
 dependencies {
     implementation 'com.hierynomus:smbj:0.14.0'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'org.jsoup:jsoup:1.18.3'
+    implementation 'com.google.code.gson:gson:2.11.0'
 }
 // Resolve the exact runtime classpath for targeted JVM/API checks, without building an APK.
 tasks.register('nasClasspath') {
     doLast {
         def destination = providers.gradleProperty('nasClasspathFile').get()
         file(destination).text = configurations.standardDebugRuntimeClasspath.files.findAll { it.name.endsWith('.jar') }.collect { it.absolutePath }.join(File.pathSeparator)
+    }
+}
+
+// Python 3.10 keeps 32-bit Xiaomi TVs supported; dependencies are fixed for source builds.
+chaquopy {
+    defaultConfig {
+        version = "3.10"
+        pip {
+            // Optional, locally verified download cache; no machine path is committed.
+            def wheelhouse = System.getenv('KAISHI_PLUGIN_WHEELHOUSE')
+            if (wheelhouse) { options '--find-links', wheelhouse }
+            install "requests==2.32.3"
+            install "beautifulsoup4==4.12.3"
+            install "lxml==5.3.0"
+            install "pyquery==2.0.1"
+            install "pycryptodome==3.21.0"
+            install "jsonpath==0.82.2"
+            install "cachetools==5.5.0"
+            // Pin the resolved transitive set from the verified Python 3.10 runtime build.
+            install "cssselect==1.5.0"
+            install "charset-normalizer==3.5.2"
+            install "idna==3.20"
+            install "certifi==2026.10.23"
+            install "urllib3==2.8.0"
+            install "soupsieve==2.10"
+            install "chaquopy-libxml2==2.9.8"
+            install "chaquopy-libxslt==1.1.32"
+        }
     }
 }

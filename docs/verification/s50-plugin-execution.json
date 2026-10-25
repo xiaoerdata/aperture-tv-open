@@ -1,0 +1,46 @@
+{
+  "jar": {
+    "compiledOriginalFixture": true,
+    "androidDexInJar": true,
+    "productionAbiExecuted": true,
+    "output": "9 JAR execution assertions passed"
+  },
+  "python": {
+    "productionRunnerExecuted": true,
+    "hashTamperRejected": true,
+    "approvedExtensionRefreshExecuted": true,
+    "output": "11 Python plugin execution assertions passed"
+  },
+  "pythonPreparation": {
+    "productionCoordinatorExecuted": true,
+    "builtinPreparationTimeoutSeconds": 60,
+    "userPluginTimeoutSeconds": 20,
+    "sharedFutureCancellationIsolation": true,
+    "deadlineAndFailureReuseTested": true,
+    "guardBeforeAndAfterPreparationTested": true,
+    "packagedCPythonExecuted": false,
+    "output": "27 Python preparation assertions passed"
+  },
+  "javascript": {
+    "productionPageAndAdapterExecuted": true,
+    "staticImportedModuleExecuted": true,
+    "asyncPlayExecuted": true,
+    "operations": [
+      "home",
+      "category",
+      "detail",
+      "search",
+      "play"
+    ],
+    "assertions": 12
+  },
+  "webviewProviderGate": {
+    "minimumChromiumMajor": 61,
+    "output": "6 WebView provider gate assertions passed"
+  },
+  "androidDexLoaderExecuted": false,
+  "androidWebViewExecuted": false,
+  "packagedCPythonExecuted": false,
+  "realProviderUsed": false,
+  "xiaomiDeviceTested": false
+}

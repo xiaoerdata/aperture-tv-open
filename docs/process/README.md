@@ -10,6 +10,7 @@
 - [下一阶段系统框架](../SYSTEM-FRAMEWORK-ROADMAP.md)：P36–P38、架构参考、权限分层与 Open-MiTV 候选命名。
 - [开视 v14 电视画面适配](../TV-VIEWPORT.md)：P39正式中文名、安装布局反馈、低逻辑分辨率修正与两版预览。
 - [v15内嵌直播与影视](../EMBEDDED-CINEMA.md)：P40、TVBox兼容子集、原生目录/播放器、来源配置、协议与APK证据。
+- [S48留白与遥控翻屏](../HOME-PAGES.md)：P42、三屏结构、世界风景、两版实际浏览器截图与复现。
 - [家庭中枢篇分镜](../../media/HOME-HUB-STORY.md)：可用于小红书剪辑。
 
 本次是补录与新增记录并行。更早轮次的逐字提示、原始工具时间和未保留的探索画面不可从摘要还原；没有把事后补录伪装成完整实时记录。自本规范起，新阶段持续追加原文、过程和证据。
@@ -72,3 +73,12 @@ S44：[系统框架研究与路线](../SYSTEM-FRAMEWORK-ROADMAP.md)、[定向文
 S46：[内嵌影院](../EMBEDDED-CINEMA.md)、[生产解析/HTTP检查](../verification/s46-embedded-cinema.json)、[v15包核对](../verification/s46-v15-candidates.json)、[第三十二期底稿](../../media/DEVLOG-032.md)。新原生UI和解码尚未设备运行，TVBox仅兼容所列子集，公开版本仍为v13。
 
 S47：[发布前验证矩阵](../verification/s47-acceptance-plan.json)、[浏览器汇总](../verification/s47-browser-summary.json)、[模拟器H264诊断](../verification/s47-emulator-h264-diagnosis.json)、[第三十三期底稿](../../media/DEVLOG-033.md)。保留失败原因与验证边界；发布结果见[匿名下载与源码回读](../verification/public-alpha-v16.json)。
+
+S48：[三屏与风景](../HOME-PAGES.md)、[第三十四期](../../media/DEVLOG-034.md)。
+
+S49：[首页个性化](../HOME-PERSONALIZATION.md)、[Hub预留](../HUB-DISPLAY.md)、[素材与提示词](../../design-assets/s49/README.md)、[第三十五期](../../media/DEVLOG-035.md)。本地开发，未更新公开APK。
+
+S50：首页紧凑观看入口、应用折叠、三种插件执行与NAS统一记录，见[阶段记录](JOURNAL.md#s50--首页观看入口插件执行与nas统一记录)和[第三十六期底稿](../../media/DEVLOG-036.md)。
+
+
+S50验证收尾：[最终软件汇总](../verification/s50-final-software-acceptance.json)、[API28环境失败与恢复](../verification/s50-api28-development-issues.json)、[两版插件运行记录](../PLUGIN-ENGINE.md#r6-android-实际运行记录)。最终公开源码安装回执位于Release测试清单，历史r3安装记录不作为本次发行证据；发布回读在完成后另补。

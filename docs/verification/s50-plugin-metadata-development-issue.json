@@ -1,0 +1,14 @@
+{
+  "stage": "S50",
+  "candidate": "r6 standard",
+  "businessAssertionsCompleted": 15,
+  "completeReportSaved": false,
+  "failure": "PluginRunner optional provider GET_SIGNATURES query raised NameNotFoundException before report was written",
+  "rawLog": "s50-plugin-standard-python-r6-metadata-attempt1.txt",
+  "causeOfPackageQueryFailure": "Not established; API26 observation is not evidence of Android11 package visibility rules",
+  "repair": "Save core execution results independently; use selected provider PackageInfo signatures when present and record optional signature lookup errors separately",
+  "productCodeChanged": false,
+  "subsequentColdProcessEvidence": "s50-plugin-standard-python-r6.json",
+  "subsequentResult": "15 checks completed; 35846 ms first home call including built-in preparation; selected provider signature collected directly",
+  "realXiaomi": false
+}

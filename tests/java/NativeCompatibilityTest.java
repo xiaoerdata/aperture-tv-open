@@ -25,14 +25,16 @@ public final class NativeCompatibilityTest {
         check(replacement.equals(Arrays.asList(false, true)), "new WebView inherits current lifecycle");
         int before = seen.size(); state.bind(null); state.focused(false); state.resumed(false);
         check(seen.size() == before, "destroyed WebView receives no later callbacks");
-        for (String file : new String[] {"index.html", "style.css", "launcher.js", "carezza-4k.jpg", "fonts/clock-reader.woff2", "fonts/aperture-song.woff2"}) check(file.equals(LobbyAssets.file("https", LobbyAssets.HOST, -1, "/assets/" + file)), "allowed asset " + file);
-        for (String path : new String[] {"/assets/../owner-key", "/assets/fonts/../../owner-key", "/assets/fonts/Newsreader-OFL.txt", "/assets/index.html/other", "/assets/%2e%2e/owner-key", "/api/board", "/media/private.jpg", "/assets/missing.js"}) check(LobbyAssets.file("https", LobbyAssets.HOST, -1, path) == null, "blocked path " + path);
+        for (String file : new String[] {"home-personal.js", "app-presets.json", "art/dusk-lake-v1.webp","art/dusk-lake-thumb-v1.webp","art/memory-archive-v1.webp","art/glass-swallow-v1.webp", "index.html", "style.css", "launcher.js", "carezza-4k.jpg", "namib-4k.jpg", "fuji-4k.jpg", "lofoten-4k.jpg", "namib-thumb.jpg", "fuji-thumb.jpg", "lofoten-thumb.jpg", "fonts/clock-reader.woff2", "fonts/aperture-song.woff2"}) check(file.equals(LobbyAssets.file("https", LobbyAssets.HOST, -1, "/assets/" + file)), "allowed asset " + file);
+        for (String path : new String[] {"/assets/../owner-key", "/assets/fonts/../../owner-key", "/assets/fonts/Newsreader-OFL.txt", "/assets/index.html/other", "/assets/%2e%2e/owner-key", "/api/board", "/media/private.jpg", "/assets/missing.js", "/assets/unknown-4k.jpg", "/assets/namib-4k.jpg/other"}) check(LobbyAssets.file("https", LobbyAssets.HOST, -1, path) == null, "blocked path " + path);
         check(LobbyAssets.file("https", "attacker.invalid", -1, LobbyAssets.DOCUMENT) == null, "foreign host");
         check(LobbyAssets.file("http", LobbyAssets.HOST, -1, LobbyAssets.DOCUMENT) == null, "cleartext");
         check(LobbyAssets.file("https", LobbyAssets.HOST, 8443, LobbyAssets.DOCUMENT) == null, "foreign port");
         check(LobbyAssets.file("file", null, -1, "/android_asset/index.html") == null, "no filesystem loading");
         check("font/woff2".equals(LobbyAssets.mime("fonts/clock-reader.woff2")), "font MIME");
         check("image/png".equals(LobbyAssets.mime("alpine-dusk.png")), "image MIME");
+        check("image/webp".equals(LobbyAssets.mime("art/glass-swallow-v1.webp")), "generated WebP MIME");
+        check(LobbyAssets.file("https",LobbyAssets.HOST,-1,"/assets/art/private.webp")==null,"art directory is not a broad whitelist");
         check("image/jpeg".equals(LobbyAssets.mime("carezza-4k.jpg")), "4K JPEG MIME");
         System.out.println("Native policy: overlay/resume/destroy transitions and exact local HTTPS resources passed");
     }

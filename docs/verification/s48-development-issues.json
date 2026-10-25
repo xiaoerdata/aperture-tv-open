@@ -1,0 +1,22 @@
+{
+  "method": "Stage notes from observed tool output; not a replacement for original logs",
+  "issues": [
+    {
+      "stage": "first preview",
+      "error": "Cannot set properties of null (setting 'textContent')",
+      "cause": "Parents initializer queried .entry-heading h2 after heading became h1",
+      "fix": "Use #apps-title",
+      "rawErrorFileLaterOverwritten": true
+    },
+    {
+      "stage": "asset acquisition",
+      "error": "HTTP 400 for 640px derivative; HTTP 429 for several downloads",
+      "fix": "Cache originals, download sequentially, use supported 500/960px derivatives; do not bundle failed/unselected candidates",
+      "retainedRawLogs": [
+        "artifacts/s48-wallpaper-research/fetch.log",
+        "artifacts/s48-wallpaper-research/fetch-retry.log"
+      ]
+    }
+  ],
+  "finalPreviewErrors": []
+}

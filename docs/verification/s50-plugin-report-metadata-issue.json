@@ -1,0 +1,33 @@
+{
+  "scope": "development instrumentation report collection",
+  "candidate": "aperture-tv-public-v17-r6",
+  "observed": {
+    "businessChecksEmitted": 15,
+    "businessRuntime": "python",
+    "businessChecksAllEmitted": true,
+    "reportWritten": false,
+    "error": "android.content.pm.PackageManager$NameNotFoundException: com.google.android.webview",
+    "failureLocation": "secondary PackageManager.GET_SIGNATURES query during environment collection"
+  },
+  "evidence": [
+    "../../artifacts/s50-plugin-standard-python-r6-attempt1.txt",
+    "../../artifacts/s50-webview-before-r6-retry.txt",
+    "../../artifacts/s50-webview-package-before-r6-retry.txt"
+  ],
+  "providerReadback": {
+    "packageName": "com.google.android.webview",
+    "versionName": "58.0.3029.125",
+    "versionCode": 303012510,
+    "valid": true,
+    "enabled": true,
+    "relroStarted": 1,
+    "relroFinished": 1,
+    "dirty": false,
+    "directedPackageListExitCode": 0,
+    "directedPackageListOutput": "empty"
+  },
+  "causeBoundary": "Secondary signature query failure cause was not established. API26 does not have Android11 package visibility rules. This is a report metadata failure and does not imply Python business execution failed.",
+  "change": "Persist core results before collecting metadata; use signatures returned in WebView provider PackageInfo first; query failure records unavailable/source/error and does not discard core checks. NAS driver also preserves core results if environment collection fails. Product manifest/provider unchanged.",
+  "verification": "s50-plugin-standard-python-r6.json",
+  "realXiaomi": false
+}

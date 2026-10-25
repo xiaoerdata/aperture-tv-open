@@ -1,0 +1,15 @@
+{
+  "scope": "host-side API28 test orchestration",
+  "observedExitCode": 143,
+  "stage": "standard product installation returned Success; no installed-identity or JS report had been written",
+  "causeEstablished": false,
+  "action": "Read pm path and SHA-256 of the already-installed base.apk, verify against frozen candidate; continue with test driver. Do not resend product installation.",
+  "evidence": [
+    "../../artifacts/s50-api28-install-standard-r6.txt",
+    "../../artifacts/s50-api28-standard-pm-path.txt",
+    "../../artifacts/s50-api28-standard-installed-sha256.txt",
+    "../../artifacts/s50-api28-standard-installed-identity.json"
+  ],
+  "productRuntimeFailure": false,
+  "javascriptExecutedInInterruptedStage": false
+}

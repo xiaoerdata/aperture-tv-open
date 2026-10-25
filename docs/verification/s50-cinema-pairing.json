@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "unpaired cinema -> explicit viewer code -> independent owner approval -> same parents movie view and item focus; stale unauthorized read ignored; modal trap/back and 720p/mobile bounds",
+    "saved HttpOnly viewer session reopens library without pairing again",
+    "revocation clears media and offers direct reconnection without navigating through family settings",
+    "expired code hides old code and requires explicit retry; no automatic re-pair or token in URL/storage",
+    "dismissal aborts in-flight pairing; delayed reply cannot reopen or refill dialog"
+  ],
+  "errors": [],
+  "fixtureData": true,
+  "realTV": false,
+  "actualVideoDecode": false,
+  "livePairingCodeCaptured": false
+}

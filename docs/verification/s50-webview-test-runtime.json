@@ -1,0 +1,35 @@
+{
+  "source": "https://dl.google.com/android/repository/sys-img/android-tv/x86-28_r10.zip",
+  "officialMetadata": "https://dl.google.com/android/repository/sys-img/android-tv/sys-img2-3.xml",
+  "archiveBytes": 475216948,
+  "archiveSha1": "4c13edca32c1abb899a0702fe6972087712bcb78",
+  "archiveChecksumVerified": true,
+  "extractedPath": "x86/system.img:/system/app/WebViewGoogle/WebViewGoogle.apk",
+  "apkBytes": 71170773,
+  "apkSha256": "f9642fe566b838919b4bb026e99931749aed4e210b91c0fa24b2d4157f3c7e5d",
+  "packageName": "com.google.android.webview",
+  "versionName": "66.0.3359.158",
+  "versionCode": 336015815,
+  "minSdkVersion": 21,
+  "targetSdkVersion": 28,
+  "nativeCode": [
+    "x86"
+  ],
+  "apkSignatureVerified": true,
+  "signerSha256": "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991",
+  "installed": false,
+  "currentProviderSignerCompared": true,
+  "runtimeCompatibilityVerified": false,
+  "stage": "S50",
+  "purpose": "Official test-runtime candidate for dedicated API26 x86 emulator; not bundled with the app and not an end-user installation recommendation.",
+  "installationMeaning": "Signature and image checksum verification passed; standalone package installation failed. Full-image execution remains separate Android acceptance work.",
+  "standaloneDexEntries": [],
+  "currentProviderSignerEvidence": "s50-plugin-standard-jar.json",
+  "standaloneInstallation": {
+    "attempted": true,
+    "status": "failed",
+    "androidError": "INSTALL_FAILED_INVALID_APK: base.apk code is missing",
+    "explanation": "The official system-image APK is preoptimized and has no classes.dex. Matching certificate and minSdk do not make it a standalone update APK."
+  },
+  "nextTestPath": "A separate unmodified official API28 Android TV system image; do not modify/re-sign the APK or transplant optimized code onto API26."
+}

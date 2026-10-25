@@ -1,0 +1,560 @@
+{
+  "stage": "S50",
+  "candidate": "r6",
+  "generatedAt": "2026-10-25T09:49:36.818955+00:00",
+  "status": "passed",
+  "softwareGatePassed": true,
+  "scope": "Existing software evidence only; no tests or publication performed by this collector",
+  "requiredEvidenceCount": 12,
+  "acceptedEvidenceCount": 12,
+  "issues": [],
+  "packages": [
+    {
+      "candidate": "r6",
+      "edition": "standard",
+      "apkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+      "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+      "packageName": "org.zhixiaoce.aperture",
+      "versionCode": 17,
+      "versionName": "0.2.0-alpha.14",
+      "packagingEvidence": {
+        "path": "artifacts/s50-r6-packaging.json",
+        "sha256": "a0977eecdfcab626b77de8d4431fb376cf1057b023b33352272cc6c0c10a0dc7"
+      }
+    },
+    {
+      "candidate": "r6",
+      "edition": "parents",
+      "apkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+      "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+      "packageName": "org.zhixiaoce.aperture.parents",
+      "versionCode": 17,
+      "versionName": "0.2.0-alpha.14-parents",
+      "packagingEvidence": {
+        "path": "artifacts/s50-r6-packaging.json",
+        "sha256": "a0977eecdfcab626b77de8d4431fb376cf1057b023b33352272cc6c0c10a0dc7"
+      }
+    },
+    {
+      "candidate": "r5",
+      "edition": "standard",
+      "apkSha256": "d00ce14bd21ca9a1b6781fcc340313e4eb08873b7d2cb18198db130da2a043e7",
+      "androidSourceSha256": "541bbed16344f6d2cd171d42bffe9d2366db38f2097f5131248706094019c050",
+      "packageName": "org.zhixiaoce.aperture",
+      "versionCode": 17,
+      "versionName": "0.2.0-alpha.14",
+      "packagingEvidence": {
+        "path": "artifacts/s50-r5-packaging.json",
+        "sha256": "e1cfdfbd4693a9d21c00fa77980c50ef714a8ecab1c954a932422665ca14ba41"
+      }
+    }
+  ],
+  "android": {
+    "evidence": {
+      "r6-standard-python": {
+        "path": "docs/verification/s50-plugin-standard-python-r6.json",
+        "sha256": "90de48853ff5e26e75910b4179f7b3cd1a0317e045309f8db4d4adbbc68a7dfd",
+        "candidate": "r6",
+        "edition": "standard",
+        "capability": "python",
+        "checkCount": 15,
+        "apkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125",
+            "versionCode": 303012510,
+            "signerSha256": [
+              "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+            ],
+            "signerCollectionStatus": "collected",
+            "signerCollectionSource": "getCurrentWebViewPackage"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": true
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": false,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": 35846
+      },
+      "r6-standard-jar": {
+        "path": "docs/verification/s50-plugin-standard-jar-r6.json",
+        "sha256": "c6fb5f03f1cc3e625947b3d49be483f43f5c29d348afbf56ad7711ed453d90d3",
+        "candidate": "r6",
+        "edition": "standard",
+        "capability": "jar",
+        "checkCount": 15,
+        "apkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125",
+            "versionCode": 303012510,
+            "signerSha256": [
+              "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+            ],
+            "signerCollectionStatus": "collected",
+            "signerCollectionSource": "getCurrentWebViewPackage"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": true
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": false,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": 12677
+      },
+      "r6-standard-javascript": {
+        "path": "docs/verification/s50-plugin-standard-javascript-r6.json",
+        "sha256": "309763e8fc923f5bd99a55876feb493182cd53d7d543da8eaf4a5dcd392172e5",
+        "candidate": "r6",
+        "edition": "standard",
+        "capability": "javascript",
+        "checkCount": 15,
+        "apkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 28,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "66.0.3359.158",
+            "versionCode": 336015815,
+            "signerSha256": [
+              "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+            ],
+            "signerCollectionStatus": "collected",
+            "signerCollectionSource": "getCurrentWebViewPackage"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": true
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": false,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": 18906
+      },
+      "r6-parents-python": {
+        "path": "docs/verification/s50-plugin-parents-python-r6.json",
+        "sha256": "6aabd8252995e8e02aa334e0278f40dae08bf13227aee1260c4c50ab8dc09b48",
+        "candidate": "r6",
+        "edition": "parents",
+        "capability": "python",
+        "checkCount": 15,
+        "apkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125",
+            "versionCode": 303012510,
+            "signerSha256": [
+              "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+            ],
+            "signerCollectionStatus": "collected",
+            "signerCollectionSource": "getCurrentWebViewPackage"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": true
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": false,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": 33112
+      },
+      "r6-parents-jar": {
+        "path": "docs/verification/s50-plugin-parents-jar-r6.json",
+        "sha256": "ff9453b5e3dc11bdc5d01d26ab3954effd54fcb964703ac09687c08159d8e6f4",
+        "candidate": "r6",
+        "edition": "parents",
+        "capability": "jar",
+        "checkCount": 15,
+        "apkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125",
+            "versionCode": 303012510,
+            "signerSha256": [
+              "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+            ],
+            "signerCollectionStatus": "collected",
+            "signerCollectionSource": "getCurrentWebViewPackage"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": true
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": false,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": 2983
+      },
+      "r6-parents-javascript": {
+        "path": "docs/verification/s50-plugin-parents-javascript-r6.json",
+        "sha256": "b91a5250b28097efe025a7a47d9586ea9156cd8ed4a39d4906f75d5afce4d8da",
+        "candidate": "r6",
+        "edition": "parents",
+        "capability": "javascript",
+        "checkCount": 15,
+        "apkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 28,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "66.0.3359.158",
+            "versionCode": 336015815,
+            "signerSha256": [
+              "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+            ],
+            "signerCollectionStatus": "collected",
+            "signerCollectionSource": "getCurrentWebViewPackage"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": true
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": false,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": 11875
+      },
+      "r6-standard-old-webview": {
+        "path": "docs/verification/s50-plugin-standard-old-webview-r6.json",
+        "sha256": "6756e1394e5e0613a6269f706ac40f094cf9841b7bcc0f0d3ca11e3e56e5def4",
+        "candidate": "r6",
+        "edition": "standard",
+        "capability": "old-webview",
+        "checkCount": 5,
+        "apkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125",
+            "versionCode": 303012510,
+            "signerSha256": [
+              "b53677af4f98b4dff3331cb9b58d617bfd5b6979140889b59df1bb3b05b36991"
+            ],
+            "signerCollectionStatus": "collected",
+            "signerCollectionSource": "getCurrentWebViewPackage"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": true
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": false,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": null
+      },
+      "r6-standard-cinema": {
+        "path": "docs/verification/s50-native-standard-r6.json",
+        "sha256": "66cc282ec23039d921e4b77df5ee37dafdf300094399d4ac7b21f1cad18b914c",
+        "candidate": "r6",
+        "edition": "standard",
+        "capability": "cinema",
+        "checkCount": 61,
+        "apkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": false
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": true,
+        "cinemaSemanticValidation": {
+          "minimumChecks": 60,
+          "actualChecks": 61,
+          "mandatoryBehaviors": [
+            "home opens embedded activity in target APK",
+            "AndroidKeyStore-backed source record is not plaintext",
+            "native playback clock advances: MP4 channel",
+            "native SurfaceView contains decoded synthetic video: live-mp4",
+            "native playback clock advances: HLS channel",
+            "native SurfaceView contains decoded synthetic video: live-hls",
+            "pause remains explicit",
+            "native playback clock advances: explicit resume",
+            "real Android AudioManager grants a transient competing focus request",
+            "audio focus return does not auto-resume",
+            "native playback clock advances: resume after transient focus",
+            "back releases native playback view",
+            "back restores selected live channel focus; actual=台二",
+            "native playback clock advances: selected episode",
+            "native SurfaceView contains decoded synthetic video: episode-13",
+            "real native episode checkpoint preserves progress and favorite",
+            "viewing shelf uses AndroidKeyStore encrypted storage",
+            "back restores selected episode and page; actual=第13集",
+            "failed media can return to the catalogue",
+            "cancelling clear retains encrypted source record",
+            "real D-pad reaches and activates scrolled source settings Return",
+            "catalogue recovers after source returns online",
+            "encrypted source configuration survives APK upgrade",
+            "saved source decrypts through AndroidKeyStore after APK upgrade"
+          ],
+          "conditionalHttpConsentAndFavoriteClicksExcluded": true
+        },
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": null
+      },
+      "r6-standard-plugin-playback": {
+        "path": "docs/verification/s50-native-standard-plugin-playback-r6.json",
+        "sha256": "c51c2c9e07936bf21c8eddd9e0c65927954ca2e010eb270f5146a0879ea3c3f9",
+        "candidate": "r6",
+        "edition": "standard",
+        "capability": "plugin-playback",
+        "checkCount": 23,
+        "apkSha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": false
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": true,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": {
+          "minimumChecks": 22,
+          "actualChecks": 23,
+          "mandatoryBehaviors": [
+            "home opens embedded activity in target APK",
+            "plugin cannot play before explicit approval",
+            "visible native UI callback: 信任并运行",
+            "native playback clock advances: approved JAR opaque episode",
+            "native SurfaceView contains decoded synthetic video: jar-decoded",
+            "native plugin resolves opaque episode before MediaPlayer",
+            "plugin playback writes shared progress and favorite",
+            "plugin back restores selected episode"
+          ],
+          "conditionalHttpConsentAndFavoriteClicksExcluded": true
+        },
+        "firstHomeElapsedMs": null
+      },
+      "r6-parents-cinema": {
+        "path": "docs/verification/s50-native-parents-r6.json",
+        "sha256": "eb4da89d18e2dcd4df65cc46e5acec18c215d776688c32b2f85e6d71ae9695df",
+        "candidate": "r6",
+        "edition": "parents",
+        "capability": "cinema",
+        "checkCount": 67,
+        "apkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125"
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": false
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": true,
+        "cinemaSemanticValidation": {
+          "minimumChecks": 60,
+          "actualChecks": 67,
+          "mandatoryBehaviors": [
+            "home opens embedded activity in target APK",
+            "AndroidKeyStore-backed source record is not plaintext",
+            "native playback clock advances: MP4 channel",
+            "native SurfaceView contains decoded synthetic video: live-mp4",
+            "native playback clock advances: HLS channel",
+            "native SurfaceView contains decoded synthetic video: live-hls",
+            "pause remains explicit",
+            "native playback clock advances: explicit resume",
+            "real Android AudioManager grants a transient competing focus request",
+            "audio focus return does not auto-resume",
+            "native playback clock advances: resume after transient focus",
+            "back releases native playback view",
+            "back restores selected live channel focus; actual=台二",
+            "native playback clock advances: selected episode",
+            "native SurfaceView contains decoded synthetic video: episode-13",
+            "real native episode checkpoint preserves progress and favorite",
+            "viewing shelf uses AndroidKeyStore encrypted storage",
+            "back restores selected episode and page; actual=第13集",
+            "failed media can return to the catalogue",
+            "cancelling clear retains encrypted source record",
+            "real D-pad reaches and activates scrolled source settings Return",
+            "catalogue recovers after source returns online",
+            "parents third core entry routes into embedded series view"
+          ],
+          "conditionalHttpConsentAndFavoriteClicksExcluded": true
+        },
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": null
+      },
+      "r6-parents-nas": {
+        "path": "docs/verification/s50-nas-parents-r6.json",
+        "sha256": "f24df9920d08e29588b18652c959060f2ead82bede1bf75d149eddd5af797bcb",
+        "candidate": "r6",
+        "edition": "parents",
+        "capability": "nas",
+        "checkCount": 26,
+        "apkSha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+        "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+        "environment": {
+          "api": 26,
+          "abi": [
+            "x86"
+          ],
+          "provider": {
+            "packageName": "com.google.android.webview",
+            "versionName": "58.0.3029.125",
+            "versionCode": 303012510
+          },
+          "providerRecordedInThisReport": true,
+          "providerSignerRecorded": false
+        },
+        "historicalEvidenceOnly": false,
+        "passed": true,
+        "mediaPlayback": true,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": null
+      },
+      "r5-standard-nas": {
+        "path": "docs/verification/s50-nas-standard.json",
+        "sha256": "8bf95bc878994c02f0dc5fa3277cc638a3204399be659bc493024bb98c4e9d01",
+        "candidate": "r5",
+        "edition": "standard",
+        "capability": "nas",
+        "checkCount": 26,
+        "apkSha256": "d00ce14bd21ca9a1b6781fcc340313e4eb08873b7d2cb18198db130da2a043e7",
+        "androidSourceSha256": "541bbed16344f6d2cd171d42bffe9d2366db38f2097f5131248706094019c050",
+        "environment": {
+          "recordedEnvironment": "Android TV API 26 x86, unaccelerated; original SSE4.1/SSE4.2 CPU flags",
+          "api": 26,
+          "provider": null,
+          "providerRecordedInThisReport": false,
+          "historicalEvidenceOnly": true
+        },
+        "historicalEvidenceOnly": true,
+        "passed": true,
+        "mediaPlayback": true,
+        "cinemaSemanticValidation": null,
+        "pluginPlaybackSemanticValidation": null,
+        "firstHomeElapsedMs": null
+      }
+    },
+    "historicalStandardNasReuse": {
+      "acceptedHistoricalCandidate": "r5",
+      "targetCandidate": "r6",
+      "filesCompared": [
+        {
+          "path": "android/app/src/main/java/org/zhixiaoce/aperture/NasActivity.java",
+          "sha256": "5fff3f8a82f4382af98a8e2a29c5e35b2f08bed2edbc00950a11d6bfcc0007f2"
+        },
+        {
+          "path": "android/app/src/main/java/org/zhixiaoce/aperture/NasWatchRoute.java",
+          "sha256": "de2a5c669b6de5d6dfb738ea6bec04cab4383bb748704ef16ba76ef40866da9d"
+        },
+        {
+          "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelf.java",
+          "sha256": "d83b4374a3f73b8c247dbaf4e3144871dd6f5a90d2c197980fddaabf54833064"
+        },
+        {
+          "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelfStore.java",
+          "sha256": "139c27cadd0c3c79f24288fb43812f3d1c62a308af474a03ba24a42d5d47b8fb"
+        },
+        {
+          "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaVault.java",
+          "sha256": "b814e4bbca2e8f0418d7c74d1c0b609429aac56596d27180cb14407b9d059628"
+        }
+      ],
+      "reason": "NAS implementation and shared shelf unchanged; r6 standard full cinema and JAR UI cover the changed Activity layer.",
+      "doesNotClaimNasRerunOnR6Standard": true
+    },
+    "environmentsKeptSeparate": true,
+    "api28JsSuccessDoesNotImplyWebView58JsSupport": true
+  },
+  "web": {
+    "path": "docs/verification/s50-software-web.json",
+    "sha256": "d2a15f01639da7128d2c18419226d4b211a7b1e94533a01b762e0ad6294173a2",
+    "nodeTests": 77,
+    "browserScripts": 23,
+    "apkExecutionInferred": false
+  },
+  "pythonPreparation": {
+    "path": "docs/verification/s50-python-preparation.json",
+    "sha256": "1f2c03b19dfb634e567d35d644b2ee86dba260a09a429021d26a54ba9290b817",
+    "runtimeFreeze": {
+      "path": "artifacts/s50-plugin-runtime-freeze.json",
+      "sha256": "abc1a852034df845a7d717e8332b6ebdc0a04f183389ce5c6b226cd1221030df"
+    },
+    "assertions": 65,
+    "packagedCPythonProvenByThisReceipt": false
+  },
+  "finalSourceInstallRequired": true,
+  "finalSourceInstallIncluded": false,
+  "finalSourceInstallGateOwner": "s50-prepare-release-files.py separately verifies the exact final public source archive",
+  "xiaomiHardwareTested": false,
+  "workBuddyApplicationTested": false,
+  "remotePublished": false,
+  "planEvidence": {
+    "path": "artifacts/s50-final-acceptance-plan.json",
+    "sha256": "0ec23121ab02cf1374679fdf58a3bba8a69c08f322d420c4d34819f6b0fdd4a0"
+  }
+}

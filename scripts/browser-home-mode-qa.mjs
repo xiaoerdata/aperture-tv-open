@@ -5,9 +5,9 @@ import {resolve} from 'node:path';
 import {launchBrowser} from './browser.mjs';
 
 const base = 'https://appassets.androidplatform.net';
-const assets = new Map([
-  ['index.html','text/html'], ['launcher.js','text/javascript'], ['style.css','text/css'],
-  ['carezza-4k.jpg','image/jpeg'], ['fonts/clock-reader.woff2','font/woff2'],
+const assets = new Map([['art/dusk-lake-v1.webp','image/webp'],['art/dusk-lake-thumb-v1.webp','image/webp'],['art/memory-archive-v1.webp','image/webp'],['art/glass-swallow-v1.webp','image/webp'],
+  ['index.html','text/html'], ['launcher.js','text/javascript'], ['home-personal.js','text/javascript'], ['app-presets.json','application/json'], ['style.css','text/css'],
+  ...['carezza-4k.jpg','namib-4k.jpg','fuji-4k.jpg','lofoten-4k.jpg','namib-thumb.jpg','fuji-thumb.jpg','lofoten-thumb.jpg'].map(name=>[name,'image/jpeg']), ['fonts/clock-reader.woff2','font/woff2'],
   ['fonts/aperture-song.woff2','font/woff2']
 ]);
 const browser = await launchBrowser(), checks = [], errors = [], screenshots = [];
@@ -30,12 +30,12 @@ try {
     });
     await page.goto(base+'/assets/index.html?edition='+edition);
     await page.waitForFunction(() => typeof apertureRemoteKey === 'function');
-    assert.equal(await page.locator('.destinations>.destination:visible').count(), edition==='parents'?3:8);
+    assert.equal(await page.locator('.destinations>.destination:visible').count(), edition==='parents'?3:0);
     for (const [width,height] of [[1280,720],[1920,1080],[320,844],[390,844],[430,900],[760,900],[761,900]]) {
       await page.setViewportSize({width,height});
       await page.locator('#settings-open').click();
       if (await page.locator('#pane-backdrop').isHidden()) {
-        await page.screenshot({path:'artifacts/s31-settings-did-not-open-'+edition+'-'+width+'.png'});
+        await page.screenshot({path:'artifacts/s48-settings-did-not-open-'+edition+'-'+width+'.png'});
         throw new Error(edition+' '+width+' settings did not open after pointer click');
       }
       const trace=[];
@@ -45,7 +45,7 @@ try {
         await page.evaluate(() => apertureRemoteKey('ArrowDown'));
       }
       const current=await page.evaluate(() => document.activeElement.dataset.action);
-      if (current!=='home-mode') await page.screenshot({path:'artifacts/s31-home-mode-failed-'+edition+'-'+width+'.png'});
+      if (current!=='home-mode') await page.screenshot({path:'artifacts/s48-home-mode-failed-'+edition+'-'+width+'.png'});
       assert.equal(current,'home-mode',edition+' '+width+' focus trace '+trace.join(' > '));
       const focus = await page.evaluate(() => {
         const node=document.activeElement, rect=node.getBoundingClientRect(), css=getComputedStyle(node);
@@ -54,11 +54,11 @@ try {
         return {visible:rect.top>=box.top-1&&rect.bottom<=box.bottom+1&&rect.top>=-1&&rect.bottom<=innerHeight+1,
           outline:css.outlineStyle, size:parseFloat(css.outlineWidth), offset:parseFloat(css.outlineOffset), top:rect.top,bottom:rect.bottom,parentTop:box.top,parentBottom:box.bottom,height:innerHeight};
       });
-      if (!focus.visible) await page.screenshot({path:'artifacts/s31-focus-clipped-'+edition+'-'+width+'.png'});
+      if (!focus.visible) await page.screenshot({path:'artifacts/s48-focus-clipped-'+edition+'-'+width+'.png'});
       assert.ok(focus.visible,edition+' '+width+' '+JSON.stringify(focus)); assert.equal(focus.outline,'solid'); assert.ok(focus.size>=3); assert.ok(focus.offset<0);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth>innerWidth), false);
       if ([1280,1920,390].includes(width)) {
-        const path='docs/images/s31-home-mode-'+edition+'-'+width+'.png';
+        const path='docs/images/s48-home-mode-'+edition+'-'+width+'.png';
         await page.screenshot({path}); screenshots.push(path);
       }
       await page.evaluate(() => apertureBack());

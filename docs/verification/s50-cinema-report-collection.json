@@ -1,0 +1,22 @@
+{
+  "stage": "S50",
+  "candidate": "r6",
+  "scope": "Test receipt collection only; product APK unchanged",
+  "nativeExecutionPassed": true,
+  "checkCount": 61,
+  "collectionIssue": {
+    "operation": "adb shell cmd package path",
+    "exitCode": 255,
+    "resolution": "adb shell pm path returned the installed APK path; collected installed APK bytes match frozen candidate SHA-256",
+    "coreTestsRerun": false
+  },
+  "countDifference": {
+    "historicalCount": 62,
+    "actualCount": 61,
+    "optionalActionNotRepeated": "visible native UI callback: 收藏",
+    "favoritePersistenceStillVerified": true,
+    "acceptanceRule": "Minimum 60 plus mandatory playback, focus, upgrade, storage, error and recovery outcomes; optional clicks do not determine completeness"
+  },
+  "passedReport": "s50-native-standard-r6.json",
+  "xiaomiTested": false
+}

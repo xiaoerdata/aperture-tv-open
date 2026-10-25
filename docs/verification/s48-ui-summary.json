@@ -1,0 +1,39 @@
+{
+  "reports": {
+    "launcher": {
+      "report": "s48-launcher.json",
+      "checkGroups": 9,
+      "errors": []
+    },
+    "controls": {
+      "report": "s48-tv-controls.json",
+      "checkGroups": 3,
+      "errors": []
+    },
+    "viewport": {
+      "report": "s48-tv-viewport.json",
+      "checkGroups": 3,
+      "errors": []
+    },
+    "home-mode": {
+      "report": "s48-home-mode.json",
+      "checkGroups": 2,
+      "errors": []
+    },
+    "wallpaper": {
+      "report": "s48-wallpaper-browser.json",
+      "checkGroups": 4,
+      "errors": []
+    },
+    "xiaomi": {
+      "report": "s48-xiaomi.json",
+      "checkGroups": 6,
+      "errors": []
+    }
+  },
+  "viewportMeasurements": 32,
+  "localLinksChecked": 197,
+  "builtApk": false,
+  "physicalXiaomiTested": false,
+  "published": false
+}

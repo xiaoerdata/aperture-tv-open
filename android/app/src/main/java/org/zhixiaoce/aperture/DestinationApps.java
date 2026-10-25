@@ -18,6 +18,34 @@ final class DestinationApps {
     private final SharedPreferences preferences;
     private final Changed changed;
     DestinationApps(Activity activity, SharedPreferences preferences, Changed changed) { this.activity = activity; this.preferences = preferences; this.changed = changed; }
+    private volatile java.util.Map<String,byte[]> icons=java.util.Collections.emptyMap();
+    private List<AppPresets.Entry> presets(){try(java.io.InputStream input=activity.getAssets().open("app-presets.json")){java.io.ByteArrayOutputStream out=new java.io.ByteArrayOutputStream();byte[] buffer=new byte[4096];int n;while((n=input.read(buffer))!=-1){if(out.size()+n>32768)throw new java.io.IOException();out.write(buffer,0,n);}return AppPresets.read(out.toString("UTF-8"));}catch(Exception unavailable){return new ArrayList<>();}}
+    private ResolveInfo installed(AppPresets.Entry entry,List<ResolveInfo> apps){
+        for(String pkg:entry.packages){Intent tv=activity.getPackageManager().getLeanbackLaunchIntentForPackage(pkg);if(tv!=null&&tv.getComponent()!=null)for(ResolveInfo app:apps)if(component(app).equals(tv.getComponent()))return app;}
+        for(String pkg:entry.packages)for(ResolveInfo app:apps)if(pkg.equals(app.activityInfo.packageName))return app;return null;
+    }
+    void initializeShortcuts(){
+        List<ResolveInfo> apps=available(false);java.util.Map<String,String> existing=new java.util.LinkedHashMap<>();List<String> candidates=new ArrayList<>();
+        for(int i=1;i<=4;i++)if(preferences.contains("destination_quick"+i))existing.put("quick"+i,preferences.getString("destination_quick"+i,""));
+        for(AppPresets.Entry e:presets()){ResolveInfo app=installed(e,apps);if(app!=null)candidates.add(component(app).flattenToString());}
+        SharedPreferences.Editor editor=preferences.edit();for(java.util.Map.Entry<String,String> entry:AppPresets.initialize(existing,candidates).entrySet())if(!existing.containsKey(entry.getKey()))editor.putString("destination_"+entry.getKey(),entry.getValue());editor.apply();
+    }
+    private void cacheIcon(java.util.Map<String,byte[]> cache,String key,ResolveInfo app){if(app==null)return;android.graphics.Bitmap bitmap=null;try{android.graphics.drawable.Drawable icon=app.loadIcon(activity.getPackageManager());bitmap=android.graphics.Bitmap.createBitmap(128,128,android.graphics.Bitmap.Config.ARGB_8888);android.graphics.Canvas canvas=new android.graphics.Canvas(bitmap);icon.setBounds(0,0,128,128);icon.draw(canvas);java.io.ByteArrayOutputStream out=new java.io.ByteArrayOutputStream();bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG,100,out);cache.put(key,out.toByteArray());}catch(RuntimeException ignored){}finally{if(bitmap!=null)bitmap.recycle();}}
+    byte[] icon(String key){return icons.get(key);}
+    org.json.JSONObject homeApps(){
+        initializeShortcuts();org.json.JSONObject snapshot=new org.json.JSONObject();org.json.JSONArray appsJson=new org.json.JSONArray(),slots=new org.json.JSONArray();java.util.Map<String,byte[]> cache=new java.util.HashMap<>();List<ResolveInfo> apps=available(false);
+        try{for(AppPresets.Entry e:presets()){ResolveInfo app=installed(e,apps);cacheIcon(cache,e.id,app);appsJson.put(new org.json.JSONObject().put("id",e.id).put("installed",app!=null).put("icon",cache.containsKey(e.id)?"/apps/icons/"+e.id+".png":""));}
+            for(int i=1;i<=4;i++){String slot="quick"+i;ResolveInfo app=selected(slot);cacheIcon(cache,slot,app);String id="";if(app!=null)for(AppPresets.Entry e:presets())if(e.packages.contains(app.activityInfo.packageName))id=e.id;slots.put(new org.json.JSONObject().put("slot",slot).put("id",id).put("name",app==null?"":app.loadLabel(activity.getPackageManager()).toString()).put("icon",cache.containsKey(slot)?"/apps/icons/"+slot+".png":""));}
+            snapshot.put("apps",appsJson).put("slots",slots);
+        }catch(Exception ignored){}icons=java.util.Collections.unmodifiableMap(cache);return snapshot;
+    }
+    void addPreset(String id){
+        AppPresets.Entry match=null;for(AppPresets.Entry e:presets())if(e.id.equals(id))match=e;if(match==null)return;
+        final ResolveInfo app=installed(match,available(false));if(app==null){new AlertDialog.Builder(activity).setTitle(match.name).setMessage("未发现可启动的电视版应用。安装完成后返回开视即可添加。应用的地区、账号及订阅由应用本身决定。")
+            .setPositiveButton("安装应用",(d,w)->installation()).setNegativeButton("返回",null).show();return;}
+        String[] names=new String[4];for(int i=0;i<4;i++)names[i]="位置 "+(i+1)+" · "+(label("quick"+(i+1)).isEmpty()?"空位":label("quick"+(i+1)));
+        new AlertDialog.Builder(activity).setTitle("放到首页").setItems(names,(d,which)->{String slot="quick"+(which+1);preferences.edit().putString("destination_"+slot,component(app).flattenToString()).apply();changed.onChanged(slot);}).setNegativeButton("返回",null).show();
+    }
     private boolean quick(String slot) { return "quick1".equals(slot) || "quick2".equals(slot) || "quick3".equals(slot) || "quick4".equals(slot); }
     private boolean valid(String slot) { return quick(slot) || "live".equals(slot) || "cinema".equals(slot) || "system".equals(slot); }
     private String title(String slot) { if (quick(slot)) return "常用应用 " + slot.substring(5); return "system".equals(slot) ? "原生桌面" : "live".equals(slot) ? "直播应用" : "影视仓 / 播放器"; }
@@ -68,9 +96,10 @@ final class DestinationApps {
         for (int i = 0; i < 4; i++) { String name = label("quick" + (i + 1)); labels[i] = "位置 " + (i + 1) + " · " + (name.isEmpty() ? "待添加" : name); }
         new AlertDialog.Builder(activity).setTitle("管理首页常用应用").setItems(labels, (dialog, which) -> {
             String slot = "quick" + (which + 1);
-            new AlertDialog.Builder(activity).setTitle(title(slot)).setItems(new String[] {"选择 / 更换应用", "移除此快捷入口"}, (choice, index) -> {
+            new AlertDialog.Builder(activity).setTitle(title(slot)).setItems(new String[] {"选择 / 更换应用", "移除此快捷入口", "向前移动", "向后移动"}, (choice, index) -> {
                 if (index == 0) pick(slot, false);
-                else { preferences.edit().remove("destination_" + slot).apply(); changed.onChanged(slot); }
+                else if(index==1) { preferences.edit().putString("destination_" + slot, "").apply(); changed.onChanged(slot); }
+                else { int next=which+(index==2?-1:1);if(next>=0&&next<4){String other="quick"+(next+1),a=preferences.getString("destination_"+slot,""),b=preferences.getString("destination_"+other,"");preferences.edit().putString("destination_"+slot,b).putString("destination_"+other,a).apply();changed.onChanged(other);} }
             }).setNegativeButton("返回", (choice, index) -> shortcuts()).show();
         }).setNegativeButton("返回", null).show();
     }

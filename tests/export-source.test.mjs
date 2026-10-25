@@ -10,8 +10,9 @@ const script=fileURLToPath(new URL('../scripts/export-source.mjs',import.meta.ur
 async function fixture(t){
  const root=await mkdtemp(join(tmpdir(),'aperture-export-fixture-'));
  t.after(()=>rm(root,{recursive:true,force:true}));
- for(const name of ['.github','shared','server','public','android','examples','docs','tests','scripts','media','artifacts'])await mkdir(join(root,name));
+ for(const name of ['.github','shared','server','public','android','examples','docs','tests','scripts','media','design-assets','artifacts'])await mkdir(join(root,name));
  for(const name of ['AGENTS.md','INSTALL.md','README.md','LICENSE','THIRD_PARTY_NOTICES.md','CONTRIBUTING.md','SECURITY.md','package-lock.json','requirements.txt','.gitignore'])await writeFile(join(root,name),'Synthetic export fixture\n');
+ await writeFile(join(root,'design-assets','fixture-license.txt'),'Synthetic asset provenance fixture\n');
  await writeFile(join(root,'package.json'),JSON.stringify({version:'0.0.0-fixture'}));
  return root;
 }
@@ -29,7 +30,7 @@ test('a named snapshot is a readable source tar, and repeated export preserves i
  const root=await fixture(t),output='artifacts/review-source.tar.gz';
  const result=run(root,['--output',output]);assert.equal(result.status,0,result.stderr);
  const bytes=await readFile(join(root,output));
- const listing=spawnSync('tar',['-tzf',join(root,output)],{encoding:'utf8'});assert.equal(listing.status,0);assert.match(listing.stdout,/aperture-tv\/SOURCE-MANIFEST.json/);
+ const listing=spawnSync('tar',['-tzf',join(root,output)],{encoding:'utf8'});assert.equal(listing.status,0);assert.match(listing.stdout,/aperture-tv\/SOURCE-MANIFEST.json/);assert.match(listing.stdout,/aperture-tv\/design-assets\/fixture-license.txt/);
  const repeated=run(root,['--output',output]);assert.notEqual(repeated.status,0);assert.deepEqual(await readFile(join(root,output)),bytes);
  const outside=run(root,['--output','docs/not-an-artifact.tar.gz']);assert.notEqual(outside.status,0);
 });

@@ -1,0 +1,246 @@
+{
+  "phase": "S50 complete Node and browser software verification",
+  "verifiedAt": "2026-10-25T05:41:34.163Z",
+  "node": {
+    "command": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "tests": 77,
+    "passed": 77,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "log": "artifacts/s50-node-final.log",
+    "initialRun": {
+      "log": "artifacts/s50-node.log",
+      "tests": 77,
+      "passed": 76,
+      "failed": 1
+    },
+    "correction": {
+      "file": "tests/export-source.test.mjs",
+      "reason": "Export fixture lacked the new design-assets directory. Added synthetic asset provenance file and archive-content assertion; retained overwrite/output-boundary assertions.",
+      "focusedRetest": "artifacts/s50-export-fixture-retest.log",
+      "passed": 2
+    }
+  },
+  "browser": {
+    "baseline": "docs/verification/s47-browser-summary.json",
+    "baselineScripts": 19,
+    "baselineCovered": true,
+    "scripts": 23,
+    "runs": [
+      {
+        "script": "browser-life-qa.mjs",
+        "sourceSha256": "95e1be30e24a761456c3cb91d44b1e98f2fa41ef0d166918be46835c05423612",
+        "log": "artifacts/s50-browser-life-qa-attempt-1792906103069.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 32.1
+      },
+      {
+        "script": "browser-agent-qa.mjs",
+        "sourceSha256": "df96ba509752db154d0dee50002dd228b6b9f3b9301ce7470b96b453339e6bba",
+        "log": "artifacts/s50-browser-agent-qa-attempt-1792906135231.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 21.1
+      },
+      {
+        "script": "browser-qa.mjs",
+        "sourceSha256": "04bdbb16b74b58b7c9689c2115e05c60e6fea22e786da7ebfb6b1fa10b3ae399",
+        "log": "artifacts/s50-browser-qa-attempt-1792906103069.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 54
+      },
+      {
+        "script": "browser-native-remote-qa.mjs",
+        "sourceSha256": "b4ef788e4b2296287c66e182ebab596d41514d60cff9dd961f88e61d34bc0c6e",
+        "log": "artifacts/s50-browser-native-remote-qa-attempt-1792906157061.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 7.5
+      },
+      {
+        "script": "browser-diagnostics-qa.mjs",
+        "sourceSha256": "2d16c1716bc9323a1d989b1b8e52226cbfed2261eccdf8ff03d188b266c77b50",
+        "log": "artifacts/s50-browser-diagnostics-qa-attempt-1792906164583.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 10.4
+      },
+      {
+        "script": "browser-lite-qa.mjs",
+        "sourceSha256": "71c7559388b32f09360b3a2e2f5a146314c3522a6ce50142de095e9e4f674641",
+        "log": "artifacts/s50-browser-lite-qa-attempt-1792906156291.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 23.2
+      },
+      {
+        "script": "browser-lan-qa.mjs",
+        "sourceSha256": "70d02813d124fdf04f1e2c84677ed819258f9a784d6c40e20538539b9ee13a58",
+        "log": "artifacts/s50-browser-lan-qa-attempt-1792906175011.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 13.9
+      },
+      {
+        "script": "browser-xiaomi-qa.mjs",
+        "sourceSha256": "03138d16099b3d4f37a7e822fef4783ad09c7c9f9336dd55584da019f4f65ab7",
+        "log": "artifacts/s50-browser-xiaomi-qa-attempt-1792906188924.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 23.7
+      },
+      {
+        "script": "browser-household-proxy-qa.mjs",
+        "sourceSha256": "db19535d529a5e8437eb585daee3ba6ce90427d6a26015ca6b520eb864d67d22",
+        "log": "artifacts/s50-browser-household-proxy-qa-attempt-1792906212658.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 39.5
+      },
+      {
+        "script": "browser-home-mode-qa.mjs",
+        "sourceSha256": "e3eca453fe073a78346e7e8b11cc2a11c5342f27bd329cb4f921a886f6ffa62a",
+        "log": "artifacts/s50-browser-home-mode-qa-attempt-1792906252155.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 40
+      },
+      {
+        "script": "browser-launcher-qa.mjs",
+        "sourceSha256": "f087227bc36c1eef54991a76203acf5390f217a7fa88c7e27a2cf960526d92c1",
+        "log": "artifacts/s50-browser-launcher-qa-attempt-1792906179531.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 120.6
+      },
+      {
+        "script": "browser-installation-qa.mjs",
+        "sourceSha256": "615638f475fb8f054e9b3dc3ab6a7139e6d9778ef0cf2431c19f9e54766f2133",
+        "log": "artifacts/s50-browser-installation-qa-attempt-1792906292170.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 36.8
+      },
+      {
+        "script": "browser-nas-setup-qa.mjs",
+        "sourceSha256": "b0d694076e363e1118c5cbd609e725f9050665545f93c66e5941e11102254ddd",
+        "log": "artifacts/s50-browser-nas-setup-qa-attempt-1792906300106.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 33.1
+      },
+      {
+        "script": "browser-nas-grant-qa.mjs",
+        "sourceSha256": "bcc4df502c05742c1283d24f37b6c6eb7abae77ea458217d8f8f8e04c9866dae",
+        "log": "artifacts/s50-browser-nas-grant-qa-attempt-1792906328951.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 7
+      },
+      {
+        "script": "browser-app-management-qa.mjs",
+        "sourceSha256": "015e2ef43df6bfea8dec90b8172efb41f133ae5cddd2a6059c8f16645fbdc89e",
+        "log": "artifacts/s50-browser-app-management-qa-attempt-1792906335942.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 14.3
+      },
+      {
+        "script": "browser-cinema-pairing-qa.mjs",
+        "sourceSha256": "b6cb30d5b85d9caf945501171e0b9fc8b5af2b35a6b2a83888696bb57ec16bf0",
+        "log": "artifacts/s50-browser-cinema-pairing-qa-attempt-1792906333236.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 19.1
+      },
+      {
+        "script": "browser-cinema-qa.mjs",
+        "sourceSha256": "b76b268b3568eb71e435387b1bfa99651d1251977d4dace23b081ee3f5055d89",
+        "log": "artifacts/s50-browser-cinema-qa-attempt-1792906666159.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 63.7
+      },
+      {
+        "script": "browser-tv-viewport-qa.mjs",
+        "sourceSha256": "02d0402a9ba08d2493b15f97cc7700333ee5256aa4c0ba468d767ce3256271e1",
+        "log": "artifacts/s50-browser-tv-viewport-qa-attempt-1792906352354.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 186
+      },
+      {
+        "script": "browser-home-assistant-qa.mjs",
+        "sourceSha256": "8c10de14163a01c15f20eee8aab6c59ba931019edc68777252fd599e74b23dd2",
+        "log": "artifacts/s50-browser-home-assistant-qa-attempt-1792906666166.log",
+        "outputPathRewriteOnly": true,
+        "exitCode": 0,
+        "seconds": 34.2
+      },
+      {
+        "script": "browser-tv-controls-qa.mjs",
+        "exitCode": 0,
+        "evidence": "docs/verification/s50-tv-controls.json",
+        "checkGroups": 3,
+        "method": "Completed in preceding S50 UI work, retained evidence; not unnecessarily repeated"
+      },
+      {
+        "script": "browser-home-entries-qa.mjs",
+        "exitCode": 0,
+        "evidence": "docs/verification/s50-home-entries.json",
+        "checkGroups": 6,
+        "method": "Completed in preceding S50 UI work, retained evidence; not unnecessarily repeated"
+      },
+      {
+        "script": "browser-home-personal-qa.mjs",
+        "exitCode": 0,
+        "evidence": "docs/verification/s50-home-personal.json",
+        "checkGroups": 8,
+        "method": "Completed in preceding S50 UI work, retained evidence; not unnecessarily repeated"
+      },
+      {
+        "script": "browser-wallpaper-qa.mjs",
+        "exitCode": 0,
+        "evidence": "docs/verification/s50-wallpaper-browser.json",
+        "checkGroups": 4,
+        "method": "Completed in preceding S50 UI work, retained evidence; not unnecessarily repeated"
+      }
+    ],
+    "attempts": "docs/verification/s50-browser-regression.json",
+    "actualDecode": "Synthetic VP9 WebM and HLS decoded by Chromium; pause, seek, proxy and Back verified",
+    "firstFailure": {
+      "script": "browser-cinema-qa.mjs",
+      "reason": "ffmpeg was absent from PATH; fixture could not start",
+      "log": "artifacts/s50-browser-cinema-qa-attempt-1792906350290.log",
+      "resolution": "Reused existing isolated FFmpeg through FFMPEG_PATH. Playback assertions unchanged and rerun passed."
+    }
+  },
+  "fixtureUpdates": [
+    "Updated Launcher remote path to traverse first-screen app group before the second screen.",
+    "Updated parents settings key sequence for the existing Hub entry.",
+    "Household proxy and Xiaomi lifecycle tests explicitly navigate to the family screen before content interactions.",
+    "Home Assistant device-card selector follows the short current label 米家; selected-data and private-field exclusion assertions unchanged."
+  ],
+  "homepageAssetSha256": {
+    "public/launcher/index.html": "03e6cc2f5a94ed7c375f8dc86f904b685b9725d6790d7297652063555ec0c92c",
+    "public/launcher/launcher.js": "84ae93d44c29a3a20d0ee700006fa71d717a78209cb88f412e24d7476c6f7e3d",
+    "public/launcher/home-personal.js": "9f4b0620d61794e1cc91c3cbe3b3b22cbad92afcf362dc39c43480c381618971",
+    "public/launcher/style.css": "27a99eed78517c5b6107c7f4a939271ce1ef7f01f178d48b8fde0139f59bf832",
+    "public/launcher/app-presets.json": "ac288aef7f1b6873888de985c4c71c1fdca2930081cba13b111fac33462d2927"
+  },
+  "historicalEvidencePreserved": true,
+  "temporaryBrowserCopiesRemoved": true,
+  "passed": true,
+  "limits": {
+    "realXiaomi": false,
+    "physicalRemote": false,
+    "WorkBuddyApplication": false,
+    "nativeMediaPlayerExecutedByThisReport": false,
+    "OEMHotword": false,
+    "realNasHardware": false,
+    "pluginEngineCoverage": "Separately reported by native plugin verification; not claimed by Chromium checks"
+  }
+}

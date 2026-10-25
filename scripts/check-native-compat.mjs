@@ -11,7 +11,7 @@ const sdkJar=process.env.APERTURE_CHECK_ANDROID_JAR||join(process.env.ANDROID_HO
 const run=(file,args)=>{const r=spawnSync(file,args,{encoding:'utf8'});if(r.status!==0)throw new Error((r.stderr||r.stdout||'failed').trim());return r.stdout;};
 try{
  const dependencies=await nasClasspath();
- const source=join(root,'android/app/src/main/java/org/zhixiaoce/aperture'),files=(await readdir(source)).filter(f=>f.endsWith('.java')).map(f=>join(source,f));
+ const source=join(root,'android/app/src/main/java'),files=(await readdir(source,{recursive:true})).filter(f=>f.endsWith('.java')).map(f=>join(source,f));
  await mkdir(join(directory,'classes'));
  for(const parents of [false,true]){
   const config=join(directory,'BuildConfig.java');await writeFile(config,'package org.zhixiaoce.aperture;final class BuildConfig {static final boolean DEBUG=true;static final boolean PARENTS_EDITION='+parents+';}');
