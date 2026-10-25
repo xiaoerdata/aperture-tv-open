@@ -1,0 +1,39 @@
+{
+  "stage": "S51",
+  "sourceVersion": "0.2.0-alpha.15",
+  "androidVersionCode": 18,
+  "status": "targeted development checks passed",
+  "nodeTests": {
+    "appOperations": 8,
+    "cinemaIncludingVariety": 7,
+    "localAgentIncludingResourceMcp": 6,
+    "resourcePackSchemaCliAndProductionParser": 3,
+    "resourcePackAgentGrant": 3,
+    "legacyEmbeddedCinema": 1
+  },
+  "productionJavaResourceAssertions": 44,
+  "browserReports": [
+    "s51-home-entries.json",
+    "s51-agent-browser.json",
+    "s51-variety-player.json"
+  ],
+  "apiReport": "s51-native-api.json",
+  "nativeResourcePackActivityExecuted": false,
+  "mcpSaveReceiptIsSynthetic": true,
+  "apkBuilt": false,
+  "published": false,
+  "xiaomiTested": false,
+  "workBuddyClientTested": false,
+  "processPrompt": "P48",
+  "documentationLinks": {
+    "documents": 7,
+    "localFileLinksChecked": 107,
+    "missing": []
+  },
+  "newToolDependencyLicenses": {
+    "ajv@8.17.1": "MIT",
+    "ajv-formats@3.0.1": "MIT"
+  },
+  "finalNativeSourceHashesMatchApiCheck": true,
+  "privateWorktreeHeadUnchanged": true
+}

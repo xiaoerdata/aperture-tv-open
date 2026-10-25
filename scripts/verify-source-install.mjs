@@ -77,16 +77,16 @@ try{
  phase='browser routes';browser=await launchBrowser();
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
  page.on('pageerror',error=>errors.push(error.message));
- await page.goto(origin+'/guide');assert.match(await page.locator('.hero-caption').innerText(),/仅适配小米电视/);
+ phase='browser guide';await page.goto(origin+'/guide');assert.match(await page.locator('.hero-caption').innerText(),/仅适配小米电视/);
  for(const edition of ['standard','parents']){
-  await page.goto(origin+'/home?demo=1'+(edition==='parents'?'&edition=parents':''));
+  phase='browser home '+edition;await page.goto(origin+'/home?demo=1'+(edition==='parents'?'&edition=parents':''));
   await page.waitForFunction(()=>typeof window.apertureRemoteKey==='function');
   assert.equal(await page.locator('#lobby').isVisible(),true);
   await page.locator('#settings-open').click();assert.equal(await page.locator('[data-action=install-apps]').isVisible(),true);
   await page.evaluate(()=>window.apertureRemoteKey('Escape'));assert.equal(await page.evaluate(()=>document.activeElement.id),'settings-open');
  }
- await page.goto(origin+'/tv?demo=1');await page.waitForFunction(()=>document.querySelector('#connection-status').textContent.includes('演示'));
- await page.goto(origin+'/tv-lite?demo=1');await page.waitForFunction(()=>document.querySelector('#connection-status').textContent.includes('合成示例'));
+ phase='browser full family screen';await page.goto(origin+'/tv?demo=1');await page.waitForFunction(()=>document.querySelector('#connection-status').textContent.includes('演示'));
+ phase='browser lite family screen';await page.goto(origin+'/tv-lite?demo=1');await page.waitForFunction(()=>document.querySelector('#connection-status').textContent.includes('合成示例'));
  assert.deepEqual(errors,[]);report.browserErrors=errors;
  report.routes=['/guide','/home?demo=1','/home?edition=parents&demo=1','/tv?demo=1','/tv-lite?demo=1'];
  phase='default access boundaries';

@@ -14,13 +14,13 @@ test('production native cinema parser and HTTP client interoperate with an isola
   try{
     const cp=(await nasClasspath())+':'+await nasTestJson();
     const source='android/app/src/main/java/org/zhixiaoce/aperture/';
-    await run(join(jdk,'bin/javac'),['-cp',cp,'-d',directory,source+'CinemaCatalog.java',source+'CinemaFormats.java',source+'CinemaShelf.java',source+'AppPresets.java',source+'CinemaHttp.java',source+'CinemaCipher.java','tests/java/EmbeddedCinemaTest.java','tests/java/HomeCinemaStateTest.java']);
+    await run(join(jdk,'bin/javac'),['-cp',cp,'-d',directory,source+'CinemaCatalog.java',source+'CinemaResourcePack.java',source+'CinemaFormats.java',source+'CinemaShelf.java',source+'AppPresets.java',source+'CinemaHttp.java',source+'CinemaCipher.java','tests/java/EmbeddedCinemaTest.java','tests/java/HomeCinemaStateTest.java']);
     const {stdout}=await run(join(jdk,'bin/java'),['-cp',directory+':'+cp,'org.zhixiaoce.aperture.EmbeddedCinemaTest'],{timeout:30000});
     assert.match(stdout,/assertions passed/);
     const state=await run(join(jdk,'bin/java'),['-cp',directory+':'+cp,'org.zhixiaoce.aperture.HomeCinemaStateTest', 'public/launcher/app-presets.json']);
     assert.match(state.stdout,/assertions passed/);console.log(state.stdout.trim());
     await mkdir('docs/verification',{recursive:true});
-    await writeFile('docs/verification/s50-embedded-cinema.json',JSON.stringify({productionJavaParser:true,productionOkHttpClient:true,isolatedLocalHttpFixtures:true,androidActivitiesExecuted:false,androidKeyStoreTested:false,mediaDecoded:false,xiaomiTested:false,output:stdout.trim(),state:state.stdout.trim()},null,2)+'\n');
+    await writeFile('docs/verification/s51-embedded-cinema.json',JSON.stringify({productionJavaParser:true,productionOkHttpClient:true,isolatedLocalHttpFixtures:true,androidActivitiesExecuted:false,androidKeyStoreTested:false,mediaDecoded:false,xiaomiTested:false,output:stdout.trim(),state:state.stdout.trim()},null,2)+'\n');
     console.log(stdout.trim());
   }finally{await rm(directory,{recursive:true,force:true});}
 });

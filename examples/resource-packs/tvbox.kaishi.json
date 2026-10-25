@@ -1,0 +1,32 @@
+{
+  "format": "kaishi.resource-pack",
+  "version": 1,
+  "id": "org.example.tvbox",
+  "revision": 1,
+  "title": "TVBox兼容示例",
+  "resources": [
+    {
+      "id": "legacy",
+      "type": "tvbox",
+      "title": "已有来源",
+      "config": {
+        "sites": [
+          {
+            "key": "example",
+            "name": "示例站",
+            "type": 1,
+            "api": "https://catalog.example.invalid/api.php/provide/vod/"
+          }
+        ]
+      },
+      "sections": [
+        "variety"
+      ],
+      "categoryIds": {
+        "variety": [
+          "3"
+        ]
+      }
+    }
+  ]
+}

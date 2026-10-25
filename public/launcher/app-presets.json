@@ -1,14 +1,114 @@
 [
- {"id":"bilibili","name":"哔哩哔哩","tvName":"云视听小电视","mark":"bilibili","color":"#00a9d6","packages":["com.xiaodianshi.tv.yst","com.bilibili.tv"]},
- {"id":"tencent","name":"腾讯视频","tvName":"云视听极光","mark":"腾讯视频","color":"#14af80","packages":["com.ktcp.video"]},
- {"id":"iqiyi","name":"爱奇艺","tvName":"银河奇异果","mark":"iQIYI","color":"#15bb53","packages":["com.gitvdemo.video","com.gitvvideo"]},
- {"id":"youku","name":"优酷","tvName":"酷喵","mark":"YOUKU","color":"#068cc2","packages":["com.cibn.tv","com.youku.tv"]},
- {"id":"mango","name":"芒果 TV","tvName":"芒果 TV","mark":"芒果TV","color":"#df741a","packages":["com.hunantv.imgo.activity.inter","com.mgtv.tv"]},
- {"id":"migu","name":"咪咕视频","tvName":"咪视界","mark":"咪咕","color":"#b247a9","packages":["com.cmcc.miguvideotv"]},
- {"id":"netflix","name":"Netflix","tvName":"Netflix","mark":"N","color":"#c51628","packages":["com.netflix.ninja"]},
- {"id":"appletv","name":"Apple TV","tvName":"Apple TV","mark":"tv+","color":"#3d4650","packages":["com.apple.atve.androidtv.appletv"]},
- {"id":"youtube","name":"YouTube","tvName":"YouTube","mark":"YouTube","color":"#b9232f","packages":["com.google.android.youtube.tv"]},
- {"id":"disney","name":"Disney+","tvName":"Disney+","mark":"Disney+","color":"#224d99","packages":["com.disney.disneyplus"]},
- {"id":"plex","name":"Plex","tvName":"Plex","mark":"plex","color":"#916e17","packages":["com.plexapp.android"]},
- {"id":"kodi","name":"Kodi","tvName":"Kodi","mark":"KODI","color":"#247c9c","packages":["org.xbmc.kodi"]}
+  {
+    "id": "bilibili",
+    "name": "哔哩哔哩",
+    "tvName": "云视听小电视",
+    "packages": [
+      "com.xiaodianshi.tv.yst",
+      "com.bilibili.tv"
+    ],
+    "icon": "app-icons/bilibili.jpg"
+  },
+  {
+    "id": "tencent",
+    "name": "腾讯视频",
+    "tvName": "云视听极光",
+    "packages": [
+      "com.ktcp.video"
+    ],
+    "icon": "app-icons/tencent.png"
+  },
+  {
+    "id": "iqiyi",
+    "name": "爱奇艺",
+    "tvName": "银河奇异果",
+    "packages": [
+      "com.gitvdemo.video",
+      "com.gitvvideo"
+    ],
+    "icon": "app-icons/iqiyi.png"
+  },
+  {
+    "id": "youku",
+    "name": "优酷",
+    "tvName": "酷喵",
+    "packages": [
+      "com.cibn.tv",
+      "com.youku.tv"
+    ],
+    "icon": "app-icons/youku.png"
+  },
+  {
+    "id": "mango",
+    "name": "芒果 TV",
+    "tvName": "芒果 TV",
+    "packages": [
+      "com.hunantv.imgo.activity.inter",
+      "com.mgtv.tv"
+    ],
+    "icon": "app-icons/mango.png"
+  },
+  {
+    "id": "migu",
+    "name": "咪咕视频",
+    "tvName": "咪视界",
+    "packages": [
+      "com.cmcc.miguvideotv"
+    ],
+    "icon": "app-icons/migu.jpg"
+  },
+  {
+    "id": "netflix",
+    "name": "Netflix",
+    "tvName": "Netflix",
+    "packages": [
+      "com.netflix.ninja"
+    ],
+    "icon": "app-icons/netflix.jpg"
+  },
+  {
+    "id": "appletv",
+    "name": "Apple TV",
+    "tvName": "Apple TV",
+    "packages": [
+      "com.apple.atve.androidtv.appletv"
+    ],
+    "icon": "app-icons/appletv.png"
+  },
+  {
+    "id": "youtube",
+    "name": "YouTube",
+    "tvName": "YouTube",
+    "packages": [
+      "com.google.android.youtube.tv"
+    ],
+    "icon": "app-icons/youtube.png"
+  },
+  {
+    "id": "disney",
+    "name": "Disney+",
+    "tvName": "Disney+",
+    "packages": [
+      "com.disney.disneyplus"
+    ],
+    "icon": "app-icons/disney.png"
+  },
+  {
+    "id": "plex",
+    "name": "Plex",
+    "tvName": "Plex",
+    "packages": [
+      "com.plexapp.android"
+    ],
+    "icon": "app-icons/plex.png"
+  },
+  {
+    "id": "kodi",
+    "name": "Kodi",
+    "tvName": "Kodi",
+    "packages": [
+      "org.xbmc.kodi"
+    ],
+    "icon": "app-icons/kodi.png"
+  }
 ]

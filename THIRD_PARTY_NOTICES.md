@@ -55,7 +55,7 @@ CC0: https://creativecommons.org/publicdomain/zero/1.0/ . Japan option is labell
 
 ## S49应用名称与生成素材
 
-哔哩哔哩、腾讯视频、爱奇艺、优酷、芒果TV、咪咕、Netflix、Apple TV、YouTube、Disney+、Plex、Kodi及对应标志属于各自权利人。目录只用于识别本机应用/提供建议，不表示合作、官方认证或内容订阅授权。随包不复制这些应用的正式logo；原生运行时从用户已安装软件读取图标，缺失时显示文字占位。
+哔哩哔哩、腾讯视频、爱奇艺、优酷、芒果TV、咪咕、Netflix、Apple TV、YouTube、Disney+、Plex、Kodi及对应标志属于各自权利人。目录只用于识别本机应用/提供建议，不表示合作、官方认证或内容订阅授权。S49仅从已安装软件读取图标并使用文字占位；S52已移除文字占位，改用下列随包品牌素材。
 
 暮色湖面、玻璃档案和玻璃燕子由内置imagegen工具按项目提示词生成，见[原图与提示词](design-assets/s49/README.md)。它们不是CC0摄影，不冒用现有四张风景摄影的署名。项目LICENSE适用于项目可授权部分，不作排他版权保证。
 
@@ -68,3 +68,22 @@ CC0: https://creativecommons.org/publicdomain/zero/1.0/ . Japan option is labell
 完整许可、实际版本、原始来源与许可 SHA-256 放在 `android/third-party/plugins/`，随离线资源进入 APK；其中 `dependencies.json` 记录 Python target 带入的 OpenSSL、libffi、bzip2、liblzma 和 SQLite。未修改的 certifi 证书源可从对应版本 PyPI 源分发包取得：https://pypi.org/project/certifi/2026.10.23/#files 。Python target 构建配方与依赖源出处：https://github.com/chaquo/chaquopy/blob/16.1.0/target/python/build.sh 。Java 构建依赖 error_prone_annotations 2.27.0 沿用 Apache-2.0（与 Gson 同许可文本），上游 https://github.com/google/error-prone/tree/v2.27.0 。
 
 用户另行配置的 JAR、JS、Python、规则、媒体与账号不属于开视发行物，继续适用其原许可证、版权和服务条款。提供兼容入口不表示获得第三方内容授权或官方合作认证。
+
+
+## 资源文件校验工具
+
+Ajv 8.17.1 与 ajv-formats 3.0.1 均为MIT许可，作为开发与资源包制作工具的直接依赖，版本锁定于package-lock.json。安装依赖保留各自完整LICENSE；没有将其打入Android APK，不能把依赖许可改标为自有代码。JSON Schema及本项目资源包解析、制作脚本为独立实现。
+
+
+## S52 · 应用品牌图标
+
+随包的12项品牌图片来自应用官网、官方CDN、官方源码仓库，或经过发布者名称核对的官方App Store页面。文件保持下载原字节，没有重绘、改色或生成仿制商标。完整出处、下载时间、尺寸和SHA-256见[素材清单](design-assets/app-logos/manifest.json)，选用说明见[品牌素材说明](design-assets/app-logos/README.md)。
+
+这些品牌图片与商标属于各自权利人，**不适用本项目MIT许可证**，也不因其可公开下载而转为公共领域。仅用于识别应用和展示安装建议，不表示合作、认可、官方分发身份或内容授权。再分发及其他使用应遵循对应权利人的品牌政策；本项目不授予第三方商标权。
+
+`public/launcher/app-icons/application.svg`为项目原创的通用应用图形，适用项目MIT。电视读取到的已安装应用图标只在本机使用；目录里的服务品牌图片不能证明装有对应的电视版应用。
+
+
+## S53 · 开视新标识
+
+应用图标使用内置生图工具按项目提示词生成，原图、提示词和派生尺寸在[素材记录](design-assets/s53/README.md)。应用图标不含生成文字，TV横幅中的“开视/爸妈版”为Noto Sans CJK排版栅格，不新增字体文件。可授权部分沿用项目MIT；不声明第三方认证或排他商标权。

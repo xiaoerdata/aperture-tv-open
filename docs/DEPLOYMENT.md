@@ -84,3 +84,53 @@ proxy_pass http://127.0.0.1:4318;
 如果公网代理隐藏源地址并不传任何头，后端看到的回环来源无法证明家庭局域网。因此必须同时落实入口限制与可信源转发。IP绑定不等于设备身份；NAT共享、DHCP更换、VPN变化都要结合令牌策略。当前未在真实家庭网络与TLS代理上现场验收。
 
 反代SSE需关闭响应缓冲，并允许持续连接。应用仍按socket来源限流；不要将可信来源解析误称为已完成分布式限流。
+
+
+## S53 · 关闭终端后继续运行
+
+提供[systemd用户单元](../deploy/systemd/kaishi.service.in)和[macOS LaunchAgent模板](../deploy/launchd/org.zhixiaoce.kaishi.plist.in)。先安装依赖，并创建仅自己可读的环境文件，例如`/private/kaishi.env`（Linux请换成自己的目录）：
+
+```text
+HOST=0.0.0.0
+PORT=4318
+PUBLIC_ORIGIN=http://192.168.1.50:4318
+APERTURE_DATA=/absolute/private/kaishi-data
+APERTURE_LOCAL_AUTOMATION=1
+```
+
+`chmod 600 /private/kaishi.env`；地址与数据目录换成实际值，目录中的口令和凭证不放进仓库。HTTPS部署按上文代理配置。局域网HTTP配对用[WorkBuddy开发选项](WORKBUDDY.md#s53--局域网-http-内测配对)。Node须22+；只运行一个进程指向该数据目录。
+
+Linux先生成并检查（不启动）：
+
+```bash
+python3 scripts/service-config.py --platform systemd --env-file /private/kaishi.env --output ~/.config/systemd/user/kaishi.service
+systemctl --user daemon-reload
+systemctl --user enable --now kaishi.service
+systemctl --user status kaishi.service
+journalctl --user -u kaishi.service -n 80
+```
+
+停止：`systemctl --user disable --now kaishi.service`。关闭终端不结束服务；如需退出登录后继续运行，另外由管理员按机器策略启用该用户的linger。程序退出后按失败状态重启，不用root运行家庭服务。模板固定Node绝对路径，NVM升级后需更新并重新加载单元。
+
+macOS先生成并检查：
+
+```bash
+python3 scripts/service-config.py --platform launchd --env-file /private/kaishi.env --output ~/Library/LaunchAgents/org.zhixiaoce.kaishi.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/org.zhixiaoce.kaishi.plist
+launchctl print gui/$(id -u)/org.zhixiaoce.kaishi
+```
+
+停止：`launchctl bootout gui/$(id -u)/org.zhixiaoce.kaishi`。它是登录用户的LaunchAgent，关闭终端不停止，退出登录会停止，不宣称登录前也常驻。日志在生成文件旁的`logs/`中。生成器也支持显式`--install`，仅在对应系统和用户默认目标路径安装；默认只生成，不自动启用或覆盖旧文件。本机验证了两种文件生成，未在macOS实际加载LaunchAgent，也未修改开发机服务管理器。
+
+## 电视休眠与维护
+
+部分小米固件进入休眠后关闭ADB端口，即使仍能PING通也无法连接。开视不修改原系统电源策略、不后台常驻麦克风，也不以重启或反复ADB重连代替唤醒。优先用原遥控器、小爱同学或米家唤醒，再检查电视的调试授权和实际端口。
+
+如果该机型支持有线网络待机唤醒，可在自己的家庭网络发送WoL包：
+
+```bash
+node scripts/wake-tv.mjs --mac 02:11:22:33:44:55 --broadcast 192.168.1.255 --dry-run
+node scripts/wake-tv.mjs --mac 02:11:22:33:44:55 --broadcast 192.168.1.255
+```
+
+MAC和广播地址必须换成自己的实际值，示例不指向测试电视。`--dry-run`仅校验、不发包；不加才向指定私网发送102字节UDP包。需在原系统确认网络待机/WoL支持，Wi-Fi或深度休眠可能不支持；包发出不等于唤醒成功，更不等于ADB已恢复。小米各机型的休眠唤醒由维护者真机验收，未承诺通用兼容。

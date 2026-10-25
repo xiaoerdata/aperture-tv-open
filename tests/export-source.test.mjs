@@ -10,7 +10,7 @@ const script=fileURLToPath(new URL('../scripts/export-source.mjs',import.meta.ur
 async function fixture(t){
  const root=await mkdtemp(join(tmpdir(),'aperture-export-fixture-'));
  t.after(()=>rm(root,{recursive:true,force:true}));
- for(const name of ['.github','shared','server','public','android','examples','docs','tests','scripts','media','design-assets','artifacts'])await mkdir(join(root,name));
+ for(const name of ['.github','shared','server','public','android','examples','docs','tests','scripts','media','design-assets','deploy','artifacts'])await mkdir(join(root,name));
  for(const name of ['AGENTS.md','INSTALL.md','README.md','LICENSE','THIRD_PARTY_NOTICES.md','CONTRIBUTING.md','SECURITY.md','package-lock.json','requirements.txt','.gitignore'])await writeFile(join(root,name),'Synthetic export fixture\n');
  await writeFile(join(root,'design-assets','fixture-license.txt'),'Synthetic asset provenance fixture\n');
  await writeFile(join(root,'package.json'),JSON.stringify({version:'0.0.0-fixture'}));

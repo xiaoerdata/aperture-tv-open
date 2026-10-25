@@ -24,8 +24,11 @@ final class CinemaVault {
         String value=preferences.getString("config","");if(value.isEmpty())return new CinemaCatalog.Config(false);
         return CinemaCatalog.config(CinemaCipher.decrypt(value,key()),null,preferences.getBoolean("http",false));
     }
-    void save(CinemaCatalog.Config config) throws Exception {
-        String encrypted=CinemaCipher.encrypt(config.json(),key());if(!preferences.edit().putString("config",encrypted).putBoolean("http",config.allowHttp).commit())throw new java.io.IOException("来源保存失败");
+    void save(CinemaCatalog.Config config) throws Exception {importConfig(config);}
+    boolean importConfig(CinemaCatalog.Config config) throws Exception {
+        synchronized(SHELF_LOCK){CinemaCatalog.Config current;try{current=read();}catch(Exception unreadable){current=new CinemaCatalog.Config(false);}if(!CinemaResourcePack.shouldApply(current,config))return false;
+        String encrypted=CinemaCipher.encrypt(config.json(),key());if(!preferences.edit().putString("config",encrypted).putBoolean("http",config.allowHttp).commit())throw new java.io.IOException("来源保存失败");return true;
+        }
     }
     private CinemaShelfStore shelfStore(){return new CinemaShelfStore(SHELF_LOCK,new CinemaShelfStore.Storage(){
         public String read()throws Exception{String value=preferences.getString("shelf","");return value.isEmpty()?"[]":CinemaCipher.decrypt(value,key());}

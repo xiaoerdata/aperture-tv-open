@@ -57,11 +57,11 @@ public final class AppAgentActivity extends Activity {
     }
     private TextView label(LinearLayout parent,String text,int size){TextView view=new TextView(this);view.setText(text);view.setTextColor(Color.WHITE);view.setTextSize(size);view.setPadding(0,12,0,16);parent.addView(view);return view;}
     private boolean userApp(String pkg){
-        if(pkg==null||pkg.equals("org.zhixiaoce.aperture")||pkg.equals("org.zhixiaoce.aperture.parents"))return false;
+        if(pkg==null||pkg.equals("org.zhixiaoce.aperture")||(pkg.equals("org.zhixiaoce.aperture.parents")||pkg.equals("org.zhixiaoce.kaishi")||pkg.equals("org.zhixiaoce.kaishi.parents")))return false;
         try{ApplicationInfo info=getPackageManager().getApplicationInfo(pkg,0);return info.enabled&&(info.flags&(ApplicationInfo.FLAG_SYSTEM|ApplicationInfo.FLAG_UPDATED_SYSTEM_APP))==0;}catch(PackageManager.NameNotFoundException absent){return false;}
     }
     private boolean installable(String pkg){
-        if(pkg.equals("org.zhixiaoce.aperture")||pkg.equals("org.zhixiaoce.aperture.parents"))return false;
+        if(pkg.equals("org.zhixiaoce.aperture")||(pkg.equals("org.zhixiaoce.aperture.parents")||pkg.equals("org.zhixiaoce.kaishi")||pkg.equals("org.zhixiaoce.kaishi.parents")))return false;
         try{ApplicationInfo info=getPackageManager().getApplicationInfo(pkg,0);return (info.flags&(ApplicationInfo.FLAG_SYSTEM|ApplicationInfo.FLAG_UPDATED_SYSTEM_APP))==0;}catch(PackageManager.NameNotFoundException absent){return true;}
     }
     private JSONArray offered()throws Exception{

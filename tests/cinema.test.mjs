@@ -51,3 +51,11 @@ test('Jellyfin fixture scopes listing to configured user/library and keeps token
  const f=await fixture(t,{config:{sources:[{id:'nas',type:'jellyfin',name:'家庭 NAS',url:`http://127.0.0.1:${remote.address().port}`,tokenEnv:'APERTURE_TEST_JELLYFIN_TOKEN',userId:'abc',libraryId:'def'}],allowedOrigins:[]}});await f.enable(true,0,['nas']);const list=await f.request('/api/cinema/library',undefined,f.owner);assert.equal(checked,true);assert.equal(list.data.items.length,1);assert.ok(!JSON.stringify(list).includes('synthetic-jellyfin-test-token'));assert.equal((await f.request('/api/cinema/play/'+list.data.items[0].id,undefined,f.owner)).raw,'JELLYFIN-VIDEO');
 });
 test('range boundaries reject multiple or malformed ranges, support suffix and open end',()=>{assert.deepEqual(parseRange('bytes=-3',10),{start:7,end:9,status:206});assert.deepEqual(parseRange('bytes=7-',10),{start:7,end:9,status:206});for(const r of ['bytes=1-2,3-4','bytes=-0','bytes=5-2','bytes=NaN-','bytes=-'])assert.equal(parseRange(r,10),null);});
+
+
+test('variety classification persists for shared folders and M3U video lists',async t=>{
+ const f=await fixture(t,{upstream:'https://media.example'});const settings={enabled:true,sourceIds:['family'],sourceKinds:{family:'variety'},execution:{key:'variety-settings',revision:0}};assert.equal((await f.request('/api/cinema/settings',settings,f.owner)).status,200);
+ let library=(await f.request('/api/cinema/library',undefined,f.owner)).data;assert.equal(library.items[0].viewKind,'variety');
+ assert.equal(parsePlaylist('#EXTM3U\n#EXTINF:-1 group-title="综艺",家庭舞台\nhttps://media.example/show.mp4',['https://media.example'])[0].viewKind,'variety');
+ const input={playlist:'#EXTM3U\n#EXTINF:-1 group-title="综艺",家庭舞台\nhttps://media.example/show.mp4',execution:{key:'variety-list',revision:1}};assert.equal((await f.request('/api/cinema/playlist',input,f.owner)).status,200);library=(await f.request('/api/cinema/library',undefined,f.owner)).data;const show=library.items.find(i=>i.name==='家庭舞台');assert.equal(show.kind,'video');assert.equal(show.viewKind,'variety');
+});

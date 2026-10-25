@@ -16,7 +16,8 @@ public final class HouseholdProxyHarness {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8)); String line;
         while ((line = input.readLine()) != null) {
             String[] parts = line.split(" "); String id = parts[0], command = parts[1];
-            if ("SET".equals(command)) { if (current != null) current.close(); current = new HouseholdProxy(decode(parts[2]), decode(parts[3]), Boolean.parseBoolean(parts[4])); send(id + " OK"); }
+            if ("ORIGIN".equals(command)) { send(id + " " + (HouseholdProxy.allowedOrigin(decode(parts[2]), Boolean.parseBoolean(parts[3])) ? 1 : 0)); }
+            else if ("SET".equals(command)) { if (current != null) current.close(); current = new HouseholdProxy(decode(parts[2]), decode(parts[3]), Boolean.parseBoolean(parts[4])); send(id + " OK"); }
             else if ("ACTIVE".equals(command)) { current.active(Boolean.parseBoolean(parts[2])); send(id + " OK"); }
             else if ("CLOSE".equals(command)) { current.close(); send(id + " OK"); }
             else if ("GET".equals(command)) { HouseholdProxy target = current; workers.execute(() -> {

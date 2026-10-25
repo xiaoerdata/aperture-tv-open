@@ -4,7 +4,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {launchBrowser} from './browser.mjs';
 const base='https://appassets.androidplatform.net';
-const names=['art/dusk-lake-v1.webp','art/dusk-lake-thumb-v1.webp','art/memory-archive-v1.webp','art/glass-swallow-v1.webp','index.html','launcher.js','home-personal.js','app-presets.json','style.css','carezza-4k.jpg','namib-4k.jpg','fuji-4k.jpg','lofoten-4k.jpg','namib-thumb.jpg','fuji-thumb.jpg','lofoten-thumb.jpg','fonts/clock-reader.woff2','fonts/aperture-song.woff2'];
+const names=['brand/kaishi-icon-v2.webp','art/dusk-lake-v1.webp','art/dusk-lake-thumb-v1.webp','art/memory-archive-v1.webp','art/glass-swallow-v1.webp','index.html','launcher.js','home-personal.js','app-presets.json','style.css','carezza-4k.jpg','namib-4k.jpg','fuji-4k.jpg','lofoten-4k.jpg','namib-thumb.jpg','fuji-thumb.jpg','lofoten-thumb.jpg','fonts/clock-reader.woff2','fonts/aperture-song.woff2'];
 const files=new Map(await Promise.all(names.map(async n=>[n,await readFile(resolve('public/launcher',n))])));
 const mime=n=>n.endsWith('.webp')?'image/webp':n.endsWith('.js')?'text/javascript':n.endsWith('.json')?'application/json':n.endsWith('.html')?'text/html':n.endsWith('.css')?'text/css':n.endsWith('.woff2')?'font/woff2':'image/jpeg';
 const browser=await launchBrowser(),errors=[],checks=[],images=[];

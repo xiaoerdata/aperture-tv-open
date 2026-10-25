@@ -1,0 +1,56 @@
+{
+  "generator": "built-in image_gen",
+  "selectedPrompt": "PROMPT-v2.txt",
+  "rejectedPrompt": "PROMPT-v1-rejected.txt",
+  "recordedAt": "2026-10-25T13:29:40.539884+00:00",
+  "assets": [
+    {
+      "file": "design-assets/s53/kaishi-icon-master-v1.png",
+      "selected": false,
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1893855,
+      "sha256": "e2785525215348a4bf5f75329055e0de8e52ff68b3d0492e3327980382ea84e6"
+    },
+    {
+      "file": "design-assets/s53/kaishi-icon-master-v2.png",
+      "selected": true,
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1130680,
+      "sha256": "ac98dc0bec855abbac27dda34cf8d95c4a4cb418479e58903bbcaa4545933cfe"
+    },
+    {
+      "file": "android/app/src/main/res/drawable-nodpi/kaishi_icon_v2.png",
+      "selected": true,
+      "width": 512,
+      "height": 512,
+      "bytes": 174262,
+      "sha256": "90e63e4de1c6aa18d5ce59f21ebf8aa59299a5ef1cc6a4cf6a8a4347c251f43e"
+    },
+    {
+      "file": "public/launcher/brand/kaishi-icon-v2.webp",
+      "selected": true,
+      "width": 192,
+      "height": 192,
+      "bytes": 1090,
+      "sha256": "ddf8249f8f66eee02f5edb50a927bbe5de49eecd02a2cb29d047e928be113e7f"
+    },
+    {
+      "file": "android/app/src/main/res/drawable-nodpi/kaishi_banner_v2.png",
+      "selected": true,
+      "width": 640,
+      "height": 360,
+      "bytes": 57174,
+      "sha256": "2f382a514db670d046e98a46aa843b161c3697e3f95adc337141ed5e5af6f2f8"
+    },
+    {
+      "file": "android/app/src/parents/res/drawable-nodpi/kaishi_banner_v2.png",
+      "selected": true,
+      "width": 640,
+      "height": 360,
+      "bytes": 61011,
+      "sha256": "473fc03867eeb0a49ab818cd9123e2cef06566ad1c0b55c540e354582080201a"
+    }
+  ]
+}

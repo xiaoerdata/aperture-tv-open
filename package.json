@@ -1,6 +1,6 @@
 {
   "name": "aperture-tv",
-  "version": "0.2.0-alpha.14",
+  "version": "0.2.0-alpha.15",
   "private": true,
   "description": "开视 · 小米电视家庭中枢",
   "type": "module",
@@ -31,7 +31,8 @@
     "qa:xiaomi": "node scripts/browser-xiaomi-qa.mjs",
     "check:native": "node scripts/check-native-compat.mjs",
     "qa:household": "node scripts/browser-household-proxy-qa.mjs",
-    "test:nas": "node --test tests/nas-protocol.test.mjs tests/nas-library.test.mjs"
+    "test:nas": "node --test tests/nas-protocol.test.mjs tests/nas-library.test.mjs",
+    "resources": "node scripts/resource-pack.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",
@@ -39,6 +40,8 @@
     "qrcode": "1.5.4"
   },
   "devDependencies": {
-    "acorn": "8.15.0"
+    "acorn": "8.15.0",
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
   }
 }

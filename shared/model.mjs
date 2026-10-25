@@ -1,3 +1,4 @@
+import {entryRequired} from './entry-contract.mjs';
 export const SCENES = ['daylight', 'gallery', 'landscape'];
 export const VERSION = 'aperture-board/v1';
 export class DomainError extends Error {
@@ -13,7 +14,11 @@ export function validDate(value) {
   return value;
 }
 export function normalizeEntry(input) {
-  if (!input || typeof input !== 'object') fail('内容无效');
+  if (!input || typeof input !== 'object' || Array.isArray(input)) fail('内容无效');
+  const required=entryRequired[input.type];
+  if(!required)fail('不支持的内容类型');
+  const missing=required.filter(key=>input[key]===undefined||input[key]===null||(typeof input[key]==='string'&&!input[key].trim()));
+  if(missing.length)fail('缺少字段：'+missing.join('、'),400,'missing_fields');
   const base = {type: input.type, title: text(input.title, 48, '标题')};
   if (input.type === 'note') return {...base, body: text(input.body, 180, '留言'), author: text(input.author, 16, '署名'), pinned: input.pinned === true};
   if (input.type === 'event') {
@@ -22,7 +27,7 @@ export function normalizeEntry(input) {
     return {...base, date: input.date, time: input.time, person: text(input.person, 16, '成员'), done: input.done === true};
   }
   if (input.type === 'metric') {
-    const value = Number(input.value), target = Number(input.target);
+    const value = input.value, target = input.target;
     if (!Number.isFinite(value) || value < 0 || !Number.isFinite(target) || target <= 0 || target > 1e9 || value > 1e9) fail('数据需为0到10亿以内的数值，目标需大于0');
     return {...base, value, target, unit: text(input.unit, 8, '单位'), source: text(input.source, 40, '来源'), date: validDate(input.date)};
   }

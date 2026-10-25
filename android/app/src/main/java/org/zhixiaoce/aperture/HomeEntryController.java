@@ -44,6 +44,7 @@ final class HomeEntryController {
     private void systemSettings() {
         try { activity.startActivity(new Intent(Settings.ACTION_HOME_SETTINGS)); }
         catch (RuntimeException error) {
+            try { activity.startActivity(new Intent(Settings.ACTION_SETTINGS)); return; } catch (RuntimeException unavailable) {}
             new AlertDialog.Builder(activity).setMessage("当前固件未提供桌面选择页面。请用遥控器进入原系统设置；开视仍可从应用列表打开。")
                 .setPositiveButton("知道了", null).show();
         }

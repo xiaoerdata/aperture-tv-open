@@ -42,3 +42,17 @@
 这些是源码与浏览器验证，不能代替小米硬件、原生图标、实际遥控、旧WebView性能或爸妈用户可读性验收。安装包版本与发行状态以[安装说明](../README.md)和Release记录为准。
 
 S48/S49截图和报告保留为历史阶段证据，不被当前运行覆盖：[S48布局](verification/s48-tv-viewport.json)、[S48遥控](verification/s48-tv-controls.json)、[S49个性化](verification/s49-home-personal.json)。过程记录见[JOURNAL](process/JOURNAL.md)。
+
+
+## S51 · 下一版综艺入口
+
+v18源码中，标准版首屏和爸妈版均增加“看综艺”。爸妈版改为四个观看入口一行，常用应用保持较小的一行；标准版仍保留风景、摘要和折叠应用，四个观看入口沿原行展开。方向键依次选择电视、电视剧、电影、综艺，向下进入常用应用。新布局见[标准版](images/s51-home-standard-ready.png)与[爸妈版](images/s51-home-parents.png)，[遥控与尺寸检查](verification/s51-home-entries.json)。图片为浏览器画面和合成状态，未更新公开APK。
+
+[开视资源包](RESOURCE-PACK.md)可为综艺指定站点分类编号或直接编排节目、期数和播放地址，继续复用收藏与观看记录。
+
+
+## S52 · 原厂应用图标
+
+当前源码移除应用文字色块，12项预设使用[原厂素材](../design-assets/app-logos/README.md)，已安装应用优先显示本机图标。标准版首页展开组、片库页快捷入口、折叠堆叠、爸妈快捷入口和添加应用页共用图标与回退链。历史S50/S51截图中的文字占位保留为历史记录，不再代表当前源码。
+
+[标准版](images/s52-home-standard-expanded.png) · [爸妈版](images/s52-home-parents.png) · [应用选择页](images/s52-logos-standard-presets-top.png) · [图标验证](verification/s52-app-logos.json) · [布局与遥控](verification/s52-home-entries.json)。均为浏览器与合成安装状态，没有构建新APK。

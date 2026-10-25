@@ -24,13 +24,24 @@ final class HouseholdProxy {
     private final AtomicInteger imageRequests = new AtomicInteger();
     private volatile boolean active, closed;
     private volatile long generation;
-    HouseholdProxy(String configuredOrigin, String cookies, boolean debugHttp) {
-        URI parsed = null;
+    static boolean allowedOrigin(String configuredOrigin, boolean allowLanHttp) {
         try {
-            URI value = URI.create(configuredOrigin);
-            if (("https".equals(value.getScheme()) || (debugHttp && "http".equals(value.getScheme()))) && value.getHost() != null && value.getRawUserInfo() == null && value.getRawQuery() == null && value.getRawFragment() == null && (value.getRawPath().isEmpty() || "/".equals(value.getRawPath())) && (value.getPort() == -1 || value.getPort() > 0 && value.getPort() <= 65535) && !LobbyAssets.HOST.equalsIgnoreCase(value.getHost())) parsed = value;
-        } catch (RuntimeException ignored) {}
-        origin = parsed;
+            URI value=URI.create(configuredOrigin);
+            return ("https".equals(value.getScheme()) || allowLanHttp && "http".equals(value.getScheme()) && privateLiteral(value.getHost())) && value.getHost()!=null && value.getRawUserInfo()==null && value.getRawQuery()==null && value.getRawFragment()==null && (value.getRawPath().isEmpty()||"/".equals(value.getRawPath())) && (value.getPort()==-1||value.getPort()>0&&value.getPort()<=65535) && !LobbyAssets.HOST.equalsIgnoreCase(value.getHost());
+        } catch(RuntimeException invalid) { return false; }
+    }
+    private static boolean privateLiteral(String host) {
+        if(host==null)return false;
+        String value=host.toLowerCase(java.util.Locale.ROOT);
+        if(value.startsWith("[")&&value.endsWith("]"))value=value.substring(1,value.length()-1);
+        if("::1".equals(value))return true;
+        if(value.indexOf(':')>=0)return value.matches("f[cd][0-9a-f]{2}:[0-9a-f:]+")&&!value.contains("%");
+        String[] parts=value.split("\\.",-1);if(parts.length!=4)return false;int[] numbers=new int[4];
+        try {for(int i=0;i<4;i++){if(!parts[i].matches("0|[1-9][0-9]{0,2}"))return false;numbers[i]=Integer.parseInt(parts[i]);if(numbers[i]>255)return false;}}catch(NumberFormatException invalid){return false;}
+        return numbers[0]==10||numbers[0]==127||numbers[0]==192&&numbers[1]==168||numbers[0]==172&&numbers[1]>=16&&numbers[1]<=31;
+    }
+    HouseholdProxy(String configuredOrigin, String cookies, boolean allowLanHttp) {
+        origin = allowedOrigin(configuredOrigin,allowLanHttp)?URI.create(configuredOrigin):null;
         Matcher match = COOKIE.matcher(cookies == null ? "" : cookies); cookie = match.find() ? "aperture=" + match.group(1) : "";
     }
     static String path(String value) {

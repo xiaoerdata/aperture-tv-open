@@ -13,7 +13,7 @@ if(!output.startsWith(artifacts+sep)||!output.endsWith('.tar.gz'))throw new Erro
 try{await lstat(output);throw new Error('Source archive already exists; preserved unchanged. Choose a new --output path.');}catch(error){if(error.code!=='ENOENT')throw error;}
 const temp=await mkdtemp(join(tmpdir(),'aperture-export-')),target=join(temp,'aperture-tv');
 let publicationTemp;
-const roots=['AGENTS.md','INSTALL.md','README.md','LICENSE','THIRD_PARTY_NOTICES.md','CONTRIBUTING.md','SECURITY.md','package.json','package-lock.json','requirements.txt','.gitignore','.github','shared','server','public','android','examples','docs','tests','scripts','media','design-assets'];
+const roots=['AGENTS.md','INSTALL.md','README.md','LICENSE','THIRD_PARTY_NOTICES.md','CONTRIBUTING.md','SECURITY.md','package.json','package-lock.json','requirements.txt','.gitignore','.github','shared','server','public','android','examples','docs','tests','scripts','media','design-assets','deploy'];
 const skip=new Set(['.data','.env','.venv','node_modules','artifacts','integrations','output','build','.gradle','local.properties','__pycache__']);
 const manifest=[];
 async function copy(path){const stat=await lstat(path);if(stat.isSymbolicLink())throw new Error('Symlink rejected');const rel=relative(root,path);if(stat.isDirectory()){for(const child of await readdir(path))if(!skip.has(child))await copy(join(path,child));return;}if(!stat.isFile()||['.keystore','.jks','.pyc'].includes(extname(path)))throw new Error('Unexpected export file');const dest=join(target,rel);await mkdir(resolve(dest,'..'),{recursive:true});await cp(path,dest);const data=await readFile(path);manifest.push({path:rel,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')});}

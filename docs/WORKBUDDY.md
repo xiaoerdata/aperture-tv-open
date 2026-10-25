@@ -19,7 +19,7 @@ applied = 服务端已提交；displayAcknowledgements = 过去60秒内已配对
 ```bash
 node scripts/workbuddy-pair.mjs --origin https://your-home.example --output /private/aperture-connection.json
 ```
-本机演示可用 http://127.0.0.1:4318；局域网跨机连接必须使用可信 HTTPS。不要通过关闭 TLS 验证处理证书。
+本机演示可用 http://127.0.0.1:4318；局域网默认使用可信 HTTPS，HTTP内测使用文末的显式开发选项。不要关闭 TLS 验证。
 3. 电脑显示终端二维码与完整授权链接；可追加 `--qr /private/pair.png` 保存二维码。手机扫码后自动带入请求，未登录时先验证家庭管理员，再继续原申请。选择授权能力与1小时/24小时/7天有效期，确认一次。默认只有读取；想让助手修改屏幕，勾选场景和内容权限。无需手工填写连接码，也不把管理员口令交给助手。
 4. 电脑程序自动领取并保存600权限的本地凭证文件；已存在文件拒绝覆盖。不要发给模型、截图或上传仓库。将程序作为 stdio MCP 接入客户端：
 ```json
@@ -98,3 +98,21 @@ home.read 可读取已共享家庭内容与自己的操作回执；scene.write �
 > 我授权你卸载电视上我选定的播放器。只使用电视本次允许列表中的包名，提交一次；我在电视确认后，查询这次操作结果。不要删除NAS原文件，也不要处理小米系统应用。
 
 服务端与原生代码已经提供这些能力；协议测试使用真实stdio MCP桥接和合成电视回执，不能当作WorkBuddy客户端、小米固件、真实NAS或原生安装器已验收。现场验收按[安装说明](../INSTALL.md)交接给项目维护者。系统安装器已打开后再撤销Agent授权，无法撤回原系统已经接受的操作；此时回执不明会标为unknown，不谎报撤销成功。
+
+
+## 下一版：Agent制作与导入资源包
+
+v18源码新增独立`resources.configure`授权，家庭工作台需明确勾选“让WorkBuddy导入开视资源包”。电视“来源 → WorkBuddy导入资源包”开启一次导入窗口，Agent提交HTTPS文件直链和原始SHA-256，保存前复核授权，最终通过原key查询包ID、修订号和摘要。文件制作、发布校验和工具参数见[资源包Agent指南](RESOURCE-PACK-AGENT.md)。v17安装包尚无这项入口，当前证据为本地源码、API编译和合成电视协议测试。
+
+## S53 · 局域网 HTTP 内测配对
+
+HTTPS仍是默认。内测使用私有IP时，电脑、电视、手机、配对命令全部使用同一个`PUBLIC_ORIGIN`，无需修改Host或自建桥接：
+
+```bash
+HOST=0.0.0.0 PUBLIC_ORIGIN=http://192.168.1.50:4318 APERTURE_LOCAL_AUTOMATION=1 npm start
+node scripts/workbuddy-pair.mjs --origin http://192.168.1.50:4318 --allow-lan-http --output /private/aperture-connection.json
+```
+
+地址须换成电脑实际的私有IP。HTTP不加密，只在受信任家庭网络测试；`--allow-lan-http`仅允许私有IP字面量，不接受公网IP或HTTP域名。此选择随凭证文件保存，后续MCP桥接无需重复传选项。服务端仍精确校验Host/Origin、来源网络、令牌、有效期和每次调用的scope，不增加任意来源白名单，不关闭TLS验证。
+
+`aperture_add`按type分别声明完整必填字段：note为title/body/author；event为title/date/time/person；metric为title/value/target/unit/source/date。工具schema与人类界面共用的领域要求一致，缺失时一次列出字段名。先读revision并保留固定幂等键的规则不变。

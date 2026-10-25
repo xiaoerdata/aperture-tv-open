@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "owner UI explicitly grants resources.configure; local stdio MCP discovers resource tools",
+    "MCP scene and note writes propagate to independent TV; browser revision acknowledgement read back",
+    "owner revokes connection; next MCP call fails"
+  ],
+  "errors": [],
+  "propagationMs": 87,
+  "workBuddyApplicationTested": false,
+  "xiaomiHardwareTested": false
+}

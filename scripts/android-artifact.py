@@ -19,7 +19,7 @@ expected_version = re.search(r"versionName\s+'([^']+)'", configuration).group(1)
 expected_code = re.search(r'versionCode\s+(\d+)', configuration).group(1)
 edition = os.environ.get('ANDROID_EDITION', 'standard')
 assert edition in ('standard', 'parents'), 'unexpected edition'
-assert fields.get('name') == 'org.zhixiaoce.aperture' + ('.parents' if edition == 'parents' else ''), 'unexpected application id'
+assert fields.get('name') == re.search(r"applicationId\s+'([^']+)'", configuration).group(1) + ('.parents' if edition == 'parents' else ''), 'unexpected application id'
 assert fields.get('versionName') == expected_version + ('-parents' if edition == 'parents' else ''), 'unexpected version'
 assert fields.get('versionCode') == expected_code, 'unexpected version code'
 assert "sdkVersion:'26'" in package, 'unexpected min SDK'

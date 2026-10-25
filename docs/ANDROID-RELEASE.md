@@ -2,7 +2,7 @@
 
 **本项目仅适配小米电视，Android 8+。** 这是维护者的发行操作说明，普通用户从[下载与版本](DOWNLOADS.md)和[安装说明](../INSTALL.md)开始。
 
-当前标准版和爸妈版均为 v13 debug 内测包。下列参数已与本机 Android Build Tools 35.0.0 的帮助输出核对，但尚未完整执行 release 构建与正式签名，见[检查记录](verification/s42-release-preparation.json)。WorkBuddy 和小米真机按维护者现场结果记录；本说明不代表正式版已发布。
+v18 / alpha.15按本流程生成两版非debug包并使用专用发行证书，产品仍为Alpha测试版。旧v17签名丢失，因此使用新包名并存安装；详见[迁移说明](MIGRATION-V18.md)。WorkBuddy和小米真机由维护者复验。早期[准备记录](verification/s42-release-preparation.json)只代表当时状态。
 
 ## 签名前先确定
 
@@ -34,7 +34,7 @@ export GRADLE_USER_HOME="$APERTURE_ANDROID_RUNTIME/gradle-user"
 - `android/app/build/outputs/apk/standard/release/app-standard-release-unsigned.apk`
 - `android/app/build/outputs/apk/parents/release/app-parents-release-unsigned.apk`
 
-逐个用 `aapt dump badging`核对版本、包名、minSdk26/targetSdk35，并确认没有`application-debuggable`。标准版包名为`org.zhixiaoce.aperture`，爸妈版为`org.zhixiaoce.aperture.parents`，其 versionName 有`-parents`后缀。不能只把已签 debug APK 改名或重新签名后称为正式版。
+逐个用 `aapt dump badging`核对版本、包名、minSdk26/targetSdk35，并确认没有`application-debuggable`。标准版包名为`org.zhixiaoce.kaishi`，爸妈版为`org.zhixiaoce.kaishi.parents`，其 versionName 有`-parents`后缀。不能只把已签 debug APK 改名或重新签名后称为正式版。
 
 ## 对齐、签名、验证
 
@@ -87,6 +87,8 @@ done
 
 每版记录实际文件名/字节数/SHA-256、证书 SHA-256、包名、versionCode/versionName、min/targetSDK、源码来源、完整 Android 输入摘要、构建工具与对应型号测试结果。不要把 debug 的 manifest.json 复制为 release 证明；不能依据首页资源一致就宣称全部原生代码来源一致。
 
-release 关闭网页调试和明文家庭服务连接；原生应用/NAS仍可独立使用。需要家庭屏、米家只读分享或 WorkBuddy 时，先验证可达的可信 HTTPS，不以 debug 的 HTTP 测试代替正式版连接验证。双版分别检查原桌面、Home、小爱、安装/卸载确认、升级和网络恢复。
+release关闭网页调试。家庭服务HTTP须在电视勾选，且仅接受私网IP字面量；默认HTTPS。原生应用/NAS仍可独立使用。涉及NAS凭证交接或Agent安装卸载时，先验证可达的可信HTTPS，不以 debug 的 HTTP 测试代替正式版连接验证。双版分别检查原桌面、Home、小爱、安装/卸载确认、升级和网络恢复。
 
 完成现场验收、签名核对与维护者发布确认后，才发布白名单附件和同源源码包，再从外部匿名下载回读摘要。Hub仓库链接和Stars在实际公共仓库可匿名读取后更新；本地签名不会自动公开仓库、发Release或部署Hub。
+
+可用 `python3 scripts/sign-android-release.py --output artifacts/release-candidate` 执行对齐、签名、预期证书比对、两版元数据与随包首页资源核对；环境另需设置公开的 `APERTURE_RELEASE_CERT_SHA256`。脚本不创建密钥、不覆盖目录、不上传。

@@ -28,3 +28,10 @@
 主报告：verification/tv-controls.json、s31-launcher.json、s31-cinema.json、s31-native-household.json、s31-native-api.json、background-4k.json。实际截图在images/remote-final-*与s31-standard/parents-*。真实遥控、小米固件、WebView性能、原生控件渲染、NAS硬件和两小时稳定性仍待验收。
 
 S50定向证据：[首屏、21组电视布局与三屏回焦](verification/s50-home-entries.json)、[两版遥控](verification/s50-tv-controls.json)、[摘要与预设](verification/s50-home-personal.json)、[壁纸](verification/s50-wallpaper-browser.json)。截图来自桌面Chromium，应用/NAS状态为合成数据，不代表小米实机通过。S48/S49报告保留，不覆盖。
+
+
+## S53 · 返回原生桌面
+
+原桌面候选排除开视标准版、爸妈版及其别名。优先使用已保存且仍有效的入口，或系统当前原桌面；部分小米固件隐藏HOME条目时，只接受实际解析得到且为系统应用的小米桌面入口，不猜Activity类名。选择后立即启动，不先重建开视首页。启动成功才结束开视当前任务；失败可重新选桌面或进入系统桌面设置，不自动重启电视。
+
+这是一次返回，不擅自更改用户默认HOME。若希望遥控器Home键以后也回原系统，请在原系统默认桌面设置恢复原桌面，或在开视默认桌面设置移除本版候选。部分固件不提供系统桌面设置Activity时回退到系统设置。实际小米前台切换仍须现场复验。

@@ -24,7 +24,7 @@ try {
     assert.ok(!file.path.startsWith('/') && !file.path.split('/').includes('..'));
     const data = await readFile(join(root, file.path));
     assert.equal(createHash('sha256').update(data).digest('hex'), file.sha256, file.path);
-    if (file.path.endsWith('.md')) assert.ok(!data.toString().includes('recent account payments have failed'), 'raw private CI evidence must not be exported');
+    if (file.path.endsWith('.md')) assert.ok(!data.toString().includes(['recent account payments ', 'have failed'].join('')), 'raw private CI evidence must not be exported');
   }
   const built = await run(process.execPath, ['scripts/build-android-local.mjs'], root);
   await mkdir(output, {recursive: true});

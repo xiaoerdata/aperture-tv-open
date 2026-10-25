@@ -14,7 +14,7 @@ async function fixture(t){
   async function request(path,body,cookie='',headers={}){
     return new Promise((resolve,reject)=>{
       const req=httpRequest(url+path,{method:body===undefined?'GET':'POST',headers:{host:'127.0.0.1:4981',...(body===undefined?{}:{'Content-Type':'application/json'}),cookie,...headers}},res=>{
-        const chunks=[];res.on('data',b=>chunks.push(b));res.on('end',()=>{let data;try{data=JSON.parse(Buffer.concat(chunks));}catch{data=null;}resolve({status:res.statusCode,data,cookie:res.headers['set-cookie']?.[0]?.split(';')[0]});});
+        const chunks=[];res.on('data',b=>chunks.push(b));res.on('end',()=>{let data;try{data=JSON.parse(Buffer.concat(chunks));}catch{data=null;}resolve({status:res.statusCode,data,text:Buffer.concat(chunks).toString(),type:res.headers['content-type'],cookie:res.headers['set-cookie']?.[0]?.split(';')[0]});});
       });req.on('error',reject);req.end(body===undefined?undefined:JSON.stringify(body));
     });
   }
@@ -34,3 +34,10 @@ test('invalid content, nonfinite metrics and uninstalled scenes cannot enter the
 test('image is decoded, normalized and accessible only to paired sessions while referenced',async t=>{const f=await fixture(t);const data='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aN1sAAAAASUVORK5CYII=';const bad=await f.request('/api/photos',{data:Buffer.from('<svg onload="alert(1)"></svg>').toString('base64'),title:'bad',caption:'',execution:{key:'bad-image',revision:0}},f.owner);assert.equal(bad.status,422);const uploaded=await f.request('/api/photos',{data,title:'一张照片',caption:'',execution:{key:'real-image',revision:0}},f.owner);assert.equal(uploaded.status,200);const photo=f.app.service.read().photos[0];assert.match(photo.asset,/^[a-f0-9]{64}\.jpg$/);const bytes=await readFile(join(f.directory,'images',photo.asset));assert.equal(bytes[0],255);assert.equal(bytes[1],216);assert.equal((await f.request('/media/'+photo.asset)).status,401);assert.equal((await f.request('/media/'+photo.asset,undefined,f.owner)).status,200);await f.request('/api/write',{operation:'photo.remove',input:{id:photo.id},execution:{key:'remove-image',revision:1}},f.owner);assert.equal((await f.request('/media/'+photo.asset,undefined,f.owner)).status,404);});
 test('authentication attempts are bounded',async t=>{const f=await fixture(t);let last;for(let i=0;i<9;i++)last=await f.request('/api/login',{key:'wrong'});assert.equal(last.status,429);});
 test('content file import is atomic: an invalid row cannot partially write',async t=>{const f=await fixture(t);const request={operation:'entries.import',input:{entries:[note,{...note,body:''}]},execution:{key:'content-import',revision:0}};assert.equal((await f.request('/api/write',request,f.owner)).status,400);assert.equal(f.app.service.read().entries.length,0);request.input.entries=[note,{...note,title:'第二条'}];assert.equal((await f.request('/api/write',request,f.owner)).status,200);assert.equal(f.app.service.read().entries.length,2);assert.equal((await f.request('/api/write',request,f.owner)).data.replayed,true);assert.equal(f.app.service.read().entries.length,2);});
+
+test('served browser model includes its explicit contract dependency without exposing other shared modules',async t=>{
+ const f=await fixture(t),model=await f.request('/shared/model.mjs');assert.equal(model.status,200);assert.match(model.type,/javascript/);
+ const relative=[...model.text.matchAll(/from ['"](\.\/[^'"]+)['"]/g)].map(match=>match[1]);assert.ok(relative.includes('./entry-contract.mjs'));
+ for(const dependency of relative){const response=await f.request(new URL(dependency,'http://localhost/shared/model.mjs').pathname);assert.equal(response.status,200,dependency);assert.match(response.type,/javascript/);assert.match(response.text,/export/);}
+ for(const path of ['/shared/wake-on-lan.mjs','/shared/cinema.mjs','/server/http.mjs'])assert.equal((await f.request(path)).status,404,path);
+});

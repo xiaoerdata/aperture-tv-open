@@ -1,0 +1,111 @@
+{
+  "format": "kaishi.resource-pack",
+  "version": 1,
+  "id": "org.example.family",
+  "revision": 1,
+  "title": "家庭资源",
+  "description": "合成示例；example.invalid地址需要替换后才能播放。",
+  "resources": [
+    {
+      "id": "live",
+      "type": "live",
+      "title": "家庭直播",
+      "channels": [
+        {
+          "id": "living-room",
+          "title": "客厅频道",
+          "group": "家里",
+          "urls": [
+            "https://media.example.invalid/live.m3u8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "movies",
+      "type": "collection",
+      "title": "家庭电影",
+      "section": "movies",
+      "items": [
+        {
+          "id": "holiday",
+          "title": "假日短片",
+          "episodes": [
+            {
+              "title": "正片",
+              "url": "https://media.example.invalid/holiday.mp4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "series",
+      "type": "collection",
+      "title": "家庭剧集",
+      "section": "series",
+      "items": [
+        {
+          "id": "weekend",
+          "title": "周末小剧场",
+          "episodes": [
+            {
+              "title": "第1集",
+              "url": "https://media.example.invalid/series-01.mp4"
+            },
+            {
+              "title": "第2集",
+              "url": "https://media.example.invalid/series-02.mp4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "variety",
+      "type": "collection",
+      "title": "周末综艺",
+      "section": "variety",
+      "items": [
+        {
+          "id": "family-show",
+          "title": "家庭舞台",
+          "remark": "更新至第2期",
+          "episodes": [
+            {
+              "title": "第1期",
+              "url": "https://media.example.invalid/show-01.mp4"
+            },
+            {
+              "title": "第2期",
+              "url": "https://media.example.invalid/show-02.m3u8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "catalog",
+      "type": "catalog",
+      "title": "我的点播站",
+      "protocol": "maccms-json",
+      "url": "https://catalog.example.invalid/api.php/provide/vod/",
+      "sections": [
+        "movies",
+        "series",
+        "variety"
+      ],
+      "categoryIds": {
+        "movies": [
+          "1"
+        ],
+        "series": [
+          "2"
+        ],
+        "variety": [
+          "3"
+        ]
+      }
+    }
+  ]
+}

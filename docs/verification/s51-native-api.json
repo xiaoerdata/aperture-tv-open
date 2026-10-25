@@ -1,0 +1,21 @@
+{
+  "standardAndParentsApiCompilation": true,
+  "policyHarnessPassed": true,
+  "microphonePermission": false,
+  "apkBuilt": false,
+  "deviceVoiceKeysTested": false,
+  "xiaomiFarFieldTested": false,
+  "standbyWakeTested": false,
+  "output": "Native policy: overlay/resume/destroy transitions and exact local HTTPS resources passed",
+  "stage": "S51",
+  "collectedAt": "2026-10-25T11:20:58.039230+00:00",
+  "changedNativeFilesSha256": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "93bffcc0c4a3bad08fa6bdf466ff3e15b0cfdbe563348e14330f0c59c33b84b2",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "d74a30e2a4d922046f619c4fb92ddfb4c55018087cd5bdc83cce74b386c04462",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "5a6a149416ede232c79e2ca59828056ea654022fd5e964920c5ffa50ba8aacec",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaHttp.java": "8e23a2625db14d63d16e04f7e12584a9722f88d5a0bdb5769154a3361fb67b00",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaVault.java": "641ad5e8a48bcda1e8f446ae49e4de9837ecb950fa3845f0e7544b4a241950c6",
+    "android/app/src/main/java/org/zhixiaoce/aperture/ResourcePackAgentActivity.java": "edcf54c3a346ded2cfb5149ff229539a1aebd84da05c755538e0040a9a64bb90",
+    "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java": "00f561e7d0a5d65c34d34b44e770eff227460f709695e67ed286fd16423b3274"
+  }
+}

@@ -1,6 +1,6 @@
 """Build a small instrumentation driver; never part of the product APK or release assets."""
 from pathlib import Path
-import argparse, os, subprocess, zipfile, hashlib, json
+import re, argparse, os, subprocess, zipfile, hashlib, json
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--edition', required=True, choices=['standard', 'parents'])
@@ -14,7 +14,7 @@ out = root / 'artifacts/s50-instrumentation' / args.edition
 out.mkdir(parents=True, exist_ok=True)
 (out / 'classes').mkdir(exist_ok=True)
 (out / 'dex').mkdir(exist_ok=True)
-target = 'org.zhixiaoce.aperture' + ('.parents' if args.edition == 'parents' else '')
+target = re.search(r"applicationId\s+'([^']+)'", (root/'android/app/build.gradle').read_text()).group(1) + ('.parents' if args.edition == 'parents' else '')
 package = 'org.zhixiaoce.aperture.test.' + args.edition
 (out / 'AndroidManifest.xml').write_text(f'''<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="{package}">
 <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="26"/>

@@ -114,7 +114,7 @@ export function createHttp({service,store,auth,images,origin,life,cinema,nasSetu
       let file;
       if(pages[path])file=join(root,'public',pages[path]);
       else if(path==='/vendor/hls.mjs')file=join(root,'node_modules/hls.js/dist/hls.mjs');
-      else if(path==='/shared/model.mjs')file=join(root,'shared/model.mjs');
+      else if(['/shared/model.mjs','/shared/entry-contract.mjs'].includes(path))file=join(root,path.slice(1));
       else {
         const decoded=decodeURIComponent(path);
         file=resolve(root,'public','.'+decoded);

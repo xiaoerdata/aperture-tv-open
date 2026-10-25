@@ -20,6 +20,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -93,12 +94,14 @@ public class MainActivity extends Activity {
     private void createWeb(boolean lobby) {
         destroyWeb(); lobbyMode = lobby; web = new WebView(this);
         String householdOrigin = preferences.getString("origin", "");
-        final HouseholdProxy feed = lobby && !BuildConfig.PARENTS_EDITION ? new HouseholdProxy(householdOrigin, householdOrigin.isEmpty() ? "" : CookieManager.getInstance().getCookie(householdOrigin), BuildConfig.DEBUG) : null;
+        final HouseholdProxy feed = lobby && !BuildConfig.PARENTS_EDITION ? new HouseholdProxy(householdOrigin, householdOrigin.isEmpty() ? "" : CookieManager.getInstance().getCookie(householdOrigin), preferences.getBoolean("allowLanHttp", false)) : null;
         household = feed;
         WebSettings settings = web.getSettings(); settings.setJavaScriptEnabled(true); settings.setDomStorageEnabled(true);
         settings.setAllowFileAccess(false); settings.setAllowContentAccess(false); settings.setAllowFileAccessFromFileURLs(false); settings.setAllowUniversalAccessFromFileURLs(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW); settings.setMediaPlaybackRequiresUserGesture(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(false); settings.setSupportMultipleWindows(false); settings.setTextZoom(100);
+        settings.setSupportZoom(false); settings.setBuiltInZoomControls(false); settings.setDisplayZoomControls(false);
+        settings.setUseWideViewPort(true); settings.setLoadWithOverviewMode(false);
         CookieManager.getInstance().setAcceptThirdPartyCookies(web, false); WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
         web.setWebViewClient(new WebViewClient() {
             @Override public void onPageStarted(WebView view, String url, android.graphics.Bitmap icon) { if (view == web) ready = false; }
@@ -134,6 +137,12 @@ public class MainActivity extends Activity {
                 return true;
             }
         });
+        if(lobby){
+            web.setOverScrollMode(View.OVER_SCROLL_NEVER);web.setHorizontalScrollBarEnabled(false);web.setVerticalScrollBarEnabled(false);
+            // OEM WebView may scroll its native viewport during accessibility/remote focus changes.
+            // Child DOM lists retain their own scrolling; only the outer native viewport is pinned.
+            web.setOnScrollChangeListener((view,x,y,oldX,oldY)->{if(view==web&&(x!=0||y!=0))view.scrollTo(0,0);});
+        }
         setContentView(web); web.requestFocus();
         WebView current = web; display.bind(active -> webActive(current, active));
     }
@@ -169,6 +178,7 @@ public class MainActivity extends Activity {
         if ("/family-live".equals(path)) { family("live"); return; }
         if ("/family-series".equals(path)) { family("series"); return; }
         if ("/family-movies".equals(path)) { family("movies"); return; }
+        if ("/family-variety".equals(path)) { family("variety"); return; }
         if ("/family-library".equals(path)) { family("library"); return; }
         if ("/open-live".equals(path)) cinema("live"); else if ("/open-cinema".equals(path)) cinema("library");
         else if ("/external-live".equals(path)) destinations.launch("live"); else if ("/external-cinema".equals(path)) destinations.launch("cinema"); else if ("/open-system".equals(path)) destinations.launch("system");
@@ -193,7 +203,7 @@ public class MainActivity extends Activity {
     }
     private void cinema(String view) { startActivityForResult(new Intent(this,CinemaActivity.class).putExtra("view",view),4602); }
     private void familyServer(String view) {
-        String origin = preferences.getString("origin", ""); if (origin.isEmpty()) { setup(); return; }
+        String origin = preferences.getString("origin", ""); if (origin.isEmpty() || !HouseholdProxy.allowedOrigin(origin,preferences.getBoolean("allowLanHttp",false))) { setup(); return; }
         if (!lobby.webAvailable(webViewVersion())) { fallback(lobby.recoveryRequired() ? "网页显示组件刚刚退出，已保留简洁本机首页。请先使用本机应用或NAS；完全关闭开视后重新打开，再尝试家庭屏。" : "当前内核无法显示家庭屏，请从原系统更新WebView。其他应用入口仍可使用。"); return; }
         if (view != null && webViewVersion() < 89) { fallback("家庭影院需要 WebView 89 或更新版本。请在原系统更新内核；暂时可回原桌面使用原有播放器。"); return; }
         trusted = Uri.parse(origin); createWeb(false);
@@ -237,11 +247,11 @@ public class MainActivity extends Activity {
         LobbyMode.Choice choice = lobby.choose(webViewVersion(), preferences.getBoolean("simple_home", false));
         TextView note = new TextView(this); note.setText(choice == LobbyMode.Choice.NATIVE_RECOVERY ? "网页显示组件刚刚退出，先用这些本机入口。不会自动反复重开网页。" : choice == LobbyMode.Choice.NATIVE_OLD_ENGINE ? "当前使用简洁本机首页，适合这台电视的网页内核。" : "简洁本机首页 · 在设置中可切换"); note.setTextSize(18); note.setTextColor(Color.rgb(196,210,224)); layout.addView(note);
         if (BuildConfig.PARENTS_EDITION) {
-            button(layout, "看电视", () -> family("live")); button(layout, "看电视剧", () -> family("series")); button(layout, "看电影", () -> family("movies"));
+            button(layout, "看电视", () -> cinema("live")); button(layout, "看电视剧", () -> cinema("series")); button(layout, "看电影", () -> cinema("movies")); button(layout, "看综艺", () -> cinema("variety"));
             for (String slot : new String[] {"quick1", "quick2", "quick3", "quick4"}) { String name = destinations.label(slot); Button shortcut = button(layout, name.isEmpty() ? "未设置" : name, () -> destinations.launchShortcut(slot)); shortcut.setTextSize(24); }
             button(layout, "所有应用", destinations::all); button(layout, "设置", this::quickMenu); showNative(layout); return;
         }
-        button(layout, "看电视", () -> cinema("live")); button(layout, "看电视剧", () -> cinema("series")); button(layout, "看电影", () -> cinema("movies")); button(layout, "原桌面", () -> destinations.launch("system"));
+        button(layout, "看电视", () -> cinema("live")); button(layout, "看电视剧", () -> cinema("series")); button(layout, "看电影", () -> cinema("movies")); button(layout, "看综艺", () -> cinema("variety")); button(layout, "原桌面", () -> destinations.launch("system"));
         if (!BuildConfig.PARENTS_EDITION) button(layout, "家庭屏", () -> family(null)); button(layout, "NAS", () -> action("/nas")); button(layout, "设置", this::quickMenu); showNative(layout);
     }
     private void setup() {
@@ -249,16 +259,18 @@ public class MainActivity extends Activity {
             new AlertDialog.Builder(this).setTitle("暂时不能打开家庭网页").setMessage(lobby.recoveryRequired() ? "网页显示组件刚刚退出。请先使用本机应用或NAS；在系统应用设置结束开视后重开，或重启电视，再尝试连接。" : "这台电视的网页组件不可用。请在原系统检查WebView；本机应用、原桌面和NAS仍可使用。")
                 .setPositiveButton("返回客厅入口", (d,w) -> showLobby("")).setNegativeButton("返回", null).show(); return;
         }
-        destroyWeb(); lobbyMode = false; LinearLayout layout = column("连接家庭服务\n请家人输入电脑或 NAS 的服务地址。");
-        EditText input = new EditText(this); input.setText(preferences.getString("origin", "")); input.setHint(BuildConfig.DEBUG ? "https://screen.example.com 或内测局域网地址" : "https://screen.example.com"); input.setSingleLine(true); input.setTextSize(20); input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_URI); layout.addView(input);
+        LinearLayout layout = column("请输入电脑或 NAS 的服务地址");
+        final AlertDialog[] panel=new AlertDialog[1];
+        EditText input = new EditText(this); input.setText(preferences.getString("origin", "")); input.setHint("https://screen.example.com 或局域网IP地址"); input.setSingleLine(true); input.setTextSize(20); input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_URI); layout.addView(input);
+        CheckBox lan=new CheckBox(this);lan.setText("允许家庭局域网HTTP（明文连接）");lan.setTextSize(20);lan.setTextColor(Color.WHITE);lan.setChecked(preferences.getBoolean("allowLanHttp",false));layout.addView(lan);
         button(layout, "保存并打开家庭屏", () -> {
             String raw = input.getText().toString().trim().replaceAll("/+$", ""); Uri uri = Uri.parse(raw);
-            boolean scheme = "https".equals(uri.getScheme()) || (BuildConfig.DEBUG && "http".equals(uri.getScheme()));
-            if (!scheme || uri.getHost() == null || uri.getUserInfo() != null || uri.getQuery() != null || uri.getFragment() != null || (uri.getPath() != null && !uri.getPath().isEmpty()) || uri.getPort() > 65535 || uri.getPort() == 0) { input.setError("请输入完整服务源地址，不含路径或账号；正式版使用HTTPS"); return; }
-            Runnable saved = () -> { preferences.edit().putString("origin", raw).apply(); family(null); };
+            boolean scheme = HouseholdProxy.allowedOrigin(raw,lan.isChecked());
+            if (!scheme || uri.getHost() == null || uri.getUserInfo() != null || uri.getQuery() != null || uri.getFragment() != null || (uri.getPath() != null && !uri.getPath().isEmpty()) || uri.getPort() > 65535 || uri.getPort() == 0) { input.setError("请输入HTTPS地址；HTTP需勾选并使用家庭私网IP，不含路径或账号"); return; }
+            Runnable saved = () -> { preferences.edit().putString("origin", raw).putBoolean("allowLanHttp",lan.isChecked()).apply(); panel[0].dismiss(); family(null); };
             if (!raw.equals(preferences.getString("origin", ""))) CookieManager.getInstance().removeAllCookies(success -> saved.run()); else saved.run();
         });
-        button(layout, "返回客厅入口", () -> showLobby("")); showNative(layout); input.requestFocus();
+        panel[0]=TvDialogs.panel(this,"家庭服务",layout); input.requestFocus();
     }
     private void fallback(String message) {
         destroyWeb(); lobbyMode = false; LinearLayout layout = column("开视\n" + message);
@@ -270,19 +282,19 @@ public class MainActivity extends Activity {
         }).setNegativeButton("返回",null).show();
     }
     @Override protected void onActivityResult(int request, int result, Intent data) {
-        if(request==4602&&result==RESULT_OK&&data!=null){String view=data.getStringExtra("cinemaServer");if("live".equals(view)||"series".equals(view)||"movies".equals(view)||"library".equals(view))familyServer(view);return;}
+        if(request==4602&&result==RESULT_OK&&data!=null){String view=data.getStringExtra("cinemaServer");if("live".equals(view)||"series".equals(view)||"movies".equals(view)||"variety".equals(view)||"library".equals(view))familyServer(view);return;}
         if (installer != null && installer.result(request, result, data)) return;
         super.onActivityResult(request, result, data);
     }
     private void hubConnection(){new AlertDialog.Builder(this).setTitle("智小策 Hub").setMessage("未连接\n\n电影 · 体重 · 旅行 · 账本\n\n扫码登录服务尚未接入。连接后，由你选择允许显示的内容。").setPositiveButton("返回",null).show();}
     private void quickMenu() {
         if (BuildConfig.PARENTS_EDITION) {
-            new AlertDialog.Builder(this).setTitle("设置").setItems(new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", "家人留言与相册", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"}, (dialog, which) -> {
+            TvDialogs.menu(this,"设置",new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", "家人留言与相册", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"}, (dialog, which) -> {
                 if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else if (which == 14) hubConnection(); else destinations.all();
-            }).setNegativeButton("返回", null).show(); return;
+            }); return;
         }
         String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", BuildConfig.PARENTS_EDITION ? "家人留言和相册" : "切换轻量 / 完整窗景", "小爱同学与语音唤醒", "NAS", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"};
-        new AlertDialog.Builder(this).setTitle("设置").setItems(options, (dialog, which) -> {
+        TvDialogs.menu(this,"设置",options, (dialog, which) -> {
             if (which == 0) showLobby(""); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
             else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) destinations.settings(true); else if (which == 7) setup(); else if (which == 8) destinations.all();
             else if (which == 10) assistant.help();
@@ -293,7 +305,7 @@ public class MainActivity extends Activity {
             else if (which == 15) hubConnection();
             else if (BuildConfig.PARENTS_EDITION) family(null);
             else { preferences.edit().putBoolean("lite", !preferences.getBoolean("lite", false)).apply(); family(null); }
-        }).setNegativeButton("返回", null).show();
+        });
     }
     @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
         // OEM assistant owns these events, including repeat/long-press and the unmodified key-up.
@@ -307,6 +319,11 @@ public class MainActivity extends Activity {
     private void leavePage() {
         if (!lobbyMode || BuildConfig.PARENTS_EDITION) { showLobby(""); return; }
         new AlertDialog.Builder(this).setTitle("回到哪里？").setItems(new String[] {"留在开视", "切回原生桌面", "系统默认桌面设置"}, (dialog, which) -> { if (which == 1) destinations.launch("system"); else if (which == 2) destinations.settings(true); }).show();
+    }
+    @Override public boolean onKeyUp(int keyCode,KeyEvent event){
+        if(VoiceAssistant.systemVoiceKey(keyCode))return super.onKeyUp(keyCode,event);
+        if(web!=null&&ready&&(keyCode==KeyEvent.KEYCODE_DPAD_LEFT||keyCode==KeyEvent.KEYCODE_DPAD_RIGHT||keyCode==KeyEvent.KEYCODE_DPAD_UP||keyCode==KeyEvent.KEYCODE_DPAD_DOWN||keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER||keyCode==KeyEvent.KEYCODE_MENU||keyCode==KeyEvent.KEYCODE_BACK))return true;
+        return super.onKeyUp(keyCode,event);
     }
     @Override public void onBackPressed() { if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }
     @Override protected void onPause() { display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }

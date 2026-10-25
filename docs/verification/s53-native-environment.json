@@ -1,0 +1,22 @@
+{
+  "status": "not-executed",
+  "environment": "official Android TV API28 x86; software CPU only; no KVM",
+  "attempts": [
+    {
+      "emulator": "37.3.5",
+      "result": "kernel exits before ADB"
+    },
+    {
+      "emulator": "37.2.12, 1GB",
+      "result": "kernel exits before ADB"
+    },
+    {
+      "emulator": "37.2.12, 2GB",
+      "result": "ADB remained offline; no APK installed; stopped own emulator"
+    }
+  ],
+  "instrumentationBuiltForBothEditions": true,
+  "nativeUiPassed": false,
+  "originalHomeReturnVerified": false,
+  "xiaomiTested": false
+}

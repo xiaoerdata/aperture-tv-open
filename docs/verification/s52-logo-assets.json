@@ -1,0 +1,68 @@
+{
+  "assets": [
+    {
+      "id": "bilibili",
+      "sha256": "fe4093e91334cfa1ac66881e01979b7bcdcf548640d6b31712f22f0ac9cb5fc8",
+      "bytes": 23076
+    },
+    {
+      "id": "tencent",
+      "sha256": "57b1ee68d9469ea82f1cc4f4de01881f632c584be31b1dc4a4f7cb8ad3214367",
+      "bytes": 4866
+    },
+    {
+      "id": "iqiyi",
+      "sha256": "946d58dc191ded92640a946813eb7447cadd7f6356922ffebb5455052133a304",
+      "bytes": 47074
+    },
+    {
+      "id": "youku",
+      "sha256": "9c478717154e99c0fb62105aaf601d34782d1768da7a428fd6e98116211e7999",
+      "bytes": 5444
+    },
+    {
+      "id": "mango",
+      "sha256": "522b62d60848acae051a2098f231f0441553378de3deea9b7a960c22c3d12149",
+      "bytes": 42358
+    },
+    {
+      "id": "migu",
+      "sha256": "b6d67ccc4dd14e89cad73c6108ab18deb54c8794ff6599492bb8b5a95879778b",
+      "bytes": 45490
+    },
+    {
+      "id": "netflix",
+      "sha256": "eab32637682348a65d41ee197822fef4bef102a0a18cdd3950715e4a4cf45a89",
+      "bytes": 23310
+    },
+    {
+      "id": "appletv",
+      "sha256": "a1b026c2067bc4bd43aa50933fa3a40ed23676eb554e76e68078193d14016c5e",
+      "bytes": 22248
+    },
+    {
+      "id": "youtube",
+      "sha256": "e39dc3d8c2f82ad2375132a8efcf521c232d5e2cf08abeb9bebe1ad94afb2157",
+      "bytes": 5020
+    },
+    {
+      "id": "disney",
+      "sha256": "b58d06685518f21a1c86868e832c7dfd0da3763f542a438b9a561cf50319630a",
+      "bytes": 35962
+    },
+    {
+      "id": "plex",
+      "sha256": "78072fd57aacff1f73dee6432fb8d7f0360f300b4545422fb767cce638c4e7d3",
+      "bytes": 11667
+    },
+    {
+      "id": "kodi",
+      "sha256": "8fe29fd3927f95b5c4282f4a731ab51a5e33a6af5ef8231ea1f6611e410a791c",
+      "bytes": 23461
+    }
+  ],
+  "bundledBytes": 289976,
+  "originalBytesVerified": true,
+  "exactAndroidWhitelist": true,
+  "projectMITAppliesToBrandAssets": false
+}

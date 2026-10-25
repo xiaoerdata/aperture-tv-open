@@ -31,7 +31,7 @@ export function createCinemaService({store,service,config}){
     options(actor){session(actor,true);return {sources:media.sources.map(({id,name,type})=>({id,name,type})),allowedOrigins:media.allowedOrigins,playlistCount:(store.read().mediaChannels||[]).length};},
     async configure(actor,input,execution){
       session(actor,true);if(typeof input.enabled!=='boolean'||!Array.isArray(input.sourceIds)||input.sourceIds.some(id=>!media.sources.some(s=>s.id===id)))fail('请选择已配置的媒体库');
-      const kinds=input.sourceKinds||{};if(!kinds||typeof kinds!=='object'||Array.isArray(kinds)||Object.entries(kinds).some(([id,kind])=>!input.sourceIds.includes(id)||!['auto','movie','series'].includes(kind)))fail('媒体分类无效');
+      const kinds=input.sourceKinds||{};if(!kinds||typeof kinds!=='object'||Array.isArray(kinds)||Object.entries(kinds).some(([id,kind])=>!input.sourceIds.includes(id)||!['auto','movie','series','variety'].includes(kind)))fail('媒体分类无效');
       const result=await service.write(actor,'cinema.settings',{enabled:input.enabled,sourceIds:[...new Set(input.sourceIds)],sourceKinds:kinds},execution);if(!result.replayed)health.invalidate();return result;
     },
     async import(actor,input,execution){session(actor,true);const channels=parsePlaylist(input.playlist,media.allowedOrigins);const result=await service.write(actor,'cinema.playlist',{channels},execution);if(!result.replayed)health.invalidate();return result;},
@@ -47,16 +47,16 @@ export function createCinemaService({store,service,config}){
           try{
             if(s.type==='local'){
               const root=await realpath(s.path);let visited=0,count=0;
-              async function walk(path,depth){if(depth>5||visited>5000||count>=200)return;for(const ent of await readdir(path,{withFileTypes:true})){if(++visited>5000||count>=200)break;if(ent.isSymbolicLink()||ent.name.startsWith('.'))continue;const filename=join(path,ent.name);if(ent.isDirectory())await walk(filename,depth+1);else if(ent.isFile()&&mime[extname(ent.name).toLowerCase()]){count++;const ext=extname(ent.name).toLowerCase();result.push(remember({id:hash(s.id+':'+filename),sourceId:s.id,sourceName:s.name,name:basename(ent.name,ext),format:ext.slice(1),viewKind:store.read().board.cinema?.sourceKinds?.[s.id]==='series'?'series':'movie',filename,root,type:'local'}));}}}
+              async function walk(path,depth){if(depth>5||visited>5000||count>=200)return;for(const ent of await readdir(path,{withFileTypes:true})){if(++visited>5000||count>=200)break;if(ent.isSymbolicLink()||ent.name.startsWith('.'))continue;const filename=join(path,ent.name);if(ent.isDirectory())await walk(filename,depth+1);else if(ent.isFile()&&mime[extname(ent.name).toLowerCase()]){count++;const ext=extname(ent.name).toLowerCase();result.push(remember({id:hash(s.id+':'+filename),sourceId:s.id,sourceName:s.name,name:basename(ent.name,ext),format:ext.slice(1),viewKind:['series','variety'].includes(store.read().board.cinema?.sourceKinds?.[s.id])?store.read().board.cinema.sourceKinds[s.id]:'movie',filename,root,type:'local'}));}}}
               await walk(root,0);
             }else{
               const response=await upstream(jellyUrl(s,`Users/${s.userId}/Items`,{ParentId:s.libraryId,Recursive:true,IncludeItemTypes:'Movie,Episode,Video',Limit:200,Fields:'MediaSources',SortBy:'SortName'}),{headers:tokenHeaders(s)});
               const data=JSON.parse(await boundedText(response,2_000_000));
-              for(const video of (data.Items||[]).slice(0,200)){if(!/^[-a-fA-F0-9]{1,64}$/.test(video.Id||''))continue;result.push(remember({id:hash(s.id+':'+video.Id),sourceId:s.id,sourceName:s.name,name:String(video.Name||'未命名视频').slice(0,80),format:String(video.Container||video.MediaSources?.[0]?.Container||'').slice(0,15),type:'jellyfin',viewKind:store.read().board.cinema?.sourceKinds?.[s.id]==='series'?'series':store.read().board.cinema?.sourceKinds?.[s.id]==='movie'?'movie':video.Type==='Episode'?'series':'movie',videoId:video.Id}));}
+              for(const video of (data.Items||[]).slice(0,200)){if(!/^[-a-fA-F0-9]{1,64}$/.test(video.Id||''))continue;result.push(remember({id:hash(s.id+':'+video.Id),sourceId:s.id,sourceName:s.name,name:String(video.Name||'未命名视频').slice(0,80),format:String(video.Container||video.MediaSources?.[0]?.Container||'').slice(0,15),type:'jellyfin',viewKind:['series','variety'].includes(store.read().board.cinema?.sourceKinds?.[s.id])?store.read().board.cinema.sourceKinds[s.id]:store.read().board.cinema?.sourceKinds?.[s.id]==='movie'?'movie':video.Type==='Episode'?'series':'movie',videoId:video.Id}));}
             }
           }catch{unavailable.push(s.name);}
         }
-        for(const [i,channel] of (store.read().mediaChannels||[]).entries())result.push(remember({id:hash('playlist:'+channel.url),sourceId:'playlist',sourceName:'我的播放清单',name:channel.name,format:new URL(channel.url).pathname.endsWith('.m3u8')?'hls':'直链',type:'remote',url:channel.url,kind:channel.viewKind==='movie'||channel.viewKind==='series'?'video':'channel',viewKind:channel.viewKind||'live'}));
+        for(const [i,channel] of (store.read().mediaChannels||[]).entries())result.push(remember({id:hash('playlist:'+channel.url),sourceId:'playlist',sourceName:'我的播放清单',name:channel.name,format:new URL(channel.url).pathname.endsWith('.m3u8')?'hls':'直链',type:'remote',url:channel.url,kind:channel.viewKind==='movie'||channel.viewKind==='series'||channel.viewKind==='variety'?'video':'channel',viewKind:channel.viewKind||'live'}));
         enabled(actor);return {items:result,unavailable,limitPerSource:200};
       }finally{browsing--;}
     },

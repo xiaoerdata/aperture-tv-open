@@ -1,4 +1,5 @@
 import {spawn} from 'node:child_process';
+import {randomUUID,createHash} from 'node:crypto';
 import {localPeer,isPrivatePeer} from '../server/local-agent/network.mjs';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -67,4 +68,18 @@ test('QR pairing CLI claims credential automatically, writes private file, never
  assert.equal((await f.request('/api/local-pair/approve',{code:link.searchParams.get('pair'),challenge:link.searchParams.get('challenge'),scopes:['home.read'],hours:1},{cookie:f.owner})).status,200);
  assert.equal(await done,0,stderr);const saved=JSON.parse(await readFile(config,'utf8'));assert.equal((await stat(config)).mode&0o077,0);assert.ok((await stat(qr)).size>1000);assert.ok(!output.includes(saved.token));assert.equal((await f.request('/api/local-agent/tools',undefined,{Authorization:'Bearer '+saved.token})).status,200);
  const again=spawn(process.execPath,['scripts/workbuddy-pair.mjs','--origin',f.origin,'--output',config],{stdio:'ignore'});assert.notEqual(await new Promise(r=>again.on('exit',r)),0);assert.equal(JSON.parse(await readFile(config,'utf8')).token,saved.token);
+});
+
+
+test('resource pack stdio MCP uses explicit grant, one TV window and exact save receipt',async t=>{
+ const f=await fixture(t),pair=await f.pair(['home.read','resources.configure']),config=join(f.directory,'resources-connection.json');await writeFile(config,JSON.stringify({origin:f.origin,token:pair.token}),{mode:0o600});
+ const client=new Client({name:'resource-pack-protocol-fixture',version:'1'},{capabilities:{}});await client.connect(new StdioClientTransport({command:process.execPath,args:[resolve('scripts/workbuddy-mcp.mjs'),'--config',config],stderr:'ignore'}));t.after(()=>client.close());
+ const names=(await client.listTools()).tools.map(t=>t.name);assert.ok(names.includes('aperture_resources_send'));assert.ok(!names.includes('aperture_install_send'));
+ const id=randomUUID(),secret='synthetic-resource-window',secretHash=createHash('sha256').update(secret).digest('hex');const hello={id,secretHash,label:'开视 · 爸妈版',kind:'resources',targets:[{id:'kaishi.resource-pack.v1',name:'开视资源包 v1'}]};assert.equal((await f.request('/api/app-operations/start',hello,{cookie:f.owner})).status,200);
+ const requests=(await client.callTool({name:'aperture_resources_requests',arguments:{}})).structuredContent.requests;assert.equal(requests[0].fingerprint,secretHash);
+ const bytes=await readFile('examples/resource-packs/family.kaishi.json'),sha256=createHash('sha256').update(bytes).digest('hex');const args={id,command:{url:'https://example.invalid/family.kaishi.json',sha256},execution:{key:'resource-mcp-001',revision:0}};
+ assert.equal((await client.callTool({name:'aperture_resources_send',arguments:args})).structuredContent.state,'delivered');assert.equal((await client.callTool({name:'aperture_resources_send',arguments:args})).structuredContent.replayed,true);
+ const identity={id,secret};assert.equal((await f.request('/api/app-operations/poll',identity,{cookie:f.owner})).data.command.sha256,sha256);for(const [state,revision]of [['staging',1],['awaiting_system',2]])assert.equal((await f.request('/api/app-operations/stage',{...identity,state,revision},{cookie:f.owner})).status,200);
+ const result={packId:'org.example.family',revision:1,sha256,changed:true};assert.equal((await f.request('/api/app-operations/finish',{...identity,state:'succeeded',revision:3,result},{cookie:f.owner})).status,200);
+ const receipt=(await client.callTool({name:'aperture_resources_status',arguments:{id,key:'resource-mcp-001'}})).structuredContent.receipt;assert.deepEqual(receipt.result,result);assert.equal(receipt.outcome,'reported_by_tv');
 });

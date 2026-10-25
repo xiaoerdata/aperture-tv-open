@@ -1,0 +1,16 @@
+[Unit]
+Description=Kaishi TV household service
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@ROOT@
+ExecStart=@NODE@ --env-file=@ENV@ @MAIN@
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

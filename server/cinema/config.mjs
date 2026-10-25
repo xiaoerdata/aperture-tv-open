@@ -20,7 +20,7 @@ export function parsePlaylist(input,allowedOrigins){
   if(typeof input!=='string'||Buffer.byteLength(input)>65536)fail('清单需为64KB以内的 M3U 文本');
   const lines=input.replace(/^\uFEFF/,'').split(/\r?\n/);if(lines.shift()?.trim()!=='#EXTM3U')fail('请选择标准 M3U 清单；不支持 TVBox spider/JAR 配置');
   const channels=[];let name='',viewKind='live';
-  for(const raw of lines){const line=raw.trim();if(!line)continue;if(line.startsWith('#EXTINF:')){name=line.slice(line.indexOf(',')+1).trim();const group=/group-title="([^"]*)"/.exec(line)?.[1]?.toLowerCase();viewKind=['电视剧','剧集','series'].includes(group)?'series':['电影','movie','movies'].includes(group)?'movie':'live';continue;}if(line.startsWith('#'))continue;
+  for(const raw of lines){const line=raw.trim();if(!line)continue;if(line.startsWith('#EXTINF:')){name=line.slice(line.indexOf(',')+1).trim();const group=/group-title="([^"]*)"/.exec(line)?.[1]?.toLowerCase();viewKind=['电视剧','剧集','series'].includes(group)?'series':['电影','movie','movies'].includes(group)?'movie':['综艺','真人秀','variety'].includes(group)?'variety':'live';continue;}if(line.startsWith('#'))continue;
     let url;try{url=new URL(line);}catch{fail('清单包含无效链接');}
     if(url.username||url.password||url.hash||!allowedOrigins.includes(url.origin))fail('清单地址不在管理员批准的来源范围内',403,'media_origin_denied');
     if(channels.length>=100)fail('每份清单最多100项');

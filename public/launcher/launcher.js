@@ -11,7 +11,11 @@
   // Fit the same 16:9 composition to the WebView's actual logical viewport.
   // The canvas includes a 5% vertical / 5% horizontal television safe area.
   function fitTelevision() {
-    document.documentElement.style.setProperty('--tv-scale', String(Math.min(innerWidth / 1920, innerHeight / 1080)));
+    var scale=Math.min(innerWidth/1920,innerHeight/1080),style=document.documentElement.style;
+    style.setProperty('--tv-scale',String(scale));
+    style.setProperty('--tv-left',Math.max(0,(innerWidth-1920*scale)/2)+'px');
+    style.setProperty('--tv-top',Math.max(0,(innerHeight-1080*scale)/2)+'px');
+    resetTelevisionScroll();
   }
   fitTelevision();
   window.addEventListener('resize', fitTelevision);
@@ -86,7 +90,7 @@
   function familyPage(page) {
     if (local) { nativeAction(page); return; }
     var demo = query.demo === '1';
-    location.href = page === 'family' ? (parents ? '/tv-lite?edition=parents' + (demo ? '&demo=1' : '') : '/tv' + (demo ? '?demo=1' : '')) : '/cinema?from=home' + (parents ? '&edition=parents' : '') + '&view=' + (page === 'family-live' ? 'live' : page === 'family-series' ? 'series' : page === 'family-movies' ? 'movies' : 'library');
+    location.href = page === 'family' ? (parents ? '/tv-lite?edition=parents' + (demo ? '&demo=1' : '') : '/tv' + (demo ? '?demo=1' : '')) : '/cinema?from=home' + (parents ? '&edition=parents' : '') + '&view=' + (page === 'family-live' ? 'live' : page === 'family-series' ? 'series' : page === 'family-movies' ? 'movies' : page === 'family-variety' ? 'variety' : 'library');
   }
   var wallpapers = [
     {id:'dusk',name:'暮色湖面',country:'生成背景',file:'art/dusk-lake-v1.webp',thumb:'art/dusk-lake-thumb-v1.webp',author:'imagegen · 1672×941',generated:true,position:'center'},
@@ -166,7 +170,7 @@
     if (action === 'close-detail') { closePane(); return; }
     if (action === 'show-data') { closePane(); setSection('data'); return; }
     if (action === 'material') { material($('lobby').className.indexOf('solid') === -1); return; }
-    if (action === 'family' || action === 'family-live' || action === 'family-library' || action === 'family-series' || action === 'family-movies') { familyPage(action); return; }
+    if (action === 'family' || action === 'family-live' || action === 'family-library' || action === 'family-series' || action === 'family-movies' || action === 'family-variety') { familyPage(action); return; }
     nativeAction(action);
   }
   function openPane(name) {
@@ -174,6 +178,7 @@
     if (name === 'presets') { spec.actions = personal ? personal.presetActions() : []; if (!spec.actions.length) spec.actions = [['choose-shortcuts','管理常用应用','','']]; }
     if (!pane) prior = document.activeElement;
     pane = name;
+    $('pane-backdrop').className='pane-backdrop'+(name!=='presets'&&name!=='wallpapers'?' compact-pane':'');
     text('pane-title', spec.title); text('pane-eyebrow', ''); text('pane-description', spec.description || ''); text('pane-footnote', spec.footnote || ''); text('action-status', '');
     $('pane-description').hidden = !spec.description; $('pane-footnote').hidden = !spec.footnote;
     $('pane-swallow').hidden = name !== 'presets';
@@ -195,7 +200,7 @@
     $('pane-backdrop').hidden = false; $('lobby').setAttribute('aria-hidden', 'true');
     material($('lobby').className.indexOf('solid') !== -1);
     var motionLabel=document.querySelector('[data-action=motion] strong');if(motionLabel)motionLabel.textContent=decorativeMotion?'关闭动画':'开启动画';
-    $('pane-actions').querySelector('button:not(:disabled)').focus();
+    focusNode($('pane-actions').querySelector('button:not(:disabled)'));
   }
   function closePane() {
     if (!pane) return false;
@@ -203,12 +208,13 @@
     if (pane === 'wallpapers') $('pane-actions').textContent = '';
     pane = null; $('pane-backdrop').hidden = true;
     if (personal) personal.schedule(); $('lobby').removeAttribute('aria-hidden');
-    if (prior && prior.focus && prior.offsetWidth) prior.focus(); else focusNode(firstHomeControl(homePage));
+    if (prior && prior.focus && prior.offsetWidth) focusNode(prior); else focusNode(firstHomeControl(homePage));
     return true;
   }
   var panes = document.querySelectorAll('[data-pane]');
   for (var i = 0; i < panes.length; i++) panes[i].onclick = function () { var name = this.getAttribute('data-pane'); if (parents && name === 'live') familyPage('family-live'); else if (parents && name === 'cinema') familyPage('family-movies'); else openPane(name); };
   $('entry-series').onclick = function () { familyPage('family-series'); };
+  $('entry-variety').onclick = function () { familyPage('family-variety'); };
   var watchButtons = $('home-watch').querySelectorAll('[data-watch]');
   for (i = 0; i < watchButtons.length; i++) watchButtons[i].onclick = function () { familyPage(this.getAttribute('data-watch')); };
   $('home-watch').addEventListener('focusin', function (event) { if (event.target.id) homeWatchFocus = event.target.id; });
@@ -267,8 +273,8 @@
     return values.slice(contentPage * 2, contentPage * 2 + 2);
   }
   $('collection-nas').onclick = function () { nativeAction('nas-photos'); };
-  $('collection-prev').onclick = function () { contentPage--; contentView(); if (this.disabled) $('collection-next').focus(); };
-  $('collection-next').onclick = function () { contentPage++; contentView(); if (this.disabled) $('collection-prev').focus(); };
+  $('collection-prev').onclick = function () { contentPage--; contentView(); if (this.disabled) focusNode($('collection-next')); };
+  $('collection-next').onclick = function () { contentPage++; contentView(); if (this.disabled) focusNode($('collection-prev')); };
   function dataPresentation(m, metric) {
     var stale = !metric && !(Date.parse(m.expiresAt) > Date.now());
     return {stale:stale, value:stale ? '待更新' : String(m.value), source:metric ? m.source + ' · ' + m.date + (m.date === today() ? ' · 今日记录' : ' · 历史记录') : m.source + ' · ' + (stale ? '快照过期，需重新读取' : m.observedAt ? '数据时间 ' + new Date(m.observedAt).toLocaleString('zh-CN') : '读取时间 ' + new Date(m.fetchedAt).toLocaleString('zh-CN')), full:(stale ? '待更新' : m.value + ' ' + m.unit) + (metric ? '\n目标 ' + m.target + ' ' + m.unit : '')};
@@ -344,7 +350,7 @@
     for (var n = 0; n < tabs.length; n++) tabs[n].setAttribute('aria-pressed', String(tabs[n].getAttribute('data-section') === name));
     setHomePage(homePage, false); contentView();
     // The activated summary/hero may now be hidden; move focus to a visible, stable control.
-    if (!document.activeElement.offsetWidth) (name === 'overview' ? firstHomeControl(homePage) : document.querySelector('.back-overview')).focus();
+    if (!document.activeElement.offsetWidth) focusNode(name === 'overview' ? firstHomeControl(homePage) : document.querySelector('.back-overview'));
   }
   var sectionButtons = document.querySelectorAll('button[data-section]');
   for (i = 0; i < sectionButtons.length; i++) sectionButtons[i].onclick = function () { setSection(this.getAttribute('data-section')); };
@@ -402,7 +408,7 @@
     if (section !== 'overview' && section !== 'tools') {
       var focused = $('collection-body').contains(document.activeElement), focusKey = focused ? document.activeElement.getAttribute('data-content-id') : null;
       contentView();
-      if (focused) { var nodes = $('collection-body').querySelectorAll('[data-content-id]'), nextFocus = null; for (var j = 0; j < nodes.length; j++) if (nodes[j].getAttribute('data-content-id') === focusKey) nextFocus = nodes[j]; (nextFocus || document.querySelector('.back-overview')).focus(); }
+      if (focused) { var nodes = $('collection-body').querySelectorAll('[data-content-id]'), nextFocus = null; for (var j = 0; j < nodes.length; j++) if (nodes[j].getAttribute('data-content-id') === focusKey) nextFocus = nodes[j]; focusNode(nextFocus || document.querySelector('.back-overview')); }
     }
   }
   function loadContent() {
@@ -427,7 +433,7 @@
       {type: 'event', title: '去楼下散散步', date: today(), time: '20:00', person: '全家'}
     ], photos: []}; text('local-note', '演示内容');
   }
-  personal = window.KaishiHome({visible:function(){return !parents && homePage===0 && section==='overview' && !pane && !document.hidden && nativeActive;},data:function(){return {photos:photos(),metrics:entries('metric'),notes:entries('note'),events:entries('event').filter(function(e){return e.date===today();}),life:(board&&board.life)||[],today:today()};},action:nativeAction,open:function(action){if(action==='nas'||action==='nas-photos')nativeAction(action);else setSection(action);},presets:function(){openPane('presets');}});
+  personal = window.KaishiHome({focus:focusNode,visible:function(){return !parents && homePage===0 && section==='overview' && !pane && !document.hidden && nativeActive;},data:function(){return {photos:photos(),metrics:entries('metric'),notes:entries('note'),events:entries('event').filter(function(e){return e.date===today();}),life:(board&&board.life)||[],today:today()};},action:nativeAction,open:function(action){if(action==='nas'||action==='nas-photos')nativeAction(action);else setSection(action);},presets:function(){openPane('presets');}});
   renderContent(); loadContent(); contentTimer = setInterval(loadContent, virtualHome ? 5000 : 30000);
   function back() {
     if (!pane && section==='overview' && homePage===0 && personal.appsExpanded()) {personal.setApps(false,true);return true;}
@@ -441,16 +447,33 @@
     for (var j = 0; j < nodes.length; j++) if (!nodes[j].disabled && nodes[j].tabIndex !== -1 && nodes[j].offsetWidth && nodes[j].offsetHeight) result.push(nodes[j]);
     return result;
   }
+  function resetTelevisionScroll(){
+    if(innerWidth/innerHeight<=4/3)return;
+    window.scrollTo(0,0);document.documentElement.scrollLeft=0;document.documentElement.scrollTop=0;document.body.scrollLeft=0;document.body.scrollTop=0;
+    var frames=[$('lobby'),$('pane-backdrop')];for(var n=0;n<frames.length;n++)if(frames[n]){frames[n].scrollLeft=0;frames[n].scrollTop=0;}
+  }
+  function revealInside(container,target){
+    if(!container||!container.contains(target))return;
+    var outer=container.getBoundingClientRect(),rect=target.getBoundingClientRect(),scale=outer.height/container.offsetHeight||1;
+    if(rect.top<outer.top+6)container.scrollTop+=(rect.top-outer.top-6)/scale;
+    else if(rect.bottom>outer.bottom-6)container.scrollTop+=(rect.bottom-outer.bottom+6)/scale;
+  }
   function focusNode(node) {
     if (node && !node.disabled && node.offsetWidth && node.offsetHeight) {
       node.focus({preventScroll:true});
-      // Only content lists scroll. Scrolling the transformed television canvas
-      // would move the complete screen after a remote-control focus change.
-      if (pane || innerWidth / innerHeight <= 4/3 || node.closest('.collection-tile')) node.scrollIntoView({block:'nearest'});
+      if(innerWidth/innerHeight<=4/3)node.scrollIntoView({block:'nearest'});
+      else{
+        // scrollIntoView also scrolls hidden ancestors in WebView. Only move the actual list.
+        if(pane){revealInside($('pane-actions'),node);revealInside(document.querySelector('.entry-pane'),node);}
+        var tile=node.closest('.collection-tile');if(tile)revealInside(tile,node);
+        resetTelevisionScroll();
+      }
       return true;
     }
     return false;
   }
+  document.addEventListener('focusin',resetTelevisionScroll);
+  window.addEventListener('scroll',resetTelevisionScroll);
   // Menus are linear lists; home entries are rows. Do not jump to a diagonal control.
   function rowKey(name) {
     if (pane) {
@@ -525,10 +548,10 @@
     if (!parents && section === 'overview' && group.className.indexOf('destinations') !== -1) {
       if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(visible[position + (name === 'ArrowLeft' ? -1 : 1)]) || true;
       if (name === 'ArrowUp') { setHomePage(0); return true; }
-      if (name === 'ArrowDown') return focusNode($(position === 0 ? 'quick1' : 'quick3')) || true;
+      if (name === 'ArrowDown') { var appRow = $('parents-shortcuts').querySelectorAll('button'); return focusNode(appRow[Math.round(position*(appRow.length-1)/Math.max(1,visible.length-1))]) || true; }
     }
     if (!parents && group.className.indexOf('shortcuts-row') !== -1) {
-      if (name === 'ArrowUp') return focusNode($(position < 2 ? 'entry-live' : 'entry-cinema')) || true;
+      if (name === 'ArrowUp') { var coreRow = Array.prototype.slice.call(document.querySelectorAll('.destinations button')).filter(function (n) { return !n.hidden && n.offsetWidth; }); return focusNode(coreRow[Math.round(position*(coreRow.length-1)/Math.max(1,visible.length-1))]) || true; }
       if (name === 'ArrowDown') { setHomePage(2); return true; }
     }
     if (group.className.indexOf('content-links') !== -1) {
@@ -539,7 +562,7 @@
     if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode($(homePage === 0 ? 'page-down' : homePage === 1 ? 'quick1' : 'entry-photos')) || true;
     if (group.className.indexOf('destinations') !== -1 || group.className.indexOf('tools-grid') !== -1) {
       var tools = group.className.indexOf('tools-grid') !== -1;
-      columns = !tools && parents ? (innerWidth / innerHeight > 4/3 ? 3 : 1) : (innerWidth / innerHeight > 4/3 ? 4 : 2);
+      columns = !tools && parents ? (innerWidth / innerHeight > 4/3 ? 4 : 1) : (innerWidth / innerHeight > 4/3 ? 4 : 2);
       var column = position % columns;
       if (name === 'ArrowLeft') return focusNode(column > 0 ? visible[position-1] : null) || true;
       if (name === 'ArrowRight') return focusNode(column+1 < columns ? visible[position+1] : null) || true;
@@ -570,11 +593,11 @@
     if (name === 'Menu' || name === 'ContextMenu' || name === 'F10') { event.preventDefault(); openPane('settings'); return; }
     if (name !== 'Enter' || document.activeElement.id !== 'slide-play') pauseCarousel();
     if (name === 'Escape' || name === 'BrowserBack') { if (back()) event.preventDefault(); return; }
-    if (name === 'Tab' && pane) { event.preventDefault(); nodes[(current + (event.shiftKey ? -1 : 1) + nodes.length) % nodes.length].focus(); return; }
+    if (name === 'Tab' && pane) { event.preventDefault(); focusNode(nodes[(current + (event.shiftKey ? -1 : 1) + nodes.length) % nodes.length]); return; }
     if ((name === 'Enter' || name === ' ') && current >= 0) { event.preventDefault(); nodes[current].click(); return; }
     if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(name) < 0) return;
     event.preventDefault(); if (!nodes.length) return;
-    if (current < 0) { nodes[0].focus(); return; }
+    if (current < 0) { focusNode(nodes[0]); return; }
     if (rowKey(name)) return;
     var a = nodes[current].getBoundingClientRect(), ax = a.left + a.width / 2, ay = a.top + a.height / 2, best = null, score = Infinity;
     for (var k = 0; k < nodes.length; k++) {

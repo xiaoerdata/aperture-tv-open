@@ -13,3 +13,13 @@ test('inactive/closed proxy sends no new read; old in-flight reply is discarded 
  let started,release;const began=new Promise(r=>started=r),gate=new Promise(r=>release=r);let requests=0;const server=createServer(async(req,res)=>{requests++;started();await gate;res.setHeader('Content-Type','application/json');res.end('{"entries":[{"title":"old private value"}],"photos":[]}');});await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>{release();return new Promise(r=>server.close(r));});const harness=await householdHarness();t.after(()=>harness.close());await harness.set(`http://127.0.0.1:${server.address().port}`,cookie);
  const read=harness.read(virtual+'/api/board');await began;await harness.active(false);await harness.active(true);release();const reply=await read;assert.equal(reply.status,503);assert.ok(!reply.body.toString().includes('old private'));await harness.active(false);assert.equal((await harness.read(virtual+'/api/board')).status,503);assert.equal(requests,1);await harness.cancel();await harness.active(true);assert.equal((await harness.read(virtual+'/api/board')).status,503);assert.equal(requests,1);
 });
+
+test('release household HTTP requires explicit permission and a literal private host',async t=>{
+ const harness=await householdHarness();t.after(()=>harness.close());
+ assert.equal(await harness.origin('https://screen.example.com'),true);
+ for(const host of ['192.168.31.2','10.0.0.2','172.16.0.2','127.0.0.1','[fd00::123]']){
+  assert.equal(await harness.origin('http://'+host+':4318'),false);
+  assert.equal(await harness.origin('http://'+host+':4318',true),true);
+ }
+ for(const origin of ['http://8.8.8.8','http://192.168.31.2.example.com','http://screen.local','http://169.254.1.1','http://192.168.999.2','http://192.168.01.2','http://192.168.1.2/path','http://user@192.168.1.2','http://192.168.1.2:0','http://192.168.1.2#secret'])assert.equal(await harness.origin(origin,true),false,origin);
+});

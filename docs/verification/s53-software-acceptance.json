@@ -1,0 +1,137 @@
+{
+  "stage": "S53",
+  "version": "0.2.0-alpha.15",
+  "versionCode": 18,
+  "status": "alpha-for-hardware-retest",
+  "nodeTests": {
+    "total": 92,
+    "passed": 89,
+    "failed": 0,
+    "skipped": 3,
+    "skipReason": "Samba runtime was lost with temporary environment; signed SMB2/3 and encrypted SMB handoff were not re-executed",
+    "logSha256": "1157cd35fdaed128bae64a4d48d96842a95a537f748bd914a7e9ec0b6f6622ea"
+  },
+  "releaseBuild": {
+    "standard": true,
+    "parents": true,
+    "debuggable": false,
+    "gradle": "8.9",
+    "jdk": "17.0.21",
+    "compileSdk": 35,
+    "buildTools": "35.0.0",
+    "lintVitalPassed": true
+  },
+  "packages": [
+    {
+      "applicationId": "org.zhixiaoce.kaishi",
+      "edition": "standard",
+      "version": "0.2.0-alpha.15",
+      "versionCode": 18,
+      "variant": "release",
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v18-standard.apk",
+      "apkBytes": 85513156,
+      "sha256": "24cfb3a922fd4b10566162c24306f452ee309d37d05b048aad57662b67b8c3a6",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "0bf708bc2212072a2b67af7eeb4fb9d12d2a10205b2f190b719f107e0c22f0ba",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 36,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    },
+    {
+      "applicationId": "org.zhixiaoce.kaishi.parents",
+      "edition": "parents",
+      "version": "0.2.0-alpha.15-parents",
+      "versionCode": 18,
+      "variant": "release",
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v18-parents.apk",
+      "apkBytes": 85517252,
+      "sha256": "2215b5eed9a46369ee4f9d6b912c34bfce00e412fe2e83ced35b4d3981da7cac",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "0bf708bc2212072a2b67af7eeb4fb9d12d2a10205b2f190b719f107e0c22f0ba",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 36,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    }
+  ],
+  "binaryManifestChecks": [
+    {
+      "installProviderExported": false,
+      "agentActivityExported": false,
+      "method": "aapt actual APK binary manifest",
+      "applicationId": "org.zhixiaoce.kaishi",
+      "apkSha256": "24cfb3a922fd4b10566162c24306f452ee309d37d05b048aad57662b67b8c3a6",
+      "homeAliasDisabledByDefault": true,
+      "mainActivityHasHomeFilter": false,
+      "servicesOrReceivers": false,
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.REQUEST_INSTALL_PACKAGES",
+        "android.permission.REQUEST_DELETE_PACKAGES"
+      ],
+      "deviceExecuted": false
+    },
+    {
+      "installProviderExported": false,
+      "agentActivityExported": false,
+      "method": "aapt actual APK binary manifest",
+      "applicationId": "org.zhixiaoce.kaishi.parents",
+      "apkSha256": "2215b5eed9a46369ee4f9d6b912c34bfce00e412fe2e83ced35b4d3981da7cac",
+      "homeAliasDisabledByDefault": true,
+      "mainActivityHasHomeFilter": false,
+      "servicesOrReceivers": false,
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.REQUEST_INSTALL_PACKAGES",
+        "android.permission.REQUEST_DELETE_PACKAGES"
+      ],
+      "deviceExecuted": false
+    }
+  ],
+  "browserEvidence": [
+    "s53-home-entries.json",
+    "s53-feedback-browser.json",
+    "s53-app-logos.json"
+  ],
+  "nativeFeedbackUi": {
+    "status": "not-executed",
+    "environment": "official Android TV API28 x86; software CPU only; no KVM",
+    "attempts": [
+      {
+        "emulator": "37.3.5",
+        "result": "kernel exits before ADB"
+      },
+      {
+        "emulator": "37.2.12, 1GB",
+        "result": "kernel exits before ADB"
+      },
+      {
+        "emulator": "37.2.12, 2GB",
+        "result": "ADB remained offline; no APK installed; stopped own emulator"
+      }
+    ],
+    "instrumentationBuiltForBothEditions": true,
+    "nativeUiPassed": false,
+    "originalHomeReturnVerified": false,
+    "xiaomiTested": false
+  },
+  "migration": "side-by-side; retain v17 data; configure new edition separately",
+  "xiaomiTested": false,
+  "workBuddyClientTested": false,
+  "published": false,
+  "httpModuleRegression": {
+    "passed": 12,
+    "failed": 0,
+    "logSha256": "d229f87cb13eae0fcdb7bbcbb5fd88867650b88c740faeeaebfae4fd56fa4d84",
+    "fix": "serve the explicit entry-contract dependency used by browser model; other shared modules remain private"
+  }
+}

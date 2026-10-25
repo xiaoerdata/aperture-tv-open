@@ -11,12 +11,12 @@
   function reduced(){return window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}
   function schedule(){if(disposed||mode!=='auto'||slides.length<2||!options.visible()||reduced()||panel.contains(document.activeElement)){stop();return;}if(timer!==null)return;timer=setTimeout(function(){timer=null;index=(index+1)%slides.length;draw(true);schedule();},12000);}
   function draw(animate){
-   panel.hidden=mode==='hidden'||!slides.length;id('ambient-home').className='home-screen ambient-screen'+(panel.hidden?' ambient-empty':'');if(panel.hidden){if(panel.contains(document.activeElement))id('home-live').focus();['personal-kind','personal-title','personal-value','personal-meta','personal-count'].forEach(function(key){id(key).textContent='';});id('personal-photo').removeAttribute('src');stop();return;}
+   panel.hidden=mode==='hidden'||!slides.length;id('ambient-home').className='home-screen ambient-screen'+(panel.hidden?' ambient-empty':'');if(panel.hidden){if(panel.contains(document.activeElement))options.focus(id('home-live'));['personal-kind','personal-title','personal-value','personal-meta','personal-count'].forEach(function(key){id(key).textContent='';});id('personal-photo').removeAttribute('src');stop();return;}
    index=Math.min(index,slides.length-1);var slide=slides[index];current=slide.key;
    id('personal-kind').textContent=slide.kind;id('personal-title').textContent=slide.title;id('personal-value').textContent=slide.value;id('personal-meta').textContent=slide.meta||'';id('personal-open').textContent=slide.open;
    id('personal-photo').hidden=!slide.photo;if(slide.photo)id('personal-photo').src=slide.photo;else id('personal-photo').removeAttribute('src');
    id('personal-count').textContent=(index+1)+' / '+slides.length;id('personal-next').hidden=slides.length<2;id('personal-pause').hidden=slides.length<2||reduced();id('personal-pause').textContent=mode==='auto'?'暂停':'轮播';id('personal-pause').setAttribute('aria-pressed',String(mode==='auto'));
-   if(panel.contains(document.activeElement)&&document.activeElement.hidden)id('personal-open').focus();
+   if(panel.contains(document.activeElement)&&document.activeElement.hidden)options.focus(id('personal-open'));
    panel.setAttribute('data-kind',slide.key);var copy=id('personal-copy');copy.className='personal-copy';if(animate&&!reduced()){void copy.offsetWidth;copy.className+=' personal-enter';}
   }
   function update(){
@@ -30,14 +30,25 @@
    slides=values;index=0;for(k=0;k<slides.length;k++)if(slides[k].key===current)index=k;draw(false);schedule();
   }
   function mark(entry,icon){
-   var box=node('span','app-mark');if(entry){box.setAttribute('data-brand',entry.id);box.style.backgroundColor=entry.color;box.appendChild(node('span','app-wordmark',entry.mark));box.appendChild(node('span','app-compact',({bilibili:'哔',tencent:'腾',iqiyi:'奇',youku:'酷',mango:'芒',migu:'咪',netflix:'N',appletv:'tv',youtube:'▶',disney:'D+',plex:'P',kodi:'K'})[entry.id]||entry.mark));}else box.appendChild(node('span','app-wordmark','APP'));
-   if(/^\/apps\/icons\/[a-z0-9]{2,20}\.png$/.test(icon||'')){var picture=node('img','app-real-icon');picture.src=icon;picture.alt='';picture.onerror=function(){picture.hidden=true;};box.appendChild(picture);}return box;
+   var box=node('span','app-mark'),picture=node('img','app-real-icon'),fallback='./app-icons/application.svg';
+   box.setAttribute('aria-hidden','true');if(entry)box.setAttribute('data-brand',entry.id);
+   var preset=entry&&/^app-icons\/[a-z]{2,20}\.(png|jpg)$/.test(entry.icon||'')?'./'+entry.icon:'';
+   var nativeIcon=/^\/apps\/icons\/[a-z0-9]{2,20}\.png$/.test(icon||'')?icon:'';
+   var stage=nativeIcon?'installed':preset?'preset':'generic';
+   picture.alt='';picture.draggable=false;
+   picture.onerror=function(){
+    if(stage==='installed'&&preset){stage='preset';picture.src=preset;}
+    else if(stage!=='generic'){stage='generic';picture.src=fallback;}
+    else{picture.onerror=null;picture.hidden=true;}
+    box.setAttribute('data-icon-source',stage);
+   };
+   box.setAttribute('data-icon-source',stage);box.appendChild(picture);picture.src=nativeIcon||preset||fallback;return box;
   }
   function setApps(value,focus){
    clearTimeout(foldTimer);expanded=value;var list=id('home-app-list');id('dock-toggle').setAttribute('aria-expanded',String(value));id('ambient-home').setAttribute('data-apps-expanded',String(value));dock.setAttribute('data-expanded',String(value));list.setAttribute('aria-hidden',String(!value));
    var buttons=list.querySelectorAll('button');for(var b=0;b<buttons.length;b++)buttons[b].tabIndex=value?0:-1;
-   if(value){list.hidden=false;list.className='home-app-list apps-unfold';if(focus)(id('home-apps').querySelector('button')||id('home-app-add')).focus();}
-   else{if(focus||list.contains(document.activeElement))id('dock-toggle').focus();list.className='home-app-list apps-fold';if(reduced())list.hidden=true;else foldTimer=setTimeout(function(){if(!expanded)list.hidden=true;},180);}
+   if(value){list.hidden=false;list.className='home-app-list apps-unfold';if(focus)options.focus(id('home-apps').querySelector('button')||id('home-app-add'));}
+   else{if(focus||list.contains(document.activeElement))options.focus(id('dock-toggle'));list.className='home-app-list apps-fold';if(reduced())list.hidden=true;else foldTimer=setTimeout(function(){if(!expanded)list.hidden=true;},180);}
   }
   id('dock-toggle').onclick=function(){setApps(!expanded,true);};
   function renderApps(){
@@ -51,7 +62,7 @@
    id('dock-total').textContent=id('home-apps').children.length?String(id('home-apps').children.length)+' 个应用':'添加应用';
    var appButtons=id('home-app-list').querySelectorAll('button');for(n=0;n<appButtons.length;n++)appButtons[n].tabIndex=expanded?0:-1;
    dock.setAttribute('data-populated',String(id('home-apps').children.length>0));
-   if(/^dock-quick/.test(old)){var target=id(old);(target||id('home-app-add')).focus();}
+   if(/^dock-quick/.test(old)){var target=id(old);options.focus(target||id('home-app-add'));}
   }
   function presetActions(){var out=[];for(var i=0;i<catalog.length;i++){var c=catalog[i],app=apps[c.id];out.push(['preset-'+c.id,c.name,app&&app.installed?'已安装 · 添加到首页':c.tvName+(snapshotReceived?' · 未安装':' · 待检测'),'']);}return out;}
   function decorate(root){root.className='preset-grid';var buttons=root.querySelectorAll('button');for(var i=0;i<buttons.length;i++){var key=buttons[i].getAttribute('data-action').slice(7),entry=info(key),app=apps[key];buttons[i].insertBefore(mark(entry,app&&app.icon),buttons[i].firstChild);}}

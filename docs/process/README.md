@@ -85,3 +85,10 @@ S50验证收尾：[最终软件汇总](../verification/s50-final-software-accept
 
 
 S50发布结果：[v17 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.14)、[匿名附件与完整源码归档回读](../verification/public-alpha-v17.json)。两版软件与最终源码安装通过，旧alpha.13和私有研发仓库保留；小米真机/WorkBuddy仍由维护者验收。此补记晚于发行标签，仅更新main文档。
+
+
+S51：[综艺与资源包v1](../RESOURCE-PACK.md)、[Agent制作发布导入](../RESOURCE-PACK-AGENT.md)、[本地验证汇总](../verification/s51-summary.json)、[问题与修正](../verification/s51-development-issues.json)、[第三十七期](../../media/DEVLOG-037.md)。v18为本地源码，未打包或发布。
+
+S52：P49原厂应用图标，[出处](../../design-assets/app-logos/README.md)、[验证](../verification/s52-app-logos.json)、[底稿](../../media/DEVLOG-038.md)。
+
+S53：P50—P55，[真机问题处理](../V17-FEEDBACK.md)、[软件检查](../verification/s53-software-acceptance.json)、[模拟器失败记录](../verification/s53-native-environment.json)、[并存迁移](../MIGRATION-V18.md)、[新标识与原图](../../design-assets/s53/README.md)、[第三十九期](../../media/DEVLOG-039.md)。本版供小米真机复测，未把原生测试驱动构建称为UI验收通过。

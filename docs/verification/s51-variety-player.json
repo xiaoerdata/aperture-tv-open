@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "standard: variety entry, genre isolation, active tab and return after movie selection",
+    "parents: variety entry, genre isolation, active tab and return after movie selection"
+  ],
+  "errors": [],
+  "syntheticMedia": true,
+  "mediaPlayed": false,
+  "androidActivityTested": false
+}

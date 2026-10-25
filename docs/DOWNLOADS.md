@@ -1,52 +1,40 @@
 # 下载与版本
 
-正式中文名为“开视”。本次 **v17 / 0.2.0-alpha.14** 包含首页三屏与折叠应用、生成素材、TVBox插件运行、NAS与影视统一记录；详见[画面适配](TV-VIEWPORT.md)与[内嵌直播/影视](EMBEDDED-CINEMA.md)。
+**开视仅适配小米电视，Android 8+。** 当前为 **v18 / 0.2.0-alpha.15 Alpha测试版**，尚非稳定版。新版提供标准版和爸妈版，均使用独立包名、专用发行签名，关闭调试。
 
-**本项目仅适配小米电视。** Android 8+ 是最低要求，具体型号和固件需实测。
+[本次发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.15) · [源码](https://github.com/xiaoerdata/aperture-tv-open) · [问题反馈](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)
 
-当前提供 **v17 / 0.2.0-alpha.14 Alpha测试版**，用于通过开源仓库收集测试结果。APK是已核对签名的debug构建，小米真机与WorkBuddy客户端仍由维护者测试；不是正式稳定版。默认作为普通应用安装，不替换小米桌面。
-
-[查看本次测试发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.14) · [查看源码](https://github.com/xiaoerdata/aperture-tv-open) · [反馈问题](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)
-
-| 下载 | 文件 |
+| 下载 | 内容 |
 | --- | --- |
-| [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.14/aperture-tv-v17-standard-debug.apk) | `aperture-tv-v17-standard-debug.apk` |
-| [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.14/aperture-tv-v17-parents-debug.apk) | `aperture-tv-v17-parents-debug.apk` |
-| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.14.tar.gz) | 电脑/NAS运行服务、二次开发或自行构建 |
-| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.14/SHA256SUMS) | 两版APK及测试清单的SHA-256 |
-| [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.14/testing-manifest.json) | 版本、包名、签名、来源与待测范围 |
+| [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.15/kaishi-v18-standard.apk) | 四个观看入口、折叠应用、NAS与家庭分区 |
+| [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.15/kaishi-v18-parents.apk) | 看电视、看电视剧、看电影、看综艺与常用应用 |
+| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.15.tar.gz) | 家庭服务、二次开发与本地构建 |
+| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.15/SHA256SUMS) | 两版APK和测试清单SHA-256 |
+| [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.15/testing-manifest.json) | 包名、版本、签名、源码与验收边界 |
 
-历史文档中的“私有候选”“内测下载”统一指向本页。它们是开发阶段记录，历史版本不因此全部公开；以本页所列Alpha附件为准。也可按[免费本地构建](ANDROID-LOCAL.md)自行生成APK。
+## 新旧版并存
 
-## 选择版本
+旧临时签名私钥已丢失，无法对v17进行同签名覆盖升级。按维护者选择，本版使用新包名并存安装，**不要卸载v17**。旧APK、标签和旧数据保留；新版不能自动读取旧版私有设置或NAS密码。
 
-| 版本 | 包名 | 首页 | 本地构建 |
-| --- | --- | --- | --- |
-| 标准版 | `org.zhixiaoce.aperture` | 三个观看入口、折叠常用应用、片库与家庭分区 | `npm run android:apk -- --edition standard` |
-| 爸妈版 | `org.zhixiaoce.aperture.parents` | 看电视、看电视剧、看电影、常用应用 | `npm run android:apk -- --edition parents` |
+| 版本 | v18新包名 | v17保留包名 |
+| --- | --- | --- |
+| 标准版 | `org.zhixiaoce.kaishi` | `org.zhixiaoce.aperture` |
+| 爸妈版 | `org.zhixiaoce.kaishi.parents` | `org.zhixiaoce.aperture.parents` |
 
-两个包可以同时安装，设置和授权各自独立。两版同时构建可用 `--edition both`。源码包用于电脑或 NAS 运行家庭服务、二次开发和构建 APK，不能直接安装到电视。
+安装后从原系统应用列表打开新版，重新配对家庭服务、添加NAS与影视来源。需要时可以继续打开旧版。新旧四个开视包均排除原桌面候选；不自动切换默认桌面，不自动搬运凭证。详见[并存安装与迁移](MIGRATION-V18.md)。
 
-## 安装前核对
+[保留的v17发行](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.14)可继续下载。本版签名证书SHA-256以本次测试清单为准，今后升级须保持新版包名和证书、递增versionCode。安装提示签名冲突时先核对来源，不自动卸载。
 
-本地构建产物分别位于 `artifacts/android-local` 和 `artifacts/android-local-parents`。每个目录包含 APK、`manifest.json`、`SHA256SUMS`、`signature.txt` 与 `package.txt`。核对包名、版本、APK 摘要及签名；校验和要与同一可信来源的资料比较，不能只看文件名。
+## 安装与校验
 
-从测试发布下载APK和SHA256SUMS后，可分别核对所需文件。源码使用GitHub标签自动归档，解压后的逐文件摘要见SOURCE-MANIFEST.json，不将其压缩包混入APK校验和。本地构建的SHA256SUMS在各自产物目录。Linux完整下载附件后执行：
+完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v18-standard.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
 
-```bash
-sha256sum -c SHA256SUMS
-```
+安装路径见[小米安装说明](../INSTALL.md)。默认作为普通应用，保留原桌面、小爱和小米账号。本机应用、内嵌影院、手输NAS不依赖电脑家庭服务；照片、留言、统一片库和WorkBuddy另需运行家庭服务。家庭服务默认HTTPS；选择私网IP的HTTP时，须在电视明确开启，CLI另加 `--allow-lan-http`。NAS凭证交接与Agent安装卸载仍要求可信HTTPS。
 
-macOS 可执行 `shasum -a 256 -c SHA256SUMS`。Windows PowerShell 可用 `Get-FileHash .\aperture-tv-v17-standard-debug.apk -Algorithm SHA256`，与该目录的 `SHA256SUMS` 对照。摘要一致只证明文件一致，不证明来源可信、已完成硬件验收或能够覆盖升级。
+## 本次改动与测试范围
 
-已有同包名应用时，只有兼容签名及版本才可能覆盖升级。正式签名与私有 debug 签名可能不同；不要为解决签名错误自动卸载旧版，卸载会清除本地设置和授权。先核对来源并保留数据，再决定迁移方式。
+修正画布定位、聚焦引发的外层滚动、原生按钮间距与弹窗；改进原桌面解析及退出任务；加入原厂应用图标、简洁新标识、综艺入口和开视资源包。见[v17反馈处理](V17-FEEDBACK.md)与[资源格式](RESOURCE-PACK.md)。
 
-安装后默认从原桌面应用列表打开，HOME 候选默认关闭。本机应用、内嵌来源播放与手输 NAS 可独立使用；家庭照片、留言、统一片库和 WorkBuddy 另需运行家庭服务。具体操作见[安装说明](../INSTALL.md)、[第一次使用](QUICKSTART.md)和[WorkBuddy 指引](WORKBUDDY.md)。
+浏览器、Java协议、模拟器与小米真机证据分别记录。WorkBuddy客户端与小米真机由维护者复验，未测型号不标为兼容。本轮发行清单绑定实际APK与源码输入；旧阶段报告保留原始版本含义，不作为当前全部通过证明。
 
-## 当前测试范围
-
-两版APK沿用对应旧版本的包名与签名，版本号递增。本轮浏览器、协议、插件与双版原生检查见[验收记录](verification/s50-software-acceptance.json)。发行字节与干净源码的对应关系另见Release的testing-manifest.json。浏览器、协议和模拟器证据分别保留；WorkBuddy 客户端与小米真机由维护者测试，未测型号不标为兼容。设备范围见[支持说明](SUPPORT.md)，发布准备见[开源准备](OPEN-SOURCE-PREPARATION.md)。
-
-维护者生成正式稳定签名的包时使用[release构建与签名说明](ANDROID-RELEASE.md)；这套正式签发流程尚未完整执行，与本次debug签名Alpha分开记录。
-
-本次冻结源码的新目录安装回执收录在Release的`testing-manifest.json` → `cleanPublicSourceInstall`，绑定最终源码清单。[早期候选安装记录](verification/s50-public-clean-install.json)保留其原始来源，不代表最终发行源码。GitHub自动源码归档与本地验装归档的压缩字节可能不同，以标签提交、SOURCE-MANIFEST摘要和逐文件清单核对同一源码。发布后的匿名下载回执另行补记，不改既有标签或APK。
+可[免费本地构建](ANDROID-LOCAL.md)；发行操作见[签名说明](ANDROID-RELEASE.md)。公开源码不含签名密钥、NAS凭证、私人数据、工具链或原始用户测试PDF。

@@ -91,7 +91,10 @@ public final class NasActivity extends Activity {
     }
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
     private TextView label(String text, int size, int color) { TextView view = new TextView(this); view.setText(text); view.setTextSize(size); view.setTextColor(color); view.setPadding(0, dp(8), 0, dp(10)); view.setTextIsSelectable(false); return view; }
+    private AlertDialog connectionDialog;
+    private void closeConnectionDialog(){if(connectionDialog!=null){connectionDialog.dismiss();connectionDialog=null;}}
     private void screen(String title, String subtitle) {
+        closeConnectionDialog();
         content = new LinearLayout(this); content.setOrientation(LinearLayout.VERTICAL); content.setPadding(dp(38), dp(22), dp(38), dp(30));
         content.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{Color.rgb(9,17,26), Color.rgb(24,37,47), Color.rgb(10,17,25)}));
         TextView heading = label(title, 30, INK); heading.setTypeface(Typeface.DEFAULT, Typeface.BOLD); content.addView(heading); content.addView(label(subtitle, 17, MUTED));
@@ -191,7 +194,8 @@ public final class NasActivity extends Activity {
         field.setInputType(android.text.InputType.TYPE_CLASS_TEXT|(password?android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD:android.text.InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS));content.addView(field);return field;
     }
     private void form(int brand) {
-        mode="form";screen("添加 · "+BRANDS[brand],HELP[brand]);
+        closeConnectionDialog();
+        LinearLayout previousContent=content,formContent=new LinearLayout(this);formContent.setOrientation(LinearLayout.VERTICAL);formContent.addView(label(HELP[brand],17,MUTED));content=formContent;
         EditText name=input("在电视上叫什么","例如：周末电影 / 一家人的照片",false),address=input("共享地址","smb://192.168.1.20/Family 或 https://nas.example/Family/",false),user=input("NAS 只读账号","不使用管理后台账号",false),password=input("密码","只保存在本机加密记录里",true),domain=input("域（通常留空）","仅 SMB 企业域需要",false);
         Button save=button("测试目录并保存",()->{
             if(busy)return;
@@ -200,7 +204,7 @@ public final class NasActivity extends Activity {
                 connection=draft.connection;folder="";page=0;connect(true);
             }catch(Exception error){message("检查连接资料",error instanceof IllegalArgumentException?error.getMessage():"请检查输入。");}
         });
-        button("返回连接列表",this::connections);name.requestFocus();
+        content=previousContent;connectionDialog=TvDialogs.panel(this,"添加 · "+BRANDS[brand],formContent);name.requestFocus();
     }
     private void connect(boolean save) {
         invalidate();release();disconnect();mode="loading";int turn=generation;JSONObject config=connection;
@@ -343,5 +347,5 @@ public final class NasActivity extends Activity {
     @Override protected void onStop(){resumeId=connection==null?"":connection.optString("id");if(connection!=null)navigation.save(folder,page,focusedPath);invalidate();release();disconnect();connection=null;super.onStop();}
     @Override protected void onActivityResult(int request,int result,Intent data){if(installer!=null&&installer.result(request,result,data))return;super.onActivityResult(request,result,data);}
     @Override protected void onRestart(){super.onRestart();if(!category.isEmpty()){launchCategory();return;}try{JSONObject saved=vault.library().find(resumeId);if(saved!=null){connection=saved;connect(false);return;}if(savedLaunch){savedUnavailable(new IOException("原 NAS 连接已移除，请重新添加并从片库打开影片"));return;}}catch(Exception invalid){if(savedLaunch){savedUnavailable(invalid);return;}}connections();}
-    @Override protected void onDestroy(){if(installer!=null)installer.destroy();destroyed=true;display.bind(null);invalidate();release();disconnect();io.shutdown();main.removeCallbacksAndMessages(null);super.onDestroy();}
+    @Override protected void onDestroy(){closeConnectionDialog();if(installer!=null)installer.destroy();destroyed=true;display.bind(null);invalidate();release();disconnect();io.shutdown();main.removeCallbacksAndMessages(null);super.onDestroy();}
 }

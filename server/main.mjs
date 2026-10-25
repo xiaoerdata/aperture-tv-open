@@ -18,3 +18,8 @@ server.listen(port,host,()=>{
   console.log(`Aperture TV: ${origin}/tv?demo=1\nFamily studio: ${origin}/studio\nOwner key is stored privately in ${keyFile}; never share it in a recording.`);
   process.send?.({type:'aperture-ready',origin});
 });
+
+for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>{
+  server.close(()=>process.exit(0));
+  setTimeout(()=>process.exit(0),10000).unref();
+});

@@ -42,7 +42,7 @@ test('NAS traversal, unknown roots, own packages and extra command fields are re
 });
 test('uninstall cannot escape offered targets and install permission does not imply deletion',()=>{
  const f=fixture(),w=f.window('uninstall');f.sessions.agent.scopes=['home.read','apps.install'];assert.throws(()=>send(f,w,{packageName:'org.example.player'}),e=>e.code==='scope_denied');
- f.sessions.agent.scopes.push('apps.uninstall');assert.throws(()=>send(f,w,{packageName:'com.android.settings'}));assert.throws(()=>send(f,w,{packageName:'org.zhixiaoce.aperture'}));
+ f.sessions.agent.scopes.push('apps.uninstall');assert.throws(()=>send(f,w,{packageName:'com.android.settings'}));assert.throws(()=>send(f,w,{packageName:'org.zhixiaoce.aperture'}));assert.throws(()=>send(f,w,{packageName:'org.zhixiaoce.kaishi'}));assert.throws(()=>send(f,w,{packageName:'org.zhixiaoce.kaishi.parents'}));
  assert.equal(send(f,w,{packageName:'org.example.player'}).kind,'uninstall');
 });
 test('revocation blocks delivery and records uncertainty after OS handoff',()=>{

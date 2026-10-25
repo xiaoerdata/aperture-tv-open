@@ -1,0 +1,458 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/xiaoerdata/aperture-tv-open/main/docs/contracts/kaishi-resource-pack-v1.schema.json",
+  "title": "开视资源包 v1",
+  "type": "object",
+  "properties": {
+    "format": {
+      "const": "kaishi.resource-pack"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "maxLength": 96,
+      "minLength": 1,
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "author": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/live"
+          },
+          {
+            "$ref": "#/$defs/catalog"
+          },
+          {
+            "$ref": "#/$defs/collection"
+          },
+          {
+            "$ref": "#/$defs/tvbox"
+          }
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 24
+    }
+  },
+  "required": [
+    "format",
+    "version",
+    "id",
+    "revision",
+    "title",
+    "resources"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "url": {
+      "type": "string",
+      "maxLength": 4096,
+      "format": "uri",
+      "pattern": "^https?://"
+    },
+    "headers": {
+      "type": "object",
+      "maxProperties": 8,
+      "propertyNames": {
+        "pattern": "^(?:[Aa][Cc][Cc][Ee][Pp][Tt]|[Uu][Ss][Ee][Rr]-[Aa][Gg][Ee][Nn][Tt]|[Rr][Ee][Ff][Ee][Rr][Ee][Rr]|[Oo][Rr][Ii][Gg][Ii][Nn]|[Cc][Oo][Nn][Tt][Ee][Nn][Tt]-[Tt][Yy][Pp][Ee])$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "maxLength": 1024,
+        "pattern": "^[^\\r\\n\\u0000]*$"
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "movies",
+          "series",
+          "variety"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true
+    },
+    "categoryIds": {
+      "type": "object",
+      "properties": {
+        "movies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "variety": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "episode": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "url": {
+          "$ref": "#/$defs/url"
+        },
+        "headers": {
+          "$ref": "#/$defs/headers"
+        }
+      },
+      "required": [
+        "title",
+        "url"
+      ],
+      "additionalProperties": false
+    },
+    "item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "remark": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "episodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/episode"
+          },
+          "minItems": 1,
+          "maxItems": 500
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "episodes"
+      ],
+      "additionalProperties": false
+    },
+    "channel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "group": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/url"
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "headers": {
+          "$ref": "#/$defs/headers"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "urls"
+      ],
+      "additionalProperties": false
+    },
+    "live": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "type": {
+          "const": "live"
+        },
+        "url": {
+          "$ref": "#/$defs/url"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/channel"
+          },
+          "minItems": 1,
+          "maxItems": 500
+        },
+        "headers": {
+          "$ref": "#/$defs/headers"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "url"
+          ],
+          "not": {
+            "required": [
+              "channels"
+            ]
+          }
+        },
+        {
+          "required": [
+            "channels"
+          ],
+          "not": {
+            "required": [
+              "url"
+            ]
+          }
+        }
+      ]
+    },
+    "catalog": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "type": {
+          "const": "catalog"
+        },
+        "url": {
+          "$ref": "#/$defs/url"
+        },
+        "protocol": {
+          "enum": [
+            "maccms-json",
+            "maccms-xml",
+            "tvbox-type4"
+          ]
+        },
+        "sections": {
+          "$ref": "#/$defs/sections"
+        },
+        "categoryIds": {
+          "$ref": "#/$defs/categoryIds"
+        },
+        "headers": {
+          "$ref": "#/$defs/headers"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "url",
+        "protocol",
+        "sections"
+      ],
+      "additionalProperties": false
+    },
+    "collection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "type": {
+          "const": "collection"
+        },
+        "section": {
+          "enum": [
+            "movies",
+            "series",
+            "variety"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          },
+          "minItems": 1,
+          "maxItems": 200
+        },
+        "headers": {
+          "$ref": "#/$defs/headers"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "section",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    "tvbox": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "type": {
+          "const": "tvbox"
+        },
+        "baseUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "config": {
+          "type": "object",
+          "anyOf": [
+            {
+              "required": [
+                "sites"
+              ]
+            },
+            {
+              "required": [
+                "lives"
+              ]
+            }
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "format"
+                ]
+              },
+              {
+                "required": [
+                  "urls"
+                ]
+              },
+              {
+                "required": [
+                  "data"
+                ]
+              }
+            ]
+          }
+        },
+        "sections": {
+          "$ref": "#/$defs/sections"
+        },
+        "categoryIds": {
+          "$ref": "#/$defs/categoryIds"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "config"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "checks": [
+    {
+      "edition": "standard",
+      "brands": [
+        {
+          "id": "bilibili",
+          "source": "installed",
+          "src": "/apps/icons/bilibili.png",
+          "width": 750,
+          "height": 750,
+          "text": ""
+        },
+        {
+          "id": "tencent",
+          "source": "preset",
+          "src": "./app-icons/tencent.png",
+          "width": 192,
+          "height": 192,
+          "text": ""
+        },
+        {
+          "id": "iqiyi",
+          "source": "preset",
+          "src": "./app-icons/iqiyi.png",
+          "width": 216,
+          "height": 216,
+          "text": ""
+        },
+        {
+          "id": "youku",
+          "source": "preset",
+          "src": "./app-icons/youku.png",
+          "width": 195,
+          "height": 195,
+          "text": ""
+        },
+        {
+          "id": "mango",
+          "source": "preset",
+          "src": "./app-icons/mango.png",
+          "width": 512,
+          "height": 512,
+          "text": ""
+        },
+        {
+          "id": "migu",
+          "source": "preset",
+          "src": "./app-icons/migu.jpg",
+          "width": 512,
+          "height": 512,
+          "text": ""
+        },
+        {
+          "id": "netflix",
+          "source": "preset",
+          "src": "./app-icons/netflix.jpg",
+          "width": 512,
+          "height": 512,
+          "text": ""
+        },
+        {
+          "id": "appletv",
+          "source": "preset",
+          "src": "./app-icons/appletv.png",
+          "width": 180,
+          "height": 180,
+          "text": ""
+        },
+        {
+          "id": "youtube",
+          "source": "preset",
+          "src": "./app-icons/youtube.png",
+          "width": 144,
+          "height": 144,
+          "text": ""
+        },
+        {
+          "id": "disney",
+          "source": "preset",
+          "src": "./app-icons/disney.png",
+          "width": 180,
+          "height": 180,
+          "text": ""
+        },
+        {
+          "id": "plex",
+          "source": "preset",
+          "src": "./app-icons/plex.png",
+          "width": 512,
+          "height": 512,
+          "text": ""
+        },
+        {
+          "id": "kodi",
+          "source": "preset",
+          "src": "./app-icons/kodi.png",
+          "width": 256,
+          "height": 256,
+          "text": ""
+        }
+      ],
+      "installedFirst": true,
+      "installedFailureUsesPreset": true,
+      "doubleFailureUsesGeneric": true,
+      "unknownUsesGraphic": true,
+      "noTextLogo": true
+    },
+    {
+      "edition": "parents",
+      "brands": [
+        {
+          "id": "bilibili",
+          "source": "installed",
+          "src": "/apps/icons/bilibili.png",
+          "width": 750,
+          "height": 750,
+          "text": ""
+        },
+        {
+          "id": "tencent",
+          "source": "preset",
+          "src": "./app-icons/tencent.png",
+          "width": 192,
+          "height": 192,
+          "text": ""
+        },
+        {
+          "id": "iqiyi",
+          "source": "preset",
+          "src": "./app-icons/iqiyi.png",
+          "width": 216,
+          "height": 216,
+          "text": ""
+        },
+        {
+          "id": "youku",
+          "source": "preset",
+          "src": "./app-icons/youku.png",
+          "width": 195,
+          "height": 195,
+          "text": ""
+        },
+        {
+          "id": "mango",
+          "source": "preset",
+          "src": "./app-icons/mango.png",
+          "width": 512,
+          "height": 512,
+          "text": ""
+        },
+        {
+          "id": "migu",
+          "source": "preset",
+          "src": "./app-icons/migu.jpg",
+          "width": 512,
+          "height": 512,
+          "text": ""
+        },
+        {
+          "id": "netflix",
+          "source": "preset",
+          "src": "./app-icons/netflix.jpg",
+          "width": 512,
+          "height": 512,
+          "text": ""
+        },
+        {
+          "id": "appletv",
+          "source": "preset",
+          "src": "./app-icons/appletv.png",
+          "width": 180,
+          "height": 180,
+          "text": ""
+        },
+        {
+          "id": "youtube",
+          "source": "preset",
+          "src": "./app-icons/youtube.png",
+          "width": 144,
+          "height": 144,
+          "text": ""
+        },
+        {
+          "id": "disney",
+          "source": "preset",
+          "src": "./app-icons/disney.png",
+          "width": 180,
+          "height": 180,
+          "text": ""
+        },
+        {
+          "id": "plex",
+          "source": "preset",
+          "src": "./app-icons/plex.png",
+          "width": 512,
+          "height": 512,
+          "text": ""
+        },
+        {
+          "id": "kodi",
+          "source": "preset",
+          "src": "./app-icons/kodi.png",
+          "width": 256,
+          "height": 256,
+          "text": ""
+        }
+      ],
+      "installedFirst": true,
+      "installedFailureUsesPreset": true,
+      "doubleFailureUsesGeneric": true,
+      "unknownUsesGraphic": true,
+      "noTextLogo": true
+    }
+  ],
+  "images": [
+    "docs/images/s52-logos-standard-expanded.png",
+    "docs/images/s52-logos-standard-presets-top.png",
+    "docs/images/s52-logos-standard-presets-bottom.png",
+    "docs/images/s52-logos-parents.png",
+    "docs/images/s52-logos-parents-presets-top.png",
+    "docs/images/s52-logos-parents-presets-bottom.png"
+  ],
+  "errors": [],
+  "externalRequests": 0,
+  "method": "Chromium real launcher with packaged official assets; synthetic installed-state and native icon bytes",
+  "television": false,
+  "apkBuilt": false
+}

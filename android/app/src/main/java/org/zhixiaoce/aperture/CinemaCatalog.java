@@ -17,10 +17,12 @@ final class CinemaCatalog {
         Site(String name,String api){this(name,api,api,1,java.util.Collections.emptyMap());}
         Site(String name,String api,String key,int type,java.util.Map<String,String> headers){this(name,api,key,type,headers,"","","","");}
         Site(String name,String api,String key,int type,java.util.Map<String,String> headers,String ext,String jar,String spider,String base){this.name=name;this.api=api;this.key=key;this.type=type;this.headers=headers;this.ext=ext;this.jar=jar;this.spider=spider;this.base=base;}
+        String identity="";List<String> sections=new ArrayList<>();JSONObject categoryIds=new JSONObject();JSONArray items;
+        boolean supports(String section){return sections.isEmpty()||"library".equals(section)||sections.contains(section);}
         boolean resolved(){return type==3||type==4;}
     }
     static final class Channel {
-        final String name,group; final List<String> urls;final java.util.Map<String,String> headers;final List<java.util.Map<String,String>> requests;
+        final String name,group;String id=""; final List<String> urls;final java.util.Map<String,String> headers;final List<java.util.Map<String,String>> requests;
         Channel(String name,String group,List<String> urls){this(name,group,urls,java.util.Collections.emptyMap());}
         Channel(String name,String group,List<String> urls,java.util.Map<String,String> headers){this(name,group,urls,headers,new ArrayList<>());}
         Channel(String name,String group,List<String> urls,java.util.Map<String,String> headers,List<java.util.Map<String,String>> requests){this.name=name;this.group=group;this.urls=urls;this.headers=headers;this.requests=requests;}
@@ -31,25 +33,28 @@ final class CinemaCatalog {
         final String name,url; final List<Channel> channels;final java.util.Map<String,String> headers;
         Live(String name,String url,List<Channel> channels){this(name,url,channels,java.util.Collections.emptyMap());}
         Live(String name,String url,List<Channel> channels,java.util.Map<String,String> headers){this.name=name;this.url=url;this.channels=channels;this.headers=headers;}
-        String key(){return name+"\n"+url;}
+        String identity="";
+        String key(){return identity.isEmpty()?name+"\n"+url:identity;}
     }
     static final class Config {
         final List<Site> sites=new ArrayList<>(); final List<Live> lives=new ArrayList<>();
         final List<Site> warehouses=new ArrayList<>();
         final List<String> skipped=new ArrayList<>(); final boolean allowHttp;
+        String packId="",packTitle="",packSha256="";int packRevision;
         Config(boolean allowHttp){this.allowHttp=allowHttp;}
         String json() throws Exception {
             JSONArray ss=new JSONArray(),ls=new JSONArray();
-            for(Site s:sites)ss.put(new JSONObject().put("name",s.name).put("type",s.type).put("api",s.api).put("key",s.key).put("header",new JSONObject(s.headers)).put("ext",s.ext).put("jar",s.jar).put("spider",s.spider).put("base",s.base));
-            for(Live l:lives){JSONObject v=new JSONObject().put("name",l.name).put("header",new JSONObject(l.headers));if(!l.url.isEmpty())v.put("url",l.url);else{JSONArray cs=new JSONArray();for(Channel c:l.channels)cs.put(new JSONObject().put("name",c.name).put("group",c.group).put("urls",new JSONArray(c.urls)).put("header",new JSONObject(c.headers)).put("requestHeaders",c.requestJson()));v.put("channels",cs);}ls.put(v);}
-            return new JSONObject().put("version",1).put("sites",ss).put("lives",ls).toString();
+            for(Site s:sites)ss.put(new JSONObject().put("name",s.name).put("type",s.type).put("api",s.api).put("key",s.key).put("header",new JSONObject(s.headers)).put("ext",s.ext).put("jar",s.jar).put("spider",s.spider).put("base",s.base).put("identity",s.identity).put("sections",new JSONArray(s.sections)).put("categoryIds",s.categoryIds).put("items",s.items));
+            for(Live l:lives){JSONObject v=new JSONObject().put("name",l.name).put("identity",l.identity).put("header",new JSONObject(l.headers));if(!l.url.isEmpty())v.put("url",l.url);else{JSONArray cs=new JSONArray();for(Channel c:l.channels)cs.put(new JSONObject().put("id",c.id).put("name",c.name).put("group",c.group).put("urls",new JSONArray(c.urls)).put("header",new JSONObject(c.headers)).put("requestHeaders",c.requestJson()));v.put("channels",cs);}ls.put(v);}
+            return new JSONObject().put("format","kaishi.catalog-cache").put("version",1).put("packId",packId).put("packTitle",packTitle).put("packRevision",packRevision).put("packSha256",packSha256).put("sites",ss).put("lives",ls).toString();
         }
     }
     static final class Category {
         final String id,name;Category(String id,String name){this.id=id;this.name=name;}
     }
     static final class Item {
-        final String id,name,remark,playFrom,playUrl;
+        final String id,name,remark,playFrom,playUrl;List<Line> directLines;
+        Item(String id,String name,String remark,List<Line> lines){this.id=id;this.name=name;this.remark=remark;this.playFrom="";this.playUrl="";this.directLines=lines;}
         Item(JSONObject o) throws IOException {id=field(o.optString("vod_id"),8192);name=field(o.optString("vod_name"),160);if(id.isEmpty()||name.isEmpty())throw new IOException("影片缺少标识或名称");remark=field(o.optString("vod_remarks"),200);playFrom=o.optString("vod_play_from");playUrl=o.optString("vod_play_url");if(playUrl.length()>MAX_BYTES)throw new IOException("播放列表过大");}
     }
     static final class Page {
@@ -83,6 +88,10 @@ final class CinemaCatalog {
         if(text.startsWith("#EXTM3U")||!text.startsWith("{")&&!text.startsWith("<")&&text.contains(",")){result.lives.add(new Live("直播","",playlist(text,base,allowHttp,java.util.Collections.emptyMap())));return result;}
         if(text.startsWith("<")){page(text,1);if(base==null)throw new IOException("XML目录需要网络API地址");result.sites.add(new Site("影视",url(base,null,allowHttp),base,0,java.util.Collections.emptyMap()));return result;}
         JSONObject root=new JSONObject(CinemaFormats.json(text));
+        if("kaishi.resource-pack".equals(root.optString("format")))return CinemaResourcePack.read(root,allowHttp,raw);
+        boolean cache="kaishi.catalog-cache".equals(root.optString("format"));
+        if(root.optString("format").startsWith("kaishi.")&&!cache)throw new IOException("不支持的开视资源文件格式");
+        if(cache){result.packId=root.optString("packId");result.packTitle=root.optString("packTitle");result.packRevision=root.optInt("packRevision");result.packSha256=root.optString("packSha256");}
         if(root.has("list")&&!root.has("sites")){page(text,1);if(base==null)throw new IOException("采集目录需要网络API地址");result.sites.add(new Site("影视",url(base,null,allowHttp)));return result;}
         JSONArray feeds=root.optJSONArray("urls");if(feeds==null)feeds=root.optJSONArray("data");
         if(feeds!=null&&!root.has("sites")&&!root.has("lives")){if(feeds.length()>64)throw new IOException("仓库超过64项");for(int i=0;i<feeds.length();i++){JSONObject feed=feeds.optJSONObject(i);if(feed==null)continue;try{result.warehouses.add(new Site(field(feed.optString("name",feed.optString("sourceName","配置")),120),url(feed.optString("url",feed.optString("sourceUrl")),base,allowHttp)));}catch(IOException invalid){result.skipped.add("一个仓库地址不支持");}}if(result.warehouses.isEmpty())throw new IOException("没有可读取的仓库地址");return result;}
@@ -90,24 +99,24 @@ final class CinemaCatalog {
         JSONArray sites=(video==null?root:video).optJSONArray("sites");
         if(sites!=null){if(sites.length()>100)throw new IOException("站点超过100项");for(int i=0;i<sites.length();i++){
             JSONObject s=sites.optJSONObject(i);if(s==null)continue;String name=field(s.optString("name","站点"),120);
-            if(s.optInt("type",-1)!=0&&s.optInt("type",-1)!=1&&s.optInt("type",-1)!=3&&s.optInt("type",-1)!=4){result.skipped.add(name+"：当前未接入该站点类型");continue;}
+            if(s.optInt("type",-1)!=0&&s.optInt("type",-1)!=1&&s.optInt("type",-1)!=3&&s.optInt("type",-1)!=4&&!(cache&&s.optInt("type",-1)==5)){result.skipped.add(name+"：当前未接入该站点类型");continue;}
             if(result.sites.size()>=12){result.skipped.add(name+"：超过12个站点");continue;}
-            try{int type=s.optInt("type",1);String sourceBase=field(s.optString("base",base==null?"":base),4096);String api=type==3?field(s.optString("api"),4096):url(s.optString("api"),sourceBase,allowHttp);if(api.isEmpty())throw new IOException("站点缺少API");result.sites.add(new Site(name,api,field(s.optString("key",s.optString("api")),4096),type,CinemaFormats.headers(s),extension(s.optString("ext"),65536),field(s.optString("jar"),4096),field(s.optString("spider",root.optString("spider")),4096),sourceBase));}catch(IOException unsupported){result.skipped.add(name+"：地址类型不支持");}
+            try{int type=s.optInt("type",1);String sourceBase=field(s.optString("base",base==null?"":base),4096);String api=type==5?"":type==3?field(s.optString("api"),4096):url(s.optString("api"),sourceBase,allowHttp);if(api.isEmpty()&&type!=5)throw new IOException("站点缺少API");Site site=new Site(name,api,field(s.optString("key",s.optString("api")),4096),type,CinemaFormats.headers(s),extension(s.optString("ext"),65536),field(s.optString("jar"),4096),field(s.optString("spider",root.optString("spider")),4096),sourceBase);if(cache)CinemaResourcePack.restoreSite(site,s,allowHttp);result.sites.add(site);}catch(IOException unsupported){result.skipped.add(name+"：地址类型不支持");}
         }}
         JSONArray lives=root.optJSONArray("lives");int total=0;
         if(lives!=null){if(lives.length()>100)throw new IOException("直播来源超过100项");for(int i=0;i<lives.length();i++){
             JSONObject l=lives.optJSONObject(i);if(l==null)continue;String name=field(l.optString("name",l.optString("group","直播")),120);
             if(result.lives.size()>=12){result.skipped.add(name+"：超过12个直播来源");continue;}
-            String feed=l.optString("url");if(!feed.isEmpty()){try{result.lives.add(new Live(name,url(feed,base,allowHttp),new ArrayList<>(),CinemaFormats.headers(l)));}catch(IOException invalid){result.skipped.add(name+"：地址类型不支持");}continue;}
+            String feed=l.optString("url");if(!feed.isEmpty()){try{Live live=new Live(name,url(feed,base,allowHttp),new ArrayList<>(),CinemaFormats.headers(l));if(cache)live.identity=field(l.optString("identity"),200);result.lives.add(live);}catch(IOException invalid){result.skipped.add(name+"：地址类型不支持");}continue;}
             JSONArray entries=l.optJSONArray("channels");List<Channel> channels=new ArrayList<>();
             if(entries!=null)for(int j=0;j<entries.length();j++){
                 if(++total>MAX_CHANNELS)throw new IOException("内置频道超过500项");JSONObject c=entries.optJSONObject(j);if(c==null)continue;
                 List<String> urls=new ArrayList<>();List<java.util.Map<String,String>> requests=new ArrayList<>();java.util.Map<String,String> header=new java.util.LinkedHashMap<>(CinemaFormats.headers(l));header.putAll(CinemaFormats.headers(c));JSONArray array=c.optJSONArray("urls");if(array==null&&c.has("url"))array=new JSONArray().put(c.optString("url"));
                 JSONArray savedHeaders=c.optJSONArray("requestHeaders");
                 if(array!=null)for(int k=0;k<Math.min(8,array.length());k++)try{java.util.Map<String,String> specific=new java.util.LinkedHashMap<>(header);if(savedHeaders!=null&&savedHeaders.optJSONObject(k)!=null)specific.putAll(CinemaFormats.headers(new JSONObject().put("header",savedHeaders.getJSONObject(k))));urls.add(CinemaFormats.stream(array.optString(k),base,allowHttp,specific));requests.add(specific);}catch(IOException invalid){}
-                if(!urls.isEmpty())channels.add(new Channel(field(c.optString("name","频道"),120),field(c.optString("group",name),80),urls,header,requests));else result.skipped.add("一个频道没有可用的直链地址");
+                if(!urls.isEmpty()){Channel channel=new Channel(field(c.optString("name","频道"),120),field(c.optString("group",name),80),urls,header,requests);if(cache)channel.id=field(c.optString("id"),100);channels.add(channel);}else result.skipped.add("一个频道没有可用的直链地址");
             }
-            if(!channels.isEmpty())result.lives.add(new Live(name,"",channels));
+            if(!channels.isEmpty()){Live live=new Live(name,"",channels);if(cache)live.identity=field(l.optString("identity"),200);result.lives.add(live);}
         }}
         if(root.has("parses"))result.skipped.add("解析器未加载");
         if(result.sites.isEmpty()&&result.lives.isEmpty())throw new IOException("没有可导入的直播或影视站点");
@@ -128,6 +137,7 @@ final class CinemaCatalog {
     static List<Line> lines(Item item,boolean allowHttp) throws Exception {return lines(item,allowHttp,java.util.Collections.emptyMap(),false);}
     static List<Line> lines(Item item,boolean allowHttp,java.util.Map<String,String> headers) throws Exception {return lines(item,allowHttp,headers,false);}
     static List<Line> lines(Item item,boolean allowHttp,java.util.Map<String,String> headers,boolean resolve) throws Exception {
+        if(item.directLines!=null)return item.directLines;
         List<Line> result=new ArrayList<>();String[] groups=item.playUrl.split("\\$\\$\\$",-1),names=item.playFrom.split("\\$\\$\\$",-1);int count=0;
         if(groups.length>20)throw new IOException("播放线路超过20项");
         for(int i=0;i<groups.length;i++){

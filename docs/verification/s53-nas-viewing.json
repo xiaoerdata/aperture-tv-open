@@ -1,0 +1,11 @@
+{
+  "productionJavaModels": true,
+  "transactionConcurrency": true,
+  "stableRelativeNasRoute": true,
+  "jvmAesGcmRoundtrip": true,
+  "androidKeyStore": false,
+  "activityExecuted": false,
+  "mediaDecoded": false,
+  "realXiaomi": false,
+  "output": "NAS unified viewing: 31 assertions passed"
+}

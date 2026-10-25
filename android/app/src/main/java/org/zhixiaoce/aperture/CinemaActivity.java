@@ -55,32 +55,34 @@ public final class CinemaActivity extends Activity {
     private interface Work<T>{T run() throws Exception;}
     private interface Done<T>{void run(T value) throws Exception;}
     @Override public void onCreate(Bundle state){
-        super.onCreate(state);vault=new CinemaVault(this);plugins=new CinemaPlugins(this);String asked=getIntent().getStringExtra("view");if("live".equals(asked)||"series".equals(asked)||"library".equals(asked))view=asked;
+        super.onCreate(state);vault=new CinemaVault(this);plugins=new CinemaPlugins(this);String asked=getIntent().getStringExtra("view");if("live".equals(asked)||"series".equals(asked)||"variety".equals(asked)||"library".equals(asked))view=asked;
         session=new PlaybackSession(new PlaybackAudioFocus((AudioManager)getSystemService(AUDIO_SERVICE),main),new PlaybackSession.Output(){public void start(){if(player!=null)player.start();}public void pause(){if(player!=null&&prepared)player.pause();}public void changed(PlaybackSession.State s){playState(s);}});
         display.bind(session::active);
         try{config=vault.read();}catch(Exception invalid){config=new CinemaCatalog.Config(false);health="保存的来源无法读取，请重新导入";}
         try{shelf=vault.shelf();}catch(Exception unreadable){try{shelf=new CinemaShelf("[]");}catch(Exception impossible){throw new IllegalStateException(impossible);}shelfWarning="观看记录无法读取，旧记录未覆盖";}
         if("settings".equals(asked))settings();else home();main.postDelayed(periodic,900000);main.postDelayed(checkpoint,15000);
     }
+    private AlertDialog settingsDialog;
+    private void closeSettings(){if(settingsDialog!=null){settingsDialog.dismiss();settingsDialog=null;}}
     private int dp(float n){return Math.round(n*getResources().getDisplayMetrics().density);}
     private TextView label(String text,int size){TextView n=new TextView(this);n.setText(text);n.setTextColor(FG);n.setTextSize(size);n.setPadding(0,dp(5),0,dp(5));return n;}
     private Button button(LinearLayout parent,String text,Runnable action){
         Button b=new Button(this);b.setAllCaps(false);b.setText(text);b.setTextColor(FG);b.setTextSize(BuildConfig.PARENTS_EDITION?23:21);b.setMinHeight(dp(60));b.setPadding(dp(16),dp(8),dp(16),dp(8));
         GradientDrawable bg=new GradientDrawable();bg.setColor(0xff202c3a);bg.setCornerRadius(dp(9));bg.setStroke(dp(1),0xff718194);b.setBackground(bg);
         b.setOnFocusChangeListener((v,focused)->{GradientDrawable next=new GradientDrawable();next.setColor(focused?0xff3e4c5c:0xff202c3a);next.setCornerRadius(dp(9));next.setStroke(dp(focused?3:1),focused?0xfff1f5fa:0xff718194);b.setBackground(next);});
-        b.setOnClickListener(v->action.run());if(parent!=null){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2);p.setMargins(0,dp(4),0,dp(4));parent.addView(b,p);}return b;
+        b.setOnClickListener(v->action.run());if(parent!=null){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-2,-2);p.setMargins(0,dp(6),0,dp(6));parent.addView(b,p);}return b;
     }
     private void release(){saveProgress(false);session.reset();prepared=false;if(player!=null){player.release();player=null;}getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);playerStatus=null;}
     private void invalidate(){generation++;http.cancel();http.deadline(0);if(plugins!=null)plugins.cancelPending();}
     private void screen(String title,Runnable previous){
-        invalidate();release();playingView=false;back=previous;shelfRefresh=null;
+        closeSettings();invalidate();release();playingView=false;back=previous;shelfRefresh=null;
         root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setBackgroundColor(0xff0e141e);
         int x=Math.round(getResources().getDisplayMetrics().widthPixels*.05f),y=Math.round(getResources().getDisplayMetrics().heightPixels*.05f);root.setPadding(x,y,x,y);
         LinearLayout top=new LinearLayout(this);top.setGravity(Gravity.CENTER_VERTICAL);root.addView(top);
         TextView heading=label(title,BuildConfig.PARENTS_EDITION?29:26);heading.setSingleLine(true);heading.setEllipsize(android.text.TextUtils.TruncateAt.END);top.addView(heading,new LinearLayout.LayoutParams(0,-2,1));
-        Button mine=button(null,"我的",this::shelfHome);top.addView(mine,new LinearLayout.LayoutParams(dp(90),dp(56)));
-        Button sources=button(null,"来源",this::settings);top.addView(sources,new LinearLayout.LayoutParams(dp(100),dp(56)));
-        Button nas=button(null,"NAS",this::nas);LinearLayout.LayoutParams np=new LinearLayout.LayoutParams(dp(90),dp(56));np.setMargins(dp(8),0,0,0);top.addView(nas,np);
+        Button mine=button(null,"我的",this::shelfHome);LinearLayout.LayoutParams mp=new LinearLayout.LayoutParams(dp(90),dp(56));mp.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(mine,mp);
+        Button sources=button(null,"来源",this::settings);LinearLayout.LayoutParams sp=new LinearLayout.LayoutParams(dp(100),dp(56));sp.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(sources,sp);
+        Button nas=button(null,"NAS",this::nas);LinearLayout.LayoutParams np=new LinearLayout.LayoutParams(dp(90),dp(56));np.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(nas,np);
         status=label("",18);status.setTextColor(MUTED);root.addView(status);
         ScrollView scroll=new ScrollView(this);scroll.setFillViewport(true);content=new LinearLayout(this);content.setOrientation(LinearLayout.VERTICAL);scroll.addView(content);root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
         setContentView(root);
@@ -93,12 +95,15 @@ public final class CinemaActivity extends Activity {
         GridLayout cells=new GridLayout(this);cells.setColumnCount(4);content.addView(cells);
         for(int i=at*12;i<Math.min(actions.size(),at*12+12);i++){
             final int index=i;Action a=actions.get(i);Button b=button(null,a.name,()->{cursor.selected=index;a.run.run();});b.setMaxLines(2);b.setEllipsize(android.text.TextUtils.TruncateAt.END);
-            GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec((i-at*12)%4,1f);p.width=0;p.height=dp(84);p.setMargins(dp(4),dp(5),dp(4),dp(5));cells.addView(b,p);
+            GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec((i-at*12)%4,1f);p.width=0;p.height=dp(84);p.setMargins(dp(6),dp(6),dp(6),dp(6));cells.addView(b,p);
         }
         if(actions.isEmpty())status.setText("暂无内容，请在来源中配置");
         LinearLayout controls=new LinearLayout(this);root.addView(controls);
         Button prev=button(null,"上一页",()->{cursor.selected=(at-1)*12;grid(title,actions,at-1,previous,cursor);}),next=button(null,"下一页",()->{cursor.selected=(at+1)*12;grid(title,actions,at+1,previous,cursor);});prev.setEnabled(at>0);next.setEnabled(at+1<pages);
-        controls.addView(prev,new LinearLayout.LayoutParams(0,dp(56),1));TextView number=label((at+1)+" / "+pages,20);number.setGravity(Gravity.CENTER);controls.addView(number,new LinearLayout.LayoutParams(0,dp(56),1));controls.addView(next,new LinearLayout.LayoutParams(0,dp(56),1));controls.addView(button(null,"返回",()->{if(back!=null)back.run();else finish();}),new LinearLayout.LayoutParams(0,dp(56),1));
+        LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(dp(160),dp(56));cp.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(prev,cp);
+        TextView number=label((at+1)+" / "+pages,20);number.setGravity(Gravity.CENTER);LinearLayout.LayoutParams countParams=new LinearLayout.LayoutParams(dp(100),dp(56));countParams.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(number,countParams);
+        LinearLayout.LayoutParams nextParams=new LinearLayout.LayoutParams(dp(160),dp(56));nextParams.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(next,nextParams);
+        LinearLayout.LayoutParams backParams=new LinearLayout.LayoutParams(dp(120),dp(56));backParams.setMargins(0,dp(8),0,0);controls.addView(button(null,"返回",()->{if(back!=null)back.run();else finish();}),backParams);
         if(cells.getChildCount()>0)cells.getChildAt(Math.max(0,Math.min(cells.getChildCount()-1,cursor.selected-at*12))).requestFocus();else sourcesFocus();
     }
     private void sourcesFocus(){if(root!=null)root.getChildAt(0).requestFocus();}
@@ -132,11 +137,11 @@ public final class CinemaActivity extends Activity {
         return site.type==3?CinemaHttp.resolved(episode,plugins.call(plugin(site),"play",line,episode.url,java.util.Collections.emptyList()),config.allowHttp):http.resolve(site,line,episode,config.allowHttp);
     }
     private String message(Exception error){return error instanceof java.io.IOException?error.getMessage():"来源数据格式不支持，请更换来源或检查配置";}
-    private String title(){return "live".equals(view)?"看电视":"series".equals(view)?"看电视剧":"library".equals(view)?"影视":"看电影";}
+    private String title(){return "live".equals(view)?"看电视":"series".equals(view)?"看电视剧":"variety".equals(view)?"看综艺":"library".equals(view)?"影视":"看电影";}
     private void nas(){Intent intent=new Intent(this,NasActivity.class);try{if(("movies".equals(view)||"series".equals(view))&&new NasVault(this).library().route(view)!=null)intent.putExtra("category",view);}catch(Exception invalid){status.setText("NAS配置无法读取，请在NAS设置中检查");return;}startActivity(intent);}
-    private String source(CinemaCatalog.Site site){return site.key+"\n"+site.api;}
+    private String source(CinemaCatalog.Site site){return site.identity.isEmpty()?site.key+"\n"+site.api:site.identity;}
     private org.json.JSONObject vodRef(CinemaCatalog.Site site,CinemaCatalog.Item item)throws Exception{return CinemaShelf.ref("vod",source(site),item.id,item.name,"");}
-    private org.json.JSONObject liveRef(CinemaCatalog.Live live,CinemaCatalog.Channel channel)throws Exception{return CinemaShelf.ref("live",live.key(),channel.group+"\n"+channel.name,channel.name,channel.group);}
+    private org.json.JSONObject liveRef(CinemaCatalog.Live live,CinemaCatalog.Channel channel)throws Exception{return CinemaShelf.ref("live",live.key(),channel.id.isEmpty()?channel.group+"\n"+channel.name:channel.id,channel.name,channel.group);}
     private interface ShelfEdit{void apply(CinemaShelf next)throws Exception;}
     private void editShelf(ShelfEdit edit){if(!shelfWarning.isEmpty()){if(status!=null)status.setText(shelfWarning);return;}try{shelf=vault.updateShelf(edit::apply);}catch(Exception failure){if(status!=null)status.setText("记录未保存，请检查本机存储");}}
     private void saveProgress(boolean complete){if(!playingView||!prepared||player==null||!hasPlayed||queueRefs.size()<=playingIndex)return;try{long position=liveQueue?0:player.getCurrentPosition(),duration=liveQueue?0:player.getDuration();org.json.JSONObject ref=queueRefs.get(playingIndex);String episode=queue.get(playingIndex).name;boolean finished=complete||session.state()==PlaybackSession.State.COMPLETED;editShelf(next->next.watch(ref,queueLine,episode,position,duration,finished,System.currentTimeMillis()));}catch(RuntimeException ignored){}}
@@ -186,14 +191,17 @@ public final class CinemaActivity extends Activity {
     }
     private void playChannels(List<CinemaCatalog.Channel> channels,int at,int line,Runnable previous){try{List<CinemaCatalog.Episode> list=new ArrayList<>();List<org.json.JSONObject> refs=new ArrayList<>();for(int i=0;i<channels.size();i++){CinemaCatalog.Channel c=channels.get(i);list.add(new CinemaCatalog.Episode(c.name,c.urls.get(i==at?line:0),c.request(i==at?line:0)));refs.add(liveRef(currentLive,c));}play(list,at,true,previous,refs,"");}catch(Exception invalid){status.setText("频道无法打开");}}
     private void sites(){
-        List<Action> actions=new ArrayList<>();for(CinemaCatalog.Site site:config.sites)actions.add(new Action(site.name,()->categories(site)));grid(title(),actions,0,this::finish);
-        if(actions.isEmpty()){button(content,"设置来源",this::settings).requestFocus();status.setText("尚未配置影视。可导入 XML/JSON 采集站与 TVBox 配置。");}
+        List<Action> actions=new ArrayList<>();for(CinemaCatalog.Site site:config.sites)if(site.supports(view))actions.add(new Action(site.name,()->categories(site)));grid(title(),actions,0,this::finish);
+        if(actions.isEmpty()){button(content,"设置来源",this::settings).requestFocus();status.setText("尚未配置此分类。可导入开视资源包或 TVBox 配置。");}
     }
     private void categories(CinemaCatalog.Site site){
         task(site.name,this::sites,()->siteHome(site),data->{
             List<Action> actions=new ArrayList<>();actions.add(new Action("搜索",()->search(site)));
-            for(CinemaCatalog.Category category:data.categories)actions.add(new Action(category.name,()->videos(site,category.id,category.name,1,null)));
-            actions.add(new Action("全部",()->videos(site,null,"全部",1,null)));for(CinemaCatalog.Item item:data.items)actions.add(new Action(item.name,()->details(site,item,()->categories(site))));grid(site.name,actions,0,this::sites);
+            List<CinemaCatalog.Category> selected=CinemaResourcePack.categories(site,data,view);boolean declared=site.sections.size()==1&&site.sections.contains(view),legacy=site.sections.isEmpty();
+            List<CinemaCatalog.Category> shown=legacy&&!"variety".equals(view)&&selected.isEmpty()?data.categories:selected;
+            for(CinemaCatalog.Category category:shown)actions.add(new Action(category.name,()->videos(site,category.id,category.name,1,null)));
+            if("library".equals(view)||declared||legacy&&!"variety".equals(view)){actions.add(new Action("全部",()->videos(site,null,"全部",1,null)));for(CinemaCatalog.Item item:data.items)actions.add(new Action(item.name,()->details(site,item,()->categories(site))));}grid(site.name,actions,0,this::sites);
+            if("variety".equals(view)&&selected.isEmpty()&&!declared)status.setText("此来源未提供综艺分类，可在资源包中配置分类编号。");
         });
     }
     private void search(CinemaCatalog.Site site){
@@ -258,24 +266,30 @@ public final class CinemaActivity extends Activity {
     private void adjacent(int delta){int next=playingIndex+delta;if(next>=0&&next<queue.size())play(queue,next,liveQueue,playerBack,queueRefs,queueLine,queueSite);}
     private void seek(int delta){if(!liveQueue&&prepared&&player!=null)try{player.seekTo(Math.max(0,Math.min(player.getDuration(),player.getCurrentPosition()+delta)));}catch(RuntimeException ignored){}}
     private void settings(){
-        screen("来源设置",this::home);status.setText(config.sites.size()+" 个影视站点 · "+config.lives.size()+" 个直播来源\n"+health);
-        EditText address=new EditText(this);address.setTextSize(22);address.setTextColor(FG);address.setSingleLine();address.setHint("影视仓 / XML / JSON / M3U / TXT 地址");address.setHintTextColor(MUTED);content.addView(address);
-        CheckBox allow=new CheckBox(this);allow.setText("允许本次导入 HTTP 来源");allow.setTextColor(FG);allow.setTextSize(21);allow.setChecked(config.allowHttp);content.addView(allow);
-        button(content,"读取地址",()->{String value=address.getText().toString().trim();boolean policy=allow.isChecked();task("读取来源",this::settings,()->http.importUrl(value,policy),next->preview(next,0));});
-        button(content,"导入本机文件",()->{fileAllowHttp=allow.isChecked();try{Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT).setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);startActivityForResult(intent,PICK);}catch(RuntimeException missing){status.setText("当前系统没有文件选择器，请使用配置地址");}});
-        button(content,"检查来源",()->checkSources(true));
-        button(content,"观看记录与收藏",this::shelfHome);
-        button(content,"检查插件更新",()->{candidates.clear();plugins.clear();home();});
-        button(content,"撤销插件授权",()->new AlertDialog.Builder(this).setTitle("撤销所有插件授权？").setMessage("下次打开插件站点时需要重新确认。").setPositiveButton("撤销",(d,w)->{plugins.revokeAll();candidates.clear();settings();}).setNegativeButton("返回",null).show());
-        button(content,"清空观看记录",()->new AlertDialog.Builder(this).setTitle("清空观看记录？").setMessage("保留收藏和追剧。").setPositiveButton("清空",(d,w)->{editShelf(CinemaShelf::clearHistory);settings();}).setNegativeButton("返回",null).show());
-        button(content,"家庭服务片库",()->{setResult(RESULT_OK,new Intent().putExtra("cinemaServer",view));finish();});
-        button(content,"清除本机来源",()->new AlertDialog.Builder(this).setTitle("清除直播和影视来源？").setMessage("不删除NAS文件或第三方应用资料。").setPositiveButton("清除",(d,w)->{vault.clear();config=new CinemaCatalog.Config(false);health="尚未检查";settings();}).setNegativeButton("返回",null).show());
-        button(content,"返回",this::home);
+        closeSettings();if(root==null)home();
+        LinearLayout form=new LinearLayout(this);form.setOrientation(LinearLayout.VERTICAL);
+        TextView description=label(config.sites.size()+" 个影视站点 · "+config.lives.size()+" 个直播来源\n"+health,18);form.addView(description);
+        EditText address=new EditText(this);address.setTextSize(22);address.setTextColor(FG);address.setSingleLine();address.setHint("开视资源包 / TVBox / M3U 地址");address.setHintTextColor(MUTED);form.addView(address);
+        CheckBox allow=new CheckBox(this);allow.setText("允许本次导入 HTTP 来源");allow.setTextColor(FG);allow.setTextSize(21);allow.setChecked(config.allowHttp);form.addView(allow);
+        button(form,"读取地址",()->{String value=address.getText().toString().trim();boolean policy=allow.isChecked();task("读取来源",this::settings,()->http.importUrl(value,policy),next->preview(next,0));});
+        button(form,"导入本机文件",()->{fileAllowHttp=allow.isChecked();try{Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT).setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);startActivityForResult(intent,PICK);}catch(RuntimeException missing){status.setText("当前系统没有文件选择器，请使用配置地址");}});
+        if(!config.packId.isEmpty())button(form,"当前资源包",()->new AlertDialog.Builder(this).setTitle(config.packTitle).setMessage("ID："+config.packId+"\n修订："+config.packRevision+"\nSHA-256："+config.packSha256).setPositiveButton("返回",null).show());
+        button(form,"WorkBuddy 导入资源包",()->startActivityForResult(new Intent(this,ResourcePackAgentActivity.class),4603));
+        button(form,"检查来源",()->checkSources(true));
+        button(form,"观看记录与收藏",this::shelfHome);
+        button(form,"检查插件更新",()->{candidates.clear();plugins.clear();home();});
+        button(form,"撤销插件授权",()->new AlertDialog.Builder(this).setTitle("撤销所有插件授权？").setMessage("下次打开插件站点时需要重新确认。").setPositiveButton("撤销",(d,w)->{plugins.revokeAll();candidates.clear();settings();}).setNegativeButton("返回",null).show());
+        button(form,"清空观看记录",()->new AlertDialog.Builder(this).setTitle("清空观看记录？").setMessage("保留收藏和追剧。").setPositiveButton("清空",(d,w)->{editShelf(CinemaShelf::clearHistory);settings();}).setNegativeButton("返回",null).show());
+        button(form,"家庭服务片库",()->{setResult(RESULT_OK,new Intent().putExtra("cinemaServer",view));finish();});
+        button(form,"清除本机来源",()->new AlertDialog.Builder(this).setTitle("清除直播和影视来源？").setMessage("不删除NAS文件或第三方应用资料。").setPositiveButton("清除",(d,w)->{vault.clear();config=new CinemaCatalog.Config(false);health="尚未检查";settings();}).setNegativeButton("返回",null).show());
+        settingsDialog=TvDialogs.panel(this,"来源设置",form);
     }
     private void preview(CinemaCatalog.Config next){preview(next,0);}
     private void preview(CinemaCatalog.Config next,int depth){
         if(!next.warehouses.isEmpty()){if(depth>=3){status.setText("仓库嵌套超过3层，请直接使用配置地址");return;}List<Action> choices=new ArrayList<>();for(CinemaCatalog.Site feed:next.warehouses)choices.add(new Action(feed.name,()->task(feed.name,this::settings,()->http.importUrl(feed.api,next.allowHttp),child->preview(child,depth+1))));grid("选择配置",choices,0,this::settings);return;}
+        try{if(!CinemaResourcePack.shouldApply(config,next)){status.setText("该资源包已导入");return;}}catch(java.io.IOException conflict){status.setText(conflict.getMessage());return;}
         String note=next.sites.size()+" 个影视站点，"+next.lives.size()+" 个直播来源。\n替换本机现有来源。";
+        if(!next.packId.isEmpty())note=next.packTitle+" · 修订 "+next.packRevision+"\n"+note+"\nSHA-256："+next.packSha256;
         for(int i=0;i<Math.min(8,next.skipped.size());i++)note+="\n"+next.skipped.get(i);
         new AlertDialog.Builder(this).setTitle("导入来源").setMessage(note).setPositiveButton("保存",(d,w)->{try{vault.save(next);candidates.clear();plugins.clear();config=next;health="等待检查";home();checkSources(false);}catch(Exception failed){status.setText("无法保存来源，请重试");}}).setNegativeButton("返回",(d,w)->settings()).show();
     }
@@ -298,7 +312,7 @@ public final class CinemaActivity extends Activity {
         });}catch(java.util.concurrent.RejectedExecutionException busy){if(interactive)status.setText("正在处理其他请求，请稍后再试");}
     }
     @Override protected void onActivityResult(int request,int result,Intent data){
-        super.onActivityResult(request,result,data);if(request!=PICK||result!=RESULT_OK||data==null||data.getData()==null)return;Uri uri=data.getData();if(!"content".equals(uri.getScheme()))return;boolean policy=fileAllowHttp;
+        super.onActivityResult(request,result,data);if(request==4603){try{config=vault.read();candidates.clear();plugins.clear();home();}catch(Exception failure){status.setText("来源无法重新读取");}return;}if(request!=PICK||result!=RESULT_OK||data==null||data.getData()==null)return;Uri uri=data.getData();if(!"content".equals(uri.getScheme()))return;boolean policy=fileAllowHttp;
         task("读取配置文件",this::settings,()->{try(InputStream stream=getContentResolver().openInputStream(uri);ByteArrayOutputStream out=new ByteArrayOutputStream()){if(stream==null)throw new java.io.IOException("文件不可读取");byte[] buffer=new byte[8192];int n;while((n=stream.read(buffer))!=-1){if(out.size()+n>CinemaCatalog.MAX_BYTES)throw new java.io.IOException("配置超过512KB");out.write(buffer,0,n);}return CinemaCatalog.config(new String(out.toByteArray(),java.nio.charset.StandardCharsets.UTF_8),null,policy);}},this::preview);
     }
     @Override public boolean dispatchKeyEvent(KeyEvent event){
@@ -310,5 +324,5 @@ public final class CinemaActivity extends Activity {
     @Override protected void onResume(){super.onResume();display.resumed(true);if(vault!=null)try{shelf=vault.shelf();shelfWarning="";if(shelfRefresh!=null)shelfRefresh.run();}catch(Exception invalid){shelfWarning="观看记录无法读取，旧记录未覆盖";}}
     @Override protected void onPause(){display.resumed(false);if(plugins!=null)plugins.cancelPending();super.onPause();}
     @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);display.focused(focus);}
-    @Override protected void onDestroy(){destroyed=true;invalidate();main.removeCallbacksAndMessages(null);release();io.shutdownNow();if(plugins!=null)plugins.clear();super.onDestroy();}
+    @Override protected void onDestroy(){closeSettings();destroyed=true;invalidate();main.removeCallbacksAndMessages(null);release();io.shutdownNow();if(plugins!=null)plugins.clear();super.onDestroy();}
 }

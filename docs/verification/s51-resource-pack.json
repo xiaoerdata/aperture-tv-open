@@ -1,0 +1,31 @@
+{
+  "productionJavaParser": true,
+  "schemaAndCliChecked": true,
+  "sourceFile": "examples/resource-packs/family.kaishi.json",
+  "example": {
+    "format": "kaishi.resource-pack",
+    "version": 1,
+    "id": "org.example.family",
+    "revision": 1,
+    "title": "家庭资源",
+    "sha256": "18a655565a00836192f78b5319d053e801283cba5fc8df0e1d95ae15e7f433dd",
+    "bytes": 2480,
+    "resources": 5,
+    "sites": 4,
+    "lives": 1,
+    "channels": 1,
+    "items": 3,
+    "episodes": 5,
+    "sections": [
+      "movies",
+      "series",
+      "variety"
+    ],
+    "nativeImportValidationRequired": true
+  },
+  "output": "Resource packs: 44 assertions passed; no Android runtime or media decoding claim",
+  "apkBuilt": false,
+  "androidActivityExecuted": false,
+  "workBuddyClientTested": false,
+  "xiaomiTested": false
+}

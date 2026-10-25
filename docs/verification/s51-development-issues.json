@@ -1,0 +1,37 @@
+{
+  "stage": "S51",
+  "issues": [
+    {
+      "kind": "development-tool configuration",
+      "observed": "The first AJV compilation rejected required/not branches under strictRequired; the Schema itself uses valid JSON Schema branch constraints.",
+      "change": "Keep strict data validation, disable only strictRequired meta-check for nested conditional branches.",
+      "verifiedBy": "CLI and negative-case tests pass."
+    },
+    {
+      "kind": "code review",
+      "observed": "The assistant consent form is generated in local-assistant.js, not static HTML.",
+      "change": "Add the independent unchecked resources checkbox to the actual template and submit selection.",
+      "verifiedBy": "Real browser consent and stdio MCP discovery test."
+    },
+    {
+      "kind": "code review",
+      "observed": "Same file/revision should not hide a user change to the local HTTP policy.",
+      "change": "Same bytes are a no-op only when the device HTTP choice also matches.",
+      "verifiedBy": "Production Java assertion."
+    },
+    {
+      "kind": "code review",
+      "observed": "Resource-only Agent import must not accept the internal cache format merely because it carries pack metadata.",
+      "change": "Agent receive uses the public Resource Pack reader directly; cached config remains an internal storage path.",
+      "verifiedBy": "Both editions API compilation; Activity execution remains untested."
+    },
+    {
+      "kind": "code review",
+      "observed": "A common empty TVBox parses array does not request a parser capability.",
+      "change": "Ignore only empty parses; unsupported nonempty parser declarations still reject the resource-pack import.",
+      "verifiedBy": "Production Java assertion."
+    }
+  ],
+  "apkBuilt": false,
+  "xiaomiTested": false
+}

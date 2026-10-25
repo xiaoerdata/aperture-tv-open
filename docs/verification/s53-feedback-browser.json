@@ -1,0 +1,416 @@
+{
+  "checks": [
+    {
+      "logicalViewport": [
+        1920,
+        1080
+      ],
+      "deviceScaleFactor": 1,
+      "home": {
+        "viewport": {
+          "w": 1920,
+          "h": 1080
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0,
+          "lobbyX": 0,
+          "lobbyY": 0
+        },
+        "rects": [
+          {
+            "s": ".wordmark",
+            "x": 96,
+            "y": 58,
+            "w": 200.015625,
+            "h": 82,
+            "right": 296.015625,
+            "bottom": 140
+          },
+          {
+            "s": ".header-time",
+            "x": 110,
+            "y": 230,
+            "w": 620,
+            "h": 301.5,
+            "right": 730,
+            "bottom": 531.5
+          },
+          {
+            "s": "#clock",
+            "x": 110,
+            "y": 235,
+            "w": 528.046875,
+            "h": 210,
+            "right": 638.046875,
+            "bottom": 445
+          },
+          {
+            "s": "#date-day",
+            "x": 110,
+            "y": 474.5,
+            "w": 165.765625,
+            "h": 57,
+            "right": 275.765625,
+            "bottom": 531.5
+          },
+          {
+            "s": "#date-week",
+            "x": 301.765625,
+            "y": 488.5,
+            "w": 84.015625,
+            "h": 40,
+            "right": 385.78125,
+            "bottom": 528.5
+          },
+          {
+            "s": "#home-watch",
+            "x": 110,
+            "y": 564,
+            "w": 998,
+            "h": 110,
+            "right": 1108,
+            "bottom": 674
+          },
+          {
+            "s": "#home-dock",
+            "x": 110,
+            "y": 708,
+            "w": 341.15625,
+            "h": 92,
+            "right": 451.15625,
+            "bottom": 800
+          },
+          {
+            "s": "#personal-panel",
+            "x": 1158,
+            "y": 254,
+            "w": 650,
+            "h": 360,
+            "right": 1808,
+            "bottom": 614
+          }
+        ]
+      },
+      "messages": {
+        "viewport": {
+          "w": 1920,
+          "h": 1080
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0,
+          "lobbyX": 0,
+          "lobbyY": 0
+        },
+        "rects": [
+          {
+            "s": "#collection-title",
+            "x": 96,
+            "y": 187,
+            "w": 96.015625,
+            "h": 70,
+            "right": 192.015625,
+            "bottom": 257
+          },
+          {
+            "s": "#collection-body .collection-tile:first-child",
+            "x": 102,
+            "y": 390,
+            "w": 846,
+            "h": 524,
+            "right": 948,
+            "bottom": 914
+          },
+          {
+            "s": "#collection-body .collection-tile:nth-child(2)",
+            "x": 972,
+            "y": 390,
+            "w": 846,
+            "h": 524,
+            "right": 1818,
+            "bottom": 914
+          }
+        ]
+      },
+      "ignorePreventScroll": true
+    },
+    {
+      "logicalViewport": [
+        960,
+        540
+      ],
+      "deviceScaleFactor": 2,
+      "home": {
+        "viewport": {
+          "w": 960,
+          "h": 540
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0,
+          "lobbyX": 0,
+          "lobbyY": 0
+        },
+        "rects": [
+          {
+            "s": ".wordmark",
+            "x": 48,
+            "y": 29,
+            "w": 100.0078125,
+            "h": 41,
+            "right": 148.0078125,
+            "bottom": 70
+          },
+          {
+            "s": ".header-time",
+            "x": 55,
+            "y": 115,
+            "w": 310,
+            "h": 150.75,
+            "right": 365,
+            "bottom": 265.75
+          },
+          {
+            "s": "#clock",
+            "x": 55,
+            "y": 117.5,
+            "w": 264.0234375,
+            "h": 105,
+            "right": 319.0234375,
+            "bottom": 222.5
+          },
+          {
+            "s": "#date-day",
+            "x": 55,
+            "y": 237.25,
+            "w": 82.8828125,
+            "h": 28.5,
+            "right": 137.8828125,
+            "bottom": 265.75
+          },
+          {
+            "s": "#date-week",
+            "x": 150.8828125,
+            "y": 244.75,
+            "w": 42.0078125,
+            "h": 20,
+            "right": 192.890625,
+            "bottom": 264.75
+          },
+          {
+            "s": "#home-watch",
+            "x": 55,
+            "y": 282,
+            "w": 499,
+            "h": 55,
+            "right": 554,
+            "bottom": 337
+          },
+          {
+            "s": "#home-dock",
+            "x": 55,
+            "y": 354,
+            "w": 170.578125,
+            "h": 46,
+            "right": 225.578125,
+            "bottom": 400
+          },
+          {
+            "s": "#personal-panel",
+            "x": 579,
+            "y": 127,
+            "w": 325,
+            "h": 180,
+            "right": 904,
+            "bottom": 307
+          }
+        ]
+      },
+      "messages": {
+        "viewport": {
+          "w": 960,
+          "h": 540
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0,
+          "lobbyX": 0,
+          "lobbyY": 0
+        },
+        "rects": [
+          {
+            "s": "#collection-title",
+            "x": 48,
+            "y": 93.5,
+            "w": 48.0078125,
+            "h": 35,
+            "right": 96.0078125,
+            "bottom": 128.5
+          },
+          {
+            "s": "#collection-body .collection-tile:first-child",
+            "x": 51,
+            "y": 195,
+            "w": 423,
+            "h": 262,
+            "right": 474,
+            "bottom": 457
+          },
+          {
+            "s": "#collection-body .collection-tile:nth-child(2)",
+            "x": 486,
+            "y": 195,
+            "w": 423,
+            "h": 262,
+            "right": 909,
+            "bottom": 457
+          }
+        ]
+      },
+      "ignorePreventScroll": true
+    },
+    {
+      "logicalViewport": [
+        1280,
+        720
+      ],
+      "deviceScaleFactor": 1.5,
+      "home": {
+        "viewport": {
+          "w": 1280,
+          "h": 720
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0,
+          "lobbyX": 0,
+          "lobbyY": 0
+        },
+        "rects": [
+          {
+            "s": ".wordmark",
+            "x": 64,
+            "y": 38.66666793823242,
+            "w": 133.34375,
+            "h": 54.66666793823242,
+            "right": 197.34375,
+            "bottom": 93.33333587646484
+          },
+          {
+            "s": ".header-time",
+            "x": 73.33333587646484,
+            "y": 153.33334350585938,
+            "w": 413.3333435058594,
+            "h": 201,
+            "right": 486.6666793823242,
+            "bottom": 354.3333435058594
+          },
+          {
+            "s": "#clock",
+            "x": 73.33333587646484,
+            "y": 156.6666717529297,
+            "w": 352.03125,
+            "h": 140.00001525878906,
+            "right": 425.36458587646484,
+            "bottom": 296.66668701171875
+          },
+          {
+            "s": "#date-day",
+            "x": 73.33333587646484,
+            "y": 316.3333435058594,
+            "w": 110.51041412353516,
+            "h": 38,
+            "right": 183.84375,
+            "bottom": 354.3333435058594
+          },
+          {
+            "s": "#date-week",
+            "x": 201.17709350585938,
+            "y": 326.3333435058594,
+            "w": 56.010406494140625,
+            "h": 26.666656494140625,
+            "right": 257.1875,
+            "bottom": 353
+          },
+          {
+            "s": "#home-watch",
+            "x": 73.33333587646484,
+            "y": 376,
+            "w": 665.3333740234375,
+            "h": 73.33334350585938,
+            "right": 738.6667098999023,
+            "bottom": 449.3333435058594
+          },
+          {
+            "s": "#home-dock",
+            "x": 73.33333587646484,
+            "y": 472,
+            "w": 227.4375,
+            "h": 61.3333740234375,
+            "right": 300.77083587646484,
+            "bottom": 533.3333740234375
+          },
+          {
+            "s": "#personal-panel",
+            "x": 772,
+            "y": 169.33334350585938,
+            "w": 433.3333740234375,
+            "h": 240,
+            "right": 1205.3333740234375,
+            "bottom": 409.3333435058594
+          }
+        ]
+      },
+      "messages": {
+        "viewport": {
+          "w": 1280,
+          "h": 720
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0,
+          "lobbyX": 0,
+          "lobbyY": 0
+        },
+        "rects": [
+          {
+            "s": "#collection-title",
+            "x": 64,
+            "y": 124.66667175292969,
+            "w": 64.01042175292969,
+            "h": 46.66667175292969,
+            "right": 128.0104217529297,
+            "bottom": 171.33334350585938
+          },
+          {
+            "s": "#collection-body .collection-tile:first-child",
+            "x": 68,
+            "y": 260,
+            "w": 564,
+            "h": 349.3333740234375,
+            "right": 632,
+            "bottom": 609.3333740234375
+          },
+          {
+            "s": "#collection-body .collection-tile:nth-child(2)",
+            "x": 648,
+            "y": 260,
+            "w": 564,
+            "h": 349.3333740234375,
+            "right": 1212,
+            "bottom": 609.3333740234375
+          }
+        ]
+      },
+      "ignorePreventScroll": true
+    }
+  ],
+  "images": [
+    "docs/images/s53-feedback-messages.png",
+    "docs/images/s53-feedback-home.png"
+  ],
+  "errors": [],
+  "method": "Real launcher DOM in Chromium, synthetic shared content, 1x/1.5x/2x television viewport and focus option ignored",
+  "realXiaomi": false
+}
