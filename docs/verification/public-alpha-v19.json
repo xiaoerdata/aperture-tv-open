@@ -1,0 +1,144 @@
+{
+  "release": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.16",
+  "tag": "v0.2.0-alpha.16",
+  "publicCommit": "99cbe1652f3861912b57325fc68df672ebab4167",
+  "status": "passed",
+  "anonymous": true,
+  "downloads": [
+    {
+      "file": "kaishi-v19-standard.apk",
+      "bytes": 55162136,
+      "sha256": "4f0d2afaa3dd8ba76540cb3182fb32dc9ab679d7f913ef72f8ccae2f9a10df3d",
+      "matchesLocalArtifact": true,
+      "authorizationHeaderSent": false,
+      "cookieHeaderSent": false
+    },
+    {
+      "file": "kaishi-v19-parents.apk",
+      "bytes": 55186712,
+      "sha256": "b1aab8747b91393f4c3c5fa34c9fda528bb5a197478390210eeebcae58130f8f",
+      "matchesLocalArtifact": true,
+      "authorizationHeaderSent": false,
+      "cookieHeaderSent": false
+    },
+    {
+      "file": "testing-manifest.json",
+      "bytes": 31639,
+      "sha256": "07401e4eed265dee6f2d82ef19a016bbda71760b0e9249be2e1ba9d05b472428",
+      "matchesLocalArtifact": true,
+      "authorizationHeaderSent": false,
+      "cookieHeaderSent": false
+    },
+    {
+      "file": "SHA256SUMS",
+      "bytes": 267,
+      "sha256": "d634ae32ee3b2f7e3cf300899ab6679aa119d4629934463f91f9bbecca150a23",
+      "matchesLocalArtifact": true,
+      "authorizationHeaderSent": false,
+      "cookieHeaderSent": false
+    }
+  ],
+  "sourceFilesVerified": 1239,
+  "sourceManifestSha256": "636671116758b55e2077f3dbf838b1799c7b0ba7eae5204f626d41af56f96c13",
+  "sourceManifestMatches": true,
+  "sourceMethod": "anonymous HTTPS Git checkout of frozen tag",
+  "gitCredentialsDisabled": true,
+  "referenceCacheRequested": true,
+  "referenceCacheUsed": false,
+  "referenceCacheNote": "local reference was shallow and Git ignored it; full source objects downloaded anonymously",
+  "githubArchiveDownloadComplete": false,
+  "githubArchiveFailure": "TLS unexpected EOF; recovered by anonymous Git checkout and file-by-file SHA-256 verification",
+  "xiaomiTested": false,
+  "workBuddyClientTested": false,
+  "verifiedAt": "2026-10-25T18:17:01.530375+00:00",
+  "releaseId": 423562204,
+  "publishedAt": "2026-10-25T17:55:23Z",
+  "remoteAssetDigestsMatched": true,
+  "oldTagsAndEightAssetsPreserved": [
+    {
+      "tag": "v0.2.0-alpha.14",
+      "commit": "e53bca15a98c55517f5e356c3a0376dbc138309c",
+      "assets": [
+        {
+          "name": "aperture-tv-v17-parents-debug.apk",
+          "size": 85686531,
+          "digest": "sha256:66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e"
+        },
+        {
+          "name": "aperture-tv-v17-standard-debug.apk",
+          "size": 85686459,
+          "digest": "sha256:00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1"
+        },
+        {
+          "name": "SHA256SUMS",
+          "size": 289,
+          "digest": "sha256:d21e16d42dd0733ec9fa194c928edd8d86698ec45dee962471f1e773677812d0"
+        },
+        {
+          "name": "testing-manifest.json",
+          "size": 55866,
+          "digest": "sha256:528761e39d2566741e8d1f305db95399f9c3ce11b15ae936e4c4a61e45b84f19"
+        }
+      ]
+    },
+    {
+      "tag": "v0.2.0-alpha.15",
+      "commit": "2f0aa4ae6b298500aa2d46faf9587a7c209650a6",
+      "assets": [
+        {
+          "name": "kaishi-v18-parents.apk",
+          "size": 85517252,
+          "digest": "sha256:2215b5eed9a46369ee4f9d6b912c34bfce00e412fe2e83ced35b4d3981da7cac"
+        },
+        {
+          "name": "kaishi-v18-standard.apk",
+          "size": 85513156,
+          "digest": "sha256:24cfb3a922fd4b10566162c24306f452ee309d37d05b048aad57662b67b8c3a6"
+        },
+        {
+          "name": "SHA256SUMS",
+          "size": 267,
+          "digest": "sha256:ceebff376ef22ede30d79cbdea6d21fa215051e53c367426b3cf977d5eda3f2a"
+        },
+        {
+          "name": "testing-manifest.json",
+          "size": 34003,
+          "digest": "sha256:d5a619817c6e6183f46d5c1064c9b480945ca3363b00e972874e7b61a13c2c45"
+        }
+      ]
+    }
+  ],
+  "freshSourceInstall": {
+    "status": "passed",
+    "archiveSha256": "8311d8139de75b2b2ef26c05e0b46e8cd9621a3cddfa320f8d2e375c8a5e57e9",
+    "sourceFilesVerified": 1239,
+    "routes": [
+      "/guide",
+      "/home?demo=1",
+      "/home?edition=parents&demo=1",
+      "/tv?demo=1",
+      "/tv-lite?demo=1",
+      "/cinema"
+    ],
+    "defaultPrivateStateStatus": 401,
+    "defaultMachineInterfaceStatus": 503
+  },
+  "software": {
+    "fullNodeSuite": {
+      "total": 100,
+      "passed": 97,
+      "skipped": 3,
+      "failed": 0
+    },
+    "additionalMetadataResourceTests": 9,
+    "nativeMetadataJvmAssertions": 25,
+    "bothReleaseBuildsAndLint": true,
+    "arm32And64Only": true,
+    "four4kWallpapersUnchanged": true
+  },
+  "nativeActivityExecutedThisStage": false,
+  "realTmdbAccountTested": false,
+  "hubShowcaseUpdated": false,
+  "socialMediaUploaded": false,
+  "receiptAfterFrozenTag": true
+}

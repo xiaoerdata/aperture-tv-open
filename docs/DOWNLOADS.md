@@ -43,4 +43,4 @@ v19沿用v18的两个包名与发行证书，可在原版上更新，不需卸�
 
 可[免费本地构建](ANDROID-LOCAL.md)；发行操作见[签名说明](ANDROID-RELEASE.md)。公开源码不含签名密钥、NAS凭证、私人数据、工具链或原始用户测试PDF。
 
-v18的历史[公开回读](verification/public-alpha-v18.json)保留。v19发布后另在main记录匿名下载与完整源码回读，不改发行标签、旧APK或旧报告。
+[v19匿名下载与完整源码回读](verification/public-alpha-v19.json)已完成。v17/v18旧标签与八个附件摘要保持不变；此回执在main后加，不改发行标签和APK。[v18历史回执](verification/public-alpha-v18.json)保留。

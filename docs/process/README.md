@@ -100,3 +100,5 @@ S54：P56指定第二套Logo，[两版标识与提示词](../../design-assets/s5
 S55：P57安装包瘦身，[方案与边界](../APK-SIZE.md)、[旧APK体积分解](../verification/s55-apk-size-baseline.json)、[配置与验包检查](../verification/s55-abi-policy.json)、[第四十一期底稿](../../media/DEVLOG-041.md)。约35%为旧包分析估算，没有生成或发布新的安装包。
 
 S56：P58—P59，[影视内页与资料](../TV-INTERIORS.md)、[生图与提示词](../../design-assets/s56/README.md)、[实际浏览器检查](../verification/s56-cinema-browser.json)、[第四十二期](../../media/DEVLOG-042.md)。v19候选包含S54/S55，发布状态以后续回执为准。
+
+S56发布结果：[v19 Alpha](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.16)、[匿名附件和完整源码回读](../verification/public-alpha-v19.json)。两版约52.6MiB，可覆盖更新v18；此回执后加在main，不改发行标签。

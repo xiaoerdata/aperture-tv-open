@@ -50,7 +50,8 @@
         "path": "docs/process/README.md",
         "links": 1
       }
-    ]
+    ],
+    "postReleaseReceipt": "v19 receipt appended on main; v0.2.0-alpha.16 unchanged"
   },
   "files": [
     {
@@ -100,8 +101,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5038,
-      "sha256": "05f80592233304497bd407000ee18727d91db585f23b5759b6812a1aff4a4f58"
+      "bytes": 5206,
+      "sha256": "46f9439b841c3ae46b56a333362d0f8e9206f4cc0f28ee64bcb06ff3f51684b7"
     },
     {
       "path": "SECURITY.md",
@@ -895,8 +896,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4479,
-      "sha256": "95e00442eb464c1c4a28f8bf0bd90195d96d5a650843beefe7e6adfa42163aea"
+      "bytes": 4554,
+      "sha256": "f68da091791b7e5374940ca9d86b62e0ee08cc34545adf1b9957d911a8fb7d3d"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -3600,8 +3601,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 151834,
-      "sha256": "7d56b86e3da2a33ffef236a85319d070ab59e9b62cf745bd3959962e4c49c986"
+      "bytes": 153063,
+      "sha256": "cfec8b20e50d1643db2dbef90da30013b7f8ca70c987334a84e82e1745803376"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -3610,8 +3611,8 @@
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 12820,
-      "sha256": "801dfbe6e8883904ab37e3a09703662686be3292e1d38f89c3555a5193a8a3d6"
+      "bytes": 13094,
+      "sha256": "fcfa784465922c50bddfdb87a917eb7cb1d36f703110d0622e5c15e71f61646c"
     },
     {
       "path": "docs/release/README-public.md",
@@ -3777,6 +3778,11 @@
       "path": "docs/verification/public-alpha-v18.json",
       "bytes": 4534,
       "sha256": "a5636e26104a3e0bdc2c37ce35d85fd290311c49fb2fcb214f05fee636c43f14"
+    },
+    {
+      "path": "docs/verification/public-alpha-v19.json",
+      "bytes": 4813,
+      "sha256": "96d6f9b93b79baf4cb5c76d52b53650d3eebc5157f2ffc0cf53b2fc99fee0345"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -4835,8 +4841,8 @@
     },
     {
       "path": "media/DEVLOG-042.md",
-      "bytes": 1535,
-      "sha256": "502869e15c16bcfeca5a3b5cd1a06194ab067fc31f02ebafba48a4253d1aa767"
+      "bytes": 1567,
+      "sha256": "0d2d14ae16f0075c6244b8cc4a3b63418c4ad3266ce1b2349e2dd2bc1f9a2bbe"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
