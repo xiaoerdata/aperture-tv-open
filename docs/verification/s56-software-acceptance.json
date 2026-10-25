@@ -1,0 +1,95 @@
+{
+  "version": "0.2.0-alpha.16",
+  "versionCode": 19,
+  "editions": [
+    {
+      "applicationId": "org.zhixiaoce.kaishi",
+      "edition": "standard",
+      "version": "0.2.0-alpha.16",
+      "versionCode": 19,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v19-standard.apk",
+      "apkBytes": 55162136,
+      "sha256": "4f0d2afaa3dd8ba76540cb3182fb32dc9ab679d7f913ef72f8ccae2f9a10df3d",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "b5757dc23e8c3ddad6793e585daf92cd29fd7439970b1437e2bc7f8142f4486f",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 39,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    },
+    {
+      "applicationId": "org.zhixiaoce.kaishi.parents",
+      "edition": "parents",
+      "version": "0.2.0-alpha.16-parents",
+      "versionCode": 19,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v19-parents.apk",
+      "apkBytes": 55186712,
+      "sha256": "b1aab8747b91393f4c3c5fa34c9fda528bb5a197478390210eeebcae58130f8f",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "b5757dc23e8c3ddad6793e585daf92cd29fd7439970b1437e2bc7f8142f4486f",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 39,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    }
+  ],
+  "validation": {
+    "nodeTests": {
+      "total": 100,
+      "passed": 97,
+      "skipped": 3,
+      "failed": 0,
+      "skippedReason": "Samba runtime unavailable"
+    },
+    "nativeApiCompilation": true,
+    "nativeMetadataJvmAssertions": 25,
+    "browserEvidence": "docs/verification/s56-cinema-browser.json",
+    "nativeActivityExecuted": false,
+    "xiaomiHardwareTested": false,
+    "workBuddyClientTested": false,
+    "realTmdbAccountTested": false,
+    "targetedMetadataAndResourceRegression": "passed; includes optional metadata/logo and forbidden URL variants"
+  },
+  "apkSizeReport": "s56-apk-size.json",
+  "pythonPayloadReport": "s56-python-payload.json",
+  "generatedUiReferencesBundled": false,
+  "tvmazeLiveReadback": {
+    "title": "The Last of Us",
+    "year": "2023",
+    "candidates": 2,
+    "state": "ready",
+    "savedFromEarlierToolOutput": true
+  },
+  "nativeBuild": {
+    "tasks": [
+      "assembleStandardRelease",
+      "assembleParentsRelease"
+    ],
+    "lintVitalPassed": true,
+    "status": "BUILD SUCCESSFUL",
+    "jdk": "17",
+    "gradle": "8.9",
+    "minSdk": 26,
+    "targetSdk": 35
+  },
+  "published": false,
+  "publicInstallAndAnonymousReadback": "pending"
+}

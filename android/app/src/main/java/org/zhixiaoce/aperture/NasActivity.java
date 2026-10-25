@@ -30,6 +30,7 @@ import org.json.JSONObject;
 public final class NasActivity extends Activity {
     private final ExecutorService io = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(android.os.Looper.getMainLooper());
+    private CinemaArtwork artwork;private CinemaInfo info;
     private NasVault vault;
     private CinemaVault viewing;
     private JSONObject watching;
@@ -62,7 +63,9 @@ public final class NasActivity extends Activity {
     private MediaPlayer player;
     private boolean prepared;
     private PlaybackSession session;
-    private TextView playback;
+    private TextView playback;private LinearLayout videoOverlay;private SurfaceView videoSurface;private Button videoToggle;
+    private final Runnable hideControls=()->{if(mode.equals("video")&&session!=null&&session.state()==PlaybackSession.State.PLAYING&&videoOverlay!=null){videoOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();}};
+    private void showControls(){if(videoOverlay==null)return;videoOverlay.setVisibility(View.VISIBLE);main.removeCallbacks(hideControls);main.postDelayed(hideControls,5500);}
     private Bitmap shownPhoto;
     private static final int INK = Color.rgb(241,244,248), MUTED = Color.rgb(177,190,205);
     private static final String[] BRANDS = NasDraft.BRANDS;
@@ -75,13 +78,13 @@ public final class NasActivity extends Activity {
         "同一家庭网络内，输入共享地址和专用只读账号。WebDAV 必须 HTTPS，保留证书校验。"
     };
     @Override public void onCreate(Bundle state) {
-        super.onCreate(state); getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE); vault = new NasVault(this); viewing = new CinemaVault(this);
+        super.onCreate(state); artwork=new CinemaArtwork(this);info=new CinemaInfo(this);getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE); vault = new NasVault(this); viewing = new CinemaVault(this);
         installer = new ApkInstaller(this, () -> new DestinationApps(this, getSharedPreferences("aperture", MODE_PRIVATE), slot -> {}).shortcuts());
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         session = new PlaybackSession(new PlaybackAudioFocus((AudioManager)getSystemService(AUDIO_SERVICE),main), new PlaybackSession.Output() {
             public void start() { if (player == null || !prepared) throw new IllegalStateException(); player.start(); }
             public void pause() { if (player != null && prepared && player.isPlaying()) player.pause(); }
-            public void changed(PlaybackSession.State state) { if(state==PlaybackSession.State.PLAYING)hasPlayed=true;saveProgress(state==PlaybackSession.State.COMPLETED);updatePlayback(); }
+            public void changed(PlaybackSession.State state) { showControls();if(state==PlaybackSession.State.PLAYING)hasPlayed=true;saveProgress(state==PlaybackSession.State.COMPLETED);updatePlayback(); }
         });
         display.bind(session::active);
         filter = "photo".equals(getIntent().getStringExtra("filter")) ? "photo" : "all";
@@ -94,9 +97,9 @@ public final class NasActivity extends Activity {
     private AlertDialog connectionDialog;
     private void closeConnectionDialog(){if(connectionDialog!=null){connectionDialog.dismiss();connectionDialog=null;}}
     private void screen(String title, String subtitle) {
-        closeConnectionDialog();
+        closeConnectionDialog();main.removeCallbacks(hideControls);videoOverlay=null;videoSurface=null;videoToggle=null;if(artwork!=null)artwork.cancel();if(info!=null)info.cancel();
         content = new LinearLayout(this); content.setOrientation(LinearLayout.VERTICAL); content.setPadding(dp(38), dp(22), dp(38), dp(30));
-        content.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{Color.rgb(9,17,26), Color.rgb(24,37,47), Color.rgb(10,17,25)}));
+        content.setBackground(TvUi.background());
         TextView heading = label(title, 30, INK); heading.setTypeface(Typeface.DEFAULT, Typeface.BOLD); content.addView(heading); content.addView(label(subtitle, 17, MUTED));
         ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.addView(content); setContentView(scroll);
         if (shownPhoto != null) { shownPhoto.recycle(); shownPhoto = null; }
@@ -105,7 +108,7 @@ public final class NasActivity extends Activity {
         Button button = new Button(this); button.setText(title); button.setTextSize(BuildConfig.PARENTS_EDITION?28:24); button.setMaxLines(2); button.setEllipsize(android.text.TextUtils.TruncateAt.END); button.setTextColor(INK); button.setAllCaps(false); button.setGravity(android.view.Gravity.START | android.view.Gravity.CENTER_VERTICAL); button.setPadding(dp(18),dp(8),dp(18),dp(8));
         StateListDrawable states = new StateListDrawable();
         for (boolean focus : new boolean[]{true,false}) { GradientDrawable shape = new GradientDrawable(); shape.setColor(focus ? Color.rgb(57,78,91) : Color.argb(180,29,43,56)); shape.setCornerRadius(dp(14)); shape.setStroke(dp(focus?3:1),focus?Color.rgb(222,236,244):Color.argb(90,161,185,204)); states.addState(focus ? new int[]{android.R.attr.state_focused} : new int[]{},shape); }
-        button.setBackground(states); LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2); params.setMargins(0,dp(5),0,dp(5)); button.setMinHeight(dp(72)); parent.addView(button,params); button.setOnClickListener(v -> action.run()); return button;
+        TvUi.styleButton(this,button);button.setGravity(android.view.Gravity.START|android.view.Gravity.CENTER_VERTICAL); LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2); params.setMargins(0,dp(5),0,dp(5)); button.setMinHeight(dp(72)); parent.addView(button,params); button.setOnClickListener(v -> action.run()); return button;
     }
     private Button button(String title, Runnable action) { return button(content,title,action); }
     private void message(String title, String text) { if (!destroyed) new AlertDialog.Builder(this).setTitle(title).setMessage(text).setPositiveButton("知道了",null).show(); }
@@ -229,7 +232,16 @@ public final class NasActivity extends Activity {
         content.addView(label("第 "+(page+1)+" / "+pages+" 页 · "+visible.size()+" 项",16,MUTED));
         if(visible.isEmpty())content.addView(label("这个分区还没有可显示的内容。",22,INK));
         View restore=null,first=null;
-        for(int i=page*20;i<Math.min(visible.size(),page*20+20);i++){NasReader.Entry item=visible.get(i);String type=item.directory?"文件夹":NasLocation.kind(item.name).equals("photo")?"照片":NasLocation.kind(item.name).equals("video")?"影片":InstallCache.apkName(item.name)?"安装包":"文件";Button file=button(type+"  ·  "+item.name,()->{focusedPath=item.path;navigation.save(folder,page,focusedPath);if(item.directory)load(item.path);else if(type.equals("照片"))photo(item);else if(type.equals("影片"))video(item);else if(type.equals("安装包"))installer.fromNas(reader,item);else message("暂不打开此格式","当前只读照片和视频，不执行文件中的程序或配置。");});if(first==null)first=file;if(item.path.equals(focusedPath))restore=file;}
+        GridLayout files=new GridLayout(this);files.setColumnCount(2);content.addView(files);
+        for(int i=page*20;i<Math.min(visible.size(),page*20+20);i++){
+            NasReader.Entry item=visible.get(i);String type=item.directory?"文件夹":NasLocation.kind(item.name).equals("photo")?"照片":NasLocation.kind(item.name).equals("video")?"影片":InstallCache.apkName(item.name)?"安装包":"文件";
+            Runnable open=()->{focusedPath=item.path;navigation.save(folder,page,focusedPath);if(item.directory)load(item.path);else if(type.equals("照片"))photo(item);else if(type.equals("影片"))video(item);else if(type.equals("安装包"))installer.fromNas(reader,item);else message("暂不打开此格式","当前只读照片和视频，不执行文件中的程序或配置。");};
+            LinearLayout tile=new LinearLayout(this);tile.setGravity(android.view.Gravity.CENTER_VERTICAL);tile.setPadding(dp(12),dp(8),dp(12),dp(8));tile.setBackground(TvUi.states(this));tile.setFocusable(true);tile.setClickable(true);tile.setContentDescription(type+" · "+item.name);tile.setOnClickListener(v->open.run());
+            FrameLayout iconFrame=new FrameLayout(this);TextView symbol=label(item.directory?"▰":type.equals("照片")?"▧":type.equals("影片")?"▷":"▱",30,MUTED);symbol.setGravity(android.view.Gravity.CENTER);iconFrame.addView(symbol,new FrameLayout.LayoutParams(-1,-1));ImageView cover=new ImageView(this);cover.setScaleType(ImageView.ScaleType.CENTER_CROP);iconFrame.addView(cover,new FrameLayout.LayoutParams(-1,-1));tile.addView(iconFrame,new LinearLayout.LayoutParams(dp(58),dp(84)));LinearLayout copy=new LinearLayout(this);copy.setOrientation(LinearLayout.VERTICAL);copy.setPadding(dp(14),0,0,0);tile.addView(copy,new LinearLayout.LayoutParams(0,-2,1));TextView name=label(item.name,BuildConfig.PARENTS_EDITION?24:21,INK);name.setMaxLines(2);name.setEllipsize(android.text.TextUtils.TruncateAt.END);copy.addView(name);TextView kind=label(type,17,MUTED);copy.addView(kind);
+            GridLayout.LayoutParams params=new GridLayout.LayoutParams();params.columnSpec=GridLayout.spec((i-page*20)%2,1f);params.width=0;params.height=dp(116);params.setMargins(dp(5),dp(5),dp(5),dp(5));files.addView(tile,params);
+            if(type.equals("影片")&&i<page*20+12){String mediaKind="series".equals(category)||"variety".equals(category)?"series":"movie";int turn=generation;info.lookup(item.name,"",mediaKind,false,(match,candidates,state)->{if(destroyed||generation!=turn||match==null)return;artwork.bind(cover,match.optString("poster"),"",false);kind.setText(match.optString("year")+" · "+match.optString("provider"));});}
+            if(first==null)first=tile;if(item.path.equals(focusedPath))restore=tile;
+        }
         if(page>0)button("上一页",()->{page--;listing();});if(page+1<pages)button("下一页",()->{page++;listing();});
         button(navigation.parent(folder)==null?exitLabel():"返回上一级",()->{String parent=navigation.parent(folder);if(parent==null)exitLibrary();else load(parent);});button("重新连接 / 检测",()->connect(false));
         if(category.isEmpty())button("家人设置 · 将当前目录用于首页入口",this::assignHome);
@@ -261,7 +273,7 @@ public final class NasActivity extends Activity {
         }catch(Exception unavailable){resumePosition=0;progressWarning="观看记录暂不可读取";}
         session.begin();int turn=generation;busy=true;mode="video";NasReader source=reader;screen(entry.name,"正在打开影片…");button("返回文件夹",()->{invalidate();release();listing();});
         io.execute(()->{try{NasReader.Resource opened=source.open(entry.path);main.post(()->{if(destroyed||generation!=turn){closeLater(opened);return;}busy=false;resource=opened;mode="video";screen(entry.name,"NAS 原文件直放 · 解码取决于电视，当前不转码。");
-            FrameLayout stage=new FrameLayout(this);stage.setBackgroundColor(Color.BLACK);SurfaceView surface=new SurfaceView(this);stage.addView(surface,new FrameLayout.LayoutParams(-1,-1,android.view.Gravity.CENTER));content.addView(stage,new LinearLayout.LayoutParams(-1,dp(230)));playback=label("准备中，请稍候…",18,MUTED);content.addView(playback);
+            FrameLayout stage=new FrameLayout(this);stage.setBackgroundColor(Color.BLACK);SurfaceView surface=new SurfaceView(this);stage.addView(surface,new FrameLayout.LayoutParams(-1,-1,android.view.Gravity.CENTER));videoSurface=surface;surface.setFocusable(true);content=new LinearLayout(this);content.setOrientation(LinearLayout.VERTICAL);content.setPadding(dp(28),dp(18),dp(28),dp(20));content.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,new int[]{0x550b0d10,0xf70b0d10}));videoOverlay=content;stage.addView(content,new FrameLayout.LayoutParams(-1,-2,android.view.Gravity.BOTTOM));setContentView(stage);content.addView(label(entry.name,28,INK));playback=label("准备中，请稍候…",18,MUTED);content.addView(playback);
             LinearLayout controls=new LinearLayout(this);content.addView(controls);
             Button playButton=button(controls,"播放 / 暂停",()->{if(session.state()==PlaybackSession.State.PLAYING||session.state()==PlaybackSession.State.PREPARING)session.pause();else session.play();});button(controls,"后退30秒",()->seek(-30000));button(controls,"前进30秒",()->seek(30000));for(int i=0;i<controls.getChildCount();i++){LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0,-2,1);params.setMargins(dp(3),0,dp(3),0);controls.getChildAt(i).setLayoutParams(params);}
             LinearLayout options=new LinearLayout(this);content.addView(options);
@@ -269,7 +281,7 @@ public final class NasActivity extends Activity {
             button(options,"从头播放",this::startOver);
             button(options,"重试",()->video(entry));
             for(int i=0;i<options.getChildCount();i++){LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0,-2,1);params.setMargins(dp(3),0,dp(3),0);options.getChildAt(i).setLayoutParams(params);}
-            button("返回文件夹",()->{invalidate();release();listing();});playButton.requestFocus();
+            button("返回文件夹",()->{invalidate();release();listing();});videoToggle=playButton;playButton.requestFocus();showControls();
             surface.getHolder().addCallback(new SurfaceHolder.Callback(){public void surfaceCreated(SurfaceHolder holder){if(generation!=turn||destroyed)return;session.surface(true);prepare(holder,opened,turn,surface,stage);}public void surfaceChanged(SurfaceHolder h,int f,int w,int t){}public void surfaceDestroyed(SurfaceHolder holder){if(generation!=turn||destroyed)return;session.surface(false);if(player!=null)player.setDisplay(null);}});
         });}catch(Exception error){main.post(()->{if(destroyed||generation!=turn)return;busy=false;release();listing();message("影片不可读取",error instanceof IOException?error.getMessage():"请检查文件与权限。");});}});
     }
@@ -339,7 +351,8 @@ public final class NasActivity extends Activity {
     private void closeLater(java.io.Closeable object){if(object==null)return;try{io.execute(()->quietClose(object));}catch(RejectedExecutionException stopped){Thread closer=new Thread(()->quietClose(object),"nas-close");closer.setDaemon(true);closer.start();}}
     private static void quietClose(java.io.Closeable object){try{if(object!=null)object.close();}catch(Exception ignored){}}
     private void disconnect(){NasReader old=reader;reader=null;if(old!=null)closeLater(old);}
-    private void release(){saveProgress(false);if(session!=null)session.reset();prepared=false;hasPlayed=false;watching=null;playingEntry=null;resumePosition=0;favorite=null;if(player!=null){player.release();player=null;}playback=null;NasReader.Resource old=resource;resource=null;if(old!=null)closeLater(old);}
+    private void release(){main.removeCallbacks(hideControls);videoOverlay=null;videoSurface=null;videoToggle=null;saveProgress(false);if(session!=null)session.reset();prepared=false;hasPlayed=false;watching=null;playingEntry=null;resumePosition=0;favorite=null;if(player!=null){player.release();player=null;}playback=null;NasReader.Resource old=resource;resource=null;if(old!=null)closeLater(old);}
+    @Override public boolean dispatchKeyEvent(android.view.KeyEvent event){if(VoiceAssistant.systemVoiceKey(event.getKeyCode()))return super.dispatchKeyEvent(event);if(mode.equals("video")&&event.getAction()==android.view.KeyEvent.ACTION_DOWN){int key=event.getKeyCode();if(key>=19&&key<=23){boolean hidden=videoOverlay!=null&&videoOverlay.getVisibility()!=View.VISIBLE;showControls();if(hidden){if(videoToggle!=null)videoToggle.requestFocus();return true;}}if(key==android.view.KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE){if(session.state()==PlaybackSession.State.PLAYING)session.pause();else session.play();return true;}if(key==android.view.KeyEvent.KEYCODE_MEDIA_REWIND){seek(-30000);showControls();return true;}if(key==android.view.KeyEvent.KEYCODE_MEDIA_FAST_FORWARD){seek(30000);showControls();return true;}}return super.dispatchKeyEvent(event);}
     @Override public void onBackPressed(){if(mode.equals("video")||mode.equals("photo")||mode.equals("loading-folder")){invalidate();release();listing();}else if(mode.equals("listing")){String parent=navigation.parent(folder);if(parent==null)exitLibrary();else load(parent);}else if(mode.equals("connections"))finish();else exitLibrary();}
     @Override protected void onResume(){super.onResume();display.resumed(true);}
     @Override protected void onPause(){display.resumed(false);saveProgress(false);super.onPause();}
@@ -347,5 +360,5 @@ public final class NasActivity extends Activity {
     @Override protected void onStop(){resumeId=connection==null?"":connection.optString("id");if(connection!=null)navigation.save(folder,page,focusedPath);invalidate();release();disconnect();connection=null;super.onStop();}
     @Override protected void onActivityResult(int request,int result,Intent data){if(installer!=null&&installer.result(request,result,data))return;super.onActivityResult(request,result,data);}
     @Override protected void onRestart(){super.onRestart();if(!category.isEmpty()){launchCategory();return;}try{JSONObject saved=vault.library().find(resumeId);if(saved!=null){connection=saved;connect(false);return;}if(savedLaunch){savedUnavailable(new IOException("原 NAS 连接已移除，请重新添加并从片库打开影片"));return;}}catch(Exception invalid){if(savedLaunch){savedUnavailable(invalid);return;}}connections();}
-    @Override protected void onDestroy(){closeConnectionDialog();if(installer!=null)installer.destroy();destroyed=true;display.bind(null);invalidate();release();disconnect();io.shutdown();main.removeCallbacksAndMessages(null);super.onDestroy();}
+    @Override protected void onDestroy(){closeConnectionDialog();if(installer!=null)installer.destroy();destroyed=true;display.bind(null);invalidate();release();disconnect();io.shutdown();if(artwork!=null)artwork.close();if(info!=null)info.close();main.removeCallbacksAndMessages(null);super.onDestroy();}
 }

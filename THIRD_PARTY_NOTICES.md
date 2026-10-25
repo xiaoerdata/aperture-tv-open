@@ -87,3 +87,9 @@ Ajv 8.17.1 与 ajv-formats 3.0.1 均为MIT许可，作为开发与资源包制�
 ## S53 · 开视新标识
 
 应用图标使用内置生图工具按项目提示词生成，原图、提示词和派生尺寸在[素材记录](design-assets/s53/README.md)。应用图标不含生成文字，TV横幅中的“开视/爸妈版”为Noto Sans CJK排版栅格，不新增字体文件。可授权部分沿用项目MIT；不声明第三方认证或排他商标权。
+
+## S56 · 影视资料与署名
+
+TVmaze资料采用其API说明的CC BY-SA条件，保留来源与归属；TMDB资料/图片遵循其API条款，非本项目MIT。项目不自带共享凭证，不宣称TMDB认可或认证。署名区使用[官方批准Logo](https://www.themoviedb.org/about/logos-attribution)原SVG及按比例栅格化PNG，来源与摘要见[素材清单](design-assets/s56/manifest.json)，未生成或重绘商标。声明：This product uses the TMDB API but is not endorsed or certified by TMDB.
+
+两张生图仅用于设计探索，未打入APK；实际测试图像复用项目既有风景素材及其原有出处。没有增加授权电影或预置影视来源。元数据解析、UI与缓存为独立实现，没有复制Box、Kodi或Jellyfin的代码。

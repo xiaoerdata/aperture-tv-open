@@ -186,6 +186,39 @@
           },
           "minItems": 1,
           "maxItems": 500
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "poster": {
+              "$ref": "#/$defs/url"
+            },
+            "year": {
+              "type": "string",
+              "maxLength": 40
+            },
+            "genre": {
+              "type": "string",
+              "maxLength": 160
+            },
+            "area": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "director": {
+              "type": "string",
+              "maxLength": 300
+            },
+            "actors": {
+              "type": "string",
+              "maxLength": 600
+            },
+            "summary": {
+              "type": "string",
+              "maxLength": 4000
+            }
+          }
         }
       },
       "required": [
@@ -223,6 +256,9 @@
         },
         "headers": {
           "$ref": "#/$defs/headers"
+        },
+        "logo": {
+          "$ref": "#/$defs/url"
         }
       },
       "required": [

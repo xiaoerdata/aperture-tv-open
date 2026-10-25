@@ -1,0 +1,37 @@
+{
+  "tool": "built-in imagegen for reference images; browser rasterization for official TMDB credit",
+  "referencesBundledInApk": false,
+  "tmdbSource": "https://www.themoviedb.org/assets/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg",
+  "files": [
+    {
+      "path": "design-assets/s56/cinema-library-reference.png",
+      "bytes": 2293669,
+      "sha256": "9c19f4977f58d608e14ea980bbc4f954cb51b469f794bd5ee5ffbb5ae641e1ef"
+    },
+    {
+      "path": "design-assets/s56/cinema-interior-reference.png",
+      "bytes": 1841160,
+      "sha256": "dd474b63c73c1f96b3cf0d01041fae3051e301a076715f027de46338124d826e"
+    },
+    {
+      "path": "design-assets/s56/PROMPT-library.txt",
+      "bytes": 1075,
+      "sha256": "14646a460153696698bbee8dc9be1979f58c51b1f95540c22cdcfcee2ec06b59"
+    },
+    {
+      "path": "design-assets/s56/PROMPT-interior.txt",
+      "bytes": 1234,
+      "sha256": "d8342abd097041f880928486c948020f397209c2b6417e85b2e75a26a9308c62"
+    },
+    {
+      "path": "public/cinema/tmdb.svg",
+      "bytes": 2065,
+      "sha256": "8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-nodpi/tmdb_attribution.png",
+      "bytes": 23972,
+      "sha256": "915f790f22ef7135409af7d7f244479c058cc98b1a3d31bdb280e89e8de126f1"
+    }
+  ]
+}

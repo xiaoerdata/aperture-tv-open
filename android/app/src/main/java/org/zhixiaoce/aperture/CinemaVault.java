@@ -36,5 +36,7 @@ final class CinemaVault {
     });}
     CinemaShelf shelf() throws Exception{return shelfStore().read();}
     CinemaShelf updateShelf(CinemaShelfStore.Edit edit)throws Exception{return shelfStore().update(edit);}
+    synchronized org.json.JSONObject metadata()throws Exception{String value=preferences.getString("metadata","");return value.isEmpty()?new org.json.JSONObject():new org.json.JSONObject(CinemaCipher.decrypt(value,key()));}
+    synchronized void metadata(org.json.JSONObject value)throws Exception{String raw=value.toString();if(raw.length()>262144)throw new java.io.IOException("资料设置过大");if(!preferences.edit().putString("metadata",CinemaCipher.encrypt(raw,key())).commit())throw new java.io.IOException("资料设置保存失败");}
     void clear(){preferences.edit().remove("config").remove("http").apply();}
 }

@@ -1,0 +1,68 @@
+{
+  "stage": "S55",
+  "scope": "Gradle configuration only, existing APK inspection and synthetic ZIP failure cases; no APK assembly or device proof",
+  "policy": {
+    "format": "kaishi-android-abis/v1",
+    "default": [
+      "armeabi-v7a",
+      "arm64-v8a"
+    ],
+    "supported": [
+      "armeabi-v7a",
+      "arm64-v8a",
+      "x86",
+      "x86_64"
+    ]
+  },
+  "gradleDefault": {
+    "defaultAbis": [
+      "armeabi-v7a",
+      "arm64-v8a"
+    ],
+    "selectedAbis": [
+      "armeabi-v7a",
+      "arm64-v8a"
+    ],
+    "standardAbis": [
+      "arm64-v8a",
+      "armeabi-v7a"
+    ],
+    "parentsAbis": [
+      "arm64-v8a",
+      "armeabi-v7a"
+    ],
+    "apkBuilt": false
+  },
+  "gradleEmulatorOptIn": {
+    "defaultAbis": [
+      "armeabi-v7a",
+      "arm64-v8a"
+    ],
+    "selectedAbis": [
+      "x86",
+      "x86_64"
+    ],
+    "standardAbis": [
+      "x86",
+      "x86_64"
+    ],
+    "parentsAbis": [
+      "x86",
+      "x86_64"
+    ],
+    "apkBuilt": false
+  },
+  "trailingEmptyAbiRejected": true,
+  "oldUniversalOutputRejectedForArmPolicy": true,
+  "targetedTests": {
+    "passed": 2,
+    "failed": 0
+  },
+  "commonPythonArchivesRetained": true,
+  "existingApkHashesUnchanged": true,
+  "newApkMeasuredBytes": null,
+  "apkBuilt": false,
+  "deviceTested": false,
+  "committed": false,
+  "uploaded": false
+}

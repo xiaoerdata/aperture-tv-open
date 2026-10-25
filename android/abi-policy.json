@@ -1,0 +1,5 @@
+{
+  "format": "kaishi-android-abis/v1",
+  "default": ["armeabi-v7a", "arm64-v8a"],
+  "supported": ["armeabi-v7a", "arm64-v8a", "x86", "x86_64"]
+}

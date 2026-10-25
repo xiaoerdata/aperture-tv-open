@@ -87,8 +87,9 @@ try{
  }
  phase='browser full family screen';await page.goto(origin+'/tv?demo=1');await page.waitForFunction(()=>document.querySelector('#connection-status').textContent.includes('演示'));
  phase='browser lite family screen';await page.goto(origin+'/tv-lite?demo=1');await page.waitForFunction(()=>document.querySelector('#connection-status').textContent.includes('合成示例'));
+ phase='browser cinema disconnected';await page.goto(origin+'/cinema');await page.waitForFunction(()=>typeof window.apertureBack==='function'&&document.querySelector('#cinema-status').textContent==='未连接');assert.equal(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor),'rgb(12, 14, 17)');
  assert.deepEqual(errors,[]);report.browserErrors=errors;
- report.routes=['/guide','/home?demo=1','/home?edition=parents&demo=1','/tv?demo=1','/tv-lite?demo=1'];
+ report.routes=['/guide','/home?demo=1','/home?edition=parents&demo=1','/tv?demo=1','/tv-lite?demo=1','/cinema'];
  phase='default access boundaries';
  report.privateStateStatus=(await fetch(origin+'/api/tv-lite/state')).status;assert.equal(report.privateStateStatus,401);
  report.machineInterfaceDefaultStatus=(await fetch(origin+'/api/local-agent/tools')).status;assert.equal(report.machineInterfaceDefaultStatus,503);

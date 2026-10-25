@@ -1,0 +1,5 @@
+/* One selected screen symbol across the app and its companion pages. */
+.kaishi-brand-icon{display:inline-block;width:44px;height:44px;flex:0 0 44px;object-fit:contain;border:0;border-radius:10px;vertical-align:middle;margin-right:10px}
+.studio-brand .kaishi-brand-icon,.brand .kaishi-brand-icon{margin-right:0}
+.film-brand .kaishi-brand-icon{width:52px;height:52px}
+@media(max-width:760px){.kaishi-brand-icon{width:36px;height:36px;flex-basis:36px;border-radius:8px}}

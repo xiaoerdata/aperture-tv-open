@@ -94,3 +94,9 @@ S52：P49原厂应用图标，[出处](../../design-assets/app-logos/README.md)�
 S53：P50—P55，[真机问题处理](../V17-FEEDBACK.md)、[软件检查](../verification/s53-software-acceptance.json)、[模拟器失败记录](../verification/s53-native-environment.json)、[并存迁移](../MIGRATION-V18.md)、[新标识与原图](../../design-assets/s53/README.md)、[第三十九期](../../media/DEVLOG-039.md)。本版供小米真机复测，未把原生测试驱动构建称为UI验收通过。
 
 S53发布结果：[v18 Alpha](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.15)、[匿名下载与逐文件回读](../verification/public-alpha-v18.json)。两版新包名并存；v17标签和旧附件均保持原样。此补记晚于发行标签。
+
+S54：P56指定第二套Logo，[两版标识与提示词](../../design-assets/s54/README.md)、[本地浏览器检查](../verification/s54-brand.json)、[第四十期底稿](../../media/DEVLOG-040.md)。仅本地修改，没有更新公开APK。
+
+S55：P57安装包瘦身，[方案与边界](../APK-SIZE.md)、[旧APK体积分解](../verification/s55-apk-size-baseline.json)、[配置与验包检查](../verification/s55-abi-policy.json)、[第四十一期底稿](../../media/DEVLOG-041.md)。约35%为旧包分析估算，没有生成或发布新的安装包。
+
+S56：P58—P59，[影视内页与资料](../TV-INTERIORS.md)、[生图与提示词](../../design-assets/s56/README.md)、[实际浏览器检查](../verification/s56-cinema-browser.json)、[第四十二期](../../media/DEVLOG-042.md)。v19候选包含S54/S55，发布状态以后续回执为准。

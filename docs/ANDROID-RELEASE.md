@@ -2,7 +2,7 @@
 
 **本项目仅适配小米电视，Android 8+。** 这是维护者的发行操作说明，普通用户从[下载与版本](DOWNLOADS.md)和[安装说明](../INSTALL.md)开始。
 
-v18 / alpha.15按本流程生成两版非debug包并使用专用发行证书，产品仍为Alpha测试版。旧v17签名丢失，因此使用新包名并存安装；详见[迁移说明](MIGRATION-V18.md)。WorkBuddy和小米真机由维护者复验。早期[准备记录](verification/s42-release-preparation.json)只代表当时状态。
+v19 / alpha.16按本流程生成两版非debug包并使用专用发行证书，产品仍为Alpha测试版。旧v17签名丢失，因此使用新包名并存安装；详见[迁移说明](MIGRATION-V18.md)。WorkBuddy和小米真机由维护者复验。早期[准备记录](verification/s42-release-preparation.json)只代表当时状态。
 
 ## 签名前先确定
 
@@ -28,6 +28,8 @@ export GRADLE_USER_HOME="$APERTURE_ANDROID_RUNTIME/gradle-user"
 "$GRADLE_BIN" --no-daemon -p android \
   :app:assembleStandardRelease :app:assembleParentsRelease
 ```
+
+v19默认只包含 `armeabi-v7a,arm64-v8a`，两版共用相同架构策略；公开v18仍为原四架构包。签名脚本会检查实际原生库和Python架构包并记录ABI，见[体积与验证说明](APK-SIZE.md)。S55仅改配置；S56已实际构建两版v19发行APK，签名证书沿用v18，实际约52.6MiB。见docs/APK-SIZE.md。
 
 预期输入分别是：
 

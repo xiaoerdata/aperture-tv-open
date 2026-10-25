@@ -1,9 +1,15 @@
 plugins { id 'com.android.application'; id 'com.chaquo.python' }
+// Xiaomi download packages keep both ARM ABIs. Emulator payloads are explicit opt-in.
+def kaishiAbiPolicy = new groovy.json.JsonSlurper().parse(rootProject.file('abi-policy.json'))
+def kaishiSelectedAbis = providers.gradleProperty('kaishiAbis').getOrElse(kaishiAbiPolicy.default.join(',')).split(',', -1).collect { it.trim() }
+if (kaishiSelectedAbis.isEmpty() || kaishiSelectedAbis.toSet().size() != kaishiSelectedAbis.size() || kaishiSelectedAbis.any { !kaishiAbiPolicy.supported.contains(it) }) {
+    throw new GradleException('kaishiAbis must be a nonempty, unique list from ' + kaishiAbiPolicy.supported.join(', '))
+}
 android {
     namespace 'org.zhixiaoce.aperture'
     compileSdk 35
     buildToolsVersion '35.0.0'
-    defaultConfig { ndk { abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64' }; applicationId 'org.zhixiaoce.kaishi'; minSdk 26; targetSdk 35; versionCode 18; versionName '0.2.0-alpha.15' }
+    defaultConfig { ndk { abiFilters.addAll(kaishiSelectedAbis) }; applicationId 'org.zhixiaoce.kaishi'; minSdk 26; targetSdk 35; versionCode 19; versionName '0.2.0-alpha.16' }
     flavorDimensions += 'edition'
     productFlavors {
         standard { dimension 'edition'; buildConfigField 'boolean', 'PARENTS_EDITION', 'false'; manifestPlaceholders = [appLabel: '开视'] }
@@ -55,5 +61,12 @@ chaquopy {
             install "chaquopy-libxml2==2.9.8"
             install "chaquopy-libxslt==1.1.32"
         }
+    }
+}
+
+// Configuration inspection only: no Java/Python compilation or APK assembly.
+tasks.register('kaishiAbiReport') {
+    doLast {
+        println(groovy.json.JsonOutput.toJson([defaultAbis: kaishiAbiPolicy.default, selectedAbis: kaishiSelectedAbis, standardAbis: android.defaultConfig.ndk.abiFilters.sort(), parentsAbis: android.defaultConfig.ndk.abiFilters.sort(), apkBuilt: false]))
     }
 }

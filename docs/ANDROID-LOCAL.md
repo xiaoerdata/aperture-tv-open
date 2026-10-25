@@ -18,6 +18,19 @@ npm run android:apk
 
 首次Gradle构建还需要下载Google/Maven依赖；之后可以复用本地缓存。免费表示不使用收费托管执行服务，并不表示无需网络、存储或满足SDK许可要求。Android原生Windows路径尚未实测，优先使用Linux/WSL。
 
+## 下一版源码的架构选择
+
+默认同时包含ARM32与ARM64；模拟器架构按需加入，减少正式下载包的重复运行环境。当前公开v18仍是四架构旧包，新的真实体积待重新打包核对，见[体积说明](APK-SIZE.md)。
+
+```bash
+# x86模拟器开发；不用于普通小米电视下载
+APERTURE_ANDROID_ABIS=x86 npm run android:apk -- --edition standard
+# 包含四架构的开发包
+APERTURE_ANDROID_ABIS=armeabi-v7a,arm64-v8a,x86,x86_64 npm run android:apk -- --edition both
+```
+
+同一ABI范围用于所选两个版本；包信息清单记录实际ABI，原生库和Python专用包必须完整匹配。只看配置可运行 `gradle --offline -q -p android :app:kaishiAbiReport`，不触发APK构建。
+
 ## 产物和密钥
 
 完成后在artifacts/android-local找到APK、manifest.json、SHA256SUMS、签名信息、包信息与环境记录。manifest包含源码提交、Android输入摘要和工作区是否有未提交变化；不会把含未提交变化的构建冒称为提交的精确产物。

@@ -1,0 +1,26 @@
+{
+  "reconstructedCommonPlusArchitecture": true,
+  "rows": [
+    {
+      "abi": "armeabi-v7a",
+      "oldFiles": 642,
+      "newFiles": 642,
+      "missing": [],
+      "added": [],
+      "changedCount": 352,
+      "pycHeaderOnlyChanges": 352,
+      "otherChanges": []
+    },
+    {
+      "abi": "arm64-v8a",
+      "oldFiles": 642,
+      "newFiles": 642,
+      "missing": [],
+      "added": [],
+      "changedCount": 352,
+      "pycHeaderOnlyChanges": 352,
+      "otherChanges": []
+    }
+  ],
+  "coldStartTested": false
+}

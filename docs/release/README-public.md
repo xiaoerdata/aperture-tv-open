@@ -4,22 +4,22 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加家庭照片、日程、留言、数据、NAS资源和可定制入口。
 
-当前版本 **v18 / 0.2.0-alpha.15**：两版均提供电视、电视剧、电影、综艺四个入口，加入[开视资源包](../RESOURCE-PACK.md)与[Agent制作和导入](../RESOURCE-PACK-AGENT.md)，修正v17反馈的画面、按钮和返回原桌面问题。应用使用原厂图标，开视采用简洁新标识。
+当前版本 **v19 / 0.2.0-alpha.16**：重构影视内页、海报目录、详情和播放浮层，支持来源封面与可选联网资料，近似结果默认最新；两版Logo统一，爸妈版增加老人emoji。仅保留电视所需ARM32/64，标准版52.61MiB、爸妈版52.63MiB，比v18各减约35%，四张4K壁纸保留。见[内页与资料](../TV-INTERIORS.md)和[实际体积](../APK-SIZE.md)。
 
-**v18与v17并存安装，保留旧数据。** 新版需重新配对、配置NAS；请先读[迁移说明](../MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
+**v19可更新v18，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](../MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
 
 ## 两个版本
 
 - 标准版：首屏看电视、看电视剧、看电影、看综艺、常用应用；向下进入片库与家庭分区。深色玻璃、4K摄影背景和遥控焦点。
 - 爸妈版：看电视、看电视剧、看电影、看综艺，以及常用应用快捷入口。安装和来源配置留在家人设置。
 
-![标准版首页（浏览器演示，非真机）](../images/s53-home-standard-expanded.png)
+![标准版首页（浏览器演示，非真机）](../images/s54-brand-standard.png)
 
-![爸妈版首页（浏览器演示，非真机）](../images/s53-home-parents.png)
+![爸妈版首页（浏览器演示，非真机）](../images/s54-brand-parents.png)
 
 ## 安装与使用
 
-按[小米电视安装说明](../../INSTALL.md)开始。[下载与版本](../DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.15)提供标准版、爸妈版和源码；也可[免费本地构建](../ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](../../INSTALL.md)开始。[下载与版本](../DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.16)提供标准版、爸妈版和源码；也可[免费本地构建](../ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](../EMBEDDED-CINEMA.md)与[插件说明](../PLUGIN-ENGINE.md)；没有预置影视来源。
 
@@ -46,8 +46,10 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 
 ## 当前验证边界
 
-软件验证按浏览器、生产协议与模型、Android TV模拟器分开记录，见[本轮测试记录](../verification/s53-software-acceptance.json)。最终源码安装回执见本次Release的测试清单。WorkBuddy客户端与小米真机由维护者验收，未测型号不标为兼容；模拟器、浏览器和合成回执不能代替硬件测试。本版使用专用发行证书签署非debug包，产品仍为Alpha；小米真机复验待维护者完成。
+软件验证按浏览器、生产协议与模型、Android TV模拟器分开记录，见[本轮测试记录](../verification/s56-software-acceptance.json)。最终源码安装回执见本次Release的测试清单。WorkBuddy客户端与小米真机由维护者验收，未测型号不标为兼容；模拟器、浏览器和合成回执不能代替硬件测试。本版使用与v18相同的发行证书签署非debug包，产品仍为Alpha。软件全套100项中97通过、3项Samba环境缺失跳过；两版构建/lint与签名/ABI检查通过。浏览器真实HTTP合成媒体的方向键与VP9播放通过；本轮没有原生Activity、小米真机或WorkBuddy客户端运行验收。
 
 问题反馈见[Issues](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)，二次开发欢迎[Pull Requests](https://github.com/xiaoerdata/aperture-tv-open/pulls)。
 
 核心代码使用[MIT许可](../../LICENSE)。字体、图片、依赖与上游连接器分别遵守各自许可，详见[第三方声明](../../THIRD_PARTY_NOTICES.md)。
+
+![影视目录（本地HTTP浏览器，合成资料，非小米真机）](../images/s56-cinema-catalogue.png)

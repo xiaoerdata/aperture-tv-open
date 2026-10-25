@@ -1,0 +1,297 @@
+{
+  "format": "kaishi-apk-size-analysis/v1",
+  "method": "Read-only central-directory compressed byte accounting of existing signed APKs",
+  "policy": {
+    "format": "kaishi-android-abis/v1",
+    "default": [
+      "armeabi-v7a",
+      "arm64-v8a"
+    ],
+    "supported": [
+      "armeabi-v7a",
+      "arm64-v8a",
+      "x86",
+      "x86_64"
+    ]
+  },
+  "packages": [
+    {
+      "apk": "kaishi-v18-standard.apk",
+      "sha256": "24cfb3a922fd4b10566162c24306f452ee309d37d05b048aad57662b67b8c3a6",
+      "apkBytes": 85513156,
+      "actualAbis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "targetAbis": [
+        "armeabi-v7a",
+        "arm64-v8a"
+      ],
+      "measuredRemovableCompressedBytes": 30003424,
+      "estimatedRemainingBytes": 55509732,
+      "estimatedReductionPercent": 35.09,
+      "removedEntryCount": 44,
+      "baselinePayloadComplete": true,
+      "groups": {
+        "wallpapers/4k": {
+          "compressedBytes": 17375383,
+          "uncompressedBytes": 17375383,
+          "files": 4
+        },
+        "native/arm64-v8a": {
+          "compressedBytes": 9168776,
+          "uncompressedBytes": 9168776,
+          "files": 8
+        },
+        "native/x86_64": {
+          "compressedBytes": 9167120,
+          "uncompressedBytes": 9167120,
+          "files": 8
+        },
+        "native/x86": {
+          "compressedBytes": 8890088,
+          "uncompressedBytes": 8890088,
+          "files": 8
+        },
+        "python/x86_64": {
+          "compressedBytes": 5986155,
+          "uncompressedBytes": 5986155,
+          "files": 14
+        },
+        "python/x86": {
+          "compressedBytes": 5960061,
+          "uncompressedBytes": 5960061,
+          "files": 14
+        },
+        "python/arm64-v8a": {
+          "compressedBytes": 5880421,
+          "uncompressedBytes": 5880421,
+          "files": 14
+        },
+        "native/armeabi-v7a": {
+          "compressedBytes": 5768444,
+          "uncompressedBytes": 5768444,
+          "files": 8
+        },
+        "python/shared": {
+          "compressedBytes": 5732630,
+          "uncompressedBytes": 5873533,
+          "files": 6
+        },
+        "python/armeabi-v7a": {
+          "compressedBytes": 5090025,
+          "uncompressedBytes": 5090025,
+          "files": 14
+        },
+        "java-and-dependencies": {
+          "compressedBytes": 3351366,
+          "uncompressedBytes": 8878960,
+          "files": 1
+        },
+        "other": {
+          "compressedBytes": 1537030,
+          "uncompressedBytes": 1681893,
+          "files": 30
+        },
+        "launcher-and-other-assets": {
+          "compressedBytes": 872482,
+          "uncompressedBytes": 1072580,
+          "files": 72
+        }
+      },
+      "largestEntries": [
+        {
+          "path": "assets/lofoten-4k.jpg",
+          "compressedBytes": 9905230
+        },
+        {
+          "path": "lib/x86_64/libcrypto_python.so",
+          "compressedBytes": 3788656
+        },
+        {
+          "path": "lib/arm64-v8a/libcrypto_python.so",
+          "compressedBytes": 3715952
+        },
+        {
+          "path": "lib/x86/libcrypto_python.so",
+          "compressedBytes": 3572740
+        },
+        {
+          "path": "assets/namib-4k.jpg",
+          "compressedBytes": 3488606
+        },
+        {
+          "path": "lib/arm64-v8a/libpython3.10.so",
+          "compressedBytes": 3484192
+        },
+        {
+          "path": "lib/x86_64/libpython3.10.so",
+          "compressedBytes": 3390048
+        },
+        {
+          "path": "lib/x86/libpython3.10.so",
+          "compressedBytes": 3380412
+        },
+        {
+          "path": "classes.dex",
+          "compressedBytes": 3351366
+        },
+        {
+          "path": "assets/chaquopy/stdlib-common.imy",
+          "compressedBytes": 3127971
+        },
+        {
+          "path": "assets/chaquopy/requirements-x86_64.imy",
+          "compressedBytes": 2862763
+        },
+        {
+          "path": "assets/chaquopy/requirements-x86.imy",
+          "compressedBytes": 2831929
+        }
+      ]
+    },
+    {
+      "apk": "kaishi-v18-parents.apk",
+      "sha256": "2215b5eed9a46369ee4f9d6b912c34bfce00e412fe2e83ced35b4d3981da7cac",
+      "apkBytes": 85517252,
+      "actualAbis": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "targetAbis": [
+        "armeabi-v7a",
+        "arm64-v8a"
+      ],
+      "measuredRemovableCompressedBytes": 30003424,
+      "estimatedRemainingBytes": 55513828,
+      "estimatedReductionPercent": 35.08,
+      "removedEntryCount": 44,
+      "baselinePayloadComplete": true,
+      "groups": {
+        "wallpapers/4k": {
+          "compressedBytes": 17375383,
+          "uncompressedBytes": 17375383,
+          "files": 4
+        },
+        "native/arm64-v8a": {
+          "compressedBytes": 9168776,
+          "uncompressedBytes": 9168776,
+          "files": 8
+        },
+        "native/x86_64": {
+          "compressedBytes": 9167120,
+          "uncompressedBytes": 9167120,
+          "files": 8
+        },
+        "native/x86": {
+          "compressedBytes": 8890088,
+          "uncompressedBytes": 8890088,
+          "files": 8
+        },
+        "python/x86_64": {
+          "compressedBytes": 5986155,
+          "uncompressedBytes": 5986155,
+          "files": 14
+        },
+        "python/x86": {
+          "compressedBytes": 5960061,
+          "uncompressedBytes": 5960061,
+          "files": 14
+        },
+        "python/arm64-v8a": {
+          "compressedBytes": 5880421,
+          "uncompressedBytes": 5880421,
+          "files": 14
+        },
+        "native/armeabi-v7a": {
+          "compressedBytes": 5768444,
+          "uncompressedBytes": 5768444,
+          "files": 8
+        },
+        "python/shared": {
+          "compressedBytes": 5732793,
+          "uncompressedBytes": 5873694,
+          "files": 6
+        },
+        "python/armeabi-v7a": {
+          "compressedBytes": 5090025,
+          "uncompressedBytes": 5090025,
+          "files": 14
+        },
+        "java-and-dependencies": {
+          "compressedBytes": 3351117,
+          "uncompressedBytes": 8877976,
+          "files": 1
+        },
+        "other": {
+          "compressedBytes": 1540782,
+          "uncompressedBytes": 1685686,
+          "files": 30
+        },
+        "launcher-and-other-assets": {
+          "compressedBytes": 872482,
+          "uncompressedBytes": 1072580,
+          "files": 72
+        }
+      },
+      "largestEntries": [
+        {
+          "path": "assets/lofoten-4k.jpg",
+          "compressedBytes": 9905230
+        },
+        {
+          "path": "lib/x86_64/libcrypto_python.so",
+          "compressedBytes": 3788656
+        },
+        {
+          "path": "lib/arm64-v8a/libcrypto_python.so",
+          "compressedBytes": 3715952
+        },
+        {
+          "path": "lib/x86/libcrypto_python.so",
+          "compressedBytes": 3572740
+        },
+        {
+          "path": "assets/namib-4k.jpg",
+          "compressedBytes": 3488606
+        },
+        {
+          "path": "lib/arm64-v8a/libpython3.10.so",
+          "compressedBytes": 3484192
+        },
+        {
+          "path": "lib/x86_64/libpython3.10.so",
+          "compressedBytes": 3390048
+        },
+        {
+          "path": "lib/x86/libpython3.10.so",
+          "compressedBytes": 3380412
+        },
+        {
+          "path": "classes.dex",
+          "compressedBytes": 3351117
+        },
+        {
+          "path": "assets/chaquopy/stdlib-common.imy",
+          "compressedBytes": 3127971
+        },
+        {
+          "path": "assets/chaquopy/requirements-x86_64.imy",
+          "compressedBytes": 2862763
+        },
+        {
+          "path": "assets/chaquopy/requirements-x86.imy",
+          "compressedBytes": 2831929
+        }
+      ]
+    }
+  ],
+  "apkBuilt": false,
+  "apkModified": false,
+  "uploaded": false,
+  "estimateLimit": "Not a new APK size measurement. ZIP alignment, generated metadata, signatures and current unpublished artwork can change the eventual bytes."
+}

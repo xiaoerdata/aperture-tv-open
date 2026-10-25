@@ -1,5 +1,1 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="320dp" android:height="180dp" android:viewportWidth="320" android:viewportHeight="180">
-    <path android:fillColor="#121923" android:pathData="M0,0h320v180h-320z"/>
-    <path android:fillColor="@android:color/transparent" android:strokeColor="#EEF3F8" android:strokeWidth="4" android:pathData="M108,45h104q12,0 12,12v62q0,12 -12,12h-104q-12,0 -12,-12v-62q0,-12 12,-12zM131,144h58"/>
-    <path android:fillColor="#EEF3F8" android:pathData="M149,68l34,20 -34,20z"/>
-</vector>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android" android:src="@drawable/kaishi_banner_v2" android:gravity="fill"/>

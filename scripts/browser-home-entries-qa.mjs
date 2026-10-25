@@ -8,7 +8,7 @@ const base='https://appassets.androidplatform.net';
 const stage=process.env.KAISHI_QA_STAGE||'s52';
 const presets=JSON.parse(await readFile('public/launcher/app-presets.json','utf8'));
 const names=['art/dusk-lake-v1.webp','art/dusk-lake-thumb-v1.webp','art/memory-archive-v1.webp','art/glass-swallow-v1.webp','index.html','launcher.js','home-personal.js','app-presets.json','style.css','carezza-4k.jpg','namib-4k.jpg','fuji-4k.jpg','lofoten-4k.jpg','namib-thumb.jpg','fuji-thumb.jpg','lofoten-thumb.jpg','fonts/clock-reader.woff2','fonts/aperture-song.woff2'];
-names.push('brand/kaishi-icon-v2.webp',...presets.map(entry=>entry.icon),'app-icons/application.svg');
+names.push('brand/kaishi-icon-v2.webp','brand/kaishi-parents-v2.webp','brand/identity.css','brand/identity.js',...presets.map(entry=>entry.icon),'app-icons/application.svg');
 const files=new Map(await Promise.all(names.map(async n=>[n,await readFile(resolve('public/launcher',n))])));
 for(const name of ['launcher.js','home-personal.js'])parse(files.get(name).toString(),{ecmaVersion:5});
 const mime=n=>n.endsWith('.png')?'image/png':n.endsWith('.svg')?'image/svg+xml':n.endsWith('.webp')?'image/webp':n.endsWith('.js')?'text/javascript':n.endsWith('.json')?'application/json':n.endsWith('.html')?'text/html':n.endsWith('.css')?'text/css':n.endsWith('.woff2')?'font/woff2':'image/jpeg';

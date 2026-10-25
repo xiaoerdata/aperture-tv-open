@@ -12,6 +12,7 @@ import subprocess
 import zipfile
 from io import BytesIO
 from PIL import Image
+from android_abis import verify_apk_abis
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output', required=True, type=Path)
@@ -46,6 +47,7 @@ out.mkdir()
 editions = []
 for edition in ['standard', 'parents']:
     source = root / f'android/app/build/outputs/apk/{edition}/release/app-{edition}-release-unsigned.apk'
+    abis = verify_apk_abis(source)
     aligned = out / f'{edition}-aligned-unsigned.apk'
     apk = out / f'kaishi-v{code}-{edition}.apk'
     run([tools/'zipalign', '-P', '16', '4', source, aligned])
@@ -89,7 +91,7 @@ for edition in ['standard', 'parents']:
     (directory/'package.txt').write_text(package)
     # Per-edition metadata can also be consumed by the binary manifest inspector.
     metadata = {'applicationId':fields['name'], 'edition':edition, 'version':fields['versionName'], 'versionCode':code,
-                'variant':'release', 'debuggable':False, 'minSdk':26, 'targetSdk':35, 'apk':apk.name,
+                'variant':'release', 'abis':abis, 'debuggable':False, 'minSdk':26, 'targetSdk':35, 'apk':apk.name,
                 'apkBytes':apk.stat().st_size, 'sha256':hashlib.sha256(apk.read_bytes()).hexdigest(),
                 'certificateSha256':cert, 'signatureVerified':True, 'androidSourceSha256':inputs['sha256'],
                 'packagedBrandPixelsVerified':True, 'packagedLauncherFilesVerified':asset_count, 'xiaomiTested':False, 'workBuddyClientTested':False}
@@ -97,7 +99,7 @@ for edition in ['standard', 'parents']:
     editions.append(metadata)
     aligned.unlink()
 manifest = {'format':'kaishi-alpha-release/v1', 'version':version, 'versionCode':code, 'xiaomiOnly':True,
-            'migration':'side-by-side; original v17 data retained; pair and configure NAS again', 'editions':editions,
+            'migration':'v18 upgrade with same package/certificate; retain v17 side-by-side; pair/configure only when moving from v17', 'editions':editions,
             'androidInputs':inputs, 'githubHostedRunnerUsed':False, 'uploaded':False}
 (out/'testing-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 files = [out/item['apk'] for item in editions]+[out/'testing-manifest.json']

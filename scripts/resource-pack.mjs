@@ -19,7 +19,7 @@ export function checkPack(bytes,{allowHttp=false}={}){
   if(typeof value==='string'&&value.includes('\0'))throw Error(path+' 含无效字符');
   if(Array.isArray(value)){value.forEach((x,i)=>walk(x,path+'/'+i));return;}
   if(value&&typeof value==='object')for(const [k,v]of Object.entries(value)){
-   if(['url','baseUrl'].includes(k)&&typeof v==='string')url(v,allowHttp);
+   if(['url','baseUrl','poster','logo'].includes(k)&&typeof v==='string')url(v,allowHttp);
    if(k==='urls'&&Array.isArray(v)&&v.every(x=>typeof x==='string'))v.forEach(x=>url(x,allowHttp));
    walk(v,path+'/'+k);
   }

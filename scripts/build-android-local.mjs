@@ -5,8 +5,9 @@ import {join,resolve,delimiter} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {androidSource,sourceProvenance} from './android-source.mjs';
 import {editions} from './android-editions.mjs';
+import {androidAbis} from './android-abis.mjs';
 import {preserveDebugKey} from './signing-backup.mjs';
-const selected=editions(process.argv.slice(2));
+const selected=editions(process.argv.slice(2)),selectedAbis=androidAbis();
 const root=fileURLToPath(new URL('../',import.meta.url)),runtime=resolve(process.env.APERTURE_ANDROID_RUNTIME||join(root,'.android-local'));
 const sdk=process.env.ANDROID_HOME||process.env.ANDROID_SDK_ROOT;
 if(!sdk||!process.env.JAVA_HOME)throw new Error('Set JAVA_HOME to JDK17 and ANDROID_HOME to Android SDK. See docs/ANDROID-LOCAL.md.');
@@ -32,14 +33,14 @@ const commit=provenance.sourceCommit,dirty=provenance.workingTreeDirty;
 const args=['--no-daemon','--stacktrace'];
 // Java does not consume HTTP(S)_PROXY automatically. Do not write global JVM settings.
 for(const [scheme,name] of [['https','HTTPS_PROXY'],['http','HTTP_PROXY']]){const value=process.env[name]||process.env[name.toLowerCase()];if(value){const proxy=new URL(value);if(proxy.username||proxy.password)throw new Error('Authenticated proxy must be configured privately in Gradle; refusing to put credentials in process arguments.');args.push(`-D${scheme}.proxyHost=${proxy.hostname}`,`-D${scheme}.proxyPort=${proxy.port||'80'}`);}}
-args.push('-p','android',...selected.map(edition=>':app:assemble'+(edition==='parents'?'Parents':'Standard')+'Debug'));await run(gradle,args);
+args.push('-PkaishiAbis='+selectedAbis.join(','),'-p','android',...selected.map(edition=>':app:assemble'+(edition==='parents'?'Parents':'Standard')+'Debug'));await run(gradle,args);
 for(const edition of selected){
 const output=resolve(root,'artifacts',edition==='standard'?'android-local':'android-local-parents');await mkdir(output,{recursive:true});await copyFile(join(root,'android','app','build','outputs','apk',edition,'debug','app-'+edition+'-debug.apk'),join(output,'aperture-tv-debug.apk'));
 await writeFile(join(output,'signature.txt'),await run(join(buildTools,process.platform==='win32'?'apksigner.bat':'apksigner'),['verify','--verbose','--print-certs',join(output,'aperture-tv-debug.apk')],{capture:true}));
 await writeFile(join(output,'package.txt'),await run(join(buildTools,process.platform==='win32'?'aapt.exe':'aapt'),['dump','badging',join(output,'aperture-tv-debug.apk')],{capture:true}));
 Object.assign(env,{SOURCE_SHA:commit||'',BUILD_SHA:provenance.buildCommit||'',BUILD_ENVIRONMENT:'local-free',WORKTREE_DIRTY:String(dirty),ANDROID_SOURCE_SHA256:sourceHash,SOURCE_PROVENANCE:JSON.stringify(provenance),ANDROID_EDITION:edition});
 await run(process.env.PYTHON_BIN||'python3',['scripts/android-artifact.py','--directory',output]);
-await writeFile(join(output,'build-environment.json'),JSON.stringify({edition,java:version.trim(),gradle:'8.9',compileSdk:35,buildTools:'35.0.0',sourceCommit:commit,sourceProvenance:provenance,androidSourceSha256:sourceHash,workingTreeDirty:dirty,githubHostedRunnerUsed:false,uploaded:false},null,2));
+await writeFile(join(output,'build-environment.json'),JSON.stringify({edition,java:version.trim(),gradle:'8.9',compileSdk:35,buildTools:'35.0.0',sourceCommit:commit,sourceProvenance:provenance,androidSourceSha256:sourceHash,abis:selectedAbis,workingTreeDirty:dirty,githubHostedRunnerUsed:false,uploaded:false},null,2));
 await preserveDebugKey({runtimeDirectory:runtime,backupDirectory,existingSignedCandidate:true});
 console.log('Private testing APK: '+join(output,'aperture-tv-debug.apk')+'\nDebug key remains in the private local runtime. No release was published.');
 }

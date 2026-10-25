@@ -82,6 +82,8 @@ export function createHttp({service,store,auth,images,origin,life,cinema,nasSetu
         if(path==='/api/cinema/health' && req.method==='POST'){rate(req,'media-health',4);await json(req);return send(cinema.check(actor));}
         if(path==='/api/cinema/options' && req.method==='GET')return send(cinema.options(actor));
         if(path==='/api/cinema/library' && req.method==='GET'){rate(req,'media-library',12);return send(await cinema.library(actor));}
+        if(path.startsWith('/api/cinema/metadata/')&&req.method==='GET'){rate(req,'media-metadata',40);return send(await cinema.metadata(actor,path.slice('/api/cinema/metadata/'.length),requestUrl.searchParams.get('candidate')));}
+        if(path.startsWith('/api/cinema/art/')&&req.method==='GET'){rate(req,'media-art',120);await cinema.art(actor,path.slice('/api/cinema/art/'.length),requestUrl.searchParams.get('candidate'),res);return;}
         if(path==='/api/cinema/settings' && req.method==='POST'){const b=await json(req);return send(await cinema.configure(actor,b,b.execution));}
         if(path==='/api/cinema/playlist' && req.method==='POST'){const b=await json(req);return send(b.clear===true?await cinema.clear(actor,b.execution):await cinema.import(actor,b,b.execution));}
         if(path.startsWith('/api/cinema/play/')&&['GET','HEAD'].includes(req.method)){await cinema.play(actor,path.slice('/api/cinema/play/'.length),new URL(req.url,allowed).searchParams.get('part'),req,res);return;}

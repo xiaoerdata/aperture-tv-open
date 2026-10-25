@@ -5,6 +5,7 @@ import json
 import os
 import re
 from pathlib import Path
+from android_abis import verify_apk_abis
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--directory', required=True)
@@ -28,6 +29,7 @@ assert 'launchable-activity:' in package, 'missing launcher activity'
 assert 'Verifies' in signature, 'apksigner did not verify'
 cert = re.search(r'Signer #1 certificate SHA-256 digest: ([a-fA-F0-9]+)', signature)
 assert cert and len(cert.group(1)) == 64, 'missing certificate SHA-256'
+abis = verify_apk_abis(apk)
 sha = hashlib.sha256(apk.read_bytes()).hexdigest()
 metadata = {
     'format': 'aperture-private-android/v1',
@@ -38,6 +40,7 @@ metadata = {
     'minSdk': 26,
     'targetSdk': 35,
     'variant': 'debug',
+    'abis': abis,
     'buildEnvironment': os.environ.get('BUILD_ENVIRONMENT', 'github-actions'),
     'workingTreeDirty': {'true': True, 'false': False}.get(os.environ.get('WORKTREE_DIRTY', 'false')),
     'androidSourceSha256': os.environ.get('ANDROID_SOURCE_SHA256'),

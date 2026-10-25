@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "real authenticated Jellyfin fixture listing; own artwork proxied with credential only at configured upstream",
+    "source-free internet metadata pipeline selects newest synthetic result and exposes opaque art routes",
+    "D-pad catalogue to detail; poster and source facts; direct play focused without match confirmation",
+    "real VP9 decode, pause and two-stage back restores exact catalogue focus",
+    "parents reduced controls and same four-category media path",
+    "live channels enter player directly, no film details step",
+    "catalogue/detail widths checked at 960,1280,1920,3840 and phone 390",
+    "disabled service stops metadata/player and preserves empty error page"
+  ],
+  "errors": [],
+  "syntheticMediaAndProviderRecords": true,
+  "realLocalHttp": true,
+  "realWebmDecoded": true,
+  "nativeActivityExecuted": false,
+  "xiaomiHardware": false
+}

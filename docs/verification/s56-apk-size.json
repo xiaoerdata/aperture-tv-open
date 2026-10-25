@@ -1,0 +1,40 @@
+{
+  "actualSignedApks": true,
+  "rows": [
+    {
+      "edition": "standard",
+      "oldApk": "kaishi-v18-standard.apk",
+      "newApk": "kaishi-v19-standard.apk",
+      "oldBytes": 85513156,
+      "newBytes": 55162136,
+      "savedBytes": 30351020,
+      "percentSaved": 35.49,
+      "oldMiB": 81.55,
+      "newMiB": 52.61,
+      "armRuntimeFilesCompared": 46,
+      "runtimeByteDifferences": [
+        "assets/chaquopy/requirements-common.imy"
+      ],
+      "unchanged4kWallpapers": 4,
+      "unwantedX86Files": []
+    },
+    {
+      "edition": "parents",
+      "oldApk": "kaishi-v18-parents.apk",
+      "newApk": "kaishi-v19-parents.apk",
+      "oldBytes": 85517252,
+      "newBytes": 55186712,
+      "savedBytes": 30330540,
+      "percentSaved": 35.47,
+      "oldMiB": 81.56,
+      "newMiB": 52.63,
+      "armRuntimeFilesCompared": 46,
+      "runtimeByteDifferences": [
+        "assets/chaquopy/requirements-common.imy"
+      ],
+      "unchanged4kWallpapers": 4,
+      "unwantedX86Files": []
+    }
+  ],
+  "xiaomiColdStartTested": false
+}

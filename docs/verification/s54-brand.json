@@ -1,0 +1,90 @@
+{
+  "stage": "S54",
+  "standardUsesSecondLogo": true,
+  "parentsUsesEmojiVariant": true,
+  "checks": [
+    {
+      "edition": "standard",
+      "route": "/tv?demo=1",
+      "brand": "kaishi-icon-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "standard",
+      "route": "/tv-lite?demo=1",
+      "brand": "kaishi-icon-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "standard",
+      "route": "/guide",
+      "brand": "kaishi-icon-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "standard",
+      "route": "/studio",
+      "brand": "kaishi-icon-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "standard",
+      "route": "/cinema",
+      "brand": "kaishi-icon-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "standard",
+      "route": "/film",
+      "brand": "kaishi-icon-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "parents",
+      "route": "/tv?demo=1",
+      "brand": "kaishi-parents-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "parents",
+      "route": "/tv-lite?demo=1",
+      "brand": "kaishi-parents-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "parents",
+      "route": "/guide",
+      "brand": "kaishi-parents-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "parents",
+      "route": "/studio",
+      "brand": "kaishi-parents-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "parents",
+      "route": "/cinema",
+      "brand": "kaishi-parents-v2.webp",
+      "loaded": true
+    },
+    {
+      "edition": "parents",
+      "route": "/film",
+      "brand": "kaishi-parents-v2.webp",
+      "loaded": true
+    }
+  ],
+  "errors": [],
+  "androidFlavorIconOverride": true,
+  "nativeAllowlistChecked": true,
+  "bannerExported": [
+    640,
+    360
+  ],
+  "apkBuilt": false,
+  "uploaded": false,
+  "committed": false,
+  "televisionTested": false
+}

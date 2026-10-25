@@ -148,3 +148,6 @@ button:focus,a:focus,[tabindex='0']:focus{outline:4px solid #f5f7fa;outline-offs
 .arch-logo{width:66px;height:66px;flex-shrink:0;border:0;border-radius:16px;background:url('./brand/kaishi-icon-v2.webp') center/contain no-repeat}
 .arch-logo:before,.arch-logo:after{display:none}
 @media(max-aspect-ratio:4/3){.arch-logo{width:48px;height:48px;border-radius:12px}}
+
+/* S54: selected second logo, with grandparents edition detail. */
+.parents .arch-logo{background-image:url('./brand/kaishi-parents-v2.webp')}

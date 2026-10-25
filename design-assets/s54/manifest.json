@@ -1,0 +1,77 @@
+{
+  "stage": "S54",
+  "generator": "built-in image_gen",
+  "prompt": "PROMPT-parents-v2.txt",
+  "referenceImage": "../s53/kaishi-icon-master-v2.png",
+  "standardVariant": "selected second logo unchanged",
+  "parentsVariant": "same open-screen logo with elderly-couple emoji detail",
+  "assets": [
+    {
+      "file": "design-assets/s53/kaishi-icon-master-v2.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1130680,
+      "sha256": "ac98dc0bec855abbac27dda34cf8d95c4a4cb418479e58903bbcaa4545933cfe"
+    },
+    {
+      "file": "design-assets/s54/kaishi-parents-master-v2.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1271003,
+      "sha256": "33d481c0a49984ea994c6eec39fa5265a0c8d77fdd5f289cd50b0eff14f282fb"
+    },
+    {
+      "file": "android/app/src/main/res/drawable-nodpi/kaishi_icon_v2.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 174262,
+      "sha256": "90e63e4de1c6aa18d5ce59f21ebf8aa59299a5ef1cc6a4cf6a8a4347c251f43e"
+    },
+    {
+      "file": "android/app/src/main/res/drawable-nodpi/kaishi_banner_v2.png",
+      "width": 640,
+      "height": 360,
+      "bytes": 57174,
+      "sha256": "2f382a514db670d046e98a46aa843b161c3697e3f95adc337141ed5e5af6f2f8"
+    },
+    {
+      "file": "android/app/src/parents/res/drawable-nodpi/kaishi_icon_v2.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 205653,
+      "sha256": "dc340caf03fcfb6639e7a644f9735e9088a2cd5a1133225938a1d01886dc9ba7"
+    },
+    {
+      "file": "android/app/src/parents/res/drawable-nodpi/kaishi_banner_v2.png",
+      "width": 640,
+      "height": 360,
+      "bytes": 68544,
+      "sha256": "3dff3b0279e4c49b38903adf9d5fbb1a456a5f6025af40c44f730052a96082ad"
+    },
+    {
+      "file": "public/launcher/brand/kaishi-icon-v2.webp",
+      "width": 192,
+      "height": 192,
+      "bytes": 1090,
+      "sha256": "ddf8249f8f66eee02f5edb50a927bbe5de49eecd02a2cb29d047e928be113e7f"
+    },
+    {
+      "file": "public/launcher/brand/kaishi-parents-v2.webp",
+      "width": 192,
+      "height": 192,
+      "bytes": 2596,
+      "sha256": "d7749bd8515fe7c9558b2bfd9dae98fb2e4a0380208521faaf6c4adf3c474b63"
+    },
+    {
+      "file": "design-assets/s54/logo-comparison.png",
+      "width": 900,
+      "height": 480,
+      "bytes": 121007,
+      "sha256": "d2dab0691256981aa2d8a1d970f04c74a976e62f5528c73ccc53915c10fd8eec"
+    }
+  ],
+  "derivedOutputProcessing": "proportional resampling and image format export only; banner/comparison are HTML layout screenshots",
+  "apkBuilt": false,
+  "committed": false,
+  "uploaded": false
+}

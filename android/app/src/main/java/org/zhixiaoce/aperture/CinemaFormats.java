@@ -37,16 +37,16 @@ final class CinemaFormats {
     static List<CinemaCatalog.Channel> playlist(String raw,String base,boolean allowHttp,Map<String,String> defaults)throws IOException {
         if(raw==null||raw.getBytes(java.nio.charset.StandardCharsets.UTF_8).length>CinemaCatalog.MAX_BYTES)throw new IOException("直播清单超过512KB");
         String text=raw.replaceFirst("^\\uFEFF","").trim();boolean m3u=text.startsWith("#EXTM3U");if(m3u&&text.contains("#EXT-X-"))throw new IOException("HLS媒体清单应作为单个频道导入");
-        List<CinemaCatalog.Channel> result=new ArrayList<>();String name="",group="直播";Map<String,String> headers=new LinkedHashMap<>(defaults);int rows=0;
+        List<CinemaCatalog.Channel> result=new ArrayList<>();String name="",group="直播",logo="";Map<String,String> headers=new LinkedHashMap<>(defaults);int rows=0;
         for(String line:text.split("\\r?\\n")){String v=line.trim();if(v.length()>16384)throw new IOException("清单行过长");if(v.isEmpty())continue;
-            if(m3u&&v.startsWith("#EXTINF:")){int comma=comma(v);name=CinemaCatalog.field(comma<0?"频道":v.substring(comma+1),120);java.util.regex.Matcher matcher=java.util.regex.Pattern.compile("group-title=[\"']([^\"']*)[\"']").matcher(v);group=matcher.find()?CinemaCatalog.field(matcher.group(1),80):"直播";headers=new LinkedHashMap<>(defaults);continue;}
+            if(m3u&&v.startsWith("#EXTINF:")){int comma=comma(v);name=CinemaCatalog.field(comma<0?"频道":v.substring(comma+1),120);java.util.regex.Matcher matcher=java.util.regex.Pattern.compile("group-title=[\"']([^\"']*)[\"']").matcher(v);group=matcher.find()?CinemaCatalog.field(matcher.group(1),80):"直播";java.util.regex.Matcher art=java.util.regex.Pattern.compile("tvg-logo=[\"']([^\"']*)[\"']").matcher(v);logo=art.find()?CinemaCatalog.field(art.group(1),4096):"";headers=new LinkedHashMap<>(defaults);continue;}
             if(v.startsWith("#EXTVLCOPT:http-user-agent=")){header(headers,"User-Agent",v.substring("#EXTVLCOPT:http-user-agent=".length()));continue;}
             if(v.startsWith("#EXTVLCOPT:http-referrer=")){header(headers,"Referer",v.substring("#EXTVLCOPT:http-referrer=".length()));continue;}
             if(v.startsWith("#"))continue;
             if(!m3u){int comma=v.indexOf(',');if(comma<1)continue;name=CinemaCatalog.field(v.substring(0,comma),120);v=v.substring(comma+1).trim();if(v.equalsIgnoreCase("#genre#")){group=name;continue;}headers=new LinkedHashMap<>(defaults);}
             if(++rows>CinemaCatalog.MAX_CHANNELS)throw new IOException("频道超过500项");List<String> urls=new ArrayList<>();List<Map<String,String>> requests=new ArrayList<>();
             for(String stream:m3u?new String[]{v}:v.split("#")){if(urls.size()>=8)break;try{int alias=stream.lastIndexOf('$');String value=alias<0?stream:stream.substring(0,alias);Map<String,String> specific=new LinkedHashMap<>(headers);urls.add(stream(value,base,allowHttp,specific));requests.add(specific);}catch(IOException invalid){}}
-            if(!urls.isEmpty())result.add(new CinemaCatalog.Channel(name.isEmpty()?"频道 "+rows:name,group,urls,new LinkedHashMap<>(headers),requests));name="";
+            if(!urls.isEmpty()){CinemaCatalog.Channel channel=new CinemaCatalog.Channel(name.isEmpty()?"频道 "+rows:name,group,urls,new LinkedHashMap<>(headers),requests);channel.logo=logo;result.add(channel);}name="";logo="";
         }
         if(result.isEmpty())throw new IOException("清单中没有可用的 HTTP(S) 频道");return result;
     }
@@ -60,7 +60,7 @@ final class CinemaFormats {
         for(int i=0;i<Math.min(100,types.getLength());i++){Element t=(Element)types.item(i);classes.put(new JSONObject().put("type_id",t.getAttribute("id")).put("type_name",t.getTextContent()));}
         NodeList list=root.getElementsByTagName("list");if(list.getLength()==0&&types.getLength()==0)throw new IOException("XML缺少目录");if(list.getLength()>0){Element l=(Element)list.item(0);data.put("page",l.getAttribute("page")).put("pagecount",l.getAttribute("pagecount"));}
         NodeList entries=root.getElementsByTagName("video");for(int i=0;i<Math.min(120,entries.getLength());i++){Element v=(Element)entries.item(i);List<String> flags=new ArrayList<>(),urls=new ArrayList<>();NodeList lines=v.getElementsByTagName("dd");for(int j=0;j<lines.getLength();j++){Element line=(Element)lines.item(j);flags.add(line.getAttribute("flag"));urls.add(line.getTextContent());}
-            videos.put(new JSONObject().put("vod_id",value(v,"id")).put("vod_name",value(v,"name")).put("vod_remarks",value(v,"note")).put("vod_play_from",String.join("$$$",flags)).put("vod_play_url",String.join("$$$",urls)));}
+            videos.put(new JSONObject().put("vod_id",value(v,"id")).put("vod_name",value(v,"name")).put("vod_remarks",value(v,"note")).put("vod_pic",value(v,"pic")).put("vod_year",value(v,"year")).put("type_name",value(v,"type")).put("vod_area",value(v,"area")).put("vod_director",value(v,"director")).put("vod_actor",value(v,"actor")).put("vod_content",value(v,"des")).put("vod_play_from",String.join("$$$",flags)).put("vod_play_url",String.join("$$$",urls)));}
         return CinemaCatalog.page(data.put("class",classes).put("list",videos).toString(),requested);
     }
 }

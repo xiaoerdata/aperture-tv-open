@@ -43,7 +43,7 @@ JavaScript 支持同步 `req/request/http`、会话内 `local`、Base64、MD5、
 
 已在桌面 Chromium 中，使用真实上游 `hjdhnx/dr_py` 的 `drpy2.js`、配套模块和本项目原创规则，通过生产 JS 适配层执行分类、详情、搜索和播放调用。这是桌面互操作验证，不作为 Android WebView 上实际运行 drpy 的验收。上游测试源仅存在开发环境的忽略目录，未打包进开视；接入实际规则时仍需用户自行提供并确认来源。
 
-Python 提供本项目的 `base.spider.Spider` 与 HTTP、HTML、缓存辅助函数；APK 包含 requests、Beautiful Soup、lxml、pyquery、PyCryptodome、jsonpath 与 cachetools。保留 ARMv7、ARM64、x86、x86_64 四种 ABI。其他第三方 Python 包和厂商私有 Java 绑定，需要插件作者另行适配，不在电视端静默安装。
+Python 提供本项目的 `base.spider.Spider` 与 HTTP、HTML、缓存辅助函数；APK 包含 requests、Beautiful Soup、lxml、pyquery、PyCryptodome、jsonpath 与 cachetools。已公开v18包含ARMv7、ARM64、x86、x86_64四种ABI；下一版源码默认保留ARMv7与ARM64，x86/x86_64通过显式构建参数用于模拟器开发，Python依赖不删减，见[体积说明](APK-SIZE.md)。其他第三方 Python 包和厂商私有 Java 绑定，需要插件作者另行适配，不在电视端静默安装。
 
 ## 明确的边界
 

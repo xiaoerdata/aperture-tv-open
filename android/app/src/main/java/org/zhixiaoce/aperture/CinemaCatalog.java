@@ -22,7 +22,7 @@ final class CinemaCatalog {
         boolean resolved(){return type==3||type==4;}
     }
     static final class Channel {
-        final String name,group;String id=""; final List<String> urls;final java.util.Map<String,String> headers;final List<java.util.Map<String,String>> requests;
+        final String name,group;String id="",logo=""; final List<String> urls;final java.util.Map<String,String> headers;final List<java.util.Map<String,String>> requests;
         Channel(String name,String group,List<String> urls){this(name,group,urls,java.util.Collections.emptyMap());}
         Channel(String name,String group,List<String> urls,java.util.Map<String,String> headers){this(name,group,urls,headers,new ArrayList<>());}
         Channel(String name,String group,List<String> urls,java.util.Map<String,String> headers,List<java.util.Map<String,String>> requests){this.name=name;this.group=group;this.urls=urls;this.headers=headers;this.requests=requests;}
@@ -45,7 +45,7 @@ final class CinemaCatalog {
         String json() throws Exception {
             JSONArray ss=new JSONArray(),ls=new JSONArray();
             for(Site s:sites)ss.put(new JSONObject().put("name",s.name).put("type",s.type).put("api",s.api).put("key",s.key).put("header",new JSONObject(s.headers)).put("ext",s.ext).put("jar",s.jar).put("spider",s.spider).put("base",s.base).put("identity",s.identity).put("sections",new JSONArray(s.sections)).put("categoryIds",s.categoryIds).put("items",s.items));
-            for(Live l:lives){JSONObject v=new JSONObject().put("name",l.name).put("identity",l.identity).put("header",new JSONObject(l.headers));if(!l.url.isEmpty())v.put("url",l.url);else{JSONArray cs=new JSONArray();for(Channel c:l.channels)cs.put(new JSONObject().put("id",c.id).put("name",c.name).put("group",c.group).put("urls",new JSONArray(c.urls)).put("header",new JSONObject(c.headers)).put("requestHeaders",c.requestJson()));v.put("channels",cs);}ls.put(v);}
+            for(Live l:lives){JSONObject v=new JSONObject().put("name",l.name).put("identity",l.identity).put("header",new JSONObject(l.headers));if(!l.url.isEmpty())v.put("url",l.url);else{JSONArray cs=new JSONArray();for(Channel c:l.channels)cs.put(new JSONObject().put("id",c.id).put("name",c.name).put("group",c.group).put("logo",c.logo).put("urls",new JSONArray(c.urls)).put("header",new JSONObject(c.headers)).put("requestHeaders",c.requestJson()));v.put("channels",cs);}ls.put(v);}
             return new JSONObject().put("format","kaishi.catalog-cache").put("version",1).put("packId",packId).put("packTitle",packTitle).put("packRevision",packRevision).put("packSha256",packSha256).put("sites",ss).put("lives",ls).toString();
         }
     }
@@ -54,8 +54,12 @@ final class CinemaCatalog {
     }
     static final class Item {
         final String id,name,remark,playFrom,playUrl;List<Line> directLines;
+        String poster="",year="",genre="",area="",director="",actors="",summary="",rating="";
+        Item metadata(JSONObject o)throws IOException{poster=field(o.optString("vod_pic"),4096);year=field(o.optString("vod_year"),40);genre=field(o.optString("type_name",o.optString("vod_class")),160);area=field(o.optString("vod_area"),100);director=field(o.optString("vod_director"),300);actors=field(o.optString("vod_actor"),600);summary=plain(o.optString("vod_content"));rating=field(o.optString("vod_score"),40);return this;}
+        static String plain(String text){String value=(text==null?"":text).replaceAll("<[^>]*>"," ").replace("&nbsp;"," ").replace("&amp;","&").replaceAll("\\s+"," ").trim();return value.substring(0,Math.min(4000,value.length()));}
+
         Item(String id,String name,String remark,List<Line> lines){this.id=id;this.name=name;this.remark=remark;this.playFrom="";this.playUrl="";this.directLines=lines;}
-        Item(JSONObject o) throws IOException {id=field(o.optString("vod_id"),8192);name=field(o.optString("vod_name"),160);if(id.isEmpty()||name.isEmpty())throw new IOException("影片缺少标识或名称");remark=field(o.optString("vod_remarks"),200);playFrom=o.optString("vod_play_from");playUrl=o.optString("vod_play_url");if(playUrl.length()>MAX_BYTES)throw new IOException("播放列表过大");}
+        Item(JSONObject o) throws IOException {id=field(o.optString("vod_id"),8192);name=field(o.optString("vod_name"),160);if(id.isEmpty()||name.isEmpty())throw new IOException("影片缺少标识或名称");remark=field(o.optString("vod_remarks"),200);playFrom=o.optString("vod_play_from");playUrl=o.optString("vod_play_url");if(playUrl.length()>MAX_BYTES)throw new IOException("播放列表过大");metadata(o);}
     }
     static final class Page {
         final List<Category> categories=new ArrayList<>();final List<Item> items=new ArrayList<>();int page,pages;
@@ -114,7 +118,7 @@ final class CinemaCatalog {
                 List<String> urls=new ArrayList<>();List<java.util.Map<String,String>> requests=new ArrayList<>();java.util.Map<String,String> header=new java.util.LinkedHashMap<>(CinemaFormats.headers(l));header.putAll(CinemaFormats.headers(c));JSONArray array=c.optJSONArray("urls");if(array==null&&c.has("url"))array=new JSONArray().put(c.optString("url"));
                 JSONArray savedHeaders=c.optJSONArray("requestHeaders");
                 if(array!=null)for(int k=0;k<Math.min(8,array.length());k++)try{java.util.Map<String,String> specific=new java.util.LinkedHashMap<>(header);if(savedHeaders!=null&&savedHeaders.optJSONObject(k)!=null)specific.putAll(CinemaFormats.headers(new JSONObject().put("header",savedHeaders.getJSONObject(k))));urls.add(CinemaFormats.stream(array.optString(k),base,allowHttp,specific));requests.add(specific);}catch(IOException invalid){}
-                if(!urls.isEmpty()){Channel channel=new Channel(field(c.optString("name","频道"),120),field(c.optString("group",name),80),urls,header,requests);if(cache)channel.id=field(c.optString("id"),100);channels.add(channel);}else result.skipped.add("一个频道没有可用的直链地址");
+                if(!urls.isEmpty()){Channel channel=new Channel(field(c.optString("name","频道"),120),field(c.optString("group",name),80),urls,header,requests);if(cache)channel.id=field(c.optString("id"),100);channel.logo=field(c.optString("logo",c.optString("tvg-logo")),4096);channels.add(channel);}else result.skipped.add("一个频道没有可用的直链地址");
             }
             if(!channels.isEmpty()){Live live=new Live(name,"",channels);if(cache)live.identity=field(l.optString("identity"),200);result.lives.add(live);}
         }}
