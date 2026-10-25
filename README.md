@@ -46,7 +46,7 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 
 ## 当前验证边界
 
-软件验证按浏览器、生产协议与模型、Android TV模拟器分开记录，见[本轮测试记录](docs/verification/s50-software-acceptance.json)。最终源码安装回执见本次Release的测试清单。WorkBuddy客户端与小米真机由维护者验收，未测型号不标为兼容；模拟器、浏览器和合成回执不能代替硬件测试。本版使用专用发行证书签署非debug包，产品仍为Alpha；小米真机复验待维护者完成。
+软件验证按浏览器、生产协议与模型、Android TV模拟器分开记录，见[本轮测试记录](docs/verification/s53-software-acceptance.json)。最终源码安装回执见本次Release的测试清单。WorkBuddy客户端与小米真机由维护者验收，未测型号不标为兼容；模拟器、浏览器和合成回执不能代替硬件测试。本版使用专用发行证书签署非debug包，产品仍为Alpha；小米真机复验待维护者完成。
 
 问题反馈见[Issues](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)，二次开发欢迎[Pull Requests](https://github.com/xiaoerdata/aperture-tv-open/pulls)。
 

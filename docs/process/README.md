@@ -92,3 +92,5 @@ S51：[综艺与资源包v1](../RESOURCE-PACK.md)、[Agent制作发布导入](..
 S52：P49原厂应用图标，[出处](../../design-assets/app-logos/README.md)、[验证](../verification/s52-app-logos.json)、[底稿](../../media/DEVLOG-038.md)。
 
 S53：P50—P55，[真机问题处理](../V17-FEEDBACK.md)、[软件检查](../verification/s53-software-acceptance.json)、[模拟器失败记录](../verification/s53-native-environment.json)、[并存迁移](../MIGRATION-V18.md)、[新标识与原图](../../design-assets/s53/README.md)、[第三十九期](../../media/DEVLOG-039.md)。本版供小米真机复测，未把原生测试驱动构建称为UI验收通过。
+
+S53发布结果：[v18 Alpha](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.15)、[匿名下载与逐文件回读](../verification/public-alpha-v18.json)。两版新包名并存；v17标签和旧附件均保持原样。此补记晚于发行标签。

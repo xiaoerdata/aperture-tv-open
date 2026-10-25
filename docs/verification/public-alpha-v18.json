@@ -1,0 +1,138 @@
+{
+  "release": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.15",
+  "tag": "v0.2.0-alpha.15",
+  "publicCommit": "2f0aa4ae6b298500aa2d46faf9587a7c209650a6",
+  "status": "passed",
+  "anonymous": true,
+  "downloads": [
+    {
+      "file": "kaishi-v18-standard.apk",
+      "bytes": 85513156,
+      "sha256": "24cfb3a922fd4b10566162c24306f452ee309d37d05b048aad57662b67b8c3a6",
+      "localArtifactMatches": true,
+      "authorizationHeaderSent": false,
+      "retriedAnonymousDownload": true
+    },
+    {
+      "file": "kaishi-v18-parents.apk",
+      "bytes": 85517252,
+      "sha256": "2215b5eed9a46369ee4f9d6b912c34bfce00e412fe2e83ced35b4d3981da7cac",
+      "localArtifactMatches": true,
+      "authorizationHeaderSent": false,
+      "retriedAnonymousDownload": true
+    },
+    {
+      "file": "testing-manifest.json",
+      "bytes": 34003,
+      "sha256": "d5a619817c6e6183f46d5c1064c9b480945ca3363b00e972874e7b61a13c2c45",
+      "localArtifactMatches": true,
+      "authorizationHeaderSent": false,
+      "retriedAnonymousDownload": false
+    },
+    {
+      "file": "SHA256SUMS",
+      "bytes": 267,
+      "sha256": "ceebff376ef22ede30d79cbdea6d21fa215051e53c367426b3cf977d5eda3f2a",
+      "localArtifactMatches": true,
+      "authorizationHeaderSent": false,
+      "retriedAnonymousDownload": false
+    },
+    {
+      "file": "source.tar.gz",
+      "bytes": 517736976,
+      "sha256": "c9756490b21b588b50cb30c9b1c50621ca23cb67ef2d691f476bf5e24fb1a496",
+      "localArtifactMatches": false,
+      "authorizationHeaderSent": false,
+      "retriedAnonymousDownload": false
+    }
+  ],
+  "sourceFilesVerified": 1186,
+  "sourceManifestSha256": "bf1bc8de4ac1c601e5b8f67397218956381646d8cdcd3828afb50b1d9b6e2f44",
+  "sourceArchiveManifestMatches": true,
+  "xiaomiTested": false,
+  "workBuddyClientTested": false,
+  "publishedAt": "2026-10-25T15:03:53Z",
+  "verifiedAt": "2026-10-25T15:12:32.214341+00:00",
+  "prerelease": true,
+  "cleanPublicSourceInstall": {
+    "startedAt": "2026-10-25T14:51:31.349Z",
+    "archiveName": "public-v18-s53-r3.tar.gz",
+    "archiveSha256": "27216f2c1ed147916b2d04c428e92d7747cd2f04c27f6b6649013c2e363573c4",
+    "status": "passed",
+    "hardwareTested": false,
+    "workBuddyApplicationTested": false,
+    "apkBuilt": false,
+    "sourceFilesVerified": 1186,
+    "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+    "noGitDirectory": true,
+    "version": "0.2.0-alpha.15",
+    "npmCi": true,
+    "npmLifecycleScriptsEnabled": true,
+    "freshPythonVenv": true,
+    "pillowInstalledFromRequirements": true,
+    "doctor": {
+      "ready": true,
+      "checks": [
+        {
+          "name": "Node.js 22+",
+          "ok": true,
+          "detail": "v22.5.1"
+        },
+        {
+          "name": "@modelcontextprotocol/sdk",
+          "ok": true
+        },
+        {
+          "name": "hls.js",
+          "ok": true
+        },
+        {
+          "name": "qrcode",
+          "ok": true
+        },
+        {
+          "name": "Python 3.10+ / Pillow",
+          "ok": true,
+          "detail": "python3 3.10.12 / 11.1.0"
+        },
+        {
+          "name": "家庭数据目录",
+          "ok": true,
+          "detail": "首次启动时创建私有目录"
+        }
+      ],
+      "exposure": "默认仅本机访问；跨设备需配置正确 PUBLIC_ORIGIN、监听与HTTPS。",
+      "television": "完整模式WebView89+；轻量模式面向旧内核，尚待真机验证。"
+    },
+    "checkedStart": true,
+    "healthVersion": "0.2.0-alpha.15",
+    "ownerKeyMode": 384,
+    "familyDirectoryMode": 448,
+    "browserErrors": [],
+    "routes": [
+      "/guide",
+      "/home?demo=1",
+      "/home?edition=parents&demo=1",
+      "/tv?demo=1",
+      "/tv-lite?demo=1"
+    ],
+    "privateStateStatus": 401,
+    "machineInterfaceDefaultStatus": 503,
+    "serviceStopped": true,
+    "temporaryDirectoryRemoved": true,
+    "finishedAt": "2026-10-25T14:52:12.565Z"
+  },
+  "oldVersionPreserved": {
+    "tag": "v0.2.0-alpha.14",
+    "commit": "e53bca15a98c55517f5e356c3a0376dbc138309c",
+    "oldAssetsMatchGitHubDigests": [
+      "aperture-tv-v17-parents-debug.apk",
+      "aperture-tv-v17-standard-debug.apk",
+      "SHA256SUMS",
+      "testing-manifest.json"
+    ],
+    "modified": false
+  },
+  "scope": "Published artifacts and tagged source readback; Xiaomi hardware and WorkBuddy client remain maintainer tests",
+  "downloadRetry": "Initial APK downloads were truncated in transit; anonymous HTTP Range continuation completed and full SHA-256 matched before acceptance"
+}

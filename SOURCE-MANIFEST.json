@@ -50,7 +50,13 @@
         "path": "docs/process/README.md",
         "links": 1
       }
-    ]
+    ],
+    "postReleaseReceipt": {
+      "tag": "v0.2.0-alpha.15",
+      "tagCommit": "2f0aa4ae6b298500aa2d46faf9587a7c209650a6",
+      "record": "docs/verification/public-alpha-v18.json",
+      "tagAndApksUnchanged": true
+    }
   },
   "files": [
     {
@@ -101,7 +107,7 @@
     {
       "path": "README.md",
       "bytes": 4579,
-      "sha256": "e0ab5e3bcf156aa3eff90e98feb8eeb1184a20be114db3346e46d020eacf75f7"
+      "sha256": "b75683a561ae37f0d6ff25ae7a184676d5ba3321b530f92158383da6ea7d9f40"
     },
     {
       "path": "SECURITY.md",
@@ -389,16 +395,6 @@
       "sha256": "21a02e064d8db532ecf64cbf5315eb556cb86bbcb9dd2d06a83f99507a4bcc8f"
     },
     {
-      "path": "android/app/src/main/res/drawable/banner.xml",
-      "bytes": 557,
-      "sha256": "a1300f1719d292c377de688e8394e4e53b5b9fdda5b6e2892313678a9c356590"
-    },
-    {
-      "path": "android/app/src/main/res/drawable/ic_window.xml",
-      "bytes": 532,
-      "sha256": "43deb85681b9e4972e126d8b312e8e7f63cbb3ef327791ae01b23a30f20e6020"
-    },
-    {
       "path": "android/app/src/main/res/drawable-nodpi/kaishi_banner_v2.png",
       "bytes": 57174,
       "sha256": "2f382a514db670d046e98a46aa843b161c3697e3f95adc337141ed5e5af6f2f8"
@@ -407,6 +403,16 @@
       "path": "android/app/src/main/res/drawable-nodpi/kaishi_icon_v2.png",
       "bytes": 174262,
       "sha256": "90e63e4de1c6aa18d5ce59f21ebf8aa59299a5ef1cc6a4cf6a8a4347c251f43e"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/banner.xml",
+      "bytes": 557,
+      "sha256": "a1300f1719d292c377de688e8394e4e53b5b9fdda5b6e2892313678a9c356590"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/ic_window.xml",
+      "bytes": 532,
+      "sha256": "43deb85681b9e4972e126d8b312e8e7f63cbb3ef327791ae01b23a30f20e6020"
     },
     {
       "path": "android/app/src/parents/res/drawable-nodpi/kaishi_banner_v2.png",
@@ -795,8 +801,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 3976,
-      "sha256": "05ef3415d3c11e4bbf92cd7fe9de08aa9fcec340731a6dd7b0ac02f7c19fe77d"
+      "bytes": 4227,
+      "sha256": "a9ecaa07dd382261560144afa9f33fe7b8686186bac63278495613900ccfd377"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -3460,8 +3466,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 145100,
-      "sha256": "315bef97caa7050e24bcb5379373d959a17b6c5d008fde6bc5e33219b6508022"
+      "bytes": 145845,
+      "sha256": "66ac4de52aaa9eb42f59d1a054d7f535446c5b318c01beb7dd31e338cf6802a6"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -3470,13 +3476,13 @@
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 11679,
-      "sha256": "13c06e6928c99cc4bf6b4d1b049f736965be5d4e17c7f098976d9d593540be0e"
+      "bytes": 11957,
+      "sha256": "eac13c272727437ea1fae6d70c3c77e45da0920c934f3a0cfea02a831b8b5dc0"
     },
     {
       "path": "docs/release/README-public.md",
       "bytes": 4561,
-      "sha256": "4640b5c141ad5125b2a1ba07ef074693d1213c88a587ce3dec07bc63dd818eba"
+      "sha256": "ac3698739a519b28a7a53a9acfd9ff3cdede3b6f917bc5d8133e295b84095240"
     },
     {
       "path": "docs/third-party/Pillow-11.1.0-LICENSE.txt",
@@ -3632,6 +3638,11 @@
       "path": "docs/verification/public-alpha-v17.json",
       "bytes": 5294,
       "sha256": "314eab5e04bef8bbc0d1076ffc0ba500686b7913c13bdd1ae72f2e970954282e"
+    },
+    {
+      "path": "docs/verification/public-alpha-v18.json",
+      "bytes": 4534,
+      "sha256": "a5636e26104a3e0bdc2c37ce35d85fd290311c49fb2fcb214f05fee636c43f14"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -4640,8 +4651,8 @@
     },
     {
       "path": "media/DEVLOG-039.md",
-      "bytes": 2503,
-      "sha256": "18840ec1ef15405380da6dd198754f753f4a70cf89640b97d64e76603f6603e5"
+      "bytes": 2902,
+      "sha256": "6495c38a7666255eed28d3e90c4ffcf1a4f72470c78a4c6f20d1c2f8fa37d2e4"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -5699,6 +5710,11 @@
       "sha256": "d9631cff21ca6bad4a8b2be70bdc22ee3f278577f1950ee0340d54d715063545"
     },
     {
+      "path": "tests/android-source.test.mjs",
+      "bytes": 4726,
+      "sha256": "3b3e8639bfd64aa441177ea6425379274fc20fa278461ed2af5df3eae14309b2"
+    },
+    {
       "path": "tests/android/CinemaRunner.java",
       "bytes": 21377,
       "sha256": "9d3bb7835f522d2754417d74f56b0cc6c0c381d8fd59a21fe3acdf97101c0fec"
@@ -5717,11 +5733,6 @@
       "path": "tests/android/PluginRunner.java",
       "bytes": 14397,
       "sha256": "0bcf9ed0ea2447de4385b1ff3106885b2d889c129c344b2bf34cc4cff9dc3b58"
-    },
-    {
-      "path": "tests/android-source.test.mjs",
-      "bytes": 4726,
-      "sha256": "3b3e8639bfd64aa441177ea6425379274fc20fa278461ed2af5df3eae14309b2"
     },
     {
       "path": "tests/app-operations-mcp.test.mjs",
