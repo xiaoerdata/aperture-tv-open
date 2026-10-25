@@ -50,7 +50,14 @@
         "path": "docs/process/README.md",
         "links": 1
       }
-    ]
+    ],
+    "postReleaseDocumentation": {
+      "releaseTag": "v0.2.0-alpha.14",
+      "releaseCommit": "e53bca15a98c55517f5e356c3a0376dbc138309c",
+      "frozenReleaseSourceManifestSha256": "feece385dcbd1be0e11a6ea70e117a5a397b52d5b6bec912cd4ead218ab1a9c3",
+      "runtimeAndProductUnchanged": true,
+      "freshInstallEvidenceAppliesToFrozenReleaseSource": true
+    }
   },
   "files": [
     {
@@ -3165,8 +3172,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 132893,
-      "sha256": "f5724d9489ea42b23707a16c4733f5f6bafcbfe2585d1f80beb5c94301728095"
+      "bytes": 134418,
+      "sha256": "dca7463cf1002d5823cfdbde8be67106c98f09a320850e11e816452094dec3d2"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -3175,8 +3182,8 @@
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 10384,
-      "sha256": "c1298c43be65319c2a4717cf469956bf282fd8bb06a8720d6dd43773ea2ed891"
+      "bytes": 10766,
+      "sha256": "23578aea4616b8acc72ebbbbfebf6d52ad188efad48879ba3c49bf90283b7562"
     },
     {
       "path": "docs/release/README-public.md",
@@ -3332,6 +3339,11 @@
       "path": "docs/verification/public-alpha-v16.json",
       "bytes": 3619,
       "sha256": "ac886c47176f6a39b6c47d6c5ca599b270bd6947b6b3f001a10062c334f73b85"
+    },
+    {
+      "path": "docs/verification/public-alpha-v17.json",
+      "bytes": 5294,
+      "sha256": "314eab5e04bef8bbc0d1076ffc0ba500686b7913c13bdd1ae72f2e970954282e"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -4225,8 +4237,8 @@
     },
     {
       "path": "media/DEVLOG-036.md",
-      "bytes": 2235,
-      "sha256": "7e09298d8b1e47119063c96cc94afeea0f54e65849690997b4c8bceb580d060c"
+      "bytes": 2677,
+      "sha256": "1b460081ba8e912ed9dc528c2556a286e8218b008d636a82d272f938a033b44c"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",

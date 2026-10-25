@@ -680,3 +680,10 @@ S50 r6的API26原生收尾完成：[标准影院61项](../verification/s50-nativ
 S50软件门槛最终汇总：r6标准版与爸妈版在独立官方API28 / WebView66.0.3359.158环境中，JavaScript各15项原生调用通过；安装APK字节分别匹配最终候选。API26 / WebView58的明确拒绝分支另存，不把新内核结果套给旧内核。两个环境的插件调用、真实媒体解码和桌面drpy互操作各自记录；JS返回播放地址不等于已解码视频。API28首次启动遇到自定义userdata与AVD默认加密key发现路径不一致，修正同一key的发现位置后启动；没有修改官方系统镜像、产品调用超时或预温插件。[环境失败与修正](../verification/s50-api28-development-issues.json)、[宿主编排中断恢复](../verification/s50-api28-orchestration-recovery.json)。
 
 [最终软件汇总](../verification/s50-final-software-acceptance.json)通过：77项Node测试、23个浏览器脚本及12项原生证据要求齐全。标准版NAS复用r5原始报告，并核对五份相关文件未变；其余最终原生要求绑定r6安装字节。此后冻结产品与验证文档，最终公开源码从新目录安装；安装回执外置于Release的testing-manifest，绑定源码归档与SOURCE-MANIFEST，避免报告包含自身归档摘要的循环。发布后回执另记，不改发行标签。此处记录软件门槛通过，尚不代替公开上传及匿名下载结果；小米真机和WorkBuddy仍由维护者验收，Hub只保留接入入口与契约。
+
+
+S50开源发布完成（发行标签冻结后的补记）：[v17 / alpha.14](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.14)已发布，标签提交为`e53bca15a98c55517f5e356c3a0376dbc138309c`。标准版与爸妈版分别为85,686,459和85,686,531字节，沿用原签名；两份APK、测试清单和校验和均已匿名完整下载，摘要与已实测候选一致。GitHub自动源码归档也已完整下载，1071项源码及SOURCE-MANIFEST逐一核对。最终公开源码首次新目录安装通过，回执收录在Release的testing-manifest中；软件、源码安装、匿名下载三类证据分别保存。[发布回读](../verification/public-alpha-v17.json)。
+
+上传过程中遇到Git直连超时和HTTP408；每次重试前回查远端分支与标签，确认未变。定位到地址专用的空代理配置覆盖环境变量后，仅在单次命令中指定现有代理，原子推送main与新标签成功；未改全局代理或节点。Release先草稿上传并核对四附件，再发布。旧alpha.13标签及四附件未变，私有研发仓库仍为Private。API26/API28专用模拟器、四个夹具服务和ADB5049已停止，数据与失败记录保留，其他ADB未动。
+
+本补记和发布回执只更新后续main文档，不改发行标签、APK或冻结源码安装证据，也没有重新构建。小米真机、小爱/米家及WorkBuddy客户端仍由维护者验收；Hub仅预留接入入口，没有真实账户登录、Hub部署或小红书上传。

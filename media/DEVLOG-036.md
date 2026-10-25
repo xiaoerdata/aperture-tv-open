@@ -21,3 +21,6 @@
 可用原生静帧：`docs/images/s50-native-standard-r6-live-hls.png`、`docs/images/s50-native-standard-plugin-playback-r6-approval.png`、`docs/images/s50-native-standard-plugin-playback-r6-jar-decoded.png`。这些来自r6候选、API26软件模拟器和合成片源；对应报告绑定实际APK摘要，不标为小米真机。NAS场景已有两版原生进度证据，视频镜头仍待补录。
 
 本期开发事实：父母标识边距修正、被撤销面板的焦点回退、NAS路径重开、共享记录事务、插件运行和下载失败修复。保留失败，不把检查数量当成质量口号。
+
+
+S50发行补记：v17 / alpha.14已[公开下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.14)。两版APK、测试清单及校验和已匿名完整下载核对，源码归档逐文件一致；见[发布回执](../docs/verification/public-alpha-v17.json)。动画仍为浏览器录屏，原生画面仍为软件模拟器与合成片源；没有上传小红书，真机与WorkBuddy实拍待维护者补充。

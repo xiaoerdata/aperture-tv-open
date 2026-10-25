@@ -1,0 +1,128 @@
+{
+  "checkedAt": "2026-10-25T10:25:33.596744+00:00",
+  "version": "0.2.0-alpha.14",
+  "publicSourceCommit": "e53bca15a98c55517f5e356c3a0376dbc138309c",
+  "anonymousCompleteDownloads": [
+    {
+      "name": "SHA256SUMS",
+      "bytes": 289,
+      "sha256": "d21e16d42dd0733ec9fa194c928edd8d86698ec45dee962471f1e773677812d0",
+      "anonymous": true
+    },
+    {
+      "name": "aperture-tv-v17-parents-debug.apk",
+      "bytes": 85686531,
+      "sha256": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+      "anonymous": true
+    },
+    {
+      "name": "aperture-tv-v17-standard-debug.apk",
+      "bytes": 85686459,
+      "sha256": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+      "anonymous": true
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 55866,
+      "sha256": "528761e39d2566741e8d1f305db95399f9c3ce11b15ae936e4c4a61e45b84f19",
+      "anonymous": true
+    }
+  ],
+  "sha256sumsVerified": true,
+  "publicTagMatchesSource": true,
+  "oldAlpha13TagAndFourAssetsUnchanged": true,
+  "xiaomiHardwareTested": false,
+  "workBuddyApplicationTested": false,
+  "release": {
+    "id": 423318326,
+    "tag_name": "v0.2.0-alpha.14",
+    "target_commitish": "e53bca15a98c55517f5e356c3a0376dbc138309c",
+    "draft": false,
+    "prerelease": true,
+    "html_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.14",
+    "published_at": "2026-10-25T10:24:40Z"
+  },
+  "assets": [
+    {
+      "name": "aperture-tv-v17-parents-debug.apk",
+      "id": 674732957,
+      "size": 85686531,
+      "digest": "sha256:66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.14/aperture-tv-v17-parents-debug.apk"
+    },
+    {
+      "name": "aperture-tv-v17-standard-debug.apk",
+      "id": 674735177,
+      "size": 85686459,
+      "digest": "sha256:00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.14/aperture-tv-v17-standard-debug.apk"
+    },
+    {
+      "name": "SHA256SUMS",
+      "id": 674732855,
+      "size": 289,
+      "digest": "sha256:d21e16d42dd0733ec9fa194c928edd8d86698ec45dee962471f1e773677812d0",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.14/SHA256SUMS"
+    },
+    {
+      "name": "testing-manifest.json",
+      "id": 674737572,
+      "size": 55866,
+      "digest": "sha256:528761e39d2566741e8d1f305db95399f9c3ce11b15ae936e4c4a61e45b84f19",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.14/testing-manifest.json"
+    }
+  ],
+  "publicReadback": {
+    "checkedAt": "2026-10-25T10:28:10.005541+00:00",
+    "anonymous": true,
+    "publicSourceCommit": "e53bca15a98c55517f5e356c3a0376dbc138309c",
+    "tagFileManifestVerified": 1071,
+    "tagAllFileContentHashesVerified": true,
+    "oldAlpha13TagAndFourAssetsUnchanged": true,
+    "newFourAssetMetadataMatchLocal": true,
+    "releasePageStatus": 200,
+    "sourceArchiveStatus": 200,
+    "developmentRepositoryPrivacyChecked": true,
+    "xiaomiHardwareTested": false,
+    "workBuddyApplicationTested": false,
+    "originalDevelopmentRepositoryStillPrivate": true
+  },
+  "privateRepositoryReadback": {
+    "repository": "xiaoerdata/aperture-tv",
+    "visibility": "private",
+    "checkedAt": "2026-10-25T10:21:59.661Z",
+    "provider": "GitHub connector get_repo"
+  },
+  "sourceTagArchiveFullyDownloaded": true,
+  "sourceVerification": "GitHub tag archive fully downloaded anonymously; all 1071 manifest entries and SOURCE-MANIFEST verified against the exact frozen source used for the fresh installation.",
+  "frozenSourceManifestSha256": "feece385dcbd1be0e11a6ea70e117a5a397b52d5b6bec912cd4ead218ab1a9c3",
+  "verifiedSourceExportSha256": "2b139a0fc954950baaa0b76db88dfce548a7bc4e388e96741064de3e55b1eb49",
+  "androidSourceSha256": "4821a02f600cce3917eec2f56342a74e1e9f99b78cbb786fde7e4555dd70eeca",
+  "finalSourceInstall": {
+    "status": "passed",
+    "sourceFilesVerified": 1071,
+    "evidenceLocation": "Release testing-manifest.json -> cleanPublicSourceInstall"
+  },
+  "softwareGate": {
+    "passed": true,
+    "requiredNativeEvidence": 12,
+    "acceptedNativeEvidence": 12,
+    "standardNasEvidence": "Original r5 report reused only after five NAS/shared-viewing files matched; not reported as r6 rerun"
+  },
+  "publicationAuthorizedBy": "P47: complete the requested work, then package and publish the open-source Alpha for maintainer real-world testing",
+  "originalPrivateHistoryPublished": false,
+  "hubModifiedOrDeployed": false,
+  "hubRealAccountConnected": false,
+  "nativeTestEnvironmentsStopped": true,
+  "nativeTestDataPreserved": true,
+  "publicationReview": {
+    "textEntriesScanned": 590,
+    "binaryOrLargeEntriesNotTextScanned": 482,
+    "onlyPatternFinding": "Existing verifier contains the rejection-rule string; not an account receipt or credential",
+    "newAssetProvenanceReviewed": true,
+    "exhaustiveSecurityOrLegalAudit": false
+  },
+  "postReleaseRecord": true,
+  "releaseTagAndApksRemainFrozen": true,
+  "verifiedAtUtc": "2026-10-25T10:29:19.233115+00:00"
+}

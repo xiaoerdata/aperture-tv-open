@@ -82,3 +82,6 @@ S50：首页紧凑观看入口、应用折叠、三种插件执行与NAS统一�
 
 
 S50验证收尾：[最终软件汇总](../verification/s50-final-software-acceptance.json)、[API28环境失败与恢复](../verification/s50-api28-development-issues.json)、[两版插件运行记录](../PLUGIN-ENGINE.md#r6-android-实际运行记录)。最终公开源码安装回执位于Release测试清单，历史r3安装记录不作为本次发行证据；发布回读在完成后另补。
+
+
+S50发布结果：[v17 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.14)、[匿名附件与完整源码归档回读](../verification/public-alpha-v17.json)。两版软件与最终源码安装通过，旧alpha.13和私有研发仓库保留；小米真机/WorkBuddy仍由维护者验收。此补记晚于发行标签，仅更新main文档。
