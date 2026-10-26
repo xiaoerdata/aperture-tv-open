@@ -11,9 +11,7 @@
 <div class="lobby" id="lobby" data-section="overview" data-home-page="0">
   <header class="lobby-header">
     <a class="wordmark" href="#" id="brand-home" aria-label="首页"><span class="arch-logo" aria-hidden="true"></span><span>开视<small></small></span></a>
-    <nav class="section-nav glass" aria-label="分区">
-      <button data-section="overview" aria-pressed="true">首页</button><button data-section="photos" aria-pressed="false">相册</button><button data-section="data" aria-pressed="false">数据</button><button data-section="information" aria-pressed="false">消息</button><button data-section="tools" aria-pressed="false">工具</button>
-    </nav>
+    <nav class="section-nav glass" aria-label="分区"><button data-section="overview" aria-pressed="true">首页</button><button data-section="photos" aria-pressed="false">相册</button><button data-section="information" aria-pressed="false">安排与留言</button></nav>
     <div class="header-time"><time id="clock">--:--</time><span><b id="date-day">今天</b><small id="date-week"></small></span></div>
     <button class="settings-button glass" id="settings-open">设置</button>
   </header>
@@ -42,32 +40,14 @@
         <button class="destination variety glass" id="entry-variety"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M20 14a4 4 0 0 1 8 0v10a4 4 0 0 1-8 0Zm-4 7v3a8 8 0 0 0 16 0v-3m-8 11v8m-6 0h12"/><path d="m21 8 3-5 3 5m-11 8-5-3m26 0-5 3"/></svg></span><span class="entry-text"><strong>看综艺</strong></span></button>
       </nav>
     <section id="parents-shortcuts" class="parents-shortcuts" aria-labelledby="shortcuts-title"><div class="shortcuts-heading"><h2 id="shortcuts-title">常用应用</h2></div><nav class="shortcuts-row" aria-label="常用应用"><button id="quick1" class="shortcut glass"><strong>未设置</strong></button><button id="quick2" class="shortcut glass"><strong>未设置</strong></button><button id="quick3" class="shortcut glass"><strong>未设置</strong></button><button id="quick4" class="shortcut glass"><strong>未设置</strong></button><button id="shortcut-all" class="shortcut glass"><strong>所有应用</strong></button></nav></section>
-      <button id="apps-next" class="screen-next" aria-label="向下进入家庭内容">家庭内容 <span aria-hidden="true">↓</span></button>
+      <button id="apps-next" class="screen-next" aria-label="向下进入家庭">家庭 <span aria-hidden="true">↓</span></button>
     </section>
-    <section id="content-home" class="home-screen content-screen" aria-label="家庭内容" hidden>
-      <div class="screen-heading"><h1>家庭</h1></div>
-      <nav class="content-links" aria-label="家庭分区">
-        <button class="destination glass" id="entry-photos" data-section="photos"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="7"/><circle cx="18" cy="18" r="3"/><path d="m9 34 11-10 7 7 6-6 7 8"/></svg></span><span class="entry-text"><strong>相册</strong></span></button>
-        <button class="destination glass" id="entry-data" data-section="data"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 39h32M14 31V21m10 10V10m10 21V16"/><circle cx="14" cy="18" r="2"/><circle cx="24" cy="7" r="2"/><circle cx="34" cy="13" r="2"/></svg></span><span class="entry-text"><strong>数据</strong></span></button>
-        <button class="destination glass" id="entry-information" data-section="information"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 10h28v23H23l-10 7v-7h-3Z"/><path d="M17 18h14m-14 8h9"/></svg></span><span class="entry-text"><strong>消息</strong></span></button>
-        <button class="destination glass" id="entry-tools" data-section="tools"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="4"/><rect x="28" y="8" width="12" height="12" rx="4"/><rect x="8" y="28" width="12" height="12" rx="4"/><path d="M28 34h12m-6-6v12"/></svg></span><span class="entry-text"><strong>工具</strong></span></button>
-      </nav>
-    <div class="home-content">
-      <section class="welcome-space glass" aria-label="内容轮播">
-        <div class="welcome-copy"><p class="eyebrow" id="hero-eyebrow"></p><h1 id="hero-title">相册</h1><p class="welcome-description" id="hero-description">暂无照片</p><div class="hero-actions"><button class="hero-primary" id="hero-open">查看相册</button><span id="hero-source"></span></div></div>
-        <img id="hero-memory" class="hero-memory" hidden alt="相册照片">
-        <div class="carousel-controls mood-switch"><button id="slide-prev" aria-label="上一项">‹</button><span id="scene-number">1 / 4</span><button id="slide-next" aria-label="下一项">›</button><button id="slide-play" aria-pressed="false">自动轮播</button></div>
-        <span id="scene-caption" hidden></span>
-      </section>
-      <section class="dashboard" aria-label="家庭摘要">
-        <button class="summary-card data-card glass" data-section="data"><span class="card-eyebrow">数据</span><span class="metric-row"><span class="metric-large" id="metric-value">—</span><span class="metric-copy"><strong id="metric-title">暂无数据</strong><small id="metric-detail"></small></span></span><span class="metric-track"><i id="metric-progress"></i></span><span class="card-detail" id="data-detail"></span></button>
-        <button class="summary-card note-card glass" data-section="information"><span class="card-eyebrow">消息</span><span class="note-title" id="note-title">暂无消息</span><span class="note-body" id="note-body"></span><span class="card-detail" id="note-author"></span></button>
-      </section>
-    </div>
-      <nav class="system-links" aria-label="家庭与系统">
-        <button class="destination family glass" id="entry-family"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 39V21a12 12 0 0 1 24 0v18H12Zm0-16h24M24 10v29"/></svg></span><span class="entry-text"><strong>家庭屏</strong></span></button>
-        <button class="destination system glass" id="entry-system" data-pane="system"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M23 8H10v32h13m1-16h18m-8-8 8 8-8 8"/></svg></span><span class="entry-text"><strong>原桌面</strong><span id="system-label"></span></span></button>
-      </nav>
+    <section id="content-home" class="home-screen content-screen" aria-label="家庭" hidden>
+      <div class="screen-heading"><h1>家庭</h1><button id="entry-family" class="quiet-action">全屏查看</button></div>
+      <div class="family-layout">
+        <button id="entry-photos" class="family-photo glass" data-section="photos"><img id="family-preview-photo" alt="" hidden><span class="family-photo-copy"><strong>相册</strong><span id="family-photo-caption">暂无照片</span></span></button>
+        <div class="family-daily"><section aria-labelledby="family-agenda-title"><h2 id="family-agenda-title">今天</h2><div id="family-events" class="family-events"></div></section><section class="family-note" aria-labelledby="family-note-heading"><h2 id="family-note-heading">留言</h2><h3 id="note-title">暂无留言</h3><p id="note-body"></p><small id="note-author"></small></section><button id="entry-information" class="quiet-action" data-section="information">查看全部</button></div>
+      </div>
     </section>
     <section id="collection-view" class="collection-view" hidden aria-labelledby="collection-title">
       <div class="collection-header"><div><p class="eyebrow" id="collection-kicker" hidden></p><h1 id="collection-title">相册</h1><p id="collection-description" hidden></p></div><div class="collection-controls"><button id="collection-nas" hidden>NAS 相册</button><button class="back-overview" data-section="overview">返回首页</button></div></div>

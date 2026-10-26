@@ -1,11 +1,11 @@
 // Spatial D-pad navigation: no hover dependency, and dialogs trap focus.
 export function installRemote({back,root=()=>document,gridSelector}) {
   const visible=node=>!node.disabled && node.getClientRects().length && getComputedStyle(node).visibility!=='hidden';
-  const items=()=>[...root().querySelectorAll('button,a[href],input,select,textarea,[tabindex="0"]')].filter(visible);
+  const items=()=>[...root().querySelectorAll('button,a[href],input,select,textarea,summary,[tabindex="0"]')].filter(visible);
   function handler(event) {
     if(event.key==='Escape'||event.key==='BrowserBack'){if(back()){event.preventDefault();}return;}
     if(event.key==='Tab' && root()!==document){const all=items(),index=all.indexOf(document.activeElement);event.preventDefault();all[(index+(event.shiftKey?-1:1)+all.length)%all.length]?.focus();return;}
-    if(event.key==='Enter' && ['BUTTON','A'].includes(event.target.tagName)&&!event.target.disabled){event.preventDefault();event.target.click();return;}
+    if(event.key==='Enter' && ['BUTTON','A','SUMMARY'].includes(event.target.tagName)&&!event.target.disabled){event.preventDefault();event.target.click();return;}
     if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key))return;
     event.preventDefault();const all=items(),active=document.activeElement;if(!all.includes(active)){all[0]?.focus();return;}
     const grid=gridSelector&&active.closest(gridSelector);

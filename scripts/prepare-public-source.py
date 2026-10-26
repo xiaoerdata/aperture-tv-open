@@ -116,7 +116,9 @@ def safe_members(archive):
         if any(p in {'.git', 'private-preview', '.data', '.env', 'node_modules', '.android-local', 'local.properties'} for p in parts):
             raise ValueError('Private/runtime path in source')
         total += item.size
-        if total > 600 * 1024 * 1024 or len(seen) > 10000:
+        # Development screenshots and page-by-page reference art are part of the public record.
+        # Keep a bounded extraction budget as that record grows beyond the v19 600 MiB limit.
+        if total > 768 * 1024 * 1024 or len(seen) > 10000:
             raise ValueError('Archive exceeds publication budget')
         members.append(item)
     return members

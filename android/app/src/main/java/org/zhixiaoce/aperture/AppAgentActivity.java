@@ -38,12 +38,12 @@ public final class AppAgentActivity extends Activity {
     @Override public void onCreate(Bundle state){
         super.onCreate(state);getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         kind="uninstall".equals(getIntent().getStringExtra("kind"))?"uninstall":"install";
-        LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setPadding(48,32,48,32);layout.setBackgroundColor(Color.rgb(12,23,32));
+        LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setPadding(TvUi.dp(this,24),TvUi.dp(this,16),TvUi.dp(this,24),TvUi.dp(this,16));layout.setBackground(TvUi.glass(this,false));
         label(layout,"WorkBuddy · "+(kind.equals("install")?"安装应用":"卸载应用"),32);
         status=label(layout,"正在准备本次操作授权…",24);
         label(layout,"仅适配小米电视 · 本次窗口10分钟有效，只接收一个操作。\n核对电视校验码后，再让WorkBuddy提交。系统安装或卸载确认会保留。",22);
-        Button back=new Button(this);back.setText("取消并返回");back.setTextSize(26);back.setMinHeight(Math.round(72*getResources().getDisplayMetrics().density));back.setOnClickListener(v->finish());layout.addView(back);
-        ScrollView scroll=new ScrollView(this);scroll.addView(layout);setContentView(scroll);
+        Button back=new Button(this);back.setText("取消并返回");TvUi.styleButton(this,back);back.setOnClickListener(v->finish());layout.addView(back,new LinearLayout.LayoutParams(-2,TvUi.dp(this,44)));
+        TvUi.showForm(this,layout);
         installer=new ApkInstaller(this,()->new DestinationApps(this,getSharedPreferences("aperture",MODE_PRIVATE),slot->{}).shortcuts());
         try{
             JSONArray offered=offered();if(offered.length()==0){status.setText(kind.equals("install")?"请先在开视连接一个NAS，用它存放APK。":"没有可供此次卸载的非系统电视应用。");return;}
@@ -55,7 +55,7 @@ public final class AppAgentActivity extends Activity {
             io.execute(()->{try{JSONObject response=client.call("app-operations","start",hello);if(!id.equals(response.getString("id"))||!hash.equals(response.getString("fingerprint")))throw new IOException();expiresAt=response.getLong("expiresAt");main.post(()->{if(closed)return;started=true;status.setText("等待已授权的WorkBuddy提交操作。\n"+(kind.equals("install")?"安装范围：本次列出的NAS连接，包名和SHA-256必须一致。":"卸载范围：本次列出的非系统应用，不含开视与原生系统组件。"));schedule();});}catch(Exception failure){main.post(()->failure("无法开启操作窗口，请检查家庭HTTPS连接和电视配对。"));}});
         }catch(Exception failure){status.setText("请先连接并配对可信HTTPS家庭服务，再开启WorkBuddy操作。");}
     }
-    private TextView label(LinearLayout parent,String text,int size){TextView view=new TextView(this);view.setText(text);view.setTextColor(Color.WHITE);view.setTextSize(size);view.setPadding(0,12,0,16);parent.addView(view);return view;}
+    private TextView label(LinearLayout parent,String text,int size){TextView view=new TextView(this);view.setText(text);view.setTextColor(Color.WHITE);view.setTextSize(TvUi.typeSize(size));view.setPadding(0,12,0,16);parent.addView(view);return view;}
     private boolean userApp(String pkg){
         if(pkg==null||pkg.equals("org.zhixiaoce.aperture")||(pkg.equals("org.zhixiaoce.aperture.parents")||pkg.equals("org.zhixiaoce.kaishi")||pkg.equals("org.zhixiaoce.kaishi.parents")))return false;
         try{ApplicationInfo info=getPackageManager().getApplicationInfo(pkg,0);return info.enabled&&(info.flags&(ApplicationInfo.FLAG_SYSTEM|ApplicationInfo.FLAG_UPDATED_SYSTEM_APP))==0;}catch(PackageManager.NameNotFoundException absent){return false;}

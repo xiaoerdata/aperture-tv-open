@@ -3,10 +3,10 @@ import {api,el} from './client.js';
 // Reuses the family viewer handshake; the claim secret never leaves this page's memory.
 export function mountTvPairing({onConnected,onOpen=()=>{}}){
  const backdrop=el('div','tv-pair-backdrop');backdrop.id='tv-pair-dialog';backdrop.hidden=true;
- const panel=el('section','tv-pair-panel'),title=el('h2','','让这台电视，连上家。');title.id='tv-pair-title';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby',title.id);
+ const panel=el('section','tv-pair-panel'),title=el('h2','','连接家庭');title.id='tv-pair-title';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby',title.id);
  const code=el('strong','tv-pair-code','··· ···'),status=el('p','tv-pair-status'),address=el('p','tv-pair-address'),actions=el('div','tv-pair-actions'),retry=el('button','','重新生成连接码'),back=el('button','','返回片库');
  code.id='tv-pair-code';status.id='tv-pair-status';status.setAttribute('role','status');retry.id='tv-pair-retry';back.id='tv-pair-close';retry.type=back.type='button';
- address.textContent=location.origin+'/studio';actions.append(back,retry);panel.append(title,el('p','','请家人用已登录管理员的手机打开工作台，在「连接与窗景」批准下面的六位码。'),code,status,address,el('small','','五分钟内有效，只连接这台电视用于查看与播放。无需把管理员口令填进电视。'),actions);backdrop.append(panel);document.body.append(backdrop);
+ address.textContent=location.origin+'/studio';actions.append(back,retry);panel.append(title,el('p','','在手机工作台的「设备」中输入连接码并批准。'),code,status,address,el('small','','五分钟内有效，只连接这台电视用于查看与播放。无需把管理员口令填进电视。'),actions);backdrop.append(panel);document.body.append(backdrop);
  let generation=0,timer=null,request=null,challenge=null,prior=null,disposed=false;
  const open=()=>!backdrop.hidden;
  function stop(){generation++;clearTimeout(timer);timer=null;request?.abort();request=null;challenge=null;code.textContent='··· ···';retry.disabled=false;}

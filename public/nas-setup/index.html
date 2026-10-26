@@ -1,20 +1,20 @@
-<!doctype html><html lang="zh-CN" data-mobile-ui="v2"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f8f5"><title>开视 · 帮电视连上 NAS</title><link rel="stylesheet" href="/studio.css"><link rel="stylesheet" href="/nas-setup/style.css"><link rel="stylesheet" href="/ui/mobile-controls.css"><script type="module" src="/nas-setup/setup.js"></script><link rel="icon" data-kaishi-favicon type="image/webp" href="/launcher/brand/kaishi-icon-v2.webp"><link rel="stylesheet" href="/launcher/brand/identity.css"><script src="/launcher/brand/identity.js" defer></script></head>
+<!doctype html><html lang="zh-CN" data-mobile-ui="v2"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f8f5"><title>开视 · 连接 NAS</title><link rel="stylesheet" href="/studio.css"><link rel="stylesheet" href="/nas-setup/style.css"><link rel="stylesheet" href="/ui/mobile-controls.css"><script type="module" src="/nas-setup/setup.js"></script><link rel="icon" data-kaishi-favicon type="image/webp" href="/launcher/brand/kaishi-icon-v2.webp"><link rel="stylesheet" href="/launcher/brand/identity.css"><script src="/launcher/brand/identity.js" defer></script></head>
 <body data-mobile-root><header class="studio-header"><a href="/studio" class="studio-brand">开视 <small>家庭连接</small></a><a href="/guide">使用指引</a></header><main class="setup-main">
-<p class="eyebrow">家人设置 · 只为这一次连接</p><h1>在手机上填好，<br>电视自己来连接。</h1><p class="intro">给家里的电影、剧集或照片选个位置。电视会先读一次目录，连接成功才保存。</p>
+<h1>连接 NAS</h1><p class="intro">填写共享目录，电视测试成功后保存。</p>
 <div class="handoff-art" aria-hidden="true"><span>手机填写</span><svg viewBox="0 0 180 32"><path d="M2 16h168m-10-8 10 8-10 8"/></svg><span>加密交接</span><svg viewBox="0 0 180 32"><path d="M2 16h168m-10-8 10 8-10 8"/></svg><span>电视验证</span></div>
 <p id="status" role="status" aria-live="polite">正在检查这次连接…</p>
-<section id="login" hidden><h2>先确认是家里人</h2><p>仅家庭管理员可以从手机配置。已授权的 Agent 使用独立入口。</p><form id="login-form"><label>家庭服务的管理口令<input name="key" type="password" autocomplete="current-password" required minlength="24" maxlength="200"></label><button class="primary" data-mobile-control="action" data-mobile-tone="primary">确认身份</button></form></section>
+<section id="login" hidden><h2>管理员登录</h2><p>仅家庭管理员可以从手机配置。已授权的 Agent 使用独立入口。</p><form id="login-form"><label>家庭服务的管理口令<input name="key" type="password" autocomplete="current-password" required minlength="24" maxlength="200"></label><button class="primary" data-mobile-control="action" data-mobile-tone="primary">确认身份</button></form></section>
 <section id="target" hidden><h2 id="tv-label"></h2><p>与电视上的校验码一致再填写：<strong id="fingerprint"></strong></p><p class="help">有效期内仅交给这一台电视。离开电视连接页面会取消；过期请从电视重新发起。</p></section>
 <form id="nas-form" hidden autocomplete="off">
 <div class="form-row"><label>NAS 类型<select name="brand"><option>绿联 UGOS</option><option>海康存储</option><option>Xiaomi 智能存储 · 新款 NAS</option><option>群晖 DSM</option><option>TrueNAS</option><option>其他 SMB / WebDAV</option></select></label><label>首页用途<select name="role"><option value="">只保存连接</option><option value="movies">看电影</option><option value="series">看电视剧</option><option value="photos">NAS 相册</option></select></label></div>
 <p class="help">若选择首页用途，会替换这台电视该入口当前的 NAS 来源；不会移动或删除文件。</p>
 <p class="help" id="brand-help">NAS 品牌均待实机验收。请启用 SMB2/3 或设备提供的 HTTPS WebDAV。</p>
-<label>电视上叫什么<input name="name" required maxlength="40" placeholder="例如：周末电影"></label>
+<label>连接名称<input name="name" required maxlength="40" placeholder="例如：周末电影"></label>
 <label>共享文件夹地址<input name="root" required maxlength="2048" autocapitalize="none" spellcheck="false" placeholder="smb://192.168.1.20/Family/电影"></label>
 <p class="help">填写共享目录，不是 NAS 管理后台。只读账号仅允许访问这个家庭文件夹。</p>
 <div class="form-row"><label>NAS 只读账号<input name="user" required maxlength="128" autocapitalize="none" spellcheck="false" autocomplete="off"></label><label>密码<input name="password" type="password" maxlength="512" autocomplete="off"></label></div>
 <details><summary>域（通常留空）</summary><label>SMB 域<input name="domain" maxlength="128" autocomplete="off"></label></details>
 <p class="privacy">资料在这个手机页面加密后交接，家庭服务仅转交密文。NAS 密码不会进入电视网页、Agent 参数或浏览器存储；电视接收后在本机加密保存。请使用可信的家庭服务。</p>
-<button class="primary" id="send" data-mobile-control="action" data-mobile-tone="primary">加密交给电视，测试后保存</button></form>
+<button class="primary" id="send" data-mobile-control="action" data-mobile-tone="primary">发送并测试</button></form>
 <section id="receipt" hidden><h2>正在交给电视</h2><p id="receipt-text"></p><button id="check" data-mobile-control="action">查询交接结果</button><button id="retry" hidden data-mobile-control="action">重试这份加密资料</button></section>
 <p class="help footer-note">本页需要可信 HTTPS 家庭服务。小米仅面向最新独立智能存储，不包含旧路由器。品牌硬件、旧电视和小爱仍待实测。</p></main></body></html>

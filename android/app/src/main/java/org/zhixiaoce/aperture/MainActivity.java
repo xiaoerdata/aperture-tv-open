@@ -230,30 +230,45 @@ public class MainActivity extends Activity {
     private Button button(LinearLayout layout, String text, Runnable action) {
         float density = getResources().getDisplayMetrics().density;
         Button button = new Button(this); button.setText(text); button.setAllCaps(false);
-        button.setTextSize(BuildConfig.PARENTS_EDITION ? 28 : 24); button.setMinHeight(Math.round(72 * density));
+        TvUi.styleButton(this,button);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2); params.setMargins(0, Math.round(6 * density), 0, Math.round(6 * density));
         button.setOnClickListener(view -> action.run()); layout.addView(button, params); return button;
     }
     private void showNative(LinearLayout layout) { ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.addView(layout); setContentView(scroll); }
     private void homeMode() {
-        String reason = lobby.recoveryRequired() ? "网页显示组件刚刚退出，本次先使用简洁首页。完全关闭开视后重新打开，才能再尝试玻璃首页。" : !lobby.glassAvailable(webViewVersion()) ? "当前WebView版本不满足玻璃首页要求，已自动使用简洁首页。家庭轻量屏与NAS分别判断，不会清除配置。" : "玻璃首页保留照片、数据与信息分区；简洁首页不运行网页或背景动效，适合感觉操作吃力的电视。此设置不改变系统默认桌面。";
+        String reason = lobby.recoveryRequired() ? "网页显示组件刚刚退出，本次先使用简洁首页。完全关闭开视后重新打开，才能再尝试玻璃首页。" : !lobby.glassAvailable(webViewVersion()) ? "当前WebView版本不满足玻璃首页要求，已自动使用简洁首页。家庭轻量屏与NAS分别判断，不会清除配置。" : "玻璃首页保留观看、应用与家庭内容；简洁首页不运行网页或背景动效，适合感觉操作吃力的电视。此设置不改变系统默认桌面。";
         new AlertDialog.Builder(this).setTitle("首页样式").setMessage(reason)
             .setPositiveButton("简洁首页", (d,w) -> { preferences.edit().putBoolean("simple_home", true).apply(); showLobby(""); })
             .setNeutralButton(lobby.glassAvailable(webViewVersion()) ? "玻璃首页" : "保留自动选择", (d,w) -> { preferences.edit().remove("simple_home").apply(); showLobby(""); })
             .setNegativeButton("返回", null).show();
     }
     private void nativeLobby() {
-        destroyWeb(); lobbyMode = true; LinearLayout layout = column(BuildConfig.PARENTS_EDITION ? "开视 · 爸妈版" : "开视");
+        destroyWeb(); lobbyMode = true;
+        LinearLayout layout = column(BuildConfig.PARENTS_EDITION ? "开视 · 爸妈版" : "开视");
+        layout.setPadding(TvUi.dp(this,48),TvUi.dp(this,30),TvUi.dp(this,48),TvUi.dp(this,30));layout.setBackground(TvUi.background());
         LobbyMode.Choice choice = lobby.choose(webViewVersion(), preferences.getBoolean("simple_home", false));
-        TextView note = new TextView(this); note.setText(choice == LobbyMode.Choice.NATIVE_RECOVERY ? "网页显示组件刚刚退出，先用这些本机入口。不会自动反复重开网页。" : choice == LobbyMode.Choice.NATIVE_OLD_ENGINE ? "当前使用简洁本机首页，适合这台电视的网页内核。" : "简洁本机首页 · 在设置中可切换"); note.setTextSize(18); note.setTextColor(Color.rgb(196,210,224)); layout.addView(note);
-        if (BuildConfig.PARENTS_EDITION) {
-            button(layout, "看电视", () -> cinema("live")); button(layout, "看电视剧", () -> cinema("series")); button(layout, "看电影", () -> cinema("movies")); button(layout, "看综艺", () -> cinema("variety"));
-            for (String slot : new String[] {"quick1", "quick2", "quick3", "quick4"}) { String name = destinations.label(slot); Button shortcut = button(layout, name.isEmpty() ? "未设置" : name, () -> destinations.launchShortcut(slot)); shortcut.setTextSize(24); }
-            button(layout, "所有应用", destinations::all); button(layout, "设置", this::quickMenu); showNative(layout); return;
+        layout.addView(TvUi.text(this,choice == LobbyMode.Choice.NATIVE_RECOVERY ? "网页已退出 · 简洁首页" : "简洁首页",20,true));
+        LinearLayout watch=new LinearLayout(this);watch.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams wp=new LinearLayout.LayoutParams(-1,-2);wp.setMargins(0,TvUi.dp(this,38),0,TvUi.dp(this,20));layout.addView(watch,wp);
+        String[] titles={"看电视","看电视剧","看电影","看综艺"},views={"live","series","movies","variety"};
+        Button first=null;
+        for(int i=0;i<titles.length;i++){final String view=views[i];Button entry=TvUi.button(this,titles[i],()->cinema(view));entry.setTextSize(BuildConfig.PARENTS_EDITION?22:20);LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(0,TvUi.dp(this,84),1);cp.setMargins(0,0,TvUi.dp(this,10),0);watch.addView(entry,cp);if(first==null)first=entry;}
+        destinations.homeApps();
+        LinearLayout shortcuts=new LinearLayout(this);shortcuts.setOrientation(LinearLayout.HORIZONTAL);
+        for(String slot:new String[]{"quick1","quick2","quick3","quick4"}){
+            String name=destinations.label(slot);if(name.isEmpty())continue;
+            Button shortcut=TvUi.button(this,name,()->destinations.launchShortcut(slot));shortcut.setTextSize(16);shortcut.setMaxLines(1);shortcut.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            byte[] bytes=destinations.icon(slot);if(bytes!=null){android.graphics.drawable.Drawable icon=android.graphics.drawable.Drawable.createFromStream(new java.io.ByteArrayInputStream(bytes),null);if(icon!=null){icon.setBounds(0,0,TvUi.dp(this,32),TvUi.dp(this,32));shortcut.setCompoundDrawables(null,icon,null,null);shortcut.setCompoundDrawablePadding(TvUi.dp(this,6));}}
+            LinearLayout.LayoutParams sp=new LinearLayout.LayoutParams(TvUi.dp(this,136),TvUi.dp(this,84));sp.setMargins(0,0,TvUi.dp(this,10),0);shortcuts.addView(shortcut,sp);
         }
-        button(layout, "看电视", () -> cinema("live")); button(layout, "看电视剧", () -> cinema("series")); button(layout, "看电影", () -> cinema("movies")); button(layout, "看综艺", () -> cinema("variety")); button(layout, "原桌面", () -> destinations.launch("system"));
-        if (!BuildConfig.PARENTS_EDITION) button(layout, "家庭屏", () -> family(null)); button(layout, "NAS", () -> action("/nas")); button(layout, "设置", this::quickMenu); showNative(layout);
+        if(shortcuts.getChildCount()>0){layout.addView(TvUi.text(this,"常用应用",22,true));layout.addView(shortcuts);}
+        LinearLayout actions=new LinearLayout(this);actions.setOrientation(LinearLayout.HORIZONTAL);LinearLayout.LayoutParams ap=new LinearLayout.LayoutParams(-1,-2);ap.setMargins(0,TvUi.dp(this,28),0,0);layout.addView(actions,ap);
+        nativeAction(actions,"所有应用",destinations::all);nativeAction(actions,"NAS",()->action("/nas"));
+        if(!BuildConfig.PARENTS_EDITION)nativeAction(actions,"家庭屏",()->family(null));
+        nativeAction(actions,"原桌面",()->destinations.launch("system"));nativeAction(actions,"设置",this::quickMenu);
+        showNative(layout);if(first!=null)first.requestFocus();
     }
+    private void nativeAction(LinearLayout row,String title,Runnable run){Button control=TvUi.button(this,title,run);LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,TvUi.dp(this,44),1);p.setMargins(0,0,TvUi.dp(this,10),0);row.addView(control,p);}
     private void setup() {
         if (!lobby.webAvailable(webViewVersion())) {
             new AlertDialog.Builder(this).setTitle("暂时不能打开家庭网页").setMessage(lobby.recoveryRequired() ? "网页显示组件刚刚退出。请先使用本机应用或NAS；在系统应用设置结束开视后重开，或重启电视，再尝试连接。" : "这台电视的网页组件不可用。请在原系统检查WebView；本机应用、原桌面和NAS仍可使用。")

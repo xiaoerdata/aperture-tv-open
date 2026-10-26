@@ -1,0 +1,92 @@
+{
+  "version": "0.2.0-alpha.17",
+  "versionCode": 20,
+  "editions": [
+    {
+      "applicationId": "org.zhixiaoce.kaishi",
+      "edition": "standard",
+      "version": "0.2.0-alpha.17",
+      "versionCode": 20,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v20-standard.apk",
+      "apkBytes": 55153944,
+      "sha256": "8b0bd6827f3ada4e68a971e2444f428d245517369264f05bee8e2f68a906feed",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "acd9b0e32bd7417532967a870bb24f58c1765c16ae01bef90dc9870b71ad5804",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 39,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    },
+    {
+      "applicationId": "org.zhixiaoce.kaishi.parents",
+      "edition": "parents",
+      "version": "0.2.0-alpha.17-parents",
+      "versionCode": 20,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v20-parents.apk",
+      "apkBytes": 55182616,
+      "sha256": "9e497108bcb59abf3f4874f37f59658e4bd9823e533bad14fad5b9cd39ec2f7c",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "acd9b0e32bd7417532967a870bb24f58c1765c16ae01bef90dc9870b71ad5804",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 39,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    }
+  ],
+  "androidSourceSha256": "acd9b0e32bd7417532967a870bb24f58c1765c16ae01bef90dc9870b71ad5804",
+  "validation": {
+    "nodeTests": {
+      "total": 102,
+      "passed": 99,
+      "skipped": 3,
+      "failed": 0,
+      "skippedReason": "Samba runtime unavailable"
+    },
+    "browserReports": [
+      "s58-ui-browser.json",
+      "s58-family-browser.json",
+      "s58-cinema-browser.json",
+      "s58-support-browser.json",
+      "s58-lite-protocol.json",
+      "s58-nas-setup-browser.json"
+    ],
+    "nativeBuild": {
+      "status": "BUILD SUCCESSFUL",
+      "tasks": [
+        "assembleStandardRelease",
+        "assembleParentsRelease"
+      ],
+      "lintVitalPassed": true,
+      "jdk": 17,
+      "gradle": "8.9"
+    },
+    "nativeActivityExecuted": false,
+    "xiaomiHardwareTested": false,
+    "workBuddyClientTested": false
+  },
+  "generatedUiReferencesBundled": false,
+  "publicReleaseReadback": "recorded separately after publication",
+  "initialTestFailure": {
+    "failed": 14,
+    "reason": "missing JAVA_HOME and APERTURE_ANDROID_RUNTIME referenced removed temporary JDK/Gradle",
+    "resolved": "explicit persistent toolchain; complete rerun 99 passed, 3 Samba skips"
+  }
+}

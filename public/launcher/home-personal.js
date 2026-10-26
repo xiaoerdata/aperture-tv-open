@@ -53,9 +53,9 @@
   id('dock-toggle').onclick=function(){setApps(!expanded,true);};
   function renderApps(){
    var old=document.activeElement.id;id('home-apps').textContent='';
-   for(var q=1;snapshotReceived&&q<=4;q++){var empty=id('quick'+q);empty.className='shortcut glass';empty.querySelector('strong').textContent='添加应用';empty.querySelector('.shortcut-glyph').textContent='+';empty.setAttribute('aria-label','常用应用 '+q+'，未设置');empty.onclick=options.presets;}
+   for(var q=1;snapshotReceived&&q<=4;q++){var empty=id('quick'+q);empty.hidden=slots.some(function(s){return !!s.name;})||q>1;empty.className='shortcut glass';empty.querySelector('strong').textContent='添加应用';empty.querySelector('.shortcut-glyph').textContent='+';empty.setAttribute('aria-label','常用应用 '+q+'，未设置');empty.onclick=options.presets;}
    for(var i=0;i<slots.length;i++){(function(slot){if(!slot.name)return;var item=info(slot.id),button=node('button','dock-app');button.id='dock-'+slot.slot;button.appendChild(mark(item,slot.icon));button.appendChild(node('span','dock-label',slot.name));button.onclick=function(){options.action('open-'+slot.slot);};id('home-apps').appendChild(button);
-    var quick=id(slot.slot);if(quick){quick.querySelector('strong').textContent=slot.name;quick.setAttribute('aria-label','打开常用应用 '+slot.name);quick.className='shortcut glass has-app-icon';var glyph=quick.querySelector('.shortcut-glyph');if(glyph){glyph.textContent='';glyph.appendChild(mark(item,slot.icon));}quick.onclick=function(){options.action('open-'+slot.slot);};}
+    var quick=id(slot.slot);if(quick){quick.hidden=false;quick.querySelector('strong').textContent=slot.name;quick.setAttribute('aria-label','打开常用应用 '+slot.name);quick.className='shortcut glass has-app-icon';var glyph=quick.querySelector('.shortcut-glyph');if(glyph){glyph.textContent='';glyph.appendChild(mark(item,slot.icon));}quick.onclick=function(){options.action('open-'+slot.slot);};}
    }(slots[i]));}
    id('dock-stack').textContent='';for(var n=0;n<slots.length&&id('dock-stack').children.length<3;n++)if(slots[n].name)id('dock-stack').appendChild(mark(info(slots[n].id),slots[n].icon));
    if(!id('dock-stack').children.length)id('dock-stack').appendChild(node('span','dock-empty-mark','＋'));

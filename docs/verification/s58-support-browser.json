@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "guide contains real development captures; edition preview and section navigation work",
+    "guide D-pad selects edition; keyboard and native bridge toggle details and navigate away",
+    "diagnostics reads actual browser capabilities and local service; D-pad confirmation and report disclosure work",
+    "support pages fit 320/390/760/761/1280/1920/3840; NAS setup tested here only in unpaired state"
+  ],
+  "errors": [],
+  "realLocalBrowser": true,
+  "xiaomiHardware": false
+}

@@ -1,0 +1,27 @@
+{
+  "checks": [
+    "home/app fold/page navigation/family reduction/settings/wallpaper/presets/summary and exact back focus",
+    "parents compact four viewing entries and D-pad shortcuts",
+    "family photos/agenda/notes only; actual pairing start and modal back focus",
+    "home, parents, family no horizontal overflow at 960/1280/1920/3840/390"
+  ],
+  "sizes": [
+    {
+      "x": 100,
+      "y": 504,
+      "width": 200,
+      "height": 78
+    },
+    {
+      "x": 340,
+      "y": 360,
+      "width": 295,
+      "height": 170
+    }
+  ],
+  "errors": [],
+  "localBrowser": true,
+  "syntheticData": true,
+  "nativeActivityExecuted": false,
+  "xiaomiHardware": false
+}

@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "full page redirects on simulated old capability/UA; lite uses XHR without fetch/SSE/WebSocket",
+    "real stdio MCP writes reach paired lite page via polling; safe text and lite rendering acknowledgement",
+    "lite 720p/1080p/4K and phone layout; D-pad, pairing focus trap and back",
+    "revocation clears all private text and image source on next lite refresh"
+  ],
+  "errors": [],
+  "actualOldWebViewTested": false,
+  "actualXiaomiHardwareTested": false,
+  "simulation": "Current Chromium with Chrome64 UA and fetch/EventSource/WebSocket disabled"
+}

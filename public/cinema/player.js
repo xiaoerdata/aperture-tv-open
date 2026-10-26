@@ -7,12 +7,16 @@ const home=query.get('from')==='home'?'/home'+(query.get('edition')==='parents'?
 $('#cinema-home').href=home;$('#cinema-home').textContent=query.get('from')==='home'?'返回':'返回';
 const parents=query.get('edition')==='parents';if(parents)document.body.classList.add('parents-cinema');
 let detail=null,detailPrior=null;const infoCache=new Map(),infoPending=new Map();let infoQueue=[],infoActive=0;
-const video=$('#video');
+const video=$('#video');let controlsTimer=0;
+function showControls(){if(!playing)return;$('#cinema-player').classList.remove('controls-hidden');clearTimeout(controlsTimer);controlsTimer=setTimeout(()=>{if(playing&&!video.paused){$('#cinema-player').classList.add('controls-hidden');video.tabIndex=0;video.focus();}},5000);}
+function wakeControls(event){if(!playing)return;const hidden=$('#cinema-player').classList.contains('controls-hidden');if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter',' '].includes(event.key)){showControls();if(hidden){event.preventDefault();event.stopImmediatePropagation();$('#play-pause').focus();}}}
+document.addEventListener('keydown',wakeControls,true);$('#cinema-player').addEventListener('pointermove',showControls);video.onpause=showControls;video.onended=showControls;
+
 const pairing=mountTvPairing({onOpen:()=>{if(playing)close();closeDetail();},onConnected:async()=>{connectionEpoch++;await refresh();($('#cinema-grid .cinema-item')||$('#cinema-refresh')).focus();}});
 $('#cinema-connect').onclick=()=>pairing.open();
-function close(){generation++;hls?.destroy();hls=null;video.pause();video.removeAttribute('src');video.load();$('#cinema-player').hidden=true;playing=false;prior?.focus();}
+function close(){playing=false;clearTimeout(controlsTimer);$('#cinema-player').classList.remove('controls-hidden');generation++;hls?.destroy();hls=null;video.pause();video.removeAttribute('src');video.load();$('#cinema-player').hidden=true;playing=false;prior?.focus();}
 async function play(item){
-  close();prior=document.activeElement;$('#cinema-player').hidden=false;$('#playing-title').textContent=item.name;$('#close-player').focus();$('#player-status').textContent='正在打开视频…';playing=true;
+  close();prior=document.activeElement;$('#cinema-player').hidden=false;$('#playing-title').textContent=item.name;$('#close-player').focus();$('#player-status').textContent='正在打开视频…';playing=true;showControls();
   const current=generation,src='/api/cinema/play/'+item.id;
   if(item.format==='hls'&&!video.canPlayType('application/vnd.apple.mpegurl')){
     try{const {default:Hls}=await import('/vendor/hls.mjs');if(!playing||current!==generation)return;if(!Hls.isSupported())throw new Error();hls=new Hls({enableWorker:false,maxBufferLength:30});hls.on(Hls.Events.ERROR,(_,data)=>{if(data.fatal)$('#player-status').textContent='直播流不可用或编码不兼容，请检查来源。';});hls.loadSource(src);hls.attachMedia(video);}catch{$('#player-status').textContent='当前内核不支持此直播格式，请更新 WebView 或使用已安装的播放器。';return;}
@@ -38,8 +42,7 @@ function render(){
   if(item.kind!=='channel'&&i<12){const epoch=connectionEpoch;loadInfo(item).then(data=>{if(epoch!==connectionEpoch||!button.isConnected)return;posterInto(art,item.poster||data?.match?.poster,data?.match?.poster);});}
  }
  if(!shown.length)$('#cinema-grid').append(el('p','empty',term?'无搜索结果':filter==='live'?'暂无频道':'暂无影片'));
- const featured=shown.find(i=>i.kind!=='channel');$('#cinema-feature').hidden=!featured||filter==='live'||!!term;
- if(featured){$('#feature-title').textContent=featured.name;$('#feature-meta').textContent=featured.sourceName;$('#feature-summary').textContent=featured.summary||'';$('#feature-image').hidden=true;$('#feature-open').onclick=()=>openDetail(featured);const epoch=connectionEpoch;loadInfo(featured).then(data=>{if(epoch!==connectionEpoch||$('#feature-title').textContent!==featured.name)return;const match=data?.match;$('#feature-summary').textContent=featured.summary||match?.summary||'';$('#feature-meta').textContent=[featured.sourceName,featured.year||match?.year].filter(Boolean).join(' · ');const image=featured.poster||match?.poster;if(image){$('#feature-image').src=image;$('#feature-image').hidden=false;}});}
+
 }
 async function refresh(){const turn=++connectionEpoch;resetInfo();try{const result=await api('/api/cinema/library');if(turn!==connectionEpoch)return;items=result.items;infoCache.clear();$('#cinema-connect').hidden=true;$('#cinema-grid').hidden=false;render();$('#cinema-status').textContent=`${$('#cinema-grid .cinema-item')?$('#cinema-grid').querySelectorAll('.cinema-item').length:0} 项`+(result.unavailable.length?' · 暂时无法读取：'+result.unavailable.join('、'):'');}catch(e){if(turn!==connectionEpoch)return;items=[];render();close();$('#cinema-connect').hidden=e.status!==401;$('#cinema-grid').hidden=true;$('#cinema-status').textContent=e.status===401?'未连接':e.code==='cinema_disabled'?'片库未开启':e.message;}}
 for(const b of document.querySelectorAll('[data-media-filter]'))b.onclick=()=>{filter=b.dataset.mediaFilter;render();};
@@ -48,6 +51,7 @@ $('#play-pause').onclick=()=>video.paused?video.play().catch(()=>{$('#player-sta
 $('#seek-back').onclick=()=>{if(Number.isFinite(video.duration))video.currentTime=Math.max(0,video.currentTime-10);};$('#seek-forward').onclick=()=>{if(Number.isFinite(video.duration))video.currentTime=Math.min(video.duration,video.currentTime+10);};
 video.onplaying=()=>{$('#player-status').textContent='正在播放 · '+$('#playing-title').textContent;};video.onerror=()=>{$('#player-status').textContent=parents?'这个节目暂时打不开，请返回选择别的，或请家人检查后台来源。':'视频无法播放。来源可能已离线、未开启共享，或当前内核不支持该编码。';};
 window.apertureBack=()=>{if(pairing.isOpen()){pairing.close();return true;}if(playing){close();return true;}if(detail){closeDetail();return true;}location.href=home;return true;};const dispose=installRemote({back:window.apertureBack,gridSelector:'.cinema-grid',root:()=>pairing.isOpen()?pairing.root():playing?$('#cinema-player'):detail?$('#cinema-detail'):document});
+const remoteKey=window.apertureRemoteKey;window.apertureRemoteKey=key=>{let consumed=false;wakeControls({key,preventDefault(){consumed=true;},stopImmediatePropagation(){}});return consumed||remoteKey(key);};
 const timer=setInterval(async()=>{
  if(polling||document.hidden)return;polling=true;const turn=connectionEpoch;
  try{const board=await api('/api/board');if(turn!==connectionEpoch)return;
@@ -57,4 +61,4 @@ const timer=setInterval(async()=>{
  }catch(e){if(turn!==connectionEpoch)return;connectionEpoch++;resetInfo();close();closeDetail();items=[];render();$('#cinema-connect').hidden=e.status!==401;$('#cinema-grid').hidden=true;$('#cinema-status').textContent=e.status===401?'连接已失效':'连接中断';}
  finally{polling=false;}
 },5000);
-window.addEventListener('pagehide',()=>{pairing.dispose();close();closeDetail();connectionEpoch++;for(const q of infoQueue)q.resolve(null);infoQueue=[];dispose();clearInterval(timer);});window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});refresh();
+window.addEventListener('pagehide',()=>{pairing.dispose();close();closeDetail();document.removeEventListener('keydown',wakeControls,true);connectionEpoch++;for(const q of infoQueue)q.resolve(null);infoQueue=[];dispose();clearInterval(timer);});window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});refresh();

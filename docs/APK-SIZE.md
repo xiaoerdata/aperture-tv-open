@@ -45,3 +45,7 @@ APERTURE_ANDROID_ABIS=x86 npm run android:apk -- --edition standard
 | 爸妈版 | 81.56 MiB | 52.63 MiB | 35.47% |
 
 原生库与Python的实际ABI均核对为ARM32/64，无x86残留；四张4K壁纸字节不变。每架构Python依赖的有效文件仍为642项，没有增删；352项pyc仅编译头变化，代码部分相同，其他文件相同。此比较不冒充ARM电视的Python冷启动验收。见[实际体积](verification/s56-apk-size.json)与[依赖对照](verification/s56-python-payload.json)。新影视资料、图片缓存为运行时有界缓存，生图UI参考不打入APK。
+
+## v20紧凑UI版本
+
+标准版 52.60 MiB，爸妈版 52.63 MiB；继续共用ARM32/64架构策略与持久签名。22张页面设计参考仅随开发资料留存，不打包进APK。

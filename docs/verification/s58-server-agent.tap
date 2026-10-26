@@ -1,0 +1,105 @@
+TAP version 13
+# Subtest: local automation is opt-in; human session and old pair flow never imply machine permission
+ok 1 - local automation is opt-in; human session and old pair flow never imply machine permission
+  ---
+  duration_ms: 255.526288
+  ...
+# Subtest: read-only grants filter discovery and block writes; expiration and revocation are per call
+ok 2 - read-only grants filter discovery and block writes; expiration and revocation are per call
+  ---
+  duration_ms: 139.156122
+  ...
+# Subtest: real stdio MCP bridge shares domain writes, persistent receipts, fresh scopes, and no arbitrary execution
+ok 3 - real stdio MCP bridge shares domain writes, persistent receipts, fresh scopes, and no arbitrary execution
+  ---
+  duration_ms: 1028.384674
+  ...
+# Subtest: private peer policy rejects public and spoofed forwarding; QR challenge and network bind grants
+ok 4 - private peer policy rejects public and spoofed forwarding; QR challenge and network bind grants
+  ---
+  duration_ms: 51.735056
+  ...
+# Subtest: QR pairing CLI claims credential automatically, writes private file, never overwrites it
+ok 5 - QR pairing CLI claims credential automatically, writes private file, never overwrites it
+  ---
+  duration_ms: 2617.055266
+  ...
+# Subtest: resource pack stdio MCP uses explicit grant, one TV window and exact save receipt
+ok 6 - resource pack stdio MCP uses explicit grant, one TV window and exact save receipt
+  ---
+  duration_ms: 577.710671
+  ...
+# Subtest: simplified family receipt does not claim legacy scene was displayed
+ok 7 - simplified family receipt does not claim legacy scene was displayed
+  ---
+  duration_ms: 58.680123
+  ...
+# Subtest: private reads require a session; explicit demo never contains family data
+ok 8 - private reads require a session; explicit demo never contains family data
+  ---
+  duration_ms: 79.263188
+  ...
+# Subtest: atomic revision check, idempotent replay, conflicting key and restart persistence
+ok 9 - atomic revision check, idempotent replay, conflicting key and restart persistence
+  ---
+  duration_ms: 103.615925
+  ...
+# Subtest: simultaneous writes with the same revision apply exactly once
+ok 10 - simultaneous writes with the same revision apply exactly once
+  ---
+  duration_ms: 19.105438
+  ...
+# Subtest: pair codes require approval and their private polling secret; viewer cannot write; revocation immediate
+ok 11 - pair codes require approval and their private polling secret; viewer cannot write; revocation immediate
+  ---
+  duration_ms: 29.423589
+  ...
+# Subtest: family editor shares content, cannot approve or administer devices
+ok 12 - family editor shares content, cannot approve or administer devices
+  ---
+  duration_ms: 18.076974
+  ...
+# Subtest: expiry and malformed pairing input fail closed
+ok 13 - expiry and malformed pairing input fail closed
+  ---
+  duration_ms: 20.141087
+  ...
+# Subtest: origin, host, private source and machine endpoints are denied
+ok 14 - origin, host, private source and machine endpoints are denied
+  ---
+  duration_ms: 27.748376
+  ...
+# Subtest: invalid content, nonfinite metrics and uninstalled scenes cannot enter the board
+ok 15 - invalid content, nonfinite metrics and uninstalled scenes cannot enter the board
+  ---
+  duration_ms: 16.741719
+  ...
+# Subtest: image is decoded, normalized and accessible only to paired sessions while referenced
+ok 16 - image is decoded, normalized and accessible only to paired sessions while referenced
+  ---
+  duration_ms: 601.139968
+  ...
+# Subtest: authentication attempts are bounded
+ok 17 - authentication attempts are bounded
+  ---
+  duration_ms: 110.679538
+  ...
+# Subtest: content file import is atomic: an invalid row cannot partially write
+ok 18 - content file import is atomic: an invalid row cannot partially write
+  ---
+  duration_ms: 48.724714
+  ...
+# Subtest: served browser model includes its explicit contract dependency without exposing other shared modules
+ok 19 - served browser model includes its explicit contract dependency without exposing other shared modules
+  ---
+  duration_ms: 24.100539
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5399.495094

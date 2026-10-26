@@ -26,9 +26,9 @@ public final class NasSetupActivity extends Activity {
     private long expiresAt;
     @Override public void onCreate(Bundle state){
         super.onCreate(state);getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setPadding(48,28,48,28);layout.setBackgroundColor(Color.rgb(12,23,32));
-        label("让家人帮电视连上 NAS",30);status=label("正在准备本次加密交接…",20);
-        ScrollView scroll=new ScrollView(this);scroll.addView(layout);setContentView(scroll);
+        layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setPadding(TvUi.dp(this,24),TvUi.dp(this,16),TvUi.dp(this,24),TvUi.dp(this,16));layout.setBackground(TvUi.glass(this,false));
+        label("连接 NAS",30);status=label("正在准备本次加密交接…",20);
+        TvUi.showForm(this,layout);
         button("取消并返回",this::finish);
         String origin=getSharedPreferences("aperture",MODE_PRIVATE).getString("origin","");
         try{client=new NasSetupClient(origin,origin.isEmpty()?"":CookieManager.getInstance().getCookie(origin),BuildConfig.DEBUG);}
@@ -46,13 +46,12 @@ public final class NasSetupActivity extends Activity {
                 byte[] png=Base64.getDecoder().decode(encoded);BitmapFactory.Options bounds=new BitmapFactory.Options();bounds.inJustDecodeBounds=true;BitmapFactory.decodeByteArray(png,0,png.length,bounds);
                 if(bounds.outWidth<1||bounds.outHeight<1||bounds.outWidth>600||bounds.outHeight>600)throw new IllegalArgumentException();
                 Bitmap image=BitmapFactory.decodeByteArray(png,0,png.length);if(image==null)throw new IllegalArgumentException();
-                main.post(()->{if(closed){image.recycle();return;}qr=image;ImageView picture=new ImageView(this);picture.setImageBitmap(image);picture.setAdjustViewBounds(true);layout.addView(picture,1,new LinearLayout.LayoutParams(300,300));label("校验码  "+fingerprint.substring(0,4)+" "+fingerprint.substring(4,8)+" "+fingerprint.substring(8,12),24);label("家人用手机扫码并验证管理员身份。也可由已授权的助手交接加密资料。\n这次请求10分钟有效；离开此页即取消。不会共享原系统或小米账号。",18);status.setText("等待家人填写；接收后先测试目录，再保存在本机。无法扫码时，可让已授权助手查找这次请求，并核对校验码。");schedule();});
+                main.post(()->{if(closed){image.recycle();return;}qr=image;ImageView picture=new ImageView(this);picture.setImageBitmap(image);picture.setAdjustViewBounds(true);layout.addView(picture,1,new LinearLayout.LayoutParams(TvUi.dp(this,150),TvUi.dp(this,150)));label("校验码  "+fingerprint.substring(0,4)+" "+fingerprint.substring(4,8)+" "+fingerprint.substring(8,12),24);label("家人用手机扫码并验证管理员身份。也可由已授权的助手交接加密资料。\n这次请求10分钟有效；离开此页即取消。不会共享原系统或小米账号。",18);status.setText("等待家人填写；接收后先测试目录，再保存在本机。无法扫码时，可让已授权助手查找这次请求，并核对校验码。");schedule();});
             }catch(Exception error){main.post(()->failed("暂时无法准备交接，请检查家庭连接，并确认服务已更新到本版源码，再重新打开。"));}
         });
     }
-    private TextView label(String text,int size){TextView view=new TextView(this);view.setText(text);view.setTextColor(Color.rgb(233,241,245));view.setTextSize(size);view.setPadding(0,12,0,12);layout.addView(view);return view;}
-    private void button(String text,Runnable action){Button button=new Button(this);button.setText(text);button.setTextSize(26);button.setMinHeight(Math.round(72*getResources().getDisplayMetrics().density));button.setAllCaps(false);button.setTextColor(Color.WHITE);
-        StateListDrawable states=new StateListDrawable();for(boolean focus:new boolean[]{true,false}){GradientDrawable shape=new GradientDrawable();shape.setColor(focus?Color.rgb(57,78,91):Color.rgb(27,43,55));shape.setCornerRadius(14);shape.setStroke(focus?3:1,focus?Color.rgb(222,236,244):Color.rgb(90,112,128));states.addState(focus?new int[]{android.R.attr.state_focused}:new int[]{},shape);}button.setBackground(states);layout.addView(button,new LinearLayout.LayoutParams(-1,-2));button.setOnClickListener(v->action.run());}
+    private TextView label(String text,int size){TextView view=new TextView(this);view.setText(text);view.setTextColor(Color.rgb(233,241,245));view.setTextSize(TvUi.typeSize(size));view.setPadding(0,12,0,12);layout.addView(view);return view;}
+    private void button(String text,Runnable action){Button button=TvUi.button(this,text,action);layout.addView(button,new LinearLayout.LayoutParams(-2,-2));}
     private void failed(String text){if(!closed)status.setText(text);}
     private void schedule(){if(!closed&&!terminal)main.postDelayed(this::poll,2500);}
     private void poll(){

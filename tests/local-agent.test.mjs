@@ -83,3 +83,12 @@ test('resource pack stdio MCP uses explicit grant, one TV window and exact save 
  const result={packId:'org.example.family',revision:1,sha256,changed:true};assert.equal((await f.request('/api/app-operations/finish',{...identity,state:'succeeded',revision:3,result},{cookie:f.owner})).status,200);
  const receipt=(await client.callTool({name:'aperture_resources_status',arguments:{id,key:'resource-mcp-001'}})).structuredContent.receipt;assert.deepEqual(receipt.result,result);assert.equal(receipt.outcome,'reported_by_tv');
 });
+
+test('simplified family receipt does not claim legacy scene was displayed',async t=>{
+ const f=await fixture(t),pair=await f.pair(['home.read']),headers={Authorization:'Bearer '+pair.token};
+ const pending=(await f.request('/api/pair/start',{role:'viewer'})).data;await f.request('/api/pair/approve',{code:pending.code},{cookie:f.owner});const viewer=(await f.request('/api/pair/poll',pending)).cookie;
+ assert.equal((await f.request('/api/display/ack',{revision:0,scene:'gallery',rendering:'lite',presentation:'family-v2'},{cookie:viewer})).status,200);
+ const result=(await f.request('/api/local-agent/call',{name:'aperture_home',arguments:{}},headers)).data;
+ const ack=result.displayAcknowledgements[0];assert.equal(ack.presentation,'family-v2');assert.equal(ack.sceneApplied,false);assert.deepEqual(ack.sections,['photos','events','notes']);
+ assert.equal((await f.request('/api/display/ack',{revision:0,scene:'gallery',rendering:'lite',presentation:'family-v2'})).status,401);
+});

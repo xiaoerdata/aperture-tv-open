@@ -1,0 +1,149 @@
+{
+  "tool": "built-in image_gen",
+  "purpose": "UI design references only; not bundled wallpaper or actual device evidence",
+  "assets": [
+    {
+      "id": "home",
+      "prompt": "Use case: ui-mockup. Create ONE refined production UI design reference, full screen 16:9 1920x1080 for 开视, an Android Xiaomi television launcher. Reference attached is current layout to improve. Keep dark natural scenic lake/mountain wallpaper, original white outlined screen logo and Chinese name 开视, quiet optical liquid glass. Redesign controls MUCH smaller and more proportionate, airy but functional television interface. Header logo 44px and name 32px at x90 y65, settings top right 24px. Clock at x100 y240 around 130px, date 30px below. Four horizontal watch buttons under clock at y505, each 190x72px with 26px Chinese labels 看电视 看电视剧 看电影 看综艺, thin line icons, subtle translucent glass 16px radius, narrow warm-white focus ring on first. Compact collapsed 常用应用 strip below 240x64px with three overlapping real app icon shapes, no giant dock. Optional household summary at right x1320 y320 only 400x180px, text 今天, 18:30 晚饭, minimal next arrow. Keep 50% of screen scenic and uncluttered. Small 片库与应用 downward affordance bottom right. No giant black dashboard, no slogans, no giant buttons, no gradients of purple/neon, no extra widgets, no mockup device surround. Exact sober Chinese copy, polished custom TV product screenshot, not desktop dashboard. This is design reference not actual data. Save locally and return image.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-1597ff61-acf6-4221-b606-d88833255314.png",
+      "file": "01-home.png"
+    },
+    {
+      "id": "02-parents",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 high fidelity production screenshot reference for 开视 Xiaomi TV, 1920x1080 proportions. Cohesive understated dark graphite translucent glass, fine hairline edges, 14-18px corners, neutral warm white clear Chinese text, refined dark photographic mountain landscape subtly visible. TV remote navigation, thin warm white focus outline, generous negative space, compact tasteful controls; not giant dashboard blocks. No slogans, no neon, no decorative statistics, no device mockup. Header x90 y65 white screen logo and 开视 32px, right small clock and 设置. Design the following single page:\n爸妈版 home. Header with tiny elderly emoji beside logo. Center-left four equal compact viewing entries in one row around y370: 看电视, 看电视剧, 看电影, 看综艺. Each about 290x150px, monochrome line icon 38px above 32px Chinese label. Only first focused. Below y600 a small 常用应用 row with 5 real app logos inside 70px squares, names 25px: 腾讯视频, 哔哩哔哩, 爱奇艺, 芒果TV, 全部应用. No empty placeholder blocks, no household panels, no repeated instructions. Clear hierarchy, calm and elegant, cards occupy less than one third screen.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-2ec39b8f-c1f8-4ab1-9648-23e26ad63f5d.png",
+      "file": "02-parents.png"
+    },
+    {
+      "id": "03-apps",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 high fidelity production screenshot reference for 开视 Xiaomi TV, 1920x1080 proportions. Cohesive understated dark graphite translucent glass, fine hairline edges, 14-18px corners, neutral warm white clear Chinese text, refined dark photographic mountain landscape subtly visible. TV remote navigation, thin warm white focus outline, generous negative space, compact tasteful controls; not giant dashboard blocks. No slogans, no neon, no decorative statistics, no device mockup. Header x90 y65 white screen logo and 开视 32px, right small clock and 设置. Design the following single page:\n片库与应用 second launcher page. Very compact header, page title 36px. One slim horizontal navigation of 电影 电视剧 综艺 直播. Below use six app icons in a clean row around y380, each logo square 76px within 120x130px invisible focus container: 腾讯视频 哔哩哔哩 爱奇艺 优酷 Netflix Apple TV. Second simple row labelled 我的内容, only three moderate 240x90px glass links NAS, 收藏, 观看记录. Most background remains visible. Clear alignment, small 家庭 downward affordance at bottom. No giant cards, no huge empty rectangles.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-d07378f8-6031-48f9-ab62-a26cde9e4005.png",
+      "file": "03-apps.png"
+    },
+    {
+      "id": "04-family",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 high fidelity production screenshot reference for 开视 Xiaomi TV, 1920x1080 proportions. Cohesive understated dark graphite translucent glass, fine hairline edges, 14-18px corners, neutral warm white clear Chinese text, refined dark photographic mountain landscape subtly visible. TV remote navigation, thin warm white focus outline, generous negative space, compact tasteful controls; not giant dashboard blocks. No slogans, no neon, no decorative statistics, no device mockup. Header x90 y65 white screen logo and 开视 32px, right small clock and 设置. Design the following single page:\n家庭 simplified television household page. Remove all data dashboards, charts, scenes, targets, integrations, tool grids and promotion. Only THREE meaningful content sections: left landscape family photo area about 680x380px with small 相册 heading and 下一张 action; right narrow 今日安排 list with two lines 18:30 晚饭 and 20:00 散步; below list a short 留言 section '冰箱里有水果' and author 家人. Header return 开视, title 家庭 and modest clock. Right top one compact 连接家庭 action. Small 暂无内容 empty state should not occupy a tile. No nested cards; right content separated with thin lines and whitespace, one elegant translucent backing only. TV safe area 90px, visual content restrained, short objective labels.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-d0c79a6b-60dc-4507-b042-45acb5095e04.png",
+      "file": "04-family.png"
+    },
+    {
+      "id": "05-photos",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 high fidelity production screenshot reference for 开视 Xiaomi TV, 1920x1080 proportions. Cohesive understated dark graphite translucent glass, fine hairline edges, 14px corners, warm white Chinese text, elegant sans serif 24px main text 18px supporting copy at 1080p. TV remote navigation with thin visible warm-white focus outline; dark content-first media interface. No slogans, neon, huge headings or oversized dashboard tiles; no device surround. Header safe area x90 y60 small 开视 screen logo 44px. Design ONE page:\n相册. A calm compact photo browser. Header 相册 36px and two modest controls NAS 相册 返回. 3 columns by 2 rows of landscape photo thumbnails, each about 480x235px at 1920 width, restrained 12px corners, short titles below outside image. Actual example scenic travel images, one warm white focus rectangle. Bottom tiny 上一页 1/2 下一页 buttons 100x48px. Wide generous dark margins and no panels around the grid, no hero banner. Screen-readable modest Chinese labels.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-c5ede6e1-c228-45a6-8780-45b0002bf686.png",
+      "file": "05-photos.png"
+    },
+    {
+      "id": "06-catalogue",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 high fidelity production screenshot reference for 开视 Xiaomi TV, 1920x1080 proportions. Cohesive understated dark graphite translucent glass, fine hairline edges, 14px corners, warm white Chinese text, elegant sans serif 24px main text 18px supporting copy at 1080p. TV remote navigation with thin visible warm-white focus outline; dark content-first media interface. No slogans, neon, huge headings or oversized dashboard tiles; no device surround. Header safe area x90 y60 small 开视 screen logo 44px. Design ONE page:\n影视片库 browser. At top title 电影 36px; next line slim type tabs 全部 电影 电视剧 综艺 收藏 历史 and short search field at right. Main grid SEVEN small portrait 2:3 posters across screen, two rows visible where second partly continues below, about 210x310px each at 1920x1080. Poster content inspired by landscape travel films with Chinese fictional titles 山海之间 归潮 夜行 她的夏天 赤土 向远方 时间的河. Title 23px and year 18px below. No giant featured hero occupying top half, no nested cards, image dominant, first poster has subtle 2px warm-white focus frame. Clear moderate density.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-1d1e1c59-05f3-4b9c-9ccc-153379e39a03.png",
+      "file": "06-catalogue.png"
+    },
+    {
+      "id": "07-detail",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 high fidelity production screenshot reference for 开视 Xiaomi TV, 1920x1080 proportions. Cohesive understated dark graphite translucent glass, fine hairline edges, 14px corners, warm white Chinese text, elegant sans serif 24px main text 18px supporting copy at 1080p. TV remote navigation with thin visible warm-white focus outline; dark content-first media interface. No slogans, neon, huge headings or oversized dashboard tiles; no device surround. Header safe area x90 y60 small 开视 screen logo 44px. Design ONE page:\nMovie/TV series details with episode selection. Left small portrait poster x100 y210 width280 height420 showing scenic film art. Right x440 title 山海之间 44px, metadata 2025 · 剧情 · 24集 23px. Short two-line synopsis, no giant headlines. Three compact pill buttons each 150x54px 播放 收藏 追剧. Below title 选集 26px then 8 columns of episode buttons 100x48px numbered 01 to 16 in two rows; current episode focused. A small 线路 1 selector. Atmospheric dark scenic backdrop with strong black overlay. Top left 返回. Bottom ample space, restrained glass only for interactive controls. No full-width towering buttons, no selection popups.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-d54d42a6-2e25-4ddc-bc73-4974e08474d6.png",
+      "file": "07-detail.png"
+    },
+    {
+      "id": "08-live",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 1920x1080 high fidelity UI reference for 开视 Xiaomi TV. Compact elegant dark graphite glass, neutral warm white Chinese text, 18-24px supporting text, 32px page headings, thin focus ring, 14px corners, 80px TV safe area. No slogans, no giant controls, no dashboard tiles, no device mockup. Make this ONE page:\nLive television player with channel chooser overlay. Full-screen crisp mountain documentary still. Left dark translucent sidebar ONLY 310px wide, heading 直播, tiny tabs 全部 收藏; 7 compact channel rows each 58px high with small original channel-style logo and text 综合 新闻 纪录 电影 体育 音乐 少儿, current 纪录 focus outline. Bottom very thin player overlay, small channel title 纪录, status 播放中 and only 收藏, 线路, 返回 action chips. Overlay leaves at least 70% picture exposed. When hidden player is entirely image, no persistent heavy toolbar.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-c15b8baa-6654-4db3-bae2-9289505edfeb.png",
+      "file": "08-live.png"
+    },
+    {
+      "id": "09-nas",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 1920x1080 high fidelity UI reference for 开视 Xiaomi TV. Compact elegant dark graphite glass, neutral warm white Chinese text, 18-24px supporting text, 32px page headings, thin focus ring, 14px corners, 80px TV safe area. No slogans, no giant controls, no dashboard tiles, no device mockup. Make this ONE page:\nNAS file browser. Dark graphite backdrop, no scenery hero. Header NAS then small breadcrumb 家庭 NAS / 电影, right 连接管理 and 返回 small 120x48 buttons. A restrained sidebar only 220px: 全部 影片 照片 收藏 最近观看. Main area clean flat file list with small folder/file outline glyphs, 7 rows height60: 旅行影片 (文件夹), 家庭录像 (文件夹), 山海之间.mkv (2.4 GB), 夏日海边.mp4 (1.8 GB), 露营日记.mp4 (860 MB). Current row warm-white thin focus outline. Rightmost small date/size column. No oversized button grid; clear uncluttered native TV file manager.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-1012ef1b-6408-44d2-987b-3903570d89bb.png",
+      "file": "09-nas.png"
+    },
+    {
+      "id": "10-settings",
+      "prompt": "Use case: ui-mockup. ONE full screen 16:9 1920x1080 high fidelity UI reference for 开视 Xiaomi TV. Compact elegant dark graphite glass, neutral warm white Chinese text, 18-24px supporting text, 32px page headings, thin focus ring, 14px corners, 80px TV safe area. No slogans, no giant controls, no dashboard tiles, no device mockup. Make this ONE page:\nSettings screen as compact right-side sheet occupying only right 650px over dimmed scenic launcher. Heading 设置 32px and close 返回 button. Four short labelled groups in a vertically scrollable list, each row height58px: 观看 — 直播与影视来源, NAS; 首页 — 常用应用, 壁纸, 首页轮播; 连接 — 家庭服务, 智小策 Hub; 系统 — 原桌面, 小爱同学, 更多设置. One row focused. Minimal separators, no individual bordered giant cards per row. Short objective labels, no descriptions unless needed. Main background remains visible, not full-screen solid dialog.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-abf985c3-a928-4c84-af80-7662b45dfd92.png",
+      "file": "10-settings.png"
+    },
+    {
+      "id": "11-pairing",
+      "prompt": "Use case: ui-mockup. ONE refined full-page production UI reference for 开视 Xiaomi TV ecosystem. Understated dark graphite glass, fine borders, warm white Chinese typography, precise compact component scale and generous but purposeful whitespace. No slogans, huge buttons, fake stats or neon. Exact objective labels. Design ONE screen:\n16:9 TV 1920x1080 pairing/Agent handoff page. Modest centered dialog 680x420px over dimmed scenic launcher. Header 连接家庭, close 返回 at top right. Left a crisp sample QR-code placeholder about180px square (reference only not functional). Right text '用 WorkBuddy 扫码连接', one 6-digit pairing code '482 719' at 42px and '5分钟内有效' 20px. Beneath short truthful scope '本次允许：读取家庭内容' and two compact 120x48px actions 重新生成 取消. Minimal, no giant explanatory paragraphs or connection options grid. This same design system will guide APK installation Agent and NAS pairing dialogs.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-36ecb9bb-117b-494e-924d-182f4c3816ae.png",
+      "file": "11-pairing.png"
+    },
+    {
+      "id": "12-nas-setup",
+      "prompt": "Use case: ui-mockup. ONE refined full-page production UI reference for 开视 Xiaomi TV ecosystem. Understated dark graphite glass, fine borders, warm white Chinese typography, precise compact component scale and generous but purposeful whitespace. No slogans, huge buttons, fake stats or neon. Exact objective labels. Design ONE screen:\n16:9 TV 1920x1080 NAS connection form. Compact central aligned form width720px, header 添加 NAS 32px, upper short protocol segment SMB WebDAV Jellyfin with 48px tall tabs. Five 46px-tall fields with left-aligned 22px labels 名称 地址 共享目录 用户名 密码. Sample empty inputs with real placeholders '家庭 NAS', '192.168.1.10'; password blank. Bottom one 140x50px main button 测试并保存 and secondary 返回. Right slim explanation '凭证仅保存在本机' at22px. Keep dark background and comfortable blank space, no giant full-width fields or lengthy marketing copy.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-8a799334-e44a-4d10-956a-6ed740bc7743.png",
+      "file": "12-nas-setup.png"
+    },
+    {
+      "id": "13-player",
+      "prompt": "Use case: ui-mockup. ONE refined full-page production UI reference for 开视 Xiaomi TV ecosystem. Understated dark graphite glass, fine borders, warm white Chinese typography, precise compact component scale and generous but purposeful whitespace. No slogans, huge buttons, fake stats or neon. Exact objective labels. Design ONE screen:\n16:9 full-screen TV movie playback overlay. Cinematic ocean-coast scene fills 100% background. Top-left small 返回 button and title 山海之间 26px. Bottom shaded translucent control area only130px high: thin progress rail, time 12:30 / 48:00 20px, central compact actions 后退10秒 播放 前进10秒 each100x44px, first focused, right 选集 and 线路. Picture remains unobstructed across 80% screen. No large boxed controls, no header bar covering content. Modern restrained dark clear player, TV D-pad readable.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-c7b65edb-f3a1-4f93-91ca-60865c2718aa.png",
+      "file": "13-player.png"
+    },
+    {
+      "id": "14-workspace",
+      "prompt": "Use case: ui-mockup. ONE refined full-page production UI reference for 开视 Xiaomi TV ecosystem. Understated dark graphite glass, fine borders, warm white Chinese typography, precise compact component scale and generous but purposeful whitespace. No slogans, huge buttons, fake stats or neon. Exact objective labels. Design ONE screen:\nCompanion web workspace 1440x1000 desktop screenshot. Compact dark neutral navigation 开视 / 家庭工作台, tabs 照片 安排 留言 设置, ordinary 40px buttons and 16px readable type. Show 照片 management page with heading 相册 28px, 上传照片 button, 4-column landscape thumbnails of family scenic travel photos, short caption inputs in an editor on right width280px. No data dashboards, progress goals, lifestyle marketplace or integration grids. Left slim contextual sidebar 家庭内容, 设备连接, Agent. Brief status 已保存. Clutter-free practical content management surface, no giant hero headline.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-c691a995-9946-49de-a998-bbb007306645.png",
+      "file": "14-workspace.png"
+    },
+    {
+      "id": "15-diagnostics",
+      "prompt": "Use case: ui-mockup. Create one production design reference for 开视 Xiaomi TV diagnostic page, 1920x1080 16:9. Dark graphite, restrained translucent glass only on buttons, thin warm white focus outline, readable 24px Chinese body and 36px title. No Xiaomi logo: use generic white outlined screen mark with 开视. Header top left 开视 / 电视检查, right 返回. Content fits at 90px safe margins. Two compact columns: left 60% width browser capability table with short labels Android 版本, 浏览器内核, 显示区域, 家庭服务, and factual sample values Android 8, Chromium 89, 1920 × 1080, 可连接. Mark values as 示例. Right 30% narrow controls group: 家庭屏 recommended, 进入 button 170x54; below 遥控器 with two compact buttons 左边 右边 and a small status line. Bottom small 显示摘要 button. Remove tall marketing hero, giant cards, redundant descriptions. Simple clear layout with restrained divisions and no nested card panels. No giant letters, neon, purple. This is design reference not real device diagnostic evidence.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-d98d5088-809d-48f3-8bed-de9c92f8d386.png",
+      "file": "15-diagnostics.png"
+    },
+    {
+      "id": "16-guide",
+      "prompt": "Use case: ui-mockup. One UI design reference for 开视 installation and usage guide desktop webpage, 1440x1000. Calm light warm-grey documentation companion to a dark Xiaomi TV app. Typography 16px body, 32px title, compact 44px buttons, no huge marketing slogan, no Xiaomi official logo. Header small outlined-screen mark + 开视, links 安装 使用说明 家庭工作台. Left narrow section index: 安装开视, 直播与影视, NAS, 家庭共享, WorkBuddy, 常见问题. Main content has title 安装与使用 and factual note 仅适配小米电视 · Android 8+. Two modest edition buttons 标准版 爸妈版. Small 480x270 inset actual-like dark TV home screenshot with 4 viewing controls 看电视 看电视剧 看电影 看综艺 on mountain backdrop. Beside screenshot a numbered 3-step list 下载APK / 通过U盘安装 / 打开开视. Below thin separated rows for NAS 直连 and 家庭共享. Strong alignment, compact practical documentation, readable hierarchy; no oversized rounded cards, no giant hero, no fabricated success metrics, no illustrations of fake devices. Design-only reference; include no download version claims.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-69778a03-68d1-46e4-8138-702b376c8132.png",
+      "file": "16-guide.png"
+    },
+    {
+      "id": "17-native-home",
+      "prompt": "Use case: ui-mockup. One high-fidelity 1920x1080 UI reference for 开视 Xiaomi TV SIMPLE NATIVE HOME, optimized for old WebViews. Dark solid graphite #11161c with subtle material gradient only, no wallpaper, blur, video, glow or animations. Top left original minimal white horizontal screen outline and 开视, small subtitle 简洁首页. Center area at y350 has four modest 310x150 rectangular buttons in one row: 看电视 看电视剧 看电影 看综艺, 30px Chinese text and restrained 14px corners, first with warm-white 2px focus outline. Below at y570 smaller 常用应用 line with three 130x90 app-icon shortcuts; logos real 腾讯视频 哔哩哔哩 Netflix, do not substitute text for logo. A compact third row at y740 of 160x54 buttons 所有应用 NAS 家庭屏 原桌面 设置. At least 90px safe margins. TV D-pad navigation hierarchy, reduced clean layout that fits a screen; no giant full-width vertical buttons, no slogans. Parents edition can use the same four categories with slightly larger type. Design reference only, not actual device screenshot.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-89246c48-a926-4225-96b4-132ec255f31b.png",
+      "file": "17-native-home.png"
+    },
+    {
+      "id": "18-wallpaper",
+      "prompt": "Use case: ui-mockup. ONE full-screen 1920x1080 reference for 开视 Xiaomi TV wallpaper selector. Current app has a dark mountain wallpaper with subdued glass and small outlined-screen logo. Overlay a centered 1180x650 translucent dark panel with fine edge, not full screen. Title 壁纸 32px upper left, 返回 100x50px upper right. Four scenic landscape thumbnails in a 2-column 2-row grid, each about 510x210px, labels 富士山, 罗弗敦, 纳米布, 卡雷扎湖 in 23px. Photographic high-resolution landscape thumbnails, warm-white 2px remote focus outline on first, tiny checkmark on selected photo. Keep background dimmed and visible. Clean objective text, compact controls and no slogans, no ornate icons, no generative interpretation of app logos. Dark optical glass with restraint, no neon. This is a design reference for selection layout, not a screenshot of implemented app.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-d1830146-14ec-41de-9583-104f58b53793.png",
+      "file": "18-wallpaper.png"
+    },
+    {
+      "id": "19-shelf",
+      "prompt": "Use case: ui-mockup. ONE production UI design reference for 开视 Xiaomi television native viewing history and favorites screen, full-screen 1920x1080. Dark graphite with refined translucent buttons, no wallpaper, no neon, no large empty decorative cards. Header small white screen icon, 开视, title 我的 34px, small 返回 at right. Compact row of filters 最近观看 收藏频道 收藏影片 收藏 NAS 追剧, 24px labels. Below six compact horizontal entries arranged 3 columns x 2 rows, each around 480x110px, subtle edge and 12px corner: 山海之间 / 第8集 · 24分钟; 家庭旅行 / NAS · 12分钟; 新闻频道 / 收藏频道; 夜行 / 已看完; 远方 / 更新2集; 周末录像 / NAS. A warm-white 2px focus border on first. Selected entry opens a small dialog at right with title 山海之间 and just 继续观看 移除此记录 返回, each action 170x52 not full width. Plenty of safe margin and readable 24px text. Show synthetic content, no real media posters or copyrighted brand marks. Design reference only.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-27a6c83c-383b-4abb-836c-1aa5e663b7bc.png",
+      "file": "19-shelf.png"
+    },
+    {
+      "id": "20-media-source",
+      "prompt": "Use case: ui-mockup. One 1920x1080 design reference for 开视 Xiaomi TV MEDIA SOURCES dialog. Dark graphite TV catalogue dimly visible behind centered narrow glass panel about 720px wide and 760px tall. Fine light edge, 16px corners, warm white 24px text, small 34px title 直播与影视来源. Short count line 2 个影视站点 · 1 个直播来源. A single 60px-high input labeled 配置地址 with placeholder 开视资源包 / TVBox / M3U. A modest unchecked option 允许 HTTP 来源. Compact vertically spaced row actions 读取地址, 导入本机文件, WorkBuddy 导入, 检测来源, 封面与资料; each 52px high, no huge cards. Footer 返回. Warm-white narrow focus outline on input. No AI slogans, no fabricated provider names, no posters, no neon; objective concise labels, sensible TV remote focus order. Design-only mockup, not operating system permission UI.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-627a537f-9afa-408b-a255-596d9998e696.png",
+      "file": "20-media-source.png"
+    },
+    {
+      "id": "21-app-agent",
+      "prompt": "Use case: ui-mockup. Single 1920x1080 production UI design reference for 开视 Xiaomi TV native WorkBuddy application installation authorization status page. Dark graphite background, centered compact glass surface about 760x580px, fine edges and 16px corners. No wallpaper or large decorative art. Small title WorkBuddy · 安装应用 at 34px, status 等待已授权的 WorkBuddy 提交操作 at 26px. Short copy 本次窗口10分钟有效，只接收一个操作。系统安装确认仍在电视上完成。 A separate modest line 校验码 · 示例 and nonfunctional placeholder ---- ---- ---- at 30px, not a QR. Two short scope lines NAS 中的指定 APK / 核对包名与 SHA-256. Only one bottom button 取消并返回 170x54 with clear warm-white focus outline. No extra enable button or radio choice, no credentials, no mock system consent window, no slogans or neon. This is reference art, not evidence of an actual authorization.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-c71d436d-9ede-47c5-beed-b599ec8afef4.png",
+      "file": "21-app-agent.png"
+    },
+    {
+      "id": "22-resource-agent",
+      "prompt": "Use case: ui-mockup. ONE 1920x1080 production UI design reference for 开视 Xiaomi TV WorkBuddy resource-pack import authorization page. Match quiet graphite and restrained glass, small fonts and controls. Centered panel about 760x600px with 16px corners, 34px heading WorkBuddy · 导入资源包. 24px short body 本次允许用一个资源包替换直播与影视来源。 22px secondary note HTTPS 文件与 SHA-256 · 10分钟内有效. One modest unchecked checkbox 允许本次包含 HTTP 媒体地址, small status 等待开启. Two compact 170x54 buttons side by side 允许一次导入 and 取消并返回. Warm-white 2px focus outline on first button. Footer small 插件执行仍需另外确认. Retain empty surrounding space, no big cards, no icons or illustration needed. No real QR or token, no slogans, no neon. This is a layout reference only; it must not imply a real authorization was granted.",
+      "source": "/home/ubuntu/.codex/generated_images/01a16925-f862-7d80-8a42-6cda5c62bbc6/exec-98ab5a60-8643-422f-8460-14cc30ff625b.png",
+      "file": "22-resource-agent.png"
+    }
+  ],
+  "generation_failures": [
+    {
+      "id": "21-app-agent",
+      "prompt": "Use case: ui-mockup. ONE 1920x1080 full-screen UI reference for 开视 Xiaomi TV application-management authorization screen for WorkBuddy. Quiet graphite background, a centered narrow translucent material panel 860px wide by 700px high, ample margins, 16px radius, no giant controls. Small screen outline logo then title WorkBuddy · 应用管理 in 34px. Short factual text 选择本次允许的操作，10分钟内有效。 Two radio choices 安装应用 and 卸载应用 in 26px with small simple icons. A thin divider, one 24px explanatory paragraph 系统确认仍在电视上完成。Below label 可用范围, compact 2-row list 家庭 NAS / 应用列表, no fake installed brands or credentials. Two modest bottom buttons 开启窗口 and 返回, 160x54px, first with warm-white focus outline. No valid QR, no real token or fingerprint, no slogan, no neon, no futuristic assistant avatar. This is product UI design reference, not a real system confirmation or actual authorization.",
+      "status": "built-in tool failed twice: connection failed; no fallback used"
+    },
+    {
+      "id": "22-resource-agent",
+      "status": "first call connection failure; retried same prompt successfully; no fallback"
+    }
+  ]
+}

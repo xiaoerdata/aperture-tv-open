@@ -1,6 +1,6 @@
 {
   "format": "aperture-public-source/v1",
-  "version": "0.2.0-alpha.16",
+  "version": "0.2.0-alpha.17",
   "source": {
     "commit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
     "workingTreeDirty": true
@@ -50,8 +50,7 @@
         "path": "docs/process/README.md",
         "links": 1
       }
-    ],
-    "postReleaseReceipt": "v19 receipt appended on main; v0.2.0-alpha.16 unchanged"
+    ]
   },
   "files": [
     {
@@ -101,8 +100,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5206,
-      "sha256": "46f9439b841c3ae46b56a333362d0f8e9206f4cc0f28ee64bcb06ff3f51684b7"
+      "bytes": 4945,
+      "sha256": "c600f52a402f1a3e3019e62da06e336ff3bf9f44810bf6ca680d2244354db215"
     },
     {
       "path": "SECURITY.md",
@@ -122,7 +121,7 @@
     {
       "path": "android/app/build.gradle",
       "bytes": 3958,
-      "sha256": "ee37897773f893430b1d08fe887da4f70e7b6c01d7961dbe448bed2c265ea845"
+      "sha256": "f4989d7f12361ebf6c3e358bbd8567905f59ca97be5ed845491366fa7c642dad"
     },
     {
       "path": "android/app/src/debug/AndroidManifest.xml",
@@ -151,8 +150,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/AppAgentActivity.java",
-      "bytes": 14293,
-      "sha256": "09459970b11b9c2f09282672be343ce3b1ccf12cfc4f86b3d3bd0d5e1bb238e2"
+      "bytes": 14285,
+      "sha256": "d76e51cea56c7c639a084da467614eb0cb3402fa2f92187f6872fc0c4aa2eeec"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/AppPresets.java",
@@ -161,8 +160,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
-      "bytes": 54486,
-      "sha256": "4d20780dcbfad19983bbe813dc0dd233488b073d17928adf301b75007bf23b15"
+      "bytes": 55696,
+      "sha256": "69a9d3c25528edd94a9e5e113d0dd4fe905e63373d313ab0c3150047296a9cf8"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaArtwork.java",
@@ -291,13 +290,13 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java",
-      "bytes": 32772,
-      "sha256": "d7fe5a1beeb24e68f8c5f038be0a596a6ead38b5210d9782c8aec74a51993a6c"
+      "bytes": 34173,
+      "sha256": "2d291623e95b5a39a6fc3ca7b2ab63d902d2bc688672b454ee7f316935bd61d5"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/NasActivity.java",
-      "bytes": 39941,
-      "sha256": "ea7a3b68f1438c2e8401dd984a2428ad9e9deb57a7b48ad2de666f61d884f229"
+      "bytes": 39982,
+      "sha256": "02f2f922b8ff0a91fc76c6a0dd1d9629e2cb81b670ff8d9b84c9bdf3906b774e"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/NasCipher.java",
@@ -331,8 +330,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/NasSetupActivity.java",
-      "bytes": 7827,
-      "sha256": "d43ce68d998f1ea45928f02822679aac0466ea58cc854ec3d1e63961634275f2"
+      "bytes": 7211,
+      "sha256": "e895fa3ce00d0bf18dbca3eeaf9debf3a85449ebb0303672f312cd274cd16095"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/NasSetupClient.java",
@@ -376,8 +375,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/ResourcePackAgentActivity.java",
-      "bytes": 8885,
-      "sha256": "edcf54c3a346ded2cfb5149ff229539a1aebd84da05c755538e0040a9a64bb90"
+      "bytes": 9094,
+      "sha256": "52db02faeb5cb941f0f25074c2f0f56cb08f85325b21698cf0bf5dffb85ca82e"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/SmbNasReader.java",
@@ -386,13 +385,13 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/TvDialogs.java",
-      "bytes": 3583,
-      "sha256": "a737fadd057da4ca1f59e8be95a700480a210769aa1fa9fa0d2e83e652dab2d8"
+      "bytes": 2724,
+      "sha256": "be228b8bc887b68f33832a01304522896e24a8cc7fb3a80f668e2d2bff5b917b"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/TvUi.java",
-      "bytes": 2514,
-      "sha256": "bdfde7608b5ba56eac6dd3cdce70aae612cffaf5e4a839fb16c88cbe87fdea1f"
+      "bytes": 3267,
+      "sha256": "2537c5ae2a667ecb98933e39ded8b401edecd3699c96c23e57fca68771f4a523"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/VoiceAssistant.java",
@@ -820,6 +819,126 @@
       "sha256": "97d07e094f7e50651d69243f757fc927a56fc8b5e2e095832486a9f018af4b5f"
     },
     {
+      "path": "design-assets/s58/01-home.png",
+      "bytes": 1828882,
+      "sha256": "8f8c2c08f38aa86f32a6d9e1833624de58c4266e4f049f271f38a52c570a83cb"
+    },
+    {
+      "path": "design-assets/s58/02-parents.png",
+      "bytes": 1908399,
+      "sha256": "da168876681c2ecc5bcb63f1e4233d1dbae65d22feeb72fddf4294ff7788028b"
+    },
+    {
+      "path": "design-assets/s58/03-apps.png",
+      "bytes": 1873712,
+      "sha256": "fe1ac622096fb0995bae5ddc669bc93d241a0784c866531b0f96663a92b829b4"
+    },
+    {
+      "path": "design-assets/s58/04-family.png",
+      "bytes": 1708074,
+      "sha256": "31d1e68e360199941af5193c62f3926fc0bc40cabd06710d74d83604b1354209"
+    },
+    {
+      "path": "design-assets/s58/05-photos.png",
+      "bytes": 2043004,
+      "sha256": "063ad832f386fdc4de701787adf5f4680611a9c52746ab52abb1d106e93d2df9"
+    },
+    {
+      "path": "design-assets/s58/06-catalogue.png",
+      "bytes": 2248839,
+      "sha256": "85d4da2d26df54f53cf726c89d98ba7a309040169c1242bb8b335a6a95fd6951"
+    },
+    {
+      "path": "design-assets/s58/07-detail.png",
+      "bytes": 1764438,
+      "sha256": "3a264c0645146b268030eb3c6393d7c6c02966a71420fc19d10beca7c0fad3b7"
+    },
+    {
+      "path": "design-assets/s58/08-live.png",
+      "bytes": 2339346,
+      "sha256": "36aeb990451b20c4ad872003629e6414d4fc9c3e5ce31a67861bbece113e117b"
+    },
+    {
+      "path": "design-assets/s58/09-nas.png",
+      "bytes": 1485252,
+      "sha256": "2e6c436fe64b02da155c1bf1630ea8ed5cb0cb83f2aa1c2438a411ff7962d930"
+    },
+    {
+      "path": "design-assets/s58/10-settings.png",
+      "bytes": 1707751,
+      "sha256": "90cfdf25001267a9fd4a6bf8a1348512e235c6f333e859b99ea8eb5a0a93899b"
+    },
+    {
+      "path": "design-assets/s58/11-pairing.png",
+      "bytes": 1598198,
+      "sha256": "0f4dd74875c8c1e465bfb6841ae18d92ada5bc86ee3165a16a628c9be304732e"
+    },
+    {
+      "path": "design-assets/s58/12-nas-setup.png",
+      "bytes": 1484645,
+      "sha256": "9d70f48db9eba8ef634fbda86427dbea3aaf8d7d9971c5fadc9b4f13f06e4599"
+    },
+    {
+      "path": "design-assets/s58/13-player.png",
+      "bytes": 2167635,
+      "sha256": "680d65a52d4e99bc34b685059023a6c614e5a50cf73072ab20e3f37f3acf6be9"
+    },
+    {
+      "path": "design-assets/s58/14-workspace.png",
+      "bytes": 2041419,
+      "sha256": "fe43be37eb9d1123b6101ddeaea9819b2384c62903757d95cf92a8c18b7230ad"
+    },
+    {
+      "path": "design-assets/s58/15-diagnostics.png",
+      "bytes": 1477973,
+      "sha256": "1da3216ee41ebb2bd2b7a380f8a304bca1ba1981d9f7d1df1b47165dcfaec39c"
+    },
+    {
+      "path": "design-assets/s58/16-guide.png",
+      "bytes": 1463040,
+      "sha256": "d992c5c2c94b078a36e7226d30189db4ec6363d0284f31d6fd4ab01109c35e31"
+    },
+    {
+      "path": "design-assets/s58/17-native-home.png",
+      "bytes": 1405822,
+      "sha256": "9a702ad3aff9dce196babbd99d12bf062965237d9ab59553adfebf7dbfa8dd3c"
+    },
+    {
+      "path": "design-assets/s58/18-wallpaper.png",
+      "bytes": 2226593,
+      "sha256": "cfc6034320c0236b09186f680752ee9c598fd78e50003be9a257cbd58e23e7f7"
+    },
+    {
+      "path": "design-assets/s58/19-shelf.png",
+      "bytes": 1757896,
+      "sha256": "d935f489441862a3d58af4b655bb32f23da914aefc26a8f7113da64d61e0233c"
+    },
+    {
+      "path": "design-assets/s58/20-media-source.png",
+      "bytes": 1506741,
+      "sha256": "b2693223d5426622c9e6c6223ca6c21431ea52e68ba7118de5be0c5496b065f7"
+    },
+    {
+      "path": "design-assets/s58/21-app-agent.png",
+      "bytes": 1583049,
+      "sha256": "ff890d5e97f7e616bc167eaeaba0e479b354f58e71df2747ca14a01cd8e1f8bb"
+    },
+    {
+      "path": "design-assets/s58/22-resource-agent.png",
+      "bytes": 1542965,
+      "sha256": "31e7f969e3b7325553f0811249ba4d6d900ed2e1a89c8af4f716f136ea4846ac"
+    },
+    {
+      "path": "design-assets/s58/README.md",
+      "bytes": 3715,
+      "sha256": "15bc75a03ec252d7f8c0a4e5a8c5d6ea8b0b13a9c89be5d4095d7a355d3d48e9"
+    },
+    {
+      "path": "design-assets/s58/prompts.json",
+      "bytes": 29729,
+      "sha256": "123400e5352e4a6c14948ed585a6e4a6068d6f100452cc0f8b84b4fb27aa5a5c"
+    },
+    {
       "path": "docs/ACCEPTANCE.md",
       "bytes": 15880,
       "sha256": "90ce85bf4df1a5fb7235cd1fed4ea1e0c5f6a7042f64b5103a93c14a1420d5db"
@@ -842,7 +961,7 @@
     {
       "path": "docs/ANDROID-RELEASE.md",
       "bytes": 7331,
-      "sha256": "2a226b07d330bc5e2fae0093c0dcf64c7d89ad73746d7725b8f62cf46e0bafc4"
+      "sha256": "432f5b49045d5a00c6fceab368382d292a3a071e322e13d75097406a78ae6626"
     },
     {
       "path": "docs/ANDROID.md",
@@ -851,8 +970,8 @@
     },
     {
       "path": "docs/APK-SIZE.md",
-      "bytes": 3584,
-      "sha256": "9680d450e721c860815c70cc91a4b9a879d53928c115d8407a9eff07b84f6716"
+      "bytes": 3770,
+      "sha256": "13d027b1b2f7ff1d66ae2917778af984bb33620e311b70d8bab47c6eba54eb52"
     },
     {
       "path": "docs/APP-INSTALLATION.md",
@@ -896,8 +1015,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4554,
-      "sha256": "f68da091791b7e5374940ca9d86b62e0ee08cc34545adf1b9957d911a8fb7d3d"
+      "bytes": 4570,
+      "sha256": "106037bda20eb90b1ee154f94494564bbd3395362629d60a1e67a16091cf1fee"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -996,8 +1115,8 @@
     },
     {
       "path": "docs/RELEASE-CHECKLIST.md",
-      "bytes": 3626,
-      "sha256": "b876eee2df189ce6a183c6686669147e952c52efcdcda5839d878015094b17be"
+      "bytes": 3679,
+      "sha256": "7984f80836a175c873a0fd40b30a897b114fa8eb4695f333c1eb3d17f4b071ca"
     },
     {
       "path": "docs/RESOURCE-PACK-AGENT.md",
@@ -1033,6 +1152,11 @@
       "path": "docs/TV-VIEWPORT.md",
       "bytes": 5949,
       "sha256": "e52c5838e45a408fcc21e2a1eb0ac84ddeb08550f201a356b002272d26c842eb"
+    },
+    {
+      "path": "docs/UI-COMPACT-S58.md",
+      "bytes": 5705,
+      "sha256": "a16ecee6762ac52cc8b256631b2bada952f0b55496c75879e0d02b4e404ee8ad"
     },
     {
       "path": "docs/V17-FEEDBACK.md",
@@ -3455,6 +3579,206 @@
       "sha256": "86429ea08f8b1ba1382030fa6be93397c881cd04af6c7c11434d58078a73d41c"
     },
     {
+      "path": "docs/images/s58-app-presets.png",
+      "bytes": 1289049,
+      "sha256": "38833c441e936faf1034a8cc7d89a8cc35bed63d2708b2433da763d3e4e5a98f"
+    },
+    {
+      "path": "docs/images/s58-apps-expanded.png",
+      "bytes": 3234528,
+      "sha256": "9b1b33be7168d05d13169f0dce32f020f860fcf3230ebd194c8dcd214cbdb064"
+    },
+    {
+      "path": "docs/images/s58-apps.png",
+      "bytes": 3255123,
+      "sha256": "707671532078fce0e6aa46bf66d2f360a55841f6f8e328041190291228c4935f"
+    },
+    {
+      "path": "docs/images/s58-cinema-catalogue.png",
+      "bytes": 792616,
+      "sha256": "857d232b1859a8cad892b38450999f4d04c80fdad6d4079da5bc37e3f17b348e"
+    },
+    {
+      "path": "docs/images/s58-cinema-detail.png",
+      "bytes": 663539,
+      "sha256": "18d056ee6f551d3ba62e3b074b8ee07452c995d14f4c36ec8c201984bde87354"
+    },
+    {
+      "path": "docs/images/s58-cinema-live.png",
+      "bytes": 366187,
+      "sha256": "8813e121d377f67900c18ee4411a01d05e6ba2fbb34c50e512866c474e9e73d1"
+    },
+    {
+      "path": "docs/images/s58-cinema-parents.png",
+      "bytes": 942947,
+      "sha256": "e59f02ce4995c17606c856bffbde126f2005901b7d637f9c9e93b44017eec69a"
+    },
+    {
+      "path": "docs/images/s58-cinema-player.png",
+      "bytes": 34607,
+      "sha256": "50c51430a2a00f854268204acfb33ec9b8258ac3547b5f052128ab3b56e93e26"
+    },
+    {
+      "path": "docs/images/s58-diagnostics-phone.png",
+      "bytes": 68515,
+      "sha256": "57d112859c2f2c03ae490c93df3a327978d41625ddfb17eff462955f1f09bcec"
+    },
+    {
+      "path": "docs/images/s58-diagnostics.png",
+      "bytes": 139646,
+      "sha256": "1b769fc81fb5372de30fae2c6322d79daa86acdd0c7e6704b01758162307064b"
+    },
+    {
+      "path": "docs/images/s58-family-empty.png",
+      "bytes": 1488221,
+      "sha256": "ffa0e91ee281f9166969f0cfcbf0fbb680382d42dd5572a4433653710c177064"
+    },
+    {
+      "path": "docs/images/s58-family-home.png",
+      "bytes": 2999480,
+      "sha256": "019870ce845c39e1be730db8e1afdbfe7214eaa0016e50315868809d516d6451"
+    },
+    {
+      "path": "docs/images/s58-family-phone.png",
+      "bytes": 240258,
+      "sha256": "3ace7f6fdff44941eb7a045d63db2ba0b61a6cd06f55d5c9cbe2968e61bd5750"
+    },
+    {
+      "path": "docs/images/s58-family.png",
+      "bytes": 1273462,
+      "sha256": "9f41340c63e6b3585e3ff413bdc81030d3f90064a88dffa6b25f5fa7c121dc26"
+    },
+    {
+      "path": "docs/images/s58-guide-phone.png",
+      "bytes": 165131,
+      "sha256": "6bd64fc734f9ebef51759931fdb991937e4aa1b92b432af6379bf22dc120c9c2"
+    },
+    {
+      "path": "docs/images/s58-guide.png",
+      "bytes": 499723,
+      "sha256": "c9a26402f4f83fcd46cc9c1e146c028493e428390d10dccb1adc60e317dd6f85"
+    },
+    {
+      "path": "docs/images/s58-home.png",
+      "bytes": 3233786,
+      "sha256": "0ac8a345895242fcb2f37c31b6d4047b13eba43f8ad2458b5cbfb1a021d06f2e"
+    },
+    {
+      "path": "docs/images/s58-lite-family.png",
+      "bytes": 1383699,
+      "sha256": "f77ab60cf164d882ede54265e739f3a79f15dd0322c6667b12d12649d2cfc2fd"
+    },
+    {
+      "path": "docs/images/s58-lite-pairing.png",
+      "bytes": 690749,
+      "sha256": "7d5bd90e7afb42b4ea9a8edeb0548383ac557df20b04e454e10af1417b97417e"
+    },
+    {
+      "path": "docs/images/s58-lite-parents.png",
+      "bytes": 1186649,
+      "sha256": "b585f16c2f240e5a3e6ceadd6be58fffdd23567f0ac75d42d255f365fc03ae35"
+    },
+    {
+      "path": "docs/images/s58-lite-protocol.png",
+      "bytes": 1391145,
+      "sha256": "a7ac008f3bb3f76077c66a877065b05c78bebe6d25d1ff5edd7dd10666b07366"
+    },
+    {
+      "path": "docs/images/s58-messages.png",
+      "bytes": 2542272,
+      "sha256": "b4d6a43412ec677998609878878df6c043a5d26152cf7bc593d90caf9d2d1ce1"
+    },
+    {
+      "path": "docs/images/s58-nas-setup-awaiting-390.png",
+      "bytes": 73590,
+      "sha256": "0edbb1c49b841063a4f8897630babe33b988e1fcf0ed06115b6c357804ac00bc"
+    },
+    {
+      "path": "docs/images/s58-nas-setup-desktop-1280.png",
+      "bytes": 155774,
+      "sha256": "bb93dfc771e4a73bd486c632fcece8e9f3ab76c31ac13d4b8fdf2ea0ee928fd2"
+    },
+    {
+      "path": "docs/images/s58-nas-setup-phone-390.png",
+      "bytes": 144928,
+      "sha256": "178c3d177803b5b74b5533f76e670d2e5a6b8986e56e9a02884ab2d4fe03f317"
+    },
+    {
+      "path": "docs/images/s58-nas-setup-receipt-390.png",
+      "bytes": 73290,
+      "sha256": "154fc3adf1923fb894d92b35f504e8cb356256b1224082cc40e911a76638bda2"
+    },
+    {
+      "path": "docs/images/s58-pairing.png",
+      "bytes": 869629,
+      "sha256": "2e971aba65acd0bfa600e2d0bae1eae132a2c200182e81aa5bfee6d51e880128"
+    },
+    {
+      "path": "docs/images/s58-parents.png",
+      "bytes": 3198719,
+      "sha256": "f87be80ecf6c61c0fda9479c0c0e6733040e18ecc044d5c7ce5eebf7e5f0a22d"
+    },
+    {
+      "path": "docs/images/s58-photos-empty.png",
+      "bytes": 3286898,
+      "sha256": "e5956f57af1b5eb98f97f91bd91f9cdcf0a3caae62a8aaf49b1cb62688394673"
+    },
+    {
+      "path": "docs/images/s58-settings-more.png",
+      "bytes": 1778998,
+      "sha256": "731b87f7cd30f9bb0f8585718ccd557a989e000c9de0fead9a6c2ba97fbd591b"
+    },
+    {
+      "path": "docs/images/s58-settings.png",
+      "bytes": 1776050,
+      "sha256": "1156a449c49542b5b7822a3284879a0f298c19286d0fc6a664ca877fe516671d"
+    },
+    {
+      "path": "docs/images/s58-summary-detail.png",
+      "bytes": 2206879,
+      "sha256": "edf34a3f324757d8315a9d29390ab040bb67a598b749461286c7b90a28745b70"
+    },
+    {
+      "path": "docs/images/s58-wallpapers.png",
+      "bytes": 1727174,
+      "sha256": "90afdd386439e5072c8b3fc71b5f109961477f9be08bc82d2fd4afd2c610e5fd"
+    },
+    {
+      "path": "docs/images/s58-workspace-agenda.png",
+      "bytes": 64857,
+      "sha256": "c00bcdb836dd23dfcdbe96a1310ac44f147ae5aae02ce70fb51c77d98a8ba58d"
+    },
+    {
+      "path": "docs/images/s58-workspace-cinema.png",
+      "bytes": 130537,
+      "sha256": "f8a41469a949755f440884a3a3592e00d646cdfecf5d98f5b09cd377a1d80fc0"
+    },
+    {
+      "path": "docs/images/s58-workspace-devices.png",
+      "bytes": 83282,
+      "sha256": "fcb62ea9177aed3f995c28573fea7497e74a10fd8da43d5bbbbb05fc5c7dab89"
+    },
+    {
+      "path": "docs/images/s58-workspace-login.png",
+      "bytes": 205254,
+      "sha256": "21645840d1eb6cfef2d96b004717f40cc8177c3c86cf89d51b7340f6875f7d2a"
+    },
+    {
+      "path": "docs/images/s58-workspace-notes.png",
+      "bytes": 68428,
+      "sha256": "31c2925483aa7c2c7269b383b51416168172fcdf843d32993d41465f86c06d06"
+    },
+    {
+      "path": "docs/images/s58-workspace-phone.png",
+      "bytes": 92352,
+      "sha256": "03be005ad49d1dc1445af673fe770e2d256f34d6f884dc6aef25f3034f8a0bc4"
+    },
+    {
+      "path": "docs/images/s58-workspace-photos.png",
+      "bytes": 75552,
+      "sha256": "7b1704fcb48b97a6a98e802f14a75736148c2dcd1808bb149a4d9d8d61a48458"
+    },
+    {
       "path": "docs/images/studio-desktop.png",
       "bytes": 115191,
       "sha256": "d7573d1ec835c74bac07ed5045ca3d479aec84aef9d77e2b4458c0aedd38fd9f"
@@ -3601,23 +3925,23 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 153063,
-      "sha256": "cfec8b20e50d1643db2dbef90da30013b7f8ca70c987334a84e82e1745803376"
+      "bytes": 160068,
+      "sha256": "c8a1410b69b42081eba60740f322b3bbdecfe8561c0a177bd70509e4052e6b41"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 22756,
-      "sha256": "d73081fd29be4b24f47936ef6e74146c3e0ff86a12236082b36aabcd9c924936"
+      "bytes": 23667,
+      "sha256": "30f43a29fa40b888ba774cacfe6a1b81663af0e91e90f7a06ad7270a2b5e48f0"
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 13094,
-      "sha256": "fcfa784465922c50bddfdb87a917eb7cb1d36f703110d0622e5c15e71f61646c"
+      "bytes": 14158,
+      "sha256": "a5a3c5c9ec8ae4c349b24b35feaf377d145b1f19bed0ad76d8a438ef21ad10c1"
     },
     {
       "path": "docs/release/README-public.md",
-      "bytes": 5018,
-      "sha256": "b5a7392908c5e3334f5bcc59f46536b2ddc962b8ffe2cc028b216762054f0ca8"
+      "bytes": 4927,
+      "sha256": "2b221368cc5801c337d0c7196351b883eab9a2062cb19bdaede692325fe20073"
     },
     {
       "path": "docs/third-party/Pillow-11.1.0-LICENSE.txt",
@@ -4470,6 +4794,66 @@
       "sha256": "b8efb4a3bc4655ea1eb1888960f061d60cf1750101e16b9ca6f41d0f84226dff"
     },
     {
+      "path": "docs/verification/s57-cleanup.json",
+      "bytes": 49190,
+      "sha256": "4bb12a350374739a04b2b1877352e43a7a274ac259b71329c77307b2bbf0fd88"
+    },
+    {
+      "path": "docs/verification/s58-cinema-browser.json",
+      "bytes": 923,
+      "sha256": "3c90443214a19e1bce76a295b5d5cf349a28bdc350993fe943839c21b2992dd7"
+    },
+    {
+      "path": "docs/verification/s58-completion.json",
+      "bytes": 48366,
+      "sha256": "9a9bb578a4f088f6fea5228db34a14deb689382d416ce6e2ef7598144d7e331e"
+    },
+    {
+      "path": "docs/verification/s58-family-browser.json",
+      "bytes": 636,
+      "sha256": "362250716ed452ce9341c10193ba37da43748b2128cea41d8699b936b4940e05"
+    },
+    {
+      "path": "docs/verification/s58-lite-protocol.json",
+      "bytes": 574,
+      "sha256": "ab7acaafc0687a760611656d486d604c99cde36e71a52bd3c9497f6e1284d97e"
+    },
+    {
+      "path": "docs/verification/s58-nas-setup-browser.json",
+      "bytes": 929,
+      "sha256": "733d06f0d88a7c5875af5d1ffb0fadab1ff21bac9fef120e74943eccfc2cc20b"
+    },
+    {
+      "path": "docs/verification/s58-native-api.json",
+      "bytes": 332,
+      "sha256": "8129f7e9009a6bd759fd3bf9c16d3ee4aafc8752de463fa6dc6b2f555dc3870f"
+    },
+    {
+      "path": "docs/verification/s58-server-agent.tap",
+      "bytes": 4174,
+      "sha256": "8db839c9a4773c5631adf73709861abd7b6ae422c8febd763afb1a97f30ccac9"
+    },
+    {
+      "path": "docs/verification/s58-support-browser.json",
+      "bytes": 501,
+      "sha256": "e972749c1db56d88d8b3c259ec8c2a2125646dd2d859ac7eb8b5882dd36fd78d"
+    },
+    {
+      "path": "docs/verification/s58-ui-browser.json",
+      "bytes": 668,
+      "sha256": "1e225f80ddea8775a75ed3d4a5d08ece3dbba9bf7932b2222a6481e62a892559"
+    },
+    {
+      "path": "docs/verification/s59-node-tests.tap",
+      "bytes": 26449,
+      "sha256": "b0367bfa0cfa5be380fc234821273a9a8cbbeebd7c26bdf9219a8c66cc775902"
+    },
+    {
+      "path": "docs/verification/s59-software-acceptance.json",
+      "bytes": 2962,
+      "sha256": "bd8c567ff372c1717b9923a2780ca1dd4527c45e6058b241d944bca7f68fbf7c"
+    },
+    {
       "path": "docs/verification/tv-controls.json",
       "bytes": 4183,
       "sha256": "c97b19b83bba721b28023595c2a8e2ab38c166f81ba47ef87fecb7876af9a5ff"
@@ -4845,6 +5229,21 @@
       "sha256": "0d2d14ae16f0075c6244b8cc4a3b63418c4ad3266ce1b2349e2dd2bc1f9a2bbe"
     },
     {
+      "path": "media/DEVLOG-043.md",
+      "bytes": 823,
+      "sha256": "6313ee9d60f2819c23903f8f916c4289cf50b71822e7229307784116ffb22da8"
+    },
+    {
+      "path": "media/DEVLOG-044.md",
+      "bytes": 1535,
+      "sha256": "1eef5e67ac42a2591b51111de3b1f019814a831af1fb42409ac1fc5889c0129e"
+    },
+    {
+      "path": "media/DEVLOG-045.md",
+      "bytes": 558,
+      "sha256": "99b1439efbe808bc04216f57d8762c85bd875c49dbde451d347be2b8278cf49c"
+    },
+    {
       "path": "media/GLASS-ASSET-PROMPT.md",
       "bytes": 1380,
       "sha256": "daeb021eb3ad316b9bd2aedcdd9dfe6d04e9dbeca4aff33187957a1e5d327b42"
@@ -4907,12 +5306,12 @@
     {
       "path": "package-lock.json",
       "bytes": 55465,
-      "sha256": "9f1183f0e4919c5b7ad0b6301dad0f845802348bc46ca010dc116c2b31e9e798"
+      "sha256": "fee8b1d6ff614542e6f7611d373c00971c0af3f9491a8e13921a387a3a93ab6c"
     },
     {
       "path": "package.json",
       "bytes": 1767,
-      "sha256": "98cc479af1614ce80daf6facca8ecfc6783343dead3196a3535b9664bcb94438"
+      "sha256": "5ac766516f129dc3a49740afef1f8e3ccc88f55a2592e2e681c4a0e291b01730"
     },
     {
       "path": "public/assets/weekend.svg",
@@ -4921,23 +5320,23 @@
     },
     {
       "path": "public/cinema/index.html",
-      "bytes": 3583,
-      "sha256": "fba994cad5b3f8445b8e72768732f677c1462a454162eb03e60d158022c4f598"
+      "bytes": 3244,
+      "sha256": "b3f5c48b51a35c0dde53ed3cc2c4f83a8c7289c15c34df4b95ada46d85715f83"
     },
     {
       "path": "public/cinema/player.js",
-      "bytes": 11284,
-      "sha256": "ac6e19edd7a7da3bb74549704dd7211cc0defd46c8b1f2b705b985123d58eaed"
+      "bytes": 11622,
+      "sha256": "83b0b86a82c4f07011ceb87464c2cd72158dd4e2247bd5738d7f22a290767031"
     },
     {
       "path": "public/cinema/studio.js",
-      "bytes": 8699,
-      "sha256": "8083cb4925f7a30c165465b58786c54d1fdcba3b6634bebdb8a30bb646ee22bd"
+      "bytes": 7955,
+      "sha256": "9d06bf6679e37534cda0fc4956a375ecf756f04266bfe2748cfc695cb69bc039"
     },
     {
       "path": "public/cinema/style.css",
-      "bytes": 14194,
-      "sha256": "272627fb55fd795f792f885b2023714a2403a8e0e690d53971720e1794fdf247"
+      "bytes": 8794,
+      "sha256": "1692c82b762cbab1d7822dca410fc239dcf2908954b32e393a8a517de6040fc4"
     },
     {
       "path": "public/cinema/tmdb.svg",
@@ -4946,18 +5345,18 @@
     },
     {
       "path": "public/diagnostics/check.js",
-      "bytes": 5647,
-      "sha256": "3dc9f8179297d965bd8e06f63667056f34c25374a7fd944e7b73d9abb5b41cc1"
+      "bytes": 5704,
+      "sha256": "9ef4efc8d4dfde0551d2a1e1fd45df6368fd8f41fbf853d57e59acb1c11bbe12"
     },
     {
       "path": "public/diagnostics/index.html",
-      "bytes": 2335,
-      "sha256": "efa488d292ab94092ac0cc19b12db5230e283164542e392e9dfdbf088db81a8e"
+      "bytes": 1771,
+      "sha256": "f167c5251d469355471fe18d2899bfda14e9a6910f0c09a414e0cede12e9dc4d"
     },
     {
       "path": "public/diagnostics/style.css",
-      "bytes": 1812,
-      "sha256": "fcee994eb752cfe5a59eef70da8acab8b3a912f9ba45b839648d92437ac3f5ac"
+      "bytes": 2603,
+      "sha256": "fddc06b0dedab23f0a52174f41e49744d14e3e8da1882ed1acbd332b6d4de8e5"
     },
     {
       "path": "public/film.css",
@@ -4976,18 +5375,28 @@
     },
     {
       "path": "public/guide/guide.js",
-      "bytes": 1625,
-      "sha256": "09bc5c4541726fff59336d52bb47877bb94f1785c4b7bd03b54cfa734ae8faf3"
+      "bytes": 810,
+      "sha256": "3c5fdbe28d747a27060b48977605a1a72bdb205afa2b197b0d252240d922d8d3"
     },
     {
       "path": "public/guide/index.html",
-      "bytes": 21041,
-      "sha256": "122d2538f91bb9af80f06d767adf8d3615ed6b0846a84fd1e30baa6701a5b615"
+      "bytes": 8624,
+      "sha256": "30d4aa0fb2f2b6d20fbe64ab19dd084bedb84a0f023b4f1ca301650f7337cbf4"
+    },
+    {
+      "path": "public/guide/parents-preview.jpg",
+      "bytes": 433930,
+      "sha256": "83807cd1df8739d0ab5277265d8816adb8179d0733df760ed50454fd7434ba8c"
+    },
+    {
+      "path": "public/guide/standard-preview.jpg",
+      "bytes": 448406,
+      "sha256": "1dea1a3c04db256dff845bad8a6f146249e25a0fc8019e01f88190cbbf06f9a0"
     },
     {
       "path": "public/guide/style.css",
-      "bytes": 8197,
-      "sha256": "c87cdd8db744dca06e93c6039e8189a657fc9876df6ae3bf8bae131463eb05d7"
+      "bytes": 3691,
+      "sha256": "75df58358cf1cfa89026beca43874f87b6808388be5a5158675881e8bd39822f"
     },
     {
       "path": "public/launcher/app-icons/appletv.png",
@@ -5141,18 +5550,18 @@
     },
     {
       "path": "public/launcher/home-personal.js",
-      "bytes": 10274,
-      "sha256": "8d1a395930e73a0f92ee5a0941fdf003c5e9c6b01f91d9a1885edfa879fdf57c"
+      "bytes": 10353,
+      "sha256": "cf8649695886302803330d96818a454e00aa1e2533f8371f9b84e282f7af2f35"
     },
     {
       "path": "public/launcher/index.html",
-      "bytes": 13513,
-      "sha256": "698fc6084c406c437597cbfe215ddea5c26fa8819454e11909d12b84b6cfc2d0"
+      "bytes": 10425,
+      "sha256": "325a31cec4be2c126895744c9ae0db243581d0d2e6ab8414d2b3d45e3c2459bf"
     },
     {
       "path": "public/launcher/launcher.js",
-      "bytes": 52664,
-      "sha256": "ea91002ab2130c2d2eb7010504f32494f4f972c1d370b40cc861237248826a14"
+      "bytes": 46009,
+      "sha256": "13c20d1e869b1045bb62d3d4d2204d14f68bd0c8f0ba9b1dec087dc39bdf1ee1"
     },
     {
       "path": "public/launcher/living-room.svg",
@@ -5181,8 +5590,8 @@
     },
     {
       "path": "public/launcher/style.css",
-      "bytes": 40701,
-      "sha256": "51de3c16804e45726e9e33efe5dca1d036a0a7328b36e1c64ff5ca6862a3a4a9"
+      "bytes": 24583,
+      "sha256": "e6dc713325a1e4b537683170d01f9795d106af94305f611a37e111fc2d8dd171"
     },
     {
       "path": "public/life/catalog.js",
@@ -5211,23 +5620,23 @@
     },
     {
       "path": "public/lite/index.html",
-      "bytes": 2711,
-      "sha256": "673d3a7107f8da8e836d6ae9b93ab3b75d36b793dd07e08f25a963bb6f1e6692"
+      "bytes": 2137,
+      "sha256": "e31614f9595809f6d0f650ba89a533b11f7e41f8558d21d4f1e086bf9899f682"
     },
     {
       "path": "public/lite/style.css",
-      "bytes": 4633,
-      "sha256": "e3f600acd8af8ae56e6e5a03ea3f93a53338281cfcbc902f54f4002e2f2937d9"
+      "bytes": 5069,
+      "sha256": "bd12b8de35467e80962b922f0244e7cf9d0a1445db3e3c7413ac2db8880f446d"
     },
     {
       "path": "public/lite/tv.js",
-      "bytes": 7799,
-      "sha256": "6cef08445ff14387f96e7ce8d953e0026cf135c4ff3d0ba5772d510ebd36bd74"
+      "bytes": 7104,
+      "sha256": "b0b5e4504bbc193c85977ddb7046fd771b0f08c692ba6de25dc69f8a3b7e4146"
     },
     {
       "path": "public/nas-setup/index.html",
-      "bytes": 4599,
-      "sha256": "4f7b85f6351bd75dd92630753bfb62a84e208b5ea370dfa8f863f8b29ef0ba4a"
+      "bytes": 4404,
+      "sha256": "967d06b8e5d7924c2847611b25ccc7b17bd1a3b32e45fd3eba1170aecd5a3949"
     },
     {
       "path": "public/nas-setup/seal.mjs",
@@ -5242,7 +5651,7 @@
     {
       "path": "public/nas-setup/style.css",
       "bytes": 1355,
-      "sha256": "aad0431b81bcfa5b4360d5a1619b27b3741ee8acdfaeffb344b8dae7f25ce4a4"
+      "sha256": "d1d09f64b75964537a3c19cd1af92d83a3d3d89e45b0be62e34c8c8fd7690fe9"
     },
     {
       "path": "public/scenes/daylight.js",
@@ -5266,33 +5675,33 @@
     },
     {
       "path": "public/studio.css",
-      "bytes": 8546,
-      "sha256": "69d213d4ed852b88334644be512535ff73b587515e5b63362cb9700b4bea02f3"
+      "bytes": 8535,
+      "sha256": "9f0f39694f285d80696a9690ba1c48d2f8edda5b257bd538a540577e698c68f4"
     },
     {
       "path": "public/studio.html",
-      "bytes": 10002,
-      "sha256": "29891f0b0aaffe8ec96c99af359318cea8c280576f5a9e60c925e95bcc8713ed"
+      "bytes": 7494,
+      "sha256": "654c8fde7f296761ddf19a7fe9937e8b536c9b2aea968320bd92de3b601063d7"
     },
     {
       "path": "public/studio.js",
-      "bytes": 14852,
-      "sha256": "b443c947577e58ac1af5f3f27e812567786155dbe1d12bb2089cfbde89866e75"
+      "bytes": 13070,
+      "sha256": "e8ef400449c95e6d88cef9c624922ba4252752ce40427decd4a83a047d487300"
     },
     {
       "path": "public/tv.css",
-      "bytes": 13612,
-      "sha256": "cdea91e0663780692d56d5a499589dc1f96e012366923c329249c5ea8e084287"
+      "bytes": 5180,
+      "sha256": "d6823b539557fab1281127f459520a85958ccd26dc8c4c91f00b4d8aacfd2034"
     },
     {
       "path": "public/tv.html",
-      "bytes": 4850,
-      "sha256": "7b2fd9740d5a03e83a30a2b0f379b425268d4ae0d6c3fd45bc883022e38f1907"
+      "bytes": 2706,
+      "sha256": "b6d69ba6504d9b36db1ced7c753dbe7b3b1c9e6b096c8507a7af83dc3a8da2ca"
     },
     {
       "path": "public/tv.js",
-      "bytes": 10150,
-      "sha256": "d17b6b1d0fac336441fcf2b3035adc48b146c5a1a556041c5b7af94242b3c7ec"
+      "bytes": 6808,
+      "sha256": "5fcde8177e8fd8a06130248b2c6c298a5c5c0d02ed2892e29ca1ccf51c41178c"
     },
     {
       "path": "public/ui/client.js",
@@ -5306,8 +5715,8 @@
     },
     {
       "path": "public/ui/local-assistant.js",
-      "bytes": 4575,
-      "sha256": "b6916cfefeb90e2a44b726d6dd1109fae57b3531d53fe2601af70ca358799577"
+      "bytes": 4587,
+      "sha256": "47c62667e5b9c130f034e937553745811c785f6823e43052dc08864ca7e0d5e8"
     },
     {
       "path": "public/ui/material.css",
@@ -5326,13 +5735,13 @@
     },
     {
       "path": "public/ui/remote.js",
-      "bytes": 2797,
-      "sha256": "da7a19bb3a0e27724990763c3ce5ba9a504243fb8260ad2366273cac180de123"
+      "bytes": 2815,
+      "sha256": "1c1680615182582fa4b78b0059b623aa0d2d20865637b9ef4a8d494e604972ea"
     },
     {
       "path": "public/ui/tv-pairing.js",
-      "bytes": 4129,
-      "sha256": "30d31f6f3f82994faba1a100b450221b5156073c0b04172cf63ac2babfc29cac"
+      "bytes": 4066,
+      "sha256": "b414c2250a75f3e48256009eb81fb58e0a9808c768f03ebabf1f612fb773fe6f"
     },
     {
       "path": "requirements.txt",
@@ -5461,8 +5870,8 @@
     },
     {
       "path": "scripts/browser-lite-qa.mjs",
-      "bytes": 6682,
-      "sha256": "71c7559388b32f09360b3a2e2f5a146314c3522a6ce50142de095e9e4f674641"
+      "bytes": 6825,
+      "sha256": "a76c7b420c58513573a3e0d0719681f6ce52efe2f18677c8812ef837ab2c8ace"
     },
     {
       "path": "scripts/browser-nas-grant-qa.mjs",
@@ -5488,6 +5897,31 @@
       "path": "scripts/browser-resource-agent-qa.mjs",
       "bytes": 6047,
       "sha256": "a09fe143dd44facc672cff12539bac27c2f35b13a14972d313a4bc25517f1cf2"
+    },
+    {
+      "path": "scripts/browser-s58-cinema-qa.mjs",
+      "bytes": 10885,
+      "sha256": "8c39ef7ee1892cf7c7889ad6f042ad311766dc99251a6dcd433a5349206c98ae"
+    },
+    {
+      "path": "scripts/browser-s58-family-qa.mjs",
+      "bytes": 7955,
+      "sha256": "fd777bd2657e6b820301b7eb7ab56cf67015b1af183fe799be71812fe9636866"
+    },
+    {
+      "path": "scripts/browser-s58-nas-setup-qa.mjs",
+      "bytes": 6219,
+      "sha256": "23fa2f7b4b51b47fd6b7c42468ab5cea8057824b5c499539c68d449f7ae336d4"
+    },
+    {
+      "path": "scripts/browser-s58-support-qa.mjs",
+      "bytes": 4310,
+      "sha256": "18c4aab363796b879d4a430abc7e91ebb2a57d6e70eddf1fabeed30d0b08db36"
+    },
+    {
+      "path": "scripts/browser-s58-ui-qa.mjs",
+      "bytes": 5681,
+      "sha256": "9fd6f6876afc21f4937056bac0a13898eabba083f3f62378f9dff936eefcbbd2"
     },
     {
       "path": "scripts/browser-tv-controls-qa.mjs",
@@ -5721,8 +6155,8 @@
     },
     {
       "path": "scripts/prepare-public-source.py",
-      "bytes": 11749,
-      "sha256": "260334b9138c1215f51321a3fffa468f499d7f95793a9d25e3789f56b345c39d"
+      "bytes": 11939,
+      "sha256": "893c0faf3c87b0c1c644df2fa4910c624aaef171ea6c264d86bee6bf5e93e9d1"
     },
     {
       "path": "scripts/render-media.mjs",
@@ -5791,8 +6225,8 @@
     },
     {
       "path": "scripts/verify-source-install.mjs",
-      "bytes": 9244,
-      "sha256": "0db8ef86a14293e645ec95277df35c9e916243c6d95c62bed3c1eaa361d11eb2"
+      "bytes": 9300,
+      "sha256": "cb97a51e17d8ea27781c3b32ab5dc445a131f8f5adc7b2286bbaf4869a5a0d2a"
     },
     {
       "path": "scripts/wake-tv.mjs",
@@ -5856,8 +6290,8 @@
     },
     {
       "path": "server/http.mjs",
-      "bytes": 13692,
-      "sha256": "09b6244d24688a542b347547dc39edb91ffbab5b90c1f719d8c3b2ca5b55f7a5"
+      "bytes": 13812,
+      "sha256": "c4e7e9bd35e4d067adb1001db6c7c0dec8bfdf7b42330affe9e6e1e706462f03"
     },
     {
       "path": "server/image.py",
@@ -5896,8 +6330,8 @@
     },
     {
       "path": "server/local-agent/contract.mjs",
-      "bytes": 8256,
-      "sha256": "bab87f9c9457346a1c94fb4e4168944765c5964e19ea24f96d9eee06cf69d0d7"
+      "bytes": 8626,
+      "sha256": "e493e133685abe5aa52aa4cb392a64ba36c8fc67d830807f2b9cf29461af90da"
     },
     {
       "path": "server/local-agent/network.mjs",
@@ -6186,8 +6620,8 @@
     },
     {
       "path": "tests/local-agent.test.mjs",
-      "bytes": 12339,
-      "sha256": "be47b2efce14aee49002ad5157d98f62f53737affaf81eca81550f8e4a680786"
+      "bytes": 13327,
+      "sha256": "994ec67a3be9875dccae8a5039d555b478677a76bab13f42afd004845b1f0f4d"
     },
     {
       "path": "tests/media-health.test.mjs",

@@ -24,13 +24,13 @@ public final class ResourcePackAgentActivity extends Activity {
     private static String secret(){byte[] value=new byte[32];new SecureRandom().nextBytes(value);return Base64.getUrlEncoder().withoutPadding().encodeToString(value);}
     private JSONObject identity()throws Exception{return new JSONObject().put("id",id).put("secret",secret);}
     @Override public void onCreate(Bundle state){
-        super.onCreate(state);getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setPadding(48,32,48,32);layout.setBackgroundColor(Color.rgb(12,23,32));
+        super.onCreate(state);getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);LinearLayout layout=new LinearLayout(this);layout.setOrientation(LinearLayout.VERTICAL);layout.setPadding(TvUi.dp(this,24),TvUi.dp(this,16),TvUi.dp(this,24),TvUi.dp(this,16));layout.setBackground(TvUi.glass(this,false));
         label(layout,"WorkBuddy · 导入资源包",32);label(layout,"本次允许WorkBuddy用一个开视资源包替换直播与影视来源。\n仅接收一个HTTPS文件及其SHA-256，10分钟有效。插件仍需另外确认。",22);
-        allow=new CheckBox(this);allow.setText("允许本次资源包包含HTTP媒体地址");allow.setTextColor(Color.WHITE);allow.setTextSize(22);layout.addView(allow);
-        status=label(layout,"先开启本次导入，再核对电视校验码。",24);begin=button(layout,"允许一次导入",this::start);button(layout,"取消并返回",this::finish);ScrollView scroll=new ScrollView(this);scroll.addView(layout);setContentView(scroll);
+        allow=new CheckBox(this);allow.setText("允许本次资源包包含HTTP媒体地址");allow.setTextColor(Color.WHITE);allow.setTextSize(18);layout.addView(allow);
+        status=label(layout,"先开启本次导入，再核对电视校验码。",24);LinearLayout actions=new LinearLayout(this);actions.setOrientation(LinearLayout.HORIZONTAL);layout.addView(actions);begin=button(actions,"允许一次导入",this::start);button(actions,"取消并返回",this::finish);TvUi.showForm(this,layout);
     }
-    private TextView label(LinearLayout layout,String text,int size){TextView v=new TextView(this);v.setText(text);v.setTextSize(size);v.setTextColor(Color.WHITE);v.setPadding(0,12,0,18);layout.addView(v);return v;}
-    private Button button(LinearLayout layout,String title,Runnable action){Button v=new Button(this);v.setText(title);v.setTextSize(25);v.setMinHeight(Math.round(68*getResources().getDisplayMetrics().density));v.setOnClickListener(n->action.run());layout.addView(v);return v;}
+    private TextView label(LinearLayout layout,String text,int size){TextView v=new TextView(this);v.setText(text);v.setTextSize(TvUi.typeSize(size));v.setTextColor(Color.WHITE);v.setPadding(0,12,0,18);layout.addView(v);return v;}
+    private Button button(LinearLayout layout,String title,Runnable action){Button v=new Button(this);v.setText(title);TvUi.styleButton(this,v);v.setOnClickListener(n->action.run());LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(-2,TvUi.dp(this,44));params.setMargins(0,TvUi.dp(this,8),TvUi.dp(this,10),0);layout.addView(v,params);return v;}
     private void start(){
         if(started||processing||closed)return;begin.setEnabled(false);allow.setEnabled(false);allowHttp=allow.isChecked();
         try{

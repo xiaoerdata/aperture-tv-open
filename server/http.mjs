@@ -75,7 +75,7 @@ export function createHttp({service,store,auth,images,origin,life,cinema,nasSetu
         if(path==='/api/display/ack'&&req.method==='POST'){
           rate(req,'display-ack',30);const b=await json(req);
           if(!['viewer','owner'].includes(actor.role)||!Number.isSafeInteger(b.revision)||b.revision<0||b.revision>service.read().revision||!['daylight','gallery','landscape'].includes(b.scene))fail('展示回执无效');
-          await store.transact(state=>{if(!state.sessions[actor.id]||state.sessions[actor.id].expiresAt<=Date.now())fail('会话已失效',401);state.displays||={};for(const [id,d]of Object.entries(state.displays))if(!state.sessions[id]||Date.now()-Date.parse(d.at)>86400000)delete state.displays[id];state.displays[actor.id]={revision:b.revision,scene:b.scene,at:new Date().toISOString(),kind:'browser-render',rendering:b.rendering==='lite'?'lite':'full'};});return send({ok:true});
+          await store.transact(state=>{if(!state.sessions[actor.id]||state.sessions[actor.id].expiresAt<=Date.now())fail('会话已失效',401);state.displays||={};for(const [id,d]of Object.entries(state.displays))if(!state.sessions[id]||Date.now()-Date.parse(d.at)>86400000)delete state.displays[id];state.displays[actor.id]={revision:b.revision,scene:b.scene,at:new Date().toISOString(),kind:'browser-render',rendering:b.rendering==='lite'?'lite':'full',...(b.presentation==='family-v2'?{presentation:'family-v2',sceneApplied:false,sections:['photos','events','notes']}:{})};});return send({ok:true});
         }
         if(path==='/api/local-automation-status'&&req.method==='GET'){if(actor.role!=='owner')fail('只有管理员可查看',403);return send({enabled:localAutomation});}
         if(path==='/api/cinema/health' && req.method==='GET')return send(cinema.health(actor));

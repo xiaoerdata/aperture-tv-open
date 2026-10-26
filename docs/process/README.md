@@ -102,3 +102,10 @@ S55：P57安装包瘦身，[方案与边界](../APK-SIZE.md)、[旧APK体积分�
 S56：P58—P59，[影视内页与资料](../TV-INTERIORS.md)、[生图与提示词](../../design-assets/s56/README.md)、[实际浏览器检查](../verification/s56-cinema-browser.json)、[第四十二期](../../media/DEVLOG-042.md)。v19候选包含S54/S55，发布状态以后续回执为准。
 
 S56发布结果：[v19 Alpha](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.16)、[匿名附件和完整源码回读](../verification/public-alpha-v19.json)。两版约52.6MiB，可覆盖更新v18；此回执后加在main，不改发行标签。
+
+
+S57：P60清理重复测试产物，[清理清单与保留核对](../verification/s57-cleanup.json)、[第四十三期底稿](../../media/DEVLOG-043.md)。删除开发机临时产物，保留源码、关键截图、发行包和签名；原始小型回执集中在私有artifacts/s57-cleanup-evidence。仅本地清理，未发布。
+
+S58（本地实现完成）：P61逐页生图与紧凑UI，[页面/尺寸/验证清单](../UI-COMPACT-S58.md)、[参考图及完整提示词](../../design-assets/s58/README.md)、[第44期编辑稿](../../media/DEVLOG-044.md)。家庭页减为相册、安排和留言，旧数据保留；本地源码迭代，未构建或发布。22张独立生图及提示词已保存；[完成核对](../verification/s58-completion.json)记录交付证据。原生新布局无本轮运行截图，真机验收按既定分工另行执行。
+
+S59：P62授权v20 / alpha.17发布，[发行软件验证](../verification/s59-software-acceptance.json)、[第45期编辑稿](../../media/DEVLOG-045.md)。小米真机与WorkBuddy仍待用户验收。

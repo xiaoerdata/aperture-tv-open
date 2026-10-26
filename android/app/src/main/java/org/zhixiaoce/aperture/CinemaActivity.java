@@ -51,7 +51,7 @@ public final class CinemaActivity extends Activity {
     private List<org.json.JSONObject> queueRefs=new ArrayList<>();private String queueLine="";private boolean hasPlayed;
     private final Runnable checkpoint=new Runnable(){public void run(){if(!destroyed){saveProgress(false);main.postDelayed(this,15000);}}};
     private final Runnable periodic=new Runnable(){public void run(){if(!destroyed){if(display.active()&&!playingView)checkSources(false);main.postDelayed(this,900000);}}};
-    private static final class GridCursor { int selected; GridCursor(int selected){this.selected=selected;} }
+    private static final class GridCursor { int selected; boolean episodes; GridCursor(int selected){this.selected=selected;} GridCursor(int selected,boolean episodes){this.selected=selected;this.episodes=episodes;} }
     private static final class Action{final String name;final Runnable run;CinemaCatalog.Item item;String image="",base="";Action(String name,Runnable run){this.name=name;this.run=run;}Action(CinemaCatalog.Item item,String base,Runnable run){this(item.name,run);this.item=item;this.image=item.poster;this.base=base;}Action(String name,String image,String base,Runnable run){this(name,run);this.image=image;this.base=base;}}
     private interface Work<T>{T run() throws Exception;}
     private interface Done<T>{void run(T value) throws Exception;}
@@ -66,7 +66,7 @@ public final class CinemaActivity extends Activity {
     private AlertDialog settingsDialog;
     private void closeSettings(){if(settingsDialog!=null){settingsDialog.dismiss();settingsDialog=null;}}
     private int dp(float n){return Math.round(n*getResources().getDisplayMetrics().density);}
-    private TextView label(String text,int size){TextView n=new TextView(this);n.setText(text);n.setTextColor(FG);n.setTextSize(size);n.setPadding(0,dp(5),0,dp(5));return n;}
+    private TextView label(String text,int size){TextView n=new TextView(this);n.setText(text);n.setTextColor(FG);n.setTextSize(TvUi.typeSize(size));n.setPadding(0,dp(3),0,dp(3));return n;}
     private Button button(LinearLayout parent,String text,Runnable action){
         Button b=TvUi.button(this,text,action);if(parent!=null){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-2,-2);p.setMargins(0,dp(6),0,dp(6));parent.addView(b,p);}return b;
     }
@@ -78,9 +78,9 @@ public final class CinemaActivity extends Activity {
         int x=Math.round(getResources().getDisplayMetrics().widthPixels*.05f),y=Math.round(getResources().getDisplayMetrics().heightPixels*.035f);root.setPadding(x,y,x,y);
         LinearLayout top=new LinearLayout(this);top.setGravity(Gravity.CENTER_VERTICAL);root.addView(top);
         TextView heading=label(title,BuildConfig.PARENTS_EDITION?29:26);heading.setTypeface(android.graphics.Typeface.DEFAULT,android.graphics.Typeface.BOLD);heading.setSingleLine(true);heading.setEllipsize(android.text.TextUtils.TruncateAt.END);top.addView(heading,new LinearLayout.LayoutParams(0,-2,1));
-        Button mine=button(null,"我的",this::shelfHome);LinearLayout.LayoutParams mp=new LinearLayout.LayoutParams(dp(90),dp(56));mp.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(mine,mp);
-        Button sources=button(null,"来源",this::settings);LinearLayout.LayoutParams sp=new LinearLayout.LayoutParams(dp(100),dp(56));sp.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(sources,sp);
-        Button nas=button(null,"NAS",this::nas);LinearLayout.LayoutParams np=new LinearLayout.LayoutParams(dp(90),dp(56));np.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(nas,np);
+        Button mine=button(null,"我的",this::shelfHome);LinearLayout.LayoutParams mp=new LinearLayout.LayoutParams(dp(90),dp(44));mp.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(mine,mp);
+        Button sources=button(null,"来源",this::settings);LinearLayout.LayoutParams sp=new LinearLayout.LayoutParams(dp(100),dp(44));sp.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(sources,sp);
+        Button nas=button(null,"NAS",this::nas);LinearLayout.LayoutParams np=new LinearLayout.LayoutParams(dp(90),dp(44));np.setMargins(Math.max(16,dp(8)),0,0,0);top.addView(nas,np);
         status=label("",18);status.setTextColor(MUTED);root.addView(status);
         ScrollView scroll=new ScrollView(this);scroll.setFillViewport(true);content=new LinearLayout(this);content.setOrientation(LinearLayout.VERTICAL);scroll.addView(content);root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
         setContentView(root);
@@ -90,20 +90,20 @@ public final class CinemaActivity extends Activity {
     }
     private void grid(String title,List<Action> actions,int page,Runnable previous,GridCursor cursor){
         screen(title,previous);int pages=Math.max(1,(actions.size()+11)/12),at=Math.max(0,Math.min(page,pages-1));
-        boolean posters=false;for(Action a:actions)if(a.item!=null){posters=true;break;}int columns=posters?(BuildConfig.PARENTS_EDITION?4:6):4;GridLayout cells=new GridLayout(this);cells.setColumnCount(columns);cells.setClipChildren(false);content.addView(cells);
+        boolean posters=false;for(Action a:actions)if(a.item!=null){posters=true;break;}int columns=cursor.episodes?(BuildConfig.PARENTS_EDITION?4:6):posters?(BuildConfig.PARENTS_EDITION?5:7):3;GridLayout cells=new GridLayout(this);cells.setColumnCount(columns);cells.setClipChildren(false);content.addView(cells);
         for(int i=at*12;i<Math.min(actions.size(),at*12+12);i++){
             final int index=i;Action a=actions.get(i);View tile;
             Runnable activate=()->{cursor.selected=index;a.run.run();};
-            if(posters&&a.item!=null)tile=poster(a,activate);else if(!a.image.isEmpty())tile=channelTile(a,activate);else{Button b=button(null,a.name,activate);b.setMaxLines(2);b.setEllipsize(android.text.TextUtils.TruncateAt.END);tile=b;}
-            GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec((i-at*12)%columns,1f);p.width=0;p.height=posters?dp(BuildConfig.PARENTS_EDITION?260:225):dp(84);p.setMargins(dp(6),dp(6),dp(6),dp(6));cells.addView(tile,p);
+            if(posters&&a.item!=null)tile=poster(a,activate);else if(!a.image.isEmpty())tile=channelTile(a,activate);else{Button b=button(null,a.name,activate);b.setMaxLines(cursor.episodes?1:2);b.setPadding(dp(12),dp(4),dp(12),dp(4));b.setEllipsize(android.text.TextUtils.TruncateAt.END);tile=b;}
+            GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec((i-at*12)%columns,1f);p.width=0;p.height=posters?dp(BuildConfig.PARENTS_EDITION?192:170):dp(cursor.episodes?44:56);p.setMargins(dp(6),dp(6),dp(6),dp(6));cells.addView(tile,p);
         }
         status.setText(actions.isEmpty()?"暂无内容，请在来源中配置":actions.size()+" 项");
         LinearLayout controls=new LinearLayout(this);root.addView(controls);
         Button prev=button(null,"上一页",()->{cursor.selected=(at-1)*12;grid(title,actions,at-1,previous,cursor);}),next=button(null,"下一页",()->{cursor.selected=(at+1)*12;grid(title,actions,at+1,previous,cursor);});prev.setEnabled(at>0);next.setEnabled(at+1<pages);
-        LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(dp(160),dp(56));cp.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(prev,cp);
-        TextView number=label((at+1)+" / "+pages,20);number.setGravity(Gravity.CENTER);LinearLayout.LayoutParams countParams=new LinearLayout.LayoutParams(dp(100),dp(56));countParams.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(number,countParams);
-        LinearLayout.LayoutParams nextParams=new LinearLayout.LayoutParams(dp(160),dp(56));nextParams.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(next,nextParams);
-        LinearLayout.LayoutParams backParams=new LinearLayout.LayoutParams(dp(120),dp(56));backParams.setMargins(0,dp(8),0,0);controls.addView(button(null,"返回",()->{if(back!=null)back.run();else finish();}),backParams);
+        LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(dp(100),dp(44));cp.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(prev,cp);
+        TextView number=label((at+1)+" / "+pages,20);number.setGravity(Gravity.CENTER);LinearLayout.LayoutParams countParams=new LinearLayout.LayoutParams(dp(70),dp(44));countParams.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(number,countParams);
+        LinearLayout.LayoutParams nextParams=new LinearLayout.LayoutParams(dp(100),dp(44));nextParams.setMargins(0,dp(8),Math.max(16,dp(8)),0);controls.addView(next,nextParams);
+        LinearLayout.LayoutParams backParams=new LinearLayout.LayoutParams(dp(90),dp(44));backParams.setMargins(0,dp(8),0,0);controls.addView(button(null,"返回",()->{if(back!=null)back.run();else finish();}),backParams);
         if(cells.getChildCount()>0)cells.getChildAt(Math.max(0,Math.min(cells.getChildCount()-1,cursor.selected-at*12))).requestFocus();else sourcesFocus();
     }
     private android.widget.ImageView art(String image,String base){android.widget.ImageView v=new android.widget.ImageView(this);v.setScaleType(android.widget.ImageView.ScaleType.CENTER_CROP);v.setBackground(TvUi.glass(this,false));v.setClipToOutline(true);artwork.bind(v,image,base,config.allowHttp);return v;}
@@ -113,25 +113,29 @@ public final class CinemaActivity extends Activity {
         TextView name=label(action.name,BuildConfig.PARENTS_EDITION?22:18);name.setSingleLine();name.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(name);TextView remark=label(action.item.remark.isEmpty()?action.item.year:action.item.remark,15);remark.setTextColor(MUTED);remark.setSingleLine();tile.addView(remark);
         artwork.bind(image,action.image,action.base,config.allowHttp,()->{int turn=generation;String kind="movies".equals(view)?"movie":"series";info.lookup(action.item.name,action.item.year,kind,false,(match,candidates,state)->{if(generation!=turn||match==null)return;artwork.bind(image,match.optString("poster"),"",false);});});return tile;
     }
-    private View channelTile(Action action,Runnable run){LinearLayout tile=focusTile(action.name,run);tile.setOrientation(LinearLayout.HORIZONTAL);android.widget.ImageView icon=art(action.image,action.base);icon.setScaleType(android.widget.ImageView.ScaleType.FIT_CENTER);tile.addView(icon,new LinearLayout.LayoutParams(dp(64),-1));TextView name=label(action.name,22);name.setGravity(Gravity.CENTER_VERTICAL);name.setMaxLines(2);tile.addView(name,new LinearLayout.LayoutParams(0,-1,1));return tile;}
-    private void detailPanel(CinemaCatalog.Site site,CinemaCatalog.Item item,List<Action> actions,Runnable previous){
+    private View channelTile(Action action,Runnable run){LinearLayout tile=focusTile(action.name,run);tile.setOrientation(LinearLayout.HORIZONTAL);android.widget.ImageView icon=art(action.image,action.base);icon.setScaleType(android.widget.ImageView.ScaleType.FIT_CENTER);tile.addView(icon,new LinearLayout.LayoutParams(dp(36),-1));TextView name=label(action.name,22);name.setGravity(Gravity.CENTER_VERTICAL);name.setMaxLines(2);tile.addView(name,new LinearLayout.LayoutParams(0,-1,1));return tile;}
+    private void detailPanel(CinemaCatalog.Site site,CinemaCatalog.Item item,List<Action> actions,List<CinemaCatalog.Line> lines,org.json.JSONObject ref,Runnable previous){
         screen("影片详情",previous);status.setText(site.name);LinearLayout hero=new LinearLayout(this);hero.setPadding(0,dp(10),0,dp(18));content.addView(hero);
-        android.widget.ImageView poster=art(item.poster,site.api);LinearLayout.LayoutParams cover=new LinearLayout.LayoutParams(dp(156),dp(230));cover.setMargins(0,0,dp(30),0);hero.addView(poster,cover);
+        android.widget.ImageView poster=art(item.poster,site.api);LinearLayout.LayoutParams cover=new LinearLayout.LayoutParams(dp(132),dp(198));cover.setMargins(0,0,dp(24),0);hero.addView(poster,cover);
         LinearLayout copy=new LinearLayout(this);copy.setOrientation(LinearLayout.VERTICAL);hero.addView(copy,new LinearLayout.LayoutParams(0,-2,1));TextView name=label(item.name,BuildConfig.PARENTS_EDITION?36:34);name.setTypeface(android.graphics.Typeface.DEFAULT,android.graphics.Typeface.BOLD);name.setMaxLines(2);copy.addView(name);
         TextView facts=label(String.join("  ·  ",nonempty(item.year,item.area,item.genre,item.remark)),20);facts.setTextColor(MUTED);facts.setMaxLines(2);copy.addView(facts);
         TextView summary=label(item.summary.isEmpty()?"暂无简介":item.summary,21);summary.setMaxLines(BuildConfig.PARENTS_EDITION?3:4);summary.setEllipsize(android.text.TextUtils.TruncateAt.END);summary.setLineSpacing(dp(3),1);copy.addView(summary);
         if(!item.director.isEmpty()||!item.actors.isEmpty()){TextView people=label((item.director.isEmpty()?"":"导演  "+item.director+"  ")+item.actors,17);people.setMaxLines(2);people.setTextColor(MUTED);copy.addView(people);}
         TextView attribution=label("资料：来源提供",16);attribution.setTextColor(MUTED);copy.addView(attribution);
         String kind="movies".equals(view)?"movie":"series";int turn=generation;CinemaInfo.Done apply=(match,candidates,state)->{if(turn!=generation)return;if(match!=null){if(item.poster.isEmpty())artwork.bind(poster,match.optString("poster"),"",false);if(item.summary.isEmpty())summary.setText(match.optString("summary","暂无简介"));if(facts.getText().length()==0)facts.setText(match.optString("year")+"  "+match.optString("genre"));attribution.setText("补全："+match.optString("provider")+"\n"+match.optString("url"));}else attribution.setText("资料：来源提供 · "+state);};info.lookup(item.name,item.year,kind,false,apply);
-        LinearLayout row=null;Button first=null;for(int i=0;i<actions.size();i++){if(i%3==0){row=new LinearLayout(this);content.addView(row);}Button b=button(null,actions.get(i).name,actions.get(i).run);TvUi.addAction(this,row,b);if(first==null)first=b;}
-        button(content,"更正资料",()->info.lookup(item.name,item.year,kind,true,(match,candidates,state)->{if(turn!=generation)return;if(!info.enabled()){metadataSettings();return;}if(candidates.isEmpty()){attribution.setText(state);return;}List<String> names=new ArrayList<>();for(org.json.JSONObject candidate:candidates)names.add(candidate.optString("title")+" · "+candidate.optString("year")+" · "+candidate.optString("provider"));names.add("保留来源资料");TvDialogs.menu(this,"选择资料",names.toArray(new String[0]),(d,at)->{try{org.json.JSONObject value=at<candidates.size()?candidates.get(at):null;info.choose(item.name,item.year,kind,value);detailPanel(site,item,actions,previous);}catch(Exception error){status.setText("资料选择未保存");}});}));
+        LinearLayout row=null;Button first=null;for(int i=0;i<actions.size();i++){if(i%3==0){row=new LinearLayout(this);copy.addView(row);}Button b=button(null,actions.get(i).name,actions.get(i).run);TvUi.addAction(this,row,b);if(first==null)first=b;}
+        button(content,"更正资料",()->info.lookup(item.name,item.year,kind,true,(match,candidates,state)->{if(turn!=generation)return;if(!info.enabled()){metadataSettings();return;}if(candidates.isEmpty()){attribution.setText(state);return;}List<String> names=new ArrayList<>();for(org.json.JSONObject candidate:candidates)names.add(candidate.optString("title")+" · "+candidate.optString("year")+" · "+candidate.optString("provider"));names.add("保留来源资料");TvDialogs.menu(this,"选择资料",names.toArray(new String[0]),(d,at)->{try{org.json.JSONObject value=at<candidates.size()?candidates.get(at):null;info.choose(item.name,item.year,kind,value);detailPanel(site,item,actions,lines,ref,previous);}catch(Exception error){status.setText("资料选择未保存");}});}));
+        if(!lines.isEmpty()){
+            CinemaCatalog.Line line=lines.get(0);content.addView(label("选集 · "+line.name,22));GridLayout episodes=new GridLayout(this);int cols=BuildConfig.PARENTS_EDITION?6:8;episodes.setColumnCount(cols);content.addView(episodes);
+            for(int i=0;i<Math.min(16,line.episodes.size());i++){final int at=i;Button b=button(null,line.episodes.get(i).name,()->playEpisodes(site,ref,line,at,()->detailPanel(site,item,actions,lines,ref,previous)));b.setSingleLine(true);b.setEllipsize(android.text.TextUtils.TruncateAt.END);GridLayout.LayoutParams ep=new GridLayout.LayoutParams();ep.columnSpec=GridLayout.spec(i%cols,1f);ep.width=0;ep.height=dp(44);ep.setMargins(dp(4),dp(4),dp(4),dp(4));episodes.addView(b,ep);}
+        }
         if(first!=null)first.requestFocus();
     }
     private static List<String> nonempty(String... values){List<String> out=new ArrayList<>();for(String v:values)if(v!=null&&!v.isEmpty())out.add(v);return out;}
     private void metadataSettings(){
         closeSettings();LinearLayout form=new LinearLayout(this);form.setOrientation(LinearLayout.VERTICAL);TextView note=label("优先使用来源封面。开启后，将片名、年份发送给资料服务；不会发送播放地址、NAS账号或来源凭证。",20);form.addView(note);
-        CheckBox enabled=new CheckBox(this);enabled.setText("联网补全封面与简介");enabled.setTextColor(FG);enabled.setTextSize(22);enabled.setChecked(info.enabled());form.addView(enabled);
-        form.addView(label("TMDB Read Access Token（可选）\n电影需要设置；未设置时电视剧使用 TVmaze。",19));EditText token=new EditText(this);token.setTextColor(FG);token.setTextSize(21);token.setSingleLine();token.setInputType(android.text.InputType.TYPE_CLASS_TEXT|android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);token.setText(info.token());form.addView(token);
+        CheckBox enabled=new CheckBox(this);enabled.setText("联网补全封面与简介");enabled.setTextColor(FG);enabled.setTextSize(18);enabled.setChecked(info.enabled());form.addView(enabled);
+        form.addView(label("TMDB Read Access Token（可选）\n电影需要设置；未设置时电视剧使用 TVmaze。",19));EditText token=new EditText(this);token.setTextColor(FG);token.setTextSize(17);token.setSingleLine();token.setInputType(android.text.InputType.TYPE_CLASS_TEXT|android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);token.setText(info.token());form.addView(token);
         button(form,"保存",()->{try{info.configure(enabled.isChecked(),token.getText().toString());closeSettings();home();}catch(Exception e){note.setText("资料设置保存失败");}});android.widget.ImageView tmdb=new android.widget.ImageView(this);tmdb.setImageResource(getResources().getIdentifier("tmdb_attribution","drawable",getPackageName()));tmdb.setScaleType(android.widget.ImageView.ScaleType.FIT_START);tmdb.setContentDescription("TMDB");form.addView(tmdb,new LinearLayout.LayoutParams(dp(150),dp(26)));form.addView(label("This product uses the TMDB API but is not endorsed or certified by TMDB.\nTVmaze 数据遵循 CC BY-SA；详情保留来源链接。联网不可用时仍可浏览和播放。",16));settingsDialog=TvDialogs.panel(this,"封面与资料",form);
     }
     private void sourcesFocus(){if(root!=null)root.getChildAt(0).requestFocus();}
@@ -180,7 +184,7 @@ public final class CinemaActivity extends Activity {
         }catch(Exception invalid){status.setText("观看记录无法读取");}
     }
     private void savedItem(org.json.JSONObject item,Runnable previous){
-        new AlertDialog.Builder(this).setTitle(item.optString("title")).setItems(new String[]{"继续观看","移除此记录"},(d,w)->{if(w==1){editShelf(next->next.remove(item));previous.run();return;}openSaved(item,previous);}).setNegativeButton("返回",null).show();
+        TvDialogs.menu(this,item.optString("title"),new String[]{"继续观看","移除此记录"},(d,w)->{if(w==1){editShelf(next->next.remove(item));previous.run();return;}openSaved(item,previous);});
     }
     private void openSaved(org.json.JSONObject item,Runnable previous){
         if("nas".equals(item.optString("kind"))){try{NasActivity.openSaved(this,item);}catch(Exception invalid){status.setText(message(invalid));}return;}
@@ -233,7 +237,7 @@ public final class CinemaActivity extends Activity {
         });
     }
     private void search(CinemaCatalog.Site site){
-        EditText input=new EditText(this);input.setSingleLine();input.setHint("片名");input.setTextSize(24);
+        EditText input=new EditText(this);input.setSingleLine();input.setHint("片名");input.setTextSize(18);
         new AlertDialog.Builder(this).setTitle("搜索 · "+site.name).setView(input).setPositiveButton("搜索",(d,w)->{String word=input.getText().toString().trim();if(!word.isEmpty()&&word.length()<=80)videos(site,null,"搜索",1,word);}).setNegativeButton("返回",null).show();
     }
     private void videos(CinemaCatalog.Site site,String category,String name,int page,String word){
@@ -245,10 +249,11 @@ public final class CinemaActivity extends Activity {
     private void details(CinemaCatalog.Site site,CinemaCatalog.Item item,Runnable previous){
         task(item.name,previous,()->catalogue(site,null,1,null,item.id),data->{CinemaCatalog.Item found=null;for(CinemaCatalog.Item candidate:data.items)if(candidate.id.equals(item.id)){found=candidate;break;}if(found==null)throw new java.io.IOException("来源没有返回所选影片详情");final CinemaCatalog.Item detail=found;List<CinemaCatalog.Line> lines=CinemaCatalog.lines(detail,config.allowHttp,site.headers,site.resolved());org.json.JSONObject ref=vodRef(site,detail),saved=shelf.get(ref);List<Action> actions=new ArrayList<>();
             if(saved!=null&&saved.optLong("watchedAt")>0&&!saved.optBoolean("complete")){for(CinemaCatalog.Line line:lines)if(line.name.equals(saved.optString("line")))for(int i=0;i<line.episodes.size();i++)if(line.episodes.get(i).name.equals(saved.optString("episode"))){final int index=i;actions.add(new Action("继续 · "+line.episodes.get(i).name,()->playEpisodes(site,ref,line,index,()->details(site,item,previous))));}}
-            for(CinemaCatalog.Line line:lines)actions.add(new Action(line.name,()->episodes(site,ref,line,()->details(site,item,previous),new GridCursor(0))));
+            if(actions.isEmpty()&&!lines.isEmpty()&&!lines.get(0).episodes.isEmpty())actions.add(new Action("播放",()->playEpisodes(site,ref,lines.get(0),0,()->details(site,item,previous))));
+            for(CinemaCatalog.Line line:lines)actions.add(new Action(line.name,()->episodes(site,ref,line,()->details(site,item,previous),new GridCursor(0,true))));
             actions.add(new Action(saved!=null&&saved.optBoolean("favorite")?"取消收藏":"收藏影片",()->{editShelf(next->next.toggle(ref,"favorite"));details(site,item,previous);}));
             actions.add(new Action(saved!=null&&saved.optBoolean("follow")?"取消追剧":"追剧",()->{editShelf(next->{next.toggle(ref,"follow");updateLatest(next,site,detail);});details(site,item,previous);}));
-            editShelf(next->{updateLatest(next,site,detail);next.seen(ref);});detailPanel(site,detail,actions,previous);
+            editShelf(next->{updateLatest(next,site,detail);next.seen(ref);});detailPanel(site,detail,actions,lines,ref,previous);
         });
     }
     private void playEpisodes(CinemaCatalog.Site site,org.json.JSONObject ref,CinemaCatalog.Line line,int at,Runnable previous){List<org.json.JSONObject> refs=new ArrayList<>();for(CinemaCatalog.Episode ignored:line.episodes)refs.add(ref);play(line.episodes,at,false,previous,refs,line.name,site);}
@@ -264,15 +269,15 @@ public final class CinemaActivity extends Activity {
         screen(list.get(at).name,previous);root.removeAllViews();root.setPadding(0,0,0,0);root.setBackgroundColor(Color.BLACK);queueSite=site;resolvedEpisode=media;hasPlayed=false;playingView=true;queueRefs=refs;queueLine=line;queue=list;playingIndex=at;liveQueue=live;playerBack=previous;session.begin();
         FrameLayout stage=new FrameLayout(this);stage.setBackgroundColor(Color.BLACK);SurfaceView surface=new SurfaceView(this);stage.addView(surface,new FrameLayout.LayoutParams(-1,-1,Gravity.CENTER));
         root.addView(stage,new LinearLayout.LayoutParams(-1,0,1));videoSurface=surface;surface.setFocusable(true);
-        playerOverlay=new LinearLayout(this);playerOverlay.setOrientation(LinearLayout.VERTICAL);playerOverlay.setPadding(dp(24),dp(18),dp(24),dp(18));playerOverlay.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,new int[]{0x5508090b,0xf50d0f12}));FrameLayout.LayoutParams overlayParams=new FrameLayout.LayoutParams(-1,-2,Gravity.BOTTOM);stage.addView(playerOverlay,overlayParams);
+        playerOverlay=new LinearLayout(this);playerOverlay.setOrientation(LinearLayout.VERTICAL);playerOverlay.setPadding(dp(24),dp(8),dp(24),dp(10));playerOverlay.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,new int[]{0x5508090b,0xf50d0f12}));FrameLayout.LayoutParams overlayParams=new FrameLayout.LayoutParams(-1,-2,Gravity.BOTTOM);stage.addView(playerOverlay,overlayParams);
         TextView title=label(list.get(at).name,28);playerOverlay.addView(title);playerStatus=status;playerOverlay.addView(status);playerStatus.setText("正在准备…");
         LinearLayout controls=new LinearLayout(this);playerOverlay.addView(controls);
         List<Action> playback=new ArrayList<>();playback.add(new Action(live?"上一台":"上一集",()->adjacent(-1)));playback.add(new Action("播放 / 暂停",()->{if(session.state()==PlaybackSession.State.PLAYING||session.state()==PlaybackSession.State.PREPARING)session.pause();else session.play();}));playback.add(new Action(live?"下一台":"下一集",()->adjacent(1)));if(!live){playback.add(new Action("后退30秒",()->seek(-30000)));playback.add(new Action("前进30秒",()->seek(30000)));}playback.add(new Action("返回",previous));
         for(Action a:playback)TvUi.addAction(this,controls,button(null,a.name,a.run));
         LinearLayout savedControls=new LinearLayout(this);playerOverlay.addView(savedControls);org.json.JSONObject ref=refs.get(at);boolean favorite=false;try{org.json.JSONObject item=shelf.get(ref);favorite=item!=null&&item.optBoolean("favorite");}catch(Exception ignored){}
         Button favoriteButton=button(null,favorite?"取消收藏":"收藏",()->{editShelf(next->next.toggle(ref,"favorite"));try{((Button)savedControls.getChildAt(0)).setText(shelf.get(ref).optBoolean("favorite")?"取消收藏":"收藏");}catch(Exception ignored){}});TvUi.addAction(this,savedControls,favoriteButton);
-        savedControls.addView(button(null,"重试",()->play(queue,playingIndex,liveQueue,playerBack,queueRefs,queueLine,queueSite)),new LinearLayout.LayoutParams(0,dp(56),1));
-        if(!live)savedControls.addView(button(null,"从头播放",()->{if(player!=null&&prepared){session.pause();MediaPlayer current=player;current.setOnSeekCompleteListener(done->{if(player==done){done.setOnSeekCompleteListener(null);session.play();saveProgress(false);}});current.seekTo(0);}}),new LinearLayout.LayoutParams(0,dp(56),1));
+        savedControls.addView(button(null,"重试",()->play(queue,playingIndex,liveQueue,playerBack,queueRefs,queueLine,queueSite)),new LinearLayout.LayoutParams(0,dp(44),1));
+        if(!live)savedControls.addView(button(null,"从头播放",()->{if(player!=null&&prepared){session.pause();MediaPlayer current=player;current.setOnSeekCompleteListener(done->{if(player==done){done.setOnSeekCompleteListener(null);session.play();saveProgress(false);}});current.seekTo(0);}}),new LinearLayout.LayoutParams(0,dp(44),1));
         playerToggle=(Button)controls.getChildAt(1);playerToggle.requestFocus();showPlayerControls();int turn=generation;main.postDelayed(()->{if(!destroyed&&turn==generation&&session.state()==PlaybackSession.State.PREPARING){prepared=false;session.error();}},25000);
         surface.getHolder().addCallback(new SurfaceHolder.Callback(){
             public void surfaceCreated(SurfaceHolder holder){if(destroyed||turn!=generation)return;session.surface(true);prepare(holder,surface,stage,media.url,turn);}
@@ -301,8 +306,8 @@ public final class CinemaActivity extends Activity {
         closeSettings();if(root==null)home();
         LinearLayout form=new LinearLayout(this);form.setOrientation(LinearLayout.VERTICAL);
         TextView description=label(config.sites.size()+" 个影视站点 · "+config.lives.size()+" 个直播来源\n"+health,18);form.addView(description);
-        EditText address=new EditText(this);address.setTextSize(22);address.setTextColor(FG);address.setSingleLine();address.setHint("开视资源包 / TVBox / M3U 地址");address.setHintTextColor(MUTED);form.addView(address);
-        CheckBox allow=new CheckBox(this);allow.setText("允许本次导入 HTTP 来源");allow.setTextColor(FG);allow.setTextSize(21);allow.setChecked(config.allowHttp);form.addView(allow);
+        EditText address=new EditText(this);address.setTextSize(18);address.setTextColor(FG);address.setSingleLine();address.setHint("开视资源包 / TVBox / M3U 地址");address.setHintTextColor(MUTED);form.addView(address);
+        CheckBox allow=new CheckBox(this);allow.setText("允许本次导入 HTTP 来源");allow.setTextColor(FG);allow.setTextSize(18);allow.setChecked(config.allowHttp);form.addView(allow);
         button(form,"读取地址",()->{String value=address.getText().toString().trim();boolean policy=allow.isChecked();task("读取来源",this::settings,()->http.importUrl(value,policy),next->preview(next,0));});
         button(form,"导入本机文件",()->{fileAllowHttp=allow.isChecked();try{Intent intent=new Intent(Intent.ACTION_OPEN_DOCUMENT).setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);startActivityForResult(intent,PICK);}catch(RuntimeException missing){status.setText("当前系统没有文件选择器，请使用配置地址");}});
         if(!config.packId.isEmpty())button(form,"当前资源包",()->new AlertDialog.Builder(this).setTitle(config.packTitle).setMessage("ID："+config.packId+"\n修订："+config.packRevision+"\nSHA-256："+config.packSha256).setPositiveButton("返回",null).show());

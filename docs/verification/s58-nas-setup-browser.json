@@ -1,0 +1,21 @@
+{
+  "checks": [
+    "real owner login continues the original TV request; full fingerprint is verified",
+    "320/390/430/760/761/1280px retain the draft without horizontal overflow; expanded domain control is visible",
+    "lost send response is resolved by querying original receipt, without a second POST; wire and persistent service state exclude plaintext credentials",
+    "synthetic native saved acknowledgement is distinct from awaiting_tv; no actual Android save is claimed",
+    "mismatched scanned fingerprint never reveals the NAS input form"
+  ],
+  "errors": [],
+  "realBrowserPage": true,
+  "realServiceAuthentication": true,
+  "realWebCrypto": true,
+  "productionJavaDecrypt": true,
+  "lostResponseResolvedWithoutResend": true,
+  "syntheticSavedAcknowledgement": true,
+  "androidActivity": false,
+  "androidKeyStore": false,
+  "realNas": false,
+  "realXiaomi": false,
+  "screenshotsContainCredentialsOrQr": false
+}

@@ -1,0 +1,10 @@
+{
+  "standardAndParentsApiCompilation": true,
+  "policyHarnessPassed": true,
+  "microphonePermission": false,
+  "apkBuilt": false,
+  "deviceVoiceKeysTested": false,
+  "xiaomiFarFieldTested": false,
+  "standbyWakeTested": false,
+  "output": "Native policy: overlay/resume/destroy transitions and exact local HTTPS resources passed"
+}

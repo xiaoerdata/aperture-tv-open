@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "real login and agenda/note/settings writes; hidden legacy data and scene settings preserved; refresh/invalid submit retain drafts",
+    "family without photos uses a narrow empty entry and adjacent agenda/note columns at TV widths",
+    "lite family uses real authenticated board; ES5 screen retains pairing and remote back focus",
+    "lost authorization clears private text and photo source on lite display",
+    "all five workspace tabs and lite parents fit 320/390/760/761/1280/1920 without horizontal overflow"
+  ],
+  "errors": [],
+  "syntheticData": true,
+  "realLocalHttp": true,
+  "xiaomiHardware": false
+}

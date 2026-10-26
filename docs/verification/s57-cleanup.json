@@ -1,0 +1,1170 @@
+{
+  "schema": 1,
+  "status": "complete",
+  "targets": [
+    {
+      "path": "artifacts/aperture-tv-public-v13",
+      "files": 561,
+      "allocated_bytes": 151842816,
+      "logical_bytes": 150585436,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v13-alpha",
+      "files": 1612,
+      "allocated_bytes": 412864512,
+      "logical_bytes": 408812492,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v13-r2",
+      "files": 565,
+      "allocated_bytes": 151879680,
+      "logical_bytes": 150608366,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v13-r3",
+      "files": 569,
+      "allocated_bytes": 151908352,
+      "logical_bytes": 150634582,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v16",
+      "files": 706,
+      "allocated_bytes": 207446016,
+      "logical_bytes": 205667263,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v17-final-build",
+      "files": 1034,
+      "allocated_bytes": 636825600,
+      "logical_bytes": 633841279,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v17-r6-build",
+      "files": 1059,
+      "allocated_bytes": 638255104,
+      "logical_bytes": 634521200,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v17-s50-final",
+      "files": 1072,
+      "allocated_bytes": 460292096,
+      "logical_bytes": 457359694,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/public-v18-s53",
+      "files": 1187,
+      "allocated_bytes": 527106048,
+      "logical_bytes": 523688686,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/public-v18-s53-r2",
+      "files": 1187,
+      "allocated_bytes": 526925824,
+      "logical_bytes": 523688964,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/public-v18-s53-r3",
+      "files": 1187,
+      "allocated_bytes": 527421440,
+      "logical_bytes": 523691583,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s50-anonymous-downloads",
+      "files": 4,
+      "allocated_bytes": 171446272,
+      "logical_bytes": 171429145,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s50-r2",
+      "files": 3,
+      "allocated_bytes": 171347968,
+      "logical_bytes": 171331811,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s50-r3",
+      "files": 3,
+      "allocated_bytes": 175337472,
+      "logical_bytes": 175322819,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s50-r4",
+      "files": 3,
+      "allocated_bytes": 175337472,
+      "logical_bytes": 175322819,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s50-r5",
+      "files": 2,
+      "allocated_bytes": 171384832,
+      "logical_bytes": 171372974,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s53-anonymous-download",
+      "files": 5,
+      "allocated_bytes": 688828416,
+      "logical_bytes": 688801654,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s53-preserved-signed-v18-r2",
+      "files": 6,
+      "allocated_bytes": 176762880,
+      "logical_bytes": 176735981,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s53-release-final",
+      "files": 2,
+      "allocated_bytes": 171012096,
+      "logical_bytes": 170998305,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s56-anonymous-download",
+      "files": 14,
+      "allocated_bytes": 110493696,
+      "logical_bytes": 110440516,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s56-anonymous-git",
+      "files": 1263,
+      "allocated_bytes": 1067839488,
+      "logical_bytes": 1063847482,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/s56-public-source",
+      "files": 1240,
+      "allocated_bytes": 541900800,
+      "logical_bytes": 538024283,
+      "reason": "redundant-source-export-or-release-test"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v13-alpha.tar.gz",
+      "files": 1,
+      "allocated_bytes": 148299776,
+      "logical_bytes": 148293892,
+      "reason": "generated-source-archive",
+      "sha256": "bcfcf12c41200a1b099d0614a2c9610f62f00b9d2124115ef39ccf73bf9d0346"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v13-r2.tar.gz",
+      "files": 1,
+      "allocated_bytes": 148279296,
+      "logical_bytes": 148273502,
+      "reason": "generated-source-archive",
+      "sha256": "fc8c67954614ae30c35445f61f7d2ae20ae5e8e7779fb1de8ba4599ea82db0ca"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v13-r3.tar.gz",
+      "files": 1,
+      "allocated_bytes": 148287488,
+      "logical_bytes": 148280770,
+      "reason": "generated-source-archive",
+      "sha256": "3240fdfec545435755b6f794e838d21c59bfad0928c6617b571926434914251d"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v13.tar.gz",
+      "files": 1,
+      "allocated_bytes": 148271104,
+      "logical_bytes": 148266317,
+      "reason": "generated-source-archive",
+      "sha256": "af1091ed1194631c9124f3d253ec4d57800a3490eed0a0c346b5b38a0aef9112"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v16.tar.gz",
+      "files": 1,
+      "allocated_bytes": 202711040,
+      "logical_bytes": 202703836,
+      "reason": "generated-source-archive",
+      "sha256": "ff41ca67ed1d51371db5467ba3c638686e5cfb4678eaf8c13f938d93f2e13242"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v17-final-build.tar.gz",
+      "files": 1,
+      "allocated_bytes": 450736128,
+      "logical_bytes": 450723275,
+      "reason": "generated-source-archive",
+      "sha256": "55ccc56c134c88afe816e127f050b34a43188c0b629273459cf994fdce4b49a2"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v17-onboarding.tar.gz",
+      "files": 1,
+      "allocated_bytes": 450723840,
+      "logical_bytes": 450715277,
+      "reason": "generated-source-archive",
+      "sha256": "a8e489a960298b2b8d7fc31acfc6ba2f4a6367542b4d178e1c0ef777c70ae3f2"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v17-r6-build.tar.gz",
+      "files": 1,
+      "allocated_bytes": 451416064,
+      "logical_bytes": 451401758,
+      "reason": "generated-source-archive",
+      "sha256": "83b5f0aad6ac6b97d5aa2648f5e6610720edba86bcdb2dc3d093aa256a209615"
+    },
+    {
+      "path": "artifacts/aperture-tv-public-v17-s50-final.tar.gz",
+      "files": 1,
+      "allocated_bytes": 452681728,
+      "logical_bytes": 452673706,
+      "reason": "generated-source-archive",
+      "sha256": "2b139a0fc954950baaa0b76db88dfce548a7bc4e388e96741064de3e55b1eb49"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.1.0-alpha.1-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 1351680,
+      "logical_bytes": 1351010,
+      "reason": "generated-source-archive",
+      "sha256": "6d554fe5da8f15ba242cef7f5cbb35e8ba9b1a8b852d39e27d72f1297b742ea5"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.2.0-alpha.1-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 5558272,
+      "logical_bytes": 5557581,
+      "reason": "generated-source-archive",
+      "sha256": "457eeb8796648c6d071bc0167b7e0f29528958e5462621ab96270dc4df6e8530"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.2.0-alpha.10-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 148168704,
+      "logical_bytes": 148163902,
+      "reason": "generated-source-archive",
+      "sha256": "f9b385e37c3d58096a7758e451bab220d1614ffa33c21740dc03d6fee97f8795"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.2.0-alpha.3-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 79364096,
+      "logical_bytes": 79360364,
+      "reason": "generated-source-archive",
+      "sha256": "2d4d4bfe412cbe988a1a8843128eadba83d4f96f28ab2e9a1c1be5ff643dcd67"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.2.0-alpha.4-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 82182144,
+      "logical_bytes": 82177640,
+      "reason": "generated-source-archive",
+      "sha256": "c9606413f0664fb072ffbea800bff06f3cc1404bb422ea9859df550b4d0dfbe6"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.2.0-alpha.5-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 83402752,
+      "logical_bytes": 83397671,
+      "reason": "generated-source-archive",
+      "sha256": "510898dacfdc380f9f2cd607f54e8b20392f7bbdeb035a5700574c2b2b471af2"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.2.0-alpha.6-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 97325056,
+      "logical_bytes": 97320189,
+      "reason": "generated-source-archive",
+      "sha256": "6f1de829dca204fbe8cbbe394d10770a0535a6ac62ab1c2665b9c40bdb8f23be"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.2.0-alpha.7-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 143814656,
+      "logical_bytes": 143807653,
+      "reason": "generated-source-archive",
+      "sha256": "3a0ef0574957210da91fca81e89468087e7222860e975a85e993f72ececb940f"
+    },
+    {
+      "path": "artifacts/aperture-tv-v0.2.0-alpha.9-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 147714048,
+      "logical_bytes": 147708306,
+      "reason": "generated-source-archive",
+      "sha256": "e1443adbc3a1d29a138a53a58f905f24dcba08688f478c0d5af84bcf547cb4c7"
+    },
+    {
+      "path": "artifacts/aperture-tv-v13-downloads-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 148189184,
+      "logical_bytes": 148182352,
+      "reason": "generated-source-archive",
+      "sha256": "2dd894dadd64ee1cc9d6ce3536c4070a2f66812e6c91610c602e149b7cb81312"
+    },
+    {
+      "path": "artifacts/aperture-tv-v13-onboarding-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 148180992,
+      "logical_bytes": 148175009,
+      "reason": "generated-source-archive",
+      "sha256": "22bb2f8fb055b65f13dbda2fc14dc365e921f184956cc6e5f464a8318ded2383"
+    },
+    {
+      "path": "artifacts/aperture-tv-v13-open-testing-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 148197376,
+      "logical_bytes": 148192252,
+      "reason": "generated-source-archive",
+      "sha256": "5a60f35a159ae59650fd158cc2ffdc5d492ffd0b4f1b0584a31ebdb8a0fe068e"
+    },
+    {
+      "path": "artifacts/kaishi-v16-source-frozen.tar.gz",
+      "files": 1,
+      "allocated_bytes": 202579968,
+      "logical_bytes": 202572948,
+      "reason": "generated-source-archive",
+      "sha256": "33faec28913e27714d28d795b2bd95a3a42a67ee029db30866fd21a7f77a5f8e"
+    },
+    {
+      "path": "artifacts/public-v18-s53-r2.tar.gz",
+      "files": 1,
+      "allocated_bytes": 518131712,
+      "logical_bytes": 518121483,
+      "reason": "generated-source-archive",
+      "sha256": "e9fdf4596f0ee0bc43ce3dc386596fc939fefd4186566bf6ca0cc527abd550ae"
+    },
+    {
+      "path": "artifacts/public-v18-s53-r3.tar.gz",
+      "files": 1,
+      "allocated_bytes": 518139904,
+      "logical_bytes": 518123616,
+      "reason": "generated-source-archive",
+      "sha256": "27216f2c1ed147916b2d04c428e92d7747cd2f04c27f6b6649013c2e363573c4"
+    },
+    {
+      "path": "artifacts/public-v18-s53.tar.gz",
+      "files": 1,
+      "allocated_bytes": 518131712,
+      "logical_bytes": 518121597,
+      "reason": "generated-source-archive",
+      "sha256": "631062b7a1f630cb09764737bb92d9c97ec1c2c34be80e4d78420b88738f7fe2"
+    },
+    {
+      "path": "artifacts/s50-final-export-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 452378624,
+      "logical_bytes": 452372100,
+      "reason": "generated-source-archive",
+      "sha256": "81e1262af99c9eb179dd794bb4d66fc190c4c1fb9acbd7ad9892fb91a3815f58"
+    },
+    {
+      "path": "artifacts/s50-onboarding-source-r2.tar.gz",
+      "files": 1,
+      "allocated_bytes": 450420736,
+      "logical_bytes": 450404711,
+      "reason": "generated-source-archive",
+      "sha256": "8603bbbd13ae3ca05ed9b736ae8ac71a3d4990533cb4efe9092a68ae5cd131b4"
+    },
+    {
+      "path": "artifacts/s50-onboarding-source-r3.tar.gz",
+      "files": 1,
+      "allocated_bytes": 450420736,
+      "logical_bytes": 450410213,
+      "reason": "generated-source-archive",
+      "sha256": "80bc4c6b4e91ce00731cfc83d364e76890982015ec59161c6fc1cc00765b7a46"
+    },
+    {
+      "path": "artifacts/s50-onboarding-source-r6b.tar.gz",
+      "files": 1,
+      "allocated_bytes": 451104768,
+      "logical_bytes": 451094742,
+      "reason": "generated-source-archive",
+      "sha256": "591c33b154a378543eb63794548acd1eefee5df45e925e6af626a5efb9a4a4e8"
+    },
+    {
+      "path": "artifacts/s50-onboarding-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 450416640,
+      "logical_bytes": 450404346,
+      "reason": "generated-source-archive",
+      "sha256": "5c4df9d822d01f6213993c554b358f6276f33240aebd67dfd28f17400092a6d3"
+    },
+    {
+      "path": "artifacts/s53-v18-source-freeze-r2.tar.gz",
+      "files": 1,
+      "allocated_bytes": 517795840,
+      "logical_bytes": 517787340,
+      "reason": "generated-source-archive",
+      "sha256": "b3a65270d3c9083e6aa27b8990cbc40d08c4d615e75ab7a12f92b38fdff2d74b"
+    },
+    {
+      "path": "artifacts/s53-v18-source-freeze-r3.tar.gz",
+      "files": 1,
+      "allocated_bytes": 517804032,
+      "logical_bytes": 517788324,
+      "reason": "generated-source-archive",
+      "sha256": "f6d343e3f7db90aded65a88b704eaabc8e926263058e28a3ae682e6bd6bf71a9"
+    },
+    {
+      "path": "artifacts/s53-v18-source-freeze.tar.gz",
+      "files": 1,
+      "allocated_bytes": 517791744,
+      "logical_bytes": 517787091,
+      "reason": "generated-source-archive",
+      "sha256": "ccfb13b84b81855085f98e6505ae4255cf1f9886158292566002347d84a01211"
+    },
+    {
+      "path": "artifacts/s56-public-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 531877888,
+      "logical_bytes": 531862355,
+      "reason": "generated-source-archive",
+      "sha256": "8311d8139de75b2b2ef26c05e0b46e8cd9621a3cddfa320f8d2e375c8a5e57e9"
+    },
+    {
+      "path": "artifacts/s56-v19-source-r2.tar.gz",
+      "files": 1,
+      "allocated_bytes": 531529728,
+      "logical_bytes": 531521167,
+      "reason": "generated-source-archive",
+      "sha256": "9e8bcca995089a7c12bd504f6fc6703409bd8e1262c7549a2c8c898078d901f5"
+    },
+    {
+      "path": "artifacts/s56-v19-source.tar.gz",
+      "files": 1,
+      "allocated_bytes": 531537920,
+      "logical_bytes": 531518998,
+      "reason": "generated-source-archive",
+      "sha256": "e19053893f158f554563d634901ed0831599f6c91615ccc8b0e4bb4fc439b99d"
+    },
+    {
+      "path": "android/app/build",
+      "files": 11242,
+      "allocated_bytes": 1419243520,
+      "logical_bytes": 1392025343,
+      "reason": "generated-android-build"
+    },
+    {
+      "path": ".android-local/downloads/build-tools_r35_linux.zip",
+      "files": 1,
+      "allocated_bytes": 61964288,
+      "logical_bytes": 61958799,
+      "reason": "installed-tool-download-archive",
+      "sha256": "bd3a4966912eb8b30ed0d00b0cda6b6543b949d5ffe00bea54c04c81e1561d88"
+    },
+    {
+      "path": ".android-local/downloads/commandline.zip",
+      "files": 1,
+      "allocated_bytes": 153612288,
+      "logical_bytes": 153607504,
+      "reason": "installed-tool-download-archive",
+      "sha256": "2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258"
+    },
+    {
+      "path": ".android-local/downloads/emulator-linux_x64-16428233.zip",
+      "files": 1,
+      "allocated_bytes": 349659136,
+      "logical_bytes": 349654171,
+      "reason": "installed-tool-download-archive",
+      "sha256": "b08fc43d8608d2955f607f1b287beb525041e730086bdca3af152accac3af9c1"
+    },
+    {
+      "path": ".android-local/downloads/emulator-linux_x64-16632760.zip",
+      "files": 1,
+      "allocated_bytes": 353546240,
+      "logical_bytes": 353538566,
+      "reason": "installed-tool-download-archive",
+      "sha256": "f18c9e1f7ca8173809f253560a9b3b0c1f1bdbe97e0e80dc1c37cf4f52aee93d"
+    },
+    {
+      "path": ".android-local/downloads/gradle-8.9.zip",
+      "files": 1,
+      "allocated_bytes": 136118272,
+      "logical_bytes": 136114148,
+      "reason": "installed-tool-download-archive",
+      "sha256": "d725d707bfabd4dfdc958c624003b3c80accc03f7037b5122c4b1d0ef15cecab"
+    },
+    {
+      "path": ".android-local/downloads/jdk17.tar.gz",
+      "files": 1,
+      "allocated_bytes": 193601536,
+      "logical_bytes": 193594705,
+      "reason": "installed-tool-download-archive",
+      "sha256": "8b9b611d917e3dfd8419d3566b5949226f69b052fed7e109c1368add1dfe8711"
+    },
+    {
+      "path": ".android-local/downloads/platform-35_r02.zip",
+      "files": 1,
+      "allocated_bytes": 64278528,
+      "logical_bytes": 64273788,
+      "reason": "installed-tool-download-archive",
+      "sha256": "0988cacad01b38a18a47bac14a0695f246bc76c1b06c0eeb8eb0dc825ab0c8e0"
+    },
+    {
+      "path": ".android-local/downloads/platform-tools_r37.0.1-linux.zip",
+      "files": 1,
+      "allocated_bytes": 9056256,
+      "logical_bytes": 9054187,
+      "reason": "installed-tool-download-archive",
+      "sha256": "d230f13842f60f782a8645f9c813f8f845bf36089ea7289f28c48f17979313f1"
+    },
+    {
+      "path": ".android-local/downloads/x86-28_r10.zip",
+      "files": 1,
+      "allocated_bytes": 475222016,
+      "logical_bytes": 475216948,
+      "reason": "installed-tool-download-archive",
+      "sha256": "8ebf40cab53b49bbb53c8d391c1c2fe325ee3020a81b8f4226c80eaf67c952e1"
+    }
+  ],
+  "protected_releases": {
+    "artifacts/public-alpha-v17-release/aperture-tv-v17-standard-debug.apk": "00f0df48ff43937b4379996ab03010ee5da26556b3eba18f982a174d3ef64ed1",
+    "artifacts/public-alpha-v17-release/aperture-tv-v17-parents-debug.apk": "66631ea26efc1d8eddb5043e9e1599de3a0db69248dce116c18fb3ecbe02ef6e",
+    "artifacts/s53-release-final-r2/kaishi-v18-standard.apk": "24cfb3a922fd4b10566162c24306f452ee309d37d05b048aad57662b67b8c3a6",
+    "artifacts/s53-release-final-r2/kaishi-v18-parents.apk": "2215b5eed9a46369ee4f9d6b912c34bfce00e412fe2e83ced35b4d3981da7cac",
+    "artifacts/s56-release-final/kaishi-v19-standard.apk": "4f0d2afaa3dd8ba76540cb3182fb32dc9ab679d7f913ef72f8ccae2f9a10df3d",
+    "artifacts/s56-release-final/kaishi-v19-parents.apk": "b1aab8747b91393f4c3c5fa34c9fda528bb5a197478390210eeebcae58130f8f"
+  },
+  "protected_signing": {
+    "/home/ubuntu/.local/share/kaishi/signing/kaishi-release.jks": "aef87b314adea88f88ec989aebacfadb16a672f45396a866a9a4e82507754058",
+    "/home/ubuntu/.config/kaishi/signing-backup/kaishi-release.jks": "aef87b314adea88f88ec989aebacfadb16a672f45396a866a9a4e82507754058"
+  },
+  "disk_before": {
+    "total": 232385470464,
+    "used": 219092922368,
+    "free": 3720196096
+  },
+  "created_utc": "2026-10-26T11:04:01Z",
+  "retained_evidence": [
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/CONTRIBUTING.md",
+      "sha256": "80e04f29844f09c48ceb1ab2c465eca591665bc7d24c02f4fa58cb038f4b86f2"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/THIRD_PARTY_NOTICES.md",
+      "sha256": "ef482d3df16d844fd00e506541b50cd347624f485bafdb76fe0ac1f6d635fa1f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/package-lock.json",
+      "sha256": "6fc883000332cce78e07e86f8ef0fcc56fe7e6c6efedc2235e1138aff46f97b6"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/SOURCE-MANIFEST.json",
+      "sha256": "cd6b9d2d21fb809d387b2f46088eb58ad470e387b9a2d6e9f1df9a8849e310a7"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/package.json",
+      "sha256": "cc4a9489d69859b447412c5d95655586dc22bb1f0036ab69b6115224160311bb"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/README.md",
+      "sha256": "ee2c466ec48d563bba713388f52a92afe878716424056259536d6041ff60e0ff"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/AGENTS.md",
+      "sha256": "9d111376f90fc2333b861543a4deb272699dd8d8f86ecca5661e469d725251c4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/SECURITY.md",
+      "sha256": "d5f2f67e3bb9330a1ee636fb1b08bc2957158f315877a1b30c726c498b5c4a95"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13/INSTALL.md",
+      "sha256": "924aac6e3bec3c777b4803015ec403d635186b3b44a830bf14c1c28cc736a87c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/THIRD_PARTY_NOTICES.md",
+      "sha256": "ef482d3df16d844fd00e506541b50cd347624f485bafdb76fe0ac1f6d635fa1f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/package-lock.json",
+      "sha256": "96a76e8f0b50356eac4cb8ed92f0cd5fa18dd5f21be357edb67d884b5988c651"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/SOURCE-MANIFEST.json",
+      "sha256": "d1f9ff4c71b8cbe87b98b52895596c1fd5f9539fc3e82b3fbaadadbd5c6cf4b4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/package.json",
+      "sha256": "c6b2c0d0377f33ea2557ae49b23142772378371307b32f3337f8627b5e164405"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/README.md",
+      "sha256": "0c6789dd5ba5a158647f9d327fa35ab1df9a74f58963ec6585cd3a76a88f5e71"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/AGENTS.md",
+      "sha256": "9d111376f90fc2333b861543a4deb272699dd8d8f86ecca5661e469d725251c4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-alpha/INSTALL.md",
+      "sha256": "9029ad1c3480020e7a676839aa845d52a2a2b82f5eb01ddb15686d7078f1d03b"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/CONTRIBUTING.md",
+      "sha256": "80e04f29844f09c48ceb1ab2c465eca591665bc7d24c02f4fa58cb038f4b86f2"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/THIRD_PARTY_NOTICES.md",
+      "sha256": "ef482d3df16d844fd00e506541b50cd347624f485bafdb76fe0ac1f6d635fa1f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/package-lock.json",
+      "sha256": "6fc883000332cce78e07e86f8ef0fcc56fe7e6c6efedc2235e1138aff46f97b6"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/SOURCE-MANIFEST.json",
+      "sha256": "2bf7374ff8adc831f7c6f731f24c5a2d95d574c67e4380fd0e882c4ac7134833"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/package.json",
+      "sha256": "cc4a9489d69859b447412c5d95655586dc22bb1f0036ab69b6115224160311bb"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/README.md",
+      "sha256": "ee2c466ec48d563bba713388f52a92afe878716424056259536d6041ff60e0ff"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/AGENTS.md",
+      "sha256": "9d111376f90fc2333b861543a4deb272699dd8d8f86ecca5661e469d725251c4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/SECURITY.md",
+      "sha256": "d5f2f67e3bb9330a1ee636fb1b08bc2957158f315877a1b30c726c498b5c4a95"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r2/INSTALL.md",
+      "sha256": "924aac6e3bec3c777b4803015ec403d635186b3b44a830bf14c1c28cc736a87c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/CONTRIBUTING.md",
+      "sha256": "80e04f29844f09c48ceb1ab2c465eca591665bc7d24c02f4fa58cb038f4b86f2"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/THIRD_PARTY_NOTICES.md",
+      "sha256": "ef482d3df16d844fd00e506541b50cd347624f485bafdb76fe0ac1f6d635fa1f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/package-lock.json",
+      "sha256": "6fc883000332cce78e07e86f8ef0fcc56fe7e6c6efedc2235e1138aff46f97b6"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/SOURCE-MANIFEST.json",
+      "sha256": "89aac12007c8d06e252ae7feed18ce9d23f970f72ee6e1bbd85150c02100f33e"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/package.json",
+      "sha256": "cc4a9489d69859b447412c5d95655586dc22bb1f0036ab69b6115224160311bb"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/README.md",
+      "sha256": "ea77b9ad5e2d3e83dcd67abd540171d0978b958ca07df3b89ab92184f7c574d1"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/AGENTS.md",
+      "sha256": "9d111376f90fc2333b861543a4deb272699dd8d8f86ecca5661e469d725251c4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/SECURITY.md",
+      "sha256": "d5f2f67e3bb9330a1ee636fb1b08bc2957158f315877a1b30c726c498b5c4a95"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v13-r3/INSTALL.md",
+      "sha256": "c8471c8edfb9aa6ac93a736a56e65b096ac8db586536522858a1f9c3c484449a"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/THIRD_PARTY_NOTICES.md",
+      "sha256": "ef482d3df16d844fd00e506541b50cd347624f485bafdb76fe0ac1f6d635fa1f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/package-lock.json",
+      "sha256": "96a76e8f0b50356eac4cb8ed92f0cd5fa18dd5f21be357edb67d884b5988c651"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/SOURCE-MANIFEST.json",
+      "sha256": "c4983752b199cffd8b6ce4b7f5db7179eefaa523638ac744e60e00216f05427e"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/package.json",
+      "sha256": "c6b2c0d0377f33ea2557ae49b23142772378371307b32f3337f8627b5e164405"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/README.md",
+      "sha256": "0c6789dd5ba5a158647f9d327fa35ab1df9a74f58963ec6585cd3a76a88f5e71"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/AGENTS.md",
+      "sha256": "9d111376f90fc2333b861543a4deb272699dd8d8f86ecca5661e469d725251c4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v16/INSTALL.md",
+      "sha256": "9029ad1c3480020e7a676839aa845d52a2a2b82f5eb01ddb15686d7078f1d03b"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/THIRD_PARTY_NOTICES.md",
+      "sha256": "2aed2dc12ec1bb251325d78eca516826fcbf6cb5e219832b9e4d04de538476ae"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/package-lock.json",
+      "sha256": "1543e6f367e4aa5c98749717f0fbd34044dd5c57fa126275b1d45102ce87217f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/SOURCE-MANIFEST.json",
+      "sha256": "14b22f2c52ecec2ab173e8a2e0c0310f322b00a0fe48a2c705092a10dea6e600"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/package.json",
+      "sha256": "ba680ff0fadfd8b80df6bda77dde0b6c5a036dbadb759743324d9e6bef4bef8e"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/README.md",
+      "sha256": "7a5554d743313b86d43b4780642c022b5e97c21b769202b579e69baa8f24cebb"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/AGENTS.md",
+      "sha256": "9d111376f90fc2333b861543a4deb272699dd8d8f86ecca5661e469d725251c4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-final-build/INSTALL.md",
+      "sha256": "9029ad1c3480020e7a676839aa845d52a2a2b82f5eb01ddb15686d7078f1d03b"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/THIRD_PARTY_NOTICES.md",
+      "sha256": "2aed2dc12ec1bb251325d78eca516826fcbf6cb5e219832b9e4d04de538476ae"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/package-lock.json",
+      "sha256": "1543e6f367e4aa5c98749717f0fbd34044dd5c57fa126275b1d45102ce87217f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/SOURCE-MANIFEST.json",
+      "sha256": "088b2f7ea28d89d4eafa8b24e0b1e37d4747eb51a6f102efa41337b2a80df61e"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/package.json",
+      "sha256": "ba680ff0fadfd8b80df6bda77dde0b6c5a036dbadb759743324d9e6bef4bef8e"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/README.md",
+      "sha256": "7a5554d743313b86d43b4780642c022b5e97c21b769202b579e69baa8f24cebb"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/AGENTS.md",
+      "sha256": "9d111376f90fc2333b861543a4deb272699dd8d8f86ecca5661e469d725251c4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-r6-build/INSTALL.md",
+      "sha256": "9029ad1c3480020e7a676839aa845d52a2a2b82f5eb01ddb15686d7078f1d03b"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/THIRD_PARTY_NOTICES.md",
+      "sha256": "2aed2dc12ec1bb251325d78eca516826fcbf6cb5e219832b9e4d04de538476ae"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/package-lock.json",
+      "sha256": "1543e6f367e4aa5c98749717f0fbd34044dd5c57fa126275b1d45102ce87217f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/SOURCE-MANIFEST.json",
+      "sha256": "feece385dcbd1be0e11a6ea70e117a5a397b52d5b6bec912cd4ead218ab1a9c3"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/package.json",
+      "sha256": "ba680ff0fadfd8b80df6bda77dde0b6c5a036dbadb759743324d9e6bef4bef8e"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/README.md",
+      "sha256": "3741d1bd361971881b51e2004e7edc3402be76ea64fc530aa4b03ed8f093df11"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/AGENTS.md",
+      "sha256": "9d111376f90fc2333b861543a4deb272699dd8d8f86ecca5661e469d725251c4"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/aperture-tv-public-v17-s50-final/INSTALL.md",
+      "sha256": "9029ad1c3480020e7a676839aa845d52a2a2b82f5eb01ddb15686d7078f1d03b"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/THIRD_PARTY_NOTICES.md",
+      "sha256": "97b6dafb58d49ce91693110172632aa23b4a2eb2272a23b97ac944043f6aea89"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/package-lock.json",
+      "sha256": "47bd16ce1b6306047db256984273074e6c3e36e61a8ecba6e78db715871db106"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/SOURCE-MANIFEST.json",
+      "sha256": "75598b1e58705a062446060819d06451764ebcd4b33bcaca1d0d8310efa07dc9"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/package.json",
+      "sha256": "9e41a0b0c38689d181b8543b60ce6b207fbc0c9058dfdccad1d2193da0d102a5"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/README.md",
+      "sha256": "e0ab5e3bcf156aa3eff90e98feb8eeb1184a20be114db3346e46d020eacf75f7"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/AGENTS.md",
+      "sha256": "622b1f3eb4858d0698d756e7ae71cb87a11d826e0a207fa35daa7188e7993988"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53/INSTALL.md",
+      "sha256": "6dba13a31a3e70accf96dd40a8e4c544a2a3758a14e1f1945c887ea10bcd0d35"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/THIRD_PARTY_NOTICES.md",
+      "sha256": "97b6dafb58d49ce91693110172632aa23b4a2eb2272a23b97ac944043f6aea89"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/package-lock.json",
+      "sha256": "47bd16ce1b6306047db256984273074e6c3e36e61a8ecba6e78db715871db106"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/SOURCE-MANIFEST.json",
+      "sha256": "2ce8dc65f38649b839ca122886e13377f354928b4299bd01b5f9aefb6406ce2e"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/package.json",
+      "sha256": "9e41a0b0c38689d181b8543b60ce6b207fbc0c9058dfdccad1d2193da0d102a5"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/README.md",
+      "sha256": "e0ab5e3bcf156aa3eff90e98feb8eeb1184a20be114db3346e46d020eacf75f7"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/AGENTS.md",
+      "sha256": "622b1f3eb4858d0698d756e7ae71cb87a11d826e0a207fa35daa7188e7993988"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r2/INSTALL.md",
+      "sha256": "6dba13a31a3e70accf96dd40a8e4c544a2a3758a14e1f1945c887ea10bcd0d35"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/THIRD_PARTY_NOTICES.md",
+      "sha256": "97b6dafb58d49ce91693110172632aa23b4a2eb2272a23b97ac944043f6aea89"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/package-lock.json",
+      "sha256": "47bd16ce1b6306047db256984273074e6c3e36e61a8ecba6e78db715871db106"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/SOURCE-MANIFEST.json",
+      "sha256": "bf1bc8de4ac1c601e5b8f67397218956381646d8cdcd3828afb50b1d9b6e2f44"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/package.json",
+      "sha256": "9e41a0b0c38689d181b8543b60ce6b207fbc0c9058dfdccad1d2193da0d102a5"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/README.md",
+      "sha256": "e0ab5e3bcf156aa3eff90e98feb8eeb1184a20be114db3346e46d020eacf75f7"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/AGENTS.md",
+      "sha256": "622b1f3eb4858d0698d756e7ae71cb87a11d826e0a207fa35daa7188e7993988"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/public-v18-s53-r3/INSTALL.md",
+      "sha256": "6dba13a31a3e70accf96dd40a8e4c544a2a3758a14e1f1945c887ea10bcd0d35"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s50-anonymous-downloads/SHA256SUMS",
+      "sha256": "d21e16d42dd0733ec9fa194c928edd8d86698ec45dee962471f1e773677812d0"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s50-anonymous-downloads/testing-manifest.json",
+      "sha256": "528761e39d2566741e8d1f305db95399f9c3ce11b15ae936e4c4a61e45b84f19"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s50-r2/SHA256SUMS",
+      "sha256": "20d8908692d8273ce99f0d0dc61d422c0f0a2fcda7733beb59789474f0b9f809"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s50-r3/SHA256SUMS",
+      "sha256": "2b1464400eb431caad4ecf438edb1aec38bafaad0ea05488164f297b99b9104c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s50-r4/SHA256SUMS",
+      "sha256": "86f44e11eb6e6a471ed1ed50c1e7dd2af6e279961ac52d37647233735fc33316"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s53-anonymous-download/SHA256SUMS",
+      "sha256": "ceebff376ef22ede30d79cbdea6d21fa215051e53c367426b3cf977d5eda3f2a"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s53-anonymous-download/testing-manifest.json",
+      "sha256": "d5a619817c6e6183f46d5c1064c9b480945ca3363b00e972874e7b61a13c2c45"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s53-preserved-signed-v18-r2/parents/signature.txt",
+      "sha256": "58b614217d7102b220f3756d54a2039cc156b058585352104e946024e27bf7d0"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s53-preserved-signed-v18-r2/parents/manifest.json",
+      "sha256": "e965d603d54a63599bd00af89db1878f5840b5c2ce8d7a8a8bb44eb4411efafd"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s53-preserved-signed-v18-r2/standard/signature.txt",
+      "sha256": "58b614217d7102b220f3756d54a2039cc156b058585352104e946024e27bf7d0"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s53-preserved-signed-v18-r2/standard/manifest.json",
+      "sha256": "7c806027e27890a3fd65800e4e7ce6c9a6501b3ed42e71de95dd71b5ff5ab92f"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/SHA256SUMS",
+      "sha256": "d634ae32ee3b2f7e3cf300899ab6679aa119d4629934463f91f9bbecca150a23"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/kaishi-v19-standard.apk.receipt.json",
+      "sha256": "934c3377213fb1d7040a06bb4ac4b4ecdef4e140f5a771f78a0d78edfde58171"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/kaishi-v19-parents.apk.download.log",
+      "sha256": "76160757e19a7e9eefa1c548b3f1b0129202b00e52a80013f33315696224fc92"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/kaishi-v19-parents.apk.receipt.json",
+      "sha256": "d007637e28fd8a75941a369bed61996d7325f60a632b3629425ad516133cc3be"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/source.tar.gz.download.log",
+      "sha256": "5d8f218e76503e72f53997fb68ac64cd567d0249b998f314c496f1ee4742baae"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/testing-manifest.json.download.log",
+      "sha256": "1236af377e3ec726d55dd766305c6e4317a747bc4e6320e893988444a48e63de"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/kaishi-v19-standard.apk.download.log",
+      "sha256": "98a1f8ee195cfee8eb7f129df6b433501645414fa053ec10ca0592629a815cc8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/testing-manifest.json.receipt.json",
+      "sha256": "e90f576034addab59611e985de9e605b173cac0a4d51c611406cfa0400f99935"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/SHA256SUMS.receipt.json",
+      "sha256": "7b428247c4954a93f1b5c3f7c6d34661323cabdfa3e436bb21ad043599b5feed"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/SHA256SUMS.download.log",
+      "sha256": "9f52e69b039fc45578db20d9827bfade28e649f5bac0c4c0d4f0c88267361f2e"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-download/testing-manifest.json",
+      "sha256": "07401e4eed265dee6f2d82ef19a016bbda71760b0e9249be2e1ba9d05b472428"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/THIRD_PARTY_NOTICES.md",
+      "sha256": "56b2bf2d2ecc06958aa255a582b090fe06c472d14264142d112a1c075094eb0c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/package-lock.json",
+      "sha256": "9f1183f0e4919c5b7ad0b6301dad0f845802348bc46ca010dc116c2b31e9e798"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/SOURCE-MANIFEST.json",
+      "sha256": "636671116758b55e2077f3dbf838b1799c7b0ba7eae5204f626d41af56f96c13"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/package.json",
+      "sha256": "98cc479af1614ce80daf6facca8ecfc6783343dead3196a3535b9664bcb94438"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/README.md",
+      "sha256": "05f80592233304497bd407000ee18727d91db585f23b5759b6812a1aff4a4f58"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/AGENTS.md",
+      "sha256": "622b1f3eb4858d0698d756e7ae71cb87a11d826e0a207fa35daa7188e7993988"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-anonymous-git/INSTALL.md",
+      "sha256": "6dba13a31a3e70accf96dd40a8e4c544a2a3758a14e1f1945c887ea10bcd0d35"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/CONTRIBUTING.md",
+      "sha256": "3be6574906b515f80412d87cc31310f4a49fd5a2526ce5d125dfad753d5d9752"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/THIRD_PARTY_NOTICES.md",
+      "sha256": "56b2bf2d2ecc06958aa255a582b090fe06c472d14264142d112a1c075094eb0c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/requirements.txt",
+      "sha256": "65eeaf46c99ca7d330f96a0e4ffd9b81785b3a45f1cffde4a933dad8465b856c"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/package-lock.json",
+      "sha256": "9f1183f0e4919c5b7ad0b6301dad0f845802348bc46ca010dc116c2b31e9e798"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/SOURCE-MANIFEST.json",
+      "sha256": "636671116758b55e2077f3dbf838b1799c7b0ba7eae5204f626d41af56f96c13"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/package.json",
+      "sha256": "98cc479af1614ce80daf6facca8ecfc6783343dead3196a3535b9664bcb94438"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/README.md",
+      "sha256": "05f80592233304497bd407000ee18727d91db585f23b5759b6812a1aff4a4f58"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/AGENTS.md",
+      "sha256": "622b1f3eb4858d0698d756e7ae71cb87a11d826e0a207fa35daa7188e7993988"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/SECURITY.md",
+      "sha256": "6d7f757aa025f475e6fe4b84f1079ce7a5ba802f2b65f2722b3fc8db4e56e3e8"
+    },
+    {
+      "path": "artifacts/s57-cleanup-evidence/artifacts/s56-public-source/INSTALL.md",
+      "sha256": "6dba13a31a3e70accf96dd40a8e4c544a2a3758a14e1f1945c887ea10bcd0d35"
+    }
+  ],
+  "completed_utc": "2026-10-26T11:05:32Z",
+  "disk_after": {
+    "total": 232385470464,
+    "used": 196858146816,
+    "free": 25954971648
+  },
+  "filesystem_used_decrease_bytes": 22234775552,
+  "verified": {
+    "original_source_files_unchanged": 1465,
+    "protected_release_apks_sha256": 6,
+    "signing_files_unchanged": 2,
+    "all_targets_removed": true,
+    "public_publication_checkout_preserved": true,
+    "working_toolchain_preserved": true
+  }
+}
