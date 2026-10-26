@@ -108,4 +108,6 @@ S57：P60清理重复测试产物，[清理清单与保留核对](../verificatio
 
 S58（本地实现完成）：P61逐页生图与紧凑UI，[页面/尺寸/验证清单](../UI-COMPACT-S58.md)、[参考图及完整提示词](../../design-assets/s58/README.md)、[第44期编辑稿](../../media/DEVLOG-044.md)。家庭页减为相册、安排和留言，旧数据保留；本地源码迭代，未构建或发布。22张独立生图及提示词已保存；[完成核对](../verification/s58-completion.json)记录交付证据。原生新布局无本轮运行截图，真机验收按既定分工另行执行。
 
-S59：P62授权v20 / alpha.17发布，[发行软件验证](../verification/s59-software-acceptance.json)、[第45期编辑稿](../../media/DEVLOG-045.md)。小米真机与WorkBuddy仍待用户验收。
+S59（已发布Alpha）：P62授权v20 / alpha.17发布，[发行软件验证](../verification/s59-software-acceptance.json)、[第45期编辑稿](../../media/DEVLOG-045.md)。小米真机与WorkBuddy仍待用户验收。
+
+[v20公开发布与匿名回读](../verification/public-alpha-v20.json)：两版APK完整SHA-256、源码Git树及旧版本不可变性已核对。

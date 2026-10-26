@@ -53,3 +53,5 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 核心代码使用[MIT许可](LICENSE)。字体、图片、依赖与上游连接器分别遵守各自许可，详见[第三方声明](THIRD_PARTY_NOTICES.md)。
 
 ![影视目录（本地HTTP浏览器，合成资料，非小米真机）](docs/images/s58-cinema-catalogue.png)
+
+[v20发布回执](docs/verification/public-alpha-v20.json)：两版匿名下载与完整SHA-256、公开源码Git树及旧版本保留检查通过。

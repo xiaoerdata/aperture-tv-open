@@ -1,0 +1,69 @@
+{
+  "startedAt": "2026-10-26T16:59:52.933Z",
+  "archiveName": "s59-public-source.tar.gz",
+  "archiveSha256": "5426accc5010defa7b469c59fc11ab61348498d95ff9970a235d610022f9d1da",
+  "status": "passed",
+  "hardwareTested": false,
+  "workBuddyApplicationTested": false,
+  "apkBuilt": false,
+  "sourceFilesVerified": 1327,
+  "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+  "noGitDirectory": true,
+  "version": "0.2.0-alpha.17",
+  "npmCi": true,
+  "npmLifecycleScriptsEnabled": true,
+  "freshPythonVenv": true,
+  "pillowInstalledFromRequirements": true,
+  "doctor": {
+    "ready": true,
+    "checks": [
+      {
+        "name": "Node.js 22+",
+        "ok": true,
+        "detail": "v22.5.1"
+      },
+      {
+        "name": "@modelcontextprotocol/sdk",
+        "ok": true
+      },
+      {
+        "name": "hls.js",
+        "ok": true
+      },
+      {
+        "name": "qrcode",
+        "ok": true
+      },
+      {
+        "name": "Python 3.10+ / Pillow",
+        "ok": true,
+        "detail": "python3 3.10.12 / 11.1.0"
+      },
+      {
+        "name": "家庭数据目录",
+        "ok": true,
+        "detail": "首次启动时创建私有目录"
+      }
+    ],
+    "exposure": "默认仅本机访问；跨设备需配置正确 PUBLIC_ORIGIN、监听与HTTPS。",
+    "television": "完整模式WebView89+；轻量模式面向旧内核，尚待真机验证。"
+  },
+  "checkedStart": true,
+  "healthVersion": "0.2.0-alpha.17",
+  "ownerKeyMode": 384,
+  "familyDirectoryMode": 448,
+  "browserErrors": [],
+  "routes": [
+    "/guide",
+    "/home?demo=1",
+    "/home?edition=parents&demo=1",
+    "/tv?demo=1",
+    "/tv-lite?demo=1",
+    "/cinema"
+  ],
+  "privateStateStatus": 401,
+  "machineInterfaceDefaultStatus": 503,
+  "serviceStopped": true,
+  "temporaryDirectoryRemoved": true,
+  "finishedAt": "2026-10-26T17:00:17.855Z"
+}

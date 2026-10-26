@@ -1,0 +1,211 @@
+{
+  "version": "0.2.0-alpha.17",
+  "versionCode": 20,
+  "release": {
+    "id": 424537500,
+    "tag_name": "v0.2.0-alpha.17",
+    "target_commitish": "8ddfda6371a2eeb9aa45c24a97c4a796855c36a4",
+    "draft": false,
+    "prerelease": true,
+    "html_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.17",
+    "published_at": "2026-10-26T17:26:04Z"
+  },
+  "assets": [
+    {
+      "id": 678891118,
+      "name": "kaishi-v20-parents.apk",
+      "size": 55182616,
+      "state": "uploaded",
+      "digest": "sha256:9e497108bcb59abf3f4874f37f59658e4bd9823e533bad14fad5b9cd39ec2f7c",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.17/kaishi-v20-parents.apk"
+    },
+    {
+      "id": 678888766,
+      "name": "kaishi-v20-standard.apk",
+      "size": 55153944,
+      "state": "uploaded",
+      "digest": "sha256:8b0bd6827f3ada4e68a971e2444f428d245517369264f05bee8e2f68a906feed",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.17/kaishi-v20-standard.apk"
+    },
+    {
+      "id": 678893358,
+      "name": "SHA256SUMS",
+      "size": 267,
+      "state": "uploaded",
+      "digest": "sha256:644e2740813f8c60a12966d053b0cdeb396598c4f09fc02bafcbdbcd9f0a4238",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.17/SHA256SUMS"
+    },
+    {
+      "id": 678892669,
+      "name": "testing-manifest.json",
+      "size": 29509,
+      "state": "uploaded",
+      "digest": "sha256:11710815a7413299ce526969523c72b5dd77ea6e53175b796d890b0fe8d3581d",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.17/testing-manifest.json"
+    }
+  ],
+  "anonymousReadback": {
+    "verifiedAt": "2026-10-26T17:36:14.428841+00:00",
+    "release": {
+      "id": 424537500,
+      "tag_name": "v0.2.0-alpha.17",
+      "target_commitish": "8ddfda6371a2eeb9aa45c24a97c4a796855c36a4",
+      "draft": false,
+      "prerelease": true,
+      "html_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.17",
+      "published_at": "2026-10-26T17:26:04Z"
+    },
+    "assets": [
+      {
+        "file": "kaishi-v20-parents.apk",
+        "bytes": 55182616,
+        "sha256": "9e497108bcb59abf3f4874f37f59658e4bd9823e533bad14fad5b9cd39ec2f7c"
+      },
+      {
+        "file": "kaishi-v20-standard.apk",
+        "bytes": 55153944,
+        "sha256": "8b0bd6827f3ada4e68a971e2444f428d245517369264f05bee8e2f68a906feed"
+      },
+      {
+        "file": "SHA256SUMS",
+        "bytes": 267,
+        "sha256": "644e2740813f8c60a12966d053b0cdeb396598c4f09fc02bafcbdbcd9f0a4238"
+      },
+      {
+        "file": "testing-manifest.json",
+        "bytes": 29509,
+        "sha256": "11710815a7413299ce526969523c72b5dd77ea6e53175b796d890b0fe8d3581d"
+      }
+    ],
+    "authorizationHeaderSent": false,
+    "cookiesSent": false,
+    "apkAndManifestSha256Match": true,
+    "publicSource": {
+      "verifiedAt": "2026-10-26T17:30:19.656558+00:00",
+      "anonymous": true,
+      "tag": "v0.2.0-alpha.17",
+      "commit": "8ddfda6371a2eeb9aa45c24a97c4a796855c36a4",
+      "trackedBlobsVerified": 1328,
+      "sourceFiles": 1327,
+      "treeComplete": true,
+      "method": "anonymous GitHub tag and recursive Git tree; every Git blob digest equals reviewed source bytes",
+      "fullArchiveDownloadedByThisCheck": false
+    },
+    "sourceArchiveDownloaded": false,
+    "downloadMethod": "Anonymous HTTP range resume after full-transfer TLS EOF/timeout; assembled complete files verified by SHA-256",
+    "initialFullTransferFailed": true
+  },
+  "sourceInstall": {
+    "startedAt": "2026-10-26T16:59:52.933Z",
+    "archiveName": "s59-public-source.tar.gz",
+    "archiveSha256": "5426accc5010defa7b469c59fc11ab61348498d95ff9970a235d610022f9d1da",
+    "status": "passed",
+    "hardwareTested": false,
+    "workBuddyApplicationTested": false,
+    "apkBuilt": false,
+    "sourceFilesVerified": 1327,
+    "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+    "noGitDirectory": true,
+    "version": "0.2.0-alpha.17",
+    "npmCi": true,
+    "npmLifecycleScriptsEnabled": true,
+    "freshPythonVenv": true,
+    "pillowInstalledFromRequirements": true,
+    "doctor": {
+      "ready": true,
+      "checks": [
+        {
+          "name": "Node.js 22+",
+          "ok": true,
+          "detail": "v22.5.1"
+        },
+        {
+          "name": "@modelcontextprotocol/sdk",
+          "ok": true
+        },
+        {
+          "name": "hls.js",
+          "ok": true
+        },
+        {
+          "name": "qrcode",
+          "ok": true
+        },
+        {
+          "name": "Python 3.10+ / Pillow",
+          "ok": true,
+          "detail": "python3 3.10.12 / 11.1.0"
+        },
+        {
+          "name": "家庭数据目录",
+          "ok": true,
+          "detail": "首次启动时创建私有目录"
+        }
+      ],
+      "exposure": "默认仅本机访问；跨设备需配置正确 PUBLIC_ORIGIN、监听与HTTPS。",
+      "television": "完整模式WebView89+；轻量模式面向旧内核，尚待真机验证。"
+    },
+    "checkedStart": true,
+    "healthVersion": "0.2.0-alpha.17",
+    "ownerKeyMode": 384,
+    "familyDirectoryMode": 448,
+    "browserErrors": [],
+    "routes": [
+      "/guide",
+      "/home?demo=1",
+      "/home?edition=parents&demo=1",
+      "/tv?demo=1",
+      "/tv-lite?demo=1",
+      "/cinema"
+    ],
+    "privateStateStatus": 401,
+    "machineInterfaceDefaultStatus": 503,
+    "serviceStopped": true,
+    "temporaryDirectoryRemoved": true,
+    "finishedAt": "2026-10-26T17:00:17.855Z"
+  },
+  "publicSourceReview": {
+    "patternFindings": 0,
+    "sensitivePaths": 0,
+    "privateEvidencePaths": 0,
+    "reviewedSourceFiles": 1327,
+    "newAssets": "S58 generated reference art and browser captures using synthetic records; original logo and licensed wallpapers retained"
+  },
+  "previousReleases": {
+    "oldReleasesUnchanged": 5,
+    "oldAssetsUnchanged": 20,
+    "oldTagRefsUnchanged": 5,
+    "newTagCommit": "8ddfda6371a2eeb9aa45c24a97c4a796855c36a4"
+  },
+  "cleanup": {
+    "removed": [
+      {
+        "path": "artifacts/s59-source.tar.gz",
+        "logicalBytes": 611270059
+      },
+      {
+        "path": "artifacts/s59-public-source.tar.gz",
+        "logicalBytes": 611680389
+      },
+      {
+        "path": "artifacts/s59-public-source",
+        "logicalBytes": 622142370
+      },
+      {
+        "path": "artifacts/s59-anonymous-download",
+        "logicalBytes": 215345355
+      }
+    ],
+    "logicalBytesRemoved": 2060438173,
+    "preserved": [
+      "signed v20 APKs and checksum files",
+      "v17/v18/v19 release APKs",
+      "signing material and backup",
+      "frozen v20 source manifest",
+      "all development images, prompts and records",
+      "public Git checkout and frozen tag"
+    ]
+  },
+  "nativeHardwareAccepted": false,
+  "workBuddyClientAccepted": false
+}

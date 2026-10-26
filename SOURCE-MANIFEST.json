@@ -100,8 +100,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4945,
-      "sha256": "c600f52a402f1a3e3019e62da06e336ff3bf9f44810bf6ca680d2244354db215"
+      "bytes": 5096,
+      "sha256": "26ca12609762c19031510f78a9e3a9e9abbe016682fdb6b909ea53cc7e4e9d11"
     },
     {
       "path": "SECURITY.md",
@@ -414,16 +414,6 @@
       "sha256": "21a02e064d8db532ecf64cbf5315eb556cb86bbcb9dd2d06a83f99507a4bcc8f"
     },
     {
-      "path": "android/app/src/main/res/drawable/banner.xml",
-      "bytes": 133,
-      "sha256": "13c74367e9ceeb7be125ce2a21f15e46792213f6dac57c92e465ee304e322f99"
-    },
-    {
-      "path": "android/app/src/main/res/drawable/ic_window.xml",
-      "bytes": 131,
-      "sha256": "d1dd3f767d6f2921364575b7beb41db39dfa800a46df6f871d1ae1770a049ddf"
-    },
-    {
       "path": "android/app/src/main/res/drawable-nodpi/kaishi_banner_v2.png",
       "bytes": 57174,
       "sha256": "2f382a514db670d046e98a46aa843b161c3697e3f95adc337141ed5e5af6f2f8"
@@ -437,6 +427,16 @@
       "path": "android/app/src/main/res/drawable-nodpi/tmdb_attribution.png",
       "bytes": 23972,
       "sha256": "915f790f22ef7135409af7d7f244479c058cc98b1a3d31bdb280e89e8de126f1"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/banner.xml",
+      "bytes": 133,
+      "sha256": "13c74367e9ceeb7be125ce2a21f15e46792213f6dac57c92e465ee304e322f99"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/ic_window.xml",
+      "bytes": 131,
+      "sha256": "d1dd3f767d6f2921364575b7beb41db39dfa800a46df6f871d1ae1770a049ddf"
     },
     {
       "path": "android/app/src/parents/res/drawable-nodpi/kaishi_banner_v2.png",
@@ -1015,8 +1015,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4570,
-      "sha256": "106037bda20eb90b1ee154f94494564bbd3395362629d60a1e67a16091cf1fee"
+      "bytes": 4731,
+      "sha256": "93d1b9ec0f5b1db073d83d148e8d0310a0c2918c15b8011205583115858bed61"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -3925,8 +3925,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 160068,
-      "sha256": "c8a1410b69b42081eba60740f322b3bbdecfe8561c0a177bd70509e4052e6b41"
+      "bytes": 161128,
+      "sha256": "76e07f3eabe03a6658375ac0801cfb144c131e73fddfb0f09b6f52aec8362743"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -3935,8 +3935,8 @@
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 14158,
-      "sha256": "a5a3c5c9ec8ae4c349b24b35feaf377d145b1f19bed0ad76d8a438ef21ad10c1"
+      "bytes": 14327,
+      "sha256": "4ecb0ef201ef9abbf93fabcfa39a235eed82eca7c0c3eefe06e7789668b83d52"
     },
     {
       "path": "docs/release/README-public.md",
@@ -4107,6 +4107,11 @@
       "path": "docs/verification/public-alpha-v19.json",
       "bytes": 4813,
       "sha256": "96d6f9b93b79baf4cb5c76d52b53650d3eebc5157f2ffc0cf53b2fc99fee0345"
+    },
+    {
+      "path": "docs/verification/public-alpha-v20.json",
+      "bytes": 6952,
+      "sha256": "dd8e01510a39ef77487dad789c9dde3572124203f243d26dc13d3d344a9b46a2"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -4849,6 +4854,11 @@
       "sha256": "b0367bfa0cfa5be380fc234821273a9a8cbbeebd7c26bdf9219a8c66cc775902"
     },
     {
+      "path": "docs/verification/s59-public-clean-install.json",
+      "bytes": 1831,
+      "sha256": "4799b469e98b528748456e3c91cd72993ade39d6fa32d453c08dcc18e2620c1b"
+    },
+    {
       "path": "docs/verification/s59-software-acceptance.json",
       "bytes": 2962,
       "sha256": "bd8c567ff372c1717b9923a2780ca1dd4527c45e6058b241d944bca7f68fbf7c"
@@ -5240,8 +5250,8 @@
     },
     {
       "path": "media/DEVLOG-045.md",
-      "bytes": 558,
-      "sha256": "99b1439efbe808bc04216f57d8762c85bd875c49dbde451d347be2b8278cf49c"
+      "bytes": 791,
+      "sha256": "40a1d6a7ba7967280df6c19dcd9c4699953e85e68d636e124b34265fe499600f"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -6384,6 +6394,16 @@
       "sha256": "d9631cff21ca6bad4a8b2be70bdc22ee3f278577f1950ee0340d54d715063545"
     },
     {
+      "path": "tests/android-abis.test.mjs",
+      "bytes": 2477,
+      "sha256": "326632b5fa579b09f627e599da946bb3d107517615738da9ded3e5f784fc87b6"
+    },
+    {
+      "path": "tests/android-source.test.mjs",
+      "bytes": 4726,
+      "sha256": "3b3e8639bfd64aa441177ea6425379274fc20fa278461ed2af5df3eae14309b2"
+    },
+    {
       "path": "tests/android/CinemaRunner.java",
       "bytes": 21377,
       "sha256": "9d3bb7835f522d2754417d74f56b0cc6c0c381d8fd59a21fe3acdf97101c0fec"
@@ -6402,16 +6422,6 @@
       "path": "tests/android/PluginRunner.java",
       "bytes": 14397,
       "sha256": "0bcf9ed0ea2447de4385b1ff3106885b2d889c129c344b2bf34cc4cff9dc3b58"
-    },
-    {
-      "path": "tests/android-abis.test.mjs",
-      "bytes": 2477,
-      "sha256": "326632b5fa579b09f627e599da946bb3d107517615738da9ded3e5f784fc87b6"
-    },
-    {
-      "path": "tests/android-source.test.mjs",
-      "bytes": 4726,
-      "sha256": "3b3e8639bfd64aa441177ea6425379274fc20fa278461ed2af5df3eae14309b2"
     },
     {
       "path": "tests/app-operations-mcp.test.mjs",
@@ -6688,5 +6698,11 @@
       "bytes": 9988,
       "sha256": "6ba63e93ecad4723e557fc7241e032b218ba5ac2c4f10ad76f5cbed25d4a35d7"
     }
-  ]
+  ],
+  "postReleaseDocumentation": {
+    "tag": "v0.2.0-alpha.17",
+    "frozenCommit": "8ddfda6371a2eeb9aa45c24a97c4a796855c36a4",
+    "releaseAssetsUnchanged": true,
+    "description": "main includes publication receipts; the tag retains its original source manifest"
+  }
 }
