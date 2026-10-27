@@ -120,3 +120,6 @@ S62（进行中）：[原生回归与复现](../NATIVE-REGRESSION-S62.md)。API2
 
 
 S62最终回归：两版各40项完整原生用例通过，[最终源码绑定](../verification/s62-native-final-binding.json)、[原生过程与截图](../NATIVE-REGRESSION-S62.md)。S63准备v22 Alpha，[发行软件清单](../verification/s63-software-acceptance.json)；原资源包和真机验收仍未完成。
+
+
+S63（v22已发布Alpha）：[公开下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.19)、[匿名附件/源码树与旧版本不变回执](../verification/public-alpha-v22.json)、[本轮重复产物清理](../verification/s63-cleanup.json)。两版各40项模拟器原生用例通过；原报告资源与小米真机验收仍待完成，第47期未上传。

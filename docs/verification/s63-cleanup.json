@@ -1,0 +1,40 @@
+{
+  "stage": "S63 post-publication duplicate cleanup",
+  "at": "2026-10-27T20:14:02.671748+00:00",
+  "removed": [
+    {
+      "path": "artifacts/s63-source-input.tar.gz",
+      "bytes": 625650383,
+      "files": 1,
+      "sha256": "358f4535b748b17bd0c8f0978f6e106d689be80edecdc3b5a0e5d7005f16f24b"
+    },
+    {
+      "path": "artifacts/s63-public-source.tar.gz",
+      "bytes": 626065303,
+      "files": 1,
+      "sha256": "385c5965e90fb38f5e11f8b2c6c020abd7c06eeeaf6f542575968a72cfcb6421"
+    },
+    {
+      "path": "artifacts/s63-public-source",
+      "bytes": 636911856,
+      "files": 1405,
+      "sha256": null
+    },
+    {
+      "path": "artifacts/s63-anonymous-download",
+      "bytes": 220872200,
+      "files": 34,
+      "sha256": null
+    }
+  ],
+  "logicalBytesRemoved": 2109499742,
+  "preserved": [
+    "signed release APKs and signing files outside source",
+    "frozen source manifest",
+    "public Git history and tags",
+    "anonymous verification receipts and small metadata",
+    "native test failures, final reports and images",
+    "SDK/JDK/AVD and user data"
+  ],
+  "scope": "only owned temporary exports and duplicate anonymous downloads after full verification; logical bytes, not physical free-space guarantee"
+}

@@ -1,0 +1,265 @@
+{
+  "version": "0.2.0-alpha.19",
+  "versionCode": 22,
+  "release": {
+    "id": 425933697,
+    "tag_name": "v0.2.0-alpha.19",
+    "target_commitish": "af32852ff7ab9443c281d8cbbc526a6bf5a24a8b",
+    "draft": false,
+    "prerelease": true,
+    "html_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.19",
+    "published_at": "2026-10-27T20:11:50Z"
+  },
+  "assets": [
+    {
+      "id": 682737719,
+      "name": "kaishi-v22-parents.apk",
+      "size": 55215384,
+      "state": "uploaded",
+      "digest": "sha256:cf3ae1c3a6a3a694e51a0305c94ee77f728f080e74f2c0b8e0c399b58d493c7b",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.19/kaishi-v22-parents.apk"
+    },
+    {
+      "id": 682736214,
+      "name": "kaishi-v22-standard.apk",
+      "size": 55186712,
+      "state": "uploaded",
+      "digest": "sha256:8cfc6bd7a5363d6bcadb940100cec86028efcf9c692a7056d81a6507778c469d",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.19/kaishi-v22-standard.apk"
+    },
+    {
+      "id": 682739482,
+      "name": "SHA256SUMS",
+      "size": 267,
+      "state": "uploaded",
+      "digest": "sha256:e59eab42d2b09eaf0ed08fb8bd24e80ed1f60c81ad73628c9fe2dc3ee6892ebd",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.19/SHA256SUMS"
+    },
+    {
+      "id": 682739386,
+      "name": "testing-manifest.json",
+      "size": 33737,
+      "state": "uploaded",
+      "digest": "sha256:a5a76d933cf79fefee57f4015feaeb3de85744765f2c64e65b61580c18cd6446",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.19/testing-manifest.json"
+    }
+  ],
+  "anonymousReadback": {
+    "verifiedAt": "2026-10-27T20:13:05.939972+00:00",
+    "release": {
+      "id": 425933697,
+      "tag_name": "v0.2.0-alpha.19",
+      "target_commitish": "af32852ff7ab9443c281d8cbbc526a6bf5a24a8b",
+      "draft": false,
+      "prerelease": true,
+      "html_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.19",
+      "published_at": "2026-10-27T20:11:50Z"
+    },
+    "assets": [
+      {
+        "file": "kaishi-v22-parents.apk",
+        "bytes": 55215384,
+        "sha256": "cf3ae1c3a6a3a694e51a0305c94ee77f728f080e74f2c0b8e0c399b58d493c7b"
+      },
+      {
+        "file": "kaishi-v22-standard.apk",
+        "bytes": 55186712,
+        "sha256": "8cfc6bd7a5363d6bcadb940100cec86028efcf9c692a7056d81a6507778c469d"
+      },
+      {
+        "file": "SHA256SUMS",
+        "bytes": 267,
+        "sha256": "e59eab42d2b09eaf0ed08fb8bd24e80ed1f60c81ad73628c9fe2dc3ee6892ebd"
+      },
+      {
+        "file": "testing-manifest.json",
+        "bytes": 33737,
+        "sha256": "a5a76d933cf79fefee57f4015feaeb3de85744765f2c64e65b61580c18cd6446"
+      }
+    ],
+    "authorizationHeaderSent": false,
+    "cookiesSent": false,
+    "apkAndManifestSha256Match": true,
+    "publicSource": {
+      "verifiedAt": "2026-10-27T20:12:56.532609+00:00",
+      "anonymous": true,
+      "authorizationHeaderSent": false,
+      "cookiesSent": false,
+      "credentialHelpersDisabled": true,
+      "tag": "v0.2.0-alpha.19",
+      "commit": "af32852ff7ab9443c281d8cbbc526a6bf5a24a8b",
+      "trackedBlobsVerified": 1405,
+      "sourceFiles": 1404,
+      "treeComplete": true,
+      "method": "anonymous Git ls-remote and shallow blob-filtered fetch; every recursive Git tree blob digest equals reviewed frozen source bytes",
+      "apiRateLimited": true,
+      "fullArchiveDownloadedByThisCheck": false,
+      "remoteBlobsDownloadedByThisCheck": false,
+      "downloadedGitObjectTypes": {
+        "tree": 81,
+        "commit": 1
+      }
+    },
+    "sourceArchiveDownloaded": false,
+    "downloadMethod": "Anonymous HTTP ranges assembled into complete files; every complete file verified by SHA-256",
+    "initialFullTransferFailed": false
+  },
+  "publicSourceFreeze": {
+    "version": "0.2.0-alpha.19",
+    "upstreamSource": {
+      "commit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+      "workingTreeDirty": true
+    },
+    "publicSourceFiles": 1404,
+    "androidSourceSha256": "cd6acbc83f1b63d42ba64217dbb2852240b535407b662bbc7edb4d3f1633a32f",
+    "androidMatchesTestingApks": true,
+    "archiveBytes": 626065303,
+    "archiveSha256": "385c5965e90fb38f5e11f8b2c6c020abd7c06eeeaf6f542575968a72cfcb6421",
+    "historyIncluded": false,
+    "privatePreviewIncluded": false,
+    "documentationLinks": {
+      "documents": 119,
+      "localFileLinksChecked": 595,
+      "missing": [],
+      "scope": "Inline Markdown links/images and reference definitions; file existence only. Excludes code, anchors, service routes and external URL availability."
+    },
+    "privateDownloadLinksReplaced": [
+      {
+        "path": "docs/ANDROID-LOCAL.md",
+        "links": 1
+      },
+      {
+        "path": "docs/ANDROID-PRIVATE-TEST.md",
+        "links": 2
+      },
+      {
+        "path": "docs/ANDROID.md",
+        "links": 1
+      },
+      {
+        "path": "docs/HOME-MODES.md",
+        "links": 1
+      },
+      {
+        "path": "docs/LOBBY-AND-PARENTS.md",
+        "links": 1
+      },
+      {
+        "path": "docs/NAS-SETUP.md",
+        "links": 1
+      },
+      {
+        "path": "docs/NAS.md",
+        "links": 1
+      },
+      {
+        "path": "docs/QUICKSTART.md",
+        "links": 1
+      },
+      {
+        "path": "docs/XIAOMI-VOICE.md",
+        "links": 1
+      },
+      {
+        "path": "docs/process/README.md",
+        "links": 1
+      }
+    ],
+    "remotePublished": false,
+    "hardwareAcceptance": "maintainer to test WorkBuddy and Xiaomi TV"
+  },
+  "cleanSourceInstall": {
+    "startedAt": "2026-10-27T20:05:56.376Z",
+    "archiveName": "s63-public-source.tar.gz",
+    "archiveSha256": "385c5965e90fb38f5e11f8b2c6c020abd7c06eeeaf6f542575968a72cfcb6421",
+    "status": "passed",
+    "hardwareTested": false,
+    "workBuddyApplicationTested": false,
+    "apkBuilt": false,
+    "sourceFilesVerified": 1404,
+    "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+    "noGitDirectory": true,
+    "version": "0.2.0-alpha.19",
+    "npmCi": true,
+    "npmLifecycleScriptsEnabled": true,
+    "freshPythonVenv": true,
+    "pillowInstalledFromRequirements": true,
+    "doctor": {
+      "ready": true,
+      "checks": [
+        {
+          "name": "Node.js 22+",
+          "ok": true,
+          "detail": "v22.5.1"
+        },
+        {
+          "name": "@modelcontextprotocol/sdk",
+          "ok": true
+        },
+        {
+          "name": "hls.js",
+          "ok": true
+        },
+        {
+          "name": "qrcode",
+          "ok": true
+        },
+        {
+          "name": "Python 3.10+ / Pillow",
+          "ok": true,
+          "detail": "python3 3.10.12 / 11.1.0"
+        },
+        {
+          "name": "家庭数据目录",
+          "ok": true,
+          "detail": "首次启动时创建私有目录"
+        }
+      ],
+      "exposure": "默认仅本机访问；跨设备需配置正确 PUBLIC_ORIGIN、监听与HTTPS。",
+      "television": "完整模式WebView89+；轻量模式面向旧内核，尚待真机验证。"
+    },
+    "checkedStart": true,
+    "healthVersion": "0.2.0-alpha.19",
+    "ownerKeyMode": 384,
+    "familyDirectoryMode": 448,
+    "browserErrors": [],
+    "routes": [
+      "/guide",
+      "/home?demo=1",
+      "/home?edition=parents&demo=1",
+      "/tv?demo=1",
+      "/tv-lite?demo=1",
+      "/cinema"
+    ],
+    "privateStateStatus": 401,
+    "machineInterfaceDefaultStatus": 503,
+    "serviceStopped": true,
+    "temporaryDirectoryRemoved": true,
+    "finishedAt": "2026-10-27T20:06:24.530Z"
+  },
+  "nativeRegression": {
+    "binding": "s62-native-final-binding.json",
+    "bindingSha256": "9a69045a473e2ea1735f0b0f557dc4d0efc105fbfbe5002c3bc8de60ad39fc36",
+    "perEditionPassedChecks": 40,
+    "emulatorDebugX86Only": true,
+    "signedArmApksNativeExecuted": false
+  },
+  "oldReleaseImmutability": {
+    "oldReleasesVerified": 7,
+    "oldTagsVerified": 7,
+    "oldAssetsVerified": 28,
+    "unchanged": true,
+    "beforeInventorySha256": "04c5cda345b82d29a4915b907bea63362417dc1de7569441b9d60922637af802"
+  },
+  "scope": {
+    "xiaomiOnly": true,
+    "alpha": true,
+    "realReportResourcePackAvailable": false,
+    "realXiaomiAccepted": false,
+    "workBuddyClientAccepted": false,
+    "realTmdbAccepted": false
+  },
+  "verifiedAt": "2026-10-27T20:13:15.902431+00:00",
+  "receiptAppendOnlyOnMain": true,
+  "frozenTagAndAssetsModifiedAfterRelease": false
+}
