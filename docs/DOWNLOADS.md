@@ -44,3 +44,5 @@ v21沿用v18/v19/v20的两个包名与发行证书，可在原版上更新，不
 可[免费本地构建](ANDROID-LOCAL.md)；发行操作见[签名说明](ANDROID-RELEASE.md)。公开源码不含签名密钥、NAS凭证、私人数据、工具链或原始用户测试PDF。
 
 [v20发布与匿名回读](verification/public-alpha-v20.json)已完成：两版完整APK、清单与校验和一致；完整源码Git树与冻结清单逐项匹配。未下载完整GitHub源码归档。回执仅追加main，不修改冻结标签和附件。[v19历史回读](verification/public-alpha-v19.json)与[v18历史回读](verification/public-alpha-v18.json)保留。
+
+[v21发布与匿名回读](verification/public-alpha-v21.json)已完成：两版APK、测试清单与校验和完整下载后SHA-256一致；1363个Git blob（含冻结清单）与已审阅源码逐项匹配。未下载完整GitHub源码归档。6个旧标签、6次发行及24个旧附件未变。本回执只追加main，发行标签和APK保持冻结。原生新交互与真实资源包问题仍待复测。

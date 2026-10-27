@@ -34,7 +34,7 @@ S24/S25补充：NAS电影/剧集入口绑定、加密模型和焦点中断修正
 
 S26补充：[NAS播放与小爱音频焦点](../XIAOMI-VOICE.md#nas影片与音频焦点源码v7)、[播放验证](../verification/playback-focus.json)、[讲解动画记录](../verification/playback-focus-media.json)、[第十五期分镜](../../media/DEVLOG-015.md)。这是生产控制器JVM与合成事件讲解，未作实机结论。
 
-S27补充：[v7两版APK证据](../verification/v7-candidates.json)、[源码包证据](../verification/v7-source.json)、[私有下载](../DOWNLOADS.md)。免费本地一次构建；目录/签名/来源验证通过，Android与小米硬件仍待验收。
+S27补充：[v7两版APK证据](../verification/v7-candidates.json)、[源码包证据](../verification/v7-source.json)、[私有下载](../../private-preview/README.md)。免费本地一次构建；目录/签名/来源验证通过，Android与小米硬件仍待验收。
 
 S28补充：[手机/Agent交接NAS](../NAS-SETUP.md)、[专项报告](../verification/nas-setup.json)、[第十六期](../../media/DEVLOG-016.md)。原生读取仍可独立使用；交接需要可信HTTPS家庭服务。手机画面为浏览器/合成/JVM，不是电视验收。
 
@@ -113,3 +113,5 @@ S59（已发布Alpha）：P62授权v20 / alpha.17发布，[发行软件验证](.
 [v20公开发布与匿名回读](../verification/public-alpha-v20.json)：两版APK完整SHA-256、源码Git树及旧版本不可变性已核对。
 
 S60：P63用户v20报告，[逐项修复与未完成项](../V20-FEEDBACK-S60.md)、[软件检查与源码摘要](../verification/s60-summary.json)、[第46期编辑稿](../../media/DEVLOG-046.md)、[生图参考与提示词](../../design-assets/s60/README.md)。浏览器、协议和API编译通过；原生运行、实际资源包复现与小米生态验收未完成。S61开始准备v21 / alpha.18测试发行，最终状态以公开回读为准。
+
+S61（v21已发布Alpha）：[发行与匿名完整附件回读](../verification/public-alpha-v21.json)、[软件与签名检查](../verification/s61-software-acceptance.json)。公开冻结提交7654e917c6433ba9fb9f441aef36644a741ed822；原生新交互与实际报告资源包仍待复测。

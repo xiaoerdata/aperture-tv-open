@@ -26,3 +26,5 @@
 ## 记录
 
 P63原文在`docs/process/PROMPTS-001.md`；修复、失败和边界在`docs/V20-FEEDBACK-S60.md`。保留了HTTP/gzip失败限制、首页QA初次origin设置错误，以及模拟器TCG启动未完成的记录。
+
+发行补记：v21 / alpha.18已发布，完整附件与源码Git树匿名回读通过。剪辑时可以标“v21 Alpha”，仍须保留原生未验收和实际资源包待复现的说明。本编辑稿未外发。
