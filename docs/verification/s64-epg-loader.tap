@@ -1,0 +1,17 @@
+TAP version 13
+# 16 production EPG loader assertions passed
+# {"ttlChangedByTest":false,"synthetic":true,"failedCacheRecoveryWaitMillis":30327,"httpAudit":[{"path":"/cache","request":1,"atEpochMillis":1793132493546,"status":503},{"path":"/cache","request":2,"atEpochMillis":1793132494123,"status":503},{"path":"/cache","request":3,"atEpochMillis":1793132524338,"status":200},{"path":"/handoff","request":1,"atEpochMillis":1793132524459,"status":200},{"path":"/valid","request":1,"atEpochMillis":1793132524767,"status":200},{"path":"/missing","request":1,"atEpochMillis":1793132524773,"status":503},{"path":"/missing","request":2,"atEpochMillis":1793132525320,"status":503},{"path":"/cancel","request":1,"atEpochMillis":1793132525323,"status":503}],"checks":["two consecutive failures perform exactly two HTTP attempts","both failures return unavailable state without invented programmes","retry is backed off rather than a tight request loop","immediate reload receives the same failed-cache result","failed cache suppresses another HTTP request before expiry","cache expiry alone does not start background requests","next load after the real 30-second TTL retries HTTP","fresh HTTP 200 restores actual parsed programme text","successful guide is reused without another request","in-flight callback moves to the newest owner without duplicate network work","new owner receives the real parsed guide","partial failure preserves valid programme data and exposes incomplete state","only the failed source is retried","partial-result cache suppresses immediate retry storms","closing the loader prevents a retry after the first failed request","closed loader never delivers a stale callback"],"nativeUiExecuted":false,"testScope":"host JVM production EPG loader and real loopback HTTP; test-only callback queue, not Android runtime","passed":true,"serverStopped":true,"realXiaomi":false}
+# Subtest: production EPG retries, real failed-cache expiry, callback ownership and cancellation
+ok 1 - production EPG retries, real failed-cache expiry, callback ownership and cancellation
+  ---
+  duration_ms: 57687.684519
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 57783.389508

@@ -1,0 +1,100 @@
+{
+  "ttlChangedByTest": false,
+  "synthetic": true,
+  "failedCacheRecoveryWaitMillis": 30327,
+  "httpAudit": [
+    {
+      "path": "/cache",
+      "request": 1,
+      "atEpochMillis": 1793132493546,
+      "status": 503
+    },
+    {
+      "path": "/cache",
+      "request": 2,
+      "atEpochMillis": 1793132494123,
+      "status": 503
+    },
+    {
+      "path": "/cache",
+      "request": 3,
+      "atEpochMillis": 1793132524338,
+      "status": 200
+    },
+    {
+      "path": "/handoff",
+      "request": 1,
+      "atEpochMillis": 1793132524459,
+      "status": 200
+    },
+    {
+      "path": "/valid",
+      "request": 1,
+      "atEpochMillis": 1793132524767,
+      "status": 200
+    },
+    {
+      "path": "/missing",
+      "request": 1,
+      "atEpochMillis": 1793132524773,
+      "status": 503
+    },
+    {
+      "path": "/missing",
+      "request": 2,
+      "atEpochMillis": 1793132525320,
+      "status": 503
+    },
+    {
+      "path": "/cancel",
+      "request": 1,
+      "atEpochMillis": 1793132525323,
+      "status": 503
+    }
+  ],
+  "checks": [
+    "two consecutive failures perform exactly two HTTP attempts",
+    "both failures return unavailable state without invented programmes",
+    "retry is backed off rather than a tight request loop",
+    "immediate reload receives the same failed-cache result",
+    "failed cache suppresses another HTTP request before expiry",
+    "cache expiry alone does not start background requests",
+    "next load after the real 30-second TTL retries HTTP",
+    "fresh HTTP 200 restores actual parsed programme text",
+    "successful guide is reused without another request",
+    "in-flight callback moves to the newest owner without duplicate network work",
+    "new owner receives the real parsed guide",
+    "partial failure preserves valid programme data and exposes incomplete state",
+    "only the failed source is retried",
+    "partial-result cache suppresses immediate retry storms",
+    "closing the loader prevents a retry after the first failed request",
+    "closed loader never delivers a stale callback"
+  ],
+  "nativeUiExecuted": false,
+  "testScope": "host JVM production EPG loader and real loopback HTTP; test-only callback queue, not Android runtime",
+  "passed": true,
+  "serverStopped": true,
+  "realXiaomi": false,
+  "androidSourceSha256": "cd6acbc83f1b63d42ba64217dbb2852240b535407b662bbc7edb4d3f1633a32f",
+  "matchesPublishedV22Inputs": true,
+  "verifiedAt": "2026-10-27T20:23:35.106394+00:00",
+  "runner": "node --test tests/cinema-epg-loader.test.mjs",
+  "harnessFiles": [
+    {
+      "path": "tests/cinema-epg-loader.test.mjs",
+      "sha256": "f619ecd974a99e1d6da111ed5c2af0b9ecea08460c3a2c79e6119563fafe0f82"
+    },
+    {
+      "path": "tests/java/CinemaEpgLoaderTest.java",
+      "sha256": "9d788b26dd1e745e97620897ce651a0e48c5d708ac50986572617ea20c490be2"
+    },
+    {
+      "path": "tests/fixtures/epg-callbacks/android/os/Handler.java",
+      "sha256": "5ef19a5de8236ee1cbe55769eeddc0c3e6822029b4b60244ac55fdb6016c6e4b"
+    },
+    {
+      "path": "tests/fixtures/epg-callbacks/android/os/Looper.java",
+      "sha256": "7a8a8e0b2d03b71d78f8ad64a640ae0d623a63ac2efbd60a0420402d05e1754b"
+    }
+  ]
+}

@@ -1,20 +1,20 @@
 # 下载与版本
 
-**开视仅适配小米电视，Android 8+。** 当前为 **v22 / 0.2.0-alpha.19 Alpha测试版**，尚非稳定版。新版提供标准版和爸妈版，均使用独立包名、专用发行签名，关闭调试。
+**开视仅适配小米电视，Android 8+。** 当前为 **v23 / 0.2.0-alpha.20 Alpha测试版**，尚非稳定版。新版提供标准版和爸妈版，均使用独立包名、专用发行签名，关闭调试。
 
-[本次发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.19) · [源码](https://github.com/xiaoerdata/aperture-tv-open) · [问题反馈](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)
+[本次发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.20) · [源码](https://github.com/xiaoerdata/aperture-tv-open) · [问题反馈](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)
 
 | 下载 | 内容 |
 | --- | --- |
-| [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.19/kaishi-v22-standard.apk) | 四个观看入口、折叠应用、NAS与家庭分区 |
-| [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.19/kaishi-v22-parents.apk) | 看电视、看电视剧、看电影、看综艺与常用应用 |
-| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.19.tar.gz) | 家庭服务、二次开发与本地构建 |
-| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.19/SHA256SUMS) | 两版APK和测试清单SHA-256 |
-| [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.19/testing-manifest.json) | 包名、版本、签名、源码与验收边界 |
+| [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.20/kaishi-v23-standard.apk) | 四个观看入口、折叠应用、NAS与家庭分区 |
+| [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.20/kaishi-v23-parents.apk) | 看电视、看电视剧、看电影、看综艺与常用应用 |
+| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.20.tar.gz) | 家庭服务、二次开发与本地构建 |
+| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.20/SHA256SUMS) | 两版APK和测试清单SHA-256 |
+| [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.20/testing-manifest.json) | 包名、版本、签名、源码与验收边界 |
 
-## 从v18/v19/v20/v21升级
+## 从v18/v19/v20/v21/v22升级
 
-v22沿用v18/v19/v20/v21的两个包名与发行证书，可在原版上更新，不需卸载或重新配对。安装前保留数据；APK分别为52.63/52.66 MiB，默认共用ARM32/64，不需要选择CPU架构。
+v23沿用v18/v19/v20/v21/v22的两个包名与发行证书，可在原版上更新，不需卸载或重新配对。安装前保留数据；APK分别为52.63/52.66 MiB，默认共用ARM32/64，不需要选择CPU架构。
 
 ## 与v17并存
 
@@ -31,17 +31,17 @@ v22沿用v18/v19/v20/v21的两个包名与发行证书，可在原版上更新�
 
 ## 安装与校验
 
-完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v22-standard.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
+完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v23-standard.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
 
 安装路径见[小米安装说明](../INSTALL.md)。默认作为普通应用，保留原桌面、小爱和小米账号。本机应用、内嵌影院、手输NAS不依赖电脑家庭服务；照片、留言、统一片库和WorkBuddy另需运行家庭服务。家庭服务默认HTTPS；选择私网IP的HTTP时，须在电视明确开启，CLI另加 `--allow-lan-http`。NAS凭证交接与Agent安装卸载仍要求可信HTTPS。
 
 ## 本次改动与测试范围
 
-修复原生详情背板透明、快速方向键焦点被旧任务抢回、数字输入被闲置任务关闭、节目表滚动描边偏移；频道列表和播放浮层显示当前/下一节目。EPG增加有界重试与30秒失败缓存，保留独立的视频请求。详情按钮间距、海报圆角和批次提示一并调整。见[原生修复与复现](NATIVE-REGRESSION-S62.md)、[报告逐项状态](V20-FEEDBACK-S60.md)。
+新增详情“相似影片”：按来源已有类型、导演和演员关联同源现有条目，最多30张，证据相同时保留来源顺序；没有关联资料仍显示“同一片单/同一来源”。沿用v22的背景、焦点、节目单和播放修正。见[逐项验收审计](FEEDBACK-ACCEPTANCE-S64.md)。
 
-两版各40项完整原生Activity/MediaPlayer用例通过，均包含一次节目单503故障后的恢复；26项生产Java断言与8项真实HTTP/gzip断言通过。环境为API28 Android TV x86调试版、合成资源与本地H.264/AAC测试片，不能替代小米ARM真机。最终ARM两版release/lint、验签、ABI和随包资源检查另记在[发行软件清单](verification/s63-software-acceptance.json)。此前S60全套Node102通过、3项缺Samba跳过，属于历史结果，未宣称在本次最终源码上重跑全部Node用例。
+本轮14项关联生产Java断言、两版各10项原生关联任务流通过。另对生产EPG加载器补做16项真实HTTP/30秒TTL断言，六份生产输入与v22完全一致。新的原生任务没有播放媒体，v22的两版各40项完整播放回归保留历史范围，没有宣称在v23重跑完整80项。两版ARM release/lint、验签、ABI与首页资源检查见[发行软件清单](verification/s65-software-acceptance.json)。
 
-报告原资源包尚缺，具体分组翻倍与灰海报未完成复现；真实TMDB账号、NAS、小爱/米家与WorkBuddy客户端仍待维护者验收。公开发行仍为Alpha，未测型号不标为兼容。旧阶段回执保持原来的版本含义。
+报告原资源包仍缺：具体灰海报/重复分组、61项封面90%以及真实关联质量未获验收。小米ARM、小爱/米家/NAS/WorkBuddy仍由维护者测试。公开发行继续为Alpha，未测型号不标为兼容。
 
 可[免费本地构建](ANDROID-LOCAL.md)；发行操作见[签名说明](ANDROID-RELEASE.md)。公开源码不含签名密钥、NAS凭证、私人数据、工具链或原始用户测试PDF。
 

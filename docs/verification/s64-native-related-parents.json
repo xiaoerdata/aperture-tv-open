@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    "metadata associations use the similar-film heading",
+    "six genuinely associated available films are rendered",
+    "stronger director and genre evidence sorts first in the actual UI",
+    "unrelated source entries are not labelled as similar films",
+    "detail retains primary play focus",
+    "D-pad moves between actual associated-film cards",
+    "opening an associated film restores primary play focus",
+    "Back from an associated detail restores the original source-list position",
+    "missing metadata keeps an honest same-collection heading",
+    "fallback keeps actual other source entries without inventing titles"
+  ],
+  "images": [
+    "related.png",
+    "fallback.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi.parents",
+  "versionCode": 23,
+  "nativeActivityExecuted": true,
+  "realXiaomi": false,
+  "syntheticResourcePack": true,
+  "mediaPlayed": false
+}

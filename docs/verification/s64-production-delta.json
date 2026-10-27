@@ -1,0 +1,26 @@
+{
+  "previousVersion": "v22 / 0.2.0-alpha.19",
+  "candidateVersion": "v23 / 0.2.0-alpha.20",
+  "previousAndroidSourceSha256": "cd6acbc83f1b63d42ba64217dbb2852240b535407b662bbc7edb4d3f1633a32f",
+  "candidateAndroidSourceSha256": "d87ad953ab0183e3cdabb036aef8f701064fbffe9ae43dea11cbded0c1890255",
+  "changedInputs": [
+    {
+      "path": "android/app/build.gradle",
+      "oldSha256": "e89d3cbb50ee76d78269bdcce0e492a92daa9fde9085526561a47784c0504b4b",
+      "newSha256": "c8420924b5f8e2f4145edb4dd79c42804e7b14bc7a8d0c00cea25f9977e2c9bc"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
+      "oldSha256": "c07290ee11a8199ede8fdba1f48b360ab31b560324ae2e22093a737827603a6e",
+      "newSha256": "5eabb1cbfd7c8bffca8a3c90ab2893333cce7d52a5b3e1d0712438c33aa70d3c"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaRelated.java",
+      "oldSha256": null,
+      "newSha256": "dc21ddc313ef3cb34922a81b15a3f4443b72d33ef2842c9443c7170950aca3fb"
+    }
+  ],
+  "removedInputs": [],
+  "unchangedInputs": 157,
+  "scope": "Android build inputs plus packaged home assets only; historical native results remain v22 results, not a full rerun on v23"
+}

@@ -1,0 +1,12 @@
+{
+  "verifiedAt": "2026-10-27T20:23:35.106394+00:00",
+  "releaseId": 425933697,
+  "tag": "v0.2.0-alpha.19",
+  "draft": false,
+  "prerelease": true,
+  "releaseAssetsUnchanged": true,
+  "releaseInputsUnchanged": true,
+  "apkRebuiltThisStage": false,
+  "newEvidence": "s64-epg-loader.json",
+  "oldFrozenReceiptsModified": false
+}

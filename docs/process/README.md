@@ -123,3 +123,6 @@ S62最终回归：两版各40项完整原生用例通过，[最终源码绑定](
 
 
 S63（v22已发布Alpha）：[公开下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.19)、[匿名附件/源码树与旧版本不变回执](../verification/public-alpha-v22.json)、[本轮重复产物清理](../verification/s63-cleanup.json)。两版各40项模拟器原生用例通过；原报告资源与小米真机验收仍待完成，第47期未上传。
+
+
+S64：[逐项验收审计](../FEEDBACK-ACCEPTANCE-S64.md)、[EPG连续失败/30秒真实TTL回执](../verification/s64-epg-loader.json)、[相似影片两版原生绑定](../verification/s64-native-related-binding.json)、[第48期编辑稿](../../media/DEVLOG-048.md)。S65准备v23/alpha.20测试发行，[候选软件清单](../verification/s65-software-acceptance.json)。原报告资源与小米真机验收仍未完成。

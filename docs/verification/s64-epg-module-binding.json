@@ -1,0 +1,40 @@
+{
+  "scope": "EPG host test production inputs are unchanged between published v22 and v23 candidate; does not claim complete native/UI regression on v23",
+  "testedBeforeRelatedCodeChange": true,
+  "v22AndroidSourceSha256": "cd6acbc83f1b63d42ba64217dbb2852240b535407b662bbc7edb4d3f1633a32f",
+  "v23AndroidSourceSha256": "d87ad953ab0183e3cdabb036aef8f701064fbffe9ae43dea11cbded0c1890255",
+  "files": [
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java",
+      "sha256": "e1b15589e433d97f9d015c58846f2ed70e2e82c9960f7531b07f55796bf7ea87",
+      "matchesV22FrozenBytes": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java",
+      "sha256": "8c667a6549c30300b520ea64903799fb574bcf01b7cc886e61a50bfe2f31841c",
+      "matchesV22FrozenBytes": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java",
+      "sha256": "02b1ea0fe4374453d64c374141573535b6874e3d231450b270242c3a572b4d88",
+      "matchesV22FrozenBytes": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaHttp.java",
+      "sha256": "eb2aedfa35f3793b85c510a5340533a0deb18c834eb0779ee1219d701545ba50",
+      "matchesV22FrozenBytes": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpg.java",
+      "sha256": "f479fd7cbb6c70333c1e56dcaf402b8aa2a749d0d40f8c99bba95e1242bd543d",
+      "matchesV22FrozenBytes": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpgLoader.java",
+      "sha256": "5289852bf25b0feba22d6fcb1f5a830ede40dd887ee332f34108f2d4cf2e055b",
+      "matchesV22FrozenBytes": true
+    }
+  ],
+  "epgHostAssertions": 16,
+  "nativeUiExecutedByThisTest": false
+}

@@ -1,0 +1,82 @@
+{
+  "verifiedAt": "2026-10-27T20:53:36.619231+00:00",
+  "androidSourceSha256": "d87ad953ab0183e3cdabb036aef8f701064fbffe9ae43dea11cbded0c1890255",
+  "versionCode": 23,
+  "matchesSignedArmInputs": true,
+  "environment": {
+    "api": 28,
+    "abi": "x86",
+    "debug": true,
+    "readOnlyEmulator": true,
+    "renderer": "swangle, Vulkan off, forced TCG",
+    "gmsDisabledInDisposableInstance": true
+  },
+  "editions": [
+    {
+      "edition": "standard",
+      "report": "docs/verification/s64-native-related-standard.json",
+      "reportSha256": "e5744c96182ad5b6584fd712d9c8e5cd6c0a09fc99a4b62093c144ce4c97703f",
+      "passedChecks": 10,
+      "installedDebugApk": {
+        "package": "org.zhixiaoce.kaishi",
+        "versionCode": 23,
+        "sha256": "acc1bfac1a903c5aa8793e0d2a5d4cd66eb220566ed555df46085c757ef2ab32",
+        "method": "device sha256sum of installed base.apk; matches latest debug output",
+        "sourceSha256": "d87ad953ab0183e3cdabb036aef8f701064fbffe9ae43dea11cbded0c1890255"
+      },
+      "driver": {
+        "targetPackage": "org.zhixiaoce.kaishi",
+        "instrumentation": "org.zhixiaoce.aperture.test.related.standard/org.zhixiaoce.aperture.test.RelatedRunner",
+        "sha256": "6e3c09900e96ce2b0dff1f71aa10e1e81617ad105963b3e82c2f83f147359686",
+        "shippedInProduct": false
+      },
+      "images": [
+        {
+          "path": "docs/images/s64-native-related-standard-related.png",
+          "sha256": "4d774d531580f9a2fa4339254d5f3b76b9f1756cf03d7887e97e48032cf81c41"
+        },
+        {
+          "path": "docs/images/s64-native-related-standard-fallback.png",
+          "sha256": "45c742162db212e42ea2792d0ea6b755f9c19aa6922b8eebf5443fe38ddd592f"
+        }
+      ]
+    },
+    {
+      "edition": "parents",
+      "report": "docs/verification/s64-native-related-parents.json",
+      "reportSha256": "e8b0b242f8ddf2ff1b02043a79ab117cea15ae64de13829e6b6ea514376bd24c",
+      "passedChecks": 10,
+      "installedDebugApk": {
+        "package": "org.zhixiaoce.kaishi.parents",
+        "versionCode": 23,
+        "sha256": "c4ccc0c1c457266e39e6f83b5fc926025e5dab691f8865d2d2f79f80d9bb6ebb",
+        "method": "device sha256sum of installed base.apk; matches latest debug output",
+        "sourceSha256": "d87ad953ab0183e3cdabb036aef8f701064fbffe9ae43dea11cbded0c1890255"
+      },
+      "driver": {
+        "targetPackage": "org.zhixiaoce.kaishi.parents",
+        "instrumentation": "org.zhixiaoce.aperture.test.related.parents/org.zhixiaoce.aperture.test.RelatedRunner",
+        "sha256": "11f078fc29987a285ecdddac0e54f0451a56900c9cbf61f5f2261b0c3ae3eb69",
+        "shippedInProduct": false
+      },
+      "images": [
+        {
+          "path": "docs/images/s64-native-related-parents-related.png",
+          "sha256": "7cca0f0fdc1940cd2926715fdbe2b77bf9565b6bcd54a6c4b40fbeeff5f33ad3"
+        },
+        {
+          "path": "docs/images/s64-native-related-parents-fallback.png",
+          "sha256": "7454d80ecb8a2357da6dcaae320ffbb35be310be74dff70f38e034d3833efd66"
+        }
+      ]
+    }
+  ],
+  "nativeChecks": 20,
+  "syntheticResourcePack": true,
+  "mediaPlayed": false,
+  "releaseArmApksExecuted": false,
+  "realXiaomi": false,
+  "realWorkBuddy": false,
+  "interruptedParentsAttempt": "s64-native-related-parents-interrupted.json",
+  "interruptionCause": "host test process exited with SIGTERM; device report records UIAutomation disconnected at final screenshot. Kept as failed, then parents-only rerun passed."
+}

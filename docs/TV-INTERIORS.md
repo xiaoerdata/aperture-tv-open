@@ -50,3 +50,8 @@ TMDB凭证自行申请，项目不内置共享Key，也未对用户账号做真�
 - [TMDB authentication](https://developer.themoviedb.org/docs/authentication-application)、[attribution](https://developer.themoviedb.org/docs/faq)：采用用户自己的Read Access Token；设置/网页署名区使用官方Logo及要求的声明。
 
 [生图参考、提示词与实际取舍](../design-assets/s56/README.md) · [浏览器任务流](verification/s56-cinema-browser.json)。截图为本地真实HTTP服务上的合成电影与资料，不是小米真机截图；原生API编译和JVM协议测试不能代替电视遥控实测。
+
+
+## v23：相似影片
+
+详情只在同一已配置来源的现有条目中，按已有类型、导演与演员关联和排序，最多30张。同证据保留来源顺序；不把同年份/同地区、未知占位或演员名称子串当成关联。没有关联数据时仍显示“同一片单/同一来源”，不生成不存在的影片或评分。此规则不新增联网服务，也不改变播放、收藏和记录的来源ID。实际片单少于六个关联条目时展示实际数量。

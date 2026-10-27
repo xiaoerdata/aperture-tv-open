@@ -1,0 +1,16 @@
+TAP version 13
+# 14 production related-film assertions passed
+# Subtest: production related films use exact available metadata and honest bounded fallback
+ok 1 - production related films use exact available metadata and honest bounded fallback
+  ---
+  duration_ms: 2665.694527
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2784.48108

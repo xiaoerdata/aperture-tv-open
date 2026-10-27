@@ -4,9 +4,9 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加家庭照片、日程、留言、数据、NAS资源和可定制入口。
 
-当前版本 **v22 / 0.2.0-alpha.19**：修复原生详情背景透明、快速按键焦点回跳、数字输入闲置关闭和节目表滚动描边；补齐频道/播放页当前与下一节目，改善EPG临时失败后的恢复。见[原生回归与截图](../NATIVE-REGRESSION-S62.md)、[报告逐项状态](../V20-FEEDBACK-S60.md)。
+当前版本 **v23 / 0.2.0-alpha.20**：详情按已有类型、导演、演员关联同源可用影片；没有关联资料时保留“同一片单/同一来源”。本轮补测节目单连续失败后的真实30秒缓存恢复。见[逐项验收与原生截图](../FEEDBACK-ACCEPTANCE-S64.md)。
 
-**v22可更新v18/v19/v20/v21，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](../MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
+**v23可更新v18/v19/v20/v21/v22，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](../MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
 
 ## 两个版本
 
@@ -19,7 +19,7 @@
 
 ## 安装与使用
 
-按[小米电视安装说明](../../INSTALL.md)开始。[下载与版本](../DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.19)提供标准版、爸妈版和源码；也可[免费本地构建](../ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](../../INSTALL.md)开始。[下载与版本](../DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.20)提供标准版、爸妈版和源码；也可[免费本地构建](../ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](../EMBEDDED-CINEMA.md)与[插件说明](../PLUGIN-ENGINE.md)；没有预置影视来源。
 
@@ -46,9 +46,9 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 
 ## 当前验证边界
 
-两版各40项完整Android TV原生Activity/MediaPlayer用例通过，并注入一次节目单503验证恢复；实际截图、旧包失败与新包修复证据见[原生回归](../NATIVE-REGRESSION-S62.md)。这是API28 x86调试模拟器、合成片单和本地视频；小米ARM、小爱/米家、NAS与真实WorkBuddy客户端仍由维护者验收。报告实际资源包尚缺，真实灰海报、重复分组根因与在线资料命中率未获验证。
+本轮两版各10项原生关联任务通过，另有14项关联生产Java与16项EPG加载器断言。EPG用真实本地HTTP、实际30秒TTL和测试回调队列；原生任务使用API28 x86调试模拟器和合成资料，没有播放视频。v22两版各40项完整Activity/MediaPlayer回归是历史证据，本轮未在v23重跑完整80项，见[范围与源码绑定](../FEEDBACK-ACCEPTANCE-S64.md)。
 
-本版两份ARM发行包使用与v18—v21相同证书、关闭debug；最终构建/lint、签名、ABI与资源检查见[软件清单](../verification/s63-software-acceptance.json)，源码新目录安装见Release测试清单。此前S60全套Node102通过、3项缺Samba跳过是历史证据；本轮针对性生产Java/HTTP断言与原生用例分别记录。产品仍为Alpha，不把软件检查当成真机验收。
+两份ARM发行包保持v18—v22相同包名/证书、关闭debug；构建/lint、签名、ABI与资源检查见[软件清单](../verification/s65-software-acceptance.json)，新目录源码安装见Release测试清单。报告原资源包、61项封面的90%要求、具体重复分组根因，以及小米ARM/小爱/米家/NAS/WorkBuddy仍待验收。产品继续为Alpha。
 
 问题反馈见[Issues](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)，二次开发欢迎[Pull Requests](https://github.com/xiaoerdata/aperture-tv-open/pulls)。
 
