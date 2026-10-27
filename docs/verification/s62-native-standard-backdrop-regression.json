@@ -1,0 +1,23 @@
+{
+  "backdropImageAlpha": 0,
+  "error": "java.lang.AssertionError: movie detail and list return: backdrop bitmap alpha stays opaque while View fade animates; actual=0\n\tat org.zhixiaoce.aperture.test.RevisionRunner.check(RevisionRunner.java:25)\n\tat org.zhixiaoce.aperture.test.RevisionRunner.onStart(RevisionRunner.java:42)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\n",
+  "passed": false,
+  "stage": "movie detail and list return",
+  "checks": [
+    "first synthetic pack saves",
+    "same pack is a no-op, not an append",
+    "encrypted roundtrip has one live source",
+    "single primary play action for single-episode film",
+    "detail focuses main play",
+    "detail hides internal disabled-network copy",
+    "actual backdrop image covers at least 70 percent of display height"
+  ],
+  "images": [
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "nativeActivityExecuted": true,
+  "realMediaPlayerStarted": false,
+  "syntheticResourcePack": true,
+  "realXiaomi": false
+}

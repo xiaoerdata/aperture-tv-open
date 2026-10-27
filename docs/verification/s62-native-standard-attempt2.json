@@ -1,0 +1,34 @@
+{
+  "error": "java.lang.AssertionError: EPG list updates: Back closes sidebar without tuning\n\tat org.zhixiaoce.aperture.test.RevisionRunner.check(RevisionRunner.java:25)\n\tat org.zhixiaoce.aperture.test.RevisionRunner.onStart(RevisionRunner.java:46)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\n",
+  "passed": false,
+  "stage": "EPG list updates",
+  "checks": [
+    "first synthetic pack saves",
+    "same pack is a no-op, not an append",
+    "encrypted roundtrip has one live source",
+    "single primary play action for single-episode film",
+    "detail focuses main play",
+    "detail hides internal disabled-network copy",
+    "real MP4 duration available",
+    "D-pad shows seek preview",
+    "preview does not seek until confirmed",
+    "seeking preserves pause intent",
+    "D-pad wakes hidden controls",
+    "one playback Back and detail Back restore second-page movie focus",
+    "asynchronous guide update preserves channel-list focus",
+    "confirm opens same-window channel list",
+    "browsing channel preview retains playing decoder"
+  ],
+  "images": [
+    "detail.png",
+    "timeline.png",
+    "channels.png",
+    "sidebar.png",
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "nativeActivityExecuted": true,
+  "realMediaPlayerStarted": true,
+  "syntheticResourcePack": true,
+  "realXiaomi": false
+}

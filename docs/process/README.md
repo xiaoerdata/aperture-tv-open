@@ -115,3 +115,8 @@ S59（已发布Alpha）：P62授权v20 / alpha.17发布，[发行软件验证](.
 S60：P63用户v20报告，[逐项修复与未完成项](../V20-FEEDBACK-S60.md)、[软件检查与源码摘要](../verification/s60-summary.json)、[第46期编辑稿](../../media/DEVLOG-046.md)、[生图参考与提示词](../../design-assets/s60/README.md)。浏览器、协议和API编译通过；原生运行、实际资源包复现与小米生态验收未完成。S61开始准备v21 / alpha.18测试发行，最终状态以公开回读为准。
 
 S61（v21已发布Alpha）：[发行与匿名完整附件回读](../verification/public-alpha-v21.json)、[软件与签名检查](../verification/s61-software-acceptance.json)。公开冻结提交7654e917c6433ba9fb9f441aef36644a741ed822；原生新交互与实际报告资源包仍待复测。
+
+S62（进行中）：[原生回归与复现](../NATIVE-REGRESSION-S62.md)。API28 x86真实MediaPlayer和Activity已运行，发现并修正背板整数alpha重载和快按侧栏焦点覆盖；最终两版回归仍在执行。v21公开发行保持冻结。
+
+
+S62最终回归：两版各40项完整原生用例通过，[最终源码绑定](../verification/s62-native-final-binding.json)、[原生过程与截图](../NATIVE-REGRESSION-S62.md)。S63准备v22 Alpha，[发行软件清单](../verification/s63-software-acceptance.json)；原资源包和真机验收仍未完成。

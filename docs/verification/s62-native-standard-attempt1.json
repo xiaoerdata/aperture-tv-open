@@ -1,0 +1,18 @@
+{
+  "error": "java.lang.Exception: movie detail and list return\n\tat org.zhixiaoce.aperture.test.RevisionRunner.ui(RevisionRunner.java:20)\n\tat org.zhixiaoce.aperture.test.RevisionRunner.onStart(RevisionRunner.java:41)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\nCaused by: java.lang.NullPointerException: Attempt to invoke interface method 'int java.lang.CharSequence.length()' on a null object reference\n\tat java.lang.String.contentEquals(String.java:1082)\n\tat org.zhixiaoce.aperture.test.RevisionRunner.lambda$onStart$12$org-zhixiaoce-aperture-test-RevisionRunner(RevisionRunner.java:41)\n\tat org.zhixiaoce.aperture.test.RevisionRunner$$ExternalSyntheticLambda28.run(D8$$SyntheticClass:0)\n\tat org.zhixiaoce.aperture.test.RevisionRunner.lambda$ui$0(RevisionRunner.java:20)\n\tat org.zhixiaoce.aperture.test.RevisionRunner$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)\n\tat android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2163)\n\tat android.os.Handler.handleCallback(Handler.java:873)\n\tat android.os.Handler.dispatchMessage(Handler.java:99)\n\tat android.os.Looper.loop(Looper.java:193)\n\tat android.app.ActivityThread.main(ActivityThread.java:6669)\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:858)\n",
+  "passed": false,
+  "stage": "movie detail and list return",
+  "checks": [
+    "first synthetic pack saves",
+    "same pack is a no-op, not an append",
+    "encrypted roundtrip has one live source"
+  ],
+  "images": [
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "nativeActivityExecuted": true,
+  "realMediaPlayerStarted": false,
+  "syntheticResourcePack": true,
+  "realXiaomi": false
+}

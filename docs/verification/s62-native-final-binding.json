@@ -1,0 +1,106 @@
+{
+  "stage": "S62 final v22/alpha.19 native regression after viewport and EPG retry fixes",
+  "verifiedAt": "2026-10-27T20:01:31.556893+00:00",
+  "androidSourceSha256": "cd6acbc83f1b63d42ba64217dbb2852240b535407b662bbc7edb4d3f1633a32f",
+  "matchesSignedArmReleaseInputs": true,
+  "environment": {
+    "api": 28,
+    "abi": "x86",
+    "debug": true,
+    "readOnlyEmulator": true,
+    "renderer": "swangle; Vulkan off; forced TCG",
+    "display": "1280x720 density160"
+  },
+  "editions": [
+    {
+      "edition": "standard",
+      "report": "docs/verification/s62-native-standard-final.json",
+      "reportSha256": "52b0807018faf45ed0c3bafc8ff638f2414a5634759f179a53a123bed2b8dfa6",
+      "passedChecks": 40,
+      "installedDebugApk": {
+        "edition": "standard",
+        "package": "org.zhixiaoce.kaishi",
+        "installedApkSha256": "3f97ac3ffd1474ce9f3b2dec532ed3f07cdd21d3882a2580c69a4d5a7b9f8a67",
+        "matchesLatestDebugOutput": true
+      },
+      "driver": {
+        "targetPackage": "org.zhixiaoce.kaishi",
+        "instrumentation": "org.zhixiaoce.aperture.test.standard/org.zhixiaoce.aperture.test.RevisionRunner",
+        "sha256": "86de7bd775aced875494cc4527cd9102c0734e7ed9e517c186b87fd8dd783d19",
+        "shippedInProduct": false
+      },
+      "epgFaultAudit": "docs/verification/s62-standard-epg-fault-audit.json",
+      "epgFaultAuditSha256": "0c9ffdb6adc34a09fe0b163f79657b45f32d88dd3bf4b9b3d869419cfa78e104",
+      "screenshots": [
+        {
+          "path": "docs/images/s62-native-standard-final-detail.png",
+          "sha256": "2d802d7c3c002ca68024bd91b5c08d7f607016c1a0e75b0f0adf366491fc6925"
+        },
+        {
+          "path": "docs/images/s62-native-standard-final-timeline.png",
+          "sha256": "a2dc3d0b7646792fed39c8305ed50e87f3f188d8bc71048891a9a632eccae69b"
+        },
+        {
+          "path": "docs/images/s62-native-standard-final-channels.png",
+          "sha256": "a6a93b79fa52347f08bcca243c6d631a530e51888d32da19479f2234c296adfc"
+        },
+        {
+          "path": "docs/images/s62-native-standard-final-guide.png",
+          "sha256": "c48d42fd1ff2c260ca9d42ce5879432af874e063e88efe231fd1a36ca44248df"
+        }
+      ]
+    },
+    {
+      "edition": "parents",
+      "report": "docs/verification/s62-native-parents-final.json",
+      "reportSha256": "ac0afba7e04608edef0b822ac4b2168368a327a103be2d38706df3e8cf63bab1",
+      "passedChecks": 40,
+      "installedDebugApk": {
+        "edition": "parents",
+        "package": "org.zhixiaoce.kaishi.parents",
+        "installedApkSha256": "a3bb109f3d0809dda06ffacc22aba5b0e90f118be11cc569765088e4a478d519",
+        "matchesLatestDebugOutput": true
+      },
+      "driver": {
+        "targetPackage": "org.zhixiaoce.kaishi.parents",
+        "instrumentation": "org.zhixiaoce.aperture.test.parents/org.zhixiaoce.aperture.test.RevisionRunner",
+        "sha256": "9bfe8d093563e31fa0f870f7044e211f90f9176a1e191f2f3a3afedf5cd2377f",
+        "shippedInProduct": false
+      },
+      "epgFaultAudit": "docs/verification/s62-parents-epg-fault-audit.json",
+      "epgFaultAuditSha256": "358c6234d41e17ea325b3bd596c42c4b85105c2b39be386cd7e5196eef507999",
+      "screenshots": [
+        {
+          "path": "docs/images/s62-native-parents-final-detail.png",
+          "sha256": "df94cefe960097efc0042700ba8c0465601f5928934a5f8e06479474ea0726ca"
+        },
+        {
+          "path": "docs/images/s62-native-parents-final-timeline.png",
+          "sha256": "a0a82aa6310c70d593b0fa19da13d3a234f2d0c230b4b691d9aaf0278560afdc"
+        },
+        {
+          "path": "docs/images/s62-native-parents-final-channels.png",
+          "sha256": "4e066a14c5c27e3723477d283039d47cd0483672fefab94a5ce5f71fbd19c647"
+        },
+        {
+          "path": "docs/images/s62-native-parents-final-guide.png",
+          "sha256": "ab07f8b0ae468d5fe39694ff8c325da8cc9f8db358668e8e7d5404064af5bf7c"
+        }
+      ]
+    }
+  ],
+  "assertions": {
+    "nativePerEdition": 40,
+    "productionJava": 26,
+    "realHttpGzip": 8
+  },
+  "unverified": [
+    "original report resource pack",
+    "real Xiaomi ARM hardware",
+    "XiaoAi and Mi Home coexistence",
+    "real NAS and WorkBuddy client",
+    "real TMDB account and 90 percent artwork criterion",
+    "two consecutive EPG failures followed by failed-cache expiry recovery"
+  ],
+  "releaseApksNativeRuntimeTested": false
+}

@@ -1,0 +1,23 @@
+{
+  "selectedAfterQueuedFocus": 1,
+  "passed": true,
+  "channelsOnly": true,
+  "stage": "EPG list updates",
+  "checks": [
+    "first synthetic pack saves",
+    "same pack is a no-op, not an append",
+    "encrypted roundtrip has one live source",
+    "asynchronous guide update preserves channel-list focus",
+    "queued row focus cannot override a newer selection; actual=1",
+    "latest selected channel retains visible row focus",
+    "numeric input cancels an already queued idle hide"
+  ],
+  "images": [
+    "channels.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "nativeActivityExecuted": true,
+  "realMediaPlayerStarted": true,
+  "syntheticResourcePack": true,
+  "realXiaomi": false
+}

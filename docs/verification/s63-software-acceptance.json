@@ -1,0 +1,104 @@
+{
+  "version": "0.2.0-alpha.19",
+  "versionCode": 22,
+  "editions": [
+    {
+      "applicationId": "org.zhixiaoce.kaishi",
+      "edition": "standard",
+      "version": "0.2.0-alpha.19",
+      "versionCode": 22,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v22-standard.apk",
+      "apkBytes": 55186712,
+      "sha256": "8cfc6bd7a5363d6bcadb940100cec86028efcf9c692a7056d81a6507778c469d",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "cd6acbc83f1b63d42ba64217dbb2852240b535407b662bbc7edb4d3f1633a32f",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 39,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    },
+    {
+      "applicationId": "org.zhixiaoce.kaishi.parents",
+      "edition": "parents",
+      "version": "0.2.0-alpha.19-parents",
+      "versionCode": 22,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v22-parents.apk",
+      "apkBytes": 55215384,
+      "sha256": "cf3ae1c3a6a3a694e51a0305c94ee77f728f080e74f2c0b8e0c399b58d493c7b",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "cd6acbc83f1b63d42ba64217dbb2852240b535407b662bbc7edb4d3f1633a32f",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 39,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    }
+  ],
+  "validation": {
+    "nativeRuntimeExecuted": true,
+    "nativeReportBindings": "docs/verification/s62-native-final-binding.json",
+    "nativePerEditionChecks": 40,
+    "nativeTotalChecks": 80,
+    "nativeReportsPassed": true,
+    "guide503InjectedPerEdition": true,
+    "productionJavaAssertions": 26,
+    "realHttpGzipAssertions": 8,
+    "domainNodeTests": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    "historicalS60FullNodeSuite": {
+      "passed": 102,
+      "skipped": 3,
+      "failed": 0,
+      "rerunOnFinalSource": false
+    },
+    "nativeEnvironment": "API28 Android TV x86 debug; synthetic resources; real local H264/AAC and MediaPlayer",
+    "realReportResourcePackAvailable": false,
+    "xiaomiHardwareTested": false,
+    "workBuddyClientTested": false,
+    "realTmdbAccountTested": false,
+    "knownFollowups": [
+      "original report resource pack",
+      "real Xiaomi ARM hardware",
+      "XiaoAi and Mi Home coexistence",
+      "real NAS and WorkBuddy client",
+      "real TMDB account and 90 percent artwork criterion",
+      "two consecutive EPG failures followed by failed-cache expiry recovery"
+    ]
+  },
+  "nativeBuild": {
+    "tasks": [
+      "assembleStandardRelease",
+      "assembleParentsRelease",
+      "lintVitalStandardRelease",
+      "lintVitalParentsRelease"
+    ],
+    "status": "BUILD SUCCESSFUL",
+    "buildLogSha256": "aab09ca8ed7785888ee4aadcbc5d3f08527422ce13e9257402687d3b1b40fd1b",
+    "jdk": 17,
+    "gradle": "8.9"
+  },
+  "androidSourceSha256": "cd6acbc83f1b63d42ba64217dbb2852240b535407b662bbc7edb4d3f1633a32f",
+  "generatedDesignReferencesInApk": false,
+  "releaseState": "signed candidate; published status recorded after release in public-alpha-v22.json",
+  "sourceInstallVerification": "after source freeze, Release testing-manifest.json"
+}

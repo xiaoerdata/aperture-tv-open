@@ -1,0 +1,39 @@
+{
+  "selectedAfterQueuedFocus": 1,
+  "passed": true,
+  "channelsOnly": false,
+  "skipMovies": true,
+  "stage": "terminal media error and Back",
+  "checks": [
+    "first synthetic pack saves",
+    "same pack is a no-op, not an append",
+    "encrypted roundtrip has one live source",
+    "asynchronous guide update preserves channel-list focus",
+    "queued row focus cannot override a newer selection; actual=1",
+    "latest selected channel retains visible row focus",
+    "numeric input cancels an already queued idle hide",
+    "confirm opens same-window channel list",
+    "browsing channel preview retains playing decoder",
+    "Back closes sidebar without tuning",
+    "idle sidebar closes after timeout without tuning or replacing decoder",
+    "confirm switches to previewed channel",
+    "numeric tuning updates current\/next programme overlay",
+    "programme grid opens",
+    "programme grid does not pause live video",
+    "programme body reachable by Down",
+    "programme body has a visible focus frame",
+    "programme controls retain gaps",
+    "guide Back restores same live player",
+    "play\/pause cannot overwrite terminal failure",
+    "one Back exits terminal playback failure"
+  ],
+  "images": [
+    "channels.png",
+    "guide.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "nativeActivityExecuted": true,
+  "realMediaPlayerStarted": true,
+  "syntheticResourcePack": true,
+  "realXiaomi": false
+}

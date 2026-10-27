@@ -1,0 +1,20 @@
+{
+  "error": "java.lang.AssertionError: EPG list updates: XMLTV never reached channel list\n\tat org.zhixiaoce.aperture.test.RevisionRunner.until(RevisionRunner.java:24)\n\tat org.zhixiaoce.aperture.test.RevisionRunner.onStart(RevisionRunner.java:49)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\n",
+  "passed": false,
+  "channelsOnly": false,
+  "skipMovies": true,
+  "stage": "EPG list updates",
+  "checks": [
+    "first synthetic pack saves",
+    "same pack is a no-op, not an append",
+    "encrypted roundtrip has one live source"
+  ],
+  "images": [
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi.parents",
+  "nativeActivityExecuted": true,
+  "realMediaPlayerStarted": false,
+  "syntheticResourcePack": true,
+  "realXiaomi": false
+}

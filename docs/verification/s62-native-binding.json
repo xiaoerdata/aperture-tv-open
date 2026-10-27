@@ -1,0 +1,44 @@
+{
+  "stage": "S62 full native runs before guide-only paint correction",
+  "androidInputsSha256": "bd80c1d8e1e41f19e34e7eac6e6e9be7e4db046593e977a1e86bfc64f9273ab5",
+  "api": "28",
+  "abi": "x86",
+  "sdkFingerprint": "google/sdk_google_atv_x86/generic_x86:9/PSR1.180720.121/6695059:userdebug/test-keys",
+  "emulator": true,
+  "readOnlyAvd": true,
+  "renderer": "swangle; Vulkan disabled; forced TCG",
+  "gmsDisabledInDisposableInstance": true,
+  "realXiaomi": false,
+  "realWorkBuddyClient": false,
+  "realTmdbAccount": false,
+  "actualReportResourcePackAvailable": false,
+  "editions": [
+    {
+      "edition": "standard",
+      "report": "s62-native-standard.json",
+      "passedChecks": 40,
+      "debugApkSha256BeforeGuidePaintCorrection": "959ca1511371b5e3e6ad4d05b711aafaa293f1d179562c1052babd80be3a2bcc",
+      "driverManifest": {
+        "targetPackage": "org.zhixiaoce.kaishi",
+        "instrumentation": "org.zhixiaoce.aperture.test.standard/org.zhixiaoce.aperture.test.RevisionRunner",
+        "sha256": "86de7bd775aced875494cc4527cd9102c0734e7ed9e517c186b87fd8dd783d19",
+        "shippedInProduct": false
+      },
+      "apkHashMethod": "sha256sum of installed emulator base.apk, before installing guide paint build"
+    },
+    {
+      "edition": "parents",
+      "report": "s62-native-parents.json",
+      "passedChecks": 40,
+      "debugApkSha256BeforeGuidePaintCorrection": "0717d5fbd4aa06ec1fce08fcf0c606320ec0dbcfd808beb88a2debc016af38aa",
+      "driverManifest": {
+        "targetPackage": "org.zhixiaoce.kaishi.parents",
+        "instrumentation": "org.zhixiaoce.aperture.test.parents/org.zhixiaoce.aperture.test.RevisionRunner",
+        "sha256": "9bfe8d093563e31fa0f870f7044e211f90f9176a1e191f2f3a3afedf5cd2377f",
+        "shippedInProduct": false
+      },
+      "apkHashMethod": "sha256sum of installed emulator base.apk, before installing guide paint build"
+    }
+  ],
+  "guidePaintFollowup": "canvas translation keeps focus border fixed during horizontal scroll; targeted native follow-up pending"
+}

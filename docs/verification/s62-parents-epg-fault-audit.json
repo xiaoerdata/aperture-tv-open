@@ -1,0 +1,24 @@
+{
+  "synthetic": true,
+  "loopbackOnly": true,
+  "edition": "parents",
+  "armedAtEpochMs": 1793130861621,
+  "guideRequests": [
+    {
+      "path": "/guide.xml",
+      "range": "",
+      "startedAt": 1793131086990,
+      "status": 503,
+      "finishedAt": 1793131086990
+    },
+    {
+      "path": "/guide.xml",
+      "range": "",
+      "startedAt": 1793131088103,
+      "status": 200,
+      "finishedAt": 1793131090103
+    }
+  ],
+  "firstRequestFailed503": true,
+  "boundedRetryRecovered200": true
+}

@@ -4,9 +4,9 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加家庭照片、日程、留言、数据、NAS资源和可定制入口。
 
-当前版本 **v21 / 0.2.0-alpha.18**：补上点播时间轴、原生直播侧栏/数字换台/可选XMLTV节目表；首页应用默认展开、入口适度增大；重排片单封面与详情，修正重复播放动作和返回交互。见[逐项修复与待测项](docs/V20-FEEDBACK-S60.md)。
+当前版本 **v22 / 0.2.0-alpha.19**：修复原生详情背景透明、快速按键焦点回跳、数字输入闲置关闭和节目表滚动描边；补齐频道/播放页当前与下一节目，改善EPG临时失败后的恢复。见[原生回归与截图](docs/NATIVE-REGRESSION-S62.md)、[报告逐项状态](docs/V20-FEEDBACK-S60.md)。
 
-**v21可更新v18/v19/v20，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
+**v22可更新v18/v19/v20/v21，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
 
 ## 两个版本
 
@@ -19,7 +19,7 @@
 
 ## 安装与使用
 
-按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.18)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.19)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](docs/EMBEDDED-CINEMA.md)与[插件说明](docs/PLUGIN-ENGINE.md)；没有预置影视来源。
 
@@ -46,10 +46,15 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 
 ## 当前验证边界
 
-软件验证按浏览器、生产协议与模型、Android TV模拟器分开记录，见[本轮测试记录](docs/verification/s61-software-acceptance.json)。最终源码安装回执见本次Release的测试清单。WorkBuddy客户端与小米真机由维护者验收，未测型号不标为兼容；模拟器、浏览器和合成回执不能代替硬件测试。本版使用与v18相同的发行证书签署非debug包，产品仍为Alpha。Node102通过、3项缺Samba跳过；原生模拟器因缺KVM未完成启动，实际测试资源包尚待提供；两版构建/lint与签名/ABI检查通过。浏览器真实HTTP合成媒体的方向键与VP9播放通过；本轮没有原生Activity、小米真机或WorkBuddy客户端运行验收。
+两版各40项完整Android TV原生Activity/MediaPlayer用例通过，并注入一次节目单503验证恢复；实际截图、旧包失败与新包修复证据见[原生回归](docs/NATIVE-REGRESSION-S62.md)。这是API28 x86调试模拟器、合成片单和本地视频；小米ARM、小爱/米家、NAS与真实WorkBuddy客户端仍由维护者验收。报告实际资源包尚缺，真实灰海报、重复分组根因与在线资料命中率未获验证。
+
+本版两份ARM发行包使用与v18—v21相同证书、关闭debug；最终构建/lint、签名、ABI与资源检查见[软件清单](docs/verification/s63-software-acceptance.json)，源码新目录安装见Release测试清单。此前S60全套Node102通过、3项缺Samba跳过是历史证据；本轮针对性生产Java/HTTP断言与原生用例分别记录。产品仍为Alpha，不把软件检查当成真机验收。
 
 问题反馈见[Issues](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)，二次开发欢迎[Pull Requests](https://github.com/xiaoerdata/aperture-tv-open/pulls)。
 
 核心代码使用[MIT许可](LICENSE)。字体、图片、依赖与上游连接器分别遵守各自许可，详见[第三方声明](THIRD_PARTY_NOTICES.md)。
 
 ![影视目录（本地HTTP浏览器，合成资料，非小米真机）](docs/images/s60-cinema-catalogue.png)
+
+
+![原生详情（API28 x86模拟器、合成资料，非小米真机）](docs/images/s62-native-standard-final-detail.png)
