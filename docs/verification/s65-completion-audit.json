@@ -1,0 +1,83 @@
+{
+  "verifiedAt": "2026-10-27T21:12:07.546175+00:00",
+  "objective": "确保所有的测试建议修复完成，并且正式发布",
+  "objectiveProvenComplete": false,
+  "published": {
+    "version": "v23 / 0.2.0-alpha.20",
+    "releaseId": 425981554,
+    "tagCommit": "344328cc03f5fb2869467cf3e579592fca00db67",
+    "anonymousAttachmentsPassed": true,
+    "anonymousSourceTreeBlobs": 1432,
+    "oldVersionsUnchanged": true
+  },
+  "implementedAndValidatedThisStage": {
+    "relatedJavaAssertions": 14,
+    "epgHostAssertions": 16,
+    "nativeRelatedPerEdition": 10,
+    "nativeRelatedTotal": 20,
+    "newNativeMediaPlayback": false,
+    "historicalV22Full80RerunOnV23": false
+  },
+  "requirementLedger": "../FEEDBACK-ACCEPTANCE-S64.md",
+  "evidence": [
+    "public-alpha-v23.json",
+    "s64-native-related-binding.json",
+    "s64-related-java.tap",
+    "s64-epg-loader.json",
+    "s64-epg-module-binding.json",
+    "s64-production-delta.json"
+  ],
+  "missingAcceptance": [
+    {
+      "ids": [
+        "D02",
+        "D04",
+        "T-01a"
+      ],
+      "owner": "maintainer supplies original report resource pack; developer reproduces with it",
+      "input": "original pack HTTPS URL or development machine path, without unrelated private credentials",
+      "acceptance": "reproduce original five-to-ten groups; compare source replacement/cache; rebuild original 61-item wall with enabled user metadata service and count at least 55 actual loaded covers",
+      "status": "missing original input and real provider result"
+    },
+    {
+      "ids": [
+        "T-02c",
+        "T-02d"
+      ],
+      "owner": "maintainer and developer",
+      "input": "actual curated collection metadata and images",
+      "acceptance": "verify real facts and real associations on original collection; synthetic six-item association is not real-source quality evidence",
+      "status": "missing original source data"
+    },
+    {
+      "ids": [
+        "D12",
+        "D13"
+      ],
+      "owner": "resource author and maintainer",
+      "input": "revised resource pack and actual channel playback",
+      "acceptance": "independently verify reported resource-author corrections and name/content correspondence",
+      "status": "author-reported fixes not independently accepted"
+    },
+    {
+      "ids": [
+        "Xiaomi coexistence",
+        "NAS",
+        "WorkBuddy"
+      ],
+      "owner": "maintainer, as agreed by user",
+      "input": "real device/client test results",
+      "acceptance": "original launcher returns, XiaoAi/wake and Mi Home/account remain usable, real NAS and WorkBuddy authorised workflows pass",
+      "status": "no real hardware/client acceptance"
+    }
+  ],
+  "cannotReplaceMissingEvidenceWith": [
+    "generated pictures",
+    "synthetic metadata providers",
+    "API28 x86 emulator",
+    "successful APK build or publication",
+    "title-based deletion of distinct sources",
+    "invented metadata or cover-hit percentage"
+  ],
+  "currentImpasse": "all independent code, test and publication work identified by the report audit is finished; remaining acceptance depends on user-supplied pack/provider or real device/client evidence"
+}

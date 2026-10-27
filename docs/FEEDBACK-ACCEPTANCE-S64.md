@@ -53,3 +53,10 @@ CCTV6、父类空分类、18条单集错标、56条多集错标电影，在增�
 
 ![标准版：真实原生关联，合成资料](images/s64-native-related-standard-related.png)
 ![爸妈版：缺资料时回退为同一片单，合成资料](images/s64-native-related-parents-fallback.png)
+
+
+## 发布与剩余验收
+
+v23 / alpha.20已公开发布，[发行与匿名回读](verification/public-alpha-v23.json)、[最终完成审计](verification/s65-completion-audit.json)。标准/爸妈APK、源码新目录安装、完整匿名APK下载和冻结源码Git树已核对；旧版保持不变。本轮临时导出/重复下载另有[清理回执](verification/s65-cleanup.json)。
+
+总目标仍未证明完成：D02/D04/T-01a及原片单关联质量需要原报告资源包，T-01a要求原61项中至少55项实际加载封面；真实资料服务和小米ARM/小爱/米家/NAS/WorkBuddy由维护者验收。报告导入截图未显示原包URL，项目仓库也未取得该包；未把不完整代码搜索当作全网不存在的证明。已向维护者请求原包HTTPS地址或开发机路径。

@@ -126,3 +126,6 @@ S63（v22已发布Alpha）：[公开下载](https://github.com/xiaoerdata/apertu
 
 
 S64：[逐项验收审计](../FEEDBACK-ACCEPTANCE-S64.md)、[EPG连续失败/30秒真实TTL回执](../verification/s64-epg-loader.json)、[相似影片两版原生绑定](../verification/s64-native-related-binding.json)、[第48期编辑稿](../../media/DEVLOG-048.md)。S65准备v23/alpha.20测试发行，[候选软件清单](../verification/s65-software-acceptance.json)。原报告资源与小米真机验收仍未完成。
+
+
+S65（v23已发布Alpha）：[下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.20)、[匿名回读与旧版本保持](../verification/public-alpha-v23.json)、[完成审计与缺失输入](../verification/s65-completion-audit.json)、[清理回执](../verification/s65-cleanup.json)。新关联两版各10项、生产关联14项与EPG主机16项通过；不代表全部报告或真机验收。

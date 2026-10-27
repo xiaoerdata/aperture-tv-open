@@ -50,3 +50,5 @@ v23沿用v18/v19/v20/v21/v22的两个包名与发行证书，可在原版上更�
 [v21发布与匿名回读](verification/public-alpha-v21.json)保留历史结论；v22的发布与匿名回读另在发布后追加main，不修改冻结标签或APK。
 
 [v22公开发布与匿名回读](verification/public-alpha-v22.json)已完成：标准/爸妈两版完整APK、测试清单与校验和的SHA-256一致；匿名Git标签与1405个文件的blob摘要逐项匹配冻结源码。API限流后使用无凭证、无Cookie的Git浅层树读取，没有下载完整GitHub源码归档或全部源码blob。7个旧标签、7次发行和28份旧附件未变。回执追加main，不修改发行标签和APK。
+
+[v23公开发布与匿名回读](verification/public-alpha-v23.json)完成：两版完整APK、测试清单和校验和SHA-256一致；匿名Git标签与1432个文件摘要逐项匹配冻结源码。8个旧标签、8次发行和32个旧附件未变。未下载完整GitHub源码归档；补记只追加main，不修改发行标签/APK。

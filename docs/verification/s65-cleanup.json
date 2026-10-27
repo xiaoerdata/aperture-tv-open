@@ -1,0 +1,45 @@
+{
+  "stage": "S65 post-publication duplicate cleanup",
+  "at": "2026-10-27T21:11:23.489411+00:00",
+  "removed": [
+    {
+      "path": "artifacts/s65-source-input.tar.gz",
+      "bytes": 625995498,
+      "files": 1,
+      "sha256": "5f6713a27514c493536a732bc2a050ef64b96aeb97cae65c903c076b1c8e9339"
+    },
+    {
+      "path": "artifacts/s65-public-source.tar.gz",
+      "bytes": 626403274,
+      "files": 1,
+      "sha256": "9c5dd9290bf7bec6fc52134695eac22e0d83718f09d32f07c11b359f2ccdbddd"
+    },
+    {
+      "path": "artifacts/s65-public-source",
+      "bytes": 637319583,
+      "files": 1432,
+      "sha256": null
+    },
+    {
+      "path": "artifacts/s65-anonymous-download",
+      "bytes": 220873106,
+      "files": 34,
+      "sha256": null
+    },
+    {
+      "path": "artifacts/s64-private-report-import-page.png",
+      "bytes": 353758,
+      "files": 1,
+      "sha256": "6a186dc48a5d3b9c72b6cafd8101f4946d2b8b2ce00c5a958660ef3306ce9581"
+    }
+  ],
+  "logicalBytesRemoved": 2110945219,
+  "scope": "owned temporary export/download copies and rendered private report page only; original user PDF attachments preserved",
+  "preserved": [
+    "all released signed APKs and signing material outside source",
+    "frozen source manifests and public Git history/tags",
+    "anonymous receipts and small metadata",
+    "native final reports, interrupted result and screenshots",
+    "SDK/JDK/AVD and existing user data"
+  ]
+}

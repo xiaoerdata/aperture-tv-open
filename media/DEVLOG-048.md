@@ -12,3 +12,6 @@
 
 
 原生补记：标准版首轮、爸妈版第二轮各10项通过，画面在docs/images/s64-native-related-{standard,parents}-{related,fallback}.png。爸妈首轮因主机SIGTERM、UiAutomation断开导致最终截图失败，回执原样保留。实际运行未播放媒体，只检验关联任务流；发布状态待S65回执补记。
+
+
+发行补记：v23/alpha.20已公开，两版APK及测试清单匿名SHA-256、完整Git树摘要核对通过；原报告资源包和真机验收仍待输入。稿件未上传自媒体。
