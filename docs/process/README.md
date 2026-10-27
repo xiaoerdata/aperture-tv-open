@@ -34,7 +34,7 @@ S24/S25补充：NAS电影/剧集入口绑定、加密模型和焦点中断修正
 
 S26补充：[NAS播放与小爱音频焦点](../XIAOMI-VOICE.md#nas影片与音频焦点源码v7)、[播放验证](../verification/playback-focus.json)、[讲解动画记录](../verification/playback-focus-media.json)、[第十五期分镜](../../media/DEVLOG-015.md)。这是生产控制器JVM与合成事件讲解，未作实机结论。
 
-S27补充：[v7两版APK证据](../verification/v7-candidates.json)、[源码包证据](../verification/v7-source.json)、[私有下载](../../private-preview/README.md)。免费本地一次构建；目录/签名/来源验证通过，Android与小米硬件仍待验收。
+S27补充：[v7两版APK证据](../verification/v7-candidates.json)、[源码包证据](../verification/v7-source.json)、[私有下载](../DOWNLOADS.md)。免费本地一次构建；目录/签名/来源验证通过，Android与小米硬件仍待验收。
 
 S28补充：[手机/Agent交接NAS](../NAS-SETUP.md)、[专项报告](../verification/nas-setup.json)、[第十六期](../../media/DEVLOG-016.md)。原生读取仍可独立使用；交接需要可信HTTPS家庭服务。手机画面为浏览器/合成/JVM，不是电视验收。
 
