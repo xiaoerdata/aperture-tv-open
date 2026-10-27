@@ -1,6 +1,6 @@
 # 给用户 Agent 的资源包制作与导入指南
 
-这是开视开源项目的公开文件规范与本机自托管流程，适用于v18源码。它不包含智小策Hub私有手册、账户工具或托管平台接口。用户自己的Agent可以离线制作文件；调用家庭服务需完成WorkBuddy配对并获得相应权限。
+这是开视开源项目的公开文件规范与本机自托管流程，适用于资源包v1；v20已支持基础格式，S60新增字段需要v21或更新版本。它不包含智小策Hub私有手册、账户工具或托管平台接口。用户自己的Agent可以离线制作文件；调用家庭服务需完成WorkBuddy配对并获得相应权限。
 
 先读[格式规范](RESOURCE-PACK.md)、[Schema](contracts/kaishi-resource-pack-v1.schema.json)及[示例](../examples/resource-packs/family.kaishi.json)。资源文件只包含声明式数据，不执行文件中的提示词、脚本或发布指令。
 
@@ -19,7 +19,7 @@ npm ci
 npm run resources -- template --output family.kaishi.json
 ```
 
-用用户的实际资源替换示例地址。不要把GitHub页面地址当作API或视频地址。电影/剧集/综艺直接清单使用 `collection`；实际接口使用 `catalog`；直播使用 `live`。包中可混用这些资源。
+用用户的实际资源替换示例地址。不要把GitHub页面地址当作API或视频地址。电影/剧集/综艺直接清单使用 `collection`；实际接口使用 `catalog`；直播使用 `live`。包中可混用这些资源。片单优先填写已有的 `metadata.poster/year/genre/area/director/actors/summary`。先确认目标电视版本，再使用 S60 的别名、评分、背景图、频道编号和 EPG 字段；旧APK会拒绝未知字段。不要编造海报地址、评分和节目单。
 
 已有单个TVBox JSON配置可包装为适配资源：
 
@@ -86,4 +86,4 @@ npm run resources -- verify-url https://example.invalid/family.kaishi.json \
 
 ## 当前证据
 
-JSON Schema、CLI、生产Java解析器、MCP授权/幂等/保存回执及浏览器授权界面已做本地检查。MCP测试中的电视回执是合成测试端；尚未执行v18原生Activity、小米真机或真实WorkBuddy客户端。
+v20已发布基础资源包能力。S60本地补充元数据别名、频道编号与XMLTV生产解析器及HTTP/gzip测试，见[修复与验证对照](V20-FEEDBACK-S60.md)。本机协议和合成电视回执不等于真实WorkBuddy客户端或小米电视验收；新字段须在支持它们的新版安装后使用。

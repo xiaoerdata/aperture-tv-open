@@ -32,6 +32,7 @@ final class CinemaHttp {
         }throw new IOException("来源重定向失败");
     }
     Document document(String url,boolean allowHttp,Map<String,String> headers)throws Exception{Body b=bytes(url,allowHttp,CinemaCatalog.MAX_BYTES,false,headers);return new Document(new String(b.bytes,StandardCharsets.UTF_8),b.url,b.headers);}
+    String xmltv(String url,boolean allowHttp)throws Exception{Body body=bytes(url,allowHttp,4*1024*1024,false,Collections.emptyMap());InputStream raw=new ByteArrayInputStream(body.bytes);if(body.bytes.length>=2&&(body.bytes[0]&255)==31&&(body.bytes[1]&255)==139)raw=new java.util.zip.GZIPInputStream(raw);try(InputStream stream=raw;ByteArrayOutputStream out=new ByteArrayOutputStream()){byte[] buffer=new byte[8192];int n;while((n=stream.read(buffer))!=-1){if(out.size()+n>8*1024*1024)throw new IOException("节目单解压后超过8MiB");out.write(buffer,0,n);}return new String(out.toByteArray(),StandardCharsets.UTF_8);}}
     String text(String url,boolean allowHttp)throws Exception{return document(url,allowHttp,Collections.emptyMap()).text;}
     CinemaCatalog.Config importUrl(String url,boolean allowHttp)throws Exception {
         String checked=CinemaCatalog.url(url,null,allowHttp),path=new java.net.URI(checked).getPath().toLowerCase(Locale.ROOT);

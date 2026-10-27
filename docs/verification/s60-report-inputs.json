@@ -1,0 +1,16 @@
+{
+  "reports": [
+    {
+      "file": "开视v20增补测试-片单海报与详情页视觉.pdf",
+      "sha256": "e97351bda4e25a8ccb9bd6b1becffdf401163deb2280545f3cd7288bb9054786"
+    },
+    {
+      "file": "开视v20深度测试与竞品分析报告.pdf",
+      "sha256": "1eb8d0b731c7828aea058075a69ea3e9d39b09ef8afd1e498a8ee5977829e505"
+    }
+  ],
+  "reportedDevice": "MiTV_MTSU0",
+  "reportedVersion": "0.2.0-alpha.17",
+  "scope": "User-provided device reports; findings require source/reproduction verification",
+  "rawPdfsBundled": false
+}

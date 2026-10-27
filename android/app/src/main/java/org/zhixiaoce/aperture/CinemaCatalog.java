@@ -22,7 +22,7 @@ final class CinemaCatalog {
         boolean resolved(){return type==3||type==4;}
     }
     static final class Channel {
-        final String name,group;String id="",logo=""; final List<String> urls;final java.util.Map<String,String> headers;final List<java.util.Map<String,String>> requests;
+        final String name,group;String id="",logo="",epgId="";int number; final List<String> urls;final java.util.Map<String,String> headers;final List<java.util.Map<String,String>> requests;
         Channel(String name,String group,List<String> urls){this(name,group,urls,java.util.Collections.emptyMap());}
         Channel(String name,String group,List<String> urls,java.util.Map<String,String> headers){this(name,group,urls,headers,new ArrayList<>());}
         Channel(String name,String group,List<String> urls,java.util.Map<String,String> headers,List<java.util.Map<String,String>> requests){this.name=name;this.group=group;this.urls=urls;this.headers=headers;this.requests=requests;}
@@ -37,7 +37,7 @@ final class CinemaCatalog {
         String key(){return identity.isEmpty()?name+"\n"+url:identity;}
     }
     static final class Config {
-        final List<Site> sites=new ArrayList<>(); final List<Live> lives=new ArrayList<>();
+        final List<Site> sites=new ArrayList<>(); final List<Live> lives=new ArrayList<>();final List<String> epgs=new ArrayList<>();
         final List<Site> warehouses=new ArrayList<>();
         final List<String> skipped=new ArrayList<>(); final boolean allowHttp;
         String packId="",packTitle="",packSha256="";int packRevision;
@@ -45,8 +45,8 @@ final class CinemaCatalog {
         String json() throws Exception {
             JSONArray ss=new JSONArray(),ls=new JSONArray();
             for(Site s:sites)ss.put(new JSONObject().put("name",s.name).put("type",s.type).put("api",s.api).put("key",s.key).put("header",new JSONObject(s.headers)).put("ext",s.ext).put("jar",s.jar).put("spider",s.spider).put("base",s.base).put("identity",s.identity).put("sections",new JSONArray(s.sections)).put("categoryIds",s.categoryIds).put("items",s.items));
-            for(Live l:lives){JSONObject v=new JSONObject().put("name",l.name).put("identity",l.identity).put("header",new JSONObject(l.headers));if(!l.url.isEmpty())v.put("url",l.url);else{JSONArray cs=new JSONArray();for(Channel c:l.channels)cs.put(new JSONObject().put("id",c.id).put("name",c.name).put("group",c.group).put("logo",c.logo).put("urls",new JSONArray(c.urls)).put("header",new JSONObject(c.headers)).put("requestHeaders",c.requestJson()));v.put("channels",cs);}ls.put(v);}
-            return new JSONObject().put("format","kaishi.catalog-cache").put("version",1).put("packId",packId).put("packTitle",packTitle).put("packRevision",packRevision).put("packSha256",packSha256).put("sites",ss).put("lives",ls).toString();
+            for(Live l:lives){JSONObject v=new JSONObject().put("name",l.name).put("identity",l.identity).put("header",new JSONObject(l.headers));if(!l.url.isEmpty())v.put("url",l.url);else{JSONArray cs=new JSONArray();for(Channel c:l.channels)cs.put(new JSONObject().put("id",c.id).put("name",c.name).put("group",c.group).put("logo",c.logo).put("epgId",c.epgId).put("number",c.number).put("urls",new JSONArray(c.urls)).put("header",new JSONObject(c.headers)).put("requestHeaders",c.requestJson()));v.put("channels",cs);}ls.put(v);}
+            return new JSONObject().put("format","kaishi.catalog-cache").put("version",1).put("packId",packId).put("packTitle",packTitle).put("packRevision",packRevision).put("packSha256",packSha256).put("epgs",new JSONArray(epgs)).put("sites",ss).put("lives",ls).toString();
         }
     }
     static final class Category {
@@ -54,8 +54,8 @@ final class CinemaCatalog {
     }
     static final class Item {
         final String id,name,remark,playFrom,playUrl;List<Line> directLines;
-        String poster="",year="",genre="",area="",director="",actors="",summary="",rating="";
-        Item metadata(JSONObject o)throws IOException{poster=field(o.optString("vod_pic"),4096);year=field(o.optString("vod_year"),40);genre=field(o.optString("type_name",o.optString("vod_class")),160);area=field(o.optString("vod_area"),100);director=field(o.optString("vod_director"),300);actors=field(o.optString("vod_actor"),600);summary=plain(o.optString("vod_content"));rating=field(o.optString("vod_score"),40);return this;}
+        String poster="",year="",genre="",area="",director="",actors="",summary="",rating="",backdrop="",duration="",ratingSource="";
+        Item metadata(JSONObject o)throws IOException{poster=field(o.optString("vod_pic"),4096);year=field(o.optString("vod_year"),40);genre=field(o.optString("type_name",o.optString("vod_class")),160);area=field(o.optString("vod_area"),100);director=field(o.optString("vod_director"),300);actors=field(o.optString("vod_actor"),600);summary=plain(o.optString("vod_content"));rating=field(o.optString("vod_score"),40);backdrop=field(o.optString("vod_backdrop"),4096);duration=field(o.optString("vod_duration"),60);ratingSource=field(o.optString("rating_source"),80);return this;}
         static String plain(String text){String value=(text==null?"":text).replaceAll("<[^>]*>"," ").replace("&nbsp;"," ").replace("&amp;","&").replaceAll("\\s+"," ").trim();return value.substring(0,Math.min(4000,value.length()));}
 
         Item(String id,String name,String remark,List<Line> lines){this.id=id;this.name=name;this.remark=remark;this.playFrom="";this.playUrl="";this.directLines=lines;}
@@ -95,7 +95,7 @@ final class CinemaCatalog {
         if("kaishi.resource-pack".equals(root.optString("format")))return CinemaResourcePack.read(root,allowHttp,raw);
         boolean cache="kaishi.catalog-cache".equals(root.optString("format"));
         if(root.optString("format").startsWith("kaishi.")&&!cache)throw new IOException("不支持的开视资源文件格式");
-        if(cache){result.packId=root.optString("packId");result.packTitle=root.optString("packTitle");result.packRevision=root.optInt("packRevision");result.packSha256=root.optString("packSha256");}
+        if(cache){result.packId=root.optString("packId");result.packTitle=root.optString("packTitle");result.packRevision=root.optInt("packRevision");result.packSha256=root.optString("packSha256");JSONArray guides=root.optJSONArray("epgs");if(guides!=null){if(guides.length()>4)throw new IOException("节目单来源超过4项");for(int e=0;e<guides.length();e++)result.epgs.add(url(guides.getString(e),null,allowHttp));}}
         if(root.has("list")&&!root.has("sites")){page(text,1);if(base==null)throw new IOException("采集目录需要网络API地址");result.sites.add(new Site("影视",url(base,null,allowHttp)));return result;}
         JSONArray feeds=root.optJSONArray("urls");if(feeds==null)feeds=root.optJSONArray("data");
         if(feeds!=null&&!root.has("sites")&&!root.has("lives")){if(feeds.length()>64)throw new IOException("仓库超过64项");for(int i=0;i<feeds.length();i++){JSONObject feed=feeds.optJSONObject(i);if(feed==null)continue;try{result.warehouses.add(new Site(field(feed.optString("name",feed.optString("sourceName","配置")),120),url(feed.optString("url",feed.optString("sourceUrl")),base,allowHttp)));}catch(IOException invalid){result.skipped.add("一个仓库地址不支持");}}if(result.warehouses.isEmpty())throw new IOException("没有可读取的仓库地址");return result;}
@@ -118,7 +118,7 @@ final class CinemaCatalog {
                 List<String> urls=new ArrayList<>();List<java.util.Map<String,String>> requests=new ArrayList<>();java.util.Map<String,String> header=new java.util.LinkedHashMap<>(CinemaFormats.headers(l));header.putAll(CinemaFormats.headers(c));JSONArray array=c.optJSONArray("urls");if(array==null&&c.has("url"))array=new JSONArray().put(c.optString("url"));
                 JSONArray savedHeaders=c.optJSONArray("requestHeaders");
                 if(array!=null)for(int k=0;k<Math.min(8,array.length());k++)try{java.util.Map<String,String> specific=new java.util.LinkedHashMap<>(header);if(savedHeaders!=null&&savedHeaders.optJSONObject(k)!=null)specific.putAll(CinemaFormats.headers(new JSONObject().put("header",savedHeaders.getJSONObject(k))));urls.add(CinemaFormats.stream(array.optString(k),base,allowHttp,specific));requests.add(specific);}catch(IOException invalid){}
-                if(!urls.isEmpty()){Channel channel=new Channel(field(c.optString("name","频道"),120),field(c.optString("group",name),80),urls,header,requests);if(cache)channel.id=field(c.optString("id"),100);channel.logo=field(c.optString("logo",c.optString("tvg-logo")),4096);channels.add(channel);}else result.skipped.add("一个频道没有可用的直链地址");
+                if(!urls.isEmpty()){Channel channel=new Channel(field(c.optString("name","频道"),120),field(c.optString("group",name),80),urls,header,requests);if(cache)channel.id=field(c.optString("id"),100);channel.logo=field(c.optString("logo",c.optString("tvg-logo")),4096);channel.epgId=field(c.optString("epgId",c.optString("tvg-id")),128);channel.number=c.optInt("number",0);if(channel.number<0||channel.number>9999)throw new IOException("频道号无效");channels.add(channel);}else result.skipped.add("一个频道没有可用的直链地址");
             }
             if(!channels.isEmpty()){Live live=new Live(name,"",channels);if(cache)live.identity=field(l.optString("identity"),200);result.lives.add(live);}
         }}

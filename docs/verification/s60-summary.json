@@ -1,0 +1,168 @@
+{
+  "stage": "S60 local fixes; S61 release preparation tracked separately",
+  "version": "0.2.0-alpha.18",
+  "versionCode": 21,
+  "generatedAt": "2026-10-27T17:16:13.589646+00:00",
+  "nodeTests": {
+    "total": 105,
+    "passed": 102,
+    "failed": 0,
+    "skipped": 3,
+    "skippedReason": "Samba runtime absent"
+  },
+  "nativeApiCompilation": {
+    "standard": true,
+    "parents": true,
+    "androidApi": 35,
+    "log": "s60-native-verified.log"
+  },
+  "domain": {
+    "tests": 3,
+    "nativeAssertions": 23,
+    "httpGuideAssertions": 8,
+    "transport": "real loopback HTTP, synthetic XMLTV, gzip and oversize fixtures"
+  },
+  "browserReceipts": [
+    "s60-home-browser.json",
+    "s60-cinema-browser.json"
+  ],
+  "nativeRuntime": {
+    "executed": false,
+    "reason": "host has no KVM; forced TCG TV28 boot did not complete; no usable screenshot",
+    "ownedEmulatorStopped": true,
+    "debugBuildsSucceededBeforeFinalSourceEdits": true,
+    "debugApksAreNotFinalCandidates": true
+  },
+  "xiaomiHardwareTested": false,
+  "workBuddyClientTested": false,
+  "realTmdbAccountTested": false,
+  "actualReportResourcePackAvailable": false,
+  "unresolved": [
+    "D04 original 5-to-10 source duplication needs actual input pack; exact display dedup implemented",
+    "D02/T01 actual missing images need original pack and image reachability",
+    "native new sidebar/guide/timeline/detail runtime and Xiaomi ecosystem acceptance"
+  ],
+  "releaseStatus": "candidate preparation; published status belongs to public release receipt",
+  "files": [
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
+      "sha256": "e54dcd7d6b448e082622d285688b7bba88fd95612a66a5f39db280b1bf8e2a8a"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java",
+      "sha256": "e1b15589e433d97f9d015c58846f2ed70e2e82c9960f7531b07f55796bf7ea87"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java",
+      "sha256": "8c667a6549c30300b520ea64903799fb574bcf01b7cc886e61a50bfe2f31841c"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java",
+      "sha256": "02b1ea0fe4374453d64c374141573535b6874e3d231450b270242c3a572b4d88"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaHttp.java",
+      "sha256": "eb2aedfa35f3793b85c510a5340533a0deb18c834eb0779ee1219d701545ba50"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpg.java",
+      "sha256": "f479fd7cbb6c70333c1e56dcaf402b8aa2a749d0d40f8c99bba95e1242bd543d"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpgLoader.java",
+      "sha256": "93e53575afc6cdf363225ac6e1bc0db24df2daafe282d266f7b321cd8c39f827"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaProgrammePanel.java",
+      "sha256": "cb508467384b1a31fbfd627dff438b6dd179487baa2cf52b50092266bdaa76ba"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaLivePanel.java",
+      "sha256": "51b7c294a49a6074920c2794c5ed8109a7662ed5d46d68ed44599755ad138016"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaChannelNumbers.java",
+      "sha256": "bad25ad187cda0470e17e9d169b2a402aa42a72382b0f1d4eec22b3c89189be9"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaLiveSources.java",
+      "sha256": "03fcc13335bf25f74be03a8c21977c80a3ceb244baa0e8ecb71028d9cbd59bcd"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDetailView.java",
+      "sha256": "b54e2b772f2ac561e234892af42d69089dfd30e35320b41481381bc890fc21e4"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaPoster.java",
+      "sha256": "fece20b4c5d4aefb730d240c038395929d20bebf65d882f4048116f2299583ac"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaArtwork.java",
+      "sha256": "a3a06ef8c592bcf6df6fcf70d3f49d258d844f7c96841096d1d4d2671d25c875"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/PlayerTimeline.java",
+      "sha256": "86126efc7bc6d364770d5c8987acdcae33faaab40960620e6ce8d5f811bf25da"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/PlaybackTimeline.java",
+      "sha256": "e6cf369fe4104fd4c876ab38e19ad170b7bc465b7708479c7168294ff07f504c"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/NasActivity.java",
+      "sha256": "91c88b7ca8307fc2be02f4cc5144711d17d4f3a6156feb8b5079659363d6a479"
+    },
+    {
+      "path": "public/launcher/home-personal.js",
+      "sha256": "3b58c9fca3fef7392ab4f7928fa7b021330fb5dc320a862e7689b0aae069b76b"
+    },
+    {
+      "path": "public/launcher/launcher.js",
+      "sha256": "d1ede5460ecd05d06e60380d22e6c572bdb8f8a8dd67dce0c0746fd9a5fb584c"
+    },
+    {
+      "path": "public/launcher/style.css",
+      "sha256": "744614db235c3f186f3b603c4ba303f032431ca8054070707f28ed81494d0bcb"
+    },
+    {
+      "path": "public/cinema/player.js",
+      "sha256": "d1b06f13260a6ed914b97d1826e5ce2f0b080b4ed37b73236f70a422ac5e3dd2"
+    },
+    {
+      "path": "public/cinema/index.html",
+      "sha256": "2c5629ce8ec2a8986f083ae650403206c38783e8649a716e95fa7f5dc760a89d"
+    },
+    {
+      "path": "public/cinema/style.css",
+      "sha256": "f93d039dfdc262da3e0f4bd706c97d11d88680635a7b6debd0d09c02d64863cf"
+    },
+    {
+      "path": "docs/contracts/kaishi-resource-pack-v1.schema.json",
+      "sha256": "c65e4ad7328c78c9c6800eebbf9cb9745b03868c16bacbf063bebc7b01d8ca80"
+    },
+    {
+      "path": "scripts/resource-pack.mjs",
+      "sha256": "fcd6a902f9b64b0409137cbee049008cd9844d94a9055bf289a1bd31b96ca6b5"
+    },
+    {
+      "path": "scripts/browser-s60-home-qa.mjs",
+      "sha256": "7bd000c492a1001f4805af907f41cb149c522cd63751fb0e2abadf1cdeab414a"
+    },
+    {
+      "path": "scripts/browser-s60-cinema-qa.mjs",
+      "sha256": "888d3b91274fa21fb786f81dec9643a810e0be70b7a5a8fb922e68fa8e3299e6"
+    },
+    {
+      "path": "tests/cinema-revision.test.mjs",
+      "sha256": "b0ced260e79059857e892114fd8bce30c10ac7ca5c0c9f2ca8c3c13f474e2c58"
+    },
+    {
+      "path": "tests/java/CinemaRevisionTest.java",
+      "sha256": "449c58de9b1c2da565fe659b6794d180c63da1a69a497d60a21964dbb27d958a"
+    },
+    {
+      "path": "tests/java/CinemaGuideHttpTest.java",
+      "sha256": "7f7e348a25e136df6c4c212ac0c67f9b3e78cf58b886421ab593622db1d0a36a"
+    }
+  ]
+}

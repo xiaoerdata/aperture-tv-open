@@ -138,7 +138,7 @@
     if (previous && previous.contains(document.activeElement) && document.activeElement.id) homeFocus[homePage] = document.activeElement.id;
     homePage = at; $('lobby').setAttribute('data-home-page', String(at));
     for (var n = 0; n < 3; n++) $(pageId(n)).hidden = section !== 'overview' || n !== at;
-    if (personal) {if(at!==0)personal.setApps(false,false);personal.schedule();}
+    if (personal) {if(at!==0)personal.setApps(false,false,false);else personal.restoreApps();personal.schedule();}
     var dots = document.querySelectorAll('[data-home-screen]');
     for (n = 0; n < dots.length; n++) dots[n].setAttribute('aria-pressed', String(Number(dots[n].getAttribute('data-home-screen')) === at));
     if (focus !== false && section === 'overview') restoreHomeFocus(at);

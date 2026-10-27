@@ -1,0 +1,569 @@
+TAP version 13
+# Subtest: ABI override accepts explicit emulator targets and rejects empty, unknown or duplicate targets
+ok 1 - ABI override accepts explicit emulator targets and rejects empty, unknown or duplicate targets
+  ---
+  duration_ms: 11.104745
+  ...
+# Subtest: APK payload inspection keeps shared Python data and rejects stray architectures or incomplete runtimes
+ok 2 - APK payload inspection keeps shared Python data and rejects stray architectures or incomplete runtimes
+  ---
+  duration_ms: 175.354445
+  ...
+# Subtest: source archives build without Git and report modified Android inputs separately from Git status
+ok 3 - source archives build without Git and report modified Android inputs separately from Git status
+  ---
+  duration_ms: 103.04603
+  ...
+# Subtest: a ZIP extracted inside another repository never inherits the parent commit
+ok 4 - a ZIP extracted inside another repository never inherits the parent commit
+  ---
+  duration_ms: 60.639292
+  ...
+# Subtest: a real checkout retains clean/dirty source provenance; ignored Android build output does not change input digest
+ok 5 - a real checkout retains clean/dirty source provenance; ignored Android build output does not change input digest
+  ---
+  duration_ms: 265.424723
+  ...
+# Subtest: old source manifests do not fabricate a commit, while malformed manifests and symlink inputs fail
+ok 6 - old source manifests do not fabricate a commit, while malformed manifests and symlink inputs fail
+  ---
+  duration_ms: 58.601597
+  ...
+# Subtest: bundled lobby assets are Android inputs and changes invalidate the source match
+ok 7 - bundled lobby assets are Android inputs and changes invalidate the source match
+  ---
+  duration_ms: 47.205314
+  ...
+# Real stdio MCP/HTTP lifecycle passed; TV receipts are synthetic, not Android or WorkBuddy application execution
+# Subtest: real MCP bridge -> scoped service -> TV HTTP stages -> original-key receipt
+ok 8 - real MCP bridge -> scoped service -> TV HTTP stages -> original-key receipt
+  ---
+  duration_ms: 1583.114746
+  ...
+# Subtest: separate scopes, TV identity, immutable targets and expiry are enforced
+ok 9 - separate scopes, TV identity, immutable targets and expiry are enforced
+  ---
+  duration_ms: 19.674023
+  ...
+# Subtest: one request, canonical idempotency, revisions and truthful staged receipts
+ok 10 - one request, canonical idempotency, revisions and truthful staged receipts
+  ---
+  duration_ms: 9.052916
+  ...
+# Subtest: NAS traversal, unknown roots, own packages and extra command fields are rejected
+ok 11 - NAS traversal, unknown roots, own packages and extra command fields are rejected
+  ---
+  duration_ms: 7.66997
+  ...
+# Subtest: uninstall cannot escape offered targets and install permission does not imply deletion
+ok 12 - uninstall cannot escape offered targets and install permission does not imply deletion
+  ---
+  duration_ms: 2.686579
+  ...
+# Subtest: revocation blocks delivery and records uncertainty after OS handoff
+ok 13 - revocation blocks delivery and records uncertainty after OS handoff
+  ---
+  duration_ms: 3.00308
+  ...
+# Subtest: a new TV window cannot report an already handed-off operation cancelled; restart never retries
+ok 14 - a new TV window cannot report an already handed-off operation cancelled; restart never retries
+  ---
+  duration_ms: 1.019254
+  ...
+# Subtest: bounded windows reject overflow without changing the latest active grant
+ok 15 - bounded windows reject overflow without changing the latest active grant
+  ---
+  duration_ms: 23.489249
+  ...
+# Subtest: renamed and legacy television editions keep the same application operation contract
+ok 16 - renamed and legacy television editions keep the same application operation contract
+  ---
+  duration_ms: 1.287782
+  ...
+# 25 native metadata assertions passed; JVM fixtures only
+# Subtest: native metadata fields, XML/M3U and newest selection use production Java
+ok 17 - native metadata fields, XML/M3U and newest selection use production Java
+  ---
+  duration_ms: 7705.211245
+  ...
+# Subtest: metadata names remove release tags, retain explicit year, and prefer latest without a confirmation step
+ok 18 - metadata names remove release tags, retain explicit year, and prefer latest without a confirmation step
+  ---
+  duration_ms: 9.507659
+  ...
+# Subtest: provider poster URLs reject credentials, lookalike origins, arbitrary hosts and local paths
+ok 19 - provider poster URLs reject credentials, lookalike origins, arbitrary hosts and local paths
+  ---
+  duration_ms: 1.403269
+  ...
+# Subtest: metadata opt-in, provider credentials, source-free queries and bounded cached results
+ok 20 - metadata opt-in, provider credentials, source-free queries and bounded cached results
+  ---
+  duration_ms: 92.046157
+  ...
+# Subtest: provider errors do not break playback/catalogue; oversized responses are discarded
+ok 21 - provider errors do not break playback/catalogue; oversized responses are discarded
+  ---
+  duration_ms: 2.616706
+  ...
+# Subtest: resource-pack metadata and channel logos follow the same URL policy as media addresses
+ok 22 - resource-pack metadata and channel logos follow the same URL policy as media addresses
+  ---
+  duration_ms: 976.135649
+  ...
+# 23 native revision assertions passed
+# Subtest: production metadata/channel/XMLTV parsing, cache roundtrip and duplicate projection
+ok 23 - production metadata/channel/XMLTV parsing, cache roundtrip and duplicate projection
+  ---
+  duration_ms: 8799.167193
+  ...
+# Subtest: strict CLI accepts canonical metadata and aliases and validates every new image/guide address
+ok 24 - strict CLI accepts canonical metadata and aliases and validates every new image/guide address
+  ---
+  duration_ms: 84.065164
+  ...
+# 8 guide HTTP assertions passed
+# Subtest: production XMLTV HTTP/gzip transport and bounded failure paths
+ok 25 - production XMLTV HTTP/gzip transport and bounded failure paths
+  ---
+  duration_ms: 61352.114327
+  ...
+# Subtest: cinema default off; owner enables only configured libraries; symlinks and filesystem paths excluded
+ok 26 - cinema default off; owner enables only configured libraries; symlinks and filesystem paths excluded
+  ---
+  duration_ms: 565.839853
+  ...
+# Subtest: viewer can play enabled media but cannot enable, import, or bypass domain operations
+ok 27 - viewer can play enabled media but cannot enable, import, or bypass domain operations
+  ---
+  duration_ms: 156.465138
+  ...
+# Subtest: M3U allowlist, no TVBox scripts; atomic replacement and clearing
+ok 28 - M3U allowlist, no TVBox scripts; atomic replacement and clearing
+  ---
+  duration_ms: 345.084551
+  ...
+# Subtest: remote HLS manifest and segments proxied only through opaque approved references; redirects denied
+ok 29 - remote HLS manifest and segments proxied only through opaque approved references; redirects denied
+  ---
+  duration_ms: 246.974252
+  ...
+# Subtest: Jellyfin fixture scopes listing to configured user/library and keeps token server-side
+ok 30 - Jellyfin fixture scopes listing to configured user/library and keeps token server-side
+  ---
+  duration_ms: 193.9114
+  ...
+# Subtest: range boundaries reject multiple or malformed ranges, support suffix and open end
+ok 31 - range boundaries reject multiple or malformed ranges, support suffix and open end
+  ---
+  duration_ms: 1.343197
+  ...
+# Subtest: variety classification persists for shared folders and M3U video lists
+ok 32 - variety classification persists for shared folders and M3U video lists
+  ---
+  duration_ms: 120.453568
+  ...
+# Home/Cinema state: 29 assertions passed
+# Embedded cinema: 51 parser/HTTP assertions passed; no device playback claim
+# Subtest: production native cinema parser and HTTP client interoperate with an isolated source
+ok 33 - production native cinema parser and HTTP client interoperate with an isolated source
+  ---
+  duration_ms: 63231.056779
+  ...
+# Subtest: default export cannot overwrite a previously frozen archive
+ok 34 - default export cannot overwrite a previously frozen archive
+  ---
+  duration_ms: 387.17591
+  ...
+# Subtest: a named snapshot is a readable source tar, and repeated export preserves its bytes
+ok 35 - a named snapshot is a readable source tar, and repeated export preserves its bytes
+  ---
+  duration_ms: 1094.373514
+  ...
+# Subtest: Agent contract states every required field and domain errors report all missing fields
+ok 36 - Agent contract states every required field and domain errors report all missing fields
+  ---
+  duration_ms: 20.803812
+  ...
+# Subtest: private literal HTTP needs explicit opt-in; opt-in cannot authorize public IP or DNS HTTP
+ok 37 - private literal HTTP needs explicit opt-in; opt-in cannot authorize public IP or DNS HTTP
+  ---
+  duration_ms: 20.772577
+  ...
+# Subtest: LAN HTTP QR CLI, owner approval, saved policy and MCP read share one exact PUBLIC_ORIGIN
+ok 38 - LAN HTTP QR CLI, owner approval, saved policy and MCP read share one exact PUBLIC_ORIGIN
+  ---
+  duration_ms: 3085.682105
+  ...
+# Subtest: WoL packet is validated without claiming standby or ADB acceptance
+ok 39 - WoL packet is validated without claiming standby or ADB acceptance
+  ---
+  duration_ms: 2.693317
+  ...
+# Subtest: service templates render both platforms without enabling a daemon or copying secrets
+ok 40 - service templates render both platforms without enabling a daemon or copying secrets
+  ---
+  duration_ms: 659.33329
+  ...
+# Subtest: private signing backup survives runtime loss and refuses an accidental new identity
+ok 41 - private signing backup survives runtime loss and refuses an accidental new identity
+  ---
+  duration_ms: 25.599314
+  ...
+# Subtest: HA fixed GET entities, selected attributes, private preview, sharing and offline masking
+ok 42 - HA fixed GET entities, selected attributes, private preview, sharing and offline masking
+  ---
+  duration_ms: 305.238335
+  ...
+# Subtest: actual Java proxy limits paths/methods/origins, filters cookies and refuses redirects/content mismatch/oversize
+ok 43 - actual Java proxy limits paths/methods/origins, filters cookies and refuses redirects/content mismatch/oversize
+  ---
+  duration_ms: 5565.1131
+  ...
+# Subtest: inactive/closed proxy sends no new read; old in-flight reply is discarded after focus changes
+ok 44 - inactive/closed proxy sends no new read; old in-flight reply is discarded after focus changes
+  ---
+  duration_ms: 5735.703601
+  ...
+# Subtest: release household HTTP requires explicit permission and a literal private host
+ok 45 - release household HTTP requires explicit permission and a literal private host
+  ---
+  duration_ms: 6361.556009
+  ...
+# Install cache: 22 checks passed (limits, closure, incomplete/cancelled copy, hashes and URI traversal)
+# Subtest: production installer staging rejects unsafe/partial files and closes resources
+ok 46 - production installer staging rejects unsafe/partial files and closes resources
+  ---
+  duration_ms: 5351.829687
+  ...
+# Subtest: LAN launcher offers only actual private IPv4 interfaces and binds exactly the chosen one
+ok 47 - LAN launcher offers only actual private IPv4 interfaces and binds exactly the chosen one
+  ---
+  duration_ms: 22.594099
+  ...
+# Subtest: LAN launcher rejects wrong-device, public and loopback addresses, invalid ports and existing deployment config
+ok 48 - LAN launcher rejects wrong-device, public and loopback addresses, invalid ports and existing deployment config
+  ---
+  duration_ms: 5.901288
+  ...
+# Subtest: LAN command help and invalid choices exit without creating family credentials
+ok 49 - LAN command help and invalid choices exit without creating family credentials
+  ---
+  duration_ms: 1245.711184
+  ...
+# Subtest: real stdio MCP: preview is private; selective sharing, idempotency, conflict, remove and persisted readback
+ok 50 - real stdio MCP: preview is private; selective sharing, idempotency, conflict, remove and persisted readback
+  ---
+  duration_ms: 2094.796782
+  ...
+# Subtest: viewer/editor cannot read private sources; preview bound to owner session, revocation checked
+ok 51 - viewer/editor cannot read private sources; preview bound to owner session, revocation checked
+  ---
+  duration_ms: 1685.008745
+  ...
+# Subtest: fixed configured calls ignore client-supplied tool names and arguments; unsafe tools refused
+ok 52 - fixed configured calls ignore client-supplied tool names and arguments; unsafe tools refused
+  ---
+  duration_ms: 3186.815945
+  ...
+# Subtest: partial fields, stale data, invalid timestamps, upstream errors and limits never silently publish
+ok 53 - partial fields, stale data, invalid timestamps, upstream errors and limits never silently publish
+  ---
+  duration_ms: 9803.132392
+  ...
+# Subtest: real Streamable HTTP MCP transport reads structured values
+ok 54 - real Streamable HTTP MCP transport reads structured values
+  ---
+  duration_ms: 477.146365
+  ...
+# Subtest: configuration fails closed for unsafe paths, missing review and non-allowlisted queries
+ok 55 - configuration fails closed for unsafe paths, missing review and non-allowlisted queries
+  ---
+  duration_ms: 2.831909
+  ...
+# Subtest: old-core scripts are ES5 and need no module runtime
+ok 56 - old-core scripts are ES5 and need no module runtime
+  ---
+  duration_ms: 186.303602
+  ...
+# Subtest: lite presentation uses household timezone and masks expired life snapshots
+ok 57 - lite presentation uses household timezone and masks expired life snapshots
+  ---
+  duration_ms: 101.56659
+  ...
+# Subtest: lite data is authenticated and isolated from public demo; revoked device loses access
+ok 58 - lite data is authenticated and isolated from public demo; revoked device loses access
+  ---
+  duration_ms: 335.557496
+  ...
+# PASS legacy/missing providers use native home while capable legacy family lite remains available
+# PASS modern default, explicit simple-home selection and reset do not alter family web availability
+# PASS renderer exit is idempotent and blocks implicit web recreation across Home/preference changes
+# PASS a newly opened Activity can retry without clearing the user's independent simple-home preference
+# TRACE WebView64 -> NATIVE_OLD_ENGINE; family lite allowed
+# TRACE WebView140 -> GLASS -> renderer exit -> NATIVE_RECOVERY; no automatic retry
+# TRACE new Activity + simple preference -> NATIVE_SELECTED; family web allowed
+# Subtest: home routing keeps legacy engines usable and stops renderer recreation until a fresh Activity
+ok 59 - home routing keeps legacy engines usable and stops renderer recreation until a fresh Activity
+  ---
+  duration_ms: 3977.089182
+  ...
+# Subtest: local automation is opt-in; human session and old pair flow never imply machine permission
+ok 60 - local automation is opt-in; human session and old pair flow never imply machine permission
+  ---
+  duration_ms: 398.203586
+  ...
+# Subtest: read-only grants filter discovery and block writes; expiration and revocation are per call
+ok 61 - read-only grants filter discovery and block writes; expiration and revocation are per call
+  ---
+  duration_ms: 60.954326
+  ...
+# Subtest: real stdio MCP bridge shares domain writes, persistent receipts, fresh scopes, and no arbitrary execution
+ok 62 - real stdio MCP bridge shares domain writes, persistent receipts, fresh scopes, and no arbitrary execution
+  ---
+  duration_ms: 1511.399033
+  ...
+# Subtest: private peer policy rejects public and spoofed forwarding; QR challenge and network bind grants
+ok 63 - private peer policy rejects public and spoofed forwarding; QR challenge and network bind grants
+  ---
+  duration_ms: 92.378907
+  ...
+# Subtest: QR pairing CLI claims credential automatically, writes private file, never overwrites it
+ok 64 - QR pairing CLI claims credential automatically, writes private file, never overwrites it
+  ---
+  duration_ms: 3578.536971
+  ...
+# Subtest: resource pack stdio MCP uses explicit grant, one TV window and exact save receipt
+ok 65 - resource pack stdio MCP uses explicit grant, one TV window and exact save receipt
+  ---
+  duration_ms: 1571.616565
+  ...
+# Subtest: simplified family receipt does not claim legacy scene was displayed
+ok 66 - simplified family receipt does not claim legacy scene was displayed
+  ---
+  duration_ms: 101.550688
+  ...
+# Subtest: probe reads actual samples; rejects login, authentication, redirects and every off-origin HLS entry
+ok 67 - probe reads actual samples; rejects login, authentication, redirects and every off-origin HLS entry
+  ---
+  duration_ms: 315.904265
+  ...
+# Subtest: monitor stays idle while disabled; invalidation scans automatically, concurrent starts join, results omit private URL
+ok 68 - monitor stays idle while disabled; invalidation scans automatically, concurrent starts join, results omit private URL
+  ---
+  duration_ms: 87.398763
+  ...
+# Subtest: playlist classifies three parent destinations without executing TVBox scripts
+ok 69 - playlist classifies three parent destinations without executing TVBox scripts
+  ---
+  duration_ms: 7.421943
+  ...
+# Subtest: periodic scans bound concurrency, time out stalled streams, and stop on close
+ok 70 - periodic scans bound concurrency, time out stalled streams, and stop on close
+  ---
+  duration_ms: 567.214805
+  ...
+# PASS migration / stable identity / binding / deletion / reassignment / restore
+# PASS path / category / missing-ID / malformed-or-ambiguous binding boundaries
+# PASS selected-root navigation / focus-page restoration / bounded history
+# PASS authenticated encryption / fresh IV / tampering / wrong key / v5 record compatibility
+# PASS assistant interruption / pending autoplay generation / late-focus ordering
+# Subtest: production native NAS library, encryption, selected-root navigation and assistant lifecycle
+ok 71 - production native NAS library, encryption, selected-root navigation and assistant lifecycle
+  ---
+  duration_ms: 5128.619158
+  ...
+# Subtest: native NAS root contract rejects traversal/userinfo/SMB1-style ambiguity and scopes WebDAV hrefs
+ok 72 - native NAS root contract rejects traversal/userinfo/SMB1-style ambiguity and scopes WebDAV hrefs
+  ---
+  duration_ms: 6560.783295
+  ...
+# Subtest: real Java HTTPS WebDAV lists Depth 1 and validates range/ETag, auth, redirects, MIME, oversize and closure
+ok 73 - real Java HTTPS WebDAV lists Depth 1 and validates range/ETag, auth, redirects, MIME, oversize and closure
+  ---
+  duration_ms: 9648.599945
+  ...
+# Subtest: real SMB2_10 signed authentication reads Unicode folders and random offsets; wrong credentials and close fail
+ok 74 - real SMB2_10 signed authentication reads Unicode folders and random offsets; wrong credentials and close fail # SKIP Extract Samba runtime and set APERTURE_NAS_SAMBA_ROOT; see docs/NAS.md
+  ---
+  duration_ms: 0.901436
+  ...
+# Subtest: real SMB3_11 signed authentication reads Unicode folders and random offsets; wrong credentials and close fail
+ok 75 - real SMB3_11 signed authentication reads Unicode folders and random offsets; wrong credentials and close fail # SKIP Extract Samba runtime and set APERTURE_NAS_SAMBA_ROOT; see docs/NAS.md
+  ---
+  duration_ms: 0.203986
+  ...
+# Subtest: real native Java transport, local sealing CLI and stdio MCP deliver only ciphertext; scopes and receipts remain distinct
+ok 76 - real native Java transport, local sealing CLI and stdio MCP deliver only ciphertext; scopes and receipts remain distinct
+  ---
+  duration_ms: 11344.960886
+  ...
+# Subtest: real encrypted handoff tests signed SMB directory before model save and rechecks writer authorization
+ok 77 - real encrypted handoff tests signed SMB directory before model save and rechecks writer authorization # SKIP Samba runtime absent; not a passed NAS import
+  ---
+  duration_ms: 0.859659
+  ...
+# Subtest: relay binds TV, expiry, actor scopes, revocation, delivery receipt and ciphertext identity
+ok 78 - relay binds TV, expiry, actor scopes, revocation, delivery receipt and ciphertext identity
+  ---
+  duration_ms: 626.349254
+  ...
+# Subtest: relay quota is bounded without cancelling an existing request on failed creation; expired capacity is reclaimed
+ok 79 - relay quota is bounded without cancelling an existing request on failed creation; expired capacity is reclaimed
+  ---
+  duration_ms: 772.744017
+  ...
+# Subtest: pending delivery is invalidated by TV revoke, writer revoke or scope reduction; restart loses pending requests
+ok 80 - pending delivery is invalidated by TV revoke, writer revoke or scope reduction; restart loses pending requests
+  ---
+  duration_ms: 4238.498369
+  ...
+# Subtest: real WebCrypto sealing interoperates with production Java receiver and rejects tamper, wrong TV, invalid draft and disposed key
+ok 81 - real WebCrypto sealing interoperates with production Java receiver and rejects tamper, wrong TV, invalid draft and disposed key
+  ---
+  duration_ms: 47899.061868
+  ...
+# Subtest: renamed and legacy television labels can complete the encrypted NAS relay
+ok 82 - renamed and legacy television labels can complete the encrypted NAS relay
+  ---
+  duration_ms: 3388.78711
+  ...
+# NAS unified viewing: 31 assertions passed
+# Subtest: NAS shared shelf transaction, stable route, resume, favorite and encryption
+ok 83 - NAS shared shelf transaction, stable route, resume, favorite and encryption
+  ---
+  duration_ms: 8933.475604
+  ...
+# PASS foreground selection / user pause / explicit resume / completion / replay / reset
+# PASS audio-only loss during preparation / no late autoplay / explicit continue
+# PASS audio-only loss during playback / repeated prepared and active events stay paused
+# PASS denied focus / no delayed playback / user retry
+# PASS loss callback before request returns / late grant is ignored
+# PASS stale source and focus callbacks / replacement stays playing / late events after reset
+# PASS window interruption / surface teardown and restoration / background play denied
+# PASS user pause during preparation / inactive selection / no focus request in background
+# PASS decoder / focus request / abandon exceptions fail without playback intent
+# PASS playback error releases focus / late lifecycle and prepared events cannot revive
+# TRACE prepare-loss PREPARING -> INTERRUPTED -> INTERRUPTED -> PLAYING
+# TRACE playing-loss PREPARING -> PLAYING -> INTERRUPTED -> INTERRUPTED
+# TRACE denied FOCUS_DENIED -> FOCUS_DENIED -> PLAYING
+# Subtest: native playback production controller handles audio/window/prepare races without implicit resume
+ok 84 - native playback production controller handles audio/window/prepare races without implicit resume
+  ---
+  duration_ms: 4081.622083
+  ...
+# Subtest: public preparation rejects traversal, links, duplicate paths and private evidence before extraction
+ok 85 - public preparation rejects traversal, links, duplicate paths and private evidence before extraction
+  ---
+  duration_ms: 279.232807
+  ...
+# Subtest: public documentation links keep code and historical text, but route private downloads to available instructions
+ok 86 - public documentation links keep code and historical text, but route private downloads to available instructions
+  ---
+  duration_ms: 327.559622
+  ...
+# Subtest: public README links resolve both in the source template and at the repository root
+ok 87 - public README links resolve both in the source template and at the repository root
+  ---
+  duration_ms: 279.472545
+  ...
+# Subtest: resource authoring automation has an independent explicit scope
+ok 88 - resource authoring automation has an independent explicit scope
+  ---
+  duration_ms: 22.31384
+  ...
+# Subtest: resource delivery is idempotent and only a bound native save receipt means success
+ok 89 - resource delivery is idempotent and only a bound native save receipt means success
+  ---
+  duration_ms: 13.930807
+  ...
+# Subtest: revocation and URL policy block later resource operations
+ok 90 - revocation and URL policy block later resource operations
+  ---
+  duration_ms: 12.298857
+  ...
+# Subtest: resource schema and authoring checks cover mixed resources, ids, classifications and unsafe inputs
+ok 91 - resource schema and authoring checks cover mixed resources, ids, classifications and unsafe inputs
+  ---
+  duration_ms: 2167.348933
+  ...
+# Resource packs: 44 assertions passed; no Android runtime or media decoding claim
+# Subtest: production Java imports, persists, routes and updates Resource Pack v1
+ok 92 - production Java imports, persists, routes and updates Resource Pack v1
+  ---
+  duration_ms: 42755.511062
+  ...
+# Subtest: Agent can verify a published file and reject byte changes or oversized downloads
+ok 93 - Agent can verify a published file and reject byte changes or oversized downloads
+  ---
+  duration_ms: 1833.177035
+  ...
+# Subtest: private reads require a session; explicit demo never contains family data
+ok 94 - private reads require a session; explicit demo never contains family data
+  ---
+  duration_ms: 159.865468
+  ...
+# Subtest: atomic revision check, idempotent replay, conflicting key and restart persistence
+ok 95 - atomic revision check, idempotent replay, conflicting key and restart persistence
+  ---
+  duration_ms: 43.959382
+  ...
+# Subtest: simultaneous writes with the same revision apply exactly once
+ok 96 - simultaneous writes with the same revision apply exactly once
+  ---
+  duration_ms: 42.435076
+  ...
+# Subtest: pair codes require approval and their private polling secret; viewer cannot write; revocation immediate
+ok 97 - pair codes require approval and their private polling secret; viewer cannot write; revocation immediate
+  ---
+  duration_ms: 57.62825
+  ...
+# Subtest: family editor shares content, cannot approve or administer devices
+ok 98 - family editor shares content, cannot approve or administer devices
+  ---
+  duration_ms: 33.010699
+  ...
+# Subtest: expiry and malformed pairing input fail closed
+ok 99 - expiry and malformed pairing input fail closed
+  ---
+  duration_ms: 80.888348
+  ...
+# Subtest: origin, host, private source and machine endpoints are denied
+ok 100 - origin, host, private source and machine endpoints are denied
+  ---
+  duration_ms: 115.611301
+  ...
+# Subtest: invalid content, nonfinite metrics and uninstalled scenes cannot enter the board
+ok 101 - invalid content, nonfinite metrics and uninstalled scenes cannot enter the board
+  ---
+  duration_ms: 58.618882
+  ...
+# Subtest: image is decoded, normalized and accessible only to paired sessions while referenced
+ok 102 - image is decoded, normalized and accessible only to paired sessions while referenced
+  ---
+  duration_ms: 1249.109534
+  ...
+# Subtest: authentication attempts are bounded
+ok 103 - authentication attempts are bounded
+  ---
+  duration_ms: 53.543227
+  ...
+# Subtest: content file import is atomic: an invalid row cannot partially write
+ok 104 - content file import is atomic: an invalid row cannot partially write
+  ---
+  duration_ms: 40.033097
+  ...
+# Subtest: served browser model includes its explicit contract dependency without exposing other shared modules
+ok 105 - served browser model includes its explicit contract dependency without exposing other shared modules
+  ---
+  duration_ms: 26.879129
+  ...
+1..105
+# tests 105
+# suites 0
+# pass 102
+# fail 0
+# cancelled 0
+# skipped 3
+# todo 0
+# duration_ms 143676.805977

@@ -2,7 +2,7 @@
 (function () {
  'use strict';
  window.KaishiHome = function (options) {
-  var catalog=[], apps={}, slots=[], sources={}, slides=[], index=0, timer=null, mode='auto', current='', disposed=false, expanded=false, foldTimer=null, snapshotReceived=false;
+  var catalog=[], apps={}, slots=[], sources={}, slides=[], index=0, timer=null, mode='auto', current='', disposed=false, expanded=true, preferredExpanded=true, foldTimer=null, snapshotReceived=false;
   var panel=document.getElementById('personal-panel'), dock=document.getElementById('home-dock');
   function node(tag,cls,value){var n=document.createElement(tag);n.className=cls||'';if(value!==undefined)n.textContent=value;return n;}
   function id(name){return document.getElementById(name);}
@@ -44,8 +44,8 @@
    };
    box.setAttribute('data-icon-source',stage);box.appendChild(picture);picture.src=nativeIcon||preset||fallback;return box;
   }
-  function setApps(value,focus){
-   clearTimeout(foldTimer);expanded=value;var list=id('home-app-list');id('dock-toggle').setAttribute('aria-expanded',String(value));id('ambient-home').setAttribute('data-apps-expanded',String(value));dock.setAttribute('data-expanded',String(value));list.setAttribute('aria-hidden',String(!value));
+  function setApps(value,focus,persist){
+   clearTimeout(foldTimer);expanded=value;if(persist!==false){preferredExpanded=value;try{localStorage.setItem('kaishi-apps-expanded',String(value));}catch(ignored){}}var list=id('home-app-list');id('dock-toggle').setAttribute('aria-expanded',String(value));id('ambient-home').setAttribute('data-apps-expanded',String(value));dock.setAttribute('data-expanded',String(value));list.setAttribute('aria-hidden',String(!value));
    var buttons=list.querySelectorAll('button');for(var b=0;b<buttons.length;b++)buttons[b].tabIndex=value?0:-1;
    if(value){list.hidden=false;list.className='home-app-list apps-unfold';if(focus)options.focus(id('home-apps').querySelector('button')||id('home-app-add'));}
    else{if(focus||list.contains(document.activeElement))options.focus(id('dock-toggle'));list.className='home-app-list apps-fold';if(reduced())list.hidden=true;else foldTimer=setTimeout(function(){if(!expanded)list.hidden=true;},180);}
@@ -75,7 +75,8 @@
   window.addEventListener('pagehide',function(){disposed=true;stop();});
   window.apertureHomeSources=function(value){sources=value&&typeof value==='object'?value:{};update();};
   window.apertureHomeApps=function(value){snapshotReceived=true;apps={};slots=[];if(value&&Array.isArray(value.apps))for(var i=0;i<value.apps.length;i++)apps[value.apps[i].id]=value.apps[i];if(value&&Array.isArray(value.slots))for(i=0;i<Math.min(4,value.slots.length);i++)if(/^quick[1-4]$/.test(value.slots[i].slot))slots.push(value.slots[i]);renderApps();};
+  try{expanded=localStorage.getItem('kaishi-apps-expanded')!=='false';}catch(ignored){}preferredExpanded=expanded;setApps(expanded,false,false);
   var request=new XMLHttpRequest();request.open('GET','./app-presets.json',true);request.onload=function(){try{if(request.status!==200&&request.status!==0)return;var data=JSON.parse(request.responseText);if(!Array.isArray(data)||data.length>24)return;catalog=data;renderApps();}catch(ignored){}};request.send();
-  return {appsExpanded:function(){return expanded;},setApps:setApps,update:update,schedule:schedule,presetActions:presetActions,decorate:decorate,setMode:setMode};
+  return {appsExpanded:function(){return expanded;},setApps:setApps,restoreApps:function(){setApps(preferredExpanded,false,false);},update:update,schedule:schedule,presetActions:presetActions,decorate:decorate,setMode:setMode};
  };
 }());

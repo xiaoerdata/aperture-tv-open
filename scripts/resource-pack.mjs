@@ -19,22 +19,24 @@ export function checkPack(bytes,{allowHttp=false}={}){
   if(typeof value==='string'&&value.includes('\0'))throw Error(path+' 含无效字符');
   if(Array.isArray(value)){value.forEach((x,i)=>walk(x,path+'/'+i));return;}
   if(value&&typeof value==='object')for(const [k,v]of Object.entries(value)){
-   if(['url','baseUrl','poster','logo'].includes(k)&&typeof v==='string')url(v,allowHttp);
+   if(['url','baseUrl','poster','logo','cover','backdrop'].includes(k)&&typeof v==='string')url(v,allowHttp);
    if(k==='urls'&&Array.isArray(v)&&v.every(x=>typeof x==='string'))v.forEach(x=>url(x,allowHttp));
    walk(v,path+'/'+k);
   }
  }
- walk(pack);unique(pack.resources,'id','resources');let sites=0,lives=0,channels=0,items=0,episodes=0;
+ walk(pack);unique(pack.resources,'id','resources');let sites=0,lives=0,channels=0,items=0,episodes=0,epgs=0;
  for(const resource of pack.resources){
   if(resource.categoryIds)for(const category of Object.keys(resource.categoryIds))if(!resource.sections?.includes(category))throw Error('categoryIds 的分类需先在sections声明');
-  if(resource.type==='live'){lives++;channels+=resource.channels?.length||0;if(resource.channels)unique(resource.channels,'id','channels');}
+  if(resource.type==='live'){lives++;channels+=resource.channels?.length||0;if(resource.channels){unique(resource.channels,'id','channels');unique(resource.channels.filter(c=>c.number!==undefined),'number','channels');}}
+  if(resource.type==='epg'&&++epgs>4)throw Error('最多4个节目单来源');
   if(resource.type==='catalog')sites++;
-  if(resource.type==='collection'){sites++;items+=resource.items.length;unique(resource.items,'id','items');for(const item of resource.items){episodes+=item.episodes.length;unique(item.episodes,'title','episodes');}}
+  if(resource.type==='collection'){sites++;items+=resource.items.length;unique(resource.items,'id','items');for(const item of resource.items){episodes+=item.episodes.length;unique(item.episodes,'title','episodes');for(const [alias,canonical]of Object.entries({cover:'poster',plot:'summary',year:'year',area:'area',genre:'genre',director:'director',actors:'actors',rating:'rating',ratingSource:'ratingSource',duration:'duration',backdrop:'backdrop'}))if(item[alias]!==undefined&&item.metadata?.[canonical]!==undefined&&item[alias]!==item.metadata[canonical])throw Error('metadata 与顶层字段冲突：'+canonical);}}
   if(resource.type==='tvbox'){
    const c=resource.config;if(!Array.isArray(c.sites||[])||!Array.isArray(c.lives||[])||(c.sites||[]).some(s=>!s||![0,1,3,4].includes(s.type))||(c.lives||[]).some(l=>!l))throw Error('TVBox适配器含未支持的站点类型或列表');
    sites+=(c.sites||[]).length;lives+=(c.lives||[]).length;channels+=(c.lives||[]).reduce((n,l)=>n+(l.channels||[]).length,0);
   }
  }
+ if(!sites&&!lives)throw Error('资源包至少需要一个直播或影视资源');
  if(sites>12||lives>12||channels>500||items>200||episodes>500)throw Error('资源包超过12站点/12直播来源/500频道/200节目/500集的限制');
  return {format:pack.format,version:pack.version,id:pack.id,revision:pack.revision,title:pack.title,sha256:sha(bytes),bytes:bytes.length,resources:pack.resources.length,sites,lives,channels,items,episodes,sections:[...new Set(pack.resources.flatMap(r=>r.sections||[r.section].filter(Boolean)))],nativeImportValidationRequired:true};
 }

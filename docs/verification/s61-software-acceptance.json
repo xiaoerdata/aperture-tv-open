@@ -1,0 +1,97 @@
+{
+  "version": "0.2.0-alpha.18",
+  "versionCode": 21,
+  "editions": [
+    {
+      "applicationId": "org.zhixiaoce.kaishi",
+      "edition": "standard",
+      "version": "0.2.0-alpha.18",
+      "versionCode": 21,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v21-standard.apk",
+      "apkBytes": 55170328,
+      "sha256": "603fa4fe0d634eab7fdd63d9206d917fbfc7a890b767d49876cafe3c7275b595",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "a0532094b051e0cb713128bbe0e80659ab6d49b6d0ddbd16b3c39510cf5fb49a",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 39,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    },
+    {
+      "applicationId": "org.zhixiaoce.kaishi.parents",
+      "edition": "parents",
+      "version": "0.2.0-alpha.18-parents",
+      "versionCode": 21,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v21-parents.apk",
+      "apkBytes": 55199000,
+      "sha256": "162bb4416a3da8ac68b9b1434ffac97875a96d0fe91f7cabe7d301d31a310557",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "a0532094b051e0cb713128bbe0e80659ab6d49b6d0ddbd16b3c39510cf5fb49a",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 39,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    }
+  ],
+  "validation": {
+    "nodeTests": {
+      "total": 105,
+      "passed": 102,
+      "failed": 0,
+      "skipped": 3,
+      "skippedReason": "Samba runtime unavailable"
+    },
+    "nativeApiCompilation": true,
+    "nativeRuntimeExecuted": false,
+    "nativeRuntimeBlocker": "No KVM; forced TCG TV28 did not finish boot or produce usable screenshots",
+    "browserEvidence": [
+      "docs/verification/s60-home-browser.json",
+      "docs/verification/s60-cinema-browser.json"
+    ],
+    "syntheticMediaAndProviders": true,
+    "realLocalHttpAndWebmDecode": true,
+    "realReportResourcePackAvailable": false,
+    "xiaomiHardwareTested": false,
+    "workBuddyClientTested": false,
+    "realTmdbAccountTested": false,
+    "knownFollowups": [
+      "Original source duplication and missing artwork require report resource pack",
+      "Native channel sidebar/EPG/timeline/detail runtime and Xiaomi coexistence tests"
+    ]
+  },
+  "nativeBuild": {
+    "tasks": [
+      "assembleStandardRelease",
+      "assembleParentsRelease",
+      "lintVitalStandardRelease",
+      "lintVitalParentsRelease"
+    ],
+    "status": "BUILD SUCCESSFUL",
+    "jdk": 17,
+    "gradle": "8.9",
+    "minSdk": 26,
+    "targetSdk": 35
+  },
+  "androidSourceSha256": "a0532094b051e0cb713128bbe0e80659ab6d49b6d0ddbd16b3c39510cf5fb49a",
+  "generatedDesignReferencesInApk": false,
+  "releaseState": "signed candidate; final status recorded by public-alpha-v21.json after publication",
+  "sourceInstallVerification": "pending after source freeze"
+}

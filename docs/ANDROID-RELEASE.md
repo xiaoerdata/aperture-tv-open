@@ -2,7 +2,7 @@
 
 **本项目仅适配小米电视，Android 8+。** 这是维护者的发行操作说明，普通用户从[下载与版本](DOWNLOADS.md)和[安装说明](../INSTALL.md)开始。
 
-v20 / alpha.17按本流程生成两版非debug包并使用专用发行证书，产品仍为Alpha测试版。旧v17签名丢失，因此使用新包名并存安装；详见[迁移说明](MIGRATION-V18.md)。WorkBuddy和小米真机由维护者复验。早期[准备记录](verification/s42-release-preparation.json)只代表当时状态。
+v21 / alpha.18按本流程生成两版非debug包并使用专用发行证书，产品仍为Alpha测试版。旧v17签名丢失，因此使用新包名并存安装；详见[迁移说明](MIGRATION-V18.md)。WorkBuddy和小米真机由维护者复验。早期[准备记录](verification/s42-release-preparation.json)只代表当时状态。
 
 ## 签名前先确定
 

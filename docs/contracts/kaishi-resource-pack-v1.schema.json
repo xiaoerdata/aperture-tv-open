@@ -49,6 +49,9 @@
           },
           {
             "$ref": "#/$defs/tvbox"
+          },
+          {
+            "$ref": "#/$defs/epg"
           }
         ]
       },
@@ -156,6 +159,9 @@
         },
         "headers": {
           "$ref": "#/$defs/headers"
+        },
+        "cover": {
+          "$ref": "#/$defs/url"
         }
       },
       "required": [
@@ -217,8 +223,65 @@
             "summary": {
               "type": "string",
               "maxLength": 4000
+            },
+            "duration": {
+              "type": "string",
+              "maxLength": 60
+            },
+            "rating": {
+              "type": "string",
+              "maxLength": 40
+            },
+            "ratingSource": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "backdrop": {
+              "$ref": "#/$defs/url"
             }
           }
+        },
+        "cover": {
+          "$ref": "#/$defs/url"
+        },
+        "plot": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "year": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "area": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "genre": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "actors": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "director": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "rating": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "ratingSource": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "duration": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "backdrop": {
+          "$ref": "#/$defs/url"
         }
       },
       "required": [
@@ -259,6 +322,16 @@
         },
         "logo": {
           "$ref": "#/$defs/url"
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999
+        },
+        "epgId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
         }
       },
       "required": [
@@ -487,6 +560,32 @@
         "type",
         "title",
         "config"
+      ],
+      "additionalProperties": false
+    },
+    "epg": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "const": "epg"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "url": {
+          "$ref": "#/$defs/url"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "url"
       ],
       "additionalProperties": false
     }

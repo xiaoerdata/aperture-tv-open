@@ -1,0 +1,7 @@
+[
+  {
+    "id": "detail",
+    "file": "detail-reference.png",
+    "prompt": "Use case: ui-mockup. One 1920x1080 design reference for 开视 Xiaomi TV native movie detail page, based on user v20 report. Restrained dark optical glass, film identity and readable TV remote focus. Large but balanced 2:3 poster at x112 y145 width340 height510 using anonymous alpine documentary landscape imagery, matching soft full width scenic backdrop covering top70% with a smooth dark gradient below and on right. Title 山海之间 at x510 y185 64px. One factual metadata row 2025 · 纪录片 · 96分钟 at 28px. Optional small rating 来源评分 8.2 only; NO fabricated recommendation percentage or provider logos. Three-line Chinese synopsis at 28px, generous line height. At x510 y610 a single warm off-white filled primary action 播放 300x76 and smaller outlined 选集 收藏. Only one play action. Below y835 a heading 同一片单 then six modest horizontal thumbnails with synthetic documentary names; hint overflow without giant cards. Back button top left, tiny 来源资料 attribution lower right, clear warm-white remote focus outline around play. No settings/internal network status text, no AI slogans, no neon, no extra giant toolbar. This is a layout reference with explicitly synthetic content, not an implemented app screenshot."
+  }
+]

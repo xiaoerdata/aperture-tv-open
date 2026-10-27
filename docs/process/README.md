@@ -111,3 +111,5 @@ S58（本地实现完成）：P61逐页生图与紧凑UI，[页面/尺寸/验证
 S59（已发布Alpha）：P62授权v20 / alpha.17发布，[发行软件验证](../verification/s59-software-acceptance.json)、[第45期编辑稿](../../media/DEVLOG-045.md)。小米真机与WorkBuddy仍待用户验收。
 
 [v20公开发布与匿名回读](../verification/public-alpha-v20.json)：两版APK完整SHA-256、源码Git树及旧版本不可变性已核对。
+
+S60：P63用户v20报告，[逐项修复与未完成项](../V20-FEEDBACK-S60.md)、[软件检查与源码摘要](../verification/s60-summary.json)、[第46期编辑稿](../../media/DEVLOG-046.md)、[生图参考与提示词](../../design-assets/s60/README.md)。浏览器、协议和API编译通过；原生运行、实际资源包复现与小米生态验收未完成。S61开始准备v21 / alpha.18测试发行，最终状态以公开回读为准。
