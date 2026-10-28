@@ -1,0 +1,280 @@
+{
+  "version": "0.2.0-alpha.21",
+  "versionCode": 24,
+  "release": {
+    "id": 427016726,
+    "tag_name": "v0.2.0-alpha.21",
+    "target_commitish": "0442ef75c844c20365dfafc57f8e5eb0b2dd7aeb",
+    "draft": false,
+    "prerelease": true,
+    "html_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.21",
+    "published_at": "2026-10-28T18:10:56Z"
+  },
+  "assets": [
+    {
+      "id": 685880207,
+      "name": "kaishi-v24-parents.apk",
+      "size": 55215384,
+      "state": "uploaded",
+      "digest": "sha256:7d3ef2ccc335afc1ea7102a40d6b43c21636e429afc2e783321e1f4ba0ad5d30",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/kaishi-v24-parents.apk"
+    },
+    {
+      "id": 685878310,
+      "name": "kaishi-v24-standard.apk",
+      "size": 55186712,
+      "state": "uploaded",
+      "digest": "sha256:a3488afb9f1849022d3f4b53c49b13fd221140209102a52f7830f5fe90c872e9",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/kaishi-v24-standard.apk"
+    },
+    {
+      "id": 685882022,
+      "name": "SHA256SUMS",
+      "size": 267,
+      "state": "uploaded",
+      "digest": "sha256:149470439056b7e451406f741b58ae15450e7db0f7f70657a9236d97f5d864c6",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/SHA256SUMS"
+    },
+    {
+      "id": 685881780,
+      "name": "testing-manifest.json",
+      "size": 31602,
+      "state": "uploaded",
+      "digest": "sha256:aa82c13047348fd09b2aab5483901f20a2b5e2ee3da264d9362e604918cc1d58",
+      "browser_download_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/testing-manifest.json"
+    }
+  ],
+  "anonymousReadback": {
+    "verifiedAt": "2026-10-28T18:13:44.054792+00:00",
+    "release": {
+      "id": 427016726,
+      "tag_name": "v0.2.0-alpha.21",
+      "target_commitish": "0442ef75c844c20365dfafc57f8e5eb0b2dd7aeb",
+      "draft": false,
+      "prerelease": true,
+      "html_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.21",
+      "published_at": "2026-10-28T18:10:56Z"
+    },
+    "assets": [
+      {
+        "file": "kaishi-v24-parents.apk",
+        "bytes": 55215384,
+        "sha256": "7d3ef2ccc335afc1ea7102a40d6b43c21636e429afc2e783321e1f4ba0ad5d30"
+      },
+      {
+        "file": "kaishi-v24-standard.apk",
+        "bytes": 55186712,
+        "sha256": "a3488afb9f1849022d3f4b53c49b13fd221140209102a52f7830f5fe90c872e9"
+      },
+      {
+        "file": "SHA256SUMS",
+        "bytes": 267,
+        "sha256": "149470439056b7e451406f741b58ae15450e7db0f7f70657a9236d97f5d864c6"
+      },
+      {
+        "file": "testing-manifest.json",
+        "bytes": 31602,
+        "sha256": "aa82c13047348fd09b2aab5483901f20a2b5e2ee3da264d9362e604918cc1d58"
+      }
+    ],
+    "authorizationHeaderSent": false,
+    "cookiesSent": false,
+    "apkAndManifestSha256Match": true,
+    "publicSource": {
+      "verifiedAt": "2026-10-28T18:13:12.530866+00:00",
+      "anonymous": true,
+      "authorizationHeaderSent": false,
+      "cookiesSent": false,
+      "credentialHelpersDisabled": true,
+      "tag": "v0.2.0-alpha.21",
+      "commit": "0442ef75c844c20365dfafc57f8e5eb0b2dd7aeb",
+      "trackedBlobsVerified": 1476,
+      "sourceFiles": 1475,
+      "treeComplete": true,
+      "method": "anonymous Git ls-remote and shallow blob-filtered fetch; every recursive Git tree blob digest equals reviewed frozen source bytes",
+      "apiNotUsed": true,
+      "fullArchiveDownloadedByThisCheck": false,
+      "remoteBlobsDownloadedByThisCheck": false
+    },
+    "sourceArchiveDownloaded": false,
+    "downloadMethod": "Anonymous HTTP ranges assembled into complete files; every complete file verified by SHA-256",
+    "initialFullTransferFailed": false
+  },
+  "sourceFreeze": {
+    "version": "0.2.0-alpha.21",
+    "upstreamSource": {
+      "commit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+      "workingTreeDirty": true
+    },
+    "publicSourceFiles": 1475,
+    "androidSourceSha256": "3bd988f1c79847c3bf41ab945ac3d39c2b31f31f6d4f9b5ebf9ef5a9b04c3e33",
+    "androidMatchesTestingApks": true,
+    "archiveBytes": 628476106,
+    "archiveSha256": "72fdafd78ebd0ea8af588a279c47ac05ac3e8a13057435ae49a6396d4cc4be5f",
+    "historyIncluded": false,
+    "privatePreviewIncluded": false,
+    "documentationLinks": {
+      "documents": 123,
+      "localFileLinksChecked": 626,
+      "missing": [],
+      "scope": "Inline Markdown links/images and reference definitions; file existence only. Excludes code, anchors, service routes and external URL availability."
+    },
+    "privateDownloadLinksReplaced": [
+      {
+        "path": "docs/ANDROID-LOCAL.md",
+        "links": 1
+      },
+      {
+        "path": "docs/ANDROID-PRIVATE-TEST.md",
+        "links": 2
+      },
+      {
+        "path": "docs/ANDROID.md",
+        "links": 1
+      },
+      {
+        "path": "docs/HOME-MODES.md",
+        "links": 1
+      },
+      {
+        "path": "docs/LOBBY-AND-PARENTS.md",
+        "links": 1
+      },
+      {
+        "path": "docs/NAS-SETUP.md",
+        "links": 1
+      },
+      {
+        "path": "docs/NAS.md",
+        "links": 1
+      },
+      {
+        "path": "docs/QUICKSTART.md",
+        "links": 1
+      },
+      {
+        "path": "docs/XIAOMI-VOICE.md",
+        "links": 1
+      },
+      {
+        "path": "docs/process/README.md",
+        "links": 1
+      }
+    ],
+    "remotePublished": false,
+    "hardwareAcceptance": "maintainer to test WorkBuddy and Xiaomi TV"
+  },
+  "cleanSourceInstall": {
+    "startedAt": "2026-10-28T18:03:01.489Z",
+    "archiveName": "s68-reviewed-public-source.tar.gz",
+    "archiveSha256": "72fdafd78ebd0ea8af588a279c47ac05ac3e8a13057435ae49a6396d4cc4be5f",
+    "status": "passed",
+    "hardwareTested": false,
+    "workBuddyApplicationTested": false,
+    "apkBuilt": false,
+    "sourceFilesVerified": 1475,
+    "sourceCommit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
+    "noGitDirectory": true,
+    "version": "0.2.0-alpha.21",
+    "npmCi": true,
+    "npmLifecycleScriptsEnabled": true,
+    "freshPythonVenv": true,
+    "pillowInstalledFromRequirements": true,
+    "doctor": {
+      "ready": true,
+      "checks": [
+        {
+          "name": "Node.js 22+",
+          "ok": true,
+          "detail": "v22.5.1"
+        },
+        {
+          "name": "@modelcontextprotocol/sdk",
+          "ok": true
+        },
+        {
+          "name": "hls.js",
+          "ok": true
+        },
+        {
+          "name": "qrcode",
+          "ok": true
+        },
+        {
+          "name": "Python 3.10+ / Pillow",
+          "ok": true,
+          "detail": "python3 3.10.12 / 11.1.0"
+        },
+        {
+          "name": "家庭数据目录",
+          "ok": true,
+          "detail": "首次启动时创建私有目录"
+        }
+      ],
+      "exposure": "默认仅本机访问；跨设备需配置正确 PUBLIC_ORIGIN、监听与HTTPS。",
+      "television": "完整模式WebView89+；轻量模式面向旧内核，尚待真机验证。"
+    },
+    "checkedStart": true,
+    "healthVersion": "0.2.0-alpha.21",
+    "ownerKeyMode": 384,
+    "familyDirectoryMode": 448,
+    "browserErrors": [],
+    "routes": [
+      "/guide",
+      "/home?demo=1",
+      "/home?edition=parents&demo=1",
+      "/tv?demo=1",
+      "/tv-lite?demo=1",
+      "/cinema"
+    ],
+    "privateStateStatus": 401,
+    "machineInterfaceDefaultStatus": 503,
+    "serviceStopped": true,
+    "temporaryDirectoryRemoved": true,
+    "finishedAt": "2026-10-28T18:03:25.822Z"
+  },
+  "softwareAcceptance": "s68-software-acceptance.json",
+  "nativeScope": {
+    "standardFinalLiveChecks": 5,
+    "standardBeforeLiveFocusFixChecks": 18,
+    "parentsFirstPhaseChecks": 16,
+    "parentsMediaContinuationChecks": 8,
+    "singleFull23PerEditionClaimed": false,
+    "originalV22Full80Rerun": false,
+    "deviceDebugApksReadBack": true,
+    "signedArmApksNativeExecuted": false,
+    "changedCompilerClassesBoundPerEdition": 38,
+    "publicMediaViaHostMirror": true,
+    "realXiaomiAccepted": false,
+    "workBuddyClientAccepted": false,
+    "realNasHardwareAccepted": false,
+    "original61ItemPosterRateVerified": false
+  },
+  "oldVersionPreservation": {
+    "releases": {
+      "checkedAt": "2026-10-28T18:14:33.557Z",
+      "oldReleasesVerified": 9,
+      "oldAssetsVerified": 36,
+      "unchanged": true,
+      "fields": "release identity, name, body, publishedAt, draft/prerelease, tag and target; asset id/name/size/digest",
+      "currentReleaseCount": 10
+    },
+    "tags": {
+      "verifiedAt": "2026-10-28T18:19:18.866Z",
+      "oldTagsVerified": 9,
+      "unchanged": true,
+      "newTag": "v0.2.0-alpha.21",
+      "newTagCommit": "0442ef75c844c20365dfafc57f8e5eb0b2dd7aeb",
+      "method": "GitHub matching refs API; tag object IDs match pre-release inventory"
+    }
+  },
+  "repositoryBrand": {
+    "repository": "xiaoerdata/aperture-tv-open",
+    "id": 1432353503,
+    "previousDescription": "开窗 · 仅适配小米电视的开源家庭入口，标准版与爸妈版，Android 8+；Alpha测试版",
+    "description": "开视 · 仅适配小米电视的开源家庭中枢，标准版与爸妈版，Android 8+；Alpha测试版"
+  },
+  "receiptAppendOnlyOnMain": true,
+  "frozenTagAndAssetsModifiedAfterRelease": false,
+  "verifiedAt": "2026-10-28T18:21:00.655995+00:00"
+}

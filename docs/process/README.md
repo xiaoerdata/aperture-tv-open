@@ -34,7 +34,7 @@ S24/S25补充：NAS电影/剧集入口绑定、加密模型和焦点中断修正
 
 S26补充：[NAS播放与小爱音频焦点](../XIAOMI-VOICE.md#nas影片与音频焦点源码v7)、[播放验证](../verification/playback-focus.json)、[讲解动画记录](../verification/playback-focus-media.json)、[第十五期分镜](../../media/DEVLOG-015.md)。这是生产控制器JVM与合成事件讲解，未作实机结论。
 
-S27补充：[v7两版APK证据](../verification/v7-candidates.json)、[源码包证据](../verification/v7-source.json)、[私有下载](../DOWNLOADS.md)。免费本地一次构建；目录/签名/来源验证通过，Android与小米硬件仍待验收。
+S27补充：[v7两版APK证据](../verification/v7-candidates.json)、[源码包证据](../verification/v7-source.json)、[私有下载](../../private-preview/README.md)。免费本地一次构建；目录/签名/来源验证通过，Android与小米硬件仍待验收。
 
 S28补充：[手机/Agent交接NAS](../NAS-SETUP.md)、[专项报告](../verification/nas-setup.json)、[第十六期](../../media/DEVLOG-016.md)。原生读取仍可独立使用；交接需要可信HTTPS家庭服务。手机画面为浏览器/合成/JVM，不是电视验收。
 
@@ -135,3 +135,6 @@ S66：[公开样例验收清单](../ACCEPTANCE-S66.md)、[来源摘要](../verif
 
 
 S67/S68：P67要求简洁播放器、默认左右调整进度；P68要求电视/综艺/电影/电视剧左侧选择、右侧内容。实际代码重构与测试见JOURNAL后续记录；本轮尚未发布。
+
+
+S68发布：[v24 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.21)、[发行与匿名回读](../verification/public-alpha-v24.json)、[软件验收范围](../verification/s68-software-acceptance.json)。新左右布局、简洁控制条、默认左右跳转、直播首次焦点修复已公开；硬件与原报告边界保持单列。
