@@ -1,0 +1,70 @@
+{
+  "fetchedAt": "2026-10-28T15:28:39.939191+00:00",
+  "mp4Source": "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4.zip",
+  "hlsSource": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+  "hlsVariant": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8",
+  "attribution": "Big Buck Bunny, (c) 2008 Blender Foundation / www.bigbuckbunny.org, CC BY 3.0",
+  "artwork": "Frame at 60s from official MP4 extracted with OpenCV, not original theatrical poster",
+  "hlsChange": "First 3 unmodified media segments; local 30s ENDLIST excerpt",
+  "failedArtworkCandidate": {
+    "url": "https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
+    "status": 403
+  },
+  "files": [
+    {
+      "file": "bbb.mp4",
+      "bytes": 64657027,
+      "sha256": "f78f39603e6774907f2faafabf26a667f4a6fc31769ec304a8a8f7c62d280508"
+    },
+    {
+      "file": "bbb.zip",
+      "bytes": 64657225,
+      "sha256": "109e3ede8790bd633f374ca311d9cc61dce8d7f98f5b0797ca98199c9fbceedf"
+    },
+    {
+      "file": "original-variant.m3u8",
+      "bytes": 3609,
+      "sha256": "65877c925f22abb0353e92d91a1026168a41871a75b2dac7c11594d821533417"
+    },
+    {
+      "file": "poster.jpg",
+      "bytes": 16864,
+      "sha256": "665abd7eaa61ac17445ae1e4b0041e10af3352b6a3f0412479f4f9bdc10a3577"
+    },
+    {
+      "file": "sample.m3u8",
+      "bytes": 173,
+      "sha256": "036a35535b331db0772c2e82f752da9e0684c22aebf193f19447b9fe97d2a64c"
+    },
+    {
+      "file": "segment0.ts",
+      "bytes": 272412,
+      "sha256": "b82fcf4dbcec2d8fab7d94bdd48b070aa6e74d7240b1965a0b28c128d6858477"
+    },
+    {
+      "file": "segment1.ts",
+      "bytes": 416608,
+      "sha256": "cd2a98d055eef5ec3aca73bd136a40340539138da73144d589d9de5a3a52149a"
+    },
+    {
+      "file": "segment2.ts",
+      "bytes": 284820,
+      "sha256": "128e690f89419ecbea473a490c42cac94a2293ecf1f57d60492ceafce3d5cfdb"
+    }
+  ],
+  "additionalMp4": {
+    "url": "https://media.w3.org/2010/05/bunny/trailer.mp4",
+    "file": "w3c-trailer.mp4",
+    "bytes": 11053871,
+    "sha256": "b2ded9ae5a20fa36ca8cec49ef923bffb5e1a51d9e8c1f8336273d2fa9d35ff0",
+    "description": "W3C-hosted Big Buck Bunny trailer sample"
+  },
+  "faststart": {
+    "description": "Fixture-only container relocation: moov moved before mdat, stco offsets adjusted; encoded audio/video mdat bytes unchanged",
+    "mdatSha256": "79cb04643668f69a9aaefcacc242ab1755d1cfd44cc0364288bda25ddf9640e6",
+    "chunkOffsetsAdjusted": 42264,
+    "bytes": 64657027,
+    "sha256": "60c2c8d64e84124081b4b931394ee3959f59567725e7b3a67f06924152097809",
+    "opencvSeek60sPassed": true
+  }
+}

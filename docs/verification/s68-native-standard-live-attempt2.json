@@ -1,0 +1,21 @@
+{
+  "error": "java.lang.SecurityException: Injecting to another application requires INJECT_EVENTS permission\n\tat android.os.Parcel.createException(Parcel.java:1950)\n\tat android.os.Parcel.readException(Parcel.java:1918)\n\tat android.os.Parcel.readException(Parcel.java:1868)\n\tat android.hardware.input.IInputManager$Stub$Proxy.injectInputEvent(IInputManager.java:575)\n\tat android.hardware.input.InputManager.injectInputEvent(InputManager.java:880)\n\tat android.app.Instrumentation.sendKeySync(Instrumentation.java:1038)\n\tat android.app.Instrumentation.sendKeyDownUpSync(Instrumentation.java:1048)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.key(PublicResourceRunner.java:29)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.onStart(PublicResourceRunner.java:73)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\nCaused by: android.os.RemoteException: Remote stack trace:\n\tat com.android.server.input.InputManagerService.injectInputEventInternal(InputManagerService.java:621)\n\tat com.android.server.input.InputManagerService.injectInputEvent(InputManagerService.java:595)\n\tat android.hardware.input.IInputManager$Stub.onTransact(IInputManager.java:143)\n\tat android.os.Binder.execTransact(Binder.java:731)\n\n",
+  "passed": false,
+  "checks": [
+    "production M3U import resolves relative public artwork",
+    "cached channel logo survives activity restart without source base",
+    "live enters split section directly without choosing source or group",
+    "live section automatically starts the real native decoder",
+    "relative public logo renders in native playing-channel sidebar"
+  ],
+  "images": [
+    "channels.png",
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "liveOnly": true,
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false
+}

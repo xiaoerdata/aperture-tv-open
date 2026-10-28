@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "checks": [
+    "real source favorite is seeded through the detail UI",
+    "Mux HLS excerpt native decoder starts",
+    "production M3U import resolves relative public artwork",
+    "cached channel logo survives activity restart without source base",
+    "live enters split section directly without choosing source or group",
+    "live section automatically starts the real native decoder",
+    "relative public logo renders in native playing-channel sidebar",
+    "replacing sources preserves previous movie favorite"
+  ],
+  "images": [
+    "hls.png",
+    "channels.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi.parents",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "phase": "media-tail",
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false,
+  "screenshotBackend": "host ADB screencap; media paused only for capture",
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "installedDebugApkSha256": "2a5fcddb572284269703ecb487235adfe5cdf22e70549db0d5763914e395b777",
+  "deviceApkReadbackMatched": true,
+  "verifiedAt": "2026-10-28T17:47:58.139954+00:00"
+}

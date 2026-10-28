@@ -1,20 +1,20 @@
 # 下载与版本
 
-**开视仅适配小米电视，Android 8+。** 当前为 **v23 / 0.2.0-alpha.20 Alpha测试版**，尚非稳定版。新版提供标准版和爸妈版，均使用独立包名、专用发行签名，关闭调试。
+**开视仅适配小米电视，Android 8+。** 当前为 **v24 / 0.2.0-alpha.21 Alpha测试版**，尚非稳定版。新版提供标准版和爸妈版，均使用独立包名、专用发行签名，关闭调试。
 
-[本次发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.20) · [源码](https://github.com/xiaoerdata/aperture-tv-open) · [问题反馈](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)
+[本次发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.21) · [源码](https://github.com/xiaoerdata/aperture-tv-open) · [问题反馈](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)
 
 | 下载 | 内容 |
 | --- | --- |
-| [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.20/kaishi-v23-standard.apk) | 四个观看入口、折叠应用、NAS与家庭分区 |
-| [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.20/kaishi-v23-parents.apk) | 看电视、看电视剧、看电影、看综艺与常用应用 |
-| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.20.tar.gz) | 家庭服务、二次开发与本地构建 |
-| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.20/SHA256SUMS) | 两版APK和测试清单SHA-256 |
-| [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.20/testing-manifest.json) | 包名、版本、签名、源码与验收边界 |
+| [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/kaishi-v24-standard.apk) | 四个观看入口、折叠应用、NAS与家庭分区 |
+| [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/kaishi-v24-parents.apk) | 看电视、看电视剧、看电影、看综艺与常用应用 |
+| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.21.tar.gz) | 家庭服务、二次开发与本地构建 |
+| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/SHA256SUMS) | 两版APK和测试清单SHA-256 |
+| [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/testing-manifest.json) | 包名、版本、签名、源码与验收边界 |
 
-## 从v18/v19/v20/v21/v22升级
+## 从v18—v23升级
 
-v23沿用v18/v19/v20/v21/v22的两个包名与发行证书，可在原版上更新，不需卸载或重新配对。安装前保留数据；APK分别为52.63/52.66 MiB，默认共用ARM32/64，不需要选择CPU架构。
+v24沿用v18—v23的两个包名与发行证书，可在原版上更新，不需卸载或重新配对。安装前保留数据；APK分别为52.63/52.66 MiB，默认共用ARM32/64，不需要选择CPU架构。
 
 ## 与v17并存
 
@@ -31,24 +31,16 @@ v23沿用v18/v19/v20/v21/v22的两个包名与发行证书，可在原版上更�
 
 ## 安装与校验
 
-完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v23-standard.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
+完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v24-standard.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
 
 安装路径见[小米安装说明](../INSTALL.md)。默认作为普通应用，保留原桌面、小爱和小米账号。本机应用、内嵌影院、手输NAS不依赖电脑家庭服务；照片、留言、统一片库和WorkBuddy另需运行家庭服务。家庭服务默认HTTPS；选择私网IP的HTTP时，须在电视明确开启，CLI另加 `--allow-lan-http`。NAS凭证交接与Agent安装卸载仍要求可信HTTPS。
 
 ## 本次改动与测试范围
 
-新增详情“相似影片”：按来源已有类型、导演和演员关联同源现有条目，最多30张，证据相同时保留来源顺序；没有关联资料仍显示“同一片单/同一来源”。沿用v22的背景、焦点、节目单和播放修正。见[逐项验收审计](FEEDBACK-ACCEPTANCE-S64.md)。
+播放器改为简洁底部控制条。遥控器左右键直接快退/快进，松开跳转；暂停时调整进度仍保持暂停。收藏、选集和重试放在同窗口“更多”侧栏。
 
-本轮14项关联生产Java断言、两版各10项原生关联任务流通过。另对生产EPG加载器补做16项真实HTTP/30秒TTL断言，六份生产输入与v22完全一致。新的原生任务没有播放媒体，v22的两版各40项完整播放回归保留历史范围，没有宣称在v23重跑完整80项。两版ARM release/lint、验签、ABI与首页资源检查见[发行软件清单](verification/s65-software-acceptance.json)。
+电视、电影、电视剧、综艺入口采用左侧选择、右侧内容：有配置时直接打开直播或影片信息，来源/分类/节目在左侧切换。空配置显示设置入口。修复M3U和TVBox内联频道相对台标保存后无法加载的问题。
 
-报告原资源包仍缺：具体灰海报/重复分组、61项封面90%以及真实关联质量未获验收。小米ARM、小爱/米家/NAS/WorkBuddy仍由维护者测试。公开发行继续为Alpha，未测型号不标为兼容。
+使用公开短片与HLS样流验证，见[本轮清单](ACCEPTANCE-S66.md)。公开样例与测试媒体不内置到安装包。原61项片单命中率、原包重复分组根因未独立复现；小米电视、小爱、米家、NAS硬件与WorkBuddy由维护者测试。产品继续为Alpha。
 
-可[免费本地构建](ANDROID-LOCAL.md)；发行操作见[签名说明](ANDROID-RELEASE.md)。公开源码不含签名密钥、NAS凭证、私人数据、工具链或原始用户测试PDF。
-
-[v20发布与匿名回读](verification/public-alpha-v20.json)已完成：两版完整APK、清单与校验和一致；完整源码Git树与冻结清单逐项匹配。未下载完整GitHub源码归档。回执仅追加main，不修改冻结标签和附件。[v19历史回读](verification/public-alpha-v19.json)与[v18历史回读](verification/public-alpha-v18.json)保留。
-
-[v21发布与匿名回读](verification/public-alpha-v21.json)保留历史结论；v22的发布与匿名回读另在发布后追加main，不修改冻结标签或APK。
-
-[v22公开发布与匿名回读](verification/public-alpha-v22.json)已完成：标准/爸妈两版完整APK、测试清单与校验和的SHA-256一致；匿名Git标签与1405个文件的blob摘要逐项匹配冻结源码。API限流后使用无凭证、无Cookie的Git浅层树读取，没有下载完整GitHub源码归档或全部源码blob。7个旧标签、7次发行和28份旧附件未变。回执追加main，不修改发行标签和APK。
-
-[v23公开发布与匿名回读](verification/public-alpha-v23.json)完成：两版完整APK、测试清单和校验和SHA-256一致；匿名Git标签与1432个文件摘要逐项匹配冻结源码。8个旧标签、8次发行和32个旧附件未变。未下载完整GitHub源码归档；补记只追加main，不修改发行标签/APK。
+已缓存的旧相对台标若没有保留原始导入地址，无法可靠补出完整URL；重新导入原来源后使用新的解析方式。不会猜测地址或删除可播放频道。

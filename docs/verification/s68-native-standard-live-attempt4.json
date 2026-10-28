@@ -1,0 +1,19 @@
+{
+  "error": "java.io.FileNotFoundException: http://10.0.2.2:40937/capture?name=channels&package=org.zhixiaoce.kaishi\n\tat com.android.okhttp.internal.huc.HttpURLConnectionImpl.getInputStream(HttpURLConnectionImpl.java:251)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.picture(PublicResourceRunner.java:34)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.onStart(PublicResourceRunner.java:76)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\n",
+  "passed": false,
+  "checks": [
+    "production M3U import resolves relative public artwork",
+    "cached channel logo survives activity restart without source base",
+    "live enters split section directly without choosing source or group",
+    "live section automatically starts the real native decoder",
+    "relative public logo renders in native playing-channel sidebar"
+  ],
+  "images": [],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "liveOnly": true,
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false,
+  "screenshotBackend": "host ADB screencap, no UiAutomation"
+}

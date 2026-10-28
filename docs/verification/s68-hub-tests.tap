@@ -1,0 +1,50 @@
+TAP version 13
+# Subtest: private development never exposes a repository link or fabricated stars
+ok 1 - private development never exposes a repository link or fabricated stars
+  ---
+  duration_ms: 3.194593
+  ...
+# Subtest: published projects show exact real count including zero and source time
+ok 2 - published projects show exact real count including zero and source time
+  ---
+  duration_ms: 34.722603
+  ...
+# Subtest: unknown counts stay unknown; stale values are explicitly marked
+ok 3 - unknown counts stay unknown; stale values are explicitly marked
+  ---
+  duration_ms: 0.628046
+  ...
+# Subtest: content hashes gate metadata, same-version code, display assets, missing source and review; no silent reapproval
+ok 4 - content hashes gate metadata, same-version code, display assets, missing source and review; no silent reapproval
+  ---
+  duration_ms: 171.642338
+  ...
+# Subtest: unknown/missing/broken approval fails closed, including local source renamed without version bump
+ok 5 - unknown/missing/broken approval fails closed, including local source renamed without version bump
+  ---
+  duration_ms: 127.795516
+  ...
+# Subtest: public repository changes and unavailable authority close the gate; restored verified revision reopens
+ok 6 - public repository changes and unavailable authority close the gate; restored verified revision reopens
+  ---
+  duration_ms: 100.971462
+  ...
+# Subtest: remote checks coalesce, expire in 30 seconds, reject moved/private repositories and never reuse stale success
+ok 7 - remote checks coalesce, expire in 30 seconds, reject moved/private repositories and never reuse stale success
+  ---
+  duration_ms: 8.473997
+  ...
+# Subtest: real HTTP: approved bytes, no-store, conditional request cannot bypass drift; HTML aliases/images/API/admin fail safely
+ok 8 - real HTTP: approved bytes, no-store, conditional request cannot bypass drift; HTML aliases/images/API/admin fail safely
+  ---
+  duration_ms: 375.997003
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3685.412921

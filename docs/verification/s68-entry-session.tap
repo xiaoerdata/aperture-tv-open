@@ -1,0 +1,34 @@
+TAP version 13
+# 6 production entry/session integration assertions passed
+# Subtest: foreground live entry survives initial focus timing but never an interruption
+ok 1 - foreground live entry survives initial focus timing but never an interruption
+  ---
+  duration_ms: 5067.720349
+  ...
+# PASS foreground selection / user pause / explicit resume / completion / replay / reset
+# PASS audio-only loss during preparation / no late autoplay / explicit continue
+# PASS audio-only loss during playback / repeated prepared and active events stay paused
+# PASS denied focus / no delayed playback / user retry
+# PASS loss callback before request returns / late grant is ignored
+# PASS stale source and focus callbacks / replacement stays playing / late events after reset
+# PASS window interruption / surface teardown and restoration / background play denied
+# PASS user pause during preparation / inactive selection / no focus request in background
+# PASS decoder / focus request / abandon exceptions fail without playback intent
+# PASS playback error releases focus / late lifecycle and prepared events cannot revive
+# TRACE prepare-loss PREPARING -> INTERRUPTED -> INTERRUPTED -> PLAYING
+# TRACE playing-loss PREPARING -> PLAYING -> INTERRUPTED -> INTERRUPTED
+# TRACE denied FOCUS_DENIED -> FOCUS_DENIED -> PLAYING
+# Subtest: native playback production controller handles audio/window/prepare races without implicit resume
+ok 2 - native playback production controller handles audio/window/prepare races without implicit resume
+  ---
+  duration_ms: 5556.67525
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6154.778394

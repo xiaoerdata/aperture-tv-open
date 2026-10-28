@@ -33,6 +33,14 @@ final class CinemaFormats {
         if(pipe>=0)for(String pair:raw.substring(pipe+1).split("&")){int equals=pair.indexOf('=');if(equals<1)throw new IOException("媒体请求头格式无效");try{header(headers,java.net.URLDecoder.decode(pair.substring(0,equals),"UTF-8"),java.net.URLDecoder.decode(pair.substring(equals+1),"UTF-8"));}catch(IllegalArgumentException bad){throw new IOException("媒体请求头编码无效");}}
         return CinemaCatalog.url(address,base,allowHttp);
     }
+    static String artwork(String value,String base,boolean allowHttp)throws IOException {
+        String original=CinemaCatalog.field(value,4096);if(original.isEmpty())return original;
+        try{return CinemaCatalog.url(original,base,allowHttp);}catch(IOException unavailable){
+            // Optional artwork must not discard a playable channel. Keep unresolved legacy
+            // values for diagnostics; the image loader still enforces the same URL policy.
+            return original;
+        }
+    }
     private static int comma(String text){char quote=0;for(int i=0;i<text.length();i++){char c=text.charAt(i);if(quote!=0){if(c==quote)quote=0;}else if(c=='\"'||c=='\'')quote=c;else if(c==',')return i;}return -1;}
     static List<CinemaCatalog.Channel> playlist(String raw,String base,boolean allowHttp,Map<String,String> defaults)throws IOException {
         if(raw==null||raw.getBytes(java.nio.charset.StandardCharsets.UTF_8).length>CinemaCatalog.MAX_BYTES)throw new IOException("直播清单超过512KB");
@@ -46,7 +54,7 @@ final class CinemaFormats {
             if(!m3u){int comma=v.indexOf(',');if(comma<1)continue;name=CinemaCatalog.field(v.substring(0,comma),120);v=v.substring(comma+1).trim();if(v.equalsIgnoreCase("#genre#")){group=name;continue;}headers=new LinkedHashMap<>(defaults);}
             if(++rows>CinemaCatalog.MAX_CHANNELS)throw new IOException("频道超过500项");List<String> urls=new ArrayList<>();List<Map<String,String>> requests=new ArrayList<>();
             for(String stream:m3u?new String[]{v}:v.split("#")){if(urls.size()>=8)break;try{int alias=stream.lastIndexOf('$');String value=alias<0?stream:stream.substring(0,alias);Map<String,String> specific=new LinkedHashMap<>(headers);urls.add(stream(value,base,allowHttp,specific));requests.add(specific);}catch(IOException invalid){}}
-            if(!urls.isEmpty()){CinemaCatalog.Channel channel=new CinemaCatalog.Channel(name.isEmpty()?"频道 "+rows:name,group,urls,new LinkedHashMap<>(headers),requests);channel.logo=logo;channel.epgId=epgId;channel.number=number;result.add(channel);}name="";logo="";epgId="";number=0;
+            if(!urls.isEmpty()){CinemaCatalog.Channel channel=new CinemaCatalog.Channel(name.isEmpty()?"频道 "+rows:name,group,urls,new LinkedHashMap<>(headers),requests);channel.logo=artwork(logo,base,allowHttp);channel.epgId=epgId;channel.number=number;result.add(channel);}name="";logo="";epgId="";number=0;
         }
         if(result.isEmpty())throw new IOException("清单中没有可用的 HTTP(S) 频道");return result;
     }

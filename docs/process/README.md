@@ -129,3 +129,9 @@ S64：[逐项验收审计](../FEEDBACK-ACCEPTANCE-S64.md)、[EPG连续失败/30�
 
 
 S65（v23已发布Alpha）：[下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.20)、[匿名回读与旧版本保持](../verification/public-alpha-v23.json)、[完成审计与缺失输入](../verification/s65-completion-audit.json)、[清理回执](../verification/s65-cleanup.json)。新关联两版各10项、生产关联14项与EPG主机16项通过；不代表全部报告或真机验收。
+
+
+S66：[公开样例验收清单](../ACCEPTANCE-S66.md)、[来源摘要](../verification/s66-public-resource-provenance.json)、[第49期编辑稿](../../media/DEVLOG-049.md)。P65调整本轮输入，不再等原报告包。
+
+
+S67/S68：P67要求简洁播放器、默认左右调整进度；P68要求电视/综艺/电影/电视剧左侧选择、右侧内容。实际代码重构与测试见JOURNAL后续记录；本轮尚未发布。

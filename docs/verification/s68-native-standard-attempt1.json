@@ -1,0 +1,39 @@
+{
+  "error": "java.lang.AssertionError: live sample playback failed\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.until(PublicResourceRunner.java:22)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.onStart(PublicResourceRunner.java:71)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\n",
+  "passed": false,
+  "checks": [
+    "repeat pack import is a no-op",
+    "section opens real film detail with artwork without source\/category steps",
+    "public artwork loads in detail backdrop",
+    "film favorite persists through encrypted vault",
+    "Blender MP4 with faststart container native decoder plays and advances over six seconds",
+    "Right seeks on key release and preserves pause without confirming timeline",
+    "Left seeks backwards directly from transport focus",
+    "normal transport occupies less than a third of the screen",
+    "Down and confirm opens secondary options",
+    "in-window options preserve paused intent",
+    "one Back closes options without exiting playback",
+    "Back saves real MP4 watch position",
+    "series opens left selector and film information without nested source\/category pages",
+    "variety opens left selector and film information without nested source\/category pages",
+    "Mux HLS excerpt native decoder starts",
+    "production M3U import resolves relative public artwork",
+    "cached channel logo survives activity restart without source base",
+    "live enters split section directly without choosing source or group"
+  ],
+  "images": [
+    "section.png",
+    "detail.png",
+    "toolbar.png",
+    "options.png",
+    "series.png",
+    "variety.png",
+    "hls.png",
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false
+}

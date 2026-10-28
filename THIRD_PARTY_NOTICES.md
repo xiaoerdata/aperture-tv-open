@@ -93,3 +93,10 @@ Ajv 8.17.1 与 ajv-formats 3.0.1 均为MIT许可，作为开发与资源包制�
 TVmaze资料采用其API说明的CC BY-SA条件，保留来源与归属；TMDB资料/图片遵循其API条款，非本项目MIT。项目不自带共享凭证，不宣称TMDB认可或认证。署名区使用[官方批准Logo](https://www.themoviedb.org/about/logos-attribution)原SVG及按比例栅格化PNG，来源与摘要见[素材清单](design-assets/s56/manifest.json)，未生成或重绘商标。声明：This product uses the TMDB API but is not endorsed or certified by TMDB.
 
 两张生图仅用于设计探索，未打入APK；实际测试图像复用项目既有风景素材及其原有出处。没有增加授权电影或预置影视来源。元数据解析、UI与缓存为独立实现，没有复制Box、Kodi或Jellyfin的代码。
+
+
+## S66–S68 公开媒体测试画面
+
+开发截图中的Big Buck Bunny：© 2008 Blender Foundation / [www.bigbuckbunny.org](https://peach.blender.org/)，[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)。原片来自[Blender官方下载目录](https://download.blender.org/peach/bigbuckbunny_movies/)，HLS样流来自[Mux测试站](https://test-streams.mux.dev/)。配图为原片第60秒画面，由界面裁切显示；开发用MP4仅搬移容器索引，编码音视频未变。另尝试了[W3C视频演示](https://www.w3.org/2010/05/video/mediaevents.html)中的Bunny trailer。
+
+这些视频和测试频道不内置在产品APK；公开源码保留测试脚本、来源摘要与截图。见docs/verification/s66-public-resource-provenance.json。

@@ -1,0 +1,22 @@
+{
+  "error": "java.lang.Exception: java.lang.AssertionError: not clickable 频道\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.ui(PublicResourceRunner.java:19)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.click(PublicResourceRunner.java:27)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.onStart(PublicResourceRunner.java:80)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\nCaused by: java.lang.AssertionError: not clickable 频道\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.lambda$click$4$org-zhixiaoce-aperture-test-PublicResourceRunner(PublicResourceRunner.java:27)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner$$ExternalSyntheticLambda12.run(D8$$SyntheticClass:0)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.lambda$ui$0(PublicResourceRunner.java:19)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner$$ExternalSyntheticLambda1.run(D8$$SyntheticClass:0)\n\tat android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2163)\n\tat android.os.Handler.handleCallback(Handler.java:873)\n\tat android.os.Handler.dispatchMessage(Handler.java:99)\n\tat android.os.Looper.loop(Looper.java:193)\n\tat android.app.ActivityThread.main(ActivityThread.java:6669)\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:858)\n",
+  "passed": false,
+  "checks": [
+    "production M3U import resolves relative public artwork",
+    "cached channel logo survives activity restart without source base",
+    "live enters split section directly without choosing source or group",
+    "live section automatically starts the real native decoder"
+  ],
+  "images": [
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "liveOnly": true,
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false,
+  "screenshotBackend": "host ADB screencap; media paused only for capture",
+  "captureErrors": [],
+  "visualCaptureComplete": true
+}

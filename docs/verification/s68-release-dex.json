@@ -1,0 +1,22 @@
+[
+  {
+    "edition": "standard",
+    "apkSha256": "a3488afb9f1849022d3f4b53c49b13fd221140209102a52f7830f5fe90c872e9",
+    "newProductionClassesPresent": [
+      "CinemaSectionView",
+      "PlayerChrome",
+      "PlaybackEntryIntent"
+    ],
+    "instrumentationExcluded": true
+  },
+  {
+    "edition": "parents",
+    "apkSha256": "7d3ef2ccc335afc1ea7102a40d6b43c21636e429afc2e783321e1f4ba0ad5d30",
+    "newProductionClassesPresent": [
+      "CinemaSectionView",
+      "PlayerChrome",
+      "PlaybackEntryIntent"
+    ],
+    "instrumentationExcluded": true
+  }
+]

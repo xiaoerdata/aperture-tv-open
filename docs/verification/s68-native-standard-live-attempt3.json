@@ -1,0 +1,20 @@
+{
+  "error": "java.lang.RuntimeException: Error while connecting UiAutomation\n\tat android.app.UiAutomation.connect(UiAutomation.java:250)\n\tat android.app.Instrumentation.getUiAutomation(Instrumentation.java:2116)\n\tat android.app.Instrumentation.getUiAutomation(Instrumentation.java:2073)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.picture(PublicResourceRunner.java:32)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.onStart(PublicResourceRunner.java:73)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\n",
+  "passed": false,
+  "checks": [
+    "production M3U import resolves relative public artwork",
+    "cached channel logo survives activity restart without source base",
+    "live enters split section directly without choosing source or group",
+    "live section automatically starts the real native decoder",
+    "relative public logo renders in native playing-channel sidebar"
+  ],
+  "images": [
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "liveOnly": true,
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false
+}

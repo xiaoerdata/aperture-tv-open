@@ -1,0 +1,41 @@
+{
+  "error": "java.lang.AssertionError: HLS playback failed\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.until(PublicResourceRunner.java:22)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.onStart(PublicResourceRunner.java:73)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\n",
+  "passed": false,
+  "checks": [
+    "repeat pack import is a no-op",
+    "section opens real film detail with artwork without source/category steps",
+    "public artwork loads in detail backdrop",
+    "Left from film play focuses the programme rail",
+    "Right from rail restores the primary film play action",
+    "film favorite persists through encrypted vault",
+    "Blender MP4 with faststart container native decoder plays and advances over six seconds",
+    "Right seeks on key release and preserves pause without confirming timeline",
+    "Left seeks backwards directly from transport focus",
+    "normal transport occupies less than a third of the screen",
+    "Down and confirm opens secondary options",
+    "in-window options preserve paused intent",
+    "one Back closes options without exiting playback",
+    "Back saves real MP4 watch position",
+    "series opens left selector and film information without nested source/category pages",
+    "variety opens left selector and film information without nested source/category pages"
+  ],
+  "images": [
+    "section.png",
+    "detail.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi.parents",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "liveOnly": false,
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false,
+  "screenshotBackend": "host ADB screencap; media paused only for capture",
+  "captureErrors": [
+    "toolbar: java.net.ConnectException: Failed to connect to /10.0.2.2:40937",
+    "options: java.net.ConnectException: Failed to connect to /10.0.2.2:40937",
+    "series: java.net.ConnectException: Failed to connect to /10.0.2.2:40937",
+    "variety: java.net.ConnectException: Failed to connect to /10.0.2.2:40937",
+    "failure: java.net.ConnectException: Failed to connect to /10.0.2.2:40937"
+  ],
+  "visualCaptureComplete": false
+}

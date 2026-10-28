@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    "production M3U import resolves relative public artwork",
+    "cached channel logo survives activity restart without source base",
+    "live enters split section directly without choosing source or group",
+    "live section automatically starts the real native decoder",
+    "relative public logo renders in native playing-channel sidebar"
+  ],
+  "images": [
+    "channels.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "liveOnly": true,
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false,
+  "screenshotBackend": "host ADB screencap; media paused only for capture",
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "installedDebugApkSha256": "77a5358f05325f2518d7fdb3328102b01beb72fadcf506ded3a41ad7de33bd1e",
+  "deviceApkReadbackMatched": true,
+  "verifiedAt": "2026-10-28T17:34:27.469255+00:00"
+}

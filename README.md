@@ -4,7 +4,7 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加家庭照片、日程、留言、数据、NAS资源和可定制入口。
 
-当前版本 **v23 / 0.2.0-alpha.20**：详情按已有类型、导演、演员关联同源可用影片；没有关联资料时保留“同一片单/同一来源”。本轮补测节目单连续失败后的真实30秒缓存恢复。见[逐项验收与原生截图](docs/FEEDBACK-ACCEPTANCE-S64.md)。
+当前版本 **v24 / 0.2.0-alpha.21**：内嵌影院采用简洁控制条，左右键默认调整进度；四个观看分区进入即显示内容，来源与节目在左侧切换。修复相对台标缓存与直播首次焦点时序。见[本轮验收与截图](docs/ACCEPTANCE-S66.md)。
 
 **v23可更新v18/v19/v20/v21/v22，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
 
@@ -19,7 +19,7 @@
 
 ## 安装与使用
 
-按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.20)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.21)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](docs/EMBEDDED-CINEMA.md)与[插件说明](docs/PLUGIN-ENGINE.md)；没有预置影视来源。
 
@@ -46,9 +46,9 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 
 ## 当前验证边界
 
-本轮两版各10项原生关联任务通过，另有14项关联生产Java与16项EPG加载器断言。EPG用真实本地HTTP、实际30秒TTL和测试回调队列；原生任务使用API28 x86调试模拟器和合成资料，没有播放视频。v22两版各40项完整Activity/MediaPlayer回归是历史证据，本轮未在v23重跑完整80项，见[范围与源码绑定](docs/FEEDBACK-ACCEPTANCE-S64.md)。
+本轮按用户要求采用简单公开资源测试：Blender官方MP4、Mux HLS样流、影片截图与自制M3U/片单包装。新增简洁播放器和分区直达：左右键默认调整进度，来源/节目在左侧切换，右侧直接显示内容。修复相对台标保存后失效，14项生产断言与相关回归通过。原生结果和发行检查见[本轮清单](docs/ACCEPTANCE-S66.md)。资源未内置到安装包。
 
-两份ARM发行包保持v18—v22相同包名/证书、关闭debug；构建/lint、签名、ABI与资源检查见[软件清单](docs/verification/s65-software-acceptance.json)，新目录源码安装见Release测试清单。报告原资源包、61项封面的90%要求、具体重复分组根因，以及小米ARM/小爱/米家/NAS/WorkBuddy仍待验收。产品继续为Alpha。
+v22两版各40项完整播放回归、v23两版各10项关联任务以及本轮公开媒体验证分别保留证据。未将其混称为同一版本全量测试。原报告61项海报比例和原包根因未独立复现；小米ARM、小爱/米家、NAS硬件及WorkBuddy由维护者验收。产品继续为Alpha。
 
 问题反馈见[Issues](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)，二次开发欢迎[Pull Requests](https://github.com/xiaoerdata/aperture-tv-open/pulls)。
 
@@ -57,4 +57,6 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 ![影视目录（本地HTTP浏览器，合成资料，非小米真机）](docs/images/s60-cinema-catalogue.png)
 
 
-![原生详情（API28 x86模拟器、合成资料，非小米真机）](docs/images/s62-native-standard-final-detail.png)
+![电影分区（API28 x86模拟器、Blender公开样例，非小米真机）](docs/images/s68-native-standard-section.png)
+
+![播放器（API28 x86模拟器、Blender公开样例，非小米真机）](docs/images/s68-native-standard-toolbar.png)

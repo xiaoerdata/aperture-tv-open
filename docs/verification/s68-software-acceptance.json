@@ -1,0 +1,70 @@
+{
+  "version": "0.2.0-alpha.21",
+  "versionCode": 24,
+  "verifiedAt": "2026-10-28T17:49:51.111469+00:00",
+  "releaseReady": true,
+  "scope": "Current software iteration using user-authorized simple public samples; not original report or real Xiaomi acceptance",
+  "implemented": [
+    "compact embedded cinema transport and direct D-pad seek",
+    "same-window secondary playback options",
+    "left programme/source selector and direct content in four sections",
+    "relative M3U/inline TVBox artwork normalization",
+    "one-shot initial live focus intent with interruption revocation"
+  ],
+  "native": {
+    "standardBeforeFocusFix": {
+      "checks": 18,
+      "wholeRunPassed": false,
+      "evidence": "s68-native-standard-attempt1.json",
+      "note": "VOD/navigation checks passed; whole run failed at live initial focus; no claim these 18 were rerun on final binary"
+    },
+    "standardFinalLive": {
+      "checks": 5,
+      "passed": true,
+      "evidence": "s68-native-standard-live-final6.json",
+      "installedApkReadbackMatched": true
+    },
+    "parentsFirstPhase": {
+      "checks": 16,
+      "wholeRunPassed": false,
+      "evidence": "s68-native-parents-attempt1.json",
+      "note": "VOD/UI/navigation checks passed; fixture service then exited, breaking later HLS connection"
+    },
+    "parentsMediaContinuation": {
+      "checks": 8,
+      "passed": true,
+      "evidence": "s68-native-parents-media-final.json",
+      "installedApkReadbackMatched": true
+    },
+    "singleFull23RerunClaimed": false,
+    "historicalV22Full80RerunClaimed": false,
+    "publicMediaViaHostMirror": true,
+    "directNativeInternetTested": false,
+    "signedArmApksNativeExecuted": false
+  },
+  "host": {
+    "logoAddressAssertions": 14,
+    "logoAndRegressionTestGroups": 5,
+    "newEntryAndProductionSessionAssertions": 6,
+    "entryAndExistingSessionTestGroups": 2,
+    "domainGroups": 3,
+    "hubGateAndRepositoryTests": 8
+  },
+  "release": {
+    "buildAndBothLintPassed": true,
+    "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+    "androidSourceSha256": "3bd988f1c79847c3bf41ab945ac3d39c2b31f31f6d4f9b5ebf9ef5a9b04c3e33",
+    "perEditionCompilerClassBinding": "s68-native-java-binding.json",
+    "releasePayloadVerification": "s68-release-dex.json",
+    "apkBytes": {
+      "standard": 55186712,
+      "parents": 55215384
+    }
+  },
+  "publicationStatus": "ready, not yet published",
+  "realXiaomiAccepted": false,
+  "workBuddyAccepted": false,
+  "realNasHardwareAccepted": false,
+  "original61ItemPosterRateVerified": false,
+  "allTvBoxPluginsVerified": false
+}

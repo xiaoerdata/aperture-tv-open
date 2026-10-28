@@ -1,0 +1,39 @@
+TAP version 13
+# 14 production logo address assertions passed
+# Subtest: production playlist/config logos survive redirects and cache without a render base
+ok 1 - production playlist/config logos survive redirects and cache without a render base
+  ---
+  duration_ms: 61799.327584
+  ...
+# 25 native metadata assertions passed; JVM fixtures only
+# Subtest: native metadata fields, XML/M3U and newest selection use production Java
+ok 2 - native metadata fields, XML/M3U and newest selection use production Java
+  ---
+  duration_ms: 9724.727319
+  ...
+# 26 native revision assertions passed
+# Subtest: production metadata/channel/XMLTV parsing, cache roundtrip and duplicate projection
+ok 3 - production metadata/channel/XMLTV parsing, cache roundtrip and duplicate projection
+  ---
+  duration_ms: 9590.911993
+  ...
+# Subtest: strict CLI accepts canonical metadata and aliases and validates every new image/guide address
+ok 4 - strict CLI accepts canonical metadata and aliases and validates every new image/guide address
+  ---
+  duration_ms: 84.683614
+  ...
+# 8 guide HTTP assertions passed
+# Subtest: production XMLTV HTTP/gzip transport and bounded failure paths
+ok 5 - production XMLTV HTTP/gzip transport and bounded failure paths
+  ---
+  duration_ms: 55317.954996
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 66302.663318

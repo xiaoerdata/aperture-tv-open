@@ -1,0 +1,538 @@
+{
+  "classFiles": [
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$1.class",
+      "debug": "af61a7b46d2049682855c9ce146c6095b38821cf4939f66a5660517d23979938",
+      "release": "af61a7b46d2049682855c9ce146c6095b38821cf4939f66a5660517d23979938",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$2.class",
+      "debug": "36a1345f7e8364437b615bcda3486620433639beefd17f63b2edd3c9f9ce3d64",
+      "release": "36a1345f7e8364437b615bcda3486620433639beefd17f63b2edd3c9f9ce3d64",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$3.class",
+      "debug": "bca5ef6de4f4f33c1c3a12411a21f4cf5e51ff39f79ed759ca0534e6a0e9e263",
+      "release": "bca5ef6de4f4f33c1c3a12411a21f4cf5e51ff39f79ed759ca0534e6a0e9e263",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$4.class",
+      "debug": "e2519ddede8037c9e0005cf151aada3937920005d17b07167879eddca66c451f",
+      "release": "e2519ddede8037c9e0005cf151aada3937920005d17b07167879eddca66c451f",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$5.class",
+      "debug": "5dac2eb4b53ae4f7d92f9cefc3dad8a80240d03bc8a021203e8bb1d0fdc6eb3b",
+      "release": "5dac2eb4b53ae4f7d92f9cefc3dad8a80240d03bc8a021203e8bb1d0fdc6eb3b",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$6.class",
+      "debug": "da467362a574df687c4c136bec0f4079eaca011cecb711d0ebfaf84fa4ceeab7",
+      "release": "da467362a574df687c4c136bec0f4079eaca011cecb711d0ebfaf84fa4ceeab7",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$7.class",
+      "debug": "ac1622a406ab14690b90c1cb36f73a0c1d0dff42facf21a7f5270f780191ef16",
+      "release": "ac1622a406ab14690b90c1cb36f73a0c1d0dff42facf21a7f5270f780191ef16",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$Action.class",
+      "debug": "81188b358d8dccf0894b90b2b27b98b653d5632ad9b329b7e92cf0696255d00f",
+      "release": "81188b358d8dccf0894b90b2b27b98b653d5632ad9b329b7e92cf0696255d00f",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$Done.class",
+      "debug": "2a371d2d395c3482e45656eafe233c28924743bc08e7417cd78c22e45dd2b4e4",
+      "release": "2a371d2d395c3482e45656eafe233c28924743bc08e7417cd78c22e45dd2b4e4",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$GridCursor.class",
+      "debug": "151d05237bab1cab13cfd94e77ce0e92ffd5e9dfe724f342d3d922567961d7a5",
+      "release": "151d05237bab1cab13cfd94e77ce0e92ffd5e9dfe724f342d3d922567961d7a5",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$PluginTrust.class",
+      "debug": "803c573eed6d3e43164a2d5ce4c85795802e7bc899b7c5cbac288dd781a57720",
+      "release": "803c573eed6d3e43164a2d5ce4c85795802e7bc899b7c5cbac288dd781a57720",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$Probe.class",
+      "debug": "147d75302c4ebbcf2d5a3efef13d6fc4ea39afafa02edae68c43b7112f4069fe",
+      "release": "147d75302c4ebbcf2d5a3efef13d6fc4ea39afafa02edae68c43b7112f4069fe",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$SectionPage.class",
+      "debug": "2ea3a907411a1722dad5dcf9964c7948f96359fa02dd81d32384ac6207496875",
+      "release": "2ea3a907411a1722dad5dcf9964c7948f96359fa02dd81d32384ac6207496875",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$ShelfEdit.class",
+      "debug": "82b0ec697c088e9351e574efb48e93a9747f75619ac0fbe48adacabbdf489719",
+      "release": "82b0ec697c088e9351e574efb48e93a9747f75619ac0fbe48adacabbdf489719",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity$Work.class",
+      "debug": "3152acd6094e4a70dbdf29a4ffe6252df553a210fc550889ac2ca1ae054b8ae0",
+      "release": "3152acd6094e4a70dbdf29a4ffe6252df553a210fc550889ac2ca1ae054b8ae0",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaActivity.class",
+      "debug": "31b5681f322964c256d0f3b90fb62d52b8044dbce1ff0918973a567b2b0c9148",
+      "release": "31b5681f322964c256d0f3b90fb62d52b8044dbce1ff0918973a567b2b0c9148",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Category.class",
+      "debug": "b3735fe8579db21db70f31760b4686133c564fd06f6577487cca7d3a172d0dd3",
+      "release": "b3735fe8579db21db70f31760b4686133c564fd06f6577487cca7d3a172d0dd3",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Channel.class",
+      "debug": "934a7001bf1a06b2047835e9b390a7186a16061c0ff3f876e659277cacc9d5bc",
+      "release": "934a7001bf1a06b2047835e9b390a7186a16061c0ff3f876e659277cacc9d5bc",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Config.class",
+      "debug": "b3c8e046c7e6df570f71f8dcce83ccc1473004341a81d0708a50c34b4de0c83d",
+      "release": "b3c8e046c7e6df570f71f8dcce83ccc1473004341a81d0708a50c34b4de0c83d",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Episode.class",
+      "debug": "a6eee4799276f83216fc2efaf7e126e6d194b3a1de1b3ce3000df0a821c222c5",
+      "release": "a6eee4799276f83216fc2efaf7e126e6d194b3a1de1b3ce3000df0a821c222c5",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Item.class",
+      "debug": "dcdf984c41b51da0fb2d0a00c34f75097fc9a223b38350f036daa13bbe76bd11",
+      "release": "dcdf984c41b51da0fb2d0a00c34f75097fc9a223b38350f036daa13bbe76bd11",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Line.class",
+      "debug": "4facd6a5ac7f4669cc6a310caaecfa1ab0c5729bb12e308b8cdccd24e3a3aa0d",
+      "release": "4facd6a5ac7f4669cc6a310caaecfa1ab0c5729bb12e308b8cdccd24e3a3aa0d",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Live.class",
+      "debug": "d94483bf052de2bc251bd909423be89cf01af31433f603dbd375be5ff6acdbb4",
+      "release": "d94483bf052de2bc251bd909423be89cf01af31433f603dbd375be5ff6acdbb4",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Page.class",
+      "debug": "a509c575c3c9199f11292a08aedbb07293e831f19a7ebc7e64ce34792c3d69b6",
+      "release": "a509c575c3c9199f11292a08aedbb07293e831f19a7ebc7e64ce34792c3d69b6",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog$Site.class",
+      "debug": "1ed43bc3eb4a632cf8c5da001506cabece3e0f548c629f42d367f735e953c73a",
+      "release": "1ed43bc3eb4a632cf8c5da001506cabece3e0f548c629f42d367f735e953c73a",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaCatalog.class",
+      "debug": "99a12600925bd216f042370b2e40283266c4b41e6df6c392674c30439570a61b",
+      "release": "99a12600925bd216f042370b2e40283266c4b41e6df6c392674c30439570a61b",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaDetailView$1.class",
+      "debug": "331e6de33414765a4eea60de1b2e9d8c63474cc9d30b8620b0f46d83f3294581",
+      "release": "331e6de33414765a4eea60de1b2e9d8c63474cc9d30b8620b0f46d83f3294581",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaDetailView.class",
+      "debug": "100e5678041c8f02923ebecea545c9280c663dd945be0c30e73b9b70f0d7baef",
+      "release": "100e5678041c8f02923ebecea545c9280c663dd945be0c30e73b9b70f0d7baef",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaFormats.class",
+      "debug": "d0ee96b31ab324f5bdbe408871cc97d4bab35152e9856b164bb797c45da7603e",
+      "release": "d0ee96b31ab324f5bdbe408871cc97d4bab35152e9856b164bb797c45da7603e",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaSectionView$Entry.class",
+      "debug": "ab0979be56e8fa9d99f4a73046f7e94fc9b9643de8ca6549575d6e364d157858",
+      "release": "ab0979be56e8fa9d99f4a73046f7e94fc9b9643de8ca6549575d6e364d157858",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "CinemaSectionView.class",
+      "debug": "e296b6c108b0e643834c13f28c270b65d61fea82b25110d8db62a7aa1527fa30",
+      "release": "e296b6c108b0e643834c13f28c270b65d61fea82b25110d8db62a7aa1527fa30",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "PlaybackEntryIntent.class",
+      "debug": "fc6e5b8ff701669f7a9c271076b0a45c38130dbaca1a31fd6f7413415fdd8143",
+      "release": "fc6e5b8ff701669f7a9c271076b0a45c38130dbaca1a31fd6f7413415fdd8143",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "PlayerChrome$TransportIcon.class",
+      "debug": "20cba0dbb01ed5dd09de214351a9b959bacea975081b422c11c464c9fa7e2620",
+      "release": "20cba0dbb01ed5dd09de214351a9b959bacea975081b422c11c464c9fa7e2620",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "PlayerChrome.class",
+      "debug": "4bf8c4e1006e2e0237a010832a87015bbdfcb37662076480180cbd967f11cd01",
+      "release": "4bf8c4e1006e2e0237a010832a87015bbdfcb37662076480180cbd967f11cd01",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "PlayerTimeline$1.class",
+      "debug": "594391003107df799f3dfad28d89371ee6a60681624e12cd69a70b543fc6d59d",
+      "release": "594391003107df799f3dfad28d89371ee6a60681624e12cd69a70b543fc6d59d",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "PlayerTimeline$2.class",
+      "debug": "dcabef1e25713321920bad1f7d00d6c884d5f5f061e0c01fa33fa626be390d60",
+      "release": "dcabef1e25713321920bad1f7d00d6c884d5f5f061e0c01fa33fa626be390d60",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "PlayerTimeline$Media.class",
+      "debug": "8d3e046e2f5b69989871cce47d33125518d24029cc91b44af0d0095a0b5adfda",
+      "release": "8d3e046e2f5b69989871cce47d33125518d24029cc91b44af0d0095a0b5adfda",
+      "identical": true
+    },
+    {
+      "edition": "standard",
+      "class": "PlayerTimeline.class",
+      "debug": "83670e2c924a591fa10e29a758cf2e990d2af9082d59f84761f4385fb742e3a4",
+      "release": "83670e2c924a591fa10e29a758cf2e990d2af9082d59f84761f4385fb742e3a4",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$1.class",
+      "debug": "af61a7b46d2049682855c9ce146c6095b38821cf4939f66a5660517d23979938",
+      "release": "af61a7b46d2049682855c9ce146c6095b38821cf4939f66a5660517d23979938",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$2.class",
+      "debug": "36a1345f7e8364437b615bcda3486620433639beefd17f63b2edd3c9f9ce3d64",
+      "release": "36a1345f7e8364437b615bcda3486620433639beefd17f63b2edd3c9f9ce3d64",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$3.class",
+      "debug": "bca5ef6de4f4f33c1c3a12411a21f4cf5e51ff39f79ed759ca0534e6a0e9e263",
+      "release": "bca5ef6de4f4f33c1c3a12411a21f4cf5e51ff39f79ed759ca0534e6a0e9e263",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$4.class",
+      "debug": "e2519ddede8037c9e0005cf151aada3937920005d17b07167879eddca66c451f",
+      "release": "e2519ddede8037c9e0005cf151aada3937920005d17b07167879eddca66c451f",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$5.class",
+      "debug": "5dac2eb4b53ae4f7d92f9cefc3dad8a80240d03bc8a021203e8bb1d0fdc6eb3b",
+      "release": "5dac2eb4b53ae4f7d92f9cefc3dad8a80240d03bc8a021203e8bb1d0fdc6eb3b",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$6.class",
+      "debug": "da467362a574df687c4c136bec0f4079eaca011cecb711d0ebfaf84fa4ceeab7",
+      "release": "da467362a574df687c4c136bec0f4079eaca011cecb711d0ebfaf84fa4ceeab7",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$7.class",
+      "debug": "ac1622a406ab14690b90c1cb36f73a0c1d0dff42facf21a7f5270f780191ef16",
+      "release": "ac1622a406ab14690b90c1cb36f73a0c1d0dff42facf21a7f5270f780191ef16",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$Action.class",
+      "debug": "81188b358d8dccf0894b90b2b27b98b653d5632ad9b329b7e92cf0696255d00f",
+      "release": "81188b358d8dccf0894b90b2b27b98b653d5632ad9b329b7e92cf0696255d00f",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$Done.class",
+      "debug": "2a371d2d395c3482e45656eafe233c28924743bc08e7417cd78c22e45dd2b4e4",
+      "release": "2a371d2d395c3482e45656eafe233c28924743bc08e7417cd78c22e45dd2b4e4",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$GridCursor.class",
+      "debug": "151d05237bab1cab13cfd94e77ce0e92ffd5e9dfe724f342d3d922567961d7a5",
+      "release": "151d05237bab1cab13cfd94e77ce0e92ffd5e9dfe724f342d3d922567961d7a5",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$PluginTrust.class",
+      "debug": "803c573eed6d3e43164a2d5ce4c85795802e7bc899b7c5cbac288dd781a57720",
+      "release": "803c573eed6d3e43164a2d5ce4c85795802e7bc899b7c5cbac288dd781a57720",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$Probe.class",
+      "debug": "147d75302c4ebbcf2d5a3efef13d6fc4ea39afafa02edae68c43b7112f4069fe",
+      "release": "147d75302c4ebbcf2d5a3efef13d6fc4ea39afafa02edae68c43b7112f4069fe",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$SectionPage.class",
+      "debug": "2ea3a907411a1722dad5dcf9964c7948f96359fa02dd81d32384ac6207496875",
+      "release": "2ea3a907411a1722dad5dcf9964c7948f96359fa02dd81d32384ac6207496875",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$ShelfEdit.class",
+      "debug": "82b0ec697c088e9351e574efb48e93a9747f75619ac0fbe48adacabbdf489719",
+      "release": "82b0ec697c088e9351e574efb48e93a9747f75619ac0fbe48adacabbdf489719",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity$Work.class",
+      "debug": "3152acd6094e4a70dbdf29a4ffe6252df553a210fc550889ac2ca1ae054b8ae0",
+      "release": "3152acd6094e4a70dbdf29a4ffe6252df553a210fc550889ac2ca1ae054b8ae0",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaActivity.class",
+      "debug": "4cfc23efeb4e1bff67b91dd175c11fb8aa5d963cf02f1c700c8e2edbc051c3df",
+      "release": "4cfc23efeb4e1bff67b91dd175c11fb8aa5d963cf02f1c700c8e2edbc051c3df",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Category.class",
+      "debug": "b3735fe8579db21db70f31760b4686133c564fd06f6577487cca7d3a172d0dd3",
+      "release": "b3735fe8579db21db70f31760b4686133c564fd06f6577487cca7d3a172d0dd3",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Channel.class",
+      "debug": "934a7001bf1a06b2047835e9b390a7186a16061c0ff3f876e659277cacc9d5bc",
+      "release": "934a7001bf1a06b2047835e9b390a7186a16061c0ff3f876e659277cacc9d5bc",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Config.class",
+      "debug": "b3c8e046c7e6df570f71f8dcce83ccc1473004341a81d0708a50c34b4de0c83d",
+      "release": "b3c8e046c7e6df570f71f8dcce83ccc1473004341a81d0708a50c34b4de0c83d",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Episode.class",
+      "debug": "a6eee4799276f83216fc2efaf7e126e6d194b3a1de1b3ce3000df0a821c222c5",
+      "release": "a6eee4799276f83216fc2efaf7e126e6d194b3a1de1b3ce3000df0a821c222c5",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Item.class",
+      "debug": "dcdf984c41b51da0fb2d0a00c34f75097fc9a223b38350f036daa13bbe76bd11",
+      "release": "dcdf984c41b51da0fb2d0a00c34f75097fc9a223b38350f036daa13bbe76bd11",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Line.class",
+      "debug": "4facd6a5ac7f4669cc6a310caaecfa1ab0c5729bb12e308b8cdccd24e3a3aa0d",
+      "release": "4facd6a5ac7f4669cc6a310caaecfa1ab0c5729bb12e308b8cdccd24e3a3aa0d",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Live.class",
+      "debug": "d94483bf052de2bc251bd909423be89cf01af31433f603dbd375be5ff6acdbb4",
+      "release": "d94483bf052de2bc251bd909423be89cf01af31433f603dbd375be5ff6acdbb4",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Page.class",
+      "debug": "a509c575c3c9199f11292a08aedbb07293e831f19a7ebc7e64ce34792c3d69b6",
+      "release": "a509c575c3c9199f11292a08aedbb07293e831f19a7ebc7e64ce34792c3d69b6",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog$Site.class",
+      "debug": "1ed43bc3eb4a632cf8c5da001506cabece3e0f548c629f42d367f735e953c73a",
+      "release": "1ed43bc3eb4a632cf8c5da001506cabece3e0f548c629f42d367f735e953c73a",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaCatalog.class",
+      "debug": "99a12600925bd216f042370b2e40283266c4b41e6df6c392674c30439570a61b",
+      "release": "99a12600925bd216f042370b2e40283266c4b41e6df6c392674c30439570a61b",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaDetailView$1.class",
+      "debug": "331e6de33414765a4eea60de1b2e9d8c63474cc9d30b8620b0f46d83f3294581",
+      "release": "331e6de33414765a4eea60de1b2e9d8c63474cc9d30b8620b0f46d83f3294581",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaDetailView.class",
+      "debug": "d74ed05129ebc9ac8b0c8a044e09853a799cf0f946d84d37ec6d3e7c9065a044",
+      "release": "d74ed05129ebc9ac8b0c8a044e09853a799cf0f946d84d37ec6d3e7c9065a044",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaFormats.class",
+      "debug": "d0ee96b31ab324f5bdbe408871cc97d4bab35152e9856b164bb797c45da7603e",
+      "release": "d0ee96b31ab324f5bdbe408871cc97d4bab35152e9856b164bb797c45da7603e",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaSectionView$Entry.class",
+      "debug": "ab0979be56e8fa9d99f4a73046f7e94fc9b9643de8ca6549575d6e364d157858",
+      "release": "ab0979be56e8fa9d99f4a73046f7e94fc9b9643de8ca6549575d6e364d157858",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "CinemaSectionView.class",
+      "debug": "c1263d9ade7318acdbea788bae0a2c1d9c014899b9d04bc07e0848af5f3e17a3",
+      "release": "c1263d9ade7318acdbea788bae0a2c1d9c014899b9d04bc07e0848af5f3e17a3",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "PlaybackEntryIntent.class",
+      "debug": "fc6e5b8ff701669f7a9c271076b0a45c38130dbaca1a31fd6f7413415fdd8143",
+      "release": "fc6e5b8ff701669f7a9c271076b0a45c38130dbaca1a31fd6f7413415fdd8143",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "PlayerChrome$TransportIcon.class",
+      "debug": "20cba0dbb01ed5dd09de214351a9b959bacea975081b422c11c464c9fa7e2620",
+      "release": "20cba0dbb01ed5dd09de214351a9b959bacea975081b422c11c464c9fa7e2620",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "PlayerChrome.class",
+      "debug": "23c0ecb7d88decc2fde3848015df74d201def4f8edf6ceb624e95610266f664d",
+      "release": "23c0ecb7d88decc2fde3848015df74d201def4f8edf6ceb624e95610266f664d",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "PlayerTimeline$1.class",
+      "debug": "594391003107df799f3dfad28d89371ee6a60681624e12cd69a70b543fc6d59d",
+      "release": "594391003107df799f3dfad28d89371ee6a60681624e12cd69a70b543fc6d59d",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "PlayerTimeline$2.class",
+      "debug": "dcabef1e25713321920bad1f7d00d6c884d5f5f061e0c01fa33fa626be390d60",
+      "release": "dcabef1e25713321920bad1f7d00d6c884d5f5f061e0c01fa33fa626be390d60",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "PlayerTimeline$Media.class",
+      "debug": "8d3e046e2f5b69989871cce47d33125518d24029cc91b44af0d0095a0b5adfda",
+      "release": "8d3e046e2f5b69989871cce47d33125518d24029cc91b44af0d0095a0b5adfda",
+      "identical": true
+    },
+    {
+      "edition": "parents",
+      "class": "PlayerTimeline.class",
+      "debug": "83670e2c924a591fa10e29a758cf2e990d2af9082d59f84761f4385fb742e3a4",
+      "release": "83670e2c924a591fa10e29a758cf2e990d2af9082d59f84761f4385fb742e3a4",
+      "identical": true
+    }
+  ],
+  "allIdentical": true,
+  "scope": "Changed cinema/transport classes and their inner classes; class compiler inputs match tested debug and ARM release per edition. Signed ARM APK not native-executed."
+}

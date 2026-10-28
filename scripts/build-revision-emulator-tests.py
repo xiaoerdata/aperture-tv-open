@@ -4,20 +4,20 @@ import re, argparse, os, subprocess, zipfile, hashlib, json
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--edition', required=True, choices=['standard', 'parents'])
-parser.add_argument('--suite', default='revision', choices=['revision', 'related'])
+parser.add_argument('--suite', default='revision', choices=['revision', 'related', 'public', 'publicmedia'])
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
 runtime = Path(os.environ.get('APERTURE_ANDROID_RUNTIME', '/tmp/aperture-android-runtime'))
 sdk = Path(os.environ.get('ANDROID_HOME', runtime / 'android-sdk'))
 jdk = Path(os.environ.get('JAVA_HOME', runtime / 'jdk17'))
 tools = sdk / 'build-tools/35.0.0'
-runner = 'RelatedRunner' if args.suite == 'related' else 'RevisionRunner'
-out = root / ('artifacts/s64-related-instrumentation' if args.suite == 'related' else 'artifacts/s62-revision-instrumentation') / args.edition
+runner = 'PublicMediaTailRunner' if args.suite == 'publicmedia' else 'PublicResourceRunner' if args.suite == 'public' else 'RelatedRunner' if args.suite == 'related' else 'RevisionRunner'
+out = root / ('artifacts/s68-media-instrumentation' if args.suite == 'publicmedia' else 'artifacts/s66-public-instrumentation' if args.suite == 'public' else 'artifacts/s64-related-instrumentation' if args.suite == 'related' else 'artifacts/s62-revision-instrumentation') / args.edition
 out.mkdir(parents=True, exist_ok=True)
 (out / 'classes').mkdir(exist_ok=True)
 (out / 'dex').mkdir(exist_ok=True)
 target = re.search(r"applicationId\s+'([^']+)'", (root/'android/app/build.gradle').read_text()).group(1) + ('.parents' if args.edition == 'parents' else '')
-package = 'org.zhixiaoce.aperture.test.' + ('related.' if args.suite == 'related' else '') + args.edition
+package = 'org.zhixiaoce.aperture.test.' + (args.suite+'.' if args.suite != 'revision' else '') + args.edition
 (out / 'AndroidManifest.xml').write_text(f'''<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="{package}">
 <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="26"/>
 <uses-permission android:name="android.permission.INTERNET"/>

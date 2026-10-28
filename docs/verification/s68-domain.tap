@@ -1,0 +1,40 @@
+TAP version 13
+# 14 production logo address assertions passed
+# Subtest: production playlist/config logos survive redirects and cache without a render base
+ok 1 - production playlist/config logos survive redirects and cache without a render base
+  ---
+  duration_ms: 49911.052199
+  ...
+# 25 native metadata assertions passed; JVM fixtures only
+# Subtest: native metadata fields, XML/M3U and newest selection use production Java
+ok 2 - native metadata fields, XML/M3U and newest selection use production Java
+  ---
+  duration_ms: 9967.393483
+  ...
+# PASS foreground selection / user pause / explicit resume / completion / replay / reset
+# PASS audio-only loss during preparation / no late autoplay / explicit continue
+# PASS audio-only loss during playback / repeated prepared and active events stay paused
+# PASS denied focus / no delayed playback / user retry
+# PASS loss callback before request returns / late grant is ignored
+# PASS stale source and focus callbacks / replacement stays playing / late events after reset
+# PASS window interruption / surface teardown and restoration / background play denied
+# PASS user pause during preparation / inactive selection / no focus request in background
+# PASS decoder / focus request / abandon exceptions fail without playback intent
+# PASS playback error releases focus / late lifecycle and prepared events cannot revive
+# TRACE prepare-loss PREPARING -> INTERRUPTED -> INTERRUPTED -> PLAYING
+# TRACE playing-loss PREPARING -> PLAYING -> INTERRUPTED -> INTERRUPTED
+# TRACE denied FOCUS_DENIED -> FOCUS_DENIED -> PLAYING
+# Subtest: native playback production controller handles audio/window/prepare races without implicit resume
+ok 3 - native playback production controller handles audio/window/prepare races without implicit resume
+  ---
+  duration_ms: 5216.282942
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 50161.361203

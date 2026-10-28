@@ -1,0 +1,20 @@
+{
+  "error": "java.lang.AssertionError: MP4 playback failed\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.until(PublicResourceRunner.java:22)\n\tat org.zhixiaoce.aperture.test.PublicResourceRunner.onStart(PublicResourceRunner.java:51)\n\tat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2145)\n",
+  "passed": false,
+  "checks": [
+    "repeat pack import is a no-op",
+    "public film artwork decodes on actual movie grid",
+    "public artwork loads in detail backdrop",
+    "film favorite persists through encrypted vault"
+  ],
+  "images": [
+    "grid.png",
+    "detail.png",
+    "failure.png"
+  ],
+  "targetPackage": "org.zhixiaoce.kaishi",
+  "versionCode": 24,
+  "realXiaomi": false,
+  "publicMediaViaHostMirror": true,
+  "directNativeInternetTested": false
+}
