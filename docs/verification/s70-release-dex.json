@@ -26,5 +26,6 @@
       ],
       "testDriversExcluded": true
     }
-  ]
+  ],
+  "evidenceStatus": "Superseded v25 early candidate; retain historical result. Final v26 APK and emulator binding is s70-software-acceptance.json."
 }

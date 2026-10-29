@@ -18,5 +18,6 @@
   ],
   "emulator": true,
   "xiaomiHardware": false,
-  "syntheticCatalogueAndEpg": true
+  "syntheticCatalogueAndEpg": true,
+  "channelEventDelivery": "Activity.dispatchKeyEvent on the UI thread for contiguous channel key sequences; hold duration remains real. Other UI key helpers use system injection."
 }

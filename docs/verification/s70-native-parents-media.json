@@ -8,11 +8,13 @@
   "visualCaptureComplete": true,
   "checks": [
     "entry directly shows film information",
+    "multiple playback lines have distinct short controls",
     "category tree on left has categories and no movie titles",
     "default right seek preserves pause",
     "default left seek preserves pause"
   ],
   "emulator": true,
   "xiaomiHardware": false,
-  "syntheticCatalogueAndEpg": true
+  "syntheticCatalogueAndEpg": true,
+  "channelEventDelivery": "Activity.dispatchKeyEvent on the UI thread for contiguous channel key sequences; hold duration remains real. Other UI key helpers use system injection."
 }

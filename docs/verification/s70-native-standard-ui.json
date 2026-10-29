@@ -4,13 +4,15 @@
   "images": [
     "section.png",
     "grid.png",
-    "settings.png",
     "apps.png"
   ],
-  "captureErrors": [],
-  "visualCaptureComplete": true,
+  "captureErrors": [
+    "settings: java.io.IOException: host capture HTTP 503"
+  ],
+  "visualCaptureComplete": false,
   "checks": [
     "entry directly shows film information",
+    "multiple playback lines have distinct short controls",
     "category tree on left has categories and no movie titles",
     "expanded sidebar uses five poster columns",
     "poster titles allow two lines",

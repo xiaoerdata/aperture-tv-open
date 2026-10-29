@@ -11,6 +11,7 @@
   "visualCaptureComplete": true,
   "checks": [
     "entry directly shows film information",
+    "multiple playback lines have distinct short controls",
     "category tree on left has categories and no movie titles",
     "expanded sidebar uses five poster columns",
     "poster titles allow two lines",

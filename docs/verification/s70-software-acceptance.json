@@ -1,38 +1,43 @@
 {
-  "version": "0.2.0-alpha.22",
-  "versionCode": 25,
+  "version": "0.2.0-alpha.23",
+  "versionCode": 26,
   "releaseReady": true,
-  "completedAt": "2026-10-29T17:40:01.175428+00:00",
-  "androidSourceSha256": "942bcd1d04c0e4281b16ced196d37ff84a93838eb9c6763a8c1e06373d59ee8f",
+  "completedAt": "2026-10-29T19:17:55.660108+00:00",
+  "androidSourceSha256": "efbccd8382b9554fa6e0eda3d9c564a22858728a5417a1aa66099cf9f1a516af",
   "editions": [
     {
       "edition": "standard",
       "phases": [
         {
           "scope": "ui",
-          "assertions": 12,
+          "assertions": 13,
           "report": "verification/s70-native-standard-ui.json",
-          "reportSha256": "c716fc6182cee37345e87571ed94c8b4c216c4ef642fae0f46556899f435b3c0",
-          "captureErrors": []
+          "reportSha256": "5e1e41ba12e2892c987da46c76e970d41a58be62561d0d58258b05fd6d629031",
+          "captureErrors": [
+            "settings: java.io.IOException: host capture HTTP 503"
+          ],
+          "visualCaptureComplete": false
         },
         {
           "scope": "media",
-          "assertions": 4,
+          "assertions": 5,
           "report": "verification/s70-native-standard-media.json",
-          "reportSha256": "cdb0e62c57a3b81ef3596fcd03aeee92d41b311772e996245557234dd8ac0407",
-          "captureErrors": []
+          "reportSha256": "e127811d71ba24f2e2771b33fbfaf31ed2a44c4a881d721a58d581b2c3b0b70e",
+          "captureErrors": [],
+          "visualCaptureComplete": true
         },
         {
           "scope": "live",
           "assertions": 8,
           "report": "verification/s70-native-standard-live.json",
-          "reportSha256": "ea84c402212e04539cc850088bbd9567f56e56f5d2d2a1894ac02272da217ed9",
-          "captureErrors": []
+          "reportSha256": "eefebba87440fb690251daf6ec54d7ea9e5c24d799573b9daccf70b7d390ba2b",
+          "captureErrors": [],
+          "visualCaptureComplete": true
         }
       ],
-      "installedDebugApkSha256": "7aa86d60a104d1f651b6fbfb4bdf10741527bd9da1066eb25e6848b982ca7603",
+      "installedDebugApkSha256": "e6d469ce910b0e07d03fa906a3dd4c3f0f40bfa32e49b6139814f62d3a031081",
       "installedCompleteReadbackMatched": true,
-      "releaseSha256": "4ebfd65f8cb180aab570b62f69f32a59dec18aafb880bd86d8c57c820af58b10",
+      "releaseSha256": "bbcce530c3bc15b4662ef9d3bd0e4200d5445f00b777b07184334bb10ec49f79",
       "releaseBytes": 55186712,
       "identicalCompiledClasses": 146,
       "expectedDebugGuardClassDifferences": [
@@ -52,29 +57,32 @@
       "phases": [
         {
           "scope": "ui",
-          "assertions": 12,
+          "assertions": 13,
           "report": "verification/s70-native-parents-ui.json",
-          "reportSha256": "c716fc6182cee37345e87571ed94c8b4c216c4ef642fae0f46556899f435b3c0",
-          "captureErrors": []
+          "reportSha256": "61cdd371ccb7ccf3f0a94d2dfca4f2f7bd55bcbfa6dd551d866aa8148c538fb9",
+          "captureErrors": [],
+          "visualCaptureComplete": true
         },
         {
           "scope": "media",
-          "assertions": 4,
+          "assertions": 5,
           "report": "verification/s70-native-parents-media.json",
-          "reportSha256": "cdb0e62c57a3b81ef3596fcd03aeee92d41b311772e996245557234dd8ac0407",
-          "captureErrors": []
+          "reportSha256": "9543e509ca479f44abd67a033f4adc2207d76ddd52dfbf21136dd36e81261145",
+          "captureErrors": [],
+          "visualCaptureComplete": true
         },
         {
           "scope": "live",
           "assertions": 8,
           "report": "verification/s70-native-parents-live.json",
-          "reportSha256": "ea84c402212e04539cc850088bbd9567f56e56f5d2d2a1894ac02272da217ed9",
-          "captureErrors": []
+          "reportSha256": "eefebba87440fb690251daf6ec54d7ea9e5c24d799573b9daccf70b7d390ba2b",
+          "captureErrors": [],
+          "visualCaptureComplete": true
         }
       ],
-      "installedDebugApkSha256": "ce3c63fed9a82a8751dcb32a973b4ec8439975c7d08a5197878bf478c82ac361",
+      "installedDebugApkSha256": "b3014f44e4b7d440c1c85f3781918105aaf3902d0762c4533003aa90af181815",
       "installedCompleteReadbackMatched": true,
-      "releaseSha256": "f35e73f4f020a4130cc31761694462d2fbb93b943a7cf935fb1d795edee73276",
+      "releaseSha256": "c35e80a378d652b381d3dc1c4648c9b2fcb3f1a9c53d49baee8b2347410ea89a",
       "releaseBytes": 55215384,
       "identicalCompiledClasses": 146,
       "expectedDebugGuardClassDifferences": [
@@ -93,8 +101,13 @@
   "browserTasks": 7,
   "domainGroupsAcrossRuns": 10,
   "singleAllGreenNativeRun": false,
-  "nativeScope": "Two editions, three separate emulator phases each. Repeated entry checks are counted per phase. Synthetic catalogue/XMLTV and retained HLS sample.",
+  "allScreenshotsCaptured": false,
+  "captureLimitation": "Standard UI settings capture returned HTTP503; geometric visibility assertion passed. Missing current settings screenshot is not replaced by an older candidate.",
+  "nativeScope": "Two editions, three separate emulator phases each. Repeated entry checks are counted per phase. Synthetic catalogue/XMLTV and retained HLS sample. Final channel key sequences use Activity.dispatchKeyEvent on the UI thread, with real hold delays; they are not a complete OS input-transport acceptance.",
+  "fullSystemRemoteInputAccepted": false,
   "retainedFailures": [
+    "v26 first system-injected channel confirm failed: selected=1, playingIndex=0, confirmSelection=0, panelOpen=false. Cause not established. Final channel regression directly dispatches contiguous key events and does not erase this failure.",
+    "v26 standard settings screenshot timed out with HTTP503; real geometry assertion passed.",
     "Tool paths and EPG orchestration timeout before independent pass.",
     "Settings button clipping: 37 of 44 pixels; fixed and rerun.",
     "Early app wall test checked columnCount only; real screenshot exposed stretching. New geometry assertions and fixed widths.",
@@ -106,10 +119,10 @@
   "originalResourcePackProvided": false,
   "limits": [
     "Loaded-content year/area filters, current-source search; no provider-wide advanced filter claim.",
-    "Original MiTV v24 report is separate evidence and does not establish v25 acceptance.",
+    "Original MiTV v24 report is separate evidence and does not establish v26 acceptance.",
     "Mi Home, XiaoAi, original home, NAS hardware and WorkBuddy require maintainer verification.",
     "Five debug-only admission/entry classes differ as expected; identical compiler inputs bind core TV UI/player code, not an ARM device execution."
   ],
   "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
-  "releaseDirectory": "artifacts/s70-release-r4"
+  "releaseDirectory": "artifacts/s70-release-final-v26"
 }

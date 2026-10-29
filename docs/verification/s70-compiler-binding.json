@@ -319,5 +319,6 @@
         "org/zhixiaoce/aperture/CinemaJsPlugin$Bridge.class": "6d5e7d28b17232bd09166b89bfffc6258079888c51dd4d969ad7b22bf7951ec4"
       }
     }
-  ]
+  ],
+  "evidenceStatus": "Superseded v25 early candidate; retain historical result. Final v26 APK and emulator binding is s70-software-acceptance.json."
 }

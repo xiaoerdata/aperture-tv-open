@@ -4,9 +4,9 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加家庭照片、日程、留言、数据、NAS资源和可定制入口。
 
-当前版本 **v25 / 0.2.0-alpha.22**：分类留在左侧，影片在右侧五列浏览；合并加载更多计数，直播全屏并修复确认键竞争；首页放大应用图标，新增本机应用墙。见[回归说明与限制](../V24-FEEDBACK-S70.md)。
+当前版本 **v26 / 0.2.0-alpha.23**：分类留在左侧，影片在右侧五列浏览；合并加载更多计数，直播全屏并修复确认键竞争；首页放大应用图标，新增本机应用墙。见[回归说明与限制](../V24-FEEDBACK-S70.md)。
 
-**v25可更新v18—v24，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](../MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
+**v26可更新v18—v25，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](../MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
 
 ## 两个版本
 
@@ -19,7 +19,7 @@
 
 ## 安装与使用
 
-按[小米电视安装说明](../../INSTALL.md)开始。[下载与版本](../DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.22)提供标准版、爸妈版和源码；也可[免费本地构建](../ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](../../INSTALL.md)开始。[下载与版本](../DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.23)提供标准版、爸妈版和源码；也可[免费本地构建](../ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](../EMBEDDED-CINEMA.md)与[插件说明](../PLUGIN-ENGINE.md)；没有预置影视来源。
 

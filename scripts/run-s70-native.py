@@ -32,7 +32,7 @@ try:
  flog=(out/'fixture.log').open('wb');fixture=subprocess.Popen(['node','scripts/s70-media-fixture.mjs'],cwd=root,env=env,stdout=flog,stderr=subprocess.STDOUT)
  time.sleep(1);base=json.loads((out/'fixture.json').read_text())['base']
  end=time.time()+240
- while 'BUILD SUCCESSFUL' not in (root/'artifacts/s70-debug-verified-build.log').read_text():
+ while 'BUILD SUCCESSFUL' not in (root/'artifacts/s70-v26-debug-build.log').read_text():
   if time.time()>end:raise RuntimeError('Final debug build not ready')
   time.sleep(2)
  editions=os.environ.get('KAISHI_NATIVE_EDITIONS','standard,parents').split(',');scopes=os.environ.get('KAISHI_NATIVE_SCOPES','ui,media,live').split(',')
@@ -56,7 +56,8 @@ try:
    report=json.loads(ad('exec-out','run-as',package,'cat',f'files/s70-report-{scope}.json'));reports.append(dict(edition=edition,**report));(d/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(edition,scope,json.dumps(report,ensure_ascii=False),flush=True)
    # Keep independent phase evidence even if one phase fails.
    if not report['passed']:continue
-   for image in d.glob('*.png'):shutil.copy2(image,root/f'docs/images/s70-native-{edition}-{scope}-{image.name}')
+   for name in report['images']:
+    image=d/name;shutil.copy2(image,root/f'docs/images/s70-native-{edition}-{scope}-{image.name}')
   remote=next(p.removeprefix('package:').strip() for p in ad('shell','pm','path',package).decode().splitlines() if p.endswith('base.apk'));local=edition_dir/'installed-final-readback.apk';ad('pull',remote,local)
   assert hashlib.sha256(local.read_bytes()).hexdigest()==expected;local.unlink()
   (edition_dir/'final-binding.json').write_text(json.dumps({'localDebugApkSha256':expected,'installedCompleteReadbackMatched':True,'emulator':True,'sourceClasses':class_hashes},indent=2))

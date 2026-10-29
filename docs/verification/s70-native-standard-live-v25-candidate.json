@@ -1,0 +1,22 @@
+{
+  "scope": "live",
+  "passed": true,
+  "images": [
+    "channels.png"
+  ],
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "checks": [
+    "live starts in fullscreen with no resizing sidebar",
+    "More owns its confirm key across auto-hide and opens options instead of channels",
+    "remote down and confirm changes to channel two and does not pause",
+    "held confirm selects channel three exactly once",
+    "held confirm owns its key-up past the five-second drawer timeout",
+    "synthetic XMLTV data matches channel IDs during playback",
+    "lower channel row is fully reachable through internal scrolling",
+    "Back dismisses channel overlay before exiting live"
+  ],
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticCatalogueAndEpg": true
+}
