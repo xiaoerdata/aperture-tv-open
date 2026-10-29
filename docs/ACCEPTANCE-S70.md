@@ -18,7 +18,7 @@
 
 - [标准片单](images/s70-native-standard-ui-grid.png)、[标准应用墙](images/s70-native-standard-ui-apps.png)。
 - [爸妈片单](images/s70-native-parents-ui-grid.png)、[爸妈应用墙](images/s70-native-parents-ui-apps.png)、[设置末项](images/s70-native-parents-ui-settings.png)。
-- [暂停后的直播与合成当前节目](images/s70-native-standard-live-channels.png)。短暂频道层可能在采集时自动收回，列表末项完整可达由独立原生矩形断言验证，不把这张画面说成抽屉视觉验收。
+- [标准版直播采集](images/s70-native-standard-live-channels.png)。短暂频道层可能在采集时自动收回，列表末项完整可达由独立原生矩形断言验证，不把这张画面说成抽屉视觉验收。
 
 标准版设置采集超时返回HTTP503，保留captureErrors；按钮完整可见的原生矩形断言已通过。缺失的本轮设置图不使用旧候选替代。
 
@@ -33,3 +33,6 @@
 v26首次标准版系统注入换台失败，诊断为选中1但播放索引0、确认持有索引0且频道层已关闭，尚未确定根因。后续连续频道键通过UI线程的`Activity.dispatchKeyEvent`验证真实处理器，长按仍等待真实5.3秒；这不代表完整系统遥控传输链路通过。原失败见[注入记录](verification/s70-native-standard-live-v26-injection-attempt1.json)。
 
 小米原桌面、小爱、米家、真实NAS与WorkBuddy仍由维护者复验，真机重点复测换台。源码与APK发布记录另追加，不能用本清单冒充真机验收。
+
+
+[v26 Alpha已发布及匿名回读](verification/public-alpha-v26.json)。标准版直播图仅保留视频画面；[爸妈版直播采集](images/s70-native-parents-live-channels.png)显示合成当前节目。两张都没有捕获展开的频道层，不据此宣称频道抽屉视觉验收通过。发行源码标签保持冻结，本文与回执为发布后追加。

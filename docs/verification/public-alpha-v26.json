@@ -1,0 +1,83 @@
+{
+  "version": "0.2.0-alpha.23",
+  "versionCode": 26,
+  "verifiedAt": "2026-10-29T19:37:53.511533+00:00",
+  "release": {
+    "id": 428310956,
+    "tag_name": "v0.2.0-alpha.23",
+    "target_commitish": "afca67d8ff5451c30e0352114cd8201d97802a8c",
+    "draft": false,
+    "prerelease": true,
+    "html_url": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.23",
+    "published_at": "2026-10-29T19:35:28Z"
+  },
+  "sourceCommit": "afca67d8ff5451c30e0352114cd8201d97802a8c",
+  "anonymousAssets": [
+    {
+      "id": 689674062,
+      "file": "kaishi-v26-parents.apk",
+      "bytes": 55215384,
+      "sha256": "c35e80a378d652b381d3dc1c4648c9b2fcb3f1a9c53d49baee8b2347410ea89a",
+      "anonymous": true
+    },
+    {
+      "id": 689674051,
+      "file": "kaishi-v26-standard.apk",
+      "bytes": 55186712,
+      "sha256": "bbcce530c3bc15b4662ef9d3bd0e4200d5445f00b777b07184334bb10ec49f79",
+      "anonymous": true
+    },
+    {
+      "id": 689674055,
+      "file": "SHA256SUMS",
+      "bytes": 267,
+      "sha256": "03e0c7cbd451af54fc4d2a140929261d0837232309ce3160d7a13ed7ced684d3",
+      "anonymous": true
+    },
+    {
+      "id": 689674048,
+      "file": "testing-manifest.json",
+      "bytes": 31195,
+      "sha256": "94ca11b691a5a421ccaa0e12190a0a859b8a8d17a6a831a4a6a20f7154ea97c7",
+      "anonymous": true
+    }
+  ],
+  "source": {
+    "anonymousTreeMatchedGit": true,
+    "blobs": 1536,
+    "anonymousManifestSha256": "2866a42ef58733b89a4b26326ae31cec1a088606ead7db0dd3111ff4cab342a7"
+  },
+  "oldReleasesAndAssetsPreserved": 10,
+  "previousTagsPreserved": 11,
+  "v25DraftAndAssetsPreserved": true,
+  "androidSourceSha256": "efbccd8382b9554fa6e0eda3d9c564a22858728a5417a1aa66099cf9f1a516af",
+  "softwareAcceptance": "s70-software-acceptance.json",
+  "xiaomiHardwareTested": false,
+  "fullSystemRemoteInputAccepted": false,
+  "workBuddyClientTested": false,
+  "limits": [
+    "Final channel test dispatches contiguous UI-thread key events. First OS-injected confirm failed; cause not established.",
+    "Standard settings screenshot failed with HTTP503; geometric visibility assertion passed.",
+    "Loaded-content filters; current-source search.",
+    "Original report resource pack not provided; Xiaomi ecosystem and NAS hardware require maintainer acceptance."
+  ],
+  "freshSourceInstall": {
+    "status": "passed",
+    "archiveSha256": "e80b8a866c066b4da574f4c861ecb5272d69ed1cc3d55956713c461bbe6e084c",
+    "sourceFilesVerified": 1535,
+    "npmCi": true,
+    "freshPythonVenv": true,
+    "checkedStart": true,
+    "browserErrors": [],
+    "privateStateStatus": 401,
+    "machineInterfaceDefaultStatus": 503,
+    "serviceStopped": true,
+    "temporaryDirectoryRemoved": true
+  },
+  "reviewedSource": {
+    "archiveSha256": "e80b8a866c066b4da574f4c861ecb5272d69ed1cc3d55956713c461bbe6e084c",
+    "files": 1536,
+    "textScanClean": true,
+    "documentationLinksChecked": 644
+  }
+}
