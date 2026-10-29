@@ -1,0 +1,24 @@
+{
+  "error": "java.lang.AssertionError: last settings row not fully reachable",
+  "scope": "ui",
+  "passed": false,
+  "images": [
+    "section.png",
+    "grid.png"
+  ],
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "checks": [
+    "entry directly shows film information",
+    "category tree on left has categories and no movie titles",
+    "expanded sidebar uses five poster columns",
+    "poster titles allow two lines",
+    "append unique upstream page without a conflicting local page count",
+    "year filter states loaded-content scope and accurate count",
+    "collapsed navigation uses six columns",
+    "IME search action submits without navigating through keyboard candidates"
+  ],
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticCatalogueAndEpg": true
+}

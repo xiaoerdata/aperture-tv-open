@@ -1,20 +1,20 @@
 # 下载与版本
 
-**开视仅适配小米电视，Android 8+。** 当前为 **v24 / 0.2.0-alpha.21 Alpha测试版**，尚非稳定版。新版提供标准版和爸妈版，均使用独立包名、专用发行签名，关闭调试。
+**开视仅适配小米电视，Android 8+。** 当前为 **v25 / 0.2.0-alpha.22 Alpha测试版**，尚非稳定版。新版提供标准版和爸妈版，均使用独立包名、专用发行签名，关闭调试。
 
-[本次发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.21) · [源码](https://github.com/xiaoerdata/aperture-tv-open) · [问题反馈](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)
+[本次发布](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.22) · [源码](https://github.com/xiaoerdata/aperture-tv-open) · [问题反馈](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)
 
 | 下载 | 内容 |
 | --- | --- |
-| [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/kaishi-v24-standard.apk) | 四个观看入口、折叠应用、NAS与家庭分区 |
-| [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/kaishi-v24-parents.apk) | 看电视、看电视剧、看电影、看综艺与常用应用 |
-| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.21.tar.gz) | 家庭服务、二次开发与本地构建 |
-| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/SHA256SUMS) | 两版APK和测试清单SHA-256 |
-| [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.21/testing-manifest.json) | 包名、版本、签名、源码与验收边界 |
+| [标准版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.22/kaishi-v25-standard.apk) | 四个观看入口、折叠应用、NAS与家庭分区 |
+| [爸妈版APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.22/kaishi-v25-parents.apk) | 看电视、看电视剧、看电影、看综艺与常用应用 |
+| [源码包](https://github.com/xiaoerdata/aperture-tv-open/archive/refs/tags/v0.2.0-alpha.22.tar.gz) | 家庭服务、二次开发与本地构建 |
+| [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.22/SHA256SUMS) | 两版APK和测试清单SHA-256 |
+| [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.22/testing-manifest.json) | 包名、版本、签名、源码与验收边界 |
 
-## 从v18—v23升级
+## 从v18—v24升级
 
-v24沿用v18—v23的两个包名与发行证书，可在原版上更新，不需卸载或重新配对。安装前保留数据；APK分别为52.63/52.66 MiB，默认共用ARM32/64，不需要选择CPU架构。
+v25沿用v18—v24的两个包名与发行证书，可在原版上更新，不需卸载或重新配对。安装前保留数据；两版安装包大小以本次测试清单为准，默认共用ARM32/64，不需要选择CPU架构。
 
 ## 与v17并存
 
@@ -31,16 +31,14 @@ v24沿用v18—v23的两个包名与发行证书，可在原版上更新，不�
 
 ## 安装与校验
 
-完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v24-standard.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
+完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v25-standard.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
 
 安装路径见[小米安装说明](../INSTALL.md)。默认作为普通应用，保留原桌面、小爱和小米账号。本机应用、内嵌影院、手输NAS不依赖电脑家庭服务；照片、留言、统一片库和WorkBuddy另需运行家庭服务。家庭服务默认HTTPS；选择私网IP的HTTP时，须在电视明确开启，CLI另加 `--allow-lan-http`。NAS凭证交接与Agent安装卸载仍要求可信HTTPS。
 
 ## 本次改动与测试范围
 
-播放器改为简洁底部控制条。遥控器左右键直接快退/快进，松开跳转；暂停时调整进度仍保持暂停。收藏、选集和重试放在同窗口“更多”侧栏。
+分类与筛选放在左侧；右侧默认五列海报、两行片名，“加载更多”追加去重，不再显示两套页码。年份/地区仅筛选已加载内容，搜索限当前来源。直播直接全屏，频道列表为左侧覆盖层；确认键从按下到松开保持同一操作目标。“更多”提供音轨、节目单等真实选项，点播支持变速。
 
-电视、电影、电视剧、综艺入口采用左侧选择、右侧内容：有配置时直接打开直播或影片信息，来源/分类/节目在左侧切换。空配置显示设置入口。修复M3U和TVBox内联频道相对台标保存后无法加载的问题。
+首页观看入口和应用图标放大，常用应用首次恢复展开；“所有应用”直接进入五列原厂图标应用墙。来源设置支持独立节目单地址；未配置或无匹配数据会如实显示。
 
-使用公开短片与HLS样流验证，见[本轮清单](ACCEPTANCE-S66.md)。公开样例与测试媒体不内置到安装包。原61项片单命中率、原包重复分组根因未独立复现；小米电视、小爱、米家、NAS硬件与WorkBuddy由维护者测试。产品继续为Alpha。
-
-已缓存的旧相对台标若没有保留原始导入地址，无法可靠补出完整URL；重新导入原来源后使用新的解析方式。不会猜测地址或删除可播放频道。
+[修复范围、复现与限制](V24-FEEDBACK-S70.md)。浏览器、主机JVM、Android TV模拟器的验证分别记录，不等同小米真机验收。本次没有用户报告的原始资源包，不据此声称所有影视仓均兼容。系统小爱、米家、NAS与WorkBuddy由维护者继续复验。

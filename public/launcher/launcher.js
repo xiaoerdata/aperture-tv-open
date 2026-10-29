@@ -222,6 +222,7 @@
     $(slot).onclick = function () { if (local) nativeAction(name ? 'open-' + slot : 'choose-shortcuts'); else openPane('shortcuts'); };
   });
   var allGlyph = element('span', 'shortcut-glyph', '▦'); allGlyph.setAttribute('aria-hidden', 'true'); $('shortcut-all').insertBefore(allGlyph, $('shortcut-all').firstChild);
+  $('home-app-all').onclick = function () { if (local) nativeAction('apps'); else openPane('shortcuts'); };
   $('shortcut-all').onclick = function () { if (local) nativeAction('apps'); else openPane('shortcuts'); };
 
   $('entry-family').onclick = function () { familyPage('family'); };
@@ -447,7 +448,7 @@
           return true;
         }
         if (active.closest && active.closest('.home-app-list')) {
-          if (name === 'ArrowUp') { personal.setApps(false,true); return true; }
+          if (name === 'ArrowUp') return focusNode($('dock-toggle')) || true;
           if (name === 'ArrowDown') return focusNode($('page-down')) || true;
           var apps = Array.prototype.slice.call($('home-app-list').querySelectorAll('button')).filter(function (n) { return n.tabIndex !== -1 && n.offsetWidth; }), appIndex = apps.indexOf(active);
           if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(apps[appIndex + (name === 'ArrowLeft' ? -1 : 1)]) || true;

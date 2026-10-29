@@ -1,0 +1,18 @@
+{
+  "error": "java.lang.AssertionError: long confirm was dismissed or paused",
+  "scope": "live",
+  "passed": false,
+  "images": [
+    "settings.png"
+  ],
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "checks": [
+    "live starts in fullscreen with no resizing sidebar",
+    "More owns its confirm key across auto-hide and opens options instead of channels",
+    "remote down and confirm changes to channel two and does not pause"
+  ],
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticCatalogueAndEpg": true
+}

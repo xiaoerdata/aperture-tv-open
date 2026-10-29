@@ -51,7 +51,7 @@ public final class CinemaActivity extends Activity {
     private volatile int generation;private boolean destroyed,playingView,prepared;private String view="movies",health="尚未检查";
     private Runnable shelfRefresh;private Runnable back;private MediaPlayer player;private PlaybackSession session;private TextView playerStatus;
     private List<CinemaCatalog.Episode> queue=new ArrayList<>();private int playingIndex;private boolean liveQueue;private Runnable playerBack;
-    private boolean fileAllowHttp;private int healthCursor;
+    private boolean controlsConfirmHeld;private boolean fileAllowHttp;private int healthCursor;
     private CinemaShelf shelf;private String shelfWarning="";private CinemaCatalog.Live currentLive;
     private List<org.json.JSONObject> queueRefs=new ArrayList<>();private String queueLine="";private boolean hasPlayed;
     private final Runnable checkpoint=new Runnable(){public void run(){if(!destroyed){saveProgress(false);main.postDelayed(this,15000);}}};
@@ -63,26 +63,35 @@ public final class CinemaActivity extends Activity {
         if(sectionFullscreen){sectionLayout=null;setContentView(body);return;}
         sectionLayout=new CinemaSectionView(this,title(),body);setContentView(sectionLayout.stage);refreshSectionRail();
     }
+    private boolean railCollapsed,sourcesExpanded,categoriesExpanded=true,filtersExpanded;
+    private String browseWord,browseName="片单",filterYear="",filterArea="";private boolean browseActive;
     private void refreshSectionRail(){
-        if(sectionLayout==null)return;List<CinemaSectionView.Entry> rows=new ArrayList<>();boolean live="live".equals(view);
-        if("sources".equals(sectionRailMode)){
-            if(live){for(CinemaCatalog.Live source:CinemaLiveSources.visible(config.lives))rows.add(new CinemaSectionView.Entry(source.name,source==currentLive,()->{sectionRailMode="programmes";sectionLive(source,0);}));}
-            else for(CinemaCatalog.Site site:config.sites)if(site.supports(view))rows.add(new CinemaSectionView.Entry(site.name,site==sectionSite,()->{sectionRailMode="programmes";sectionLoad(site,null,1);}));
-        }else if("categories".equals(sectionRailMode)){
-            for(CinemaCatalog.Category category:sectionCategories)rows.add(new CinemaSectionView.Entry(category.name,category.id.equals(sectionCategory),()->{sectionRailMode="programmes";sectionLoad(sectionSite,category.id,1);}));
-        }else if(live){for(int i=0;i<sectionChannels.size();i++){final int at=i;CinemaCatalog.Channel channel=sectionChannels.get(i);rows.add(new CinemaSectionView.Entry(channel.name,playingView&&playingIndex==i,()->playChannels(sectionChannels,at,0,this::finish)));}}
-        else{
-            for(CinemaCatalog.Item item:sectionItems)rows.add(new CinemaSectionView.Entry(item.name,item.id.equals(sectionItemId),()->{sectionItemId=item.id;details(sectionSite,item,this::finish);}));
-            if(sectionPage>1)rows.add(new CinemaSectionView.Entry("上一批",false,()->sectionLoad(sectionSite,sectionCategory,sectionPage-1)));
-            if(sectionPage<sectionPages)rows.add(new CinemaSectionView.Entry("下一批",false,()->sectionLoad(sectionSite,sectionCategory,sectionPage+1)));
-            if(sectionSite!=null)rows.add(new CinemaSectionView.Entry("搜索",false,()->search(sectionSite)));
+        if(sectionLayout==null)return;
+        boolean live="live".equals(view);List<CinemaSectionView.Entry> rows=new ArrayList<>();
+        rows.add(new CinemaSectionView.Entry((sourcesExpanded?"▾ ":"▸ ")+"来源",false,()->{sourcesExpanded=!sourcesExpanded;refreshSectionRail();}));
+        if(sourcesExpanded){
+            if(live){for(CinemaCatalog.Live source:CinemaLiveSources.visible(config.lives))rows.add(new CinemaSectionView.Entry(source.name,source==currentLive,()->sectionLive(source,0),1));}
+            else for(CinemaCatalog.Site site:config.sites)if(site.supports(view))rows.add(new CinemaSectionView.Entry(site.name,site==sectionSite,()->{browseWord=null;filterYear="";filterArea="";sectionCategory=null;sectionLoad(site,null,1);},1));
         }
-        String category="分类";for(CinemaCatalog.Category value:sectionCategories)if(value.id.equals(sectionCategory))category=value.name;
-        sectionLayout.render(live?(currentLive==null?"":currentLive.name):(sectionSite==null?"":sectionSite.name),()->{sectionRailMode="sources".equals(sectionRailMode)?"programmes":"sources";refreshSectionRail();},category,!live&&sectionCategories.size()>1?()->{sectionRailMode="categories".equals(sectionRailMode)?"programmes":"categories";refreshSectionRail();}:null,"sources".equals(sectionRailMode)?"来源":"categories".equals(sectionRailMode)?"分类":live?"节目":"片单",rows,this::settings,this::shelfHome);
+        if(live){
+            LinkedHashSet<String> groups=new LinkedHashSet<>();for(CinemaCatalog.Channel c:sectionChannels)groups.add(c.group);
+            for(String group:groups){rows.add(new CinemaSectionView.Entry(group,false,()->{sectionRailMode=group;refreshSectionRail();}));if(group.equals(sectionRailMode)||groups.size()==1)for(int i=0;i<sectionChannels.size();i++)if(group.equals(sectionChannels.get(i).group)){final int at=i;rows.add(new CinemaSectionView.Entry(sectionChannels.get(i).name,playingIndex==i,()->playChannels(sectionChannels,at,0,this::finish),1));}}
+        }else{
+            rows.add(new CinemaSectionView.Entry((categoriesExpanded?"▾ ":"▸ ")+"分类",false,()->{categoriesExpanded=!categoriesExpanded;refreshSectionRail();}));
+            if(categoriesExpanded)for(CinemaCatalog.Category category:sectionCategories)rows.add(new CinemaSectionView.Entry(category.name,category.id.equals(sectionCategory)&&browseWord==null,()->{filterYear="";filterArea="";videos(sectionSite,category.id,category.name,1,null);},1));
+            rows.add(new CinemaSectionView.Entry((filtersExpanded?"▾ ":"▸ ")+"筛选 · 已加载内容",false,()->{filtersExpanded=!filtersExpanded;refreshSectionRail();}));
+            if(filtersExpanded){rows.add(new CinemaSectionView.Entry("年份"+(filterYear.isEmpty()?" · 全部":" · "+filterYear),false,()->filter(false),1));rows.add(new CinemaSectionView.Entry("地区"+(filterArea.isEmpty()?" · 全部":" · "+filterArea),false,()->filter(true),1));}
+        }
+        sectionLayout.render(rows,live?null:()->{if(sectionSite!=null)search(sectionSite);},live?null:()->{if(sectionSite!=null){browseActive=true;renderBrowse();}},this::settings,this::shelfHome);
+        sectionLayout.collapsed(railCollapsed);sectionLayout.onCollapse=()->{railCollapsed=!railCollapsed;if(browseActive)renderBrowse();else sectionLayout.collapsed(railCollapsed);};
+    }
+    private void filter(boolean area){
+        LinkedHashSet<String> values=new LinkedHashSet<>();values.add("全部");for(CinemaCatalog.Item item:sectionItems){String value=area?item.area:item.year;if(!value.isEmpty())values.add(value);}
+        String[] choices=values.toArray(new String[0]);TvDialogs.menu(this,area?"地区 · 已加载内容":"年份 · 已加载内容",choices,(d,i)->{if(area)filterArea=i==0?"":choices[i];else filterYear=i==0?"":choices[i];renderBrowse();});
     }
     private static final class SectionPage {CinemaCatalog.Page page;List<CinemaCatalog.Category> categories;String category;}
     private void sectionLoad(CinemaCatalog.Site site,String category,int page){
-        sectionFullscreen=false;sectionSite=site;sectionCategory=category;sectionPage=page;sectionItems=new ArrayList<>();sectionRailMode="programmes";
+        sectionFullscreen=false;sectionSite=site;sectionCategory=category;sectionPage=page;browseActive=false;sectionRailMode="programmes";
         task(title(),this::finish,()->{
             SectionPage result=new SectionPage();CinemaCatalog.Page home=siteHome(site);result.categories=CinemaResourcePack.categories(site,home,view);
             if(result.categories.isEmpty()&&!"variety".equals(view)&&site.sections.isEmpty())result.categories=home.categories;
@@ -107,6 +116,7 @@ public final class CinemaActivity extends Activity {
         session=new PlaybackSession(new PlaybackAudioFocus((AudioManager)getSystemService(AUDIO_SERVICE),main),new PlaybackSession.Output(){public void start(){if(player!=null)player.start();}public void pause(){if(player!=null&&prepared)player.pause();}public void changed(PlaybackSession.State s){playState(s);}});
         display.bind(session::active);
         try{config=vault.read();}catch(Exception invalid){config=new CinemaCatalog.Config(false);health="保存的来源无法读取，请重新导入";}
+        try{List<String> guides=vault.guideSources(config.epgs);config.epgs.clear();config.epgs.addAll(guides);}catch(Exception unreadable){health="节目单设置无法读取";}
         try{shelf=vault.shelf();}catch(Exception unreadable){try{shelf=new CinemaShelf("[]");}catch(Exception impossible){throw new IllegalStateException(impossible);}shelfWarning="观看记录无法读取，旧记录未覆盖";}
         if("settings".equals(asked))settings();else home();main.postDelayed(periodic,900000);main.postDelayed(checkpoint,15000);main.post(programmeClock);
     }
@@ -117,7 +127,7 @@ public final class CinemaActivity extends Activity {
     private Button button(LinearLayout parent,String text,Runnable action){
         Button b=TvUi.button(this,text,action);if(parent!=null){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-2,-2);p.setMargins(0,dp(6),0,dp(6));parent.addView(b,p);}return b;
     }
-    private void release(){entryIntent.cancel();playerProgramme=null;programmePanel=null;if(livePanel!=null){livePanel.close();livePanel=null;}if(timeline!=null){timeline.close();timeline=null;}main.removeCallbacks(hidePlayerControls);playerOverlay=null;videoSurface=null;playerToggle=null;playerMore=null;playerMenu=null;playerStage=null;saveProgress(false);session.reset();prepared=false;if(player!=null){player.release();player=null;}getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);playerStatus=null;}
+    private void release(){controlsConfirmHeld=false;entryIntent.cancel();playerProgramme=null;programmePanel=null;if(livePanel!=null){livePanel.close();livePanel=null;}if(timeline!=null){timeline.close();timeline=null;}main.removeCallbacks(hidePlayerControls);playerOverlay=null;videoSurface=null;playerToggle=null;playerMore=null;playerMenu=null;playerStage=null;saveProgress(false);session.reset();prepared=false;if(player!=null){player.release();player=null;}getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);playerStatus=null;}
     private void invalidate(){generation++;if(artwork!=null)artwork.cancel();if(info!=null)info.cancel();http.cancel();http.deadline(0);if(plugins!=null)plugins.cancelPending();}
     private void screen(String title,Runnable previous){
         closeSettings();invalidate();release();playingView=false;channelProgrammes.clear();back=previous;shelfRefresh=null;
@@ -137,7 +147,7 @@ public final class CinemaActivity extends Activity {
     }
     private void grid(String title,List<Action> actions,int page,Runnable previous,GridCursor cursor){
         screen(title,previous);int pages=Math.max(1,(actions.size()+11)/12),at=Math.max(0,Math.min(page,pages-1));
-        boolean posters=false;for(Action a:actions)if(a.item!=null){posters=true;break;}int columns=cursor.episodes?(BuildConfig.PARENTS_EDITION?4:6):posters?(BuildConfig.PARENTS_EDITION?5:7):3;GridLayout cells=new GridLayout(this);cells.setColumnCount(columns);cells.setClipChildren(false);content.addView(cells);
+        boolean posters=false;for(Action a:actions)if(a.item!=null){posters=true;break;}int columns=cursor.episodes?(BuildConfig.PARENTS_EDITION?4:6):posters?5:3;GridLayout cells=new GridLayout(this);cells.setColumnCount(columns);cells.setClipChildren(false);content.addView(cells);
         for(int i=at*12;i<Math.min(actions.size(),at*12+12);i++){
             final int index=i;Action a=actions.get(i);View tile;
             Runnable activate=()->{cursor.selected=index;cursor.scrollY=((ScrollView)content.getParent()).getScrollY();a.run.run();};
@@ -157,7 +167,7 @@ public final class CinemaActivity extends Activity {
     private LinearLayout focusTile(String name,Runnable run){LinearLayout tile=new LinearLayout(this);tile.setOrientation(LinearLayout.VERTICAL);tile.setPadding(dp(6),dp(6),dp(6),dp(6));tile.setBackground(TvUi.states(this));tile.setFocusable(true);tile.setClickable(true);tile.setContentDescription(name);tile.setOnClickListener(v->run.run());tile.setOnFocusChangeListener((v,f)->{v.setScaleX(1);v.setScaleY(1);});return tile;}
     private View poster(Action action,Runnable run){
         LinearLayout tile=focusTile(action.name,run);CinemaPoster frame=new CinemaPoster(this,action.name);android.widget.ImageView image=frame.image;tile.addView(frame,new LinearLayout.LayoutParams(-1,0,1));
-        TextView name=label(action.name,BuildConfig.PARENTS_EDITION?22:18);name.setSingleLine();name.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(name);TextView remark=label(action.item.remark.isEmpty()?action.item.year:action.item.remark,15);remark.setTextColor(MUTED);remark.setSingleLine();remark.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(remark,new LinearLayout.LayoutParams(-1,-2));
+        TextView name=label(action.name,BuildConfig.PARENTS_EDITION?22:18);name.setMaxLines(2);name.setMinLines(2);name.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(name);TextView remark=label(action.item.remark.isEmpty()?action.item.year:action.item.remark,15);remark.setTextColor(MUTED);remark.setSingleLine();remark.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(remark,new LinearLayout.LayoutParams(-1,-2));
         artwork.bind(image,action.image,action.base,config.allowHttp,()->{int turn=generation;String kind="movies".equals(view)?"movie":"series";info.lookup(action.item.name,action.item.year,kind,false,(match,candidates,state)->{if(generation!=turn||match==null)return;artwork.bind(image,match.optString("poster"),"",false);});});return tile;
     }
     private View channelTile(Action action,Runnable run){
@@ -198,8 +208,12 @@ public final class CinemaActivity extends Activity {
     private void sourcesFocus(){if(root!=null)root.getChildAt(0).requestFocus();}
     private <T> void task(String title,Runnable previous,Work<T> work,Done<T> done){
         screen(title,previous);status.setText("正在读取…");int turn=generation;
-        button(content,"返回",previous);
-        try{io.execute(()->{if(destroyed||generation!=turn)return;try{T value=work.run();main.post(()->{if(destroyed||generation!=turn)return;try{done.run(value);}catch(Exception error){status.setText(message(error));}});}catch(Exception error){main.post(()->{if(!destroyed&&generation==turn){if(error instanceof PluginTrust){confirmPlugin(((PluginTrust)error).candidate,()->task(title,previous,work,done));}else status.setText(message(error));}});}});}catch(java.util.concurrent.RejectedExecutionException busy){status.setText("操作较多，请返回后重试");}
+        content.addView(label("读取来源内容",22));button(content,"返回",previous);
+        try{io.execute(()->{if(destroyed||generation!=turn)return;try{T value=work.run();main.post(()->{if(destroyed||generation!=turn)return;try{done.run(value);}catch(Exception error){taskFailure(error,()->task(title,previous,work,done));}});}catch(Exception error){main.post(()->{if(!destroyed&&generation==turn){if(error instanceof PluginTrust){confirmPlugin(((PluginTrust)error).candidate,()->task(title,previous,work,done));}else taskFailure(error,()->task(title,previous,work,done));}});}});}catch(java.util.concurrent.RejectedExecutionException busy){status.setText("操作较多，请返回后重试");}
+    }
+    private void taskFailure(Exception error,Runnable retry){
+        String text=message(error);if(text==null||text.trim().isEmpty())text="来源暂时不可用";String lower=text.toLowerCase(java.util.Locale.ROOT);if(lower.contains("timeout")||lower.contains("timed out"))text="来源响应超时";else if(lower.contains("unable to resolve")||lower.contains("connect"))text="暂时无法连接来源";
+        status.setText(text);content.removeAllViews();content.addView(label("内容暂时无法读取",24));button(content,"重试",retry).requestFocus();button(content,"切换来源",()->{railCollapsed=false;sourcesExpanded=true;refreshSectionRail();if(sectionLayout!=null)sectionLayout.focusFirst();});button(content,"来源设置",this::settings);
     }
     private static final class PluginTrust extends java.io.IOException {final CinemaPlugins.Candidate candidate;PluginTrust(CinemaPlugins.Candidate candidate){super("插件需要确认");this.candidate=candidate;}}
     private CinemaPlugins.Candidate plugin(CinemaCatalog.Site site)throws Exception {
@@ -286,28 +300,38 @@ public final class CinemaActivity extends Activity {
         List<Action> actions=new ArrayList<>();for(CinemaCatalog.Site site:config.sites)if(site.supports(view))actions.add(new Action(site.name,()->categories(site)));grid(title(),actions,0,this::finish);
         if(actions.isEmpty()){button(content,"设置来源",this::settings).requestFocus();status.setText("尚未配置此分类。可导入开视资源包或 TVBox 配置。");}
     }
-    private void categories(CinemaCatalog.Site site){
-        task(site.name,this::sites,()->siteHome(site),data->{
-            List<Action> actions=new ArrayList<>();actions.add(new Action("搜索",()->search(site)));
-            List<CinemaCatalog.Category> selected=CinemaResourcePack.categories(site,data,view);boolean declared=site.sections.size()==1&&site.sections.contains(view),legacy=site.sections.isEmpty();
-            List<CinemaCatalog.Category> shown=legacy&&!"variety".equals(view)&&selected.isEmpty()?data.categories:selected;
-            for(CinemaCatalog.Category category:shown)actions.add(new Action(category.name,()->videos(site,category.id,category.name,1,null)));
-            if("library".equals(view)||declared||legacy&&!"variety".equals(view)){actions.add(new Action("全部",()->videos(site,null,"全部",1,null)));}grid(site.name,actions,0,this::sites);
-            if("variety".equals(view)&&selected.isEmpty()&&!declared)status.setText("此来源未提供综艺分类，可在资源包中配置分类编号。");
+    private void categories(CinemaCatalog.Site site){sectionLoad(site,null,1);}
+    private void search(CinemaCatalog.Site site){
+        EditText input=new EditText(this);input.setSingleLine();input.setHint("片名");input.setTextColor(FG);input.setTextSize(22);input.setImeOptions(android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH);input.setInputType(android.text.InputType.TYPE_CLASS_TEXT);
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle("搜索 · "+site.name).setView(input).setPositiveButton("搜索",null).setNegativeButton("返回",null).create();
+        Runnable submit=()->{String word=input.getText().toString().trim();if(word.isEmpty()||word.length()>80){input.setError("请输入1至80字的片名");return;}((android.view.inputmethod.InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(input.getWindowToken(),0);dialog.dismiss();filterYear="";filterArea="";videos(site,null,"搜索 · "+word,1,word);};
+        dialog.setOnShowListener(d->{Button go=dialog.getButton(AlertDialog.BUTTON_POSITIVE);TvUi.styleButton(this,go);go.setOnClickListener(v->submit.run());input.setOnEditorActionListener((v,id,event)->{if(id==android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH||id==android.view.inputmethod.EditorInfo.IME_ACTION_DONE){submit.run();return true;}return false;});input.setOnKeyListener((v,key,event)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN||key==KeyEvent.KEYCODE_DPAD_RIGHT){if(event.getAction()==KeyEvent.ACTION_DOWN){((android.view.inputmethod.InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(input.getWindowToken(),0);go.requestFocus();}return true;}return false;});});dialog.show();settingsDialog=dialog;
+    }
+    private void videos(CinemaCatalog.Site site,String category,String name,int page,String word){
+        sectionFullscreen=false;sectionSite=site;sectionCategory=category;browseName=name;browseWord=word;browseActive=true;
+        task(name,this::home,()->catalogue(site,category,page,word,null),data->{
+            if(page==1)sectionItems=new ArrayList<>();java.util.Set<String> seen=new java.util.HashSet<>();for(CinemaCatalog.Item item:sectionItems)seen.add(item.id);for(CinemaCatalog.Item item:data.items)if(seen.add(item.id)&&sectionItems.size()<400)sectionItems.add(item);
+            sectionPage=page;sectionPages=data.pages;recentCatalogues.put(source(site),new ArrayList<>(sectionItems));renderBrowse();
         });
     }
-    private void search(CinemaCatalog.Site site){
-        EditText input=new EditText(this);input.setSingleLine();input.setHint("片名");input.setTextSize(18);
-        new AlertDialog.Builder(this).setTitle("搜索 · "+site.name).setView(input).setPositiveButton("搜索",(d,w)->{String word=input.getText().toString().trim();if(!word.isEmpty()&&word.length()<=80)videos(site,null,"搜索",1,word);}).setNegativeButton("返回",null).show();
+    private void renderBrowse(){
+        sectionFullscreen=false;browseActive=true;screen(browseName,this::home);
+        List<CinemaCatalog.Item> shown=CinemaBrowse.items(sectionItems,browseWord,filterYear,filterArea);
+        status.setText("已加载 "+sectionItems.size()+" 部"+(filterYear.isEmpty()&&filterArea.isEmpty()?"":" · 筛选后 "+shown.size()+" 部")+(browseWord==null?"":" · 当前来源"));
+        LinearLayout filters=new LinearLayout(this);content.addView(filters);button(filters,filterYear.isEmpty()?"年份 · 全部":filterYear,()->filter(false));button(filters,filterArea.isEmpty()?"地区 · 全部":filterArea,()->filter(true));
+        GridLayout cells=new GridLayout(this);int columns=railCollapsed?6:5;cells.setColumnCount(columns);content.addView(cells);
+        for(int i=0;i<shown.size();i++){CinemaCatalog.Item item=shown.get(i);View tile=poster(new Action(item,sectionSite.api,()->{}),()->details(sectionSite,item,this::renderBrowse));GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec(i%columns,1f);p.width=0;p.height=Math.round(getResources().getDisplayMetrics().heightPixels*.37f);p.setMargins(dp(5),dp(6),dp(5),dp(8));cells.addView(tile,p);}
+        if(shown.isEmpty())content.addView(label(sectionItems.isEmpty()?"暂无影片，可搜索或切换来源":"已加载内容中没有匹配项，可清除筛选或加载更多",22));
+        if(sectionPage<sectionPages&&sectionItems.size()<400)button(content,"加载更多",()->videos(sectionSite,sectionCategory,browseName,sectionPage+1,browseWord));
+        else if(sectionItems.size()>=400)content.addView(label("已加载400部，请按分类或关键词缩小范围",18));
+        if(cells.getChildCount()>0){sectionLayout.linkRight(cells.getChildAt(0));cells.getChildAt(0).requestFocus();}
     }
-    private void videos(CinemaCatalog.Site site,String category,String name,int page,String word){task(name,()->categories(site),()->catalogue(site,category,page,word,null),data->{if(recentCatalogues.size()>=12&&!recentCatalogues.containsKey(source(site)))recentCatalogues.remove(recentCatalogues.keySet().iterator().next());recentCatalogues.put(source(site),new ArrayList<>(data.items));videoGrid(site,category,name,page,word,data,new GridCursor(0));});}
-    private void videoGrid(CinemaCatalog.Site site,String category,String name,int page,String word,CinemaCatalog.Page data,GridCursor cursor){List<Action> actions=new ArrayList<>();for(CinemaCatalog.Item item:data.items)actions.add(new Action(item,site.api,()->details(site,item,()->videoGrid(site,category,name,page,word,data,cursor))));if(page>1)actions.add(new Action("上一批",()->videos(site,category,name,page-1,word)));if(page<data.pages)actions.add(new Action("下一批",()->videos(site,category,name,page+1,word)));grid(data.pages>1?name+" · 第 "+page+" 批 / 共 "+data.pages+" 批":name,actions,cursor.selected/12,()->categories(site),cursor);if(word!=null&&data.items.isEmpty())status.setText("没有找到相关内容，换个关键词试试");}
     private void details(CinemaCatalog.Site site,CinemaCatalog.Item item,Runnable previous){
         sectionFullscreen=false;sectionItemId=item.id;
         task(item.name,previous,()->catalogue(site,null,1,null,item.id),data->{CinemaCatalog.Item found=null;for(CinemaCatalog.Item candidate:data.items)if(candidate.id.equals(item.id)){found=candidate;break;}if(found==null)throw new java.io.IOException("来源没有返回所选影片详情");final CinemaCatalog.Item detail=found;List<CinemaCatalog.Line> lines=CinemaCatalog.lines(detail,config.allowHttp,site.headers,site.resolved());org.json.JSONObject ref=vodRef(site,detail),saved=shelf.get(ref);List<Action> actions=new ArrayList<>();
             if(saved!=null&&saved.optLong("watchedAt")>0&&!saved.optBoolean("complete")){for(CinemaCatalog.Line line:lines)if(line.name.equals(saved.optString("line")))for(int i=0;i<line.episodes.size();i++)if(line.episodes.get(i).name.equals(saved.optString("episode"))){final int index=i;actions.add(new Action("继续 · "+line.episodes.get(i).name,()->playEpisodes(site,ref,line,index,()->details(site,item,previous))));}}
             if(actions.isEmpty()&&!lines.isEmpty()&&!lines.get(0).episodes.isEmpty())actions.add(new Action("播放",()->playEpisodes(site,ref,lines.get(0),0,()->details(site,item,previous))));
-            for(CinemaCatalog.Line line:lines)if(lines.size()>1||line.episodes.size()>1)actions.add(new Action((lines.size()==1?"选集":"选集 · "+line.name),()->episodes(site,ref,line,()->details(site,item,previous),new GridCursor(0,true))));
+            for(CinemaCatalog.Line line:lines)if(lines.size()>1||line.episodes.size()>1)actions.add(new Action((lines.size()==1?"选集":"选集"),()->episodes(site,ref,line,()->details(site,item,previous),new GridCursor(0,true))));
             actions.add(new Action(saved!=null&&saved.optBoolean("favorite")?"取消收藏":"收藏影片",()->{editShelf(next->next.toggle(ref,"favorite"));details(site,item,previous);}));
             if(!"movies".equals(view))actions.add(new Action(saved!=null&&saved.optBoolean("follow")?"取消追剧":"追剧",()->{editShelf(next->{next.toggle(ref,"follow");updateLatest(next,site,detail);});details(site,item,previous);}));
             editShelf(next->{updateLatest(next,site,detail);next.seen(ref);});detailPanel(site,detail,actions,lines,ref,previous);
@@ -323,7 +347,7 @@ public final class CinemaActivity extends Activity {
         else startPlayer(list,at,live,previous,refs,line,site,list.get(at));
     }
     private void startPlayer(List<CinemaCatalog.Episode> list,int at,boolean live,Runnable previous,List<org.json.JSONObject> refs,String line,CinemaCatalog.Site site,CinemaCatalog.Episode media){
-        sectionFullscreen=!live||sectionFullscreen;screen(list.get(at).name,previous);root.removeAllViews();root.setPadding(0,0,0,0);root.setBackgroundColor(Color.BLACK);queueSite=site;resolvedEpisode=media;hasPlayed=false;playingView=true;queueRefs=refs;queueLine=line;queue=list;playingIndex=at;liveQueue=live;playerBack=previous;entryIntent.begin(!live||display.active());session.begin();
+        sectionFullscreen=true;screen(list.get(at).name,previous);root.removeAllViews();root.setPadding(0,0,0,0);root.setBackgroundColor(Color.BLACK);queueSite=site;resolvedEpisode=media;hasPlayed=false;playingView=true;queueRefs=refs;queueLine=line;queue=list;playingIndex=at;liveQueue=live;playerBack=previous;entryIntent.begin(!live||display.active());session.begin();
         FrameLayout stage=new FrameLayout(this);playerStage=stage;stage.setBackgroundColor(Color.BLACK);SurfaceView surface=new SurfaceView(this);stage.addView(surface,new FrameLayout.LayoutParams(-1,-1,Gravity.CENTER));
         root.addView(stage,new LinearLayout.LayoutParams(-1,0,1));videoSurface=surface;surface.setFocusable(true);
         playerOverlay=new LinearLayout(this);playerOverlay.setOrientation(LinearLayout.VERTICAL);playerOverlay.setPadding(dp(40),dp(22),dp(40),dp(20));
@@ -352,16 +376,21 @@ public final class CinemaActivity extends Activity {
         List<Action> actions=new ArrayList<>();org.json.JSONObject ref=queueRefs.get(playingIndex);boolean favorite=false;try{org.json.JSONObject saved=shelf.get(ref);favorite=saved!=null&&saved.optBoolean("favorite");}catch(Exception ignored){}
         if(liveQueue&&!sectionFullscreen)actions.add(new Action("全屏播放",()->{int selected=playingIndex;sectionFullscreen=true;playChannels(playingChannels,selected,0,()->sectionLive(currentLive,selected));}));
         actions.add(new Action(favorite?"取消收藏":"收藏",()->editShelf(next->next.toggle(ref,"favorite"))));
-        if(playingIndex>0)actions.add(new Action(liveQueue?"上一台":"上一集",()->adjacent(-1)));
-        if(playingIndex+1<queue.size())actions.add(new Action(liveQueue?"下一台":"下一集",()->adjacent(1)));
+        if(!liveQueue&&playingIndex>0)actions.add(new Action("上一集",()->adjacent(-1)));
+        if(!liveQueue&&playingIndex+1<queue.size())actions.add(new Action("下一集",()->adjacent(1)));
         if(!liveQueue&&queue.size()>1)actions.add(new Action("选集",this::playerEpisodes));
         if(liveQueue&&programmePanel!=null)actions.add(new Action("节目单",()->{playerOverlay.setVisibility(View.GONE);programmePanel.show();}));
         if(!liveQueue)actions.add(new Action("从头播放",()->{if(player!=null&&prepared){player.seekTo(0);saveProgress(false);}}));
+        if(!liveQueue)actions.add(new Action("播放速度",this::playbackSpeeds));
+        if(liveQueue)actions.add(new Action("直播来源",()->{List<Action> sources=new ArrayList<>();for(CinemaCatalog.Live source:CinemaLiveSources.visible(config.lives))sources.add(new Action(source.name,()->sectionLive(source,0)));showPlayerMenu("直播来源",sources);}));
+        actions.add(new Action("音轨",this::audioTracks));
         actions.add(new Action("重试",()->play(queue,playingIndex,liveQueue,playerBack,queueRefs,queueLine,queueSite)));
         actions.add(new Action("退出播放",()->{if(playerBack!=null)playerBack.run();}));
         String[] labels=new String[actions.size()];for(int i=0;i<labels.length;i++)labels[i]=actions.get(i).name;
         showPlayerMenu("播放选项",actions);
     }
+    private void playbackSpeeds(){List<Action> choices=new ArrayList<>();String[] labels={"0.75倍","正常","1.25倍","1.5倍","2倍"};float[] speeds={.75f,1,1.25f,1.5f,2};for(int i=0;i<labels.length;i++){final float speed=speeds[i];choices.add(new Action(labels[i],()->{if(player!=null&&prepared){boolean paused=!player.isPlaying();try{player.setPlaybackParams(player.getPlaybackParams().setSpeed(speed));if(paused)player.pause();}catch(RuntimeException unsupported){playerStatus.setText("当前视频不支持变速");playerStatus.setVisibility(View.VISIBLE);}}}));}showPlayerMenu("播放速度",choices);}
+    private void audioTracks(){if(player==null||!prepared)return;android.media.MediaPlayer.TrackInfo[] tracks=player.getTrackInfo();List<Action> choices=new ArrayList<>();for(int i=0;i<tracks.length;i++)if(tracks[i].getTrackType()==android.media.MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO){final int id=i;choices.add(new Action("音轨 "+(choices.size()+1)+" · "+tracks[i].getLanguage(),()->{if(player!=null&&prepared)try{player.selectTrack(id);}catch(RuntimeException ignored){playerStatus.setText("音轨切换失败");playerStatus.setVisibility(View.VISIBLE);}}));}if(choices.isEmpty())choices.add(new Action("当前视频未提供可选音轨",()->{}));showPlayerMenu("音轨",choices);}
     private void playerEpisodes(){List<Action> actions=new ArrayList<>();for(int i=0;i<queue.size();i++){final int at=i;actions.add(new Action(queue.get(i).name,()->play(queue,at,false,playerBack,queueRefs,queueLine,queueSite)));}showPlayerMenu("选集",actions);}
     private void closePlayerMenu(){if(playerMenu!=null&&playerStage!=null)playerStage.removeView(playerMenu);playerMenu=null;if(playerMore!=null)playerMore.requestFocus();showPlayerControls();}
     private void showPlayerMenu(String title,List<Action> actions){
@@ -371,7 +400,7 @@ public final class CinemaActivity extends Activity {
         for(Action action:actions){Button button=PlayerChrome.control(this,action.name,()->{closePlayerMenu();action.run.run();});options.addView(button,new LinearLayout.LayoutParams(-1,dp(56)));}
         FrameLayout.LayoutParams layout=new FrameLayout.LayoutParams(dp(310),Math.min(dp(520),Math.round(getResources().getDisplayMetrics().heightPixels*.76f)),Gravity.END|Gravity.CENTER_VERTICAL);layout.setMargins(dp(20),dp(20),dp(28),dp(20));playerStage.addView(panel,layout);playerMenu=panel;if(options.getChildCount()>0)options.getChildAt(0).requestFocus();
     }
-    private final Runnable hidePlayerControls=()->{if(playingView&&playerMenu==null&&session.state()==PlaybackSession.State.PLAYING&&(timeline==null||!timeline.interacting())&&(livePanel==null||!livePanel.open())&&(programmePanel==null||!programmePanel.open())&&playerOverlay!=null){playerOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();}};
+    private final Runnable hidePlayerControls=()->{if(playingView&&!controlsConfirmHeld&&playerMenu==null&&session.state()==PlaybackSession.State.PLAYING&&(timeline==null||!timeline.interacting())&&(livePanel==null||!livePanel.open())&&(programmePanel==null||!programmePanel.open())&&playerOverlay!=null){playerOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();}};
     private void showPlayerControls(){if(playerOverlay==null)return;playerOverlay.setVisibility(View.VISIBLE);main.removeCallbacks(hidePlayerControls);main.postDelayed(hidePlayerControls,5500);}
     private void prepare(SurfaceHolder holder,SurfaceView surface,FrameLayout stage,String url,int turn){
         if(player!=null){player.setDisplay(holder);return;}
@@ -387,12 +416,12 @@ public final class CinemaActivity extends Activity {
         if(state!=PlaybackSession.State.PLAYING){saveProgress(state==PlaybackSession.State.COMPLETED);}
         if(state!=PlaybackSession.State.PLAYING)getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);playerStatus.setText(value);playerStatus.setVisibility(state==PlaybackSession.State.PLAYING||state==PlaybackSession.State.PAUSED?View.GONE:View.VISIBLE);if(playerToggle!=null)PlayerChrome.transport(this,playerToggle,state==PlaybackSession.State.PLAYING);
     }
-    private void adjacent(int delta){int next=playingIndex+delta;if(next>=0&&next<queue.size())play(queue,next,liveQueue,playerBack,queueRefs,queueLine,queueSite);}
+    private void adjacent(int delta){int next=playingIndex+delta;if(next>=0&&next<queue.size()){if(liveQueue)playChannels(playingChannels,next,0,playerBack);else play(queue,next,false,playerBack,queueRefs,queueLine,queueSite);}}
     private void seek(int delta){if(!liveQueue&&prepared&&player!=null)try{player.seekTo(Math.max(0,Math.min(player.getDuration(),player.getCurrentPosition()+delta)));}catch(RuntimeException ignored){}}
     private void settings(){
         closeSettings();if(root==null)home();
         LinearLayout form=new LinearLayout(this);form.setOrientation(LinearLayout.VERTICAL);
-        TextView description=label(config.sites.size()+" 个影视站点 · "+config.lives.size()+" 个直播来源\n"+health,18);form.addView(description);
+        int catalogues=0,collections=0;for(CinemaCatalog.Site site:config.sites){if(site.type==5)collections++;else catalogues++;}TextView description=label(catalogues+" 个影视站点"+(collections==0?"":" · "+collections+" 个片单")+" · "+CinemaLiveSources.visible(config.lives).size()+" 个直播来源\n"+health,18);form.addView(description);
         EditText address=new EditText(this);address.setTextSize(18);address.setTextColor(FG);address.setSingleLine();address.setHint("开视资源包 / TVBox / M3U 地址");address.setHintTextColor(MUTED);form.addView(address);
         CheckBox allow=new CheckBox(this);allow.setText("允许本次导入 HTTP 来源");allow.setTextColor(FG);allow.setTextSize(18);allow.setChecked(config.allowHttp);form.addView(allow);
         button(form,"读取地址",()->{String value=address.getText().toString().trim();boolean policy=allow.isChecked();task("读取来源",this::settings,()->http.importUrl(value,policy),next->preview(next,0));});
@@ -401,6 +430,7 @@ public final class CinemaActivity extends Activity {
         button(form,"WorkBuddy 导入资源包",()->startActivityForResult(new Intent(this,ResourcePackAgentActivity.class),4603));
         button(form,"封面与资料",this::metadataSettings);
         button(form,"检查来源",()->checkSources(true));
+        button(form,"节目单地址",this::guideSettings);
         button(form,"观看记录与收藏",this::shelfHome);
         button(form,"检查插件更新",()->{candidates.clear();plugins.clear();home();});
         button(form,"撤销插件授权",()->new AlertDialog.Builder(this).setTitle("撤销所有插件授权？").setMessage("下次打开插件站点时需要重新确认。").setPositiveButton("撤销",(d,w)->{plugins.revokeAll();candidates.clear();settings();}).setNegativeButton("返回",null).show());
@@ -408,6 +438,10 @@ public final class CinemaActivity extends Activity {
         button(form,"家庭服务片库",()->{setResult(RESULT_OK,new Intent().putExtra("cinemaServer",view));finish();});
         button(form,"清除本机来源",()->new AlertDialog.Builder(this).setTitle("清除直播和影视来源？").setMessage("不删除NAS文件或第三方应用资料。").setPositiveButton("清除",(d,w)->{vault.clear();config=new CinemaCatalog.Config(false);health="尚未检查";settings();}).setNegativeButton("返回",null).show());
         settingsDialog=TvDialogs.panel(this,"来源设置",form);
+    }
+    private void guideSettings(){
+        EditText input=new EditText(this);input.setTextColor(FG);input.setTextSize(20);input.setHint("XMLTV 或 XMLTV.gz 地址，每行一个，最多4个");input.setText(String.join("\n",config.epgs));LinearLayout form=new LinearLayout(this);form.setOrientation(LinearLayout.VERTICAL);form.addView(input);TextView error=label("使用自己的节目单来源；频道按tvg-id或名称匹配",18);form.addView(error);
+        button(form,"保存节目单",()->{try{List<String> urls=new ArrayList<>();for(String line:input.getText().toString().split("\n"))if(!line.trim().isEmpty())urls.add(CinemaCatalog.url(line.trim(),null,config.allowHttp));if(urls.size()>4)throw new java.io.IOException("最多4个节目单地址");vault.guideSources(urls,true);config.epgs.clear();config.epgs.addAll(urls);closeSettings();if(playingView&&programmePanel!=null)guideLoader.load(config.epgs,config.allowHttp,(value,state)->updateGuide(value));else home();}catch(Exception bad){error.setText(message(bad));}});closeSettings();settingsDialog=TvDialogs.panel(this,"节目单地址",form);
     }
     private void preview(CinemaCatalog.Config next){preview(next,0);}
     private void preview(CinemaCatalog.Config next,int depth){
@@ -447,6 +481,9 @@ public final class CinemaActivity extends Activity {
         if(playingView&&programmePanel!=null&&programmePanel.key(event))return true;
         if(playingView&&programmePanel!=null&&programmePanel.open())return super.dispatchKeyEvent(event);
         if(playingView&&liveQueue&&livePanel!=null&&livePanel.key(event))return true;
+        boolean confirm=event.getKeyCode()==KeyEvent.KEYCODE_DPAD_CENTER||event.getKeyCode()==KeyEvent.KEYCODE_ENTER;
+        if(playingView&&confirm&&controlsConfirmHeld){if(event.getAction()==KeyEvent.ACTION_UP){controlsConfirmHeld=false;super.dispatchKeyEvent(event);showPlayerControls();return true;}return super.dispatchKeyEvent(event);}
+        if(playingView&&confirm&&event.getAction()==KeyEvent.ACTION_DOWN&&playerOverlay!=null&&playerOverlay.getVisibility()==View.VISIBLE&&getCurrentFocus()!=videoSurface){controlsConfirmHeld=true;main.removeCallbacks(hidePlayerControls);return super.dispatchKeyEvent(event);}
         if(playingView&&liveQueue&&livePanel!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_DPAD_CENTER||event.getKeyCode()==KeyEvent.KEYCODE_ENTER)&& (playerOverlay==null||playerOverlay.getVisibility()!=View.VISIBLE)){if(event.getAction()==KeyEvent.ACTION_UP){livePanel.show(playingIndex);}return true;}
         if(playingView&&!liveQueue&&timeline!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_DPAD_LEFT||event.getKeyCode()==KeyEvent.KEYCODE_DPAD_RIGHT)){showPlayerControls();return timeline.remoteKey(event);}
         if(playingView&&!liveQueue&&(event.getKeyCode()==KeyEvent.KEYCODE_DPAD_CENTER||event.getKeyCode()==KeyEvent.KEYCODE_ENTER)&&(getCurrentFocus()==videoSurface||playerOverlay.getVisibility()!=View.VISIBLE)){if(event.getAction()==KeyEvent.ACTION_UP)togglePlayback();return true;}

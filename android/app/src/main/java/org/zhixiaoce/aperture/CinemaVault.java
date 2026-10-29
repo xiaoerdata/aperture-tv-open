@@ -38,5 +38,7 @@ final class CinemaVault {
     CinemaShelf updateShelf(CinemaShelfStore.Edit edit)throws Exception{return shelfStore().update(edit);}
     synchronized org.json.JSONObject metadata()throws Exception{String value=preferences.getString("metadata","");return value.isEmpty()?new org.json.JSONObject():new org.json.JSONObject(CinemaCipher.decrypt(value,key()));}
     synchronized void metadata(org.json.JSONObject value)throws Exception{String raw=value.toString();if(raw.length()>262144)throw new java.io.IOException("资料设置过大");if(!preferences.edit().putString("metadata",CinemaCipher.encrypt(raw,key())).commit())throw new java.io.IOException("资料设置保存失败");}
-    void clear(){preferences.edit().remove("config").remove("http").apply();}
+    java.util.List<String> guideSources(java.util.List<String> imported)throws Exception{String stored=preferences.getString("guide_override","");if(stored.isEmpty())return new java.util.ArrayList<>(imported);org.json.JSONArray list=new org.json.JSONArray(CinemaCipher.decrypt(stored,key()));java.util.List<String> values=new java.util.ArrayList<>();for(int i=0;i<list.length();i++)values.add(list.getString(i));return values;}
+    void guideSources(java.util.List<String> urls,boolean save)throws Exception{if(!preferences.edit().putString("guide_override",CinemaCipher.encrypt(new org.json.JSONArray(urls).toString(),key())).commit())throw new java.io.IOException("节目单地址未保存");}
+    void clear(){preferences.edit().remove("config").remove("http").remove("guide_override").apply();}
 }

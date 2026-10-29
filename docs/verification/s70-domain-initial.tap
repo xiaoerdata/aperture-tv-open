@@ -1,0 +1,95 @@
+TAP version 13
+# 9 production browse assertions passed
+# Subtest: loaded-content filters and stable title relevance never invent source-wide counts
+ok 1 - loaded-content filters and stable title relevance never invent source-wide counts
+  ---
+  duration_ms: 8525.367141
+  ...
+# Subtest: production EPG retries, real failed-cache expiry, callback ownership and cancellation
+not ok 2 - production EPG retries, real failed-cache expiry, callback ownership and cancellation
+  ---
+  duration_ms: 23.375421
+  location: '/home/team-projects/individual-tools/aperture-tv/tests/cinema-epg-loader.test.mjs:12:1'
+  failureType: 'testCodeFailure'
+  error: 'spawn /tmp/aperture-android-runtime/gradle-8.9/bin/gradle ENOENT'
+  code: 'ENOENT'
+  stack: |-
+    ChildProcess._handle.onexit (node:internal/child_process:286:19)
+    onErrorNT (node:internal/child_process:484:16)
+    process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+  ...
+# Subtest: production playlist/config logos survive redirects and cache without a render base
+not ok 3 - production playlist/config logos survive redirects and cache without a render base
+  ---
+  duration_ms: 56.815442
+  location: '/home/team-projects/individual-tools/aperture-tv/tests/cinema-logo-address.test.mjs:12:1'
+  failureType: 'testCodeFailure'
+  error: 'spawn /tmp/aperture-android-runtime/gradle-8.9/bin/gradle ENOENT'
+  code: 'ENOENT'
+  stack: |-
+    ChildProcess._handle.onexit (node:internal/child_process:286:19)
+    onErrorNT (node:internal/child_process:484:16)
+    process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+  ...
+# 26 native revision assertions passed
+# Subtest: production metadata/channel/XMLTV parsing, cache roundtrip and duplicate projection
+ok 4 - production metadata/channel/XMLTV parsing, cache roundtrip and duplicate projection
+  ---
+  duration_ms: 9223.815664
+  ...
+# Subtest: strict CLI accepts canonical metadata and aliases and validates every new image/guide address
+ok 5 - strict CLI accepts canonical metadata and aliases and validates every new image/guide address
+  ---
+  duration_ms: 28.806427
+  ...
+# Subtest: production XMLTV HTTP/gzip transport and bounded failure paths
+not ok 6 - production XMLTV HTTP/gzip transport and bounded failure paths
+  ---
+  duration_ms: 9.686658
+  location: '/home/team-projects/individual-tools/aperture-tv/tests/cinema-revision.test.mjs:5:1'
+  failureType: 'testCodeFailure'
+  error: 'spawn /tmp/aperture-android-runtime/gradle-8.9/bin/gradle ENOENT'
+  code: 'ENOENT'
+  stack: |-
+    ChildProcess._handle.onexit (node:internal/child_process:286:19)
+    onErrorNT (node:internal/child_process:484:16)
+    process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+  ...
+# 6 production entry/session integration assertions passed
+# Subtest: foreground live entry survives initial focus timing but never an interruption
+ok 7 - foreground live entry survives initial focus timing but never an interruption
+  ---
+  duration_ms: 5257.603066
+  ...
+# Subtest: resource schema and authoring checks cover mixed resources, ids, classifications and unsafe inputs
+ok 8 - resource schema and authoring checks cover mixed resources, ids, classifications and unsafe inputs
+  ---
+  duration_ms: 2135.970403
+  ...
+# Subtest: production Java imports, persists, routes and updates Resource Pack v1
+not ok 9 - production Java imports, persists, routes and updates Resource Pack v1
+  ---
+  duration_ms: 18.293009
+  location: '/home/team-projects/individual-tools/aperture-tv/tests/resource-pack.test.mjs:20:1'
+  failureType: 'testCodeFailure'
+  error: 'spawn /tmp/aperture-android-runtime/gradle-8.9/bin/gradle ENOENT'
+  code: 'ENOENT'
+  stack: |-
+    ChildProcess._handle.onexit (node:internal/child_process:286:19)
+    onErrorNT (node:internal/child_process:484:16)
+    process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+  ...
+# Subtest: Agent can verify a published file and reject byte changes or oversized downloads
+ok 10 - Agent can verify a published file and reject byte changes or oversized downloads
+  ---
+  duration_ms: 1671.91689
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 6
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11689.213118

@@ -1,0 +1,30 @@
+{
+  "editions": [
+    {
+      "edition": "standard",
+      "apkSha256": "e8f0010f76d3d281f86b7e7ea1c8275f90bb1788ab04336d51f5b528d3d9f7a8",
+      "newClassesInDex": [
+        "CinemaBrowse",
+        "AllAppsView",
+        "CinemaSectionView",
+        "CinemaLivePanel",
+        "CinemaActivity",
+        "PlayerChrome"
+      ],
+      "testDriversExcluded": true
+    },
+    {
+      "edition": "parents",
+      "apkSha256": "51cddf155facd6459ca404e38c281661efd110628458643f49c30bcbfbdc1677",
+      "newClassesInDex": [
+        "CinemaBrowse",
+        "AllAppsView",
+        "CinemaSectionView",
+        "CinemaLivePanel",
+        "CinemaActivity",
+        "PlayerChrome"
+      ],
+      "testDriversExcluded": true
+    }
+  ]
+}

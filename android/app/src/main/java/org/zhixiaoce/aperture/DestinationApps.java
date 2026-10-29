@@ -136,9 +136,14 @@ final class DestinationApps {
             }).setNegativeButton("返回", (choice, index) -> shortcuts()).show();
         }).setNegativeButton("返回", null).show();
     }
+    private android.app.Dialog appsDialog;
     void all() {
-        List<ResolveInfo> apps = available(false); String[] labels = new String[apps.size()]; for (int i = 0; i < labels.length; i++) labels[i] = apps.get(i).loadLabel(activity.getPackageManager()).toString();
-        new AlertDialog.Builder(activity).setTitle(apps.isEmpty() ? "没有发现可启动的应用" : "本机应用").setItems(labels, (dialog, which) -> launchInfo(apps.get(which), false)).setNegativeButton("返回", null).show();
+        if(appsDialog!=null)appsDialog.dismiss();List<ResolveInfo> apps=available(false);appsDialog=AllAppsView.show(activity,apps,preferences.getString("recent_apps",""),app->launchInfo(app,false),app->{
+            TvDialogs.menu(activity,app.loadLabel(activity.getPackageManager()).toString(),new String[]{"设为常用","卸载","应用信息"},(d,i)->{
+                if(i==0)TvDialogs.menu(activity,"常用位置",new String[]{"位置1","位置2","位置3","位置4"},(x,at)->{String slot="quick"+(at+1);preferences.edit().putString("destination_"+slot,component(app).flattenToString()).apply();changed.onChanged(slot);});
+                else try{activity.startActivity(new Intent(i==1?Intent.ACTION_DELETE:Settings.ACTION_APPLICATION_DETAILS_SETTINGS,android.net.Uri.parse("package:"+app.activityInfo.packageName)));}catch(RuntimeException unavailable){new AlertDialog.Builder(activity).setMessage("请从原系统设置管理此应用").setPositiveButton("返回",null).show();}
+            });
+        });
     }
     void installation() {
         new AlertDialog.Builder(activity).setTitle("安装应用")
@@ -162,6 +167,7 @@ final class DestinationApps {
         if(home)intent.addCategory(Intent.CATEGORY_HOME);
         try {
             activity.startActivity(intent);
+            if(!home){String key=info.activityInfo.packageName+"/"+info.activityInfo.name;List<String> recent=new ArrayList<>();recent.add(key);for(String old:preferences.getString("recent_apps","").split("\n"))if(!old.isEmpty()&&!old.equals(key)&&recent.size()<5)recent.add(old);preferences.edit().putString("recent_apps",String.join("\n",recent)).apply();}
             // Do not recreate the lobby during handoff. Remove our task only after the explicit launch succeeds.
             if(home){preferences.edit().putString("destination_system",component(info).flattenToString()).apply();activity.finishAndRemoveTask();}
         } catch (RuntimeException error) {

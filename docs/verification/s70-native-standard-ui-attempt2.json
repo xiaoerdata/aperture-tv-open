@@ -1,0 +1,84 @@
+{
+  "error": "java.lang.AssertionError: last settings row not fully reachable",
+  "dialogDiagnostic": {
+    "height": 44,
+    "visible": true,
+    "visibleHeight": 37,
+    "focus": true,
+    "touchMode": false,
+    "ancestors": [
+      {
+        "type": "Button",
+        "height": 44,
+        "scrollY": 0
+      },
+      {
+        "type": "LinearLayout",
+        "height": 855,
+        "scrollY": 0
+      },
+      {
+        "type": "ScrollView",
+        "height": 432,
+        "scrollY": 425
+      },
+      {
+        "type": "FrameLayout",
+        "height": 432,
+        "scrollY": 0
+      },
+      {
+        "type": "FrameLayout",
+        "height": 432,
+        "scrollY": 0
+      },
+      {
+        "type": "FrameLayout",
+        "height": 432,
+        "scrollY": 0
+      },
+      {
+        "type": "AlertDialogLayout",
+        "height": 540,
+        "scrollY": 0
+      },
+      {
+        "type": "FrameLayout",
+        "height": 540,
+        "scrollY": 0
+      },
+      {
+        "type": "FrameLayout",
+        "height": 540,
+        "scrollY": 0
+      },
+      {
+        "type": "DecorView",
+        "height": 540,
+        "scrollY": 0
+      }
+    ]
+  },
+  "scope": "ui",
+  "passed": false,
+  "images": [
+    "section.png",
+    "grid.png",
+    "settings.png"
+  ],
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "checks": [
+    "entry directly shows film information",
+    "category tree on left has categories and no movie titles",
+    "expanded sidebar uses five poster columns",
+    "poster titles allow two lines",
+    "append unique upstream page without a conflicting local page count",
+    "year filter states loaded-content scope and accurate count",
+    "collapsed navigation uses six columns",
+    "IME search action submits without navigating through keyboard candidates"
+  ],
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticCatalogueAndEpg": true
+}

@@ -4,22 +4,22 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加家庭照片、日程、留言、数据、NAS资源和可定制入口。
 
-当前版本 **v24 / 0.2.0-alpha.21**：内嵌影院采用简洁控制条，左右键默认调整进度；四个观看分区进入即显示内容，来源与节目在左侧切换。修复相对台标缓存与直播首次焦点时序。见[本轮验收与截图](docs/ACCEPTANCE-S66.md)。
+当前版本 **v25 / 0.2.0-alpha.22**：分类留在左侧，影片在右侧五列浏览；合并加载更多计数，直播全屏并修复确认键竞争；首页放大应用图标，新增本机应用墙。见[回归说明与限制](docs/V24-FEEDBACK-S70.md)。
 
-**v23可更新v18/v19/v20/v21/v22，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
+**v25可更新v18—v24，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
 
 ## 两个版本
 
 - 标准版：首屏看电视、看电视剧、看电影、看综艺、常用应用；向下进入片库与家庭分区。深色玻璃、4K摄影背景和遥控焦点。
 - 爸妈版：看电视、看电视剧、看电影、看综艺，以及常用应用快捷入口。安装和来源配置留在家人设置。
 
-![标准版首页（浏览器演示，非真机）](docs/images/s60-home.png)
+![标准版首页（浏览器演示，非真机）](docs/images/s70-home.png)
 
-![爸妈版首页（浏览器演示，非真机）](docs/images/s60-home-parents.png)
+![爸妈版首页（浏览器演示，非真机）](docs/images/s70-home-parents.png)
 
 ## 安装与使用
 
-按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.21)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.22)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](docs/EMBEDDED-CINEMA.md)与[插件说明](docs/PLUGIN-ENGINE.md)；没有预置影视来源。
 
@@ -46,17 +46,14 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 
 ## 当前验证边界
 
-本轮按用户要求采用简单公开资源测试：Blender官方MP4、Mux HLS样流、影片截图与自制M3U/片单包装。新增简洁播放器和分区直达：左右键默认调整进度，来源/节目在左侧切换，右侧直接显示内容。修复相对台标保存后失效，14项生产断言与相关回归通过。原生结果和发行检查见[本轮清单](docs/ACCEPTANCE-S66.md)。资源未内置到安装包。
+本轮使用合成目录、合成XMLTV、保留的Mux HLS样流与Blender影片配图进行回归；媒体不内置到安装包。主机领域测试、首页浏览器任务与Android TV API28模拟器分开记录，结果见[本轮验收清单](docs/ACCEPTANCE-S70.md)。筛选仅作用于已加载内容，搜索限定当前来源。62MiB MP4在本轮软件CPU环境的一次测试未能在90秒内起播，失败记录保留，没有改写为通过。
 
-v22两版各40项完整播放回归、v23两版各10项关联任务以及本轮公开媒体验证分别保留证据。未将其混称为同一版本全量测试。原报告61项海报比例和原包根因未独立复现；小米ARM、小爱/米家、NAS硬件及WorkBuddy由维护者验收。产品继续为Alpha。
+历次v22、v23、v24的验证仍保留在各自记录中，不混称本轮全量测试。用户报告的原始资源包未提供，本轮不推断其全部源站、片单海报比例或重复来源根因；新版小米真机、具体输入法、小爱/米家、NAS硬件及WorkBuddy仍由维护者复验。产品继续为Alpha。
 
 问题反馈见[Issues](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)，二次开发欢迎[Pull Requests](https://github.com/xiaoerdata/aperture-tv-open/pulls)。
 
 核心代码使用[MIT许可](LICENSE)。字体、图片、依赖与上游连接器分别遵守各自许可，详见[第三方声明](THIRD_PARTY_NOTICES.md)。
 
-![影视目录（本地HTTP浏览器，合成资料，非小米真机）](docs/images/s60-cinema-catalogue.png)
+![影片片单（API28 x86模拟器、合成目录，非小米真机）](docs/images/s70-native-standard-ui-grid.png)
 
-
-![电影分区（API28 x86模拟器、Blender公开样例，非小米真机）](docs/images/s68-native-standard-section.png)
-
-![播放器（API28 x86模拟器、Blender公开样例，非小米真机）](docs/images/s68-native-standard-toolbar.png)
+![影片详情（API28 x86模拟器、Blender影片配图，非小米真机）](docs/images/s70-native-standard-ui-section.png)

@@ -1,0 +1,29 @@
+{
+  "scope": "ui",
+  "passed": true,
+  "images": [
+    "section.png",
+    "grid.png",
+    "settings.png",
+    "apps.png"
+  ],
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "checks": [
+    "entry directly shows film information",
+    "category tree on left has categories and no movie titles",
+    "expanded sidebar uses five poster columns",
+    "poster titles allow two lines",
+    "append unique upstream page without a conflicting local page count",
+    "year filter states loaded-content scope and accurate count",
+    "collapsed navigation uses six columns",
+    "IME search action submits without navigating through keyboard candidates",
+    "last source-settings button scrolls fully into the bounded dialog",
+    "localized timeout offers retry and source switching",
+    "error switch-source action reopens collapsed navigation and moves focus into it",
+    "native app wall has five physical columns and actual PackageManager icons"
+  ],
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticCatalogueAndEpg": true
+}

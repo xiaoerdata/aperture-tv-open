@@ -1,0 +1,16 @@
+{
+  "error": "java.lang.AssertionError: VOD playback missing",
+  "passed": false,
+  "images": [
+    "section.png"
+  ],
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "checks": [
+    "entry directly shows film information",
+    "category tree on left has categories and no movie titles"
+  ],
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticCatalogueAndEpg": true
+}

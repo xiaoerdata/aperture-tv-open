@@ -1,0 +1,115 @@
+{
+  "version": "0.2.0-alpha.22",
+  "versionCode": 25,
+  "releaseReady": true,
+  "completedAt": "2026-10-29T17:40:01.175428+00:00",
+  "androidSourceSha256": "942bcd1d04c0e4281b16ced196d37ff84a93838eb9c6763a8c1e06373d59ee8f",
+  "editions": [
+    {
+      "edition": "standard",
+      "phases": [
+        {
+          "scope": "ui",
+          "assertions": 12,
+          "report": "verification/s70-native-standard-ui.json",
+          "reportSha256": "c716fc6182cee37345e87571ed94c8b4c216c4ef642fae0f46556899f435b3c0",
+          "captureErrors": []
+        },
+        {
+          "scope": "media",
+          "assertions": 4,
+          "report": "verification/s70-native-standard-media.json",
+          "reportSha256": "cdb0e62c57a3b81ef3596fcd03aeee92d41b311772e996245557234dd8ac0407",
+          "captureErrors": []
+        },
+        {
+          "scope": "live",
+          "assertions": 8,
+          "report": "verification/s70-native-standard-live.json",
+          "reportSha256": "ea84c402212e04539cc850088bbd9567f56e56f5d2d2a1894ac02272da217ed9",
+          "captureErrors": []
+        }
+      ],
+      "installedDebugApkSha256": "7aa86d60a104d1f651b6fbfb4bdf10741527bd9da1066eb25e6848b982ca7603",
+      "installedCompleteReadbackMatched": true,
+      "releaseSha256": "4ebfd65f8cb180aab570b62f69f32a59dec18aafb880bd86d8c57c820af58b10",
+      "releaseBytes": 55186712,
+      "identicalCompiledClasses": 146,
+      "expectedDebugGuardClassDifferences": [
+        "org/zhixiaoce/aperture/BuildConfig.class",
+        "org/zhixiaoce/aperture/ResourcePackAgentActivity.class",
+        "org/zhixiaoce/aperture/NasSetupActivity.class",
+        "org/zhixiaoce/aperture/MainActivity.class",
+        "org/zhixiaoce/aperture/AppAgentActivity.class"
+      ],
+      "allCoreUiPlayerClassesMatch": true,
+      "newClassesInDex": true,
+      "testDriversExcluded": true,
+      "packagedLauncherAssetsVerified": true
+    },
+    {
+      "edition": "parents",
+      "phases": [
+        {
+          "scope": "ui",
+          "assertions": 12,
+          "report": "verification/s70-native-parents-ui.json",
+          "reportSha256": "c716fc6182cee37345e87571ed94c8b4c216c4ef642fae0f46556899f435b3c0",
+          "captureErrors": []
+        },
+        {
+          "scope": "media",
+          "assertions": 4,
+          "report": "verification/s70-native-parents-media.json",
+          "reportSha256": "cdb0e62c57a3b81ef3596fcd03aeee92d41b311772e996245557234dd8ac0407",
+          "captureErrors": []
+        },
+        {
+          "scope": "live",
+          "assertions": 8,
+          "report": "verification/s70-native-parents-live.json",
+          "reportSha256": "ea84c402212e04539cc850088bbd9567f56e56f5d2d2a1894ac02272da217ed9",
+          "captureErrors": []
+        }
+      ],
+      "installedDebugApkSha256": "ce3c63fed9a82a8751dcb32a973b4ec8439975c7d08a5197878bf478c82ac361",
+      "installedCompleteReadbackMatched": true,
+      "releaseSha256": "f35e73f4f020a4130cc31761694462d2fbb93b943a7cf935fb1d795edee73276",
+      "releaseBytes": 55215384,
+      "identicalCompiledClasses": 146,
+      "expectedDebugGuardClassDifferences": [
+        "org/zhixiaoce/aperture/BuildConfig.class",
+        "org/zhixiaoce/aperture/ResourcePackAgentActivity.class",
+        "org/zhixiaoce/aperture/NasSetupActivity.class",
+        "org/zhixiaoce/aperture/MainActivity.class",
+        "org/zhixiaoce/aperture/AppAgentActivity.class"
+      ],
+      "allCoreUiPlayerClassesMatch": true,
+      "newClassesInDex": true,
+      "testDriversExcluded": true,
+      "packagedLauncherAssetsVerified": true
+    }
+  ],
+  "browserTasks": 7,
+  "domainGroupsAcrossRuns": 10,
+  "singleAllGreenNativeRun": false,
+  "nativeScope": "Two editions, three separate emulator phases each. Repeated entry checks are counted per phase. Synthetic catalogue/XMLTV and retained HLS sample.",
+  "retainedFailures": [
+    "Tool paths and EPG orchestration timeout before independent pass.",
+    "Settings button clipping: 37 of 44 pixels; fixed and rerun.",
+    "Early app wall test checked columnCount only; real screenshot exposed stretching. New geometry assertions and fixed widths.",
+    "One 62MiB MP4 preparation did not start within 90 seconds on software CPU. Not marked passed.",
+    "One combined long-confirm run failed without a saved state diagnostic; later explicit selection and playback checks passed."
+  ],
+  "xiaomiHardwareTested": false,
+  "workBuddyClientTested": false,
+  "originalResourcePackProvided": false,
+  "limits": [
+    "Loaded-content year/area filters, current-source search; no provider-wide advanced filter claim.",
+    "Original MiTV v24 report is separate evidence and does not establish v25 acceptance.",
+    "Mi Home, XiaoAi, original home, NAS hardware and WorkBuddy require maintainer verification.",
+    "Five debug-only admission/entry classes differ as expected; identical compiler inputs bind core TV UI/player code, not an ARM device execution."
+  ],
+  "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+  "releaseDirectory": "artifacts/s70-release-r4"
+}

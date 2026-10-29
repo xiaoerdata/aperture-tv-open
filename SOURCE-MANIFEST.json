@@ -1,6 +1,6 @@
 {
   "format": "aperture-public-source/v1",
-  "version": "0.2.0-alpha.21",
+  "version": "0.2.0-alpha.22",
   "source": {
     "commit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
     "workingTreeDirty": true
@@ -100,8 +100,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5228,
-      "sha256": "e0bfaf4af609755792ae6b091af5bfe5158479559a51b31b1ba75b8fc5e4444b"
+      "bytes": 5112,
+      "sha256": "c7e75e12aad291834db4cef04a1d4e8a31fb94711a5884b3b1849ce7c519d382"
     },
     {
       "path": "SECURITY.md",
@@ -121,7 +121,7 @@
     {
       "path": "android/app/build.gradle",
       "bytes": 3958,
-      "sha256": "d1fb22d178d7cb5460b7bb88e8eb1d4b50970aeceb0c8cc3095ac19786bc26dd"
+      "sha256": "f74e8d90c6c31b80ca063fc9f4ab52a6ccb4f64d5ffc6ea1c30f49d70f16fee3"
     },
     {
       "path": "android/app/src/debug/AndroidManifest.xml",
@@ -144,6 +144,11 @@
       "sha256": "1a1379ad72fbf2a618fd811177dbef36a6f44b1ab62ab5321e321320673eb217"
     },
     {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/AllAppsView.java",
+      "bytes": 4141,
+      "sha256": "6fca8ffdcd3b865be2b91beacb0ffc2bbf3cfb4b8564b4cfd4d97e14a711e672"
+    },
+    {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/ApkInstaller.java",
       "bytes": 12096,
       "sha256": "b0088617e8a597a85c66e28f479f7f442630faaa14263bbf999b8fdbab7b22ca"
@@ -160,13 +165,18 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
-      "bytes": 74285,
-      "sha256": "c94c7938b5f14cee2ad067cd6e2bb523405afb11f1b56a12e8f4885e1eb54aa1"
+      "bytes": 81559,
+      "sha256": "32cb28789d8c59de2bd9231923539a87f7c559707c9ccb1b8f3b3cdb0433f5d3"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaArtwork.java",
       "bytes": 5578,
       "sha256": "a3a06ef8c592bcf6df6fcf70d3f49d258d844f7c96841096d1d4d2671d25c875"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaBrowse.java",
+      "bytes": 716,
+      "sha256": "2e18b89bfca7ba64a2905c2687d70c5451a50684caf407fb57d2b70290cfa2a7"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java",
@@ -220,8 +230,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaLivePanel.java",
-      "bytes": 7466,
-      "sha256": "c369135fc98aecd70597f34765193bfcc6caa65b676b70017789bf414d8caa64"
+      "bytes": 8330,
+      "sha256": "5b339b53fef7c68b6a1d005da7ad609833b31fda705a04276589e56b8cd82b34"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaLiveSources.java",
@@ -250,8 +260,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaProgrammePanel.java",
-      "bytes": 7067,
-      "sha256": "de6b0f129781067267ebe3c4f2d925194479f6d78a90d7314fb5fa2204da0ea2"
+      "bytes": 7250,
+      "sha256": "aca0a3a0e559188931544623782c4bc92f1aa57984e28c74b8d19264c590e68d"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaPythonPreparation.java",
@@ -270,8 +280,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaSectionView.java",
-      "bytes": 3218,
-      "sha256": "83377557a471cbebd46d363f24cef0aabaf546ad0e264c468925e0c5fd196390"
+      "bytes": 4809,
+      "sha256": "9bfc48a2d93fbb23e2d2370cdbf64ef029edb926623c54d393a101c26ab2d452"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelf.java",
@@ -285,8 +295,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaVault.java",
-      "bytes": 3511,
-      "sha256": "0327cbab80cf7d9643ab8b00cfef41735ce8e0e35f3b4b37fc587e8c543c029a"
+      "bytes": 4232,
+      "sha256": "b8217d0ecb91f8e15d398d34d17390a5d156382a26d8ad008ffa7ecc881d36e9"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/DavNasReader.java",
@@ -295,8 +305,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/DestinationApps.java",
-      "bytes": 17343,
-      "sha256": "ec15189744824647e75f1c06b8f2bc818b991712b0309863349e47f15d7bd9f7"
+      "bytes": 18319,
+      "sha256": "aa15503b491d3a9b83fd6c41c99d27375637a53bd910fb239b13adc0ddd917b6"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/DisplayLifecycle.java",
@@ -455,8 +465,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/TvDialogs.java",
-      "bytes": 2724,
-      "sha256": "be228b8bc887b68f33832a01304522896e24a8cc7fb3a80f668e2d2bff5b917b"
+      "bytes": 2646,
+      "sha256": "eb6b3fbf6fe5660b7c4a8c9afc742201edb1752554c5b81330870c05f6c162d2"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/TvUi.java",
@@ -1025,8 +1035,13 @@
     },
     {
       "path": "docs/ACCEPTANCE-S66.md",
-      "bytes": 4327,
-      "sha256": "7cc974316e53fbc484d696fcd5e03988333f0b61a882e8103bfc24c4bfac743a"
+      "bytes": 5012,
+      "sha256": "3dbcd3fe7c1bdbff8b334b0c23d53f340a61dcffce20b91251cd1d0cd88c14db"
+    },
+    {
+      "path": "docs/ACCEPTANCE-S70.md",
+      "bytes": 3124,
+      "sha256": "76774e7b8238716e4140a198e293517f8931b9244c1259bd4c83f351f185cf4f"
     },
     {
       "path": "docs/ACCEPTANCE.md",
@@ -1105,8 +1120,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4460,
-      "sha256": "47068afc224d228bb727311c8c1095738fe33bf0c31fe5e1f9c11c42d5d29f12"
+      "bytes": 4441,
+      "sha256": "4558421a905f7e7aa67da3f4c4eb4407d7c9b169502ba291cc07ee6edfd1b6f7"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -1267,6 +1282,11 @@
       "path": "docs/V20-FEEDBACK-S60.md",
       "bytes": 9659,
       "sha256": "706f815d95f630103ec87a4b96226cedc063810fbfded1366877948bf756d2ca"
+    },
+    {
+      "path": "docs/V24-FEEDBACK-S70.md",
+      "bytes": 5066,
+      "sha256": "9828597fdd2afe5907fd44992c4210ba66970ab72b3e7186287d0acd9e98538d"
     },
     {
       "path": "docs/WORKBUDDY.md",
@@ -4059,6 +4079,91 @@
       "sha256": "7c9d4b01584d88801e41176736cbc1846d585d6d10f92f17499511c752000ba1"
     },
     {
+      "path": "docs/images/s70-home-parents.png",
+      "bytes": 2997360,
+      "sha256": "63f03deaed689cc9d9e1c2e66de7af85268d1824ff84dbbf1627e9bd3c5fae25"
+    },
+    {
+      "path": "docs/images/s70-home.png",
+      "bytes": 3042008,
+      "sha256": "a979b44b9f075fa83708e27d15707ffbcfcb82a4ac786c027a5996ae5d1149fa"
+    },
+    {
+      "path": "docs/images/s70-native-parents-live-channels.png",
+      "bytes": 242839,
+      "sha256": "11cbc69a757061119ae2c5b2f756acaca914c81c0f50a73a8e589e3b6c840a59"
+    },
+    {
+      "path": "docs/images/s70-native-parents-media-section.png",
+      "bytes": 631872,
+      "sha256": "eff3d3eb625925f6c7b94907e1b35c015a9a6c8e433d6226fb978c3ce2672e80"
+    },
+    {
+      "path": "docs/images/s70-native-parents-ui-apps.png",
+      "bytes": 424808,
+      "sha256": "39d53f4999c0841c453fe2225073f26c0fc9b1cf11cd983db3db821fb832f0f1"
+    },
+    {
+      "path": "docs/images/s70-native-parents-ui-grid.png",
+      "bytes": 433946,
+      "sha256": "abac005ea26b030a54dc1e14df6707841c57f0870f1fb72fd5eb14cc30cd84ba"
+    },
+    {
+      "path": "docs/images/s70-native-parents-ui-section.png",
+      "bytes": 631872,
+      "sha256": "eff3d3eb625925f6c7b94907e1b35c015a9a6c8e433d6226fb978c3ce2672e80"
+    },
+    {
+      "path": "docs/images/s70-native-parents-ui-settings.png",
+      "bytes": 512170,
+      "sha256": "09b3249d0bb1e10a98725a465924e04ed03df16e5822579f8a64dbd90b45cacd"
+    },
+    {
+      "path": "docs/images/s70-native-standard-attempt1-section.png",
+      "bytes": 629016,
+      "sha256": "ab65a63d9051761bb636dfee34920a71366a2451a22261452b33a86223aefb08"
+    },
+    {
+      "path": "docs/images/s70-native-standard-live-channels.png",
+      "bytes": 241502,
+      "sha256": "851e4f9cee12a63924ea7900376ae7df491ec8cb0d74ec5c31ffc14e9a8716ca"
+    },
+    {
+      "path": "docs/images/s70-native-standard-live-settings.png",
+      "bytes": 180318,
+      "sha256": "ee724039045065a8f34547acbf0523c7b570449266cee355f29cf73749f33d95"
+    },
+    {
+      "path": "docs/images/s70-native-standard-media-section.png",
+      "bytes": 629016,
+      "sha256": "ab65a63d9051761bb636dfee34920a71366a2451a22261452b33a86223aefb08"
+    },
+    {
+      "path": "docs/images/s70-native-standard-settings-clipped.png",
+      "bytes": 503879,
+      "sha256": "d49bf54e94c676b38a7526bfcb68ad62a4c59a3e6dc88ecb0b043913d6bb81b8"
+    },
+    {
+      "path": "docs/images/s70-native-standard-ui-apps.png",
+      "bytes": 427106,
+      "sha256": "58cc882a9fa69bcbf855ec1d1f0a1476fbcd073829b7a931691baca5f0116be7"
+    },
+    {
+      "path": "docs/images/s70-native-standard-ui-grid.png",
+      "bytes": 418026,
+      "sha256": "3cc948b15a957c1e2e33f9a616547a39a95f78361fd37de2052b3fcbb847646e"
+    },
+    {
+      "path": "docs/images/s70-native-standard-ui-section.png",
+      "bytes": 629016,
+      "sha256": "ab65a63d9051761bb636dfee34920a71366a2451a22261452b33a86223aefb08"
+    },
+    {
+      "path": "docs/images/s70-native-standard-ui-settings.png",
+      "bytes": 504599,
+      "sha256": "93c10255496445ec9541e279d0023b42e6fd49f71eada9764cf84bea7ee1a83e"
+    },
+    {
       "path": "docs/images/studio-desktop.png",
       "bytes": 115191,
       "sha256": "d7573d1ec835c74bac07ed5045ca3d479aec84aef9d77e2b4458c0aedd38fd9f"
@@ -4205,23 +4310,23 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 184317,
-      "sha256": "51ea031a543ec7529fa9728873d500c0d7537a7f2088b81db65dfc7f67b93d76"
+      "bytes": 190148,
+      "sha256": "72608fbf5ce19dc492151f9910db7358c18df447ce382e5769cf308e9843405b"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 25616,
-      "sha256": "b7aa83bcf521ffcc27979f719e4c9b31eff3b9c7d262ec724d7ccd1518087dd3"
+      "bytes": 26248,
+      "sha256": "50d29cf964704365205645cafcf823509732338c0b26be1855aadfee26d095b1"
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 17339,
-      "sha256": "83cf8cd4aa84bb6417975383481ea4351912c6775daed06990e5ee57d12a1303"
+      "bytes": 18140,
+      "sha256": "1ad60c000842edf35e1df5d194ba2bec946ccafbb4223cd07491d3dee8de7a9d"
     },
     {
       "path": "docs/release/README-public.md",
-      "bytes": 5206,
-      "sha256": "ea4407a3c542faa47e5e0eb6e98065b386cfb6bfe5b60363dc6dfffadd73d8aa"
+      "bytes": 5092,
+      "sha256": "f41a178060369b55ce802cdd8e50af3618db248c84c0d1ffdc236aacf3d3a275"
     },
     {
       "path": "docs/third-party/Pillow-11.1.0-LICENSE.txt",
@@ -4407,6 +4512,11 @@
       "path": "docs/verification/public-alpha-v23.json",
       "bytes": 8817,
       "sha256": "97dfdde2c7593bedb860d95ff4bd4bd2f452bb1e5b0e7d2a788442687d90ed2b"
+    },
+    {
+      "path": "docs/verification/public-alpha-v24.json",
+      "bytes": 9378,
+      "sha256": "c0b4ad9561e133f7915914a26b2bfd68c34d3baa50725cd428d96e6749095ed2"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -5454,6 +5564,116 @@
       "sha256": "4e68fa37cbbf2c42968f1006c5cb9a593b04f94b004c2123199231813e6dae25"
     },
     {
+      "path": "docs/verification/s70-compiler-binding.json",
+      "bytes": 37607,
+      "sha256": "5bf90ef9f29e04da2cdf36a9886365dcdedfd03bd1ee0df0a2f2d661a89f4f4e"
+    },
+    {
+      "path": "docs/verification/s70-domain-initial.tap",
+      "bytes": 4229,
+      "sha256": "172ec38ba82aad2e1863b2a3b95b551482b1a203c2d2812edf61ad60138841c1"
+    },
+    {
+      "path": "docs/verification/s70-domain-path-fixed.tap",
+      "bytes": 4186,
+      "sha256": "35f5a953a7e8544254ffec8ef294750c279910837b307464bbcb4ca6dcb368f4"
+    },
+    {
+      "path": "docs/verification/s70-domain-summary.json",
+      "bytes": 1409,
+      "sha256": "d723f09a80727d30904fe880466ddd1bbccfae0d3d5e242568a92cec66d37603"
+    },
+    {
+      "path": "docs/verification/s70-epg-final.tap",
+      "bytes": 2220,
+      "sha256": "fd3ab8ab38dca2a29e27c7d6d08826336ccfa399f1f99d33f9c36a05d9778d59"
+    },
+    {
+      "path": "docs/verification/s70-home-browser.json",
+      "bytes": 782,
+      "sha256": "a8fce35f211c86e2dff5e9caf50a2dcf20131f680f5c73da2d35dae4dcd68836"
+    },
+    {
+      "path": "docs/verification/s70-native-parents-live.json",
+      "bytes": 774,
+      "sha256": "ea84c402212e04539cc850088bbd9567f56e56f5d2d2a1894ac02272da217ed9"
+    },
+    {
+      "path": "docs/verification/s70-native-parents-media.json",
+      "bytes": 427,
+      "sha256": "cdb0e62c57a3b81ef3596fcd03aeee92d41b311772e996245557234dd8ac0407"
+    },
+    {
+      "path": "docs/verification/s70-native-parents-ui.json",
+      "bytes": 1044,
+      "sha256": "c716fc6182cee37345e87571ed94c8b4c216c4ef642fae0f46556899f435b3c0"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-attempt1.json",
+      "bytes": 386,
+      "sha256": "35ee12227c0c0ac23338ef2189e56abbdd030904074a20577c5182e74ac8675d"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-attempt2.json",
+      "bytes": 472,
+      "sha256": "396d4d5dfda7bade1014572afee462aa6f5dfb789d574e3985c06d593acbf2b4"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-attempt3.json",
+      "bytes": 761,
+      "sha256": "a2b4d5eae40c50d2f8e2402fd9d5c71cd9127e8af5aba7f1e405fb7b424f3944"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-attempt4.json",
+      "bytes": 881,
+      "sha256": "5f9e9a68edf77317cb2c3e154a6554f64d0e0090f2aef0e63ed5dd97aac85acc"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-live-attempt1.json",
+      "bytes": 532,
+      "sha256": "e3e7716eeeeda4a9562ca11b4e4dbcb360ea88a55c203a6a914cf77a6d78300b"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-live.json",
+      "bytes": 774,
+      "sha256": "ea84c402212e04539cc850088bbd9567f56e56f5d2d2a1894ac02272da217ed9"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-media.json",
+      "bytes": 427,
+      "sha256": "cdb0e62c57a3b81ef3596fcd03aeee92d41b311772e996245557234dd8ac0407"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-ui-attempt1.json",
+      "bytes": 787,
+      "sha256": "29fc4b18303469aca59867a64c63f7796c0b42569196622fa899cd5a33070639"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-ui-attempt2.json",
+      "bytes": 1887,
+      "sha256": "c8cde241015057c805915348b379ce7cd6e0600c4823372f4c16965ab3064c0b"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-ui-before-final.json",
+      "bytes": 1053,
+      "sha256": "33794774c026b8a570968f8f5b2d600710eeedb17e86b28b94bf30bf699a618d"
+    },
+    {
+      "path": "docs/verification/s70-native-standard-ui.json",
+      "bytes": 1044,
+      "sha256": "c716fc6182cee37345e87571ed94c8b4c216c4ef642fae0f46556899f435b3c0"
+    },
+    {
+      "path": "docs/verification/s70-release-dex.json",
+      "bytes": 724,
+      "sha256": "71630d34ea19df94f9b44d0e5575068b787779c21545690b6432749884309120"
+    },
+    {
+      "path": "docs/verification/s70-software-acceptance.json",
+      "bytes": 5073,
+      "sha256": "3d686e6553e58941204b63d38655b3c0edaedf1a261c946cb35e9830e11bc67d"
+    },
+    {
       "path": "docs/verification/tv-controls.json",
       "bytes": 4183,
       "sha256": "c97b19b83bba721b28023595c2a8e2ab38c166f81ba47ef87fecb7876af9a5ff"
@@ -5864,6 +6084,16 @@
       "sha256": "d3d5b478ba664f4feb2b9d4351e77d5af2052ca74101889cebd22d2c96f05e64"
     },
     {
+      "path": "media/DEVLOG-050.md",
+      "bytes": 405,
+      "sha256": "8d8875c00a4787d1252a3bbca581a152b7330f786c9ecad0d0b05955a770600c"
+    },
+    {
+      "path": "media/DEVLOG-051.md",
+      "bytes": 1257,
+      "sha256": "904f6a5ad3b018b73da3c2092d0e2b3ff52110d19f0f15f295fa83c77e1678f0"
+    },
+    {
       "path": "media/GLASS-ASSET-PROMPT.md",
       "bytes": 1380,
       "sha256": "daeb021eb3ad316b9bd2aedcdd9dfe6d04e9dbeca4aff33187957a1e5d327b42"
@@ -5926,12 +6156,12 @@
     {
       "path": "package-lock.json",
       "bytes": 55465,
-      "sha256": "8a896a715b7b1c2315eb249394df1e3a80fffabce80ca531e21890e9c2146568"
+      "sha256": "3284d4c565429d4ebe1d77ae6f9ded0651c13ee42e75c75d476f266b6039fec8"
     },
     {
       "path": "package.json",
       "bytes": 1767,
-      "sha256": "ad6cb4d6c049d0cb48dfa3dd3e56615a28a0970a1c361e7c97048e63aa7dee89"
+      "sha256": "b9b80bb16f883c72410ccc9f0472303d867fe4b6adbcc1b3b39976a0db663ece"
     },
     {
       "path": "public/assets/weekend.svg",
@@ -6170,18 +6400,18 @@
     },
     {
       "path": "public/launcher/home-personal.js",
-      "bytes": 10718,
-      "sha256": "3b58c9fca3fef7392ab4f7928fa7b021330fb5dc320a862e7689b0aae069b76b"
+      "bytes": 10899,
+      "sha256": "fbfca12e778f7e7fbf83cd1255887fd8ca77a1fc87b390b46aad8de283b9cfca"
     },
     {
       "path": "public/launcher/index.html",
-      "bytes": 10425,
-      "sha256": "325a31cec4be2c126895744c9ae0db243581d0d2e6ab8414d2b3d45e3c2459bf"
+      "bytes": 10546,
+      "sha256": "3cee9269c1ae2596339c314ff494a39ad9bbf08b05439d08c0503596f8437321"
     },
     {
       "path": "public/launcher/launcher.js",
-      "bytes": 46043,
-      "sha256": "d1ede5460ecd05d06e60380d22e6c572bdb8f8a8dd67dce0c0746fd9a5fb584c"
+      "bytes": 46148,
+      "sha256": "983c583f0e9f78a319523ecdc602ad9c64a1842f104b8c5658de484c9d63b874"
     },
     {
       "path": "public/launcher/living-room.svg",
@@ -6210,8 +6440,8 @@
     },
     {
       "path": "public/launcher/style.css",
-      "bytes": 24584,
-      "sha256": "744614db235c3f186f3b603c4ba303f032431ca8054070707f28ed81494d0bcb"
+      "bytes": 24927,
+      "sha256": "13a2384cc97d95210d6f692ae6ee3402889c54ca546cc474a04d18236212efeb"
     },
     {
       "path": "public/life/catalog.js",
@@ -6554,6 +6784,11 @@
       "sha256": "7bd000c492a1001f4805af907f41cb149c522cd63751fb0e2abadf1cdeab414a"
     },
     {
+      "path": "scripts/browser-s70-home-qa.mjs",
+      "bytes": 5749,
+      "sha256": "e2730edc9cc70e2ea5271fabcd50a41f7d752d6e113acbe730834efda5c2a441"
+    },
+    {
       "path": "scripts/browser-tv-controls-qa.mjs",
       "bytes": 9596,
       "sha256": "dd5024370243f6d3f11ebbc7b7af4d7dc317d7d0f942f735aa7c5ad9c42fc3b6"
@@ -6610,8 +6845,8 @@
     },
     {
       "path": "scripts/build-revision-emulator-tests.py",
-      "bytes": 3919,
-      "sha256": "90565b1dbde45fd3da28735568446c4fe00f92cf55f517efc298b142034a1810"
+      "bytes": 4055,
+      "sha256": "e9ab41001d9dd2ee74004ef31c974e3be43ec68e600868c7a98476790fc2d434"
     },
     {
       "path": "scripts/capture-glass.mjs",
@@ -6834,6 +7069,16 @@
       "sha256": "67dc2362fda5a409ef059f6034c63496b21c4664df1c79d9786abcf77bb4d001"
     },
     {
+      "path": "scripts/run-s70-native.py",
+      "bytes": 6402,
+      "sha256": "a292879ad32936eae436403a717a2b706e956898e64180d3757e33e36a4c993a"
+    },
+    {
+      "path": "scripts/s70-media-fixture.mjs",
+      "bytes": 4911,
+      "sha256": "08286f68eb8086e553278a6591e83c24675a88c1bff5b917a93351e6bd720422"
+    },
+    {
       "path": "scripts/seal-nas-config.mjs",
       "bytes": 1674,
       "sha256": "825b5db1ea866994c885db7f3ab57b0a73a41438c9e11d5cb8a51ba025fc1758"
@@ -7039,6 +7284,11 @@
       "sha256": "d9631cff21ca6bad4a8b2be70bdc22ee3f278577f1950ee0340d54d715063545"
     },
     {
+      "path": "tests/android/BrowseRegressionRunner.java",
+      "bytes": 18994,
+      "sha256": "12bf4607e7b94482f82aece0c1aefe700eae1817bc74afccad2fe8d3c745d845"
+    },
+    {
       "path": "tests/android/CinemaRunner.java",
       "bytes": 21377,
       "sha256": "9d3bb7835f522d2754417d74f56b0cc6c0c381d8fd59a21fe3acdf97101c0fec"
@@ -7097,6 +7347,11 @@
       "path": "tests/app-operations.test.mjs",
       "bytes": 6931,
       "sha256": "94d07ebf16575049af812ee14e7bbd3adb72fbad94e2124042dbbed8412db1cc"
+    },
+    {
+      "path": "tests/cinema-browse.test.mjs",
+      "bytes": 1185,
+      "sha256": "2f0b1c7ceae7e5d0d7d895f80d73124d683a42be0c075cfd37d15dfc88cf4ba8"
     },
     {
       "path": "tests/cinema-epg-loader.test.mjs",
@@ -7217,6 +7472,11 @@
       "path": "tests/install-cache.test.mjs",
       "bytes": 989,
       "sha256": "611457c4d91042cf6e9375a7dde827ef414325f4bf057387e9cc90a8a17fc008"
+    },
+    {
+      "path": "tests/java/CinemaBrowseTest.java",
+      "bytes": 1200,
+      "sha256": "78348c64e607dad2c52ee9d7e0fab6723826f65278cf3bacc34ff2796528aa50"
     },
     {
       "path": "tests/java/CinemaEpgLoaderTest.java",

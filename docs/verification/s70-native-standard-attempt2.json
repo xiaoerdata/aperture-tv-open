@@ -1,0 +1,18 @@
+{
+  "error": "java.lang.AssertionError: return to detail failed",
+  "passed": false,
+  "images": [
+    "section.png"
+  ],
+  "captureErrors": [],
+  "visualCaptureComplete": true,
+  "checks": [
+    "entry directly shows film information",
+    "category tree on left has categories and no movie titles",
+    "default right seek preserves pause",
+    "default left seek preserves pause"
+  ],
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticCatalogueAndEpg": true
+}

@@ -1,0 +1,24 @@
+{
+  "passedGroupsAcrossRuns": 10,
+  "names": [
+    "Agent can verify a published file and reject byte changes or oversized downloads",
+    "foreground live entry survives initial focus timing but never an interruption",
+    "loaded-content filters and stable title relevance never invent source-wide counts",
+    "production EPG retries, real failed-cache expiry, callback ownership and cancellation",
+    "production Java imports, persists, routes and updates Resource Pack v1",
+    "production XMLTV HTTP/gzip transport and bounded failure paths",
+    "production metadata/channel/XMLTV parsing, cache roundtrip and duplicate projection",
+    "production playlist/config logos survive redirects and cache without a render base",
+    "resource schema and authoring checks cover mixed resources, ids, classifications and unsafe inputs",
+    "strict CLI accepts canonical metadata and aliases and validates every new image/guide address"
+  ],
+  "singleAllGreenRun": false,
+  "initialFailure": "Four tools-path failures; no product assertion was reached in those groups.",
+  "pathFixedRun": "Seven passed, one EPG group exceeded the 120-second orchestration deadline; retained as cancelled.",
+  "epgFinal": "Standalone EPG run passed all 16 production loader assertions and real failed-cache expiry.",
+  "evidence": [
+    "s70-domain-initial.tap",
+    "s70-domain-path-fixed.tap",
+    "s70-epg-final.tap"
+  ]
+}

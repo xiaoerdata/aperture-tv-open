@@ -1,0 +1,21 @@
+{
+  "checks": [
+    "fresh standard home expands configured apps; 380x132 viewing entries and 96px app marks at 1080p",
+    "explicit fold persists after reload and page return",
+    "temporary page collapse preserves explicit expanded preference on return and reload",
+    "D-pad row reaches all apps without widget focus theft",
+    "configured NAS summary, expanded dock, clock, main entries and page control do not collide at 540p/720p/1080p/2160p",
+    "parents keeps four viewing entries and D-pad quick apps",
+    "standard and parents phone guide fallback stays within viewport"
+  ],
+  "errors": [],
+  "entry": {
+    "x": 100,
+    "y": 490,
+    "width": 380,
+    "height": 132
+  },
+  "syntheticAppSlots": true,
+  "nativeActivityExecuted": false,
+  "xiaomiHardware": false
+}

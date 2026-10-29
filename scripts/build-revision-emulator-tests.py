@@ -4,15 +4,15 @@ import re, argparse, os, subprocess, zipfile, hashlib, json
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--edition', required=True, choices=['standard', 'parents'])
-parser.add_argument('--suite', default='revision', choices=['revision', 'related', 'public', 'publicmedia'])
+parser.add_argument('--suite', default='revision', choices=['revision', 'related', 'public', 'publicmedia', 'browse'])
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
 runtime = Path(os.environ.get('APERTURE_ANDROID_RUNTIME', '/tmp/aperture-android-runtime'))
 sdk = Path(os.environ.get('ANDROID_HOME', runtime / 'android-sdk'))
 jdk = Path(os.environ.get('JAVA_HOME', runtime / 'jdk17'))
 tools = sdk / 'build-tools/35.0.0'
-runner = 'PublicMediaTailRunner' if args.suite == 'publicmedia' else 'PublicResourceRunner' if args.suite == 'public' else 'RelatedRunner' if args.suite == 'related' else 'RevisionRunner'
-out = root / ('artifacts/s68-media-instrumentation' if args.suite == 'publicmedia' else 'artifacts/s66-public-instrumentation' if args.suite == 'public' else 'artifacts/s64-related-instrumentation' if args.suite == 'related' else 'artifacts/s62-revision-instrumentation') / args.edition
+runner = 'BrowseRegressionRunner' if args.suite == 'browse' else 'PublicMediaTailRunner' if args.suite == 'publicmedia' else 'PublicResourceRunner' if args.suite == 'public' else 'RelatedRunner' if args.suite == 'related' else 'RevisionRunner'
+out = root / ('artifacts/s70-browse-instrumentation' if args.suite == 'browse' else 'artifacts/s68-media-instrumentation' if args.suite == 'publicmedia' else 'artifacts/s66-public-instrumentation' if args.suite == 'public' else 'artifacts/s64-related-instrumentation' if args.suite == 'related' else 'artifacts/s62-revision-instrumentation') / args.edition
 out.mkdir(parents=True, exist_ok=True)
 (out / 'classes').mkdir(exist_ok=True)
 (out / 'dex').mkdir(exist_ok=True)
