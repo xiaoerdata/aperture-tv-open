@@ -1,0 +1,39 @@
+{
+  "stage": "S73",
+  "completed": true,
+  "planSha256": "8ee499218efe0fadae8464b9f6e9602c7a06b6705a097ebbaf2c8551a2760a54",
+  "removedTargetCount": 22,
+  "removedFileCount": 9604,
+  "logicalBytesRemoved": 1830679352,
+  "allocatedBytesSelected": 1853997056,
+  "filesystemFreeBefore": 5681184768,
+  "filesystemFreeAfter": 7541633024,
+  "filesystemDeltaMayIncludeConcurrentWork": true,
+  "protectedApkFilesUnchanged": 140,
+  "latestV27ApkSha256Unchanged": true,
+  "signingFilesMetadataUnchanged": true,
+  "externalSymlinkTargetsUnchanged": true,
+  "publicGitHeadUnchanged": "f5f838eec095dbf575cc36fed7524edc721eeba5",
+  "uniqueMediaAndSourceRetained": true,
+  "apkBuilt": false,
+  "remoteWrites": false,
+  "sourceArchivesRemoved": [
+    {
+      "path": "artifacts/s70-reviewed-public-source.tar.gz",
+      "sha256": "1b855ce3c984350215b126cb5488b26d2b13f5a4e6cc34262bba0635dc11a65e",
+      "frozenCommit": "fb17ef98c20da6a45cf33f13dfcc592b471697bc",
+      "gitBlobCountVerified": 1528,
+      "allFrozenGitObjectsStoredLocally": true
+    },
+    {
+      "path": "artifacts/s70-v26-reviewed-public-source.tar.gz",
+      "sha256": "e80b8a866c066b4da574f4c861ecb5272d69ed1cc3d55956713c461bbe6e084c",
+      "frozenCommit": "afca67d8ff5451c30e0352114cd8201d97802a8c",
+      "gitBlobCountVerified": 1536,
+      "allFrozenGitObjectsStoredLocally": true
+    }
+  ],
+  "duplicateImagesRemoved": 13,
+  "regenerableDirectoriesRemoved": 7,
+  "preflightIssue": "First read-only plan stopped on generated venv symlink; revised inventory unlinks symlinks without following targets; no deletion before verification"
+}

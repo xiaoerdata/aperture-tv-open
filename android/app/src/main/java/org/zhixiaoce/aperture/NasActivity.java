@@ -88,8 +88,8 @@ public final class NasActivity extends Activity {
             public void changed(PlaybackSession.State state) { showControls();if(state==PlaybackSession.State.PLAYING)hasPlayed=true;saveProgress(state==PlaybackSession.State.COMPLETED);updatePlayback(); }
         });
         display.bind(session::active);
-        filter = "photo".equals(getIntent().getStringExtra("filter")) ? "photo" : "all";
-        String requested = getIntent().getStringExtra("category"); category = NasLibrary.role(requested) ? requested : "";
+        filter = FeaturePolicy.photos()&&"photo".equals(getIntent().getStringExtra("filter")) ? "photo" : "all";
+        String requested = getIntent().getStringExtra("category"); category = NasLibrary.role(requested)&&(!"photos".equals(requested)||FeaturePolicy.photos()) ? requested : "";
         main.postDelayed(checkpoint,15000);
         if(getIntent().hasExtra("watch-id"))launchSaved();else if (category.isEmpty()) connections(); else launchCategory();
     }
@@ -176,17 +176,17 @@ public final class NasActivity extends Activity {
     private String exitLabel(){return savedLaunch?"返回观看记录":category.isEmpty()?"返回连接列表":"返回开视";}
     private void homeRoutes() {
         try {
-            NasLibrary library=vault.library(); String[] labels=new String[NasLibrary.ROLES.length];
+            NasLibrary library=vault.library(); String[] labels=new String[FeaturePolicy.photos()?NasLibrary.ROLES.length:2];
             for(int i=0;i<labels.length;i++){String role=NasLibrary.ROLES[i];NasLibrary.Route route=library.route(role);labels[i]=NasLibrary.title(role)+" · "+(route==null?(role.equals("photos")?"选择NAS时再打开":"家庭服务"):route.connection.optString("name")+(route.path.isEmpty()?"":" / "+route.path));}
             new AlertDialog.Builder(this).setTitle("首页入口用哪个片库").setItems(labels,(d,index)->{
-                String role=NasLibrary.ROLES[index];new AlertDialog.Builder(this).setMessage("恢复后，观看入口使用家庭服务；NAS相册返回连接列表。NAS文件不受影响。")
+                String role=NasLibrary.ROLES[index];new AlertDialog.Builder(this).setMessage("恢复后，观看入口使用家庭服务。NAS文件不受影响。")
                     .setPositiveButton("恢复默认",(a,b)->{try{vault.clear(role);homeRoutes();}catch(Exception error){message("未能保存","请返回后重试。");}}).setNegativeButton("保留",null).show();
             }).setNegativeButton("返回",null).show();
         }catch(Exception invalid){message("入口记录不可读取","请检查本机NAS连接记录。");}
     }
     private void assignHome() {
         final JSONObject selected=connection; final String selectedPath=folder;
-        new AlertDialog.Builder(this).setTitle("把这个目录放到首页入口").setItems(new String[]{"看电影","看电视剧","NAS相册"},(d,index)->{
+        new AlertDialog.Builder(this).setTitle("把这个目录放到首页入口").setItems(FeaturePolicy.photos()?new String[]{"看电影","看电视剧","NAS相册"}:new String[]{"看电影","看电视剧"},(d,index)->{
             String role=NasLibrary.ROLES[index];
             new AlertDialog.Builder(this).setMessage("将「"+selected.optString("name")+(selectedPath.isEmpty()?"":" / "+selectedPath)+"」用于「"+NasLibrary.title(role)+"」？只更改电视本机入口，不移动文件。")
                 .setPositiveButton("使用这个目录",(a,b)->{try{vault.assign(role,selected.getString("id"),selectedPath);message("已放到入口", "下次从「"+(BuildConfig.PARENTS_EDITION||role.equals("photos")?NasLibrary.title(role):"影视仓 → 我的家庭片库")+"」打开这个目录。家人设置中可恢复原来的家庭服务。");}catch(Exception error){message("未能保存入口","连接可能已经变化，请返回后重试。");}}).setNegativeButton("返回",null).show();
@@ -227,8 +227,8 @@ public final class NasActivity extends Activity {
     private void listing() {
         mode="listing";screen(category.isEmpty()?connection.optString("name"):NasLibrary.title(category),"已连接 · "+connection.optString("name")+(folder.isEmpty()?"":" / "+folder));
         LinearLayout tools=new LinearLayout(this);content.addView(tools);
-        if(category.isEmpty())for(String type:new String[]{"all","photo","video"}){String title=type.equals("all")?"全部":type.equals("photo")?"相册":"视频";Button tab=button(tools,(filter.equals(type)?"● ":"")+title,()->{filter=type;page=0;focusedPath="";listing();});LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0,-2,1);params.setMargins(dp(3),0,dp(3),0);tab.setLayoutParams(params);}
-        List<NasReader.Entry> visible=new ArrayList<>();for(NasReader.Entry e:entries)if(e.directory||filter.equals("all")||NasLocation.kind(e.name).equals(filter))visible.add(e);
+        if(category.isEmpty())for(String type:FeaturePolicy.photos()?new String[]{"all","photo","video"}:new String[]{"all","video"}){String title=type.equals("all")?"全部":type.equals("photo")?"相册":"视频";Button tab=button(tools,(filter.equals(type)?"● ":"")+title,()->{filter=type;page=0;focusedPath="";listing();});LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0,-2,1);params.setMargins(dp(3),0,dp(3),0);tab.setLayoutParams(params);}
+        List<NasReader.Entry> visible=new ArrayList<>();for(NasReader.Entry e:entries)if(e.directory||((FeaturePolicy.photos()||!NasLocation.kind(e.name).equals("photo"))&&(filter.equals("all")||NasLocation.kind(e.name).equals(filter))))visible.add(e);
         int pages=Math.max(1,(visible.size()+19)/20);page=Math.max(0,Math.min(page,pages-1));
         content.addView(label("第 "+(page+1)+" / "+pages+" 页 · "+visible.size()+" 项",16,MUTED));
         if(visible.isEmpty())content.addView(label("这个分区还没有可显示的内容。",22,INK));
@@ -253,6 +253,7 @@ public final class NasActivity extends Activity {
         io.execute(()->{try{List<NasReader.Entry> list=source.list(path);main.post(()->{if(destroyed||generation!=turn)return;busy=false;folder=path;NasNavigation.Position position=navigation.position(path);page=position.page;focusedPath=position.focus;entries=list;listing();});}catch(Exception error){main.post(()->{if(destroyed||generation!=turn)return;busy=false;listing();message("文件夹不可读取",error instanceof IOException?error.getMessage():"请检查文件夹与账号权限。");});}});
     }
     private void photo(NasReader.Entry entry){
+        if(!FeaturePolicy.photos())return;
         if(busy)return;invalidate();int turn=generation;busy=true;mode="photo";NasReader source=reader;screen(entry.name,"正在从家里的 NAS 读取照片…");button("返回文件夹",()->{invalidate();listing();});
         io.execute(()->{Bitmap image=null;try(NasReader.Resource file=source.open(entry.path)){
             if(file.size()<=0||file.size()>12000000)throw new IOException("照片需小于12MB");byte[] data=new byte[(int)file.size()];int position=0;while(position<data.length){if(destroyed||generation!=turn)return;int n=file.readAt(position,data,position,Math.min(65536,data.length-position));if(n<=0)throw new IOException("照片未读取完整");position+=n;}

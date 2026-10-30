@@ -3,6 +3,7 @@
   var local = location.protocol === 'file:' || (location.protocol === 'https:' && location.host === 'appassets.androidplatform.net' && location.pathname === '/assets/index.html'), pane = null, prior = null, disposed = false, parents = false;
   var labels = {}, query = {}, timer, contentTimer, request = null, detailState = null;
   var homePage = 0, homeFocus = {}, sectionReturn = null, wallpaperId = 'carezza', wallpaperLoad = 0, personal = null, sectionHomePage = 2, homeWatchFocus = 'home-live';
+  var photosEnabled = false;
   var section = 'overview', contentPage = 0, board = null;
   var virtualHome = local && location.protocol === 'https:', nativeActive = !virtualHome;
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -24,6 +25,8 @@
     try { query[decodeURIComponent(bits[0])] = decodeURIComponent((bits[1] || '').replace(/\+/g, ' ')); } catch (ignored) {}
   });
   labels.live = query.live || ''; labels.cinema = query.cinema || ''; labels.system = query.system || '';
+  photosEnabled = query.photos === '1';
+  if (!photosEnabled) { document.body.setAttribute('data-photos', 'off'); document.querySelectorAll('[data-section=photos]').forEach(function(node){node.hidden=true;}); $('collection-nas').hidden=true; }
   parents = query.edition === 'parents';
   if (parents) {
     document.body.className = 'parents'; document.title = '开视 · 爸妈版';
@@ -82,6 +85,7 @@
     location.href = 'aperture://action/' + action;
   }
   function familyPage(page) {
+    if(page==='family'&&!photosEnabled){setSection('information');return;}
     if (local) { nativeAction(page); return; }
     var demo = query.demo === '1';
     location.href = page === 'family' ? (parents ? '/tv-lite?edition=parents' + (demo ? '&demo=1' : '') : '/tv' + (demo ? '?demo=1' : '')) : '/cinema?from=home' + (parents ? '&edition=parents' : '') + '&view=' + (page === 'family-live' ? 'live' : page === 'family-series' ? 'series' : page === 'family-movies' ? 'movies' : page === 'family-variety' ? 'variety' : 'library');
@@ -125,7 +129,7 @@
     $('pane-footnote').hidden = false;
   }
   function pageId(at) { return ['ambient-home', 'apps-home', 'content-home'][at]; }
-  function firstHomeControl(at) { return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : 'entry-photos'); }
+  function firstHomeControl(at) { return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : (photosEnabled ? 'entry-photos' : 'entry-information')); }
   function restoreHomeFocus(at) {
     var saved = homeFocus[at];
     // Leaving the first screen folds the group. Restore its visible group target.
@@ -253,7 +257,7 @@
       if (type === 'event') return String(a.time).localeCompare(String(b.time)); return 0;
     });
   }
-  function photos() { return ((board && board.photos) || []).map(function (p) { return {title:p.title, caption:p.caption, url:p.url || (p.asset ? '/media/' + p.asset : '')}; }).filter(function (p) { return /^\/(media\/[a-f0-9]{64}\.jpg|assets\/[a-zA-Z0-9_.-]+)$/.test(p.url); }); }
+  function photos() { if (!photosEnabled) return []; return ((board && board.photos) || []).map(function (p) { return {title:p.title, caption:p.caption, url:p.url || (p.asset ? '/media/' + p.asset : '')}; }).filter(function (p) { return /^\/(media\/[a-f0-9]{64}\.jpg|assets\/[a-zA-Z0-9_.-]+)$/.test(p.url); }); }
   function tile(title, detail, className) {
     var node = element('article', 'collection-tile glass ' + (className || ''));
     node.appendChild(element('h2', '', title)); if (detail) node.appendChild(element('p', '', detail));
@@ -287,7 +291,7 @@
       information: ['安排与留言', '', '']
     }, spec = specs[section];
     if (!spec) return;
-    $('collection-nas').hidden = section !== 'photos';
+    $('collection-nas').hidden = !photosEnabled || section !== 'photos';
     text('collection-title', spec[0]); text('collection-description', spec[1]); text('collection-kicker', spec[2]);
     $('collection-body').textContent = ''; $('collection-body').className = 'collection-body collection-' + section; $('collection-paging').hidden = true;
     if (section === 'photos') {
@@ -315,6 +319,7 @@
     if (query.demo === '1') $('collection-body').appendChild(element('span', 'collection-demo', '演示内容'));
   }
   function setSection(name) {
+    if(name === 'photos' && !photosEnabled) return;
     if (name === 'tools') { openPane('settings'); return; }
     if (name === 'data') { var m=entries('metric')[0], signal=((board&&board.life)||[])[0]; if(m||signal)detail(m||signal,!!m); return; }
     if (['overview', 'photos', 'information'].indexOf(name) < 0) return;
@@ -340,7 +345,7 @@
     agenda.slice(0,3).forEach(function(e){var row=element('div','family-event'+(e.done?' done':''));row.appendChild(element('time','',e.time));row.appendChild(element('span','',e.title));$('family-events').appendChild(row);});
     if(!agenda.length)$('family-events').appendChild(element('p','family-empty','暂无安排'));
     text('note-title', n ? n.title : '暂无留言');text('note-body',n?n.body:'');text('note-author',n?n.author:'');
-    $('entry-information').hidden=!agenda.length&&!n;
+    $('entry-information').hidden=parents||(photosEnabled&&!agenda.length&&!n);
     if (pane === 'detail' && detailState) {
       var candidates = detailState.metric ? ((board && board.entries) || []).filter(function (e) { return e.type === 'metric'; }) : (board && board.life) || [];
       var currentDetail = candidates.filter(function (e) { return e.id === detailState.id; })[0];
@@ -375,7 +380,7 @@
       {type: 'event', title: '去楼下散散步', date: today(), time: '20:00', person: '全家'}
     ], photos: []}; text('local-note', '演示内容');
   }
-  personal = window.KaishiHome({focus:focusNode,visible:function(){return !parents && homePage===0 && section==='overview' && !pane && !document.hidden && nativeActive;},data:function(){return {photos:photos(),metrics:entries('metric'),notes:entries('note'),events:entries('event').filter(function(e){return e.date===today();}),life:(board&&board.life)||[],today:today()};},action:nativeAction,open:function(action){if(action==='nas'||action==='nas-photos')nativeAction(action);else setSection(action);},presets:function(){openPane('presets');}});
+  personal = window.KaishiHome({focus:focusNode,visible:function(){return !parents && homePage===0 && section==='overview' && !pane && !document.hidden && nativeActive;},data:function(){return {photos:photos(),metrics:entries('metric'),notes:entries('note'),events:entries('event').filter(function(e){return e.date===today();}),life:(board&&board.life)||[],today:today()};},action:nativeAction,open:function(action){if(action==='nas'||action==='nas-photos')nativeAction(action);else setSection(action);},photosEnabled:photosEnabled,presets:function(){openPane('presets');}});
   renderContent(); loadContent(); contentTimer = setInterval(loadContent, virtualHome ? 5000 : 30000);
   function back() {
     if (window.KaishiAmbient && window.KaishiAmbient.key('BrowserBack')) return true;
@@ -494,7 +499,7 @@
       if (name === 'ArrowUp') { var coreRow = Array.prototype.slice.call(document.querySelectorAll('.destinations button')).filter(function (n) { return !n.hidden && n.offsetWidth; }); return focusNode(coreRow[Math.round(position*(coreRow.length-1)/Math.max(1,visible.length-1))]) || true; }
       if (name === 'ArrowDown') { setHomePage(2); return true; }
     }
-    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode((homePage===1?document.querySelector('.shortcuts-row button:not([hidden])'):$(homePage===0?'page-down':'entry-photos'))) || true;
+    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode((homePage===1?document.querySelector('.shortcuts-row button:not([hidden])'):$(homePage===0?'page-down':photosEnabled?'entry-photos':'entry-information'))) || true;
     if (group.className.indexOf('destinations') !== -1 || group.className.indexOf('tools-grid') !== -1) {
       var tools = group.className.indexOf('tools-grid') !== -1;
       columns = !tools && parents ? (innerWidth / innerHeight > 4/3 ? 4 : 1) : (innerWidth / innerHeight > 4/3 ? 4 : 2);
@@ -506,13 +511,13 @@
         if (parents && !tools) { var shortcuts = Array.prototype.slice.call($('parents-shortcuts').querySelectorAll('button')).filter(function(n){return !n.hidden && n.offsetWidth;}); return focusNode(shortcuts[Math.min(shortcuts.length-1,Math.round(column*(shortcuts.length-1)/Math.max(1,columns-1)))]) || true; }
         return true;
       }
-      if (name === 'ArrowUp') return focusNode(position >= columns ? visible[position-columns] : tools ? document.querySelector('.back-overview') : parents ? $('settings-open') : $('entry-photos')) || true;
+      if (name === 'ArrowUp') return focusNode(position >= columns ? visible[position-columns] : tools ? document.querySelector('.back-overview') : parents ? $('settings-open') : $(photosEnabled?'entry-photos':'entry-information')) || true;
     }
     if (group.className.indexOf('shortcuts-row') !== -1 && name === 'ArrowUp') {
       var core = document.querySelectorAll('.destinations>.destination:not([hidden])');
       return focusNode(core[Math.min(core.length-1,Math.round(position*(core.length-1)/Math.max(1,visible.length-1)))]) || true;
     }
-    if (group.className.indexOf('section-nav') !== -1 && name === 'ArrowDown') return focusNode(section === 'overview' ? $('entry-photos') : document.querySelector('.back-overview')) || true;
+    if (group.className.indexOf('section-nav') !== -1 && name === 'ArrowDown') return focusNode(section === 'overview' ? $(photosEnabled?'entry-photos':'entry-information') : document.querySelector('.back-overview')) || true;
     if (group.className.indexOf('section-nav') !== -1 && name === 'ArrowRight' && position === visible.length-1) return focusNode($('settings-open')) || true;
     if (group.className.indexOf('section-nav') !== -1 && name === 'ArrowLeft' && position === 0) return focusNode($('brand-home')) || true;
     if (name === 'ArrowLeft' || name === 'ArrowRight') {
@@ -563,6 +568,7 @@
   window.addEventListener('pageshow', function (event) { if (event.persisted) location.reload(); });
   if (/^quick[1-4]$/.test(query.focus || '')) { setHomePage(1, false); focusNode($(query.focus)); }
   else if (specs[query.pane] && !parents) { setHomePage(query.pane === 'system' ? 2 : query.pane === 'live' || query.pane === 'cinema' ? 1 : 0, false); focusNode($(query.pane === 'system' ? 'settings-open' : query.pane === 'live' ? 'entry-live' : query.pane === 'cinema' ? 'entry-cinema' : 'settings-open')); openPane(query.pane); }
+  else if(query.section==='information'){setSection('information');focusNode(document.querySelector('.back-overview'));}
   else focusNode(firstHomeControl(homePage));
   var wheelAt = 0; document.addEventListener('wheel', function (event) { if (parents || pane || section !== 'overview' || innerWidth / innerHeight <= 4/3 || Math.abs(event.deltaY) < 20) return; event.preventDefault(); if (Date.now() - wheelAt < 600) return; wheelAt = Date.now(); setHomePage(homePage + (event.deltaY > 0 ? 1 : -1)); }, {passive:false});
 }());

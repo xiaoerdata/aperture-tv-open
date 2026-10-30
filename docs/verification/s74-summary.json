@@ -1,0 +1,75 @@
+{
+  "stage": "S74",
+  "localOnly": true,
+  "publishedReleaseChanged": false,
+  "releaseApkBuilt": false,
+  "features": {
+    "shippingPhotos": false,
+    "developmentPhotosCodeRetained": true,
+    "photoDataDeleted": false,
+    "videoConfirm": "channel or episode list",
+    "vodLeftRight": "seek",
+    "liveUpDown": "previous or next channel",
+    "detailRelatedRecommendations": false,
+    "detailEpisodes": "two columns, original wrapped titles, 20 per group",
+    "playerEpisodeList": "wide panel, current episode selected, groups of 20"
+  },
+  "checks": {
+    "nodeJvmSuitesPassed": 5,
+    "confirmationPolicyAssertionsPerMode": 11,
+    "photoPolicyModes": [
+      "shipping false",
+      "development true"
+    ],
+    "browser": "passed with synthetic saved photos/notes and default/developer paths",
+    "androidApiCompilation": "standard and parents passed",
+    "androidX86DebugAssembly": "standard and parents passed for final product sources",
+    "instrumentationCompilation": "standard and parents passed",
+    "systemRemoteInput": "NOT_EXECUTED: emulator test-driver installation timed out",
+    "xiaomiHardware": false,
+    "debugPackagedLauncherMatchesFinalSourceBothEditions": true
+  },
+  "nativeAttempt": {
+    "boot": "software-emulated Android 28 reached sys.boot_completed=1 after slow startup",
+    "firstAttempt": "ADB install exited 255 before package services stabilized",
+    "secondAttempt": "target APK installation returned success; test-driver installation timed out after 180 seconds",
+    "inputAssertionsExecuted": 0,
+    "playerScreenshotsCaptured": false,
+    "ownedEmulatorStopped": true,
+    "externalDevicesUsed": false,
+    "logs": [
+      "artifacts/s74-native/run.log",
+      "artifacts/s74-native/run-attempt2.log"
+    ]
+  },
+  "sourceSha256": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "0d29d6db53419c7e385e309a3bffef8df1d9aaa4bf1de8ed4f081284971376d3",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaLivePanel.java": "71e3128911e491c5da7348c60cb4876b05cba2c201d215b64efd967d78ecf375",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaChoicePanel.java": "3c7c6451732d37740c0d6f35653c113f65dabe7365dbf93128d3b4cd70fe3481",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpisodeGrid.java": "5611e937507c0d148fc7a0e6d0b8045e2464bd1b23c4a752f994509441e0e273",
+    "android/app/src/main/java/org/zhixiaoce/aperture/ConfirmPress.java": "0166e0f96da5ccfbe1558355fa781861cc7acd3c0c1acc2dd4f9c1644bf11a86",
+    "android/app/src/main/java/org/zhixiaoce/aperture/FeaturePolicy.java": "2dc86b43d1b71d30cbb153aee6668a39381f264eeb144187e9109f0ced3c06a2",
+    "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java": "5d7fa9483e223cec353d22f9c19a1e6d526be07b0e72f562a2bec777baa87631",
+    "android/app/src/main/java/org/zhixiaoce/aperture/NasActivity.java": "0c06d9f6b8f070864d47631866172d2cf561cc12c072235ba92910ef5f4a683f",
+    "public/launcher/launcher.js": "30ff2a784dd3fedb5b9e87151c14ece7f68fa0f891ef3b47a0296c5fff587d7c",
+    "public/launcher/home-personal.js": "1de68fe33f0de5ac650f95b78963422d9a24008bc2d431c67403799001ae6781",
+    "public/launcher/style.css": "31c7b0968abaff00be326f9cd45cd25bb392e83a274f28aacfcd2756de78f89a"
+  },
+  "debugApkSha256": {
+    "standard": "6aaad91afa836c46c0705aafbde1bbcb279f15a26eebccb096014c552dc5bbe9",
+    "parents": "d33f53c89077ab8754dbf74e28c01a44cd54b488998b4acad7cbd3a4cd25c37e"
+  },
+  "evidence": {
+    "browser": "s74-browser.json",
+    "jvm": "artifacts/s74-jvm-final.log",
+    "api": "artifacts/s74-native-api-final.log",
+    "build": "artifacts/s74-debug-build-complete.log",
+    "screenshot": "../images/s74-home-information.png"
+  },
+  "remaining": [
+    "Xiaomi system remote channel tuning and VOD seeks with actual sources",
+    "actual native detail and episode list geometry",
+    "XiaoAi voice/far-field wake and original-system interaction",
+    "other report app-wall, EPG and search suggestions outside this change"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "default standard/parents hides album navigation; arrangements remain reachable without hidden photo focus targets",
+    "explicit developer preview retains album implementation",
+    "native family entry routes directly to arrangements"
+  ],
+  "errors": [],
+  "browser": true,
+  "syntheticStoredPhotosAndNotes": true,
+  "xiaomiHardware": false
+}

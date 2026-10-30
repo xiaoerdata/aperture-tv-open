@@ -66,3 +66,9 @@ button:focus,a:focus,[tabindex='0']:focus{outline:3px solid var(--focus);outline
 @media(max-width:520px) and (max-aspect-ratio:4/3){.parents .header-time,.standard .lobby:not([data-home-page='0']) .header-time{order:4;width:100%;justify-content:flex-start}.parents .settings-button{margin-left:auto}.standard .lobby:not([data-home-page='0']) .settings-button{margin-left:auto}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 [data-motion=off] *{animation:none!important;transition:none!important}
+
+/* Shipping edition keeps arrangements and notes; photo implementation remains for development. */
+body[data-photos="off"] .family-layout{grid-template-columns:minmax(0,1fr);max-width:1180px}
+body[data-photos="off"] .family-layout .family-daily{display:grid;grid-template-columns:1fr 1fr;gap:24px 48px}
+body[data-photos="off"] .family-layout .family-note{margin-top:0}
+body[data-photos="off"] .family-layout .family-daily>.quiet-action{grid-column:1/-1;justify-self:start;margin:0}

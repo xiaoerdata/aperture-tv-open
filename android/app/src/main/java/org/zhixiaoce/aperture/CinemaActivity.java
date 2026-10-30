@@ -51,7 +51,7 @@ public final class CinemaActivity extends Activity {
     private volatile int generation;private boolean destroyed,playingView,prepared;private String view="movies",health="尚未检查";
     private Runnable shelfRefresh;private Runnable back;private MediaPlayer player;private PlaybackSession session;private TextView playerStatus;
     private List<CinemaCatalog.Episode> queue=new ArrayList<>();private int playingIndex;private boolean liveQueue;private Runnable playerBack;
-    private boolean controlsConfirmHeld;private boolean fileAllowHttp;private int healthCursor;
+    private final ConfirmPress confirmPress=new ConfirmPress();private CinemaChoicePanel choicePanel;private Runnable playerConfirmAction;private boolean controlsConfirmHeld;private boolean fileAllowHttp;private int healthCursor;
     private CinemaShelf shelf;private String shelfWarning="";private CinemaCatalog.Live currentLive;
     private List<org.json.JSONObject> queueRefs=new ArrayList<>();private String queueLine="";private boolean hasPlayed;
     private final Runnable checkpoint=new Runnable(){public void run(){if(!destroyed){saveProgress(false);main.postDelayed(this,15000);}}};
@@ -64,7 +64,7 @@ public final class CinemaActivity extends Activity {
         sectionLayout=new CinemaSectionView(this,title(),body);setContentView(sectionLayout.stage);refreshSectionRail();
     }
     private boolean railCollapsed,sourcesExpanded,categoriesExpanded=true,filtersExpanded;
-    private String browseWord,browseName="片单",filterYear="",filterArea="";private boolean browseActive;
+    private int browseScrollY;private String browseWord,browseName="片单",filterYear="",filterArea="";private boolean browseActive;
     private void refreshSectionRail(){
         if(sectionLayout==null)return;
         boolean live="live".equals(view);List<CinemaSectionView.Entry> rows=new ArrayList<>();
@@ -91,7 +91,7 @@ public final class CinemaActivity extends Activity {
     }
     private static final class SectionPage {CinemaCatalog.Page page;List<CinemaCatalog.Category> categories;String category;}
     private void sectionLoad(CinemaCatalog.Site site,String category,int page){
-        sectionFullscreen=false;sectionSite=site;sectionCategory=category;sectionPage=page;browseActive=false;sectionRailMode="programmes";
+        sectionFullscreen=false;sectionSite=site;sectionCategory=category;sectionPage=page;browseScrollY=0;browseActive=false;sectionRailMode="programmes";
         task(title(),this::finish,()->{
             SectionPage result=new SectionPage();CinemaCatalog.Page home=siteHome(site);result.categories=CinemaResourcePack.categories(site,home,view);
             if(result.categories.isEmpty()&&!"variety".equals(view)&&site.sections.isEmpty())result.categories=home.categories;
@@ -100,9 +100,8 @@ public final class CinemaActivity extends Activity {
             result.category=category!=null?category:result.categories.isEmpty()?null:result.categories.get(0).id;
             result.page=catalogue(site,result.category,page,null,null);return result;
         },result->{sectionCategories=result.categories;sectionCategory=result.category;sectionItems=new ArrayList<>(result.page.items);sectionPages=result.page.pages;
-            if(recentCatalogues.size()>=12&&!recentCatalogues.containsKey(source(site)))recentCatalogues.remove(recentCatalogues.keySet().iterator().next());recentCatalogues.put(source(site),new ArrayList<>(sectionItems));
             if(sectionItems.isEmpty()){status.setText("此片单暂无影片");refreshSectionRail();return;}
-            CinemaCatalog.Item selected=sectionItems.get(0);for(CinemaCatalog.Item item:sectionItems)if(item.id.equals(sectionItemId))selected=item;sectionItemId=selected.id;details(site,selected,this::finish);
+            browseActive=true;renderBrowse();
         });
     }
     private void sectionLive(CinemaCatalog.Live source,int selected){
@@ -112,7 +111,7 @@ public final class CinemaActivity extends Activity {
     private interface Work<T>{T run() throws Exception;}
     private interface Done<T>{void run(T value) throws Exception;}
     @Override public void onCreate(Bundle state){
-        super.onCreate(state);guideLoader=new CinemaEpgLoader();artwork=new CinemaArtwork(this);info=new CinemaInfo(this);vault=new CinemaVault(this);plugins=new CinemaPlugins(this);String asked=getIntent().getStringExtra("view");if("live".equals(asked)||"series".equals(asked)||"variety".equals(asked)||"library".equals(asked))view=asked;
+        super.onCreate(state);getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);guideLoader=new CinemaEpgLoader();artwork=new CinemaArtwork(this);info=new CinemaInfo(this);vault=new CinemaVault(this);plugins=new CinemaPlugins(this);String asked=getIntent().getStringExtra("view");if("live".equals(asked)||"series".equals(asked)||"variety".equals(asked)||"library".equals(asked))view=asked;
         session=new PlaybackSession(new PlaybackAudioFocus((AudioManager)getSystemService(AUDIO_SERVICE),main),new PlaybackSession.Output(){public void start(){if(player!=null)player.start();}public void pause(){if(player!=null&&prepared)player.pause();}public void changed(PlaybackSession.State s){playState(s);}});
         display.bind(session::active);
         try{config=vault.read();}catch(Exception invalid){config=new CinemaCatalog.Config(false);health="保存的来源无法读取，请重新导入";}
@@ -127,7 +126,7 @@ public final class CinemaActivity extends Activity {
     private Button button(LinearLayout parent,String text,Runnable action){
         Button b=TvUi.button(this,text,action);if(parent!=null){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-2,-2);p.setMargins(0,dp(6),0,dp(6));parent.addView(b,p);}return b;
     }
-    private void release(){controlsConfirmHeld=false;entryIntent.cancel();playerProgramme=null;programmePanel=null;if(livePanel!=null){livePanel.close();livePanel=null;}if(timeline!=null){timeline.close();timeline=null;}main.removeCallbacks(hidePlayerControls);playerOverlay=null;videoSurface=null;playerToggle=null;playerMore=null;playerMenu=null;playerStage=null;saveProgress(false);session.reset();prepared=false;if(player!=null){player.release();player=null;}getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);playerStatus=null;}
+    private void release(){controlsConfirmHeld=false;playerConfirmAction=null;choicePanel=null;entryIntent.cancel();playerProgramme=null;programmePanel=null;if(livePanel!=null){livePanel.close();livePanel=null;}if(timeline!=null){timeline.close();timeline=null;}main.removeCallbacks(hidePlayerControls);playerOverlay=null;videoSurface=null;playerToggle=null;playerMore=null;playerMenu=null;playerStage=null;saveProgress(false);session.reset();prepared=false;if(player!=null){player.release();player=null;}getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);playerStatus=null;}
     private void invalidate(){generation++;if(artwork!=null)artwork.cancel();if(info!=null)info.cancel();http.cancel();http.deadline(0);if(plugins!=null)plugins.cancelPending();}
     private void screen(String title,Runnable previous){
         closeSettings();invalidate();release();playingView=false;channelProgrammes.clear();back=previous;shelfRefresh=null;
@@ -147,12 +146,12 @@ public final class CinemaActivity extends Activity {
     }
     private void grid(String title,List<Action> actions,int page,Runnable previous,GridCursor cursor){
         screen(title,previous);int pages=Math.max(1,(actions.size()+11)/12),at=Math.max(0,Math.min(page,pages-1));
-        boolean posters=false;for(Action a:actions)if(a.item!=null){posters=true;break;}int columns=cursor.episodes?(BuildConfig.PARENTS_EDITION?4:6):posters?5:3;GridLayout cells=new GridLayout(this);cells.setColumnCount(columns);cells.setClipChildren(false);content.addView(cells);
+        boolean posters=false;for(Action a:actions)if(a.item!=null){posters=true;break;}int columns=cursor.episodes?2:posters?5:3;GridLayout cells=new GridLayout(this);cells.setColumnCount(columns);cells.setClipChildren(false);content.addView(cells);
         for(int i=at*12;i<Math.min(actions.size(),at*12+12);i++){
             final int index=i;Action a=actions.get(i);View tile;
             Runnable activate=()->{cursor.selected=index;cursor.scrollY=((ScrollView)content.getParent()).getScrollY();a.run.run();};
-            if(posters&&a.item!=null)tile=poster(a,activate);else if(a.channel!=null||!a.image.isEmpty())tile=channelTile(a,activate);else{Button b=button(null,a.name,activate);b.setMaxLines(cursor.episodes?1:2);b.setPadding(dp(12),dp(4),dp(12),dp(4));b.setEllipsize(android.text.TextUtils.TruncateAt.END);tile=b;}
-            GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec((i-at*12)%columns,1f);p.width=0;p.height=posters?dp(BuildConfig.PARENTS_EDITION?192:170):a.channel!=null?Math.max(dp(64),Math.round(getResources().getDisplayMetrics().heightPixels*.09f)):dp(cursor.episodes?44:56);p.setMargins(dp(6),dp(6),dp(6),dp(6));cells.addView(tile,p);
+            if(posters&&a.item!=null)tile=poster(a,activate);else if(a.channel!=null||!a.image.isEmpty())tile=channelTile(a,activate);else{Button b=button(null,a.name,activate);b.setMaxLines(cursor.episodes?Integer.MAX_VALUE:2);b.setPadding(dp(12),dp(4),dp(12),dp(4));b.setEllipsize(cursor.episodes?null:android.text.TextUtils.TruncateAt.END);if(cursor.episodes){b.setMinHeight(dp(64));b.setGravity(Gravity.START|Gravity.CENTER_VERTICAL);b.setPadding(dp(14),dp(12),dp(14),dp(12));}tile=b;}
+            GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec((i-at*12)%columns,1f);p.width=0;p.height=posters?dp(BuildConfig.PARENTS_EDITION?192:170):a.channel!=null?Math.max(dp(64),Math.round(getResources().getDisplayMetrics().heightPixels*.09f)):cursor.episodes?-2:dp(56);p.setMargins(dp(6),dp(6),dp(6),dp(6));cells.addView(tile,p);
         }
         status.setText(actions.isEmpty()?"暂无内容，请在来源中配置":actions.size()+" 项");
         LinearLayout controls=new LinearLayout(this);root.addView(controls);
@@ -184,7 +183,6 @@ public final class CinemaActivity extends Activity {
     }
     private void updateGuide(CinemaEpg value){if(value==guide){refreshGuideViews();return;}guide=value;refreshGuideViews();if(livePanel!=null)livePanel.guide(value);if(programmePanel!=null)programmePanel.guide(value);}
 
-    private final java.util.Map<String,List<CinemaCatalog.Item>> recentCatalogues=new java.util.LinkedHashMap<>();
     private void detailPanel(CinemaCatalog.Site site,CinemaCatalog.Item item,List<Action> actions,List<CinemaCatalog.Line> lines,org.json.JSONObject ref,Runnable previous){
         screen("影片详情",previous);CinemaDetailView layout=new CinemaDetailView(this,item,previous,!sectionFullscreen);showSectionContent(layout.stage);content=layout.body;status=layout.credit;
         artwork.bind(layout.poster.image,item.poster,site.api,config.allowHttp);artwork.bind(layout.backdrop,item.backdrop.isEmpty()?item.poster:item.backdrop,site.api,config.allowHttp);
@@ -192,9 +190,7 @@ public final class CinemaActivity extends Activity {
         info.lookup(item.name,item.year,kind,false,(match,candidates,state)->{if(turn!=generation||match==null)return;if(item.poster.isEmpty())artwork.bind(layout.poster.image,match.optString("poster"),"",false);if(item.backdrop.isEmpty()&&item.poster.isEmpty())artwork.bind(layout.backdrop,match.optString("backdrop",match.optString("poster")),"",false);if(item.summary.isEmpty())layout.summary.setText(match.optString("summary","暂无简介"));List<String> facts=nonempty(item.year.isEmpty()?match.optString("year"):item.year,item.genre.isEmpty()?match.optString("genre"):item.genre,item.duration,item.area);layout.facts.setText(String.join(" · ",facts));layout.facts.setVisibility(facts.isEmpty()?View.GONE:View.VISIBLE);layout.credit.setText("资料："+match.optString("provider"));layout.credit.setContentDescription("资料："+match.optString("provider")+" "+match.optString("url"));});
         LinearLayout row=null;Button first=null;for(int i=0;i<actions.size();i++){if(i%3==0){row=new LinearLayout(this);layout.actions.addView(row);}Button b=layout.action(row,actions.get(i).name,actions.get(i).run,i==0);if(first==null)first=b;}
         if(!item.director.isEmpty()||!item.actors.isEmpty()){TextView people=label((item.director.isEmpty()?"":"导演  "+item.director+"  ")+item.actors,19);people.setMaxLines(2);layout.copy.addView(people);}
-        List<CinemaCatalog.Item> related=new ArrayList<>();try{if(site.type==5){for(int page=1;page<=4;page++){CinemaCatalog.Page data=CinemaResourcePack.page(site,page,null,null);related.addAll(data.items);if(page>=data.pages)break;}}else if(recentCatalogues.containsKey(source(site)))related.addAll(recentCatalogues.get(source(site)));}catch(Exception ignored){}
-        CinemaRelated.Selection selection=CinemaRelated.select(item,related);if(!selection.items.isEmpty()){layout.body.addView(label(selection.associated?"相似影片":site.type==5?"同一片单":"同一来源",24));android.widget.HorizontalScrollView strip=new android.widget.HorizontalScrollView(this);strip.setClipToPadding(false);LinearLayout cards=new LinearLayout(this);strip.addView(cards);layout.body.addView(strip);for(CinemaCatalog.Item candidate:selection.items){LinearLayout tile=focusTile(candidate.name,()->details(site,candidate,previous));CinemaPoster image=new CinemaPoster(this,candidate.name);tile.addView(image,new LinearLayout.LayoutParams(-1,Math.round(getResources().getDisplayMetrics().heightPixels*.14f)));artwork.bind(image.image,candidate.poster,site.api,config.allowHttp);TextView name=label(candidate.name,18);name.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,26*getResources().getDisplayMetrics().heightPixels/1080f);name.setSingleLine(true);name.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(name);LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(Math.round(getResources().getDisplayMetrics().widthPixels*.155f),-2);cp.setMargins(0,dp(8),dp(12),0);cards.addView(tile,cp);}}
-        if(!lines.isEmpty()&&lines.get(0).episodes.size()>1){CinemaCatalog.Line line=lines.get(0);layout.body.addView(label("选集",22));GridLayout episodes=new GridLayout(this);int cols=BuildConfig.PARENTS_EDITION?6:8;episodes.setColumnCount(cols);layout.body.addView(episodes);for(int i=0;i<Math.min(16,line.episodes.size());i++){final int at=i;Button b=button(null,line.episodes.get(i).name,()->playEpisodes(site,ref,line,at,()->details(site,item,previous)));b.setSingleLine(true);b.setEllipsize(android.text.TextUtils.TruncateAt.END);GridLayout.LayoutParams ep=new GridLayout.LayoutParams();ep.columnSpec=GridLayout.spec(i%cols,1f);ep.width=0;ep.height=dp(44);ep.setMargins(dp(4),dp(4),dp(4),dp(4));episodes.addView(b,ep);}}
+        if(!lines.isEmpty()){layout.body.addView(label("选集",24));layout.body.addView(new CinemaEpisodeGrid(this,lines,(line,at)->playEpisodes(site,ref,line,at,()->details(site,item,previous))),new LinearLayout.LayoutParams(-1,-2));}
         button(layout.body,"更正资料",()->info.lookup(item.name,item.year,kind,true,(match,candidates,state)->{if(turn!=generation)return;if(!info.enabled()){metadataSettings();return;}if(candidates.isEmpty()){layout.credit.setText("暂无可选资料");return;}List<String> names=new ArrayList<>();for(org.json.JSONObject candidate:candidates)names.add(candidate.optString("title")+" · "+candidate.optString("year"));names.add("保留来源资料");TvDialogs.menu(this,"选择资料",names.toArray(new String[0]),(d,at)->{try{info.choose(item.name,item.year,kind,at<candidates.size()?candidates.get(at):null);detailPanel(site,item,actions,lines,ref,previous);}catch(Exception error){layout.credit.setText("资料选择未保存");}});}));
         if(first!=null){if(sectionLayout!=null)sectionLayout.linkRight(first);first.requestFocus();}
     }
@@ -308,30 +304,29 @@ public final class CinemaActivity extends Activity {
         dialog.setOnShowListener(d->{Button go=dialog.getButton(AlertDialog.BUTTON_POSITIVE);TvUi.styleButton(this,go);go.setOnClickListener(v->submit.run());input.setOnEditorActionListener((v,id,event)->{if(id==android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH||id==android.view.inputmethod.EditorInfo.IME_ACTION_DONE){submit.run();return true;}return false;});input.setOnKeyListener((v,key,event)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN||key==KeyEvent.KEYCODE_DPAD_RIGHT){if(event.getAction()==KeyEvent.ACTION_DOWN){((android.view.inputmethod.InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(input.getWindowToken(),0);go.requestFocus();}return true;}return false;});});dialog.show();settingsDialog=dialog;
     }
     private void videos(CinemaCatalog.Site site,String category,String name,int page,String word){
-        sectionFullscreen=false;sectionSite=site;sectionCategory=category;browseName=name;browseWord=word;browseActive=true;
+        sectionFullscreen=false;sectionSite=site;sectionCategory=category;if(page==1)browseScrollY=0;browseName=name;browseWord=word;browseActive=true;
         task(name,this::home,()->catalogue(site,category,page,word,null),data->{
             if(page==1)sectionItems=new ArrayList<>();java.util.Set<String> seen=new java.util.HashSet<>();for(CinemaCatalog.Item item:sectionItems)seen.add(item.id);for(CinemaCatalog.Item item:data.items)if(seen.add(item.id)&&sectionItems.size()<400)sectionItems.add(item);
-            sectionPage=page;sectionPages=data.pages;recentCatalogues.put(source(site),new ArrayList<>(sectionItems));renderBrowse();
+            sectionPage=page;sectionPages=data.pages;renderBrowse();
         });
     }
     private void renderBrowse(){
-        sectionFullscreen=false;browseActive=true;screen(browseName,this::home);
+        sectionFullscreen=false;browseActive=true;screen(browseName,this::finish);
         List<CinemaCatalog.Item> shown=CinemaBrowse.items(sectionItems,browseWord,filterYear,filterArea);
         status.setText("已加载 "+sectionItems.size()+" 部"+(filterYear.isEmpty()&&filterArea.isEmpty()?"":" · 筛选后 "+shown.size()+" 部")+(browseWord==null?"":" · 当前来源"));
         LinearLayout filters=new LinearLayout(this);content.addView(filters);button(filters,filterYear.isEmpty()?"年份 · 全部":filterYear,()->filter(false));button(filters,filterArea.isEmpty()?"地区 · 全部":filterArea,()->filter(true));
         GridLayout cells=new GridLayout(this);int columns=railCollapsed?6:5;cells.setColumnCount(columns);content.addView(cells);
-        for(int i=0;i<shown.size();i++){CinemaCatalog.Item item=shown.get(i);View tile=poster(new Action(item,sectionSite.api,()->{}),()->details(sectionSite,item,this::renderBrowse));GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec(i%columns,1f);p.width=0;p.height=Math.round(getResources().getDisplayMetrics().heightPixels*.37f);p.setMargins(dp(5),dp(6),dp(5),dp(8));cells.addView(tile,p);}
+        for(int i=0;i<shown.size();i++){CinemaCatalog.Item item=shown.get(i);View tile=poster(new Action(item,sectionSite.api,()->{}),()->{browseScrollY=((ScrollView)content.getParent()).getScrollY();details(sectionSite,item,this::renderBrowse);});GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec(i%columns,1f);p.width=0;p.height=Math.round(getResources().getDisplayMetrics().heightPixels*.37f);p.setMargins(dp(5),dp(6),dp(5),dp(8));cells.addView(tile,p);}
         if(shown.isEmpty())content.addView(label(sectionItems.isEmpty()?"暂无影片，可搜索或切换来源":"已加载内容中没有匹配项，可清除筛选或加载更多",22));
         if(sectionPage<sectionPages&&sectionItems.size()<400)button(content,"加载更多",()->videos(sectionSite,sectionCategory,browseName,sectionPage+1,browseWord));
         else if(sectionItems.size()>=400)content.addView(label("已加载400部，请按分类或关键词缩小范围",18));
-        if(cells.getChildCount()>0){sectionLayout.linkRight(cells.getChildAt(0));cells.getChildAt(0).requestFocus();}
+        if(cells.getChildCount()>0){int selected=0;for(int i=0;i<shown.size();i++)if(shown.get(i).id.equals(sectionItemId))selected=i;View chosen=cells.getChildAt(selected);sectionLayout.linkRight(chosen);chosen.requestFocus();ScrollView list=(ScrollView)content.getParent();list.post(()->list.scrollTo(0,browseScrollY));}
     }
     private void details(CinemaCatalog.Site site,CinemaCatalog.Item item,Runnable previous){
         sectionFullscreen=false;sectionItemId=item.id;
         task(item.name,previous,()->catalogue(site,null,1,null,item.id),data->{CinemaCatalog.Item found=null;for(CinemaCatalog.Item candidate:data.items)if(candidate.id.equals(item.id)){found=candidate;break;}if(found==null)throw new java.io.IOException("来源没有返回所选影片详情");final CinemaCatalog.Item detail=found;List<CinemaCatalog.Line> lines=CinemaCatalog.lines(detail,config.allowHttp,site.headers,site.resolved());org.json.JSONObject ref=vodRef(site,detail),saved=shelf.get(ref);List<Action> actions=new ArrayList<>();
             if(saved!=null&&saved.optLong("watchedAt")>0&&!saved.optBoolean("complete")){for(CinemaCatalog.Line line:lines)if(line.name.equals(saved.optString("line")))for(int i=0;i<line.episodes.size();i++)if(line.episodes.get(i).name.equals(saved.optString("episode"))){final int index=i;actions.add(new Action("继续 · "+line.episodes.get(i).name,()->playEpisodes(site,ref,line,index,()->details(site,item,previous))));}}
             if(actions.isEmpty()&&!lines.isEmpty()&&!lines.get(0).episodes.isEmpty())actions.add(new Action("播放",()->playEpisodes(site,ref,lines.get(0),0,()->details(site,item,previous))));
-            for(CinemaCatalog.Line line:lines)if(lines.size()>1||line.episodes.size()>1)actions.add(new Action((lines.size()==1?"选集":"线路"+(lines.indexOf(line)+1)),()->episodes(site,ref,line,()->details(site,item,previous),new GridCursor(0,true))));
             actions.add(new Action(saved!=null&&saved.optBoolean("favorite")?"取消收藏":"收藏影片",()->{editShelf(next->next.toggle(ref,"favorite"));details(site,item,previous);}));
             if(!"movies".equals(view))actions.add(new Action(saved!=null&&saved.optBoolean("follow")?"取消追剧":"追剧",()->{editShelf(next->{next.toggle(ref,"follow");updateLatest(next,site,detail);});details(site,item,previous);}));
             editShelf(next->{updateLatest(next,site,detail);next.seen(ref);});detailPanel(site,detail,actions,lines,ref,previous);
@@ -349,7 +344,7 @@ public final class CinemaActivity extends Activity {
     private void startPlayer(List<CinemaCatalog.Episode> list,int at,boolean live,Runnable previous,List<org.json.JSONObject> refs,String line,CinemaCatalog.Site site,CinemaCatalog.Episode media){
         sectionFullscreen=true;screen(list.get(at).name,previous);root.removeAllViews();root.setPadding(0,0,0,0);root.setBackgroundColor(Color.BLACK);queueSite=site;resolvedEpisode=media;hasPlayed=false;playingView=true;queueRefs=refs;queueLine=line;queue=list;playingIndex=at;liveQueue=live;playerBack=previous;entryIntent.begin(!live||display.active());session.begin();
         FrameLayout stage=new FrameLayout(this);playerStage=stage;stage.setBackgroundColor(Color.BLACK);SurfaceView surface=new SurfaceView(this);stage.addView(surface,new FrameLayout.LayoutParams(-1,-1,Gravity.CENTER));
-        root.addView(stage,new LinearLayout.LayoutParams(-1,0,1));videoSurface=surface;surface.setFocusable(true);
+        root.addView(stage,new LinearLayout.LayoutParams(-1,0,1));videoSurface=surface;surface.setFocusable(true);surface.setFocusableInTouchMode(true);
         playerOverlay=new LinearLayout(this);playerOverlay.setOrientation(LinearLayout.VERTICAL);playerOverlay.setPadding(dp(40),dp(22),dp(40),dp(20));
         GradientDrawable fade=new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,new int[]{0x00000000,0x90000000,0xed000000});playerOverlay.setBackground(fade);stage.addView(playerOverlay,new FrameLayout.LayoutParams(-1,-2,Gravity.BOTTOM));
         org.json.JSONObject ref=refs.get(at);String name=ref.optString("title",list.get(at).name);
@@ -359,12 +354,13 @@ public final class CinemaActivity extends Activity {
         LinearLayout controls=new LinearLayout(this);controls.setGravity(Gravity.CENTER_VERTICAL);playerOverlay.addView(controls);
         playerToggle=PlayerChrome.control(this,"",this::togglePlayback);PlayerChrome.transport(this,playerToggle,false);controls.addView(playerToggle,new LinearLayout.LayoutParams(dp(56),dp(52)));
         if(!live)controls.addView(timeline,new LinearLayout.LayoutParams(0,dp(52),1));else{TextView hint=label("直播",18);hint.setTextColor(TvUi.MUTED);controls.addView(hint,new LinearLayout.LayoutParams(0,-2,1));}
+        if(!live)controls.addView(PlayerChrome.control(this,"选集",this::playerEpisodes),new LinearLayout.LayoutParams(dp(100),dp(52)));
         if(live){programmePanel=new CinemaProgrammePanel(this,stage,playingChannels,guide,()->{if(videoSurface!=null)videoSurface.requestFocus();});livePanel=new CinemaLivePanel(this,stage,playingChannels,artwork,config.allowHttp,index->playChannels(playingChannels,index,0,playerBack),()->{if(videoSurface!=null)videoSurface.requestFocus();});livePanel.guide(guide);playerProgramme=label("",18);playerProgramme.setMaxLines(1);playerProgramme.setEllipsize(android.text.TextUtils.TruncateAt.END);playerOverlay.addView(playerProgramme);refreshGuideViews();guideLoader.load(config.epgs,config.allowHttp,(value,state)->{if(destroyed)return;updateGuide(value);});
             controls.addView(PlayerChrome.control(this,"频道",()->{playerOverlay.setVisibility(View.GONE);livePanel.show(playingIndex);}),new LinearLayout.LayoutParams(dp(100),dp(52)));}
         playerMore=PlayerChrome.control(this,"更多",this::playerOptions);controls.addView(playerMore,new LinearLayout.LayoutParams(dp(100),dp(52)));
         playerToggle.setNextFocusDownId(View.NO_ID);playerToggle.setOnKeyListener((v,key,event)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(event.getAction()==KeyEvent.ACTION_DOWN)playerMore.requestFocus();return true;}return false;});
         playerMore.setOnKeyListener((v,key,event)->{if(key==KeyEvent.KEYCODE_DPAD_UP){if(event.getAction()==KeyEvent.ACTION_DOWN)playerToggle.requestFocus();return true;}return false;});
-        if(sectionLayout!=null)sectionLayout.linkRight(playerToggle);playerToggle.requestFocus();showPlayerControls();int turn=generation;main.postDelayed(()->{if(!destroyed&&turn==generation&&session.state()==PlaybackSession.State.PREPARING){prepared=false;session.error();}},25000);
+        if(sectionLayout!=null)sectionLayout.linkRight(surface);surface.requestFocus();showPlayerControls();int turn=generation;main.postDelayed(()->{if(!destroyed&&turn==generation&&session.state()==PlaybackSession.State.PREPARING){prepared=false;session.error();}},25000);
         surface.getHolder().addCallback(new SurfaceHolder.Callback(){
             public void surfaceCreated(SurfaceHolder holder){if(destroyed||turn!=generation)return;session.surface(true);prepare(holder,surface,stage,media.url,turn);}
             public void surfaceChanged(SurfaceHolder h,int f,int w,int t){}
@@ -373,6 +369,7 @@ public final class CinemaActivity extends Activity {
     }
     private void togglePlayback(){entryIntent.cancel();if(session.state()==PlaybackSession.State.PLAYING||session.state()==PlaybackSession.State.PREPARING)session.pause();else session.play();showPlayerControls();}
     private void playerOptions(){
+        if(timeline!=null)timeline.cancelEdit();
         List<Action> actions=new ArrayList<>();org.json.JSONObject ref=queueRefs.get(playingIndex);boolean favorite=false;try{org.json.JSONObject saved=shelf.get(ref);favorite=saved!=null&&saved.optBoolean("favorite");}catch(Exception ignored){}
         if(liveQueue&&!sectionFullscreen)actions.add(new Action("全屏播放",()->{int selected=playingIndex;sectionFullscreen=true;playChannels(playingChannels,selected,0,()->sectionLive(currentLive,selected));}));
         actions.add(new Action(favorite?"取消收藏":"收藏",()->editShelf(next->next.toggle(ref,"favorite"))));
@@ -391,14 +388,13 @@ public final class CinemaActivity extends Activity {
     }
     private void playbackSpeeds(){List<Action> choices=new ArrayList<>();String[] labels={"0.75倍","正常","1.25倍","1.5倍","2倍"};float[] speeds={.75f,1,1.25f,1.5f,2};for(int i=0;i<labels.length;i++){final float speed=speeds[i];choices.add(new Action(labels[i],()->{if(player!=null&&prepared){boolean paused=!player.isPlaying();try{player.setPlaybackParams(player.getPlaybackParams().setSpeed(speed));if(paused)player.pause();}catch(RuntimeException unsupported){playerStatus.setText("当前视频不支持变速");playerStatus.setVisibility(View.VISIBLE);}}}));}showPlayerMenu("播放速度",choices);}
     private void audioTracks(){if(player==null||!prepared)return;android.media.MediaPlayer.TrackInfo[] tracks=player.getTrackInfo();List<Action> choices=new ArrayList<>();for(int i=0;i<tracks.length;i++)if(tracks[i].getTrackType()==android.media.MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO){final int id=i;choices.add(new Action("音轨 "+(choices.size()+1)+" · "+tracks[i].getLanguage(),()->{if(player!=null&&prepared)try{player.selectTrack(id);}catch(RuntimeException ignored){playerStatus.setText("音轨切换失败");playerStatus.setVisibility(View.VISIBLE);}}));}if(choices.isEmpty())choices.add(new Action("当前视频未提供可选音轨",()->{}));showPlayerMenu("音轨",choices);}
-    private void playerEpisodes(){List<Action> actions=new ArrayList<>();for(int i=0;i<queue.size();i++){final int at=i;actions.add(new Action(queue.get(i).name,()->play(queue,at,false,playerBack,queueRefs,queueLine,queueSite)));}showPlayerMenu("选集",actions);}
-    private void closePlayerMenu(){if(playerMenu!=null&&playerStage!=null)playerStage.removeView(playerMenu);playerMenu=null;if(playerMore!=null)playerMore.requestFocus();showPlayerControls();}
-    private void showPlayerMenu(String title,List<Action> actions){
-        closePlayerMenu();if(playerStage==null)return;
-        LinearLayout panel=new LinearLayout(this);panel.setOrientation(LinearLayout.VERTICAL);panel.setPadding(dp(16),dp(18),dp(16),dp(18));panel.setBackground(TvUi.glass(this,false));panel.addView(label(title,24));
-        ScrollView scroll=new ScrollView(this);LinearLayout options=new LinearLayout(this);options.setOrientation(LinearLayout.VERTICAL);scroll.addView(options);panel.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
-        for(Action action:actions){Button button=PlayerChrome.control(this,action.name,()->{closePlayerMenu();action.run.run();});options.addView(button,new LinearLayout.LayoutParams(-1,dp(56)));}
-        FrameLayout.LayoutParams layout=new FrameLayout.LayoutParams(dp(310),Math.min(dp(520),Math.round(getResources().getDisplayMetrics().heightPixels*.76f)),Gravity.END|Gravity.CENTER_VERTICAL);layout.setMargins(dp(20),dp(20),dp(28),dp(20));playerStage.addView(panel,layout);playerMenu=panel;if(options.getChildCount()>0)options.getChildAt(0).requestFocus();
+    private void playerEpisodes(){if(timeline!=null)timeline.cancelEdit();List<Action> actions=new ArrayList<>();for(int i=0;i<queue.size();i++){final int at=i;actions.add(new Action(queue.get(i).name,()->play(queue,at,false,playerBack,queueRefs,queueLine,queueSite)));}showPlayerMenu("选集",actions,playingIndex,true);}
+    private void closePlayerMenu(){if(playerMenu!=null&&playerStage!=null)playerStage.removeView(playerMenu);playerMenu=null;choicePanel=null;if(videoSurface!=null)videoSurface.requestFocus();showPlayerControls();}
+    private void showPlayerMenu(String title,List<Action> actions){showPlayerMenu(title,actions,0,false);}
+    private void showPlayerMenu(String title,List<Action> actions,int selected,boolean episodes){
+        closePlayerMenu();if(playerStage==null||actions.isEmpty())return;main.removeCallbacks(hidePlayerControls);if(playerOverlay!=null)playerOverlay.setVisibility(View.GONE);
+        List<String> names=new ArrayList<>();for(Action action:actions)names.add(action.name);
+        choicePanel=new CinemaChoicePanel(this,playerStage,title,names,selected,episodes,at->{closePlayerMenu();actions.get(at).run.run();},this::closePlayerMenu);playerMenu=choicePanel.panel;
     }
     private final Runnable hidePlayerControls=()->{if(playingView&&!controlsConfirmHeld&&playerMenu==null&&session.state()==PlaybackSession.State.PLAYING&&(timeline==null||!timeline.interacting())&&(livePanel==null||!livePanel.open())&&(programmePanel==null||!programmePanel.open())&&playerOverlay!=null){playerOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();}};
     private void showPlayerControls(){if(playerOverlay==null)return;playerOverlay.setVisibility(View.VISIBLE);main.removeCallbacks(hidePlayerControls);main.postDelayed(hidePlayerControls,5500);}
@@ -476,24 +472,35 @@ public final class CinemaActivity extends Activity {
         task("读取配置文件",this::settings,()->{try(InputStream stream=getContentResolver().openInputStream(uri);ByteArrayOutputStream out=new ByteArrayOutputStream()){if(stream==null)throw new java.io.IOException("文件不可读取");byte[] buffer=new byte[8192];int n;while((n=stream.read(buffer))!=-1){if(out.size()+n>CinemaCatalog.MAX_BYTES)throw new java.io.IOException("配置超过512KB");out.write(buffer,0,n);}return CinemaCatalog.config(new String(out.toByteArray(),java.nio.charset.StandardCharsets.UTF_8),null,policy);}},this::preview);
     }
     @Override public boolean dispatchKeyEvent(KeyEvent event){
-        if(VoiceAssistant.systemVoiceKey(event.getKeyCode()))return super.dispatchKeyEvent(event);
-        if(playingView&&playerMenu!=null){if(event.getKeyCode()==KeyEvent.KEYCODE_BACK){if(event.getAction()==KeyEvent.ACTION_UP)closePlayerMenu();return true;}return super.dispatchKeyEvent(event);}
+        int key=event.getKeyCode();boolean down=event.getAction()==KeyEvent.ACTION_DOWN;
+        if(VoiceAssistant.systemVoiceKey(key))return super.dispatchKeyEvent(event);
+        boolean confirm=key==KeyEvent.KEYCODE_DPAD_CENTER||key==KeyEvent.KEYCODE_ENTER||key==KeyEvent.KEYCODE_NUMPAD_ENTER;
+        if(confirm){if(down&&event.getRepeatCount()==0)confirmPress.down(key,event.getDownTime(),generation);else if(!down&&!confirmPress.up(key,event.getDownTime(),generation,event.isCanceled())){controlsConfirmHeld=false;playerConfirmAction=null;if(livePanel!=null)livePanel.cancelPress();if(choicePanel!=null)choicePanel.cancelPress();return true;}}
+        if(playingView&&choicePanel!=null){if(choicePanel.key(event))return true;return super.dispatchKeyEvent(event);}
         if(playingView&&programmePanel!=null&&programmePanel.key(event))return true;
         if(playingView&&programmePanel!=null&&programmePanel.open())return super.dispatchKeyEvent(event);
         if(playingView&&liveQueue&&livePanel!=null&&livePanel.key(event))return true;
-        boolean confirm=event.getKeyCode()==KeyEvent.KEYCODE_DPAD_CENTER||event.getKeyCode()==KeyEvent.KEYCODE_ENTER;
-        if(playingView&&confirm&&controlsConfirmHeld){if(event.getAction()==KeyEvent.ACTION_UP){controlsConfirmHeld=false;super.dispatchKeyEvent(event);showPlayerControls();return true;}return super.dispatchKeyEvent(event);}
-        if(playingView&&confirm&&event.getAction()==KeyEvent.ACTION_DOWN&&playerOverlay!=null&&playerOverlay.getVisibility()==View.VISIBLE&&getCurrentFocus()!=videoSurface){controlsConfirmHeld=true;main.removeCallbacks(hidePlayerControls);return super.dispatchKeyEvent(event);}
-        if(playingView&&liveQueue&&livePanel!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_DPAD_CENTER||event.getKeyCode()==KeyEvent.KEYCODE_ENTER)&& (playerOverlay==null||playerOverlay.getVisibility()!=View.VISIBLE)){if(event.getAction()==KeyEvent.ACTION_UP){livePanel.show(playingIndex);}return true;}
-        if(playingView&&!liveQueue&&timeline!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_DPAD_LEFT||event.getKeyCode()==KeyEvent.KEYCODE_DPAD_RIGHT)){showPlayerControls();return timeline.remoteKey(event);}
-        if(playingView&&!liveQueue&&(event.getKeyCode()==KeyEvent.KEYCODE_DPAD_CENTER||event.getKeyCode()==KeyEvent.KEYCODE_ENTER)&&(getCurrentFocus()==videoSurface||playerOverlay.getVisibility()!=View.VISIBLE)){if(event.getAction()==KeyEvent.ACTION_UP)togglePlayback();return true;}
-        if(playingView&&event.getKeyCode()==KeyEvent.KEYCODE_BACK){if(event.getAction()==KeyEvent.ACTION_UP){if(timeline!=null)timeline.cancelEdit();onBackPressed();}return true;}
-        if(playingView&&event.getAction()==KeyEvent.ACTION_DOWN){int key=event.getKeyCode();if(key>=KeyEvent.KEYCODE_DPAD_UP&&key<=KeyEvent.KEYCODE_DPAD_CENTER){boolean hidden=playerOverlay!=null&&playerOverlay.getVisibility()!=View.VISIBLE;showPlayerControls();if(hidden){if(playerToggle!=null)playerToggle.requestFocus();return true;}}switch(event.getKeyCode()){case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:if(session.state()==PlaybackSession.State.PLAYING)session.pause();else session.play();showPlayerControls();return true;case KeyEvent.KEYCODE_MEDIA_REWIND:seek(-30000);return true;case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:seek(30000);return true;case KeyEvent.KEYCODE_CHANNEL_UP:adjacent(1);return true;case KeyEvent.KEYCODE_CHANNEL_DOWN:adjacent(-1);return true;}}
+        if(playingView&&confirm){
+            if(down&&event.getRepeatCount()==0){controlsConfirmHeld=true;main.removeCallbacks(hidePlayerControls);View focus=getCurrentFocus();
+                if(focus!=null&&focus!=videoSurface&&playerOverlay!=null&&playerOverlay.getVisibility()==View.VISIBLE&&focus instanceof Button)playerConfirmAction=()->focus.performClick();
+                else playerConfirmAction=()->{if(liveQueue&&livePanel!=null){playerOverlay.setVisibility(View.GONE);livePanel.show(playingIndex);}else playerEpisodes();};
+            }else if(!down){controlsConfirmHeld=false;Runnable action=playerConfirmAction;playerConfirmAction=null;if(action!=null)action.run();}return true;
+        }
+        boolean videoFocus=getCurrentFocus()==videoSurface||playerOverlay==null||playerOverlay.getVisibility()!=View.VISIBLE;
+        if(playingView&&!liveQueue&&timeline!=null&&(key==KeyEvent.KEYCODE_DPAD_LEFT||key==KeyEvent.KEYCODE_DPAD_RIGHT)&&videoFocus){showPlayerControls();return timeline.remoteKey(event);}
+        if(playingView&&liveQueue&&videoFocus&&(key==KeyEvent.KEYCODE_DPAD_UP||key==KeyEvent.KEYCODE_DPAD_DOWN)){if(down&&event.getRepeatCount()==0)adjacent(key==KeyEvent.KEYCODE_DPAD_DOWN?1:-1);return true;}
+        if(playingView&&key==KeyEvent.KEYCODE_BACK){if(!down){if(timeline!=null)timeline.cancelEdit();onBackPressed();}return true;}
+        if(playingView&&(key==KeyEvent.KEYCODE_MENU||key==KeyEvent.KEYCODE_DPAD_UP||key==KeyEvent.KEYCODE_DPAD_DOWN)&&videoFocus){if(down){showPlayerControls();if(playerToggle!=null)playerToggle.requestFocus();}return true;}
+        if(playingView&&key==KeyEvent.KEYCODE_MENU){if(down&&event.getRepeatCount()==0)playerOptions();return true;}
+        if(playingView&&(key==KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE||key==KeyEvent.KEYCODE_MEDIA_PLAY||key==KeyEvent.KEYCODE_MEDIA_PAUSE||key==KeyEvent.KEYCODE_MEDIA_REWIND||key==KeyEvent.KEYCODE_MEDIA_FAST_FORWARD||key==KeyEvent.KEYCODE_CHANNEL_UP||key==KeyEvent.KEYCODE_CHANNEL_DOWN)){
+            if(down&&event.getRepeatCount()==0)switch(key){case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:togglePlayback();break;case KeyEvent.KEYCODE_MEDIA_PLAY:session.play();break;case KeyEvent.KEYCODE_MEDIA_PAUSE:entryIntent.cancel();session.pause();break;case KeyEvent.KEYCODE_MEDIA_REWIND:seek(-30000);break;case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:seek(30000);break;case KeyEvent.KEYCODE_CHANNEL_UP:adjacent(1);break;case KeyEvent.KEYCODE_CHANNEL_DOWN:adjacent(-1);break;}return true;
+        }
+        if(playingView&&down&&key>=KeyEvent.KEYCODE_DPAD_UP&&key<=KeyEvent.KEYCODE_DPAD_RIGHT)showPlayerControls();
         return super.dispatchKeyEvent(event);
     }
     @Override public void onBackPressed(){if(back!=null)back.run();else finish();}
     @Override protected void onResume(){super.onResume();display.resumed(true);if(vault!=null)try{shelf=vault.shelf();shelfWarning="";if(shelfRefresh!=null)shelfRefresh.run();}catch(Exception invalid){shelfWarning="观看记录无法读取，旧记录未覆盖";}}
-    @Override protected void onPause(){entryIntent.cancel();display.resumed(false);if(plugins!=null)plugins.cancelPending();super.onPause();}
-    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);if(!focus)entryIntent.cancel();display.focused(focus);if(focus&&prepared&&entryIntent.take(display.active()))session.play();}
+    @Override protected void onPause(){confirmPress.cancel();controlsConfirmHeld=false;playerConfirmAction=null;entryIntent.cancel();display.resumed(false);if(plugins!=null)plugins.cancelPending();super.onPause();}
+    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);if(!focus){if(livePanel!=null)livePanel.cancelPress();if(choicePanel!=null)choicePanel.cancelPress();confirmPress.cancel();controlsConfirmHeld=false;playerConfirmAction=null;entryIntent.cancel();}display.focused(focus);if(focus&&prepared&&entryIntent.take(display.active()))session.play();}
     @Override protected void onDestroy(){closeSettings();destroyed=true;invalidate();main.removeCallbacksAndMessages(null);release();io.shutdownNow();if(artwork!=null)artwork.close();if(info!=null)info.close();if(guideLoader!=null)guideLoader.close();if(plugins!=null)plugins.clear();super.onDestroy();}
 }

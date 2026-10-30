@@ -159,6 +159,8 @@ public class MainActivity extends Activity {
         Uri.Builder uri = Uri.parse(LOBBY).buildUpon().appendQueryParameter("edition", BuildConfig.PARENTS_EDITION ? "parents" : "standard");
         for (String slot : new String[] {"live", "cinema", "system", "quick1", "quick2", "quick3", "quick4"}) uri.appendQueryParameter(slot, destinations.label(slot));
         uri.appendQueryParameter("assistant", assistant.label());
+        uri.appendQueryParameter("photos",FeaturePolicy.photos()?"1":"0");
+        if("information".equals(pane))uri.appendQueryParameter("section","information");
         if ("quick1".equals(pane) || "quick2".equals(pane) || "quick3".equals(pane) || "quick4".equals(pane)) uri.appendQueryParameter("focus", pane);
         if ("live".equals(pane) || "cinema".equals(pane) || "system".equals(pane) || "settings".equals(pane) || "voice".equals(pane)) uri.appendQueryParameter("pane", pane);
         web.loadUrl(uri.build().toString());
@@ -167,6 +169,7 @@ public class MainActivity extends Activity {
         if ("/ambient-system".equals(path)) { try { startActivity(new Intent(Settings.ACTION_DREAM_SETTINGS)); } catch(RuntimeException unavailable) { new AlertDialog.Builder(this).setMessage("当前电视未提供系统屏保选择，可使用开视首页屏保。").setPositiveButton("返回",null).show(); } return; }
         if (path != null && path.startsWith("/preset-")) { destinations.addPreset(path.substring(8)); return; }
         if ("/cinema-settings".equals(path)) { cinema("settings"); return; }
+        if ("/nas-photos".equals(path)&&!FeaturePolicy.photos())return;
         if ("/nas".equals(path) || "/nas-photos".equals(path)) {
             Intent intent=new Intent(this,NasActivity.class).putExtra("filter","/nas-photos".equals(path)?"photo":"all");
             if("/nas-photos".equals(path)){try{if(new NasVault(this).library().route("photos")!=null)intent.putExtra("category","photos");}catch(Exception unavailable){nasUnavailable();return;}}
@@ -206,10 +209,11 @@ public class MainActivity extends Activity {
         }
     }
     private void family(String view) {
-        if (view == null) familyServer(null); else cinema(view);
+        if (view == null) {if(FeaturePolicy.photos())familyServer(null);else showLobby("information");} else cinema(view);
     }
     private void cinema(String view) { startActivityForResult(new Intent(this,CinemaActivity.class).putExtra("view",view),4602); }
     private void familyServer(String view) {
+        if(view==null&&!FeaturePolicy.photos()){showLobby("information");return;}
         String origin = preferences.getString("origin", ""); if (origin.isEmpty() || !HouseholdProxy.allowedOrigin(origin,preferences.getBoolean("allowLanHttp",false))) { setup(); return; }
         if (!lobby.webAvailable(webViewVersion())) { fallback(lobby.recoveryRequired() ? "网页显示组件刚刚退出，已保留简洁本机首页。请先使用本机应用或NAS；完全关闭开视后重新打开，再尝试家庭屏。" : "当前内核无法显示家庭屏，请从原系统更新WebView。其他应用入口仍可使用。"); return; }
         if (view != null && webViewVersion() < 89) { fallback("家庭影院需要 WebView 89 或更新版本。请在原系统更新内核；暂时可回原桌面使用原有播放器。"); return; }
@@ -226,7 +230,7 @@ public class MainActivity extends Activity {
         if(!lobbyMode||web==null||!ready)return;
         String movies="家人统一配置电影",series="家人统一配置剧集";JSONObject summary=new JSONObject();
         try {NasLibrary library=new NasVault(this).library();NasLibrary.Route movie=library.route("movies"),serial=library.route("series");if(movie!=null)movies="NAS · "+movie.connection.optString("name");if(serial!=null)series="NAS · "+serial.connection.optString("name");
-            summary.put("nasCount",library.connections().length()).put("nasPhotos",library.route("photos")!=null).put("nasMovies",movie!=null).put("nasSeries",serial!=null);
+            summary.put("nasCount",library.connections().length()).put("nasPhotos",FeaturePolicy.photos()&&library.route("photos")!=null).put("nasMovies",movie!=null).put("nasSeries",serial!=null);
         }catch(Exception unavailable){movies="请家人检查片库";series="请家人检查片库";}
         JSONObject apps=destinations.homeApps();web.evaluateJavascript("(function(){if(window.apertureNasLabels)window.apertureNasLabels("+JSONObject.quote(movies)+","+JSONObject.quote(series)+");if(window.apertureHomeSources)window.apertureHomeSources("+summary+");if(window.apertureHomeApps)window.apertureHomeApps("+apps+");})()",null);
     }
@@ -311,14 +315,19 @@ public class MainActivity extends Activity {
         super.onActivityResult(request, result, data);
     }
     private void hubConnection(){new AlertDialog.Builder(this).setTitle("智小策 Hub").setMessage("未连接\n\n电影 · 体重 · 旅行 · 账本\n\n扫码登录服务尚未接入。连接后，由你选择允许显示的内容。").setPositiveButton("返回",null).show();}
+    private void featureMenu(String title,String[] options,android.content.DialogInterface.OnClickListener listener){
+        java.util.List<String> names=new java.util.ArrayList<>();java.util.List<Integer> indices=new java.util.ArrayList<>();
+        for(int i=0;i<options.length;i++){if(!FeaturePolicy.photos()&&"NAS相册".equals(options[i]))continue;names.add(options[i]);indices.add(i);}
+        TvDialogs.menu(this,title,names.toArray(new String[0]),(dialog,index)->listener.onClick(dialog,indices.get(index)));
+    }
     private void quickMenu() {
         if (BuildConfig.PARENTS_EDITION) {
-            TvDialogs.menu(this,"设置",new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", "家人留言与相册", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"}, (dialog, which) -> {
+            featureMenu("设置",new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", FeaturePolicy.photos()?"家人留言与相册":"安排与留言", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"}, (dialog, which) -> {
                 if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else if (which == 14) hubConnection(); else destinations.all();
             }); return;
         }
-        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", BuildConfig.PARENTS_EDITION ? "家人留言和相册" : "切换轻量 / 完整窗景", "小爱同学与语音唤醒", "NAS", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"};
-        TvDialogs.menu(this,"设置",options, (dialog, which) -> {
+        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"};
+        featureMenu("设置",options, (dialog, which) -> {
             if (which == 0) showLobby(""); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
             else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) destinations.settings(true); else if (which == 7) setup(); else if (which == 8) destinations.all();
             else if (which == 10) assistant.help();

@@ -9,7 +9,7 @@ android {
     namespace 'org.zhixiaoce.aperture'
     compileSdk 35
     buildToolsVersion '35.0.0'
-    defaultConfig { ndk { abiFilters.addAll(kaishiSelectedAbis) }; applicationId 'org.zhixiaoce.kaishi'; minSdk 26; targetSdk 35; versionCode 27; versionName '0.2.0-alpha.24' }
+    defaultConfig { ndk { abiFilters.addAll(kaishiSelectedAbis) }; applicationId 'org.zhixiaoce.kaishi'; minSdk 26; targetSdk 35; versionCode 28; versionName '0.2.0-alpha.25' }
     flavorDimensions += 'edition'
     productFlavors {
         standard { dimension 'edition'; buildConfigField 'boolean', 'PARENTS_EDITION', 'false'; manifestPlaceholders = [appLabel: '开视'] }
