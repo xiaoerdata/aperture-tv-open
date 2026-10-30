@@ -163,3 +163,5 @@ S73（本地清理）：P73，[清理范围与保留核验](../verification/s73-
 S74（本地）：P74，[v27减法与遥控选集](../V27-FEEDBACK-S74.md)、[验证清单](../verification/s74-summary.json)、[第55期底稿](../../media/DEVLOG-055.md)。发行关闭相册、开发代码/数据保留；确认开列表、两列长集名、删除相似推荐。浏览器、5组JVM测试和两版编译通过；模拟器测试驱动安装超时，系统输入与小米真机未验收。公开v27不变。
 
 S75：P75授权v28 / alpha.25，[发行说明](../RELEASE-S75.md)、[软件封装检查](../verification/s75-software-acceptance.json)、[第56期底稿](../../media/DEVLOG-056.md)。两版稳定签名、相册关闭策略与Lint通过；系统输入和小米真机仍待测，远程结果另追加回读。
+
+S75发布完成：[v28 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.25)、[独立下载与源码回读](../verification/public-alpha-v28.json)。发行标签和安装包冻结，回执另追加main；系统输入与小米真机仍待测。

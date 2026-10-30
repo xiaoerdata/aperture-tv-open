@@ -192,7 +192,8 @@
       }
     ]
   },
-  "publicRelease": "pending publication/readback",
+  "publicRelease": "published; see public-alpha-v28.json",
   "githubHostedRunnerUsed": false,
-  "mediaUploaded": false
+  "mediaUploaded": false,
+  "publicationEvidence": "public-alpha-v28.json"
 }

@@ -1,0 +1,66 @@
+{
+  "verifiedAt": "2026-10-30T16:00:42.492575+00:00",
+  "version": "0.2.0-alpha.25",
+  "versionCode": 28,
+  "releaseId": 429205844,
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.25",
+  "releaseCommit": "eca34d613e0c80b28e23190ff32fecbd2c333781",
+  "prerelease": true,
+  "anonymousReleasePageAndAssetLinks": true,
+  "anonymousPageVerification": "passed in first completed attachment run before raw manifest TLS failure; final metadata independently checked through connector",
+  "anonymousAttachmentReadback": [
+    {
+      "name": "kaishi-v28-standard.apk",
+      "bytes": 55228065,
+      "sha256": "cffb30f106d1fc9d23a0e5994c48a1ecfc381501f857e05a0c8dd6e49f968850",
+      "assetId": 692569237,
+      "anonymousFullDownload": true
+    },
+    {
+      "name": "kaishi-v28-parents.apk",
+      "bytes": 55256737,
+      "sha256": "45e13a3366cbc88b2f08485c7ffc96faa616aa7a843859aa11c84efe77491d1d",
+      "assetId": 692571319,
+      "anonymousFullDownload": true
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 34605,
+      "sha256": "b235eda6e854c04a8092f1207f5b5f3fe3d83d35a87c4f86a1e192a9eb5fceaf",
+      "assetId": 692573108,
+      "anonymousFullDownload": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 267,
+      "sha256": "62e3cf990a4806e5773631ed4c0a9fcc3daf9043a7d9215906b2535e2cd02184",
+      "assetId": 692573270,
+      "anonymousFullDownload": true
+    }
+  ],
+  "sourceVerification": {
+    "treeMetadataAuthenticated": true,
+    "treeMatchesLocalFreeze": true,
+    "anonymousManifestReadback": false,
+    "manifestVerifiedThroughGitTree": true,
+    "trackedBlobDigestsVerified": 1590,
+    "sourceFiles": 1589,
+    "manifestReadBackByteForByte": false,
+    "method": "GitHub connected recursive Git tree blob SHA-1 equals each reviewed frozen source file including SOURCE-MANIFEST",
+    "anonymousSourceManifestFailure": "urllib and curl anonymous control requests hit TLS EOF; not counted as a passed raw manifest download",
+    "fullGitHubSourceArchiveDownloaded": false
+  },
+  "oldStatePreserved": {
+    "releasesAndDrafts": 13,
+    "assets": 52,
+    "tags": 13,
+    "idMappedComparison": true
+  },
+  "androidSourceSha256": "96aff867e318d9ba84333b289638c7cc54487a40e7606bac9acfeb378a333cac",
+  "xiaomiHardwareTested": false,
+  "systemRemoteInputAssertionsExecuted": 0,
+  "nativePlayerRuntimeTestedThisRound": false,
+  "systemXiaoAiWakeTested": false,
+  "workBuddyApplicationTested": false,
+  "mediaUploaded": false
+}

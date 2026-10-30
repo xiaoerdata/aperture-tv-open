@@ -10,8 +10,10 @@
 
 S74完成5组Node/JVM测试、真实浏览器检查、两版API编译和x86 debug定向构建；这些证据未变更为小米硬件验收。Android 28软件模拟器测试驱动安装超时，**系统输入断言未执行，没有本轮播放器原生运行截图**；遥控换台、播放选集、进度和布局仍需维护者复测。具体来源解码、小爱/米家、原桌面和WorkBuddy也未新增现场验收。
 
-S75两版ARM32/64 release和Lint已通过，证书与v27一致。实际包名、版本、权限、45份首页资源及品牌像素已核对；发行DEX中的相册策略明确返回false，测试驱动未进入安装包。软件结果与实际APK摘要以[软件清单](verification/s75-software-acceptance.json)为准；公开上传和下载回读将单独记录，不能用本地构建代替发布完成。
+S75两版ARM32/64 release和Lint已通过，证书与v27一致。实际包名、版本、权限、45份首页资源及品牌像素已核对；发行DEX中的相册策略明确返回false，测试驱动未进入安装包。软件结果与实际APK摘要以[软件清单](verification/s75-software-acceptance.json)为准；两版APK和两个校验附件已公开，均已匿名完整下载并核对摘要；Git树与源码清单的逐文件摘要核对通过；源码清单匿名直读遇到TLS EOF，未计为通过。
 
 [改动与开源参考](V27-FEEDBACK-S74.md) · [下载](DOWNLOADS.md) · [过程](process/README.md)。媒体底稿为[第56期](../media/DEVLOG-056.md)，未上传。
 
 标准版 52.67MiB；爸妈版 52.70MiB。
+
+[公开发行与回读](verification/public-alpha-v28.json) · [v28下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.25)。标签固定于`eca34d613e0c80b28e23190ff32fecbd2c333781`，回执另追加main。
