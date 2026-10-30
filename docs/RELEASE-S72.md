@@ -4,7 +4,7 @@
 
 本版增加星河、流光和静态屏保，显示时间、日期与天气；首页提供公网出口IP估算城市、手选城市、24小时和未来7天预报。使用方法、天气提供方、网络和固件限制见[功能说明](AMBIENT-WEATHER-S71.md)。免费Open-Meteo API限非商业用途，数据CC BY 4.0署名与API访问条件分别遵守。
 
-两版软件构建与签名检查完成，公开结果以发行后的匿名回读为准。正式下载见[v27 Alpha](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.24)。
+两版已公开发布，四个附件已经匿名完整下载并逐项核对SHA-256；源码清单匿名逐字节回读，完整Git树通过鉴权API核对全部文件摘要（公共API当时限流）。没有声称完整下载GitHub自动源码归档。正式下载见[v27 Alpha](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.24)。
 
 ## 验证范围
 
@@ -17,3 +17,5 @@
 系统Dream服务是否开放、实际电视动效流畅度、待机和小爱唤醒均未真机验收。既有影视原生回归保留于[S70](ACCEPTANCE-S70.md)，不改称本轮新增屏保运行通过。WorkBuddy和小米真机继续由维护者复验。
 
 下载入口：[版本索引](DOWNLOADS.md)。开发提示词、失败与证据见[过程记录](process/README.md)，自媒体底稿为[第53期](../media/DEVLOG-053.md)，未上传。
+
+[发布与独立回读](verification/public-alpha-v27.json)。冻结标签提交`df4df3192765fa2904dcde083857ae92da477b68`；发行回执后加至main，不移动标签或改附件。

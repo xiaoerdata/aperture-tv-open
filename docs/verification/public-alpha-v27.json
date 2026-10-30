@@ -1,0 +1,67 @@
+{
+  "verifiedAt": "2026-10-30T06:01:38.912080+00:00",
+  "version": "0.2.0-alpha.24",
+  "versionCode": 27,
+  "releaseId": 428694770,
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.24",
+  "releaseCommit": "df4df3192765fa2904dcde083857ae92da477b68",
+  "prerelease": true,
+  "anonymousReleasePageAndAssetLinks": true,
+  "anonymousApiRateLimited": false,
+  "anonymousAttachmentReadback": [
+    {
+      "name": "kaishi-v27-standard.apk",
+      "bytes": 55228065,
+      "sha256": "aeb3cef606b3be275fa44306bddc8486834c2249c6b7ef10c7fd3b5c322c5ce3",
+      "assetId": 691093498,
+      "anonymousFullDownload": true,
+      "verifiedBytesFromEarlierAttempt": true
+    },
+    {
+      "name": "kaishi-v27-parents.apk",
+      "bytes": 55252641,
+      "sha256": "9f5bf0fa2c09a7643361ab34ffea1c9e8fc706327ef31d963b1fd4a3683de854",
+      "assetId": 691096219,
+      "anonymousFullDownload": true,
+      "verifiedBytesFromEarlierAttempt": false
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 32858,
+      "sha256": "8b012004503d6b8949bfbaf0cb3a021fd012d32f828b761adea63b8d5c2b2265",
+      "assetId": 691098758,
+      "anonymousFullDownload": true,
+      "verifiedBytesFromEarlierAttempt": false
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 267,
+      "sha256": "3c9c252c6a20584986e15c07adfc85d30a38f98a39ae30faa2a4623e87fa2607",
+      "assetId": 691098888,
+      "anonymousFullDownload": true,
+      "verifiedBytesFromEarlierAttempt": false
+    }
+  ],
+  "sourceVerification": {
+    "anonymousGitHubApi": true,
+    "treeMetadataAuthenticated": true,
+    "anonymousManifestReadback": true,
+    "trackedBlobDigestsVerified": 1568,
+    "sourceFiles": 1567,
+    "manifestReadBackByteForByte": true,
+    "method": "authenticated recursive Git tree blob SHA-1 equals each reviewed frozen source file; SOURCE-MANIFEST read anonymously byte for byte",
+    "fullGitHubSourceArchiveDownloaded": false
+  },
+  "oldStatePreserved": {
+    "releasesAndDrafts": 12,
+    "assets": 48,
+    "tags": 12,
+    "idMappedComparison": true
+  },
+  "androidSourceSha256": "ab7846b5920b52db8b965cb43c9f8e9f97fd59098baf6e680194800f1fa8d029",
+  "xiaomiHardwareTested": false,
+  "nativeDreamTested": false,
+  "systemXiaoAiWakeTested": false,
+  "workBuddyApplicationTested": false,
+  "mediaUploaded": false
+}

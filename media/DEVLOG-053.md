@@ -8,4 +8,4 @@
 4. 安装升级镜头由维护者在小米电视上录制；未录制前不写“真机通过”。v18—v26沿用同包名和证书，保留旧配置；v17保持并存。
 5. 保留真实限制：可选系统屏保取决于固件；IP定位可能需要手选城市；天气数据和免费API条件分别遵守提供方条款。
 
-正文在公开发行回执完成后填写：已发布版本、两个APK链接、已测软件范围和待测真机事项。原始发布过程见docs/process/JOURNAL.md，最终状态见docs/RELEASE-S72.md。未发布自媒体。
+已公开发布[v27 / alpha.24](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.24)，两版APK及清单均匿名完整下载校验通过。可记录发行完成，不能写成小米真机验收通过。原始发布过程见docs/process/JOURNAL.md，最终状态见docs/RELEASE-S72.md。未发布自媒体。

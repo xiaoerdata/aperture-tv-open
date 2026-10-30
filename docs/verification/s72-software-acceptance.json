@@ -150,5 +150,6 @@
   "systemXiaoAiWakeTested": false,
   "televisionPerformanceTested": false,
   "mediaUploaded": false,
-  "publicRelease": "pending separate anonymous readback"
+  "publicRelease": "published; see public-alpha-v27.json",
+  "publicationEvidence": "public-alpha-v27.json"
 }
