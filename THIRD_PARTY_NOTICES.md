@@ -100,3 +100,9 @@ TVmaze资料采用其API说明的CC BY-SA条件，保留来源与归属；TMDB�
 开发截图中的Big Buck Bunny：© 2008 Blender Foundation / [www.bigbuckbunny.org](https://peach.blender.org/)，[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)。原片来自[Blender官方下载目录](https://download.blender.org/peach/bigbuckbunny_movies/)，HLS样流来自[Mux测试站](https://test-streams.mux.dev/)。配图为原片第60秒画面，由界面裁切显示；开发用MP4仅搬移容器索引，编码音视频未变。另尝试了[W3C视频演示](https://www.w3.org/2010/05/video/mediaevents.html)中的Bunny trailer。
 
 这些视频和测试频道不内置在产品APK；公开源码保留测试脚本、来源摘要与截图。见docs/verification/s66-public-resource-provenance.json。
+
+## S71 · 屏保与天气
+
+屏保星河/流光是项目原创Canvas程序绘制，不使用下载纹理、第三方宇宙视频或真实天文观测图。字体沿用下述OFL字体。
+
+天气数据由[Open-Meteo](https://open-meteo.com/)提供，按[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)署名。界面转换天气代码、四舍五入并选取24小时/7天显示；没有声称预报由本项目观测产生。其免费API仅限非商业用途，商业API访问须遵守提供方[计划条款](https://open-meteo.com/en/pricing)，数据许可不等于无限免费API授权。城市搜索同用Open-Meteo，IP城市估算使用[IPWHOIS](https://ipwhois.io/documentation)；调用时遵守各自条款。提供方服务和数据不随本项目代码重新标为MIT。截图天气为合成测试数据，实机可用性另验，见docs/AMBIENT-WEATHER-S71.md。

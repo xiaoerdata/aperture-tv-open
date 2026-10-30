@@ -34,7 +34,7 @@ S24/S25补充：NAS电影/剧集入口绑定、加密模型和焦点中断修正
 
 S26补充：[NAS播放与小爱音频焦点](../XIAOMI-VOICE.md#nas影片与音频焦点源码v7)、[播放验证](../verification/playback-focus.json)、[讲解动画记录](../verification/playback-focus-media.json)、[第十五期分镜](../../media/DEVLOG-015.md)。这是生产控制器JVM与合成事件讲解，未作实机结论。
 
-S27补充：[v7两版APK证据](../verification/v7-candidates.json)、[源码包证据](../verification/v7-source.json)、[私有下载](../../private-preview/README.md)。免费本地一次构建；目录/签名/来源验证通过，Android与小米硬件仍待验收。
+S27补充：[v7两版APK证据](../verification/v7-candidates.json)、[源码包证据](../verification/v7-source.json)、[私有下载](../DOWNLOADS.md)。免费本地一次构建；目录/签名/来源验证通过，Android与小米硬件仍待验收。
 
 S28补充：[手机/Agent交接NAS](../NAS-SETUP.md)、[专项报告](../verification/nas-setup.json)、[第十六期](../../media/DEVLOG-016.md)。原生读取仍可独立使用；交接需要可信HTTPS家庭服务。手机画面为浏览器/合成/JVM，不是电视验收。
 
@@ -150,3 +150,7 @@ S70 v26软件完成：[分段结果、真实截图与限制](../ACCEPTANCE-S70.m
 
 
 S70发布完成：[v26 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.23)、[匿名下载/源码核对及旧版保留回执](../verification/public-alpha-v26.json)。冻结源码标签不随回执追加而移动；小米真机与完整系统遥控链路仍待复验。
+
+S71（本地开发）：P71，[星河屏保与天气](../AMBIENT-WEATHER-S71.md)、[13组浏览器任务](../verification/s71-browser.json)、[提供方实查](../verification/s71-provider.json)、[源码绑定与验证边界](../verification/s71-summary.json)、[第52期编辑稿](../../media/DEVLOG-052.md)。两版API编译及5组Node/JVM测试通过；未构建APK或发布，当前v26不包含新功能，系统Dream与小米真机待验。
+
+S72：P72授权v27 / alpha.24，[发行说明](../RELEASE-S72.md)、[两版签名APK与软件检查](../verification/s72-software-acceptance.json)、[第53期底稿](../../media/DEVLOG-053.md)。公开结果以新增匿名回读为准，不以本地签名代替公开完成。

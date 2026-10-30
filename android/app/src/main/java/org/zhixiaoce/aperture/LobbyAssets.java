@@ -9,6 +9,7 @@ final class LobbyAssets {
     static final String HOST = "appassets.androidplatform.net";
     static final String DOCUMENT = "/assets/index.html";
     private static final Set<String> FILES = new HashSet<>(Arrays.asList(
+        "ambient.html", "ambient.css", "ambient.js", "ambient-scene.js", "weather.js", "weather-model.js",
         "art/dusk-lake-v1.webp", "art/dusk-lake-thumb-v1.webp", "art/memory-archive-v1.webp", "art/glass-swallow-v1.webp", "app-presets.json", "home-personal.js", "index.html", "style.css", "launcher.js", "living-room.svg", "carezza-4k.jpg", "namib-4k.jpg", "fuji-4k.jpg", "lofoten-4k.jpg", "lofoten-thumb.jpg", "namib-thumb.jpg", "fuji-thumb.jpg",
         "app-icons/bilibili.jpg", "app-icons/tencent.png", "app-icons/iqiyi.png", "app-icons/youku.png", "app-icons/mango.png", "app-icons/migu.jpg", "app-icons/netflix.jpg", "app-icons/appletv.png", "app-icons/youtube.png", "app-icons/disney.png", "app-icons/plex.png", "app-icons/kodi.png", "app-icons/application.svg", "brand/kaishi-icon-v2.webp", "brand/kaishi-parents-v2.webp", "brand/identity.css", "brand/identity.js",
         "fonts/clock-reader.woff2", "fonts/aperture-song.woff2"

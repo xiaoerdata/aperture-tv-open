@@ -10,7 +10,7 @@ import {nasSetupHttp} from './nas-setup/http.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const version=JSON.parse(await readFile(join(root,'package.json'),'utf8')).version;
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.json':'application/json; charset=utf-8','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.woff2':'font/woff2'};
-export function createHttp({service,store,auth,images,origin,life,cinema,nasSetup,appOperations,localAgent,localAutomation,trustedProxies=[]}) {
+export function createHttp({service,store,auth,images,origin,life,cinema,nasSetup,appOperations,localAgent,localAutomation,trustedProxies=[],weather}) {
   const allowed=new URL(origin); const buckets=new Map();let eventClients=0;
   function rate(req,group,limit) {
     const key=`${req.socket.remoteAddress}:${group}`, now=Date.now();
@@ -36,6 +36,7 @@ export function createHttp({service,store,auth,images,origin,life,cinema,nasSetu
       if(req.headers.host !== allowed.host) fail('主机地址未配置',421,'invalid_host');
       if(req.headers.origin && req.headers.origin !== allowed.origin) fail('来源不允许',403,'invalid_origin');
       const requestUrl=new URL(req.url,allowed),path=requestUrl.pathname;
+      if(path.startsWith('/weather/')){if(req.method!=='GET')fail('方法不支持',405);rate(req,'weather',30);const result=await weather.read(path,requestUrl.searchParams);return send(result.body,result.status);}
       if((path==='/'||path==='/home')&&['GET','HEAD'].includes(req.method)){res.writeHead(302,{Location:'/launcher/index.html'+requestUrl.search});return res.end();}
       const chromium=/Chrom(?:e|ium)\/([0-9]+)/.exec(req.headers['user-agent']||'');
       if((path==='/'||path==='/tv')&&['GET','HEAD'].includes(req.method)&&chromium&&Number(chromium[1])<89){res.writeHead(302,{Location:'/tv-lite'+requestUrl.search});return res.end();}

@@ -1,0 +1,71 @@
+{
+  "stage": "S71",
+  "localDevelopment": true,
+  "version": "0.2.0-alpha.23",
+  "versionCode": 26,
+  "featuresInPublishedV26": false,
+  "browserGroupsPassed": 13,
+  "syntheticWeatherScreenshots": true,
+  "nodeJvmTestGroups": {
+    "passed": 5,
+    "failed": 0,
+    "productionJavaAssertions": 15
+  },
+  "native": {
+    "bothEditionsAndroid35Compilation": true,
+    "existingPolicyHarness": true,
+    "apkBuilt": false,
+    "runtimeOrDreamTested": false
+  },
+  "providerProbe": "s71-provider.json",
+  "providerTerms": "s71-provider-terms.json",
+  "screenshots": [
+    "docs/images/s71-saver-galaxy.png",
+    "docs/images/s71-saver-flow.png",
+    "docs/images/s71-home-weather.png",
+    "docs/images/s71-parents-weather.png",
+    "docs/images/s71-weather-24h.png",
+    "docs/images/s71-weather-7d.png",
+    "docs/images/s71-weather-mobile.png"
+  ],
+  "selectedInputSha256": {
+    "public/launcher/ambient-scene.js": "ffd9b83317203a4c53f761e31e4c838f05cfe09111311b89c5dca2a2cac3513f",
+    "public/launcher/ambient.js": "c0ec2602ff2f79cb8b313e77894324275ed76e9c77797e96dc0e1aa5e33bd03a",
+    "public/launcher/ambient.css": "8863bd2494051a5ed0f0cdcfa860d3b29e7931159f388ea1a98106f8f5b7d63b",
+    "public/launcher/ambient.html": "081a8c67e9be9610adb2f0d96c3db246c10d47fa4740779a69a29f8c629789b6",
+    "public/launcher/weather-model.js": "f095d3f328e419d45f86e24e71ad45ccecc1fd1ba2cab211a3bd8fb55b6e1fdc",
+    "public/launcher/weather.js": "b4bb9ad23e24ac5ada12f699e6a63578d827478c53ddf5c1d08a301f3ff25a4a",
+    "public/launcher/index.html": "dc932a41ffddca38e0bf103396bca34b2b885530d967df83460b0b6a893cc8af",
+    "public/launcher/launcher.js": "470ad29d09ea9ab6eb333a3db037318c2f48d6e378e8d60eb3ca5c583c63e1d7",
+    "server/weather.mjs": "7325abd669b1384096c6ff7f6e1af93be81c6d1d5f51ee493cac9146062c3646",
+    "server/app.mjs": "a966c7d75ffcbeb5966af7265c74a0d83ef8462e5bf992f8ec79960bce38c0e9",
+    "server/http.mjs": "92fe32f5e0eae24ce9586f1f707e80ef7f92f49e93b57bddbdb5046a2ad16e2f",
+    "android/app/src/main/AndroidManifest.xml": "28564f34bca9263a453c859dee707992e408cf1fdda0871a228e9f853002e71c",
+    "android/app/src/main/java/org/zhixiaoce/aperture/AmbientActivity.java": "5c17f822e712cde8c1431a94258448fa3c15816398839d8e13b546961cc4de8d",
+    "android/app/src/main/java/org/zhixiaoce/aperture/AmbientDreamService.java": "b2a2451a708140ab879533a550b3522ec603dbf16a32691cab3e77468272f0fa",
+    "android/app/src/main/java/org/zhixiaoce/aperture/AmbientWeb.java": "e4f5b0354dff7509168f334257d3b48bf2c7bb4b43337ff46c97bc855409612a",
+    "android/app/src/main/java/org/zhixiaoce/aperture/WeatherProxy.java": "1dc74d1c61e39510d8a2562bc1f006fb7d46a61d03563b4e7467e69162e6db01",
+    "android/app/src/main/java/org/zhixiaoce/aperture/LobbyAssets.java": "904b327511af1b5b6a4eeeea207a7bf7ab30a9d9afbd9e5468e8ca6e29d3c40d",
+    "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java": "aac8843581108b9e7ef6df17ca13ce87bb5c9776000c6a6e497255198b331dd7",
+    "tests/weather.test.mjs": "ca0f455ffed6bacb96f29bf1f68728166c18fc157d11dd190618488c81b02a84",
+    "tests/weather-native.test.mjs": "13451ac0f9e9c0ef574b6bcf2c69e92fdbaff8892a621ae4304f93c50864d16a",
+    "tests/java/WeatherProxyTest.java": "25174aef82e05e686476dafa898ec83d11e67a6e179c13e4aaec6ca2ec6e5265",
+    "scripts/browser-s71-ambient-qa.mjs": "63a3798e4793633c7d4de85bd97df827d0532ad803eefe19d532d552a05eb8a7"
+  },
+  "limits": [
+    "No Xiaomi device or OEM Dream acceptance",
+    "No mainland network availability guarantee",
+    "No full system remote or XiaoAi wake acceptance",
+    "No actual TV frame rate, GPU, power, or medical eye-health claims",
+    "No APK, commit, push, publication or media upload during S71"
+  ],
+  "developmentIssues": [
+    "Stale browser and Java test setup paths resolved",
+    "Home weather pointer hit target fixed with z-index",
+    "Explicit browser context required for shared page",
+    "Standalone weather close event target fixed",
+    "Standalone settings click event no longer treated as preview flag",
+    "Browser wait follows actual home redirect",
+    "Java assertion driver count synchronized after adding day/night field"
+  ]
+}

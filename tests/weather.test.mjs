@@ -1,0 +1,18 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import vm from 'node:vm';import {createWeather,weatherTarget} from '../server/weather.mjs';
+const now=Date.now(),hour=Math.floor(now/3600000)*3600;
+function forecast(){return {timezone:'Asia/Shanghai',current:{time:hour,temperature_2m:22,weather_code:1,is_day:0},hourly:{time:Array.from({length:48},(_,i)=>hour+i*3600),temperature_2m:[null,...Array(47).fill(23)],precipitation_probability:Array(48).fill(30),weather_code:Array(48).fill(2),is_day:Array.from({length:48},(_,i)=>i%2)},daily:{time:Array.from({length:7},(_,i)=>hour+i*86400),temperature_2m_min:Array(7).fill(15),temperature_2m_max:Array(7).fill(24),weather_code:Array(7).fill(1)}};}
+test('weather destinations reject URL injection, duplicate coordinates and unbounded queries',()=>{
+ for(const [path,q] of [['/weather/forecast','lat=91&lon=1'],['/weather/forecast','lat=1&lon=Infinity'],['/weather/forecast','lat=1&lat=2&lon=1'],['/weather/forecast','lat=1&lon=2&url=https://private'],['/weather/search','q=%00'],['/weather/location','ip=127.0.0.1']])assert.throws(()=>weatherTarget(path,new URLSearchParams(q)));
+ assert.ok(new URL(weatherTarget('/weather/forecast',new URLSearchParams('lat=31&lon=121'))).searchParams.get('hourly').includes('is_day'));
+ assert.equal(new URL(weatherTarget('/weather/search',new URLSearchParams({q:'上海'}))).hostname,'geocoding-api.open-meteo.com');
+});
+test('weather cache deduplicates, expires and strips raw IP; failed fetch may recover',async()=>{
+ let calls=0,clock=now,bad=false;const service=createWeather({now:()=>clock,fetcher:async()=>{calls++;if(bad)throw Error('offline');return new Response(JSON.stringify({success:true,ip:'not-forwarded',city:'Shanghai',latitude:31.2,longitude:121.4}));}});
+ const q=new URLSearchParams();const results=await Promise.all([service.read('/weather/location',q),service.read('/weather/location',q)]);assert.equal(calls,1);assert.equal(results[0].body.data.ip,undefined);assert.equal(results[0].body.data.scope,'server-egress');clock+=21600001;bad=true;assert.equal((await service.read('/weather/location',q)).status,503);bad=false;assert.equal((await service.read('/weather/location',q)).status,200);assert.equal(calls,3);service.close();
+});
+test('oversized upstream response is rejected and errors never masquerade as a forecast',async()=>{
+ const service=createWeather({fetcher:async()=>new Response('x'.repeat(512001))});assert.equal((await service.read('/weather/location',new URLSearchParams())).status,503);service.close();
+});
+test('forecast keeps 24 distinct hours, seven dates, timezone, missing values and stale state',async()=>{
+ const context=vm.createContext({});vm.runInContext(await readFile('public/launcher/weather-model.js','utf8'),context);const m=context.KaishiWeatherModel,place={name:'上海',latitude:31.2,longitude:121.4};let data={data:forecast(),fetchedAt:now};const result=m.normalize(data,place,now);assert.equal(result.hours.length,24);assert.equal(result.days.length,7);assert.equal(result.hours[0].temp,null);assert.equal(result.zone,'Asia/Shanghai');assert.equal(result.night,true);assert.equal(result.hours[0].night,true);assert.equal(result.hours[1].night,false);assert.equal(m.symbol(0,true),'☾');assert.equal(m.symbol(0,false),'☀');assert.equal(m.symbol(61,true),'☂');assert.equal(m.normalize(data,place,now+1900000).stale,true);assert.throws(()=>m.normalize(data,place,now+86400001));data.data.daily.time.pop();assert.throws(()=>m.normalize(data,place,now));assert.equal(m.place({...place,latitude:Infinity}),null);
+});

@@ -1,0 +1,29 @@
+{
+  "developerHostOnly": true,
+  "xiaomiOrMainlandConnectivity": false,
+  "checkedAt": "2026-10-30T04:52:03.376Z",
+  "entries": [
+    {
+      "name": "location",
+      "status": 200,
+      "success": true,
+      "rawIpReturned": false,
+      "locationScope": "server-egress"
+    },
+    {
+      "name": "search",
+      "status": 200,
+      "success": true,
+      "results": 7
+    },
+    {
+      "name": "forecast",
+      "status": 200,
+      "success": true,
+      "hours": 168,
+      "days": 7,
+      "hourlyDayNight": true,
+      "currentDayNight": true
+    }
+  ]
+}

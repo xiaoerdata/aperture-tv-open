@@ -4,22 +4,22 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加家庭照片、日程、留言、数据、NAS资源和可定制入口。
 
-当前版本 **v26 / 0.2.0-alpha.23**：分类留在左侧，影片在右侧五列浏览；合并加载更多计数，直播全屏并修复确认键竞争；首页放大应用图标，新增本机应用墙。见[回归说明与限制](docs/V24-FEEDBACK-S70.md)。
+当前版本 **v27 / 0.2.0-alpha.24**：深色星河/流光屏保显示时间、日期和天气；首页支持按公网IP估算城市、手选城市、24小时与未来7天预报。两版共用，无需电脑家庭服务即可查询天气。见[使用说明](docs/AMBIENT-WEATHER-S71.md)和[本轮发行验证](docs/RELEASE-S72.md)。
 
-**v26可更新v18—v25，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
+**v27可更新v18—v26，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
 
 ## 两个版本
 
 - 标准版：首屏看电视、看电视剧、看电影、看综艺、常用应用；向下进入片库与家庭分区。深色玻璃、4K摄影背景和遥控焦点。
 - 爸妈版：看电视、看电视剧、看电影、看综艺，以及常用应用快捷入口。安装和来源配置留在家人设置。
 
-![标准版首页（浏览器演示，非真机）](docs/images/s70-home.png)
+![标准版首页（浏览器、合成天气，非真机）](docs/images/s71-home-weather.png)
 
-![爸妈版首页（浏览器演示，非真机）](docs/images/s70-home-parents.png)
+![爸妈版首页（浏览器、合成天气，非真机）](docs/images/s71-parents-weather.png)
 
 ## 安装与使用
 
-按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.23)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.24)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](docs/EMBEDDED-CINEMA.md)与[插件说明](docs/PLUGIN-ENGINE.md)；没有预置影视来源。
 
@@ -46,9 +46,9 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 
 ## 当前验证边界
 
-本轮使用合成目录、合成XMLTV、保留的Mux HLS样流与Blender影片配图进行回归；媒体不内置到安装包。主机领域测试、首页浏览器任务与Android TV API28模拟器分开记录，结果见[本轮验收清单](docs/ACCEPTANCE-S70.md)。筛选仅作用于已加载内容，搜索限定当前来源。62MiB MP4在本轮软件CPU环境的一次测试未能在90秒内起播，失败记录保留，没有改写为通过。
+本轮屏保/天气通过13组浏览器任务、5组Node/JVM测试（含15项生产Java传输断言），两版Android API编译通过；实际发行构建、签名和随包资源核验见[发行记录](docs/RELEASE-S72.md)。天气服务在开发机连通，不等于中国大陆电视网络或OEM屏保验收。系统屏保设置是否开放取决于小米固件；没有强改原系统设置。免费Open-Meteo API限非商业用途，数据与服务条款见[第三方说明](THIRD_PARTY_NOTICES.md)。
 
-历次v22、v23、v24的验证仍保留在各自记录中，不混称本轮全量测试。用户报告的原始资源包未提供，本轮不推断其全部源站、片单海报比例或重复来源根因；新版小米真机、具体输入法、小爱/米家、NAS硬件及WorkBuddy仍由维护者复验。产品继续为Alpha。
+v26的影视分类、五列海报、直播确认键和应用墙验证保留在[上轮清单](docs/ACCEPTANCE-S70.md)，本轮未把旧模拟器结果改称新屏保运行验收。新版小米真机、具体输入法、小爱/米家、NAS硬件及WorkBuddy仍由维护者复验。产品继续为Alpha。
 
 问题反馈见[Issues](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)，二次开发欢迎[Pull Requests](https://github.com/xiaoerdata/aperture-tv-open/pulls)。
 

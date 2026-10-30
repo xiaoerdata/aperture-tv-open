@@ -1,0 +1,42 @@
+{
+  "sourcePagesOnly": true,
+  "entries": [
+    {
+      "url": "https://open-meteo.com/en/terms",
+      "read": false,
+      "failure": "HTTPError"
+    },
+    {
+      "url": "https://ipwhois.io/documentation",
+      "read": true,
+      "excerpts": [
+        "requests from secure websites. Try it live → Basic code examples → Rate limits The Free endpoint is limited to 1,000 requests per day per client IP address. When using CORS (JavaScript request",
+        " daily limit is shared across all traffic from that domain. If you exceed the rate limit, further requests will return HTTP 429 (Too Many Requests) . Access will be restored automatically after 24 hours . ",
+        "sponse includes a Retry-After header indicating the number of seconds until the rate limit resets. Need more? Free endpoint $0 Great for testing, learning, prototyping, and small projects. 1,000 r",
+        "equests / day Commercial use allowed Standard geolocation accuracy No Native-language data No Currency, Security data No Bulk endpoint No dashb",
+        " business-critical applications. From 600K to unlimited requests / month Commercial use allowed Enhanced geolocation accuracy Native-language data Currency Data &amp; Security Data (proxy, VPN, Tor)",
+        " limit has been exceeded {&quot;success&quot;:false,&quot;message&quot;:&quot;Rate limit exceeded&quot;,&quot;upgrade_url&quot;:&quot;https://ipwhois.io/upgrade&quot;} In general, a 2xx HTTP status cod"
+      ]
+    },
+    {
+      "url": "https://open-meteo.com/en/docs",
+      "read": true,
+      "excerpts": [
+        "ecipitation Unit ISO 8601 (e.g. 2026-10-27) Timeformat Usage licence: Non-Commercial Commercial Self-Hosted API Response Preview: Chart &amp; URL Python TypeScript Swift Other Loading... Download XLSX Download CSV API URL ( Open in ne"
+      ]
+    },
+    {
+      "url": "https://open-meteo.com/en/pricing",
+      "read": true,
+      "excerpts": [
+        "at sets apart the free API from the customer API? The free API is for non-commercial use, rate-limited to 10,000 calls/day, and carries no uptime guarantee. The customer API runs on dedicated servers, has no daily rate limit, and incl",
+        "customer API? The free API is for non-commercial use, rate-limited to 10,000 calls/day, and carries no uptime guarantee. The customer API runs on dedicated servers, has no daily rate limit, and includes a commercial use licenc",
+        "ables 14 days Time length Models Locations Is it necessary to provide attribution to Open-Meteo? Open-Meteo relies on open data that is licenced under Attribution 4.0 International (CC BY 4.0) . This licence mandates giving appropr",
+        " to Open-Meteo? Open-Meteo relies on open data that is licenced under Attribution 4.0 International (CC BY 4.0) . This licence mandates giving appropriate credit and indicating any modifications made to the data. While you are perm",
+        "es on open data that is licenced under Attribution 4.0 International (CC BY 4.0) . This licence mandates giving appropriate credit and indicating any modifications made to the data. While you are permitted to utilise and dist",
+        "o utilise and distribute the data, including for commercial purposes, attribution is a requirement under this licence. For more information, please refer to the licence page . Unlock the Power of Open-Source Weather Data! Subscript",
+        "API. The server code is open-source under AGPLv3; the weather data is CC BY 4.0. Commercial plans add a dedicated endpoint, an API key, and a 99.9% uptime target. For custom volume requirements or enterprise contracts, contac"
+      ]
+    }
+  ]
+}

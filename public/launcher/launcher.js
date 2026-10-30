@@ -69,7 +69,7 @@
     ]},
     settings: {title:'设置', actions:[
       ['cinema-settings','直播与影视来源','',''], ['nas','NAS','',''], ['choose-shortcuts','常用应用','',''],
-      ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
+      ['weather','天气','',''], ['ambient-settings','屏保','',''], ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
       ['open-system','返回原桌面','',''], ['voice-help','小爱同学','',''], ['more-settings','更多设置','','']
     ]},
     'more-settings': {title:'更多设置', actions:[
@@ -156,6 +156,7 @@
   function motionState() { document.documentElement.setAttribute('data-motion', decorativeMotion && nativeActive && !document.hidden ? 'on' : 'off'); }
   motionState(); document.addEventListener('visibilitychange', motionState);
   function act(action) {
+    if (action === 'weather' || action === 'ambient-settings') { closePane(); if (action === 'weather') window.KaishiWeatherUI.open(); else window.KaishiAmbient.settings(); return; }
     if (action === 'motion') { decorativeMotion = !decorativeMotion; try { localStorage.setItem('kaishi-motion', decorativeMotion ? 'on' : 'off'); } catch (ignored) {} motionState(); var label=document.querySelector('[data-action=motion] strong');if(label)label.textContent=decorativeMotion?'关闭动画':'开启动画'; return; }
 
     if (action.indexOf('panels-') === 0) { personal.setMode(action.slice(7)); closePane(); return; }
@@ -377,6 +378,8 @@
   personal = window.KaishiHome({focus:focusNode,visible:function(){return !parents && homePage===0 && section==='overview' && !pane && !document.hidden && nativeActive;},data:function(){return {photos:photos(),metrics:entries('metric'),notes:entries('note'),events:entries('event').filter(function(e){return e.date===today();}),life:(board&&board.life)||[],today:today()};},action:nativeAction,open:function(action){if(action==='nas'||action==='nas-photos')nativeAction(action);else setSection(action);},presets:function(){openPane('presets');}});
   renderContent(); loadContent(); contentTimer = setInterval(loadContent, virtualHome ? 5000 : 30000);
   function back() {
+    if (window.KaishiAmbient && window.KaishiAmbient.key('BrowserBack')) return true;
+    if (window.KaishiWeatherUI && window.KaishiWeatherUI.key('BrowserBack')) return true;
     if (!pane && section==='overview' && homePage===0 && personal.appsExpanded()) {personal.setApps(false,true);return true;}
     if (closePane()) return true;
     if (section !== 'overview') { var old = section, target = sectionReturn; setSection('overview'); setHomePage(parents ? 1 : sectionHomePage, false); if (!focusNode(target && target.offsetWidth ? target : $(parents ? 'entry-live' : 'entry-' + old))) restoreHomeFocus(homePage); return true; }
@@ -465,9 +468,10 @@
           if (name === 'ArrowLeft' || name === 'ArrowUp') return focusNode($('dock-toggle')) || true;
           if (name === 'ArrowRight') return focusNode($('personal-panel').hidden ? $('settings-open') : $('personal-open')) || true;
         }
+        if (active === $('weather-home')) { if(name==='ArrowRight')return focusNode($('settings-open'))||true;if(name==='ArrowLeft')return focusNode($('brand-home'))||true;if(name==='ArrowDown')return focusNode(firstHomeControl(homePage))||true; }
         if (active === $('settings-open')) {
+          if (name === 'ArrowLeft') return focusNode($('weather-home')) || true;
           if (name === 'ArrowDown') return focusNode($(homeWatchFocus)) || true;
-          if (name === 'ArrowLeft') return focusNode($('brand-home')) || true;
         }
         if (active === $('brand-home')) {
           if (name === 'ArrowDown') return focusNode($(homeWatchFocus)) || true;
@@ -519,6 +523,7 @@
   function key(event) {
     var map = {37: 'ArrowLeft', 38: 'ArrowUp', 39: 'ArrowRight', 40: 'ArrowDown', 13: 'Enter', 27: 'Escape', 4: 'BrowserBack', 9: 'Tab'};
     var name = event.key || map[event.keyCode || event.which], nodes = items(), current = nodes.indexOf(document.activeElement);
+    if ((window.KaishiAmbient && window.KaishiAmbient.key(name)) || (window.KaishiWeatherUI && window.KaishiWeatherUI.key(name))) { event.preventDefault(); return; }
     if (name === 'Menu' || name === 'ContextMenu' || name === 'F10') { event.preventDefault(); openPane('settings'); return; }
     if (name === 'Escape' || name === 'BrowserBack') { if (back()) event.preventDefault(); return; }
     if (name === 'Tab' && pane) { event.preventDefault(); focusNode(nodes[(current + (event.shiftKey ? -1 : 1) + nodes.length) % nodes.length]); return; }
@@ -541,7 +546,7 @@
   document.addEventListener('keydown', key);
   window.apertureRemoteKey = function (name) { var handled = false; key({key: name, preventDefault: function () { handled = true; }}); return handled; };
   window.apertureBack = back;
-  window.apertureNativeFocus = function (active) { nativeActive = !!active; motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
+  window.apertureNativeFocus = function (active) { nativeActive = !!active; if(window.KaishiAmbient)window.KaishiAmbient.active(active); if(window.KaishiWeatherUI)window.KaishiWeatherUI.active(active); motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
   function clock() {
     if (disposed || document.hidden) return;
     var date = new Date(); text('clock', ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2));

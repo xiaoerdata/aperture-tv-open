@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0c1119">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; object-src 'none'; base-uri 'none'">
-  <title>开视</title><link rel="stylesheet" href="./style.css"><script src="./home-personal.js" defer></script><script src="./launcher.js" defer></script>
+  <link rel="stylesheet" href="./ambient.css"><script src="./weather-model.js" defer></script><script src="./ambient-scene.js" defer></script><script src="./weather.js" defer></script><script src="./ambient.js" defer></script><title>开视</title><link rel="stylesheet" href="./style.css"><script src="./home-personal.js" defer></script><script src="./launcher.js" defer></script>
 <link rel="icon" data-kaishi-favicon type="image/webp" href="./brand/kaishi-icon-v2.webp"><link rel="stylesheet" href="./brand/identity.css"><script src="./brand/identity.js" defer></script></head>
 <body>
 <div class="scenic-background" aria-hidden="true"><div class="scenic-shade"></div><div class="scenic-blur"></div></div>
@@ -13,6 +13,7 @@
     <a class="wordmark" href="#" id="brand-home" aria-label="首页"><span class="arch-logo" aria-hidden="true"></span><span>开视<small></small></span></a>
     <nav class="section-nav glass" aria-label="分区"><button data-section="overview" aria-pressed="true">首页</button><button data-section="photos" aria-pressed="false">相册</button><button data-section="information" aria-pressed="false">安排与留言</button></nav>
     <div class="header-time"><time id="clock">--:--</time><span><b id="date-day">今天</b><small id="date-week"></small></span></div>
+    <button class="weather-home" id="weather-home" aria-label="天气：24小时与未来7天"><span>天气</span></button>
     <button class="settings-button glass" id="settings-open">设置</button>
   </header>
   <main id="home-pages">

@@ -1,0 +1,154 @@
+{
+  "stage": "S72",
+  "releaseReady": true,
+  "version": "0.2.0-alpha.24",
+  "versionCode": 27,
+  "xiaomiOnly": true,
+  "buildAndLintBothEditionsPassed": true,
+  "firstBuildProcessExit": 143,
+  "finalBuildSuccessful": true,
+  "stableSigningVerifiedAgainstV26": true,
+  "androidSourceSha256": "ab7846b5920b52db8b965cb43c9f8e9f97fd59098baf6e680194800f1fa8d029",
+  "editions": [
+    {
+      "applicationId": "org.zhixiaoce.kaishi",
+      "edition": "standard",
+      "version": "0.2.0-alpha.24",
+      "versionCode": 27,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v27-standard.apk",
+      "apkBytes": 55228065,
+      "sha256": "aeb3cef606b3be275fa44306bddc8486834c2249c6b7ef10c7fd3b5c322c5ce3",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "ab7846b5920b52db8b965cb43c9f8e9f97fd59098baf6e680194800f1fa8d029",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 45,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    },
+    {
+      "applicationId": "org.zhixiaoce.kaishi.parents",
+      "edition": "parents",
+      "version": "0.2.0-alpha.24-parents",
+      "versionCode": 27,
+      "variant": "release",
+      "abis": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "debuggable": false,
+      "minSdk": 26,
+      "targetSdk": 35,
+      "apk": "kaishi-v27-parents.apk",
+      "apkBytes": 55252641,
+      "sha256": "9f5bf0fa2c09a7643361ab34ffea1c9e8fc706327ef31d963b1fd4a3683de854",
+      "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+      "signatureVerified": true,
+      "androidSourceSha256": "ab7846b5920b52db8b965cb43c9f8e9f97fd59098baf6e680194800f1fa8d029",
+      "packagedBrandPixelsVerified": true,
+      "packagedLauncherFilesVerified": 45,
+      "xiaomiTested": false,
+      "workBuddyClientTested": false
+    }
+  ],
+  "apkChecks": {
+    "sameCertificateAsV26": true,
+    "dexAndResources": [
+      {
+        "edition": "standard",
+        "bytes": 55228065,
+        "sha256": "aeb3cef606b3be275fa44306bddc8486834c2249c6b7ef10c7fd3b5c322c5ce3",
+        "classesPresent": [
+          "AmbientActivity",
+          "AmbientDreamService",
+          "AmbientWeb",
+          "WeatherProxy",
+          "CinemaActivity",
+          "AllAppsView"
+        ],
+        "testDriversAbsent": true,
+        "packagedLauncherFiles": 45
+      },
+      {
+        "edition": "parents",
+        "bytes": 55252641,
+        "sha256": "9f5bf0fa2c09a7643361ab34ffea1c9e8fc706327ef31d963b1fd4a3683de854",
+        "classesPresent": [
+          "AmbientActivity",
+          "AmbientDreamService",
+          "AmbientWeb",
+          "WeatherProxy",
+          "CinemaActivity",
+          "AllAppsView"
+        ],
+        "testDriversAbsent": true,
+        "packagedLauncherFiles": 45
+      }
+    ],
+    "bothLintNoErrors": true
+  },
+  "binaryManifestChecks": {
+    "standard": {
+      "installProviderExported": false,
+      "agentActivityExported": false,
+      "method": "aapt actual APK binary manifest",
+      "applicationId": "org.zhixiaoce.kaishi",
+      "apkSha256": "aeb3cef606b3be275fa44306bddc8486834c2249c6b7ef10c7fd3b5c322c5ce3",
+      "homeAliasDisabledByDefault": true,
+      "mainActivityHasHomeFilter": false,
+      "receivers": false,
+      "services": [
+        "org.zhixiaoce.aperture.AmbientDreamService"
+      ],
+      "dreamServiceProtected": true,
+      "ambientActivityExported": false,
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.REQUEST_INSTALL_PACKAGES",
+        "android.permission.REQUEST_DELETE_PACKAGES"
+      ],
+      "deviceExecuted": false
+    },
+    "parents": {
+      "installProviderExported": false,
+      "agentActivityExported": false,
+      "method": "aapt actual APK binary manifest",
+      "applicationId": "org.zhixiaoce.kaishi.parents",
+      "apkSha256": "9f5bf0fa2c09a7643361ab34ffea1c9e8fc706327ef31d963b1fd4a3683de854",
+      "homeAliasDisabledByDefault": true,
+      "mainActivityHasHomeFilter": false,
+      "receivers": false,
+      "services": [
+        "org.zhixiaoce.aperture.AmbientDreamService"
+      ],
+      "dreamServiceProtected": true,
+      "ambientActivityExported": false,
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.REQUEST_INSTALL_PACKAGES",
+        "android.permission.REQUEST_DELETE_PACKAGES"
+      ],
+      "deviceExecuted": false
+    }
+  },
+  "browserEvidence": "s71-browser.json",
+  "developmentEvidence": "s71-summary.json",
+  "s71SelectedInputsUnchanged": true,
+  "nodeJvmGroupsPassed": 5,
+  "productionJavaTransportAssertions": 15,
+  "browserGroupsPassed": 13,
+  "newNativeActivityOrDreamRuntimeTested": false,
+  "xiaomiHardwareTested": false,
+  "systemXiaoAiWakeTested": false,
+  "televisionPerformanceTested": false,
+  "mediaUploaded": false,
+  "publicRelease": "pending separate anonymous readback"
+}

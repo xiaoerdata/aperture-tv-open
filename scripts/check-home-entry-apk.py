@@ -47,7 +47,18 @@ filters = [f for f in alias['children'] if f['name'] == 'intent-filter']
 assert len(filters) == 1
 assert values(filters[0], 'action', 'android:name') == ['android.intent.action.MAIN']
 assert set(values(filters[0], 'category', 'android:name')) == {'android.intent.category.HOME', 'android.intent.category.DEFAULT'}
-assert not any(n['name'] in ('service', 'receiver') for n in nodes)
+assert not any(n['name'] == 'receiver' for n in nodes)
+services = [n for n in nodes if n['name'] == 'service']
+assert len(services) == 1
+dream = services[0]
+assert dream['attrs']['android:name'] == 'org.zhixiaoce.aperture.AmbientDreamService'
+assert dream['attrs']['android:permission'] == 'android.permission.BIND_DREAM_SERVICE'
+assert dream['attrs']['android:exported'] == '(type 0x12)0xffffffff'
+dream_filters = [n for n in dream['children'] if n['name'] == 'intent-filter']
+assert len(dream_filters) == 1
+assert values(dream_filters[0], 'action', 'android:name') == ['android.service.dreams.DreamService']
+ambient = next(n for n in nodes if n['name'] == 'activity' and n['attrs'].get('android:name') == 'org.zhixiaoce.aperture.AmbientActivity')
+assert ambient['attrs']['android:exported'] == '(type 0x12)0x0'
 permissions = [n['attrs']['android:name'] for n in nodes if n['name'] == 'uses-permission']
 assert permissions == ['android.permission.INTERNET', 'android.permission.REQUEST_INSTALL_PACKAGES', 'android.permission.REQUEST_DELETE_PACKAGES']
 provider = next(n for n in nodes if n['name'] == 'provider' and n['attrs'].get('android:name') == 'org.zhixiaoce.aperture.InstallFileProvider')
@@ -59,7 +70,9 @@ assert agent['attrs']['android:exported'] == '(type 0x12)0x0'
 assert agent['attrs']['android:excludeFromRecents'] == '(type 0x12)0xffffffff'
 report = {'installProviderExported': False, 'agentActivityExported': False, 'method': 'aapt actual APK binary manifest', 'applicationId': metadata['applicationId'],
           'apkSha256': metadata['sha256'], 'homeAliasDisabledByDefault': True,
-          'mainActivityHasHomeFilter': False, 'servicesOrReceivers': False,
+          'mainActivityHasHomeFilter': False, 'receivers': False,
+          'services': ['org.zhixiaoce.aperture.AmbientDreamService'], 'dreamServiceProtected': True,
+          'ambientActivityExported': False,
           'permissions': permissions, 'deviceExecuted': False}
 (args.directory / 'home-entry-check.json').write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))

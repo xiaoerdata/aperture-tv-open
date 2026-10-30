@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
     private static final String LOBBY = "https://" + LobbyAssets.HOST + LobbyAssets.DOCUMENT;
     private volatile WebView web;
     private HouseholdProxy household;
+    private WeatherProxy weather;
     private SharedPreferences preferences;
     private DestinationApps destinations;
     private VoiceAssistant assistant;
@@ -74,6 +75,7 @@ public class MainActivity extends Activity {
     }
     private void destroyWeb() { destroyWeb(false); }
     private void destroyWeb(boolean rendererGone) {
+        if (weather != null) { weather.close(); weather = null; }
         if (household != null) { household.close(); household = null; }
         ready = false; display.bind(null); WebView previous = web; web = null;
         if (previous != null) {
@@ -86,6 +88,7 @@ public class MainActivity extends Activity {
     private void webActive(WebView current, boolean active) {
         if (current != web) return;
         if (household != null) household.active(active);
+        if (weather != null) weather.active(active);
         if (active) { current.onResume(); current.resumeTimers(); }
         // Best effort: stop carousel/media before yielding the window; never auto-resume playback.
         current.evaluateJavascript("(function(){if(window.apertureNativeFocus)window.apertureNativeFocus(" + active + ");" + (active ? "" : "var m=document.querySelectorAll('video,audio');for(var i=0;i<m.length;i++)m[i].pause();") + "})()", null);
@@ -93,6 +96,7 @@ public class MainActivity extends Activity {
     }
     private void createWeb(boolean lobby) {
         destroyWeb(); lobbyMode = lobby; web = new WebView(this);
+        final WeatherProxy forecast=lobby?new WeatherProxy():null;weather=forecast;
         String householdOrigin = preferences.getString("origin", "");
         final HouseholdProxy feed = lobby && !BuildConfig.PARENTS_EDITION ? new HouseholdProxy(householdOrigin, householdOrigin.isEmpty() ? "" : CookieManager.getInstance().getCookie(householdOrigin), preferences.getBoolean("allowLanHttp", false)) : null;
         household = feed;
@@ -123,6 +127,8 @@ public class MainActivity extends Activity {
                 if (view != web) return blockedAsset();
                 if (lobby) {
                     if (!"GET".equals(request.getMethod())) return blockedAsset();
+                    WeatherProxy.Reply climate=forecast.read(request.getUrl().toString(),request.getMethod(),request.isForMainFrame());
+                    if(climate!=null)return new WebResourceResponse("application/json","UTF-8",climate.status,climate.status==200?"OK":"Unavailable",householdHeaders(),new ByteArrayInputStream(climate.body));
                     HouseholdProxy.Reply reply = feed == null ? null : feed.read(request.getUrl().toString(), request.getMethod(), request.isForMainFrame());
                     if (reply != null) return new WebResourceResponse(reply.mime, "image/jpeg".equals(reply.mime) ? null : "UTF-8", reply.status, reply.status == 200 ? "OK" : "Unavailable", householdHeaders(), new ByteArrayInputStream(reply.body));
                     return packagedAsset(request.getUrl());
@@ -158,6 +164,7 @@ public class MainActivity extends Activity {
         web.loadUrl(uri.build().toString());
     }
     private void action(String path) {
+        if ("/ambient-system".equals(path)) { try { startActivity(new Intent(Settings.ACTION_DREAM_SETTINGS)); } catch(RuntimeException unavailable) { new AlertDialog.Builder(this).setMessage("当前电视未提供系统屏保选择，可使用开视首页屏保。").setPositiveButton("返回",null).show(); } return; }
         if (path != null && path.startsWith("/preset-")) { destinations.addPreset(path.substring(8)); return; }
         if ("/cinema-settings".equals(path)) { cinema("settings"); return; }
         if ("/nas".equals(path) || "/nas-photos".equals(path)) {
@@ -266,6 +273,8 @@ public class MainActivity extends Activity {
         nativeAction(actions,"所有应用",destinations::all);nativeAction(actions,"NAS",()->action("/nas"));
         if(!BuildConfig.PARENTS_EDITION)nativeAction(actions,"家庭屏",()->family(null));
         nativeAction(actions,"原桌面",()->destinations.launch("system"));nativeAction(actions,"设置",this::quickMenu);
+        LinearLayout ambientActions=new LinearLayout(this);ambientActions.setOrientation(LinearLayout.HORIZONTAL);layout.addView(ambientActions);
+        nativeAction(ambientActions,"天气",()->startActivity(new Intent(this,AmbientActivity.class).putExtra("panel","weather")));nativeAction(ambientActions,"屏保",()->startActivity(new Intent(this,AmbientActivity.class).putExtra("panel","settings")));
         showNative(layout);if(first!=null)first.requestFocus();
     }
     private void nativeAction(LinearLayout row,String title,Runnable run){Button control=TvUi.button(this,title,run);LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,TvUi.dp(this,44),1);p.setMargins(0,0,TvUi.dp(this,10),0);row.addView(control,p);}
@@ -325,7 +334,7 @@ public class MainActivity extends Activity {
     @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
         // OEM assistant owns these events, including repeat/long-press and the unmodified key-up.
         if (VoiceAssistant.systemVoiceKey(keyCode)) return super.onKeyDown(keyCode, event);
-        if (keyCode == KeyEvent.KEYCODE_MENU) { if (event.getRepeatCount() == 0) quickMenu(); return true; }
+        if (keyCode == KeyEvent.KEYCODE_MENU) { if (event.getRepeatCount() == 0) { if(web!=null&&ready)web.evaluateJavascript("!!((window.KaishiAmbient&&window.KaishiAmbient.key('ContextMenu'))||(window.KaishiWeatherUI&&window.KaishiWeatherUI.key('ContextMenu')))",value->{if(!"true".equals(value))quickMenu();});else quickMenu(); } return true; }
         if (keyCode == KeyEvent.KEYCODE_BACK) { if (event.getRepeatCount() == 0) onBackPressed(); return true; }
         String key = keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? "ArrowLeft" : keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ? "ArrowRight" : keyCode == KeyEvent.KEYCODE_DPAD_UP ? "ArrowUp" : keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? "ArrowDown" : (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) ? "Enter" : null;
         if (key != null && web != null && ready) { if ("Enter".equals(key) && event.getRepeatCount() > 0) return true; web.evaluateJavascript("!!(window.apertureRemoteKey && window.apertureRemoteKey(" + JSONObject.quote(key) + "))", null); return true; }
@@ -337,6 +346,7 @@ public class MainActivity extends Activity {
     }
     @Override public boolean onKeyUp(int keyCode,KeyEvent event){
         if(VoiceAssistant.systemVoiceKey(keyCode))return super.onKeyUp(keyCode,event);
+        if(web!=null&&ready)web.evaluateJavascript("window.KaishiAmbient&&window.KaishiAmbient.releaseKey()",null);
         if(web!=null&&ready&&(keyCode==KeyEvent.KEYCODE_DPAD_LEFT||keyCode==KeyEvent.KEYCODE_DPAD_RIGHT||keyCode==KeyEvent.KEYCODE_DPAD_UP||keyCode==KeyEvent.KEYCODE_DPAD_DOWN||keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER||keyCode==KeyEvent.KEYCODE_MENU||keyCode==KeyEvent.KEYCODE_BACK))return true;
         return super.onKeyUp(keyCode,event);
     }
