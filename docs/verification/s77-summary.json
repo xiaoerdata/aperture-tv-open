@@ -1,0 +1,20 @@
+{
+  "stage": "S77",
+  "version": "0.2.0-alpha.26",
+  "versionCode": 29,
+  "releaseCommit": "1836e72766028b27d65dacf93ee7614383eff074",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.26",
+  "publicSourceFiles": 1637,
+  "androidInputSha256": "5284b311ebdbfa6ec09789c3135c049c3b30fed17ce812b7a8a34bb5a5ebc6b4",
+  "sourceInstall": {
+    "status": "passed",
+    "attempts": 2,
+    "failedAttempt": "browser executable path absent; retained private receipt",
+    "routes": 6
+  },
+  "publicationEvidence": "public-alpha-v29.json",
+  "xiaomiHardwareTested": false,
+  "hostedRunnerUsed": false,
+  "mediaUploaded": false,
+  "hubDeployed": false
+}

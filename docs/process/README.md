@@ -171,3 +171,5 @@ S76（本地v29候选）：P76，[反馈处理与推广前清单](../V28-FEEDBAC
 S76本地完成：v29两版稳定签名候选、每版27条Android系统输入和17组浏览器任务通过。见[绑定源码/安装包的验收回执](../verification/s76-summary.json)、[两版原生回归](../verification/s76-native.json)。模拟器旧WebView使用原生恢复首页，不能代替玻璃首页窗口亮屏或小米广告屏保验收；当前公开下载仍是v28。
 
 S77：P77授权v29 / alpha.26公开发行，见[发行说明](../RELEASE-S77.md)及[第58期底稿](../../media/DEVLOG-058.md)。S76的“本地候选”是当时记录，公开状态以S77回读为准。
+
+S77已发布：[v29 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.26)、[四附件匿名下载与源码回读](../verification/public-alpha-v29.json)。标签与安装包冻结，回执另追加main；小米真机待测。

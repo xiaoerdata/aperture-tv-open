@@ -14,4 +14,6 @@ S76标准版、爸妈版各27条Android系统输入断言通过，使用UiAutoma
 
 Android28软件模拟器使用旧WebView的原生恢复首页；上述检查不能代替小米真机。小米原桌面、小爱/米家、玻璃首页Android亮屏策略与OEM屏保、中文TTS、WorkBuddy实际上传文件、至少10部外部点播的成功率和两小时持续播放仍待维护者验收。未做SAR修正，不宣称解决所有直播黑边；测试使用合成目录和已授权短片，没有预置影视来源。
 
-标准版55,244,513字节，爸妈版55,273,185字节。[下载](DOWNLOADS.md) · [反馈处理与实际画面](V28-FEEDBACK-S76.md) · [开发过程](process/README.md)。公开上传和匿名下载回读单独记录，不能以本地候选代替发布完成。
+标准版55,244,513字节，爸妈版55,273,185字节。[下载](DOWNLOADS.md) · [反馈处理与实际画面](V28-FEEDBACK-S76.md) · [开发过程](process/README.md)。两版APK、测试清单和校验和已公开，均已匿名完整下载核对；源码与旧版本保留核对见[公开回读](verification/public-alpha-v29.json)。
+
+[v29公开发行](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.26)，标签固定于`1836e72766028b27d65dacf93ee7614383eff074`；回执另追加main。
