@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "timezone": "Asia/Shanghai",
+  "messages": [
+    {"id": "evening-walk", "text": "晚饭后去散步", "time": "20:00-20:30", "repeat": "daily", "tts": true},
+    {"id": "display-only", "text": "冰箱里有洗好的水果", "time": "", "repeat": "once", "tts": false}
+  ]
+}

@@ -49,7 +49,7 @@ button:focus,a:focus,[tabindex='0']:focus{outline:3px solid var(--focus);outline
 .dock-add>span{width:96px;height:96px;display:flex;align-items:center;justify-content:center;border:1px solid #ffffff55;border-radius:14px;font-size:40px}
 .apps-unfold{animation:apps-open .22s ease-out both}.apps-fold{animation:apps-close .18s ease-in both;pointer-events:none}@keyframes apps-open{from{opacity:0;transform:translateY(-8px) scaleY(.8)}to{opacity:1;transform:none}}@keyframes apps-close{to{opacity:0;transform:translateY(-8px) scaleY(.8)}}
 .landscape-caption{position:absolute;right:4px;bottom:100px;display:flex;align-items:center;gap:18px;color:var(--muted);font-size:18px}.landscape-caption-line{height:1px;width:44px;background:#ffffff50}
-.page-down{position:absolute;right:0;bottom:8px;min-height:56px;display:flex;align-items:center;gap:20px;padding:10px 16px;border-radius:12px;font-size:22px}.down-chevron{width:9px;height:9px;border-right:2px solid;border-bottom:2px solid;transform:rotate(45deg)}
+
 .apps-screen{padding:56px 4px 0}.entry-heading,.screen-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:32px}.entry-heading h1,.screen-heading h1{font-size:34px;font-weight:400;margin:0}.entry-heading>span{font-size:20px;color:var(--muted)}
 .destinations{display:flex;gap:18px}.destination{display:flex;align-items:center;gap:16px;width:226px;min-height:92px;padding:18px 22px;border-radius:16px}.entry-icon{width:34px;height:34px;flex:0 0 34px}.entry-text{min-width:0}.entry-text strong{display:block;font-size:26px;font-weight:400}.entry-text>span{display:block;font-size:18px;color:var(--muted);margin-top:6px}.entry-text>span:empty{display:none}
 .parents-shortcuts{margin-top:48px}.shortcuts-heading h2{font-size:23px;font-weight:400;margin:0 0 20px;color:var(--muted)}.shortcuts-row{display:flex;gap:18px}.shortcut{width:144px;height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;border-radius:16px;padding:12px;background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}.shortcut strong{font-size:26px;font-weight:400;max-width:100%;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-overflow:ellipsis}.shortcut-glyph{display:flex;width:96px;height:96px;align-items:center;justify-content:center;font-size:30px}.has-app-icon .shortcut-glyph .app-mark{width:96px;height:96px}
@@ -72,3 +72,9 @@ body[data-photos="off"] .family-layout{grid-template-columns:minmax(0,1fr);max-w
 body[data-photos="off"] .family-layout .family-daily{display:grid;grid-template-columns:1fr 1fr;gap:24px 48px}
 body[data-photos="off"] .family-layout .family-note{margin-top:0}
 body[data-photos="off"] .family-layout .family-daily>.quiet-action{grid-column:1/-1;justify-self:start;margin:0}
+
+/* Message cards contain content and time; attribution never occupies the reading area. */
+.personal-panel[data-kind=note] .personal-kind,.personal-panel[data-kind=note] .personal-copy small:empty{display:none}
+.personal-panel[data-kind=note] .personal-copy h1{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.4;overflow-wrap:anywhere;font-size:28px;margin:0 0 10px}
+.personal-panel[data-kind=note] .personal-copy p{font-size:22px;color:var(--muted);flex-shrink:0}
+.family-note h3{overflow-wrap:anywhere;white-space:pre-wrap}

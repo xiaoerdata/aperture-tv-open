@@ -36,3 +36,7 @@ WorkBuddy客户端与小米真机由项目维护者测试。建议记录型号�
 ## 本地v15内嵌直播与影视
 
 设置 → 直播与影视来源，导入自己的M3U或兼容JSON配置，确认保存后从首页观看。外部应用改为可选入口，不是内置播放前提；原生NAS与家庭服务片库保留。具体兼容子集、本地包与待测项见[内嵌影院说明](docs/EMBEDDED-CINEMA.md)。下载对应版本见[下载与版本](docs/DOWNLOADS.md)。
+
+## v29 Alpha
+
+当前版本为 versionCode29 / 0.2.0-alpha.26。公开安装包见[下载与版本](docs/DOWNLOADS.md)，摘要和设备待测项以 testing-manifest.json / [发行说明](docs/RELEASE-S77.md)为准。v18及以后保留相同包名和发行签名，可按正常流程升级；v17继续保留并存。新增留言源用法见[留言源v1](docs/MESSAGE-SOURCE.md)，电视只显示和播报，Agent更新已配置的HTTPS文件。

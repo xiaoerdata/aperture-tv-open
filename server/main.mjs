@@ -13,7 +13,7 @@ if(!ownerKey){try{ownerKey=(await readFile(keyFile,'utf8')).trim();}catch(e){if(
 const origin=process.env.PUBLIC_ORIGIN || `http://127.0.0.1:${port}`;
 const sources=[...await loadSources(process.env.APERTURE_CONNECTIONS),...await loadHomeAssistant(process.env.APERTURE_HOME_ASSISTANT_CONFIG)];
 const mediaConfig=await loadMediaConfig(process.env.APERTURE_MEDIA_CONFIG);
-const {server}=await createApp({directory,ownerKey,origin,sources,mediaConfig,localAutomation:process.env.APERTURE_LOCAL_AUTOMATION==='1',trustedProxies:(process.env.APERTURE_TRUSTED_PROXIES||'').split(',').map(s=>s.trim()).filter(Boolean)});
+const {server}=await createApp({directory,ownerKey,origin,sources,mediaConfig,messageSource:process.env.APERTURE_MESSAGE_SOURCE,localAutomation:process.env.APERTURE_LOCAL_AUTOMATION==='1',trustedProxies:(process.env.APERTURE_TRUSTED_PROXIES||'').split(',').map(s=>s.trim()).filter(Boolean)});
 server.listen(port,host,()=>{
   console.log(`Aperture TV: ${origin}/tv?demo=1\nFamily studio: ${origin}/studio\nOwner key is stored privately in ${keyFile}; never share it in a recording.`);
   process.send?.({type:'aperture-ready',origin});

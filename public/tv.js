@@ -28,7 +28,7 @@ function render(){
  for(const e of events.slice(0,3)){const row=el('li',e.done?'done':'');row.append(el('time','',e.time),el('strong','',e.title),el('span','',e.done?'已完成':e.person));$('#agenda').append(row);}
  if(!events.length)$('#agenda').append(el('li','empty','暂无安排'));
  $('#notes').replaceChildren();const notes=board.entries.filter(e=>e.type==='note').reverse().sort((a,b)=>Number(b.pinned)-Number(a.pinned));
- for(const n of notes.slice(0,1)){const item=el('article','note');item.append(el('h3','',n.title),el('p','',n.body),el('small','',n.author));$('#notes').append(item);}
+ for(const n of notes.slice(0,1)){const item=el('article','note');item.append(el('p','',n.body),el('small','',n.time||''));$('#notes').append(item);}
  if(!notes.length)$('#notes').append(el('p','empty','暂无留言'));
  renderPhoto();clock();
 }

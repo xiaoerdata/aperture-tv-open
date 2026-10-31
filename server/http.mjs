@@ -10,7 +10,7 @@ import {nasSetupHttp} from './nas-setup/http.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const version=JSON.parse(await readFile(join(root,'package.json'),'utf8')).version;
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.json':'application/json; charset=utf-8','.webp':'image/webp','.jpg':'image/jpeg','.png':'image/png','.woff2':'font/woff2'};
-export function createHttp({service,store,auth,images,origin,life,cinema,nasSetup,appOperations,localAgent,localAutomation,trustedProxies=[],weather}) {
+export function createHttp({service,store,auth,images,origin,life,cinema,nasSetup,appOperations,localAgent,localAutomation,trustedProxies=[],weather,messages}) {
   const allowed=new URL(origin); const buckets=new Map();let eventClients=0;
   function rate(req,group,limit) {
     const key=`${req.socket.remoteAddress}:${group}`, now=Date.now();
@@ -62,6 +62,7 @@ export function createHttp({service,store,auth,images,origin,life,cinema,nasSetu
         const actor=auth.read(req);
         if(path.startsWith('/api/app-operations/')){rate(req,'app-operations',60);return send(await appOperationsHttp({path,req,actor,body:()=>json(req),service:appOperations}));}
         if(path.startsWith('/api/nas-setup/')){rate(req,'nas-setup',60);return send(await nasSetupHttp({path,req,actor,body:()=>json(req),service:nasSetup,origin:allowed.origin}));}
+        if(path==='/api/messages'&&req.method==='GET')return send(await messages.read());
         if(path==='/api/session' && req.method==='GET') return send({role:actor.role,expiresAt:actor.expiresAt});
         if(path==='/api/logout' && req.method==='POST'){await json(req);await auth.revoke(actor,actor.id);res.setHeader('Set-Cookie','aperture=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return send({ok:true});}
         if(path==='/api/tv-lite/state' && req.method==='GET') return send(liteDisplay(service.read()));

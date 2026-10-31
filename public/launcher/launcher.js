@@ -72,7 +72,7 @@
     ]},
     settings: {title:'设置', actions:[
       ['cinema-settings','直播与影视来源','',''], ['nas','NAS','',''], ['choose-shortcuts','常用应用','',''],
-      ['weather','天气','',''], ['ambient-settings','屏保','',''], ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
+      ['weather','天气','',''], ['ambient-settings','屏保','',''], ['show-information','留言','',''], ['message-settings','留言源','',''], ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
       ['open-system','返回原桌面','',''], ['voice-help','小爱同学','',''], ['more-settings','更多设置','','']
     ]},
     'more-settings': {title:'更多设置', actions:[
@@ -147,7 +147,6 @@
     for (n = 0; n < dots.length; n++) dots[n].setAttribute('aria-pressed', String(Number(dots[n].getAttribute('data-home-screen')) === at));
     if (focus !== false && section === 'overview') restoreHomeFocus(at);
   }
-  $('page-down').onclick = function () { setHomePage(1); };
   $('apps-next').onclick = function () { setHomePage(2); };
   var screenButtons = document.querySelectorAll('[data-home-screen]');
   for (i = 0; i < screenButtons.length; i++) screenButtons[i].onclick = function () { setHomePage(Number(this.getAttribute('data-home-screen'))); };
@@ -167,6 +166,7 @@
     if (action === 'presets' || action === 'home-panels' || action === 'hub' || action === 'more-settings') { openPane(action); return; }
     if (action === 'wallpapers') { openPane('wallpapers'); return; }
     if (action === 'close-detail') { closePane(); return; }
+    if (action === 'show-information') { closePane(); setSection('information'); return; }
     if (action === 'show-data') { closePane(); setSection('data'); return; }
     if (action === 'material') { material($('lobby').className.indexOf('solid') === -1); return; }
     if (action === 'family' || action === 'family-live' || action === 'family-library' || action === 'family-series' || action === 'family-movies' || action === 'family-variety') { familyPage(action); return; }
@@ -251,6 +251,7 @@
     return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
   }
   function entries(type) {
+    if(type==='note'&&window.KaishiMessages&&window.KaishiMessages.configured())return window.KaishiMessages.notes();
     return ((board && board.entries) || []).filter(function (e) { return e.type === type; }).sort(function (a, b) {
       if (type === 'note') return Number(!!b.pinned) - Number(!!a.pinned);
       if (type === 'metric') return (a.date === today() ? -1 : 0) - (b.date === today() ? -1 : 0);
@@ -312,7 +313,7 @@
       var information = events.map(function (e) { return {event:e}; }).concat(notes.map(function (n) { return {note:n}; }));
       pageItems(information).forEach(function (item) {
         if (item.event) { var e = item.event, row = tile(e.title, e.time + ' · ' + e.person + (e.done ? ' · 已完成' : ' · 待办')); }
-        else { var n = item.note, row = tile(n.title, n.body); row.appendChild(element('small', '', n.author + (n.pinned ? ' · 置顶留言' : ' · 家人留言'))); }
+        else { var n = item.note, row = tile(n.body, n.time||''); }
       });
       if (!events.length && !notes.length) tile('暂无消息', '', 'collection-empty');
     }
@@ -344,7 +345,7 @@
     var agenda=entries('event').filter(function(e){return e.date===today();});$('family-events').textContent='';
     agenda.slice(0,3).forEach(function(e){var row=element('div','family-event'+(e.done?' done':''));row.appendChild(element('time','',e.time));row.appendChild(element('span','',e.title));$('family-events').appendChild(row);});
     if(!agenda.length)$('family-events').appendChild(element('p','family-empty','暂无安排'));
-    text('note-title', n ? n.title : '暂无留言');text('note-body',n?n.body:'');text('note-author',n?n.author:'');
+    text('note-title', n ? n.body : '暂无留言');text('note-body',n?n.time||'':'');text('note-time','');
     $('entry-information').hidden=parents||(photosEnabled&&!agenda.length&&!n);
     if (pane === 'detail' && detailState) {
       var candidates = detailState.metric ? ((board && board.entries) || []).filter(function (e) { return e.type === 'metric'; }) : (board && board.life) || [];
@@ -381,6 +382,7 @@
     ], photos: []}; text('local-note', '演示内容');
   }
   personal = window.KaishiHome({focus:focusNode,visible:function(){return !parents && homePage===0 && section==='overview' && !pane && !document.hidden && nativeActive;},data:function(){return {photos:photos(),metrics:entries('metric'),notes:entries('note'),events:entries('event').filter(function(e){return e.date===today();}),life:(board&&board.life)||[],today:today()};},action:nativeAction,open:function(action){if(action==='nas'||action==='nas-photos')nativeAction(action);else setSection(action);},photosEnabled:photosEnabled,presets:function(){openPane('presets');}});
+  window.addEventListener('kaishi-messages-change',renderContent);
   renderContent(); loadContent(); contentTimer = setInterval(loadContent, virtualHome ? 5000 : 30000);
   function back() {
     if (window.KaishiAmbient && window.KaishiAmbient.key('BrowserBack')) return true;
@@ -457,7 +459,7 @@
         }
         if (active.closest && active.closest('.home-app-list')) {
           if (name === 'ArrowUp') return focusNode($('dock-toggle')) || true;
-          if (name === 'ArrowDown') return focusNode($('page-down')) || true;
+          if (name === 'ArrowDown')  { setHomePage(1); return true; }
           var apps = Array.prototype.slice.call($('home-app-list').querySelectorAll('button')).filter(function (n) { return n.tabIndex !== -1 && n.offsetWidth; }), appIndex = apps.indexOf(active);
           if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(apps[appIndex + (name === 'ArrowLeft' ? -1 : 1)]) || true;
         }
@@ -466,12 +468,7 @@
           if (name === 'ArrowLeft') return focusNode(where > 0 ? buttons[where-1] : $(homeWatchFocus)) || true;
           if (name === 'ArrowRight') return focusNode(buttons[where+1]) || true;
           if (name === 'ArrowUp') return focusNode($('settings-open')) || true;
-          if (name === 'ArrowDown') return focusNode($('page-down')) || true;
-        }
-        if (active === $('page-down')) {
-          if (name === 'ArrowDown') { setHomePage(1); return true; }
-          if (name === 'ArrowLeft' || name === 'ArrowUp') return focusNode($('dock-toggle')) || true;
-          if (name === 'ArrowRight') return focusNode($('personal-panel').hidden ? $('settings-open') : $('personal-open')) || true;
+          if (name === 'ArrowDown')  { setHomePage(1); return true; }
         }
         if (active === $('weather-home')) { if(name==='ArrowRight')return focusNode($('settings-open'))||true;if(name==='ArrowLeft')return focusNode($('brand-home'))||true;if(name==='ArrowDown')return focusNode(firstHomeControl(homePage))||true; }
         if (active === $('settings-open')) {
@@ -499,7 +496,7 @@
       if (name === 'ArrowUp') { var coreRow = Array.prototype.slice.call(document.querySelectorAll('.destinations button')).filter(function (n) { return !n.hidden && n.offsetWidth; }); return focusNode(coreRow[Math.round(position*(coreRow.length-1)/Math.max(1,visible.length-1))]) || true; }
       if (name === 'ArrowDown') { setHomePage(2); return true; }
     }
-    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode((homePage===1?document.querySelector('.shortcuts-row button:not([hidden])'):$(homePage===0?'page-down':photosEnabled?'entry-photos':'entry-information'))) || true;
+    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode((homePage===1?document.querySelector('.shortcuts-row button:not([hidden])'):$(homePage===0?'dock-toggle':photosEnabled?'entry-photos':'entry-information'))) || true;
     if (group.className.indexOf('destinations') !== -1 || group.className.indexOf('tools-grid') !== -1) {
       var tools = group.className.indexOf('tools-grid') !== -1;
       columns = !tools && parents ? (innerWidth / innerHeight > 4/3 ? 4 : 1) : (innerWidth / innerHeight > 4/3 ? 4 : 2);
@@ -551,7 +548,7 @@
   document.addEventListener('keydown', key);
   window.apertureRemoteKey = function (name) { var handled = false; key({key: name, preventDefault: function () { handled = true; }}); return handled; };
   window.apertureBack = back;
-  window.apertureNativeFocus = function (active) { nativeActive = !!active; if(window.KaishiAmbient)window.KaishiAmbient.active(active); if(window.KaishiWeatherUI)window.KaishiWeatherUI.active(active); motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
+  window.apertureNativeFocus = function (active) { nativeActive = !!active; if(window.KaishiMessages)window.KaishiMessages.active(active); if(window.KaishiAmbient)window.KaishiAmbient.active(active); if(window.KaishiWeatherUI)window.KaishiWeatherUI.active(active); motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
   function clock() {
     if (disposed || document.hidden) return;
     var date = new Date(); text('clock', ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2));

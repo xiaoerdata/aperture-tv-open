@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0c1119">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; object-src 'none'; base-uri 'none'">
-  <link rel="stylesheet" href="./ambient.css"><script src="./weather-model.js" defer></script><script src="./ambient-scene.js" defer></script><script src="./weather.js" defer></script><script src="./ambient.js" defer></script><title>开视</title><link rel="stylesheet" href="./style.css"><script src="./home-personal.js" defer></script><script src="./launcher.js" defer></script>
+  <link rel="stylesheet" href="./ambient.css"><script src="./weather-model.js" defer></script><script src="./ambient-scene.js" defer></script><script src="./weather.js" defer></script><script src="./ambient.js" defer></script><title>开视</title><link rel="stylesheet" href="./style.css"><script src="./messages.js" defer></script><script src="./home-personal.js" defer></script><script src="./launcher.js" defer></script>
 <link rel="icon" data-kaishi-favicon type="image/webp" href="./brand/kaishi-icon-v2.webp"><link rel="stylesheet" href="./brand/identity.css"><script src="./brand/identity.js" defer></script></head>
 <body>
 <div class="scenic-background" aria-hidden="true"><div class="scenic-shade"></div><div class="scenic-blur"></div></div>
@@ -30,7 +30,6 @@
       </nav>
       <nav id="home-dock" class="home-dock" aria-label="首页应用"><button id="dock-toggle" class="dock-toggle" aria-expanded="false" aria-controls="home-app-list"><span id="dock-stack" class="dock-stack" aria-hidden="true"></span><span class="dock-group-label">常用应用<small id="dock-total"></small></span><span class="dock-fold-arrow" aria-hidden="true">⌄</span></button><div id="home-app-list" class="home-app-list" hidden><div id="home-apps" class="home-apps"></div><button id="home-app-add" class="dock-add" aria-label="添加首页应用"><span>＋</span><small>添加应用</small></button><button id="home-app-all" class="dock-add" aria-label="所有应用"><span>▦</span><small>所有应用</small></button></div></nav>
       <div class="landscape-caption"><span id="wallpaper-place">意大利 · 卡雷扎湖</span><span class="landscape-caption-line"></span></div>
-      <button id="page-down" class="page-down" aria-label="向下进入片库与应用"><span>片库与应用</span><span class="down-chevron" aria-hidden="true"></span></button>
     </section>
     <section id="apps-home" class="home-screen apps-screen" aria-labelledby="apps-title" hidden>
       <div class="entry-heading"><h1 id="apps-title">片库与应用</h1><span id="environment"></span></div>
@@ -47,7 +46,7 @@
       <div class="screen-heading"><h1>家庭</h1><button id="entry-family" class="quiet-action">全屏查看</button></div>
       <div class="family-layout">
         <button id="entry-photos" class="family-photo glass" data-section="photos"><img id="family-preview-photo" alt="" hidden><span class="family-photo-copy"><strong>相册</strong><span id="family-photo-caption">暂无照片</span></span></button>
-        <div class="family-daily"><section aria-labelledby="family-agenda-title"><h2 id="family-agenda-title">今天</h2><div id="family-events" class="family-events"></div></section><section class="family-note" aria-labelledby="family-note-heading"><h2 id="family-note-heading">留言</h2><h3 id="note-title">暂无留言</h3><p id="note-body"></p><small id="note-author"></small></section><button id="entry-information" class="quiet-action" data-section="information">查看全部</button></div>
+        <div class="family-daily"><section aria-labelledby="family-agenda-title"><h2 id="family-agenda-title">今天</h2><div id="family-events" class="family-events"></div></section><section class="family-note" aria-labelledby="family-note-heading"><h2 id="family-note-heading">留言</h2><h3 id="note-title">暂无留言</h3><p id="note-body"></p><small id="note-time"></small></section><button id="entry-information" class="quiet-action" data-section="information">查看全部</button></div>
       </div>
     </section>
     <section id="collection-view" class="collection-view" hidden aria-labelledby="collection-title">

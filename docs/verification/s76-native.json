@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "reports": [
+    {
+      "passed": true,
+      "positions": [
+        {
+          "beforeMs": 4225,
+          "afterMs": 6880
+        }
+      ],
+      "checks": [
+        "section opens catalogue without auto-opening first detail",
+        "source dialog fifth action is fully visible",
+        "first poster Left reaches visible fixed sidebar",
+        "detail has 20 full-title episodes per group, no related film section or ellipsis",
+        "first episode Up returns to Play",
+        "short and full-title episodes share equal aligned row height",
+        "HTML and decoder-failing lines fall back serially to playable same episode",
+        "playback initially focuses video, not pause",
+        "default left/right seeks without pausing",
+        "More first row is fully visible below heading",
+        "playback line picker opens",
+        "manual line preserves playback position",
+        "OK opens episodes while playback continues",
+        "system Down selects next episode after touch",
+        "episode picker stays open while reading",
+        "picker reopens on current episode",
+        "episode group navigates in place",
+        "Back closes picker before exiting playback",
+        "Play Down reaches selected line controls",
+        "line change returns episode Up to updated Play",
+        "detail selected line changes primary Play",
+        "live OK opens channels even when controls were visible",
+        "first system Down selects next channel after touch",
+        "channel picker does not auto-close while browsing",
+        "video stage fills window; aspect ratio retained",
+        "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+        "root Back exits within two presses; Xiaomi original home remains separate hardware acceptance"
+      ],
+      "images": [
+        "source-settings",
+        "detail",
+        "more",
+        "episodes",
+        "channels",
+        "player"
+      ],
+      "systemInput": "UiAutomation.injectInputEvent with shared downTime / SOURCE_DPAD and sendPointerSync via Android InputManager; no Activity.dispatchKeyEvent in this runner",
+      "emulator": true,
+      "xiaomiHardware": false,
+      "syntheticMediaFixture": true,
+      "edition": "standard",
+      "debugApkSha256": "11fd81ab7266ad46d5eed223fcfe3d4485f9b543fbd5ceff11ac870b02578a5f"
+    },
+    {
+      "passed": true,
+      "positions": [
+        {
+          "beforeMs": 35,
+          "afterMs": 1472
+        }
+      ],
+      "checks": [
+        "section opens catalogue without auto-opening first detail",
+        "source dialog fifth action is fully visible",
+        "first poster Left reaches visible fixed sidebar",
+        "detail has 20 full-title episodes per group, no related film section or ellipsis",
+        "first episode Up returns to Play",
+        "short and full-title episodes share equal aligned row height",
+        "HTML and decoder-failing lines fall back serially to playable same episode",
+        "playback initially focuses video, not pause",
+        "default left/right seeks without pausing",
+        "More first row is fully visible below heading",
+        "playback line picker opens",
+        "manual line preserves playback position",
+        "OK opens episodes while playback continues",
+        "system Down selects next episode after touch",
+        "episode picker stays open while reading",
+        "picker reopens on current episode",
+        "episode group navigates in place",
+        "Back closes picker before exiting playback",
+        "Play Down reaches selected line controls",
+        "line change returns episode Up to updated Play",
+        "detail selected line changes primary Play",
+        "live OK opens channels even when controls were visible",
+        "first system Down selects next channel after touch",
+        "channel picker does not auto-close while browsing",
+        "video stage fills window; aspect ratio retained",
+        "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+        "root Back exits within two presses; Xiaomi original home remains separate hardware acceptance"
+      ],
+      "images": [
+        "source-settings",
+        "detail",
+        "more",
+        "episodes",
+        "channels",
+        "player"
+      ],
+      "systemInput": "UiAutomation.injectInputEvent with shared downTime / SOURCE_DPAD and sendPointerSync via Android InputManager; no Activity.dispatchKeyEvent in this runner",
+      "emulator": true,
+      "xiaomiHardware": false,
+      "syntheticMediaFixture": true,
+      "edition": "parents",
+      "debugApkSha256": "b7dbed50efffeca14b316953551e0a6acdab12d15d4d9bf05d0a15ed1e4d032c"
+    }
+  ],
+  "xiaomiHardware": false
+}

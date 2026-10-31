@@ -1,0 +1,26 @@
+{
+  "checks": [
+    "standard weather, clock, settings and viewing entries remain separate at four TV resolutions",
+    "remote up/left/confirm opens weather; right/confirm selects seven-day tab; 24 hourly values and seven dated daily ranges",
+    "manual city search, selection and reload persist independently of IP lookup",
+    "wake consumes first and held keys; next distinct press navigates normally; reduced motion has no RAF",
+    "flow preset and idle preferences persist; preview returns to home",
+    "parents has the same one-level weather entry and restores focus",
+    "phone preview stays within viewport and hourly content scrolls",
+    "standalone system-dream page shares the selected city and scene with the home origin",
+    "closing standalone weather returns to home instead of leaving a blank recovery window",
+    "standalone screen settings return button closes its page, without treating click events as preview flags",
+    "real idle timer enters after five minutes, is blocked by the weather dialog, and remains stopped without native focus",
+    "cold network failure shows no invented temperature or hourly forecast",
+    "real canvas advances; native focus loss stops rendering and network; fixed 1280x720/240-particle budget"
+  ],
+  "errors": [],
+  "syntheticWeather": true,
+  "xiaomiHardware": false,
+  "nativeDreamTested": false,
+  "providerHosts": [
+    "ipwho.is",
+    "api.open-meteo.com",
+    "geocoding-api.open-meteo.com"
+  ]
+}

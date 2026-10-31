@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "standard 1920: no redundant home button or author; remote Down navigation; read-only messages, deletion and no stale legacy fallback",
+    "standard 1280: no redundant home button or author; remote Down navigation; read-only messages, deletion and no stale legacy fallback",
+    "parents 1920: no redundant home button or author; remote Down navigation; read-only messages, deletion and no stale legacy fallback",
+    "parents 1280: no redundant home button or author; remote Down navigation; read-only messages, deletion and no stale legacy fallback"
+  ],
+  "errors": [],
+  "syntheticMessages": true,
+  "browser": true,
+  "xiaomiHardware": false
+}

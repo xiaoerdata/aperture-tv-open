@@ -4,9 +4,9 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加日程、留言、数据、NAS资源和可定制入口。
 
-当前版本 **v28 / 0.2.0-alpha.25**：发行版关闭相册，开发代码及旧数据保留；播放画面的确认键打开频道或选集，点播左右控制进度；详情去掉相似推荐，长集名按两列宽行、20集分组显示。星河屏保和天气继续保留。见[本轮发行说明](docs/RELEASE-S75.md)。本轮浏览器、JVM和编译验证通过；系统输入回归因模拟器安装超时未执行，具体小米遥控、播放与小爱仍待维护者测试。
+当前版本 **v29 / 0.2.0-alpha.26**：播放线路顺序回退、换线保留进度，片单固定五列，选集显示完整长标题。确认打开频道/选集，点播左右调进度，直播上下换台。首页返回原桌面；只读留言源由Agent更新文件。相册继续从发行版关闭。见[发行说明](docs/RELEASE-S77.md)。
 
-**v28可更新v18—v27，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
+**v29可更新v18—v28，保留配置；与v17并存，保留旧数据。** 从v17首次使用新包名需要重新配对、配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，HOME候选关闭。
 
 ## 两个版本
 
@@ -19,7 +19,7 @@
 
 ## 安装与使用
 
-按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.25)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.26)提供标准版、爸妈版和源码；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](docs/EMBEDDED-CINEMA.md)与[插件说明](docs/PLUGIN-ENGINE.md)；没有预置影视来源。
 
@@ -46,9 +46,11 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 
 ## 当前验证边界
 
-本轮屏保/天气通过13组浏览器任务、5组Node/JVM测试（含15项生产Java传输断言），两版Android API编译通过；实际发行构建、签名和随包资源核验见[发行记录](docs/RELEASE-S72.md)。天气服务在开发机连通，不等于中国大陆电视网络或OEM屏保验收。系统屏保设置是否开放取决于小米固件；没有强改原系统设置。免费Open-Meteo API限非商业用途，数据与服务条款见[第三方说明](THIRD_PARTY_NOTICES.md)。
+S76两版各27条Android系统输入断言通过，另有4组首页和13组天气/屏保浏览器任务、协议/消息与服务回归。两版发行构建、签名和随包资源核验见[软件回执](docs/verification/s76-summary.json)，实际画面见[反馈处理](docs/V28-FEEDBACK-S76.md)。
 
-v26的影视分类、五列海报、直播确认键和应用墙验证保留在[上轮清单](docs/ACCEPTANCE-S70.md)，本轮未把旧模拟器结果改称新屏保运行验收。新版小米真机、具体输入法、小爱/米家、NAS硬件及WorkBuddy仍由维护者复验。产品继续为Alpha。
+测试为Android28软件模拟器；其旧WebView使用原生恢复首页。小米原桌面、小爱/米家、玻璃首页Android亮屏与OEM屏保、中文TTS、WorkBuddy实际上传、NAS硬件、外部点播成功率和两小时播放仍待维护者验收。未做SAR修正，不宣称所有直播黑边已解决。没有预置影视来源，产品继续为Alpha。
+
+天气服务开发机连通不等于大陆电视网络验收；免费Open-Meteo API限非商业用途，见[第三方说明](THIRD_PARTY_NOTICES.md)。
 
 问题反馈见[Issues](https://github.com/xiaoerdata/aperture-tv-open/issues/new/choose)，二次开发欢迎[Pull Requests](https://github.com/xiaoerdata/aperture-tv-open/pulls)。
 

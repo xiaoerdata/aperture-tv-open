@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
     private static final String LOBBY = "https://" + LobbyAssets.HOST + LobbyAssets.DOCUMENT;
     private volatile WebView web;
     private HouseholdProxy household;
-    private WeatherProxy weather;
+    private WeatherProxy weather;private HomeMessages messages;private boolean ambientAwake;
     private SharedPreferences preferences;
     private DestinationApps destinations;
     private VoiceAssistant assistant;
@@ -50,6 +50,7 @@ public class MainActivity extends Activity {
         destinations = new DestinationApps(this, preferences, slot -> showLobby(slot));
         assistant = new VoiceAssistant(this);
         installer = new ApkInstaller(this, () -> destinations.shortcuts());
+        messages=new HomeMessages(this,()->{if(web!=null&&ready&&lobbyMode)web.evaluateJavascript("window.apertureMessagesRefresh&&window.apertureMessagesRefresh()",null);});
         immersive(); showLobby("");
     }
     @Override protected void onNewIntent(Intent intent) { super.onNewIntent(intent); setIntent(intent); showLobby(""); }
@@ -77,6 +78,7 @@ public class MainActivity extends Activity {
     private void destroyWeb(boolean rendererGone) {
         if (weather != null) { weather.close(); weather = null; }
         if (household != null) { household.close(); household = null; }
+        ambientAwake=false;getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);if(messages!=null)messages.active(false);
         ready = false; display.bind(null); WebView previous = web; web = null;
         if (previous != null) {
             // A dead renderer cannot be used again; detach before destroy, without stopLoading.
@@ -87,6 +89,7 @@ public class MainActivity extends Activity {
     }
     private void webActive(WebView current, boolean active) {
         if (current != web) return;
+        if(messages!=null)messages.active(active&&lobbyMode);syncAmbientAwake();
         if (household != null) household.active(active);
         if (weather != null) weather.active(active);
         if (active) { current.onResume(); current.resumeTimers(); }
@@ -127,6 +130,8 @@ public class MainActivity extends Activity {
                 if (view != web) return blockedAsset();
                 if (lobby) {
                     if (!"GET".equals(request.getMethod())) return blockedAsset();
+                    Uri target=request.getUrl();
+                    if("https".equals(target.getScheme())&&LobbyAssets.HOST.equals(target.getHost())&&target.getPort()==-1&&target.getUserInfo()==null&&target.getQuery()==null&&target.getFragment()==null&&"/api/messages".equals(target.getPath())&&!request.isForMainFrame())return new WebResourceResponse("application/json","UTF-8",200,"OK",householdHeaders(),new ByteArrayInputStream(messages.display()));
                     WeatherProxy.Reply climate=forecast.read(request.getUrl().toString(),request.getMethod(),request.isForMainFrame());
                     if(climate!=null)return new WebResourceResponse("application/json","UTF-8",climate.status,climate.status==200?"OK":"Unavailable",householdHeaders(),new ByteArrayInputStream(climate.body));
                     HouseholdProxy.Reply reply = feed == null ? null : feed.read(request.getUrl().toString(), request.getMethod(), request.isForMainFrame());
@@ -165,7 +170,15 @@ public class MainActivity extends Activity {
         if ("live".equals(pane) || "cinema".equals(pane) || "system".equals(pane) || "settings".equals(pane) || "voice".equals(pane)) uri.appendQueryParameter("pane", pane);
         web.loadUrl(uri.build().toString());
     }
+    private void syncAmbientAwake(){if(ambientAwake&&lobbyMode&&display.active())getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);else getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);}
+    private void messageSettings(){
+        LinearLayout form=new LinearLayout(this);form.setOrientation(LinearLayout.VERTICAL);TextView note=new TextView(this);note.setText("由 WorkBuddy 更新留言文件，电视每分钟读取。只显示内容与时间。");note.setTextColor(TvUi.INK);note.setTextSize(18);form.addView(note);EditText input=new EditText(this);input.setTextColor(TvUi.INK);input.setTextSize(18);input.setSingleLine(true);input.setHint("HTTPS 留言源地址");input.setText(messages.source());form.addView(input);
+        CheckBox pause=new CheckBox(this);pause.setText("暂停播报");pause.setTextColor(TvUi.INK);pause.setChecked(messages.paused());pause.setOnCheckedChangeListener((v,checked)->messages.paused(checked));form.addView(pause);
+        Button save=TvUi.button(this,"保存留言源",()->{try{messages.configure(input.getText().toString());note.setText(input.getText().toString().trim().isEmpty()?"已断开留言源":"已保存，正在读取");}catch(Exception invalid){note.setText("请输入有效的 HTTPS 地址");}});form.addView(save);TvDialogs.panel(this,"留言源",form);
+    }
     private void action(String path) {
+        if("/message-settings".equals(path)){messageSettings();return;}
+        if("/ambient-awake-on".equals(path)||"/ambient-awake-off".equals(path)){ambientAwake=path.endsWith("-on");syncAmbientAwake();return;}
         if ("/ambient-system".equals(path)) { try { startActivity(new Intent(Settings.ACTION_DREAM_SETTINGS)); } catch(RuntimeException unavailable) { new AlertDialog.Builder(this).setMessage("当前电视未提供系统屏保选择，可使用开视首页屏保。").setPositiveButton("返回",null).show(); } return; }
         if (path != null && path.startsWith("/preset-")) { destinations.addPreset(path.substring(8)); return; }
         if ("/cinema-settings".equals(path)) { cinema("settings"); return; }
@@ -350,8 +363,8 @@ public class MainActivity extends Activity {
         return super.onKeyDown(keyCode, event);
     }
     private void leavePage() {
-        if (!lobbyMode || BuildConfig.PARENTS_EDITION) { showLobby(""); return; }
-        new AlertDialog.Builder(this).setTitle("回到哪里？").setItems(new String[] {"留在开视", "切回原生桌面", "系统默认桌面设置"}, (dialog, which) -> { if (which == 1) destinations.launch("system"); else if (which == 2) destinations.settings(true); }).show();
+        if (!lobbyMode) { showLobby(""); return; }
+        destinations.launch("system");
     }
     @Override public boolean onKeyUp(int keyCode,KeyEvent event){
         if(VoiceAssistant.systemVoiceKey(keyCode))return super.onKeyUp(keyCode,event);
@@ -363,5 +376,5 @@ public class MainActivity extends Activity {
     @Override protected void onPause() { display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }
     @Override protected void onResume() { super.onResume(); display.resumed(true); nasLabels(); if (display.active()) immersive(); }
     @Override public void onWindowFocusChanged(boolean hasFocus) { super.onWindowFocusChanged(hasFocus); display.focused(hasFocus); if (display.active()) immersive(); }
-    @Override protected void onDestroy() { if(installer!=null)installer.destroy(); destroyWeb(); super.onDestroy(); }
+    @Override protected void onDestroy() { if(installer!=null)installer.destroy();if(messages!=null)messages.close(); destroyWeb(); super.onDestroy(); }
 }

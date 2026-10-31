@@ -11,14 +11,17 @@ final class CinemaHttp {
     private final OkHttpClient client=new OkHttpClient.Builder().followRedirects(false).followSslRedirects(false).connectTimeout(6,TimeUnit.SECONDS).readTimeout(8,TimeUnit.SECONDS).callTimeout(10,TimeUnit.SECONDS).build();
     private volatile Call active;private volatile long deadline;private volatile int epoch;
     static final class Document {final String text,url;final Map<String,String> headers;Document(String text,String url,Map<String,String> headers){this.text=text;this.url=url;this.headers=headers;}}
-    private static final class Body {final byte[] bytes;final String url;final Map<String,String> headers;Body(byte[] bytes,String url,Map<String,String> headers){this.bytes=bytes;this.url=url;this.headers=new LinkedHashMap<>(headers);}}
+    private static final class Body {final byte[] bytes;final String url;final Map<String,String> headers;final String type;Body(byte[] bytes,String url,Map<String,String> headers,String type){this.bytes=bytes;this.url=url;this.headers=new LinkedHashMap<>(headers);this.type=type;}}
     void deadline(long value){deadline=value;}
     void cancel(){epoch++;Call old=active;if(old!=null)old.cancel();}
     private Body bytes(String url,boolean allowHttp,int limit,boolean sample,Map<String,String> supplied)throws Exception {
-        String valid=CinemaCatalog.url(url,null,allowHttp);Map<String,String> headers=new LinkedHashMap<>(supplied);int turn=epoch;long budget=Math.min(deadline==0?Long.MAX_VALUE:deadline,System.nanoTime()+TimeUnit.SECONDS.toNanos(10));
+        return bytes(url,allowHttp,limit,sample,supplied,10);
+    }
+    private Body bytes(String url,boolean allowHttp,int limit,boolean sample,Map<String,String> supplied,int seconds)throws Exception {
+        String valid=CinemaCatalog.url(url,null,allowHttp);Map<String,String> headers=new LinkedHashMap<>(supplied);int turn=epoch;long budget=Math.min(deadline==0?Long.MAX_VALUE:deadline,System.nanoTime()+TimeUnit.SECONDS.toNanos(seconds));
         for(int hop=0;hop<=3;hop++){
             if(turn!=epoch||Thread.currentThread().isInterrupted())throw new IOException("读取已取消");Request.Builder request=new Request.Builder().url(valid).header("User-Agent","Kaishi-TV/0.2");
-            for(Map.Entry<String,String> h:headers.entrySet())request.header(h.getKey(),h.getValue());if(sample)request.header("Range","bytes=0-4095");Call call=client.newCall(request.build());call.timeout().deadlineNanoTime(budget);active=call;
+            for(Map.Entry<String,String> h:headers.entrySet())request.header(h.getKey(),h.getValue());if(sample)request.header("Range","bytes=0-4095");Call call=(seconds>10?client.newBuilder().connectTimeout(seconds,TimeUnit.SECONDS).readTimeout(seconds,TimeUnit.SECONDS).callTimeout(seconds,TimeUnit.SECONDS).build():client).newCall(request.build());call.timeout().timeout(seconds,TimeUnit.SECONDS).deadlineNanoTime(budget);active=call;
             try(Response response=call.execute()){
                 if(Arrays.asList(301,302,303,307,308).contains(response.code())){
                     if(hop==3||response.header("Location")==null)throw new IOException("来源重定向过多或无目标");String next=CinemaCatalog.url(response.header("Location"),valid,allowHttp);HttpUrl from=HttpUrl.get(valid),to=HttpUrl.get(next);
@@ -26,13 +29,14 @@ final class CinemaHttp {
                 }
                 if(!response.isSuccessful())throw new IOException("来源请求失败（"+response.code()+"）");if(response.body()==null)throw new IOException("来源没有返回内容");if(!sample&&response.body().contentLength()>limit)throw new IOException("来源内容超过限制");
                 try(InputStream stream=response.body().byteStream();ByteArrayOutputStream out=new ByteArrayOutputStream()){
-                    byte[] buffer=new byte[4096];int n;while((n=stream.read(buffer,0,Math.min(buffer.length,limit+1-out.size())))!=-1){if(turn!=epoch)throw new IOException("读取已取消");out.write(buffer,0,n);if(out.size()>limit){if(sample)return new Body(Arrays.copyOf(out.toByteArray(),limit),valid,headers);throw new IOException("来源内容超过限制");}if(sample&&out.size()==limit)break;}return new Body(out.toByteArray(),valid,headers);
+                    byte[] buffer=new byte[4096];int n;while((n=stream.read(buffer,0,Math.min(buffer.length,limit+1-out.size())))!=-1){if(turn!=epoch)throw new IOException("读取已取消");out.write(buffer,0,n);if(out.size()>limit){if(sample)return new Body(Arrays.copyOf(out.toByteArray(),limit),valid,headers,response.header("Content-Type",""));throw new IOException("来源内容超过限制");}if(sample&&out.size()==limit)break;}return new Body(out.toByteArray(),valid,headers,response.header("Content-Type",""));
                 }
             }finally{if(active==call)active=null;}
         }throw new IOException("来源重定向失败");
     }
     Document document(String url,boolean allowHttp,Map<String,String> headers)throws Exception{Body b=bytes(url,allowHttp,CinemaCatalog.MAX_BYTES,false,headers);return new Document(new String(b.bytes,StandardCharsets.UTF_8),b.url,b.headers);}
     String xmltv(String url,boolean allowHttp)throws Exception{Body body=bytes(url,allowHttp,4*1024*1024,false,Collections.emptyMap());InputStream raw=new ByteArrayInputStream(body.bytes);if(body.bytes.length>=2&&(body.bytes[0]&255)==31&&(body.bytes[1]&255)==139)raw=new java.util.zip.GZIPInputStream(raw);try(InputStream stream=raw;ByteArrayOutputStream out=new ByteArrayOutputStream()){byte[] buffer=new byte[8192];int n;while((n=stream.read(buffer))!=-1){if(out.size()+n>8*1024*1024)throw new IOException("节目单解压后超过8MiB");out.write(buffer,0,n);}return new String(out.toByteArray(),StandardCharsets.UTF_8);}}
+    String messages(String url)throws Exception{return new String(bytes(url,false,131072,false,Collections.emptyMap(),15).bytes,StandardCharsets.UTF_8);}
     String text(String url,boolean allowHttp)throws Exception{return document(url,allowHttp,Collections.emptyMap()).text;}
     CinemaCatalog.Config importUrl(String url,boolean allowHttp)throws Exception {
         String checked=CinemaCatalog.url(url,null,allowHttp),path=new java.net.URI(checked).getPath().toLowerCase(Locale.ROOT);
@@ -58,6 +62,16 @@ final class CinemaHttp {
         Map<String,String> headers=new LinkedHashMap<>(CinemaFormats.headers(value));
         String address=CinemaFormats.stream(value.optString("url"),null,allowHttp,headers);
         return new CinemaCatalog.Episode(episode.name,address,headers);
+    }
+    CinemaCatalog.Episode media(CinemaCatalog.Episode episode,boolean allowHttp)throws Exception {
+        String path=HttpUrl.get(CinemaCatalog.url(episode.url,null,allowHttp)).encodedPath().toLowerCase(Locale.ROOT);
+        if(path.startsWith("/share/"))throw new IOException("该线路为分享网页");
+        Body body=bytes(episode.url,allowHttp,4096,true,episode.headers,15);
+        String text=new String(body.bytes,StandardCharsets.UTF_8).trim().toLowerCase(Locale.ROOT),type=body.type.toLowerCase(Locale.ROOT);
+        if(body.bytes.length==0||type.contains("text/html")||type.contains("application/json")||text.startsWith("<")||text.startsWith("{")||text.startsWith("["))throw new IOException("该线路未返回媒体");
+        boolean magic=text.startsWith("#extm3u")||body.bytes.length>=8&&new String(body.bytes,4,4,StandardCharsets.US_ASCII).equals("ftyp")||body.bytes.length>=4&&(body.bytes[0]&255)==0x1a&&(body.bytes[1]&255)==0x45||body.bytes.length>=188&&body.bytes[0]==0x47||text.startsWith("flv");
+        if(!magic&&!type.startsWith("video/")&&!type.startsWith("audio/")&&!type.contains("mpegurl")&&!type.contains("octet-stream"))throw new IOException("该线路未返回可识别媒体");
+        return new CinemaCatalog.Episode(episode.name,body.url,body.headers);
     }
     String probe(String url,boolean allowHttp)throws Exception{return probe(url,allowHttp,Collections.emptyMap());}
     String probe(String url,boolean allowHttp,Map<String,String> headers)throws Exception {

@@ -6,6 +6,7 @@ report=[]
 for edition in ['standard','parents']:
  metadata=json.loads((args.directory/edition/'manifest.json').read_text());apk=args.directory/edition/metadata['apk'];assert hashlib.sha256(apk.read_bytes()).hexdigest()==metadata['sha256']
  names=['CinemaActivity','CinemaLivePanel','CinemaChoicePanel','CinemaEpisodeGrid','ConfirmPress','FeaturePolicy','MainActivity','NasActivity'];found={};drivers=[]
+ if metadata['versionCode']>=29:names+=['CinemaPlaybackPlan','CinemaHttp','MessageFeed','HomeMessages']
  with tempfile.TemporaryDirectory(prefix='kaishi-release-dex-') as tmp,zipfile.ZipFile(apk) as z:
   for name in z.namelist():
    if not re.fullmatch(r'classes[0-9]*\.dex',name):continue
@@ -24,6 +25,8 @@ for edition in ['standard','parents']:
  method=re.search(r"name\s+: 'photos'(.*?)(?:Virtual methods|\n    #\d+)",found['FeaturePolicy'],re.S);assert method,'Missing photo policy method'
  assert re.search(r'const/4 v0, #int 0',method[1]) and re.search(r'return v0',method[1]),'Album enabled in shipping build'
  assert 'CinemaRelated' not in found['CinemaActivity'],'Unexpected related-film call'
+ if metadata['versionCode']>=29:
+  assert all(re.search(r"name\s+: '"+method+r"'",found['CinemaActivity']) for method in ['playerLines','playerFailure','attemptVod']), 'Missing line fallback methods'
  report.append({'edition':edition,'apkSha256':metadata['sha256'],'classesPresent':names,'releasePhotoMethodReturnsFalse':True,'testDriversAbsent':True,'detailRelatedCallsAbsent':True,'remoteInputExecuted':False})
 result={'method':'actual release DEX disassembly; not runtime acceptance','editions':report}
 (args.directory/'player-policy-check.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

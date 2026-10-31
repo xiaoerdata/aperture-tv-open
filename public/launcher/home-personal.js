@@ -24,7 +24,7 @@
    if(photos.length)values.push({key:'photos',kind:'相册',title:photos[0].title||'家庭相册',value:photos[0].caption||'',photo:photos[0].url,open:'打开相册',action:'photos'});
    if(metrics.length){var m=metrics[0];values.push({key:'data',kind:'数据',title:m.title,value:String(m.value)+' '+m.unit,meta:m.date+(m.date===data.today?' · 今日':' · 历史记录'),open:'查看数据',action:'data'});}
    for(var k=0;k<life.length;k++)if(Date.parse(life[k].expiresAt)>Date.now()){var l=life[k];values.push({key:'life',kind:'生活',title:l.title,value:String(l.value)+' '+l.unit,meta:l.source,open:'查看数据',action:'data'});break;}
-   if(notes.length)values.push({key:'note',kind:'留言',title:notes[0].title,value:notes[0].body,meta:notes[0].author,open:'查看消息',action:'information'});
+   if(notes.length)values.push({key:'note',kind:'留言',title:notes[0].body,value:notes[0].time||'',meta:'',open:'查看消息',action:'information'});
    if(events.length)values.push({key:'event',kind:'今天',title:events[0].title,value:events[0].time,meta:events[0].person,open:'查看日程',action:'information'});
    if(sources.nasCount>0)values.push({key:'nas',kind:'NAS',title:'家庭片库',value:(options.photosEnabled&&sources.nasPhotos)?'照片 · 影片':'影片与文件',meta:String(sources.nasCount)+' 个已保存的连接',open:(options.photosEnabled&&sources.nasPhotos)?'打开 NAS 相册':'打开 NAS',action:(options.photosEnabled&&sources.nasPhotos)?'nas-photos':'nas'});
    slides=values;index=0;for(k=0;k<slides.length;k++)if(slides[k].key===current)index=k;draw(false);schedule();
