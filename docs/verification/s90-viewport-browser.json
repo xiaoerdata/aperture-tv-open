@@ -1,0 +1,336 @@
+{
+  "actualXiaomi": false,
+  "actualAndroidWebView": false,
+  "results": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "inflated": false,
+      "report": {
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "clientWidth": 1920,
+        "clientHeight": 1080,
+        "dpr": 1,
+        "fitted": {
+          "width": 1920,
+          "height": 1080,
+          "scale": 1
+        },
+        "entries": [
+          {
+            "id": "lobby",
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          },
+          {
+            "id": "home-live",
+            "x": 100,
+            "y": 490,
+            "width": 380,
+            "height": 132
+          },
+          {
+            "id": "home-series",
+            "x": 504,
+            "y": 490,
+            "width": 380,
+            "height": 132
+          },
+          {
+            "id": "home-movies",
+            "x": 908,
+            "y": 490,
+            "width": 380,
+            "height": 132
+          },
+          {
+            "id": "home-variety",
+            "x": 1312,
+            "y": 490,
+            "width": 380,
+            "height": 132
+          }
+        ],
+        "visual": {
+          "width": 1920,
+          "height": 1080,
+          "scale": 1
+        }
+      },
+      "settings": {
+        "x": 1204,
+        "y": 121,
+        "width": 620,
+        "height": 838
+      }
+    },
+    {
+      "width": 960,
+      "height": 540,
+      "dpr": 2,
+      "inflated": false,
+      "report": {
+        "innerWidth": 960,
+        "innerHeight": 540,
+        "clientWidth": 960,
+        "clientHeight": 540,
+        "dpr": 2,
+        "fitted": {
+          "width": 960,
+          "height": 540,
+          "scale": 0.5
+        },
+        "entries": [
+          {
+            "id": "lobby",
+            "x": 0,
+            "y": 0,
+            "width": 960,
+            "height": 540
+          },
+          {
+            "id": "home-live",
+            "x": 50,
+            "y": 245,
+            "width": 190,
+            "height": 66
+          },
+          {
+            "id": "home-series",
+            "x": 252,
+            "y": 245,
+            "width": 190,
+            "height": 66
+          },
+          {
+            "id": "home-movies",
+            "x": 454,
+            "y": 245,
+            "width": 190,
+            "height": 66
+          },
+          {
+            "id": "home-variety",
+            "x": 656,
+            "y": 245,
+            "width": 190,
+            "height": 66
+          }
+        ],
+        "visual": {
+          "width": 960,
+          "height": 540,
+          "scale": 1
+        }
+      },
+      "settings": {
+        "x": 602,
+        "y": 60.5,
+        "width": 310,
+        "height": 419
+      }
+    },
+    {
+      "width": 960,
+      "height": 540,
+      "dpr": 2,
+      "inflated": true,
+      "report": {
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "clientWidth": 960,
+        "clientHeight": 540,
+        "dpr": 2,
+        "fitted": {
+          "width": 960,
+          "height": 540,
+          "scale": 0.5
+        },
+        "entries": [
+          {
+            "id": "lobby",
+            "x": 0,
+            "y": 0,
+            "width": 960,
+            "height": 540
+          },
+          {
+            "id": "home-live",
+            "x": 50,
+            "y": 245,
+            "width": 190,
+            "height": 66
+          },
+          {
+            "id": "home-series",
+            "x": 252,
+            "y": 245,
+            "width": 190,
+            "height": 66
+          },
+          {
+            "id": "home-movies",
+            "x": 454,
+            "y": 245,
+            "width": 190,
+            "height": 66
+          },
+          {
+            "id": "home-variety",
+            "x": 656,
+            "y": 245,
+            "width": 190,
+            "height": 66
+          }
+        ],
+        "visual": {
+          "width": 960,
+          "height": 540,
+          "scale": 1
+        }
+      },
+      "settings": {
+        "x": 602,
+        "y": 60.5,
+        "width": 310,
+        "height": 419
+      }
+    },
+    {
+      "width": 480,
+      "height": 270,
+      "dpr": 4,
+      "inflated": true,
+      "report": {
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "clientWidth": 480,
+        "clientHeight": 270,
+        "dpr": 4,
+        "fitted": {
+          "width": 480,
+          "height": 270,
+          "scale": 0.25
+        },
+        "entries": [
+          {
+            "id": "lobby",
+            "x": 0,
+            "y": 0,
+            "width": 480,
+            "height": 270
+          },
+          {
+            "id": "home-live",
+            "x": 25,
+            "y": 122.5,
+            "width": 95,
+            "height": 33
+          },
+          {
+            "id": "home-series",
+            "x": 126,
+            "y": 122.5,
+            "width": 95,
+            "height": 33
+          },
+          {
+            "id": "home-movies",
+            "x": 227,
+            "y": 122.5,
+            "width": 95,
+            "height": 33
+          },
+          {
+            "id": "home-variety",
+            "x": 328,
+            "y": 122.5,
+            "width": 95,
+            "height": 33
+          }
+        ],
+        "visual": {
+          "width": 480,
+          "height": 270,
+          "scale": 1
+        }
+      },
+      "settings": {
+        "x": 301,
+        "y": 30.25,
+        "width": 155,
+        "height": 209.5
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "dpr": 2,
+      "inflated": false,
+      "report": {
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "clientWidth": 1920,
+        "clientHeight": 1080,
+        "dpr": 2,
+        "fitted": {
+          "width": 1920,
+          "height": 1080,
+          "scale": 1
+        },
+        "entries": [
+          {
+            "id": "lobby",
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          },
+          {
+            "id": "home-live",
+            "x": 100,
+            "y": 490,
+            "width": 380,
+            "height": 132
+          },
+          {
+            "id": "home-series",
+            "x": 504,
+            "y": 490,
+            "width": 380,
+            "height": 132
+          },
+          {
+            "id": "home-movies",
+            "x": 908,
+            "y": 490,
+            "width": 380,
+            "height": 132
+          },
+          {
+            "id": "home-variety",
+            "x": 1312,
+            "y": 490,
+            "width": 380,
+            "height": 132
+          }
+        ],
+        "visual": {
+          "width": 1920,
+          "height": 1080,
+          "scale": 1
+        }
+      },
+      "settings": {
+        "x": 1204,
+        "y": 121,
+        "width": 620,
+        "height": 838
+      }
+    }
+  ]
+}

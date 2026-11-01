@@ -1,0 +1,161 @@
+{
+  "scope": "Isolated Android TV 28 WebView 66 diagnostic APK, Xiaomi hardware not connected",
+  "actualXiaomi": false,
+  "actualProductApk": false,
+  "viewportPixels": [
+    1920,
+    1080
+  ],
+  "density": 2,
+  "webViewPageScale": 2,
+  "baselineAssetsMatchV33": true,
+  "baselineFinal": {
+    "innerWidth": 960,
+    "innerHeight": 540,
+    "clientWidth": 960,
+    "clientHeight": 540,
+    "dpr": 2,
+    "visual": {
+      "width": 960,
+      "height": 540,
+      "scale": 1
+    },
+    "cssScale": "0.5",
+    "api": "function",
+    "rects": {
+      "lobby": {
+        "x": 0,
+        "y": 0,
+        "w": 960,
+        "h": 540,
+        "transform": "matrix(0.5, 0, 0, 0.5, 0, 0)"
+      },
+      "brand-home": {
+        "x": 48,
+        "y": 29,
+        "w": 62,
+        "h": 28,
+        "transform": "none"
+      },
+      "home-pages": {
+        "x": 48,
+        "y": 73,
+        "w": 864,
+        "h": 408,
+        "transform": "none"
+      },
+      "home-live": {
+        "x": 50,
+        "y": 245,
+        "w": 190,
+        "h": 66,
+        "transform": "none"
+      },
+      "home-series": {
+        "x": 240,
+        "y": 245,
+        "w": 190,
+        "h": 66,
+        "transform": "none"
+      },
+      "home-movies": {
+        "x": 430,
+        "y": 245,
+        "w": 190,
+        "h": 66,
+        "transform": "none"
+      },
+      "home-variety": {
+        "x": 620,
+        "y": 245,
+        "w": 190,
+        "h": 66,
+        "transform": "none"
+      }
+    }
+  },
+  "fixedFinal": {
+    "innerWidth": 960,
+    "innerHeight": 540,
+    "clientWidth": 960,
+    "clientHeight": 540,
+    "dpr": 2,
+    "visual": {
+      "width": 960,
+      "height": 540,
+      "scale": 1
+    },
+    "cssScale": "0.5",
+    "api": "function",
+    "rects": {
+      "lobby": {
+        "x": 0,
+        "y": 0,
+        "w": 960,
+        "h": 540,
+        "transform": "matrix(0.5, 0, 0, 0.5, 0, 0)"
+      },
+      "brand-home": {
+        "x": 48,
+        "y": 29,
+        "w": 62,
+        "h": 28,
+        "transform": "none"
+      },
+      "home-pages": {
+        "x": 48,
+        "y": 73,
+        "w": 864,
+        "h": 408,
+        "transform": "none"
+      },
+      "home-live": {
+        "x": 50,
+        "y": 245,
+        "w": 190,
+        "h": 66,
+        "transform": "none"
+      },
+      "home-series": {
+        "x": 240,
+        "y": 245,
+        "w": 190,
+        "h": 66,
+        "transform": "none"
+      },
+      "home-movies": {
+        "x": 430,
+        "y": 245,
+        "w": 190,
+        "h": 66,
+        "transform": "none"
+      },
+      "home-variety": {
+        "x": 620,
+        "y": 245,
+        "w": 190,
+        "h": 66,
+        "transform": "none"
+      }
+    }
+  },
+  "fixedDpadCenterNativeAction": true,
+  "fixedStartupNoPrematureAmbientNavigation": true,
+  "xiaomiIssueReproduced": false,
+  "limitations": [
+    "Both baseline and fixed reach correct scale on this Android 28 WebView 66 emulator; this does not prove the Xiaomi Android 14 defect is fixed.",
+    "Large wallpaper bitmaps and fonts omitted; HTML, CSS, JS snapshot hashes retained.",
+    "Focus set by CDP; confirmation is Android InputManager keyevent 23. Target CinemaActivity not present in diagnostic APK.",
+    "Fixed diagnostic harness exercises page-scale sizing, wide viewport disabled and native focus acknowledgement; production getGlobalVisibleRect clipping not independently exercised.",
+    "Product LobbyMode selects the glass WebView home only from WebView 89; the isolated harness intentionally bypasses that gate to inspect Android WebView mechanics on available WebView 66. This is not supported product-engine acceptance."
+  ],
+  "evidence": [
+    "artifacts/s90-webview-harness/baseline-events.json",
+    "artifacts/s90-webview-harness/baseline-metrics.jsonl",
+    "artifacts/s90-webview-harness/source-hashes.json",
+    "artifacts/s90-webview-fixed/fixed-events.json",
+    "artifacts/s90-webview-fixed/fixed-metrics.jsonl",
+    "artifacts/s90-webview-fixed/source-hashes.json"
+  ],
+  "reproduction": "python3 scripts/s90-webview-harness.py --variant baseline --source-apk <v33.apk>; python3 scripts/s90-webview-harness.py --variant fixed. Install each diagnostic APK only in an owned Android emulator."
+}

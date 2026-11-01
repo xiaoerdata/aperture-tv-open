@@ -1,0 +1,394 @@
+{
+  "checks": [
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "input": "keyboard",
+      "id": "home-live",
+      "box": {
+        "x": 100,
+        "y": 490,
+        "width": 380,
+        "height": 132
+      },
+      "action": "aperture://action/family-live",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-live",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "input": "keyboard",
+      "id": "home-series",
+      "box": {
+        "x": 504,
+        "y": 490,
+        "width": 380,
+        "height": 132
+      },
+      "action": "aperture://action/family-series",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-series",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "input": "keyboard",
+      "id": "home-movies",
+      "box": {
+        "x": 908,
+        "y": 490,
+        "width": 380,
+        "height": 132
+      },
+      "action": "aperture://action/family-movies",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-movies",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "input": "keyboard",
+      "id": "home-variety",
+      "box": {
+        "x": 1312,
+        "y": 490,
+        "width": 380,
+        "height": 132
+      },
+      "action": "aperture://action/family-variety",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-variety",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "input": "native-js-bridge",
+      "id": "home-live",
+      "box": {
+        "x": 100,
+        "y": 490,
+        "width": 380,
+        "height": 132
+      },
+      "action": "aperture://action/family-live",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-live",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "input": "native-js-bridge",
+      "id": "home-series",
+      "box": {
+        "x": 504,
+        "y": 490,
+        "width": 380,
+        "height": 132
+      },
+      "action": "aperture://action/family-series",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-series",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "input": "native-js-bridge",
+      "id": "home-movies",
+      "box": {
+        "x": 908,
+        "y": 490,
+        "width": 380,
+        "height": 132
+      },
+      "action": "aperture://action/family-movies",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-movies",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "input": "native-js-bridge",
+      "id": "home-variety",
+      "box": {
+        "x": 1312,
+        "y": 490,
+        "width": 380,
+        "height": 132
+      },
+      "action": "aperture://action/family-variety",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-variety",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "input": "keyboard",
+      "id": "home-live",
+      "box": {
+        "x": 50,
+        "y": 245,
+        "width": 190,
+        "height": 66
+      },
+      "action": "aperture://action/family-live",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-live",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "input": "keyboard",
+      "id": "home-series",
+      "box": {
+        "x": 252,
+        "y": 245,
+        "width": 190,
+        "height": 66
+      },
+      "action": "aperture://action/family-series",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-series",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "input": "keyboard",
+      "id": "home-movies",
+      "box": {
+        "x": 454,
+        "y": 245,
+        "width": 190,
+        "height": 66
+      },
+      "action": "aperture://action/family-movies",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-movies",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "input": "keyboard",
+      "id": "home-variety",
+      "box": {
+        "x": 656,
+        "y": 245,
+        "width": 190,
+        "height": 66
+      },
+      "action": "aperture://action/family-variety",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-variety",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "input": "native-js-bridge",
+      "id": "home-live",
+      "box": {
+        "x": 50,
+        "y": 245,
+        "width": 190,
+        "height": 66
+      },
+      "action": "aperture://action/family-live",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-live",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "input": "native-js-bridge",
+      "id": "home-series",
+      "box": {
+        "x": 252,
+        "y": 245,
+        "width": 190,
+        "height": 66
+      },
+      "action": "aperture://action/family-series",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-series",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "input": "native-js-bridge",
+      "id": "home-movies",
+      "box": {
+        "x": 454,
+        "y": 245,
+        "width": 190,
+        "height": 66
+      },
+      "action": "aperture://action/family-movies",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-movies",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "input": "native-js-bridge",
+      "id": "home-variety",
+      "box": {
+        "x": 656,
+        "y": 245,
+        "width": 190,
+        "height": 66
+      },
+      "action": "aperture://action/family-variety",
+      "diagnostic": {
+        "key": "Enter",
+        "active": "home-variety",
+        "inItems": true,
+        "disabled": false,
+        "width": 380,
+        "height": 132,
+        "pane": false
+      }
+    }
+  ],
+  "errors": [],
+  "packagedLocalBranch": true,
+  "actualAndroidWebView": false,
+  "nativeActivityLaunched": false,
+  "realXiaomi": false,
+  "conclusion": "The four unchanged local action routes respond in Chromium; the reported Xiaomi-only variety confirmation failure remains unconfirmed here."
+}

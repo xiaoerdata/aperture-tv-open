@@ -17,6 +17,7 @@ final class DestinationApps {
     private final Activity activity;
     private final SharedPreferences preferences;
     private final Changed changed;
+    private HomeEntryController homeEntry;
     DestinationApps(Activity activity, SharedPreferences preferences, Changed changed) { this.activity = activity; this.preferences = preferences; this.changed = changed; rememberOriginalHome(); }
     private volatile java.util.Map<String,byte[]> icons=java.util.Collections.emptyMap();
     private List<AppPresets.Entry> presets(){try(java.io.InputStream input=activity.getAssets().open("app-presets.json")){java.io.ByteArrayOutputStream out=new java.io.ByteArrayOutputStream();byte[] buffer=new byte[4096];int n;while((n=input.read(buffer))!=-1){if(out.size()+n>32768)throw new java.io.IOException();out.write(buffer,0,n);}return AppPresets.read(out.toString("UTF-8"));}catch(Exception unavailable){return new ArrayList<>();}}
@@ -185,8 +186,10 @@ final class DestinationApps {
         }
     }
     void settings(boolean home) {
-        if (home) { new HomeEntryController(activity).show(); return; }
+        if (home) { if(homeEntry==null)homeEntry=new HomeEntryController(activity);homeEntry.show();return; }
         try { activity.startActivity(new Intent(Settings.ACTION_SETTINGS)); }
         catch (RuntimeException error) { new AlertDialog.Builder(activity).setMessage("当前固件未提供可打开的系统设置入口，请用电视遥控器的设置键进入。").setPositiveButton("知道了", null).show(); }
     }
+    void refreshHomeSettings(){if(homeEntry!=null)homeEntry.refresh();}
+    void dismissHomeSettings(){if(homeEntry!=null)homeEntry.dismiss();}
 }

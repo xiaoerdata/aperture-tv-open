@@ -1,6 +1,6 @@
 {
   "format": "aperture-public-source/v1",
-  "version": "0.2.0-alpha.30",
+  "version": "0.2.0-alpha.31",
   "source": {
     "commit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
     "workingTreeDirty": true
@@ -47,7 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": null
+    "postReleaseReceiptFor": null,
+    "publicParent": "a7024479461e59b28591491fcd7e7e8f94441ac3"
   },
   "files": [
     {
@@ -97,8 +98,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5424,
-      "sha256": "bec8cc59d05d3ce000a3d106239db4f899f5c9bf1b5141a2fc120da2847e921f"
+      "bytes": 5656,
+      "sha256": "c521b2b0e74a40ac52cfb0f26eca8f3c4b033d8b897d07b197384194912161c2"
     },
     {
       "path": "SECURITY.md",
@@ -118,7 +119,7 @@
     {
       "path": "android/app/build.gradle",
       "bytes": 3958,
-      "sha256": "d4b8e26a9c100c8615a0fa160af21f24d2d75ef28ef76e773aee9694a9113ae4"
+      "sha256": "86e7ee5310f3db7bbf59ad883a0f71722515e3a85d3f81a4b248fcc327de2177"
     },
     {
       "path": "android/app/src/debug/AndroidManifest.xml",
@@ -337,8 +338,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/DestinationApps.java",
-      "bytes": 19090,
-      "sha256": "55cc600dbe8dbdf7bbcf8bed35b4d3c8088c25de4e5ca1b18da54c6df597a311"
+      "bytes": 19315,
+      "sha256": "4bce7b59d81c59beb3ee102a7ec089a87347a918ecbd49ff4f2c55dcd8abf8d7"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/DisplayLifecycle.java",
@@ -352,8 +353,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/HomeEntryController.java",
-      "bytes": 3121,
-      "sha256": "67c03e9dfc301bc34cd433f6eedf02952e81d4a61e4c6ea3a167d3e87faabd16"
+      "bytes": 6768,
+      "sha256": "1218f0f7a0c0b7d210e5708ceb9daf0324f31c42a437ac3d4c73a04b36d2199f"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/HomeMessages.java",
@@ -412,8 +413,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java",
-      "bytes": 37820,
-      "sha256": "4df9642ee922f5f7e385bad59086c7a08b0c5ec30f3be0c59a67c592262f68bd"
+      "bytes": 41940,
+      "sha256": "f8c3df00f63708a22b731fe541fabb1c79b6d5954d56aec037dc1f368d81d5dc"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/MessageFeed.java",
@@ -1212,8 +1213,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4698,
-      "sha256": "e79aecfdce94bc9e423d5671870ba8ff28597a62c5641d0ed6f38ee1cce38806"
+      "bytes": 4167,
+      "sha256": "143d49aef8c06046f5d1710a45d3150f0688efeab560866419b4e6dcd0047300"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -1356,6 +1357,11 @@
       "sha256": "a850e24fd93d74d8fc4db9704725a0a796f421ee05e074fb7634545858cdaeb5"
     },
     {
+      "path": "docs/RELEASE-S90.md",
+      "bytes": 3111,
+      "sha256": "bf4078befccad4ea70976e3289c49a3f8dce8e3dfd74791f08d3595a72c23cb3"
+    },
+    {
       "path": "docs/RESOURCE-PACK-AGENT.md",
       "bytes": 6590,
       "sha256": "8007471e0b4a399503422a138ff401d7cbc98fac2f43225a5160fb19a60fbac0"
@@ -1432,8 +1438,8 @@
     },
     {
       "path": "docs/XIAOMI-COMPATIBILITY.md",
-      "bytes": 4169,
-      "sha256": "a44f663c9c2231ea38a41f10459c0b9a3aa0a2c4a682c4d63fa771775c470e77"
+      "bytes": 6253,
+      "sha256": "738e5edb340a2e8660726adea28510e6752418bf366011dc6aaa777e2de4e3f7"
     },
     {
       "path": "docs/XIAOMI-HOME.md",
@@ -4772,13 +4778,13 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 234869,
-      "sha256": "f283f4905c5b03fb792c2da6886665db30c361bb2af91f8c53893b6309154a9e"
+      "bytes": 238358,
+      "sha256": "f69f4f538092dbec2844b0a830d4a7994e47ec92d2c889b5f2ea0ff68aadb78c"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 34394,
-      "sha256": "97e46465f2ebb0351610cbe820190c207b2e4e94dec22b828980e2d867c47529"
+      "bytes": 35359,
+      "sha256": "2a00a999f32c3ece1ef993aab1e0e500528d57d049f95802db860a56404447ce"
     },
     {
       "path": "docs/process/README.md",
@@ -4787,8 +4793,8 @@
     },
     {
       "path": "docs/release/README-public.md",
-      "bytes": 5406,
-      "sha256": "601f5b1322db59109c670a9997b90240268d48b6c0638a1df3f867d9c4420416"
+      "bytes": 5636,
+      "sha256": "16dcf4bacedea433697b70e0b87061eb036c50c871c086cd942bddef8569243b"
     },
     {
       "path": "docs/schemas/message-feed-v1.schema.json",
@@ -6341,6 +6347,36 @@
       "sha256": "59c08d683f52965e8dcc40cd324c273ee9c64fdab2016e49fe40c9ad4b9a42ba"
     },
     {
+      "path": "docs/verification/s90-home-settings-browser.json",
+      "bytes": 390,
+      "sha256": "5f81aedd89318eb7140a813873ae56d1e43f8f95e1cc84b0686314161ac5c684"
+    },
+    {
+      "path": "docs/verification/s90-home-watch-confirm-browser.json",
+      "bytes": 8394,
+      "sha256": "01def07ca7ef57c7a5fe7dca01c844abc40a299884080509665dd4e0ec49c5c8"
+    },
+    {
+      "path": "docs/verification/s90-packaged-startup-browser.json",
+      "bytes": 5758,
+      "sha256": "76dfe2de59ea6669a9229fdd01c9c01b6fb9c94ca2bbd016451bd474a96fdcda"
+    },
+    {
+      "path": "docs/verification/s90-pre-v30-review.json",
+      "bytes": 21678,
+      "sha256": "1b7249420f65a72c7672f5d9cf4c17ae373d8359a1e8cd7b6854ac815a52353b"
+    },
+    {
+      "path": "docs/verification/s90-viewport-browser.json",
+      "bytes": 6867,
+      "sha256": "6363e62a4919f4240d491a1385bed50d1426250b26d9703a00bf39f64942801f"
+    },
+    {
+      "path": "docs/verification/s90-webview-native.json",
+      "bytes": 4208,
+      "sha256": "48815dc27a5523f8abf9c6d06e1e4dbc3238742c07be97e7f13a6b38725513cd"
+    },
+    {
       "path": "docs/verification/tv-controls.json",
       "bytes": 4183,
       "sha256": "c97b19b83bba721b28023595c2a8e2ab38c166f81ba47ef87fecb7876af9a5ff"
@@ -6841,6 +6877,11 @@
       "sha256": "cf81f2eb2af1483a727bf250b8414eb98be16b39dfcf2d65d8273013908b4043"
     },
     {
+      "path": "media/DEVLOG-066.md",
+      "bytes": 972,
+      "sha256": "f26907c2564bb69bb0ae90fcb43233338e6534cb3a04692bb4f3d90cd5ca1df9"
+    },
+    {
       "path": "media/GLASS-ASSET-PROMPT.md",
       "bytes": 1380,
       "sha256": "daeb021eb3ad316b9bd2aedcdd9dfe6d04e9dbeca4aff33187957a1e5d327b42"
@@ -6903,12 +6944,12 @@
     {
       "path": "package-lock.json",
       "bytes": 55465,
-      "sha256": "6bde266c968bc074496c805f79083f59cf12fcf020d62eff590f98c07de546af"
+      "sha256": "9ac052390a6be3250a38958d07a7d89edc5e3c489b53f64e1ae7427d7286ea4e"
     },
     {
       "path": "package.json",
       "bytes": 1767,
-      "sha256": "0680eccf383a7bb268f8bd03ccece318d253e27036cba58c26e975b2140fbefe"
+      "sha256": "d8403aca1b1497a766327e7598f9f18c30a6bac163c66c6eade00995699d1cf1"
     },
     {
       "path": "public/assets/weekend.svg",
@@ -7012,8 +7053,8 @@
     },
     {
       "path": "public/launcher/ambient.js",
-      "bytes": 9173,
-      "sha256": "86c50de8392f2281e0f28f98b072bf0345a37e05eeb40a58001b3e7dab916922"
+      "bytes": 9504,
+      "sha256": "b6ce327088194d7dde7f0877671f6095b4d7a34884981493af0ba2f493321a16"
     },
     {
       "path": "public/launcher/app-icons/appletv.png",
@@ -7177,8 +7218,8 @@
     },
     {
       "path": "public/launcher/launcher.js",
-      "bytes": 47842,
-      "sha256": "b05ac09a303f7ae7348191d4a10669127db6b901ca98e7c8ed8920c60299b18d"
+      "bytes": 50070,
+      "sha256": "f0076daa0643c3e81555026cf7bb2ad1e3208d839bba8e5491e7bbc8401c24fa"
     },
     {
       "path": "public/launcher/living-room.svg",
@@ -7944,6 +7985,36 @@
       "path": "scripts/s87-weather-startup-test.mjs",
       "bytes": 2485,
       "sha256": "12a5ac75834f498b59dd54e966f0c415592daa279ea906c3c36648496bc23b66"
+    },
+    {
+      "path": "scripts/s90-home-settings-test.mjs",
+      "bytes": 2360,
+      "sha256": "36cc07cbe9d0156be3e1c122c6597c27db2de8a99779494c46a6764d49ca2949"
+    },
+    {
+      "path": "scripts/s90-home-watch-confirm-test.mjs",
+      "bytes": 2976,
+      "sha256": "aaf33ba3a191d2629a42a848b5ffb4f88a1d215da51c67656758e7696d49c005"
+    },
+    {
+      "path": "scripts/s90-packaged-startup-test.mjs",
+      "bytes": 6456,
+      "sha256": "8b0f6f4963064bffae4a6e418fa4e3fa312c06e4d30549b444394fc7629f85f1"
+    },
+    {
+      "path": "scripts/s90-review-pre-v30.py",
+      "bytes": 6317,
+      "sha256": "80ee6fbbf8899a823dfeff772c0d5569800057af014f2e08dea6bf99a333c15c"
+    },
+    {
+      "path": "scripts/s90-viewport-regression.mjs",
+      "bytes": 2853,
+      "sha256": "cec7bc7b613a52aa170c4b86b247e2d27ef9f957395588730c0fd405a07ffd0c"
+    },
+    {
+      "path": "scripts/s90-webview-harness.py",
+      "bytes": 9615,
+      "sha256": "49c3a44a6924ec58481834475a95bf1f69f07dc433ac104e61043b7796099976"
     },
     {
       "path": "scripts/seal-nas-config.mjs",

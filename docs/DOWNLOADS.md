@@ -1,14 +1,14 @@
 # 下载与版本
 
-**仅适配小米电视，Android 8+。** 当前标准版为 **v33 / 0.2.0-alpha.30 Alpha 测试版**，针对 4K 电视视口、遥控器和原桌面交接做了调整，仍需在小米 85 QLED 真机复测。爸妈版暂停更新，保留历史版本。
+**仅适配小米电视，Android 8+。** 当前标准版为 **v34 / 0.2.0-alpha.31 Alpha 测试版**。修复首页启动时提前跳转导致的初始化中断，更新视口约束、返回确认与默认桌面设置。小米 85 QLED 的最终效果仍需默认显示设置下复测；爸妈版暂停更新。
 
-[标准版 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.30/kaishi-v33-standard.apk) · [发行页面](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.30) · [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.30/SHA256SUMS) · [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.30/testing-manifest.json)
+[标准版 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.31/kaishi-v34-standard.apk) · [发行页面](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.31) · [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.31/SHA256SUMS) · [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.31/testing-manifest.json)
 
-[上一个爸妈版 v32](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.29/kaishi-v32-parents.apk)
+[历史爸妈版 v32](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.29/kaishi-v32-parents.apk)
 
-## 从v18—v32升级
+## 从v18—v33升级
 
-v33 标准版沿用 v18—v32 的标准版包名与发行证书，可在原标准版上更新，不需卸载或重新配对。安装前保留数据；本版安装包大小以测试清单为准，默认支持 ARM32/64，不需要选择CPU架构。
+v34 标准版沿用 v18—v33 的标准版包名与发行证书，可在原标准版上更新，不需卸载或重新配对。安装前保留数据；本版安装包大小以测试清单为准，默认支持 ARM32/64，不需要选择CPU架构。
 
 ## 与v17并存
 
@@ -31,11 +31,9 @@ v33 标准版沿用 v18—v32 的标准版包名与发行证书，可在原标�
 
 ## 本次改动与测试范围
 
-四列海报、短集名紧凑网格和长标题完整换行，选集栏约屏宽33%。失败换线固定当前集；单击执行，远程来源失败保留本地片单。资源包允许混合电影、电视剧与综艺，每项明确栏目，资料随内容导入。重复海报合并读取，避免后排卡片被加载队列遗漏。
+本版改动与真实验收边界见 [v34 发行说明](RELEASE-S90.md)。APK 与公开来源一致性见本版测试清单。仅发布标准版，沿用包名和签名，可覆盖升级保留配置。
 
-主玻璃首页继续使用摄影背景；旧网页内核或渲染异常也可显示本机风景首页、大时间日期和四项观看入口。常用应用、原桌面与NAS保留。新增[WorkBuddy局域网连接](LOCAL-TV-CONTROL.md)：电视开启并确认后，限时读取/控制开视自身前台、截图和导入资源包。没有静默安装、系统输入或受保护画面捕获。
-
-两版稳定发行证书和ARM32/64包的具体软件检查见[发行说明](RELEASE-S81.md)、[软件回执](verification/s79-summary.json)与[反馈处理](V29-V30-FEEDBACK-S79.md)。模拟器不是小米真机；小爱/米家、原小米桌面、OEM屏保、中文TTS、WorkBuddy客户端、真实同网发现/推包、外部点播成功率与两小时耐久仍需维护者测试。
+浏览器在 appassets 地址复现旧版初始化中断；单独更换屏保脚本后通过。Android28 / WebView66 隔离验证页面缩放与确认动作，省略大图和字体并绕过产品>=89内核门槛，不代表小米真机或完整应用验收。默认桌面、开机和 HOME 分发必须由小米固件提供支持。
 
 屏保、天气与网络条件见[屏保与天气](AMBIENT-WEATHER-S71.md)。[保留的v29](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.26)可继续下载。
 

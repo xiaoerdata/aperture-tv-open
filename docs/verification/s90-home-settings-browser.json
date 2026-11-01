@@ -1,0 +1,21 @@
+{
+  "checks": [
+    {
+      "width": 1280,
+      "firstAction": "home-settings",
+      "focus": true,
+      "remoteEnter": true,
+      "remoteBack": true
+    },
+    {
+      "width": 1920,
+      "firstAction": "home-settings",
+      "focus": true,
+      "remoteEnter": true,
+      "remoteBack": true
+    }
+  ],
+  "androidDefaultHome": false,
+  "coldBoot": false,
+  "xiaomiHardware": false
+}

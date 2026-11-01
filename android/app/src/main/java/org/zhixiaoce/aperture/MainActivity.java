@@ -44,6 +44,8 @@ public class MainActivity extends Activity {
     private final LobbyMode lobby = new LobbyMode();
     private Uri trusted;
     private ScenicNativeHome scenicHome;
+    private AlertDialog returnHomeDialog;
+    private AlertDialog settingsMenuDialog;
     private boolean ready = false, lobbyMode = false;
 
     @Override public void onCreate(Bundle state) {
@@ -54,7 +56,13 @@ public class MainActivity extends Activity {
         messages=new HomeMessages(this,()->{if(web!=null&&ready&&lobbyMode)web.evaluateJavascript("window.apertureMessagesRefresh&&window.apertureMessagesRefresh()",null);});
         immersive(); showLobby("");
     }
-    @Override protected void onNewIntent(Intent intent) { super.onNewIntent(intent); setIntent(intent); showLobby(""); }
+    @Override protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent); setIntent(intent);
+        // The system sends HOME to the chosen singleTask entry. Always return to its first page.
+        if(returnHomeDialog!=null)returnHomeDialog.dismiss();
+        if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();
+        destinations.dismissHomeSettings();showLobby("");
+    }
     private int webViewVersion() {
         try { PackageInfo provider = WebView.getCurrentWebViewPackage(); return provider != null ? Integer.parseInt(provider.versionName.split("\\.")[0]) : 0; }
         catch (RuntimeException ignored) { return 0; }
@@ -98,15 +106,42 @@ public class MainActivity extends Activity {
         current.evaluateJavascript("(function(){if(window.apertureNativeFocus)window.apertureNativeFocus(" + active + ");" + (active ? "" : "var m=document.querySelectorAll('video,audio');for(var i=0;i<m.length;i++)m[i].pause();") + "})()", null);
         if (!active) { current.onPause(); current.pauseTimers(); }
     }
+    private void completeLobbyLoad(WebView current,int attempt) {
+        if(current!=web||!lobbyMode)return;
+        current.evaluateJavascript("typeof window.apertureRemoteKey==='function'&&typeof window.apertureSetViewport==='function'",result->{
+            if(current!=web)return;
+            if("true".equals(result)){
+                ready=true;syncLobbyViewport(current);webActive(current,display.active());nasLabels();
+            }else if(attempt<2){
+                current.postDelayed(()->completeLobbyLoad(current,attempt+1),250);
+            }else{
+                android.util.Log.w("KaishiHome","home-initialization-incomplete; showing native home");
+                android.widget.Toast.makeText(this,"首页未能加载，已打开兼容首页",android.widget.Toast.LENGTH_LONG).show();
+                nativeLobby();
+            }
+        });
+    }
+    private String lastViewportReport = "";
+    @SuppressWarnings("deprecation") // Called on UI thread; includes WebView's effective page zoom.
     private void syncLobbyViewport(WebView current) {
         if(current!=web||!lobbyMode||!ready||current.getWidth()<=0||current.getHeight()<=0)return;
-        float density=getResources().getDisplayMetrics().density;
-        if(density<=0)return;
-        double width=current.getWidth()/density,height=current.getHeight()/density;
-        current.evaluateJavascript("window.apertureSetViewport&&window.apertureSetViewport("+width+","+height+")",null);
+        float pageScale=current.getScale();
+        if(!Float.isFinite(pageScale)||pageScale<=0)return;
+        android.graphics.Rect visible=new android.graphics.Rect();
+        int width=current.getWidth(),height=current.getHeight();
+        if(current.getGlobalVisibleRect(visible)){
+            width=Math.min(width,visible.width());height=Math.min(height,visible.height());
+        }
+        if(width<=0||height<=0)return;
+        final String nativeSize="pixels="+width+"x"+height+" pageScale="+pageScale+" density="+getResources().getDisplayMetrics().density;
+        current.evaluateJavascript("window.apertureSetViewport?window.apertureSetViewport("+(width/(double)pageScale)+","+(height/(double)pageScale)+"):{error:'viewport-api-unavailable'}",value->{
+            if(current!=web)return;
+            String report=nativeSize+" dom="+value;
+            if(!report.equals(lastViewportReport)){lastViewportReport=report;android.util.Log.i("KaishiViewport",report);}
+        });
     }
     private void createWeb(boolean lobby) {
-        destroyWeb(); scenicHome=null; lobbyMode = lobby; web = new WebView(this);
+        destroyWeb(); scenicHome=null; lobbyMode = lobby; lastViewportReport=""; web = new WebView(this);
         final WeatherProxy forecast=lobby?new WeatherProxy():null;weather=forecast;
         String householdOrigin = preferences.getString("origin", "");
         final HouseholdProxy feed = lobby && !BuildConfig.PARENTS_EDITION ? new HouseholdProxy(householdOrigin, householdOrigin.isEmpty() ? "" : CookieManager.getInstance().getCookie(householdOrigin), preferences.getBoolean("allowLanHttp", false)) : null;
@@ -116,9 +151,25 @@ public class MainActivity extends Activity {
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW); settings.setMediaPlaybackRequiresUserGesture(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(false); settings.setSupportMultipleWindows(false); settings.setTextZoom(100);
         settings.setSupportZoom(false); settings.setBuiltInZoomControls(false); settings.setDisplayZoomControls(false);
-        settings.setUseWideViewPort(true); settings.setLoadWithOverviewMode(false);
+        settings.setUseWideViewPort(!lobby); settings.setLoadWithOverviewMode(false);
         CookieManager.getInstance().setAcceptThirdPartyCookies(web, false); WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
+        web.setWebChromeClient(new android.webkit.WebChromeClient() {
+            @Override public boolean onConsoleMessage(android.webkit.ConsoleMessage message) {
+                if(lobby && message.message().startsWith("[KaishiHome] ")){
+                    android.util.Log.i("KaishiHome",message.message());return true;
+                }
+                if(lobby && message.messageLevel()==android.webkit.ConsoleMessage.MessageLevel.ERROR){
+                    String source=android.net.Uri.parse(message.sourceId()==null?"":message.sourceId()).getLastPathSegment();
+                    if(source!=null&&source.matches("[a-z-]+\\.js"))
+                        android.util.Log.w("KaishiHome","script-error file="+source+" line="+message.lineNumber());
+                }
+                return false;
+            }
+        });
         web.setWebViewClient(new WebViewClient() {
+            @Override public void onScaleChanged(WebView view,float oldScale,float newScale) {
+                if(lobby&&view==web)view.post(()->syncLobbyViewport(view));
+            }
             @Override public void onPageStarted(WebView view, String url, android.graphics.Bitmap icon) { if (view == web) ready = false; }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl(); if (view != web || !request.isForMainFrame()) return true;
@@ -148,7 +199,11 @@ public class MainActivity extends Activity {
                 }
                 return sameOrigin(request.getUrl()) ? null : blockedAsset();
             }
-            @Override public void onPageFinished(WebView view, String url) { if (view == web) { ready = true; CookieManager.getInstance().flush(); if (lobby) { syncLobbyViewport(view); webActive(view, display.active()); nasLabels(); } } }
+            @Override public void onPageFinished(WebView view, String url) {
+                if(view!=web)return;
+                CookieManager.getInstance().flush();
+                if(lobby)completeLobbyLoad(view,0);else ready=true;
+            }
             @Override public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse response) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view == web) {if(lobby)nativeLobby();else fallback("家庭服务返回错误，请核对服务地址。");} }); }
             @Override public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view != web) return; if (lobby) nativeLobby(); else fallback("暂时连不上家庭服务。直播、影视应用和原桌面仍可使用。"); }); }
             @Override public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
@@ -186,6 +241,7 @@ public class MainActivity extends Activity {
         Button save=TvUi.button(this,"保存留言源",()->{try{messages.configure(input.getText().toString());note.setText(input.getText().toString().trim().isEmpty()?"已断开留言源":"已保存，正在读取");}catch(Exception invalid){note.setText("请输入有效的 HTTPS 地址");}});form.addView(save);TvDialogs.panel(this,"留言源",form);
     }
     private void action(String path) {
+        if ("/family-live".equals(path) || "/family-series".equals(path) || "/family-movies".equals(path) || "/family-variety".equals(path)) android.util.Log.i("KaishiHome", "action=" + path.substring(1));
         if("/message-settings".equals(path)){messageSettings();return;}
         if("/ambient-awake-on".equals(path)||"/ambient-awake-off".equals(path)){ambientAwake=path.endsWith("-on");syncAmbientAwake();return;}
         if ("/ambient-system".equals(path)) { try { startActivity(new Intent(Settings.ACTION_DREAM_SETTINGS)); } catch(RuntimeException unavailable) { new AlertDialog.Builder(this).setMessage("当前电视未提供系统屏保选择，可使用开视首页屏保。").setPositiveButton("返回",null).show(); } return; }
@@ -326,7 +382,8 @@ public class MainActivity extends Activity {
     private void featureMenu(String title,String[] options,android.content.DialogInterface.OnClickListener listener){
         java.util.List<String> names=new java.util.ArrayList<>();java.util.List<Integer> indices=new java.util.ArrayList<>();
         for(int i=0;i<options.length;i++){if(!FeaturePolicy.photos()&&"NAS相册".equals(options[i]))continue;names.add(options[i]);indices.add(i);}
-        TvDialogs.menu(this,title,names.toArray(new String[0]),(dialog,index)->listener.onClick(dialog,indices.get(index)));
+        if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();
+        settingsMenuDialog=TvDialogs.menu(this,title,names.toArray(new String[0]),(dialog,index)->listener.onClick(dialog,indices.get(index)));
     }
     private void quickMenu() {
         if (BuildConfig.PARENTS_EDITION) {
@@ -334,10 +391,10 @@ public class MainActivity extends Activity {
                 if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else if (which == 14) hubConnection(); else if (which == 15) TvLocalControl.open(this); else destinations.all();
             }); return;
         }
-        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "首页样式", "安装应用", "直播与影视来源", "智小策 Hub", "局域网控制"};
+        String[] options = {"默认桌面与开机", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "返回首页", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "首页样式", "安装应用", "直播与影视来源", "智小策 Hub", "局域网控制"};
         featureMenu("设置",options, (dialog, which) -> {
-            if (which == 0) showLobby(""); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
-            else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) destinations.settings(true); else if (which == 7) setup(); else if (which == 8) destinations.all();
+            if (which == 0) destinations.settings(true); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
+            else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) showLobby(""); else if (which == 7) setup(); else if (which == 8) destinations.all();
             else if (which == 10) assistant.help();
             else if (which == 11) action("/nas");
             else if (which == 12) homeMode();
@@ -370,7 +427,13 @@ public class MainActivity extends Activity {
     private void leavePage() {
         if (!lobbyMode) { showLobby(""); return; }
         if(scenicHome!=null&&scenicHome.back())return;
-        destinations.launch("system");
+        if(returnHomeDialog!=null&&returnHomeDialog.isShowing())return;
+        returnHomeDialog=new AlertDialog.Builder(this).setTitle("返回系统原生桌面？")
+            .setNegativeButton("留在开视",(dialog,which)->{})
+            .setPositiveButton("返回原桌面",(dialog,which)->destinations.launch("system")).create();
+        returnHomeDialog.setOnDismissListener(dialog->returnHomeDialog=null);
+        returnHomeDialog.show();
+        returnHomeDialog.getButton(AlertDialog.BUTTON_NEGATIVE).requestFocus();
     }
     @Override public boolean onKeyUp(int keyCode,KeyEvent event){
         if(VoiceAssistant.systemVoiceKey(keyCode))return super.onKeyUp(keyCode,event);
@@ -380,7 +443,7 @@ public class MainActivity extends Activity {
     }
     @Override public void onBackPressed() { if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }
     @Override protected void onPause() { display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }
-    @Override protected void onResume() { super.onResume(); display.resumed(true); nasLabels(); if (display.active()) immersive(); }
+    @Override protected void onResume() { super.onResume(); display.resumed(true); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
     @Override public void onWindowFocusChanged(boolean hasFocus) { super.onWindowFocusChanged(hasFocus); display.focused(hasFocus); if (display.active()) immersive(); }
-    @Override protected void onDestroy() { if(installer!=null)installer.destroy();if(messages!=null)messages.close(); destroyWeb(); super.onDestroy(); }
+    @Override protected void onDestroy() { if(returnHomeDialog!=null)returnHomeDialog.dismiss();if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();if(destinations!=null)destinations.dismissHomeSettings();if(installer!=null)installer.destroy();if(messages!=null)messages.close(); destroyWeb(); super.onDestroy(); }
 }

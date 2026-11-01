@@ -1,0 +1,199 @@
+{
+  "baselineApkSha256": "eb8b6e0298b1742298e093f137e914ee661be8841f238e56af431a51a6c55d12",
+  "origin": "https://appassets.androidplatform.net",
+  "results": [
+    {
+      "version": "v33-apk",
+      "startupReady": false,
+      "beforeHandshake": {
+        "state": "complete",
+        "clock": "--:--",
+        "remote": "undefined",
+        "viewport": "undefined",
+        "cards": [
+          {
+            "id": "home-live",
+            "binding": "object"
+          },
+          {
+            "id": "home-series",
+            "binding": "object"
+          },
+          {
+            "id": "home-movies",
+            "binding": "object"
+          },
+          {
+            "id": "home-variety",
+            "binding": "object"
+          }
+        ],
+        "scale": "",
+        "active": ""
+      },
+      "startupNavigations": [
+        "aperture://action/ambient-awake-off"
+      ],
+      "errors": [],
+      "requests": [
+        "/assets/index.html",
+        "/assets/ambient.css",
+        "/assets/weather-model.js",
+        "/assets/style.css",
+        "/assets/brand/identity.css",
+        "/assets/ambient-scene.js",
+        "/assets/weather.js",
+        "/assets/ambient.js",
+        "/assets/messages.js",
+        "/assets/home-personal.js",
+        "/assets/launcher.js",
+        "/assets/brand/identity.js",
+        "/assets/art/memory-archive-v1.webp",
+        "/assets/art/glass-swallow-v1.webp",
+        "/assets/carezza-4k.jpg",
+        "/assets/brand/kaishi-icon-v2.webp",
+        "/assets/fonts/clock-reader.woff2",
+        "/assets/fonts/aperture-song.woff2"
+      ]
+    },
+    {
+      "version": "v33-with-ambient-ready-guard",
+      "startupReady": true,
+      "beforeHandshake": {
+        "state": "complete",
+        "clock": "21:36",
+        "remote": "function",
+        "viewport": "function",
+        "cards": [
+          {
+            "id": "home-live",
+            "binding": "function"
+          },
+          {
+            "id": "home-series",
+            "binding": "function"
+          },
+          {
+            "id": "home-movies",
+            "binding": "function"
+          },
+          {
+            "id": "home-variety",
+            "binding": "function"
+          }
+        ],
+        "scale": "1",
+        "active": "home-live"
+      },
+      "startupNavigations": [],
+      "errors": [],
+      "requests": [
+        "/assets/index.html",
+        "/assets/ambient.css",
+        "/assets/weather-model.js",
+        "/assets/style.css",
+        "/assets/brand/identity.css",
+        "/assets/ambient-scene.js",
+        "/assets/weather.js",
+        "/assets/ambient.js",
+        "/assets/messages.js",
+        "/assets/home-personal.js",
+        "/assets/launcher.js",
+        "/assets/brand/identity.js",
+        "/assets/art/memory-archive-v1.webp",
+        "/assets/art/glass-swallow-v1.webp",
+        "/assets/carezza-4k.jpg",
+        "/assets/brand/kaishi-icon-v2.webp",
+        "/assets/fonts/clock-reader.woff2",
+        "/assets/fonts/aperture-song.woff2",
+        "/assets/app-presets.json",
+        "/assets/brand/kaishi-icon-v2.webp",
+        "/api/messages",
+        "/weather/location",
+        "/api/board",
+        "/api/messages",
+        "/weather/location",
+        "/api/board"
+      ],
+      "afterHandshakeNavigations": [
+        "aperture://action/ambient-awake-on",
+        "aperture://action/family-live",
+        "aperture://action/family-series",
+        "aperture://action/family-movies",
+        "aperture://action/family-variety"
+      ]
+    },
+    {
+      "version": "working-tree",
+      "startupReady": true,
+      "beforeHandshake": {
+        "state": "complete",
+        "clock": "21:36",
+        "remote": "function",
+        "viewport": "function",
+        "cards": [
+          {
+            "id": "home-live",
+            "binding": "function"
+          },
+          {
+            "id": "home-series",
+            "binding": "function"
+          },
+          {
+            "id": "home-movies",
+            "binding": "function"
+          },
+          {
+            "id": "home-variety",
+            "binding": "function"
+          }
+        ],
+        "scale": "1",
+        "active": "home-live"
+      },
+      "startupNavigations": [],
+      "errors": [],
+      "requests": [
+        "/assets/index.html",
+        "/assets/ambient.css",
+        "/assets/weather-model.js",
+        "/assets/ambient-scene.js",
+        "/assets/weather.js",
+        "/assets/ambient.js",
+        "/assets/style.css",
+        "/assets/brand/identity.css",
+        "/assets/messages.js",
+        "/assets/home-personal.js",
+        "/assets/launcher.js",
+        "/assets/brand/identity.js",
+        "/assets/art/memory-archive-v1.webp",
+        "/assets/art/glass-swallow-v1.webp",
+        "/assets/carezza-4k.jpg",
+        "/assets/brand/kaishi-icon-v2.webp",
+        "/assets/fonts/clock-reader.woff2",
+        "/assets/fonts/aperture-song.woff2",
+        "/assets/app-presets.json",
+        "/assets/brand/kaishi-icon-v2.webp",
+        "/api/messages",
+        "/weather/location",
+        "/api/board",
+        "/api/messages",
+        "/weather/location",
+        "/api/board"
+      ],
+      "afterHandshakeNavigations": [
+        "aperture://action/ambient-awake-on",
+        "aperture://action/family-live",
+        "aperture://action/family-series",
+        "aperture://action/family-movies",
+        "aperture://action/family-variety"
+      ]
+    }
+  ],
+  "allNetworkRequestsStubbed": true,
+  "baselineScriptsUnmodified": true,
+  "actualAndroidWebView": false,
+  "realXiaomi": false,
+  "limitations": "Desktop Chromium reproduces interrupted startup at the packaged HTTPS origin; Android WebViewClient interception and Xiaomi device confirmation still require device verification."
+}

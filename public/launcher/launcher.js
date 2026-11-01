@@ -9,23 +9,47 @@
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function $(id) { return document.getElementById(id); }
   function text(id, value) { $(id).textContent = value; }
-  // Fit the same 16:9 composition to the WebView's actual logical viewport.
-  // The canvas includes a 5% vertical / 5% horizontal television safe area.
-  var nativeViewport = null;
+  // CSS pixels are the layout unit. innerWidth can include an overflowing fixed
+  // canvas on Android WebView, and Android density is not its page zoom.
+  var nativeViewport = null, viewportReport = null;
+  function positive(value) { return typeof value === 'number' && isFinite(value) && value > 0; }
   function fitTelevision() {
-    var width=nativeViewport?Math.min(innerWidth,nativeViewport.width):innerWidth,height=nativeViewport?Math.min(innerHeight,nativeViewport.height):innerHeight;
-    var scale=Math.min(width/1920,height/1080),style=document.documentElement.style;
-    style.setProperty('--tv-scale',String(scale));
-    style.setProperty('--tv-left',Math.max(0,(width-1920*scale)/2)+'px');
-    style.setProperty('--tv-top',Math.max(0,(height-1080*scale)/2)+'px');
+    var root = document.documentElement, visual = window.visualViewport;
+    var width = innerWidth, height = innerHeight;
+    if (positive(root.clientWidth)) width = Math.min(width, root.clientWidth);
+    if (positive(root.clientHeight)) height = Math.min(height, root.clientHeight);
+    if (visual && positive(visual.width) && positive(visual.height)) {
+      width = Math.min(width, visual.width); height = Math.min(height, visual.height);
+    }
+    if (nativeViewport) { width = Math.min(width, nativeViewport.width); height = Math.min(height, nativeViewport.height); }
+    if (!positive(width) || !positive(height)) return;
+    var scale = Math.min(width / 1920, height / 1080), style = root.style;
+    style.setProperty('--tv-scale', String(scale));
+    style.setProperty('--tv-left', Math.max(0, (width - 1920 * scale) / 2) + 'px');
+    style.setProperty('--tv-top', Math.max(0, (height - 1080 * scale) / 2) + 'px');
+    viewportReport = {width:width, height:height, scale:scale};
     resetTelevisionScroll();
   }
-  window.apertureSetViewport = function(width,height) {
-    if(typeof width!=='number'||typeof height!=='number'||!isFinite(width)||!isFinite(height)||width<320||height<180)return;
-    nativeViewport={width:width,height:height};fitTelevision();
+  // Fixed fields only: no URLs, credentials, source names or household content.
+  window.apertureViewportReport = function () {
+    var result = {innerWidth:innerWidth, innerHeight:innerHeight,
+      clientWidth:document.documentElement.clientWidth, clientHeight:document.documentElement.clientHeight,
+      dpr:devicePixelRatio, fitted:viewportReport, entries:[]};
+    if (window.visualViewport) result.visual = {width:visualViewport.width, height:visualViewport.height, scale:visualViewport.scale};
+    ['lobby','home-live','home-series','home-movies','home-variety'].forEach(function (id) {
+      var node = $(id); if (!node) return; var r = node.getBoundingClientRect();
+      result.entries.push({id:id,x:r.left,y:r.top,width:r.width,height:r.height});
+    });
+    return result;
+  };
+  window.apertureSetViewport = function (width, height) {
+    if (!positive(width) || !positive(height)) return {error:'invalid-viewport'};
+    nativeViewport = {width:width, height:height}; fitTelevision();
+    return window.apertureViewportReport();
   };
   fitTelevision();
   window.addEventListener('resize', fitTelevision);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fitTelevision);
   location.search.slice(1).split('&').forEach(function (part) {
     var bits = part.split('=');
     try { query[decodeURIComponent(bits[0])] = decodeURIComponent((bits[1] || '').replace(/\+/g, ' ')); } catch (ignored) {}
@@ -68,7 +92,7 @@
     ]},
     system: {title:'原桌面', actions:[
       ['open-system','返回原桌面',labels.system || '','primary'],
-      ['home-settings','默认桌面','',''], ['choose-system','选择桌面','','']
+      ['home-settings','默认桌面与开机','',''], ['choose-system','选择桌面','','']
     ]},
     shortcuts: {title:'常用应用', actions:[['choose-shortcuts','管理快捷入口','','primary'],['apps','所有应用','',''],['install-apps','安装应用','','']]},
     devices: {title:'米家', description:'通过 Home Assistant 授权分享设备状态。', actions:[
@@ -78,13 +102,14 @@
       ['open-assistant','打开小爱同学',query.assistant || '','primary'], ['voice-help','语音帮助','',''], ['voice-settings','语音设置','','']
     ]},
     settings: {title:'设置', actions:[
+      ['home-settings','默认桌面与开机','','primary'],
       ['cinema-settings','直播与影视来源','',''], ['nas','NAS','',''], ['choose-shortcuts','常用应用','',''],
       ['weather','天气','',''], ['ambient-settings','屏保','',''], ['show-information','留言','',''], ['message-settings','留言源','',''], ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
       ['open-system','返回原桌面','',''], ['voice-help','小爱同学','',''], ['more-settings','更多设置','','']
     ]},
     'more-settings': {title:'更多设置', actions:[
       ['hub','智小策 Hub','',''], ['presets','添加应用','',''], ['apps','所有应用','',''], ['install-apps','安装应用','',''],
-      ['motion','动画','',''], ['material','透明效果','',''], ['home-settings','默认桌面','',''], ['home-mode','首页样式','',''], ['choose-system','选择桌面','','']
+      ['motion','动画','',''], ['material','透明效果','',''], ['home-mode','首页样式','',''], ['choose-system','选择桌面','','']
     ]}
   };
   function nativeAction(action) {
@@ -526,6 +551,11 @@
   function key(event) {
     var map = {37: 'ArrowLeft', 38: 'ArrowUp', 39: 'ArrowRight', 40: 'ArrowDown', 13: 'Enter', 27: 'Escape', 4: 'BrowserBack', 9: 'Tab'};
     var name = event.key || map[event.keyCode || event.which], nodes = items(), current = nodes.indexOf(document.activeElement);
+    if (name === 'Enter') {
+      var active = document.activeElement, known = /^(home-(live|series|movies|variety|app-(add|all))|entry-(live|series|cinema|variety)|quick[1-4]|dock-quick[1-4]|settings-open|weather-home|brand-home)$/;
+      // Fixed control names only: no labels, URLs, resource addresses or user data.
+      if (window.console && console.info) console.info('[KaishiHome] ' + JSON.stringify({key:'Enter',active:active && known.test(active.id) ? active.id : 'other',inItems:current >= 0,disabled:!!(active && active.disabled),width:active ? active.offsetWidth : 0,height:active ? active.offsetHeight : 0,pane:!!pane}));
+    }
     if ((window.KaishiAmbient && window.KaishiAmbient.key(name)) || (window.KaishiWeatherUI && window.KaishiWeatherUI.key(name))) { event.preventDefault(); return; }
     if (name === 'Menu' || name === 'ContextMenu' || name === 'F10') { event.preventDefault(); openPane('settings'); return; }
     if (name === 'Escape' || name === 'BrowserBack') { if (back()) event.preventDefault(); return; }
