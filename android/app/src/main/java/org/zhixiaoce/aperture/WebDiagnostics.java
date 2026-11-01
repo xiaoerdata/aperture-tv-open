@@ -52,18 +52,19 @@ final class WebDiagnostics {
         return "不可确认";
     }
     private static String safe(String value){return value!=null&&value.matches("[A-Za-z0-9._+\\-]{1,120}")?value:"不可确认";}
-    AlertDialog show(Activity activity){
+    AlertDialog show(Activity activity){return show(activity,activity.getCurrentFocus());}
+    AlertDialog show(Activity activity,android.view.View returnFocus){
         LinearLayout body=new LinearLayout(activity);body.setOrientation(LinearLayout.VERTICAL);
         row(activity,body,"开视版本",BuildConfig.VERSION_NAME+" · "+BuildConfig.VERSION_CODE);
         row(activity,body,"WebView",provider());row(activity,body,"当前首页",homeLabel());
         String screen=prefs.getString("screen","");row(activity,body,"最近回退",("gallery".equals(screen)?"相册 · ":"home".equals(screen)?"首页 · ":"")+reason());
         long at=prefs.getLong("at",0);row(activity,body,"回退时间",at>0?DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM).format(new Date(at)):"无");
         row(activity,body,"说明","仅保存在本机，不上传。旧网页内核、手动选择本机首页和异常恢复分别显示；升级后重新记录本版本状态。此处不包含片源、照片、地址参数或配对凭证。");
-        return TvDialogs.panel(activity,"本机诊断",body);
+        return TvDialogs.panel(activity,"本机诊断",body,returnFocus);
     }
     private void row(Activity a,LinearLayout parent,String name,String value){
         TextView line=TvUi.text(a,name+"\n"+value,21,false);line.setTag("diagnostics-"+name);line.setFocusable(true);line.setFocusableInTouchMode(true);line.setPadding(TvUi.dp(a,12),TvUi.dp(a,12),TvUi.dp(a,12),TvUi.dp(a,18));
-        line.setOnFocusChangeListener((v,f)->{v.setBackground(f?TvUi.glass(a,true):null);if(f)v.requestRectangleOnScreen(new android.graphics.Rect(0,0,v.getWidth(),v.getHeight()),true);});
+        line.setOnFocusChangeListener((v,f)->{v.setBackground(f?TvUi.glass(a,true):null);if(f)v.requestRectangleOnScreen(new android.graphics.Rect(0,0,v.getWidth(),Math.min(v.getHeight(),TvUi.dp(a,150))),true);});
         parent.addView(line,new LinearLayout.LayoutParams(-1,-2));
     }
 }

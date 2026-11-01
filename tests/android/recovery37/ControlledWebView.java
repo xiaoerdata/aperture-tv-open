@@ -3,12 +3,14 @@ import android.content.Context;import android.webkit.*;import android.net.Uri;im
 final class ControlledWebView extends WebView {
     WebViewClient client;String url="",answer="true";boolean hold,holdBack,throwReadiness,fullscreen,destroyed,detachedAtDestroy;int stops,destroys,evalAfterDestroy;
     final List<ValueCallback<String>> pending=new ArrayList<>();
+    final List<String> evaluated=new ArrayList<>();
     ControlledWebView(Context c){super(c);}
     @Override public void setWebViewClient(WebViewClient c){client=c;}
     @Override public void loadUrl(String value){url=value;}
     @Override public String getUrl(){return url;}
     @Override public void evaluateJavascript(String script,ValueCallback<String> callback){
         if(destroyed){evalAfterDestroy++;throw new AssertionError("JS called after destroy");}
+        evaluated.add(script);
         if(callback==null)return;
         if(script.startsWith("typeof window.apertureRemoteKey")||script.startsWith("!!(window.KaishiGallerySettings")){if(throwReadiness)throw new IllegalStateException("Synthetic JS evaluation failure");if(hold)pending.add(callback);else callback.onReceiveValue(answer);}
         else if(script.contains("window.KaishiGallery.close())")){if(holdBack)pending.add(callback);else{callback.onReceiveValue(fullscreen?"true":"false");fullscreen=false;}}

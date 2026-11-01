@@ -1,0 +1,138 @@
+{
+  "versionCode": 38,
+  "version": "0.2.0-alpha.35",
+  "round": 2,
+  "status": "local-candidate-waiting-cloud",
+  "baseCommit": "4ff9a8785c9990a4b0d0c1947d3acb3069f73779",
+  "androidInputSha256": "679928fa86bf5347ec90a4ed9887b2352dddf4ed4d7be10747683e3717be0675",
+  "androidAndLauncherFiles": 213,
+  "armAndX86SameInputs": true,
+  "productionBuilds": {
+    "arm": "passed",
+    "x86": "passed"
+  },
+  "localModels": {
+    "uploadConsent": 18,
+    "frameGate": 16,
+    "pageDeadline": 26,
+    "displayLifecycleComposition": 9,
+    "legacyHomeRoutingGroups": 4
+  },
+  "browser": {
+    "passed": true,
+    "combinations": 4,
+    "widths": [
+      1920,
+      960
+    ],
+    "photos": "empty or two synthetic images",
+    "serverStarted": false,
+    "newBrowserInstalled": false,
+    "executable": "existing /opt/google/chrome/chrome",
+    "firstLaunchFailed": true
+  },
+  "round2AndroidExecuted": false,
+  "frameFenceActuallyExecuted": false,
+  "nativeConsentActuallyExecuted": false,
+  "nativeRemoteDiagnosticActuallyExecuted": false,
+  "r1ParentCloudControlledChecks": 51,
+  "r1EvidenceNotR2Acceptance": true,
+  "compiledProbe": {
+    "path": "artifacts/s95-native-final-v38/probe.apk",
+    "sha256": "a15436ca8e4ff243478c5092ddd7ad248af9697c83510b33e938aaacb75a81c4",
+    "javacExitCode": 0,
+    "d8ExitCode": 0,
+    "executed": false,
+    "networkPermission": false
+  },
+  "earlierSuccessfulProbeBuildsSuperseded": [
+    "artifacts/s95-native-compiled/probe.apk",
+    "artifacts/s95-native-frozen/probe.apk"
+  ],
+  "firstProbeCompileFailures": [
+    "hidden Choreographer method not in public SDK",
+    "lambda captured mutable activity variable"
+  ],
+  "api28ProbeReview": "String.repeat replaced with StringBuilder in final test source; final compile passed, not executed",
+  "preservedLogs": [
+    {
+      "path": "artifacts/s95-arm-build.log",
+      "bytes": 4539,
+      "sha256": "c0a7a094b321f18c6badc25a46f067668758f590425c0d9c15dcde8558b47e95"
+    },
+    {
+      "path": "artifacts/s95-x86-build.log",
+      "bytes": 6700,
+      "sha256": "f1ae37ca01d90a6eb047d857688bcbfb1b808bc41f131bb82333b7bdb7c0e797"
+    },
+    {
+      "path": "artifacts/s95-arm-sign.log",
+      "bytes": 181,
+      "sha256": "678ee2d43b8ceeaf69ce67e3de10a6f336cf9532decd1753960597ab5f052379"
+    },
+    {
+      "path": "artifacts/s95-x86-sign.log",
+      "bytes": 161,
+      "sha256": "851b4644fadf6e77be7de1b9c8d477355758b269575f3329e139ecac974e4365"
+    },
+    {
+      "path": "artifacts/s95-unit-final.log",
+      "bytes": 908,
+      "sha256": "c9e8dfa98ef8e68de46575a16c289f3a9e0b4d1f620bd9d90096742a706f6afa"
+    },
+    {
+      "path": "artifacts/s95-browser.log",
+      "bytes": 478,
+      "sha256": "f3db729fbac70440736e22b5a4ca4012c85bd27ef354a832744147af07c949fd"
+    },
+    {
+      "path": "artifacts/s95-browser-final.log",
+      "bytes": 805,
+      "sha256": "640d09e2a6acfe89cd2d78396bbc3354a65cdd7645d04c56676befc95891bfdf"
+    },
+    {
+      "path": "artifacts/s95-probe-build.log",
+      "bytes": 2742,
+      "sha256": "5d494b50571c6f9a63a0790cdf559b60ce89e5f3debbfac23230250c96844d83"
+    },
+    {
+      "path": "artifacts/s95-probe-build-final.log",
+      "bytes": 2722,
+      "sha256": "f2d50cf4a724dd1c5e39774e03834cd63b2e214a03cf50fc97afc2c1d41f4cf4"
+    },
+    {
+      "path": "artifacts/s95-probe-build-compiled.log",
+      "bytes": 257,
+      "sha256": "e2394bbb1ec0ecd8b633f179d03234623a8d46ab77ce698d7de1315773fc4aac"
+    },
+    {
+      "path": "artifacts/s95-probe-build-frozen.log",
+      "bytes": 257,
+      "sha256": "20771a9028ada8cbe664f3a8c9b86279827900f7c0883ed3c2ee109def4c6393"
+    },
+    {
+      "path": "artifacts/s95-probe-build-final-v38.log",
+      "bytes": 257,
+      "sha256": "e9fbf668430bfc513d954f81cc797cc87128d272b016889a57717d8832a720c9"
+    }
+  ],
+  "realUploadListenerStarted": false,
+  "realPhotosAccessed": false,
+  "userLanAccessed": false,
+  "userDeviceModified": false,
+  "credentialsCreatedOrTransferred": false,
+  "permissionsChanged": false,
+  "cleanupPerformed": false,
+  "publiclyPublished": false,
+  "releaseModified": false,
+  "v39Started": false,
+  "pending": [
+    "Round2 Android fake-session lifecycle/key matrix",
+    "native settings/direct entry remote reachability and focus restoration",
+    "native Chinese row scroll boundaries",
+    "actual FrameMetrics/PixelCopy fence on cloud",
+    "v38 actual candidate four watch/no-source/Back/exit cancel/config regression",
+    "formal ARM and Xiaomi 85 QLED default display/Home/XiaoAi/Mi Home",
+    "modern WebView, real upload and playback outside this round"
+  ]
+}

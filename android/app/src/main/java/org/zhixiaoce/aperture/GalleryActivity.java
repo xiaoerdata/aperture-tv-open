@@ -25,7 +25,8 @@ import java.util.Collections;
 public class GalleryActivity extends Activity {
     static final long LOAD_TIMEOUT_MS=10000,BACK_TIMEOUT_MS=600;
     private static final String DOCUMENT="https://"+LobbyAssets.HOST+"/assets/gallery.html";
-    private volatile WebView web;private GalleryStore store;private GalleryUpload upload;private AlertDialog notice;
+    private volatile WebView web;private GalleryStore store;private GalleryUploadSession upload;private AlertDialog notice,uploadConfirmation;
+    private final UploadConsent consent=new UploadConsent();private UploadConsent.Ticket consentTicket;
     private volatile boolean closed;private boolean resumed,ready,documentFinished;
     private PageDeadline loadDeadline,backDeadline;private PageDeadline.Ticket navigation,backTicket;
     private WebLoadingView loading;private WebDiagnostics diagnostics;
@@ -34,6 +35,7 @@ public class GalleryActivity extends Activity {
     protected WebView newWebView(){return new WebView(this);}
     protected PageDeadline.Clock deadlineClock(){return AndroidPageDeadline.clock();}
     protected PageDeadline.Scheduler deadlineScheduler(){return AndroidPageDeadline.scheduler();}
+    protected GalleryUploadSession createUploadSession(Runnable changed){return new GalleryUpload(this,changed);}
     @Override public void onCreate(Bundle state){
         super.onCreate(state);getWindow().getDecorView().setSystemUiVisibility(5894);
         diagnostics=new WebDiagnostics(this);store=new GalleryStore(this);
@@ -75,7 +77,7 @@ public class GalleryActivity extends Activity {
                 Uri uri=request.getUrl();if(!current(view)||!ready||!request.isForMainFrame()||!DOCUMENT.equals(view.getUrl())||!"aperture".equals(uri.getScheme())||!"gallery".equals(uri.getHost())||uri.getQuery()!=null||uri.getFragment()!=null||uri.getUserInfo()!=null)return true;
                 String path=uri.getPath();
                 if("/back".equals(path)){finishAlbum();return true;}
-                if("/upload".equals(path)){beginUpload();return true;}
+                if("/upload".equals(path)){requestUpload();return true;}
                 if("/close-upload".equals(path)){stopUpload(true);refresh();return true;}
                 if(path!=null&&path.matches("/delete/[a-f0-9]{32}")){
                     if(notice!=null&&notice.isShowing())return true;String id=path.substring(8);
@@ -124,17 +126,59 @@ public class GalleryActivity extends Activity {
     private void finishAlbum(){if(closed)return;closed=true;stopUpload(false);dispose(false);finish();}
     private void refresh(){if(!closed&&ready&&web!=null)web.evaluateJavascript("window.KaishiGallerySettings&&window.KaishiGallerySettings.refresh()",null);}
     private void status(String text){if(!closed&&ready&&web!=null)web.evaluateJavascript("window.KaishiGallerySettings&&window.KaishiGallerySettings.status("+JSONObject.quote(text)+")",null);}
-    private void stopUpload(boolean notify){
+    private void cancelUploadConfirmation(){
+        consent.cancel();consentTicket=null;
+        if(uploadConfirmation!=null){AlertDialog previous=uploadConfirmation;uploadConfirmation=null;previous.dismiss();}
+    }
+    private void stopUpload(boolean notify){cancelUploadConfirmation();closeUploadSession(notify);}
+    private void closeUploadSession(boolean notify){
         if(upload!=null){upload.close();upload=null;}
         if(notify&&!closed&&ready&&web!=null)web.evaluateJavascript("window.KaishiGallerySettings&&window.KaishiGallerySettings.uploadClosed()",null);
     }
-    private void beginUpload(){
-        if(closed||!ready||!resumed)return;
-        stopUpload(true);GalleryUpload next=new GalleryUpload(this,()->runOnUiThread(this::refresh));upload=next;
+    private boolean confirmationKey(int code){return code==KeyEvent.KEYCODE_DPAD_CENTER||code==KeyEvent.KEYCODE_ENTER||code==KeyEvent.KEYCODE_NUMPAD_ENTER||code==KeyEvent.KEYCODE_BUTTON_A;}
+    private void requestUpload(){
+        if(closed||!ready||!resumed||web==null||!getWindow().getDecorView().hasWindowFocus())return;
+        if(consent.pending()||upload!=null&&!upload.isClosed()||notice!=null&&notice.isShowing())return;
+        if(upload!=null)closeUploadSession(true);
+        UploadConsent.Ticket ticket=consentTicket=consent.request(web,android.os.SystemClock.uptimeMillis());
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle("开启相册上传？")
+            .setMessage("将在这台电视开启临时局域网上传服务，有效10分钟。\n手机与电视需在同一家庭网络。可点“关闭上传”停止；离开相册或切到后台也会停止。")
+            .setNegativeButton("取消",null).setPositiveButton("开启10分钟",null).create();
+        uploadConfirmation=dialog;final long[] cancelDown={-1};
+        dialog.setOnDismissListener(ignored->{if(uploadConfirmation==dialog)uploadConfirmation=null;if(consent.pending(ticket))consent.cancel();});
+        dialog.setOnKeyListener((d,code,event)->{
+            if(!confirmationKey(code)){if(event.getAction()==KeyEvent.ACTION_DOWN)consent.disarm(ticket);return false;}
+            boolean positive=dialog.getButton(AlertDialog.BUTTON_POSITIVE).hasFocus();
+            if(event.getAction()==KeyEvent.ACTION_DOWN){
+                if(positive)consent.down(ticket,event.getDownTime(),event.getRepeatCount());
+                else if(event.getRepeatCount()==0&&event.getDownTime()>ticket.openedAt)cancelDown[0]=event.getDownTime();
+            }else if(event.getAction()==KeyEvent.ACTION_UP){
+                if(!positive&&cancelDown[0]==event.getDownTime()){consent.cancel();dialog.dismiss();}
+                else if(positive&&consent.up(ticket,event.getDownTime())){dialog.dismiss();beginConfirmedUpload(ticket);}else if(!positive)consent.disarm(ticket);
+            }
+            return true;
+        });
+        dialog.show();
+        android.widget.Button yes=dialog.getButton(AlertDialog.BUTTON_POSITIVE),no=dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        TvUi.styleButton(this,yes);TvUi.styleButton(this,no);no.requestFocus();
+        // Native accessibility clicks are explicit actions; remote key-up cannot fall through here.
+        yes.setOnClickListener(v->{if((yes.hasFocus()||yes.isAccessibilityFocused())&&consent.explicitClick(ticket,android.os.SystemClock.uptimeMillis())){dialog.dismiss();beginConfirmedUpload(ticket);}});
+        yes.setOnTouchListener((v,event)->{
+            if(event.getAction()==android.view.MotionEvent.ACTION_DOWN){consent.down(ticket,event.getDownTime(),0);return true;}
+            if(event.getAction()==android.view.MotionEvent.ACTION_CANCEL){consent.disarm(ticket);return true;}
+            if(event.getAction()==android.view.MotionEvent.ACTION_UP){if(event.getX()>=0&&event.getY()>=0&&event.getX()<v.getWidth()&&event.getY()<v.getHeight()&&consent.up(ticket,event.getDownTime())){dialog.dismiss();beginConfirmedUpload(ticket);}else consent.disarm(ticket);return true;}
+            return true;
+        });
+    }
+    private void beginConfirmedUpload(UploadConsent.Ticket ticket){
+        if(closed||!ready||!resumed||web==null||ticket.owner!=web||!consent.accepted(ticket))return;
+        closeUploadSession(true);final GalleryUploadSession next;
+        try{next=createUploadSession(()->runOnUiThread(this::refresh));}catch(RuntimeException error){consent.cancel();status("无法开启上传，请重试");return;}
+        upload=next;
         new Thread(()->{try{
-            String url=next.start();runOnUiThread(()->{if(closed||!resumed||upload!=next||!ready||web==null){next.close();return;}
+            String url=next.start();runOnUiThread(()->{if(closed||!resumed||upload!=next||!ready||web==null||!consent.accepted(ticket)||ticket.owner!=web){next.close();return;}
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);web.evaluateJavascript("window.KaishiGallerySettings.upload("+JSONObject.quote(url)+")",null);});
-        }catch(Exception error){next.close();runOnUiThread(()->{if(upload==next){upload=null;status("无法开启上传，请检查电视与手机的家庭网络");}});}},"Kaishi-album-session").start();
+        }catch(Exception error){next.close();runOnUiThread(()->{if(upload==next){upload=null;consent.cancel();status("无法开启上传，请检查电视与手机的家庭网络");}});}},"Kaishi-album-session").start();
     }
     @Override protected void onResume(){
         super.onResume();resumed=true;loadDeadline.active(true);backDeadline.active(true);

@@ -1313,3 +1313,17 @@ ARM候选和x86候选210项Android/launcher输入逐项一致；沿用发行证�
 
 
 最终测试源码编译收口：新增焦点探针变量focus与诊断lambda中的局部变量重名，javac首轮exit1，保留compile.log。仅重命名测试变量为focusHome，实际javac重编exit0，成功日志compile-final.log与s94-focus-probe-compile.json单列；测试文件变动未触发产品重建，最终两包输入仍为33756c70。最终51项Activity用例仅编译、未在本机执行。
+
+## S95 · Round2 / v38 标准版候选（私有，待云测）
+
+延续协调任务，范围与授权边界记录在ROUND2-V38.md。基线固定为v37最终提交4ff9a878，不改播放器/资源格式，不创建Release、不公开推送，不清理过程文件，不启动v39；爸妈版暂停。
+
+先核对R1云证据zip的24个安全相对路径与SHA-256，读取REPORT、受控回执及实际候选四入口记录。云端API28/WebView66已执行51项受控Activity检查，实际四入口无来源、退出取消也通过；诊断入口使用触控、两个恢复图停留旧加载帧，分别保留为未验收，不混入R2通过结论。
+
+R2-01新增测试专用EvidenceCapture/FrameEvidenceGate，绑定活动、窗口、目标、可见性，等待OnDraw与已完成窗口帧后PixelCopy，失效/超时不能接受。版本取PackageManager，模式取活动诊断；未知字段明确为空，不加入产品覆盖层。R2-02相册首焦点改标题，全部upload桥接经过默认取消的原生确认；新手势、取消、重复/旧事件、异步生命周期绑定由UploadConsent约束。GalleryUploadSession工厂支持仅内存替身，真实GalleryUpload仍默认实现；未开启真实监听。R2-03诊断移设置第二项和应用工具页，四观看入口Up可到设置；长行滚动、诊断Back与菜单Back分别保留焦点。
+
+18项确认模型、16项帧模型、26项期限、9项失焦组合及4组首页路由通过；浏览器1920/960×空/合成相册四种组合通过。首次浏览器因已不存在的旧Chromium路径失败，改用已有Chrome；没有下载浏览器。首轮探针编译误用隐藏API getFrameTimeNanos，改公开FrameCallback；下一次编译修正可变lambda捕获，失败日志保留。测试探针包含R1+R2生产Activity与受控页面/假会话，Android实测待云测，不能据模型或编译声称遥控/帧提交通过。
+
+标准ARM与x86分别release构建、现有证书签名，213项Android/launcher输入一致：679928fa86bf5347ec90a4ed9887b2352dddf4ed4d7be10747683e3717be0675。签名脚本保留中间包、不删除文件，并扫描测试类不进入产品。最终提交和两包SHA以ROUND2-MANIFEST为准。小米真机、现代内核、正式ARM运行与真实上传仍未验收；收口后停等云测。
+
+冻结前的完整链接检查拦截了本地旧过程索引中的private-preview下载链接，尚未创建候选提交。候选过程索引改为沿用已审阅父提交，仅追加本轮条目；保留本地原索引与首次失败日志，没有把失效私有链接重新纳入快照。最终探针另将String.repeat改为API28可用的StringBuilder，最终javac/D8 exit0；先前成功编译探针标为已被最终测试源码替代。

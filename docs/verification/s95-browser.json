@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 1920,
+      "syntheticPhotos": 0,
+      "neutralInitialFocus": true,
+      "doubleEnterNoBridge": true,
+      "remoteDirectionLeavesHeading": true,
+      "firstDirectionalFocus": "gallery-preview"
+    },
+    {
+      "width": 1920,
+      "syntheticPhotos": 2,
+      "neutralInitialFocus": true,
+      "doubleEnterNoBridge": true,
+      "remoteDirectionLeavesHeading": true,
+      "firstDirectionalFocus": "gallery-preview"
+    },
+    {
+      "width": 960,
+      "syntheticPhotos": 0,
+      "neutralInitialFocus": true,
+      "doubleEnterNoBridge": true,
+      "remoteDirectionLeavesHeading": true,
+      "firstDirectionalFocus": "gallery-preview"
+    },
+    {
+      "width": 960,
+      "syntheticPhotos": 2,
+      "neutralInitialFocus": true,
+      "doubleEnterNoBridge": true,
+      "remoteDirectionLeavesHeading": true,
+      "firstDirectionalFocus": "gallery-preview"
+    }
+  ],
+  "errors": [],
+  "serverStarted": false,
+  "uploadListenerStarted": false,
+  "nativeDialogExecuted": false,
+  "realXiaomi": false
+}

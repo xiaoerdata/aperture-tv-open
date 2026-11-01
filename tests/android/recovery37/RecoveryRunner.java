@@ -3,7 +3,7 @@ import android.app.*;import android.content.*;import android.os.Bundle;import an
 
 /** Controlled callbacks in real production Activities. No real renderer crash, resources or LAN. */
 public final class RecoveryRunner extends Instrumentation {
-    private JSONArray checks=new JSONArray();private Activity open;
+    private JSONArray checks=new JSONArray(),captures=new JSONArray();private Activity open;
     @Override public void onCreate(Bundle args){super.onCreate(args);start();}
     private void ui(Runnable action){runOnMainSync(action);}
     private Object field(Object target,String name){for(Class<?> c=target.getClass();c!=null;c=c.getSuperclass())try{Field f=c.getDeclaredField(name);f.setAccessible(true);return f.get(target);}catch(NoSuchFieldException next){}catch(Exception e){throw new RuntimeException(e);}throw new AssertionError(name);}
@@ -17,7 +17,18 @@ public final class RecoveryRunner extends Instrumentation {
     private RecoveryGalleryProbe gallery(){Intent i=new Intent().setComponent(new ComponentName(getTargetContext(),RecoveryGalleryProbe.class)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);RecoveryGalleryProbe a=(RecoveryGalleryProbe)startActivitySync(i);open=a;waitForIdleSync();return a;}
     private void end(){if(open!=null){Activity a=open;ui(a::finish);waitForIdleSync();open=null;}}
     private boolean nativeHome(RecoveryHomeProbe a){return field(a,"web")==null&&field(a,"scenicHome")!=null;}
-    private void snap(String name){android.graphics.Bitmap b=getUiAutomation().takeScreenshot();try(java.io.FileOutputStream f=getTargetContext().openFileOutput("s94-"+name+".png",0)){b.compress(android.graphics.Bitmap.CompressFormat.PNG,100,f);}catch(Exception e){throw new RuntimeException(e);}b.recycle();}
+    private void snap(String name){
+        Activity activity=open;android.view.Window window=activity.getWindow();
+        java.util.function.Supplier<View> target=()->{
+            if(name.equals("home-recovery"))return (View)field(activity,"scenicHome");
+            return window.getDecorView().findViewWithTag(name.equals("home-loading")?"kaishi-web-loading":"kaishi-gallery-error");
+        };
+        capture(name,activity,window,target);
+    }
+    private void capture(String name,Activity activity,android.view.Window window,java.util.function.Supplier<View> target){
+        try{captures.put(EvidenceCapture.capture(this,activity,window,name,name,target,()->activity instanceof MainActivity?((WebDiagnostics)field(activity,"diagnostics")).mode().name():null,8000));}
+        catch(Exception error){try{captures.put(new JSONObject().put("caseId",name).put("valid",false).put("invalidReason","capture-helper-exception"));}catch(Exception ignored){}}
+    }
     @Override public void onStart(){JSONObject result=new JSONObject();try{
         RecoveryHomeProbe a=home();final RecoveryHomeProbe fast=a;
         check(field(a,"homeLoading")!=null,"home native loading visible");snap("home-loading");ui(()->fast.view.finished());
@@ -51,8 +62,8 @@ public final class RecoveryRunner extends Instrumentation {
         ui(()->new WebDiagnostics(context));check(!context.getSharedPreferences("kaishi_web_diagnostics",0).contains("reason"),"diagnostics resets previous-version failure");check(context.getSharedPreferences("aperture",0).getString("origin","").equals("https://synthetic.invalid")&&context.getSharedPreferences("local-gallery",0).getInt("seconds",0)==20,"diagnostics reset preserves separate user config");
         a=home();final RecoveryHomeProbe info=a;final AlertDialog[] infoDialog=new AlertDialog[1];ui(()->{info.view.finished();infoDialog[0]=((WebDiagnostics)field(info,"diagnostics")).show(info);});waitForIdleSync();
         boolean reachedNote=false;for(int k=0;k<8;k++){final boolean[] atNote={false};ui(()->{View focus=infoDialog[0].getCurrentFocus();if(focus!=null&&"diagnostics-说明".equals(focus.getTag())){android.graphics.Rect rect=new android.graphics.Rect();atNote[0]=focus.getGlobalVisibleRect(rect)&&rect.height()>=focus.getHeight();}});if(atNote[0]){reachedNote=true;break;}sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);waitForIdleSync();}
-        check(reachedNote,"diagnostics Chinese explanation reached and fully visible with remote Down");snap("diagnostics");sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);end();
+        check(reachedNote,"diagnostics Chinese explanation reached and fully visible with remote Down");capture("diagnostics",info,infoDialog[0].getWindow(),()->infoDialog[0].getWindow().getDecorView().findViewWithTag("diagnostics-说明"));sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);end();
         result.put("ok",true);
     }catch(Throwable error){try{result.put("ok",false).put("error",error.getClass().getSimpleName()+": "+error.getMessage());}catch(Exception ignored){}android.util.Log.e("KaishiRecoveryProbe","failure",error);
-    }finally{try{end();result.put("checks",checks).put("passed",checks.length()).put("controlledWebView",true).put("actualRendererKilled",false).put("realXiaomi",false).put("noUploadStarted",true);try(java.io.FileOutputStream f=getTargetContext().openFileOutput("s94-recovery.json",0)){f.write(result.toString(2).getBytes(java.nio.charset.StandardCharsets.UTF_8));}}catch(Exception ignored){}Bundle b=new Bundle();b.putString("result",result.toString());finish(result.optBoolean("ok")?Activity.RESULT_OK:Activity.RESULT_CANCELED,b);}}
+    }finally{try{end();result.put("checks",checks).put("captures",captures).put("imageProofIndependentOfFunctionalChecks",true).put("passed",checks.length()).put("controlledWebView",true).put("actualRendererKilled",false).put("realXiaomi",false).put("noUploadStarted",true);try(java.io.FileOutputStream f=getTargetContext().openFileOutput("s94-recovery.json",0)){f.write(result.toString(2).getBytes(java.nio.charset.StandardCharsets.UTF_8));}}catch(Exception ignored){}Bundle b=new Bundle();b.putString("result",result.toString());finish(result.optBoolean("ok")?Activity.RESULT_OK:Activity.RESULT_CANCELED,b);}}
 }

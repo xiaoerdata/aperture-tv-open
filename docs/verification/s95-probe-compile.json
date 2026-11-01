@@ -1,0 +1,62 @@
+{
+  "package": "org.zhixiaoce.test.round2v38",
+  "versionCode": 38,
+  "versionName": "0.2.0-alpha.35-probe",
+  "apk": "artifacts/s95-native-final-v38/probe.apk",
+  "sha256": "a15436ca8e4ff243478c5092ddd7ad248af9697c83510b33e938aaacb75a81c4",
+  "controlledWebView": true,
+  "fakeUploadFactory": true,
+  "networkPermission": false,
+  "buildPassed": true,
+  "javacExitCode": 0,
+  "d8ExitCode": 0,
+  "buildExitCode": 0,
+  "executed": false,
+  "shippedInCandidate": false,
+  "runners": [
+    "org.zhixiaoce.aperture.RecoveryRunner",
+    "org.zhixiaoce.aperture.Round2Runner"
+  ],
+  "sources": [
+    {
+      "path": "tests/android/recovery37/ControlledWebView.java",
+      "sha256": "8552b0e9d6ee7ede4ea7bf8e08c85cd70c0162e3b783ae770da09de66d078b8a"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryClock.java",
+      "sha256": "d2535aa66dc6a133952b669e8f83391db79284ba30887f8d22d68a0098a08b60"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryGalleryProbe.java",
+      "sha256": "5999e8fd4e36d415211f8ac8b951b1f18301394cc07c638a02e1ad8802096542"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryHomeProbe.java",
+      "sha256": "92cb61f208cb53cd0c8119f6658bedc0bf566cbc40779fdec6a0590d1ad3d5ca"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryRunner.java",
+      "sha256": "192dd1776a05da1fb2276addb77811b0a44e4a204cf61e7968dd251458b15f5e"
+    },
+    {
+      "path": "tests/android/evidence38/EvidenceCapture.java",
+      "sha256": "3a4ad1ae7e09b3237ecd0bdb311fdea49e48e52ecbf61ace205a70a65afc26c0"
+    },
+    {
+      "path": "tests/android/evidence38/FrameEvidenceGate.java",
+      "sha256": "28694049dcb0f0224dad185ee19dca0fd3496e0e552a1d42a2cde1e39b8686fd"
+    },
+    {
+      "path": "tests/android/evidence38/R2FrameProbe.java",
+      "sha256": "caa6a60dda924a0ead3870ce226353089f693e89a6282843b4e4285cc04b9ee4"
+    },
+    {
+      "path": "tests/android/evidence38/R2GalleryProbe.java",
+      "sha256": "f2ee6c66c047fa207796118bc994e0669e1edf43447ba642c959412e6df5300e"
+    },
+    {
+      "path": "tests/android/evidence38/Round2Runner.java",
+      "sha256": "c2c10884168613f4d84325e5b0f2af9d4d8b536e7e8bcca14addd7c36401985e"
+    }
+  ]
+}

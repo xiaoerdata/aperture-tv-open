@@ -374,6 +374,7 @@ public class MainActivity extends Activity {
         destroyWeb(); lobbyMode = true;diagnostics.mode(mode);
         scenicHome=new ScenicNativeHome(this,destinations,route->{
             if("settings".equals(route))quickMenu();
+            else if("diagnostics".equals(route))showDiagnostics();
             else if("apps".equals(route))destinations.all();
             else if("gallery".equals(route))action("/gallery");
             else if("information".equals(route))messageSettings();
@@ -420,11 +421,16 @@ public class MainActivity extends Activity {
         super.onActivityResult(request, result, data);
     }
     private void hubConnection(){new AlertDialog.Builder(this).setTitle("智小策 Hub").setMessage("未连接\n\n电影 · 体重 · 旅行 · 账本\n\n扫码登录服务尚未接入。连接后，由你选择允许显示的内容。").setPositiveButton("返回",null).show();}
+    private void showDiagnostics(){
+        View returnTo=settingsMenuDialog!=null&&settingsMenuDialog.isShowing()?settingsMenuDialog.getCurrentFocus():getCurrentFocus();
+        if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();diagnosticsDialog=diagnostics.show(this,returnTo);
+    }
     private void featureMenu(String title,String[] options,android.content.DialogInterface.OnClickListener listener){
         java.util.List<String> names=new java.util.ArrayList<>();java.util.List<Integer> indices=new java.util.ArrayList<>();
         for(int i=0;i<options.length;i++){if(!FeaturePolicy.photos()&&"NAS相册".equals(options[i]))continue;names.add(options[i]);indices.add(i);}
+        int diagnosticAt=names.indexOf("本机诊断");if(!BuildConfig.PARENTS_EDITION&&diagnosticAt>1){String name=names.remove(diagnosticAt);int index=indices.remove(diagnosticAt);names.add(1,name);indices.add(1,index);}
         if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();
-        settingsMenuDialog=TvDialogs.menu(this,title,names.toArray(new String[0]),(dialog,index)->listener.onClick(dialog,indices.get(index)));
+        settingsMenuDialog=TvDialogs.menu(this,title,names.toArray(new String[0]),(dialog,index)->listener.onClick(dialog,indices.get(index)),names.indexOf("本机诊断"));
     }
     private void quickMenu() {
         if (BuildConfig.PARENTS_EDITION) {
@@ -441,7 +447,7 @@ public class MainActivity extends Activity {
             else if (which == 12) homeMode();
             else if (which == 13) installation();
             else if (which == 14) cinema("settings");
-            else if (which == 15) hubConnection(); else if (which == 16) TvLocalControl.open(this);else if(which==17){if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();diagnosticsDialog=diagnostics.show(this);}
+            else if (which == 15) hubConnection(); else if (which == 16) TvLocalControl.open(this);else if(which==17)showDiagnostics();
             else if (BuildConfig.PARENTS_EDITION) family(null);
             else { preferences.edit().putBoolean("lite", !preferences.getBoolean("lite", false)).apply(); family(null); }
         });

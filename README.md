@@ -1,4 +1,4 @@
-> 本地开发候选：v37 / 0.2.0-alpha.34，尚未公开发布。先读 [Round1候选说明](docs/CANDIDATE-V37-R1.md)。
+> 私有开发候选：v38 / 0.2.0-alpha.35，未公开发布。先读 [Round2候选说明](docs/CANDIDATE-V38-R2.md)。
 
 # 开视 · Aperture TV
 

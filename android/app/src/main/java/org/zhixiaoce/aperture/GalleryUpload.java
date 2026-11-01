@@ -5,14 +5,15 @@ import android.os.SystemClock;
 import java.io.*;import java.net.*;import java.nio.charset.StandardCharsets;import java.security.*;import java.util.*;import java.util.concurrent.*;
 
 /** Explicit ten-minute, upload-only LAN session. The QR secret stays in the URL fragment. */
-final class GalleryUpload implements AutoCloseable {
+final class GalleryUpload implements GalleryUploadSession {
     private final Context context;private final GalleryStore store;private final Runnable changed;private volatile ServerSocket server;private final ExecutorService worker=Executors.newSingleThreadExecutor();private String token,host;private long expires;private volatile boolean closed;private final Set<Socket> clients=Collections.synchronizedSet(new HashSet<>());
     GalleryUpload(Context context,Runnable changed){this.context=context;store=new GalleryStore(context);this.changed=changed;}
-    synchronized String start()throws Exception{
+    public synchronized String start()throws Exception{
         if(closed)throw new IOException("上传已关闭");
         String ip=address();if(ip==null)throw new IOException("电视尚未连接可用的家庭局域网");byte[] secret=new byte[24];new SecureRandom().nextBytes(secret);token=Base64.getUrlEncoder().withoutPadding().encodeToString(secret);server=new ServerSocket(0,2,InetAddress.getByName(ip));server.setSoTimeout(1000);host=ip+":"+server.getLocalPort();expires=SystemClock.elapsedRealtime()+600000;
         Thread thread=new Thread(()->{while(valid())try{Socket socket=server.accept();if(!TvLocalControl.privatePeer(socket.getInetAddress())){socket.close();continue;}if(clients.size()>=2){socket.close();continue;}clients.add(socket);socket.setSoTimeout(12000);worker.execute(()->serve(socket));}catch(SocketTimeoutException tick){}catch(Exception stop){break;}close();},"Kaishi-album-upload");thread.setDaemon(true);thread.start();return "http://"+host+"/#"+token;
     }
+    public boolean isClosed(){return closed;}
     private boolean valid(){return !closed&&server!=null&&!server.isClosed()&&SystemClock.elapsedRealtime()<expires;}
     private String address()throws Exception{List<String> fallback=new ArrayList<>();for(NetworkInterface net:Collections.list(NetworkInterface.getNetworkInterfaces())){if(!net.isUp()||net.isLoopback())continue;for(InetAddress ip:Collections.list(net.getInetAddresses()))if(ip instanceof Inet4Address&&ip.isSiteLocalAddress()){if(net.getName().startsWith("wlan")||net.getName().startsWith("eth"))return ip.getHostAddress();if(!net.getName().startsWith("tun"))fallback.add(ip.getHostAddress());}}return fallback.isEmpty()?null:fallback.get(0);}
     private String line(InputStream in)throws IOException{ByteArrayOutputStream out=new ByteArrayOutputStream();for(int i=0;i<4096;i++){int c=in.read();if(c<0)throw new EOFException();if(c==10)return out.toString("US-ASCII").replaceFirst("\\r$","");out.write(c);}throw new IOException();}

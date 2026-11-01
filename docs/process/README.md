@@ -184,3 +184,5 @@ S81/S82：P81授权v30 / alpha.27封装公开发行，P82追加直播分组核�
 S81/S82已发布：[v30 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.27)、[匿名下载与源码回读](../verification/public-alpha-v30.json)。资源包数量上限未大幅放开；小米真机待验收。
 
 S84：P84大幅扩容资源包，见[容量验证](../verification/s84-capacity.json)和[第63期底稿](../../media/DEVLOG-063.md)；小米真机与最大规模性能尚待验证。
+
+S95：协调任务Round2，v38标准版私有候选；见[范围记录](ROUND2-V38.md)、[候选及复跑说明](../CANDIDATE-V38-R2.md)、[第70期底稿](../../media/DEVLOG-070.md)。仅本地模型/浏览器和构建结果通过，原生操作与帧截图仍待云测；不公开发布、不启动下一版。
