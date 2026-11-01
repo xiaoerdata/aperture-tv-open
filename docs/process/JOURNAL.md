@@ -1331,3 +1331,5 @@ R2-01新增测试专用EvidenceCapture/FrameEvidenceGate，绑定活动、窗口
 ### S95 测试修正 · 成对遥控事件
 
 协调方云端原R2失败前三项通过、ok:false，INSTRUMENTATION_CODE=0不能当通过。A/B发现sendKeyDownUpSync产生不相同的DOWN/UP.downTime；取消框不关闭但created/fakeStarts均0。同downTime的诊断对照可正常取消，未证实意外开启上传。仅修Round2Runner.key，真实单调时钟的一次downTime用于成对sendKeySync，UP.eventTime取当时实时时钟；不改取消合并断言、旧手势/长按测试和产品保护。构建器增加独立receipt参数，原回执/探针/失败证据保留，不重建产品两包。来源、A/B摘要及复建见ROUND2-V38-KEY-FIX.md；此修正仅编译待正式云端复跑。原产品提交0f09、213输入与两包SHA不变，独立冻结测试修正后停等。
+
+第一处修正冻结57172237之后，协调方继续报告诊断副本第7项失败：now-1000仍可能晚于票据openedAt，不能作为创建前手势。保留该独立冻结，追加只读取得ticket.openedAt并用openedAt-1注入的测试快照；DOWN/UP共享该时间，eventTime实际取时，产品保护和原断言不动。新增gestureEvidence同时记录真实票据时间、观测/注入事件时间及created/fakeStarts/弹窗状态。第二份编译输出和回执使用key-fix2新路径，不覆盖第一份；详见ROUND2-V38-KEY-FIX2.md。此为诊断证实的测试时序错误，不是产品漏洞或正式R2通过；本地仍不执行设备测试、不监听、不发布。

@@ -5,7 +5,7 @@ import java.lang.reflect.*;import java.util.concurrent.TimeUnit;import java.util
 
 /** Real Android windows and key dispatch, controlled WebView and fake upload; no network permission. */
 public final class Round2Runner extends Instrumentation {
-    final JSONArray checks=new JSONArray(),captures=new JSONArray();Activity open;
+    final JSONArray checks=new JSONArray(),captures=new JSONArray(),gestureEvidence=new JSONArray();Activity open;
     private void ui(Runnable action){runOnMainSync(action);}
     private void key(int code){
         long downTime=SystemClock.uptimeMillis();
@@ -29,8 +29,14 @@ public final class Round2Runner extends Instrumentation {
         R2GalleryProbe a=gallery();key(23);key(23);check(a.created==0&&confirmation(a)==null,"neutral entry repeated CENTER cannot create a session");request(a);AlertDialog first=confirmation(a);
         check(first!=null&&first.getButton(-2).hasFocus(),"native consent defaults to Cancel");request(a);check(confirmation(a)==first&&a.created==0,"duplicate bridge request reuses pending confirmation");key(23);check(a.created==0&&confirmation(a)==null,"CENTER on default Cancel never starts upload");end();
         a=gallery();request(a);key(4);check(a.created==0&&confirmation(a)==null,"Back cancels consent without session");end();
-        a=gallery();request(a);positive(a);final R2GalleryProbe stale=a;final AlertDialog staleDialog=confirmation(a);long old=SystemClock.uptimeMillis()-1000;
-        ui(()->{staleDialog.dispatchKeyEvent(new KeyEvent(old,old,0,23,0));staleDialog.dispatchKeyEvent(new KeyEvent(old,old+10,1,23,0));});check(a.created==0&&confirmation(a)!=null,"opener down and old release cannot accept native consent");
+        a=gallery();request(a);positive(a);final R2GalleryProbe stale=a;final AlertDialog staleDialog=confirmation(a);
+        ui(()->{
+            UploadConsent.Ticket ticket=(UploadConsent.Ticket)field(stale,"consentTicket");
+            long observedAt=SystemClock.uptimeMillis(),old=ticket.openedAt-1;
+            long downEventTime=SystemClock.uptimeMillis();staleDialog.dispatchKeyEvent(new KeyEvent(old,downEventTime,KeyEvent.ACTION_DOWN,23,0));
+            long upEventTime=SystemClock.uptimeMillis();staleDialog.dispatchKeyEvent(new KeyEvent(old,upEventTime,KeyEvent.ACTION_UP,23,0));
+            try{JSONObject evidence=new JSONObject().put("caseId","opener-down-old-release").put("openedAt",ticket.openedAt).put("observedAt",observedAt).put("downDownTime",old).put("upDownTime",old).put("downEventTime",downEventTime).put("upEventTime",upEventTime).put("created",stale.created).put("fakeStarts",stale.last==null?0:stale.last.starts).put("confirmationShowing",staleDialog.isShowing()).put("confirmationReferenceNonNull",confirmation(stale)!=null);gestureEvidence.put(evidence);android.util.Log.i("KaishiRound2Probe",evidence.toString());}catch(JSONException e){throw new AssertionError(e);}
+        });check(a.created==0&&confirmation(a)!=null,"opener down and old release cannot accept native consent");
         long held=SystemClock.uptimeMillis()+1;ui(()->{staleDialog.dispatchKeyEvent(new KeyEvent(held,held,0,23,0));staleDialog.dispatchKeyEvent(new KeyEvent(held,held+50,0,23,1));staleDialog.dispatchKeyEvent(new KeyEvent(held,held+60,1,23,0));});check(a.created==0,"held CENTER repeat disarms confirmation");
         key(23);check(a.created==1&&a.last.entered.await(3,TimeUnit.SECONDS),"new released CENTER after blocked gesture can accept once");waitForIdleSync();key(23);check(a.created==1,"later CENTER cannot create duplicate active session");end();check(stale.last.closed,"exit closes accepted fake upload");
         a=gallery();request(a);final R2GalleryProbe paused=a;ui(()->callActivityOnPause(paused));check(a.created==0&&confirmation(a)==null,"pause dismisses pending consent before any session");ui(()->callActivityOnResume(paused));request(a);end();check(a.created==0,"destroy with pending confirmation creates no session");
@@ -71,5 +77,5 @@ public final class Round2Runner extends Instrumentation {
         final R2FrameProbe leaving=launch(R2FrameProbe.class);AtomicInteger destroyReads=new AtomicInteger();check(!capture(leaving,"frame-destroy-during-wait",()->{if(destroyReads.incrementAndGet()==1)leaving.getWindow().getDecorView().post(leaving::finish);return leaving.target;},2000).optBoolean("valid"),"destroy during frame wait invalidates capture");end();
     }
     @Override public void onCreate(Bundle args){super.onCreate(args);start();}
-    @Override public void onStart(){JSONObject result=new JSONObject();try{galleryChecks();diagnosticsChecks();frameChecks();result.put("ok",true);}catch(Throwable e){try{result.put("ok",false).put("error",e.getClass().getSimpleName()+": "+e.getMessage());}catch(Exception ignored){}android.util.Log.e("KaishiRound2Probe","failed",e);}finally{try{end();result.put("checks",checks).put("passed",checks.length()).put("captures",captures).put("uploadSessionType","in-memory fake only").put("realUploadListenerStarted",false).put("realXiaomi",false).put("controlledWebView",true);try(java.io.FileOutputStream f=getTargetContext().openFileOutput("s95-round2.json",0)){f.write(result.toString(2).getBytes(java.nio.charset.StandardCharsets.UTF_8));}}catch(Exception ignored){}Bundle b=new Bundle();b.putString("result",result.toString());finish(result.optBoolean("ok")?Activity.RESULT_OK:Activity.RESULT_CANCELED,b);}}
+    @Override public void onStart(){JSONObject result=new JSONObject();try{galleryChecks();diagnosticsChecks();frameChecks();result.put("ok",true);}catch(Throwable e){try{result.put("ok",false).put("error",e.getClass().getSimpleName()+": "+e.getMessage());}catch(Exception ignored){}android.util.Log.e("KaishiRound2Probe","failed",e);}finally{try{end();result.put("checks",checks).put("passed",checks.length()).put("captures",captures).put("gestureEvidence",gestureEvidence).put("uploadSessionType","in-memory fake only").put("realUploadListenerStarted",false).put("realXiaomi",false).put("controlledWebView",true);try(java.io.FileOutputStream f=getTargetContext().openFileOutput("s95-round2.json",0)){f.write(result.toString(2).getBytes(java.nio.charset.StandardCharsets.UTF_8));}}catch(Exception ignored){}Bundle b=new Bundle();b.putString("result",result.toString());finish(result.optBoolean("ok")?Activity.RESULT_OK:Activity.RESULT_CANCELED,b);}}
 }

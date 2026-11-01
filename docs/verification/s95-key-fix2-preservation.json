@@ -1,0 +1,83 @@
+{
+  "productCandidateCommit": "0f09b9d218a0937f16c5d0418f0f546ff138174e",
+  "priorTestCorrectionCommit": "57172237a16fb2e7383d0d9267522b114a6541a8",
+  "androidInputSha256": "679928fa86bf5347ec90a4ed9887b2352dddf4ed4d7be10747683e3717be0675",
+  "inputFiles": 213,
+  "originalAndPriorTestFixFiles": [
+    {
+      "path": "artifacts/s95-v38-delivery/ROUND2-MANIFEST.json",
+      "bytes": 4247,
+      "sha256": "1e13b95a2451bd18a35cc73b0bc4199401089b4ac7a706cd927a81731a498d54",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-v38-arm/manifest.json",
+      "bytes": 38521,
+      "sha256": "a7391872e2ca59a66cd55ec52f667db5b883d5718c5cfabd303cc1dac7e4422e",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-v38-x86/manifest.json",
+      "bytes": 38508,
+      "sha256": "8369c8cfe1392e40a4289d08815fb715bbce22d2edb2353bcb6b66a5b41b14a6",
+      "unchanged": true
+    },
+    {
+      "path": "docs/verification/s95-probe-compile.json",
+      "bytes": 2186,
+      "sha256": "caca9d17911d2d27683e4704ee5cd3ff107968fe2ec0f7f6817186039407945a",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-native-final-v38/probe.apk",
+      "bytes": 28377009,
+      "sha256": "a15436ca8e4ff243478c5092ddd7ad248af9697c83510b33e938aaacb75a81c4",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-v38-arm/kaishi-v38-standard-arm.apk",
+      "bytes": 55322795,
+      "sha256": "65c20672d989cc180226caaa46c006d914c9f952c1ecd7a4528f3866aa2dcada",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-v38-x86/kaishi-v38-standard-x86-cloud-test.apk",
+      "bytes": 44138423,
+      "sha256": "841f75117b79996d85cf775f9ec20e60fc14bd8645c08850c4108df86b3b0588",
+      "unchanged": true
+    },
+    {
+      "path": "docs/verification/s95-key-fix-compile.json",
+      "sha256": "f5e1c4aa63232dc2752b211148a5324b166516a3ccf841a58aa7f37c036afd31",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-r2-key-fix/TEST-CORRECTION-MANIFEST.json",
+      "sha256": "ee71dae601a8f51aa02f11c135e6b2892a9dd1404b99ebf3f30aaceff3e9dae2",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-r2-key-fix/probe/probe.apk",
+      "sha256": "709466d3ada341f7e2a3d206d50246f2f63df5be270532f92ea65a2bc463aa80",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-r2-key-fix/v38-r2-test-key-fix.patch",
+      "sha256": "d54bf0ecbc196ce360203ff933e465f1e2c1c948625d2b30031a4bc5079edbfe",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s95-r2-key-fix/v38-r2-test-key-fix.bundle",
+      "sha256": "3d66dea63d1263ed80757f6cc1075a1ec154d0afede22c3192fb83869eff7fa0",
+      "unchanged": true
+    }
+  ],
+  "productAndPriorTestRefsUnchanged": true,
+  "productRebuilt": false,
+  "androidOrLauncherModified": false,
+  "correctedProbeExecuted": false,
+  "javacExitCode": 0,
+  "d8ExitCode": 0,
+  "realUploadListenerStarted": false,
+  "publiclyPublished": false
+}
