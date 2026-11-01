@@ -6,14 +6,14 @@ import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
-const MAX=524288,root=new URL('../',import.meta.url);
+const MAX=4*1024*1024,root=new URL('../',import.meta.url);
 const schema=JSON.parse(await readFile(new URL('docs/contracts/kaishi-resource-pack-v1.schema.json',root)));
 const ajv=new Ajv2020({allErrors:true,strict:true,strictRequired:false});addFormats(ajv);const validate=ajv.compile(schema);
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 function url(value,allowHttp){let u;try{u=new URL(value);}catch{throw Error('地址无效');}if(!['https:',...(allowHttp?['http:']:[])].includes(u.protocol)||u.username||u.password||u.hash||!u.hostname||u.port==='0')throw Error('地址需使用HTTPS；HTTP需显式允许，网址不能包含账号或片段');return u;}
 function unique(values,field,path){const seen=new Set();for(const item of values){const key=item[field];if(seen.has(key))throw Error(path+' 中的 '+field+' 重复');seen.add(key);}}
 export function checkPack(bytes,{allowHttp=false}={}){
- if(bytes.length>MAX)throw Error('资源包超过512KB');const raw=new TextDecoder('utf-8',{fatal:true}).decode(bytes),pack=JSON.parse(raw);
+ if(bytes.length>MAX)throw Error('资源包超过4MiB');const raw=new TextDecoder('utf-8',{fatal:true}).decode(bytes),pack=JSON.parse(raw);
  if(!validate(pack)){const e=validate.errors[0];throw Error((e.instancePath||'/')+' '+e.message);}
  function walk(value,path=''){
   if(typeof value==='string'&&value.includes('\0'))throw Error(path+' 含无效字符');
@@ -37,16 +37,16 @@ export function checkPack(bytes,{allowHttp=false}={}){
   }
  }
  if(!sites&&!lives)throw Error('资源包至少需要一个直播或影视资源');
- if(sites>12||lives>12||channels>500||items>200||episodes>500)throw Error('资源包超过12站点/12直播来源/500频道/200节目/500集的限制');
+ if(sites>12||lives>12||channels>2000||items>2000||episodes>10000)throw Error('资源包超过12站点/12直播来源/2000频道/2000节目/10000集的限制');
  const extended=pack.resources.some(r=>r.type==='collection'&&(r.sections||Array.isArray(r.section)||r.items.some(i=>i.section||i.poster||i.summary||typeof i.rating==='number'||typeof i.year==='number')));
- return {minimumVersionCode:extended?30:21,format:pack.format,version:pack.version,id:pack.id,revision:pack.revision,title:pack.title,sha256:sha(bytes),bytes:bytes.length,resources:pack.resources.length,sites,lives,channels,items,episodes,sections:[...new Set(pack.resources.flatMap(r=>r.sections||[].concat(r.section||[])))],nativeImportValidationRequired:true};
+ return {minimumVersionCode:(bytes.length>524288||channels>500||items>200||episodes>500)?31:extended?30:21,format:pack.format,version:pack.version,id:pack.id,revision:pack.revision,title:pack.title,sha256:sha(bytes),bytes:bytes.length,resources:pack.resources.length,sites,lives,channels,items,episodes,sections:[...new Set(pack.resources.flatMap(r=>r.sections||[].concat(r.section||[])))],nativeImportValidationRequired:true};
 }
 async function fetchPack(address,{allowHttp=false}={}){
  let current=url(address,allowHttp);for(let i=0;i<=3;i++){
   const response=await fetch(current,{redirect:'manual',signal:AbortSignal.timeout(10000)});
   if([301,302,303,307,308].includes(response.status)){await response.body?.cancel();if(i===3||!response.headers.get('location'))throw Error('重定向无效');current=url(new URL(response.headers.get('location'),current).href,allowHttp);continue;}
-  if(!response.ok)throw Error('HTTP '+response.status);if(Number(response.headers.get('content-length'))>MAX){await response.body?.cancel();throw Error('资源包超过512KB');}
-  const reader=response.body.getReader(),chunks=[];let size=0;while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>MAX){await reader.cancel();throw Error('资源包超过512KB');}chunks.push(value);}return Buffer.concat(chunks);
+  if(!response.ok)throw Error('HTTP '+response.status);if(Number(response.headers.get('content-length'))>MAX){await response.body?.cancel();throw Error('资源包超过4MiB');}
+  const reader=response.body.getReader(),chunks=[];let size=0;while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>MAX){await reader.cancel();throw Error('资源包超过4MiB');}chunks.push(value);}return Buffer.concat(chunks);
  }throw Error('无法读取资源包');
 }
 async function main(){
@@ -54,7 +54,7 @@ async function main(){
  if(command==='template'){const output=option('--output');if(!output)throw Error('需要 --output 新文件');bytes=await readFile(new URL('examples/resource-packs/family.kaishi.json',root));await writeFile(output,bytes,{flag:'wx'});console.log(JSON.stringify({...checkPack(bytes),output,exampleAddressesMustBeReplaced:true},null,2));return;}
  if(command==='wrap-tvbox'){
   const output=option('--output'),id=option('--id');if(!input||!output||!id)throw Error('用法：wrap-tvbox 输入.json --id org.example.sources --output 新文件.kaishi.json');
-  const content=await readFile(input);if(content.length>MAX)throw Error('输入超过512KB');const pack={format:'kaishi.resource-pack',version:1,id,revision:Number(option('--revision')||1),title:option('--title')||'我的资源',resources:[{id:'tvbox',type:'tvbox',title:'TVBox来源',config:JSON.parse(content.toString('utf8'))}]};bytes=Buffer.from(JSON.stringify(pack,null,2)+'\n');const report=checkPack(bytes,{allowHttp});await writeFile(output,bytes,{flag:'wx'});console.log(JSON.stringify({...report,output},null,2));return;
+  const content=await readFile(input);if(content.length>MAX)throw Error('输入超过4MiB');const pack={format:'kaishi.resource-pack',version:1,id,revision:Number(option('--revision')||1),title:option('--title')||'我的资源',resources:[{id:'tvbox',type:'tvbox',title:'TVBox来源',config:JSON.parse(content.toString('utf8'))}]};bytes=Buffer.from(JSON.stringify(pack,null,2)+'\n');const report=checkPack(bytes,{allowHttp});await writeFile(output,bytes,{flag:'wx'});console.log(JSON.stringify({...report,output},null,2));return;
  }
  if(command==='validate'){if(!input)throw Error('需要资源包文件');bytes=await readFile(input);}
  else if(command==='verify-url'){const expected=option('--sha256');if(!input||!/^[a-f0-9]{64}$/.test(expected||''))throw Error('需要URL及 --sha256 64位小写摘要');bytes=await fetchPack(input,{allowHttp});if(sha(bytes)!==expected)throw Error('发布文件的SHA-256与本地文件不一致');}

@@ -47,7 +47,7 @@ final class CinemaHttp {
     CinemaCatalog.Page home(CinemaCatalog.Site site,boolean allowHttp)throws Exception{if(site.type==5)return CinemaResourcePack.page(site,1,null,null);String endpoint=site.api;if(site.type==4&&!site.ext.isEmpty())endpoint=HttpUrl.get(CinemaCatalog.url(site.api,null,allowHttp)).newBuilder().setQueryParameter("extend",site.ext).build().toString();return CinemaCatalog.page(document(endpoint,allowHttp,site.headers).text,1);}
     CinemaCatalog.Page catalogue(CinemaCatalog.Site site,String category,int page,String search,String id,boolean allowHttp)throws Exception {
         if(site.type==5)return CinemaResourcePack.page(site,category,page,search,id);
-        if(page<1||page>500)throw new IOException("分页范围无效");HttpUrl.Builder url=HttpUrl.get(CinemaCatalog.url(site.api,null,allowHttp)).newBuilder();for(String key:new String[]{"ac","t","pg","wd","ids"})url.removeAllQueryParameters(key);
+        if(page<1||page>10000)throw new IOException("分页范围无效");HttpUrl.Builder url=HttpUrl.get(CinemaCatalog.url(site.api,null,allowHttp)).newBuilder();for(String key:new String[]{"ac","t","pg","wd","ids"})url.removeAllQueryParameters(key);
         if(site.type==4&&!site.ext.isEmpty())url.setQueryParameter("extend",site.ext);url.addQueryParameter("ac",site.type==0?"videolist":"detail");if(category!=null)url.addQueryParameter("t",category);if(id!=null)url.addQueryParameter("ids",id);if(search!=null)url.addQueryParameter("wd",search);url.addQueryParameter("pg",String.valueOf(page));return CinemaCatalog.page(document(url.build().toString(),allowHttp,site.headers).text,page);
     }
     CinemaCatalog.Episode resolve(CinemaCatalog.Site site,String line,CinemaCatalog.Episode episode,boolean allowHttp)throws Exception {

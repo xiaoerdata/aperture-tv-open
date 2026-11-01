@@ -11,7 +11,7 @@ import javax.crypto.spec.GCMParameterSpec;
 final class CinemaCipher {
     private static final byte[] AAD="aperture.cinema.v1".getBytes(StandardCharsets.UTF_8);
     static String encrypt(String json,SecretKey key) throws Exception {
-        byte[] bytes=json.getBytes(StandardCharsets.UTF_8);if(bytes.length>CinemaCatalog.MAX_BYTES)throw new IOException("规范化配置超过512KB");
+        byte[] bytes=json.getBytes(StandardCharsets.UTF_8);if(bytes.length>CinemaCatalog.MAX_BYTES)throw new IOException("规范化配置超过4MiB");
         Cipher cipher=Cipher.getInstance("AES/GCM/NoPadding");cipher.init(Cipher.ENCRYPT_MODE,key);cipher.updateAAD(AAD);
         return Base64.getEncoder().encodeToString(cipher.getIV())+"."+Base64.getEncoder().encodeToString(cipher.doFinal(bytes));
     }

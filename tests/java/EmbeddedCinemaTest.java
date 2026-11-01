@@ -45,7 +45,7 @@ public final class EmbeddedCinemaTest {
         List<CinemaCatalog.Channel> channels=CinemaCatalog.m3u(m3u,"https://media.example.invalid/channels/list.m3u",false);
         check(channels.size()==2&&channels.get(1).urls.get(0).equals("https://media.example.invalid/channels/second.mp4"),"M3U groups and relative stream URL");
         reject(()->CinemaCatalog.m3u("#EXTM3U\n#EXT-X-TARGETDURATION:6\n#EXTINF:6,\na.ts", "https://example.invalid/a.m3u8",false),"HLS segments are not imported as television channels");
-        StringBuilder huge=new StringBuilder("#EXTM3U\n");for(int i=0;i<501;i++)huge.append("#EXTINF:-1,A\nhttps://example.invalid/a.mp4\n");reject(()->CinemaCatalog.m3u(huge.toString(),null,false),"bounded channel count");
+        StringBuilder huge=new StringBuilder("#EXTM3U\n");for(int i=0;i<CinemaCatalog.MAX_CHANNELS+1;i++)huge.append("#EXTINF:-1,A\nhttps://example.invalid/a.mp4\n");reject(()->CinemaCatalog.m3u(huge.toString(),null,false),"bounded channel count");
         JSONObject video=new JSONObject().put("vod_id",7).put("vod_name","家庭短片").put("vod_play_from","家庭线路$$$其他").put("vod_play_url","第一集$https://example.invalid/1.mp4#第二集$https://example.invalid/2.m3u8$$$网页$https://example.invalid/watch/7");
         String page=new JSONObject().put("class",new JSONArray().put(new JSONObject().put("type_id",2).put("type_name","电视剧"))).put("list",new JSONArray().put(video)).put("page",1).put("pagecount",3).toString();
         CinemaCatalog.Page parsed=CinemaCatalog.page(page,1);check(parsed.categories.get(0).id.equals("2")&&parsed.items.get(0).id.equals("7"),"numeric IDs supported");
@@ -72,7 +72,7 @@ public final class EmbeddedCinemaTest {
             check(query[0].contains("ac=detail")&&!query[0].contains("wrong")&&query[0].contains("t=2")&&query[0].contains("pg=3")&&query[0].contains("token=synthetic"),"canonical TVBox category/search query retains unrelated API parameters");
             http.catalogue(site,null,1,null,"7",true);check(query[0].contains("ids=7")&&!query[0].contains("wd="),"detail request uses selected ID");
             check(http.home(new CinemaCatalog.Site("目录",base+"/api?token=synthetic"),true).categories.size()==1&&!query[0].contains("ac="),"home categories use the base API without forcing detail mode");
-            reject(()->http.catalogue(site,null,501,null,null,true),"bounded catalogue pagination");
+            reject(()->http.catalogue(site,null,10001,null,null,true),"bounded catalogue pagination");
             http.home(new CinemaCatalog.Site("T4Home",base+"/api","t4",4,java.util.Collections.emptyMap(),"needs+extension","","",base),true);check(query[0].contains("extend=needs%2Bextension"),"type4 home receives extension");
             CinemaCatalog.Site resolver=new CinemaCatalog.Site("T4",base+"/play","t4",4,java.util.Collections.emptyMap(),"custom+ext","","",base);
             check(http.resolve(resolver,"线路",episode,true).url.endsWith("final.mp4")&&query[0].contains("play=opaque%2Btoken%3D%3D")&&query[0].contains("extend=custom%2Bext"),"type4 resolves opaque IDs with flag and extension");

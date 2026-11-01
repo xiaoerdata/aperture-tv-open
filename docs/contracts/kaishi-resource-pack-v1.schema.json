@@ -191,7 +191,7 @@
             "$ref": "#/$defs/episode"
           },
           "minItems": 1,
-          "maxItems": 500
+          "maxItems": 10000
         },
         "metadata": {
           "type": "object",
@@ -417,7 +417,7 @@
             "$ref": "#/$defs/channel"
           },
           "minItems": 1,
-          "maxItems": 500
+          "maxItems": 2000
         },
         "headers": {
           "$ref": "#/$defs/headers"
@@ -546,7 +546,7 @@
             "$ref": "#/$defs/item"
           },
           "minItems": 1,
-          "maxItems": 200
+          "maxItems": 2000
         },
         "headers": {
           "$ref": "#/$defs/headers"

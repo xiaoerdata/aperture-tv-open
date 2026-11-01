@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 /** Bounded catalogue formats; executable sites are dispatched through the opt-in plugin engine. */
 final class CinemaCatalog {
-    static final int MAX_BYTES = 524288, MAX_CHANNELS = 500;
+    static final int MAX_BYTES = 4 * 1024 * 1024, MAX_CHANNELS = 2000;
     static final class Site {
         final String name, api, key, ext, jar, spider, base;final int type;final java.util.Map<String,String> headers;
         Site(String name,String api){this(name,api,api,1,java.util.Collections.emptyMap());}
@@ -85,7 +85,7 @@ final class CinemaCatalog {
         }catch(Exception invalid){throw new IOException("仅支持已允许的 HTTP(S) 地址，不支持脚本、代理协议或网址中的账号");}
     }
     static Config config(String raw,String base,boolean allowHttp) throws Exception {
-        if(raw==null||raw.getBytes(java.nio.charset.StandardCharsets.UTF_8).length>MAX_BYTES)throw new IOException("来源配置超过512KB");
+        if(raw==null||raw.getBytes(java.nio.charset.StandardCharsets.UTF_8).length>MAX_BYTES)throw new IOException("来源配置超过4MiB");
         Config result=new Config(allowHttp);
         String text=raw.replaceFirst("^\\uFEFF","").trim();if(text.startsWith("//")||text.startsWith("/*"))text=CinemaFormats.json(text).trim();
         if(text.startsWith("#EXTM3U")&&text.contains("#EXT-X-")){if(base==null)throw new IOException("HLS媒体文件需要原始网络地址");result.lives.add(new Live("直播","",java.util.Arrays.asList(new Channel("直播","直播",java.util.Arrays.asList(url(base,null,allowHttp))))));return result;}
@@ -114,7 +114,7 @@ final class CinemaCatalog {
             String feed=l.optString("url");if(!feed.isEmpty()){try{Live live=new Live(name,url(feed,base,allowHttp),new ArrayList<>(),CinemaFormats.headers(l));if(cache)live.identity=field(l.optString("identity"),200);result.lives.add(live);}catch(IOException invalid){result.skipped.add(name+"：地址类型不支持");}continue;}
             JSONArray entries=l.optJSONArray("channels");List<Channel> channels=new ArrayList<>();
             if(entries!=null)for(int j=0;j<entries.length();j++){
-                if(++total>MAX_CHANNELS)throw new IOException("内置频道超过500项");JSONObject c=entries.optJSONObject(j);if(c==null)continue;
+                if(++total>MAX_CHANNELS)throw new IOException("内置频道超过2000项");JSONObject c=entries.optJSONObject(j);if(c==null)continue;
                 List<String> urls=new ArrayList<>();List<java.util.Map<String,String>> requests=new ArrayList<>();java.util.Map<String,String> header=new java.util.LinkedHashMap<>(CinemaFormats.headers(l));header.putAll(CinemaFormats.headers(c));JSONArray array=c.optJSONArray("urls");if(array==null&&c.has("url"))array=new JSONArray().put(c.optString("url"));
                 JSONArray savedHeaders=c.optJSONArray("requestHeaders");
                 if(array!=null)for(int k=0;k<Math.min(8,array.length());k++)try{java.util.Map<String,String> specific=new java.util.LinkedHashMap<>(header);if(savedHeaders!=null&&savedHeaders.optJSONObject(k)!=null)specific.putAll(CinemaFormats.headers(new JSONObject().put("header",savedHeaders.getJSONObject(k))));urls.add(CinemaFormats.stream(array.optString(k),base,allowHttp,specific));requests.add(specific);}catch(IOException invalid){}
@@ -131,11 +131,11 @@ final class CinemaCatalog {
         return playlist(raw,base,allowHttp,java.util.Collections.emptyMap());
     }
     static Page page(String raw,int requested) throws Exception {
-        if(raw==null||raw.getBytes(java.nio.charset.StandardCharsets.UTF_8).length>MAX_BYTES)throw new IOException("目录超过512KB");
+        if(raw==null||raw.getBytes(java.nio.charset.StandardCharsets.UTF_8).length>MAX_BYTES)throw new IOException("目录超过4MiB");
         raw=raw.replaceFirst("^\\uFEFF","");if(raw.trim().startsWith("<"))return CinemaFormats.xml(raw,requested);
-        JSONObject root=new JSONObject(CinemaFormats.json(raw.replaceFirst("^\\uFEFF","")));if(root.optJSONArray("list")==null&&root.optJSONArray("class")==null)throw new IOException("不是采集目录");Page result=new Page();result.page=Math.min(500,Math.max(1,root.optInt("page",requested)));result.pages=Math.max(result.page,Math.min(500,root.optInt("pagecount",result.page)));
+        JSONObject root=new JSONObject(CinemaFormats.json(raw.replaceFirst("^\\uFEFF","")));if(root.optJSONArray("list")==null&&root.optJSONArray("class")==null)throw new IOException("不是采集目录");Page result=new Page();result.page=Math.min(10000,Math.max(1,root.optInt("page",requested)));result.pages=Math.max(result.page,Math.min(10000,root.optInt("pagecount",result.page)));
         JSONArray classes=root.optJSONArray("class");if(classes!=null)for(int i=0;i<Math.min(100,classes.length());i++){JSONObject c=classes.getJSONObject(i);result.categories.add(new Category(field(c.optString("type_id"),100),field(c.optString("type_name"),120)));}
-        JSONArray list=root.optJSONArray("list");if(list!=null)for(int i=0;i<Math.min(120,list.length());i++)result.items.add(new Item(list.getJSONObject(i)));
+        JSONArray list=root.optJSONArray("list");if(list!=null&&list.length()>1000)throw new IOException("单页超过1000条，请调整来源分页");if(list!=null)for(int i=0;i<list.length();i++)result.items.add(new Item(list.getJSONObject(i)));
         return result;
     }
     static List<Line> lines(Item item,boolean allowHttp) throws Exception {return lines(item,allowHttp,java.util.Collections.emptyMap(),false);}
@@ -147,7 +147,7 @@ final class CinemaCatalog {
         for(int i=0;i<groups.length;i++){
             Line line=new Line(i<names.length&&!names[i].isEmpty()?field(names[i],120):"线路 "+(i+1));
             for(String entry:groups[i].split("#")){
-                if(entry.isEmpty())continue;if(++count>500)throw new IOException("选集超过500项");int dollar=entry.indexOf('$');String name=dollar<0?"播放":field(entry.substring(0,dollar),120),value=dollar<0?entry:entry.substring(dollar+1);
+                if(entry.isEmpty())continue;if(++count>10000)throw new IOException("选集超过10000项");int dollar=entry.indexOf('$');String name=dollar<0?"播放":field(entry.substring(0,dollar),120),value=dollar<0?entry:entry.substring(dollar+1);
                 if(resolve){line.episodes.add(new Episode(name,field(value,8192),new java.util.LinkedHashMap<>(headers)));continue;}
                 try{java.util.Map<String,String> merged=new java.util.LinkedHashMap<>(headers);String uri=CinemaFormats.stream(value,null,allowHttp,merged);String path=new URI(uri).getPath().toLowerCase(java.util.Locale.ROOT);if(path.matches(".*\\.(html?|php)$")||path.matches(".*/(watch|detail|vodplay)/.*"))continue;line.episodes.add(new Episode(name,uri,merged));}catch(IOException invalid){}
             }

@@ -1,0 +1,33 @@
+{
+  "versionCode": 31,
+  "version": "0.2.0-alpha.28",
+  "androidInputSha256": "0a02f895568800cd2c87d89bed65e9cf8c9448b444243bfb7c53a92e7401f0b1",
+  "checks": {
+    "targetedNodeSuites": 6,
+    "failed": 0,
+    "syntheticItems": 1200,
+    "syntheticEpisodes": 2400,
+    "productionJavaParserAndCache": true,
+    "remotePage501And200Items": true,
+    "overflowPageRejected": true,
+    "releaseBuildBothArmAbis": true,
+    "stableSignatureBothEditions": true,
+    "releaseDexPolicy": true
+  },
+  "notTested": {
+    "xiaomiHardware": true,
+    "maximumCapacityOnDevice": true,
+    "realWorkBuddyLargeTransfer": true
+  },
+  "limits": {
+    "packBytes": 4194304,
+    "items": 2000,
+    "episodes": 10000,
+    "channels": 2000,
+    "remotePages": 10000,
+    "remoteItemsPerPage": 1000,
+    "sites": 12,
+    "liveSources": 12,
+    "pluginOutputBytes": 524288
+  }
+}
