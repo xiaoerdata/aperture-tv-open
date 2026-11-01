@@ -47,9 +47,23 @@ public class MainActivity extends Activity {
     private AlertDialog returnHomeDialog;
     private AlertDialog settingsMenuDialog;
     private boolean ready = false, lobbyMode = false;
+    private boolean resumed,closed,homeDocumentFinished;
+    private PageDeadline homeDeadline;private PageDeadline.Ticket homeTicket;
+    private WebLoadingView homeLoading;private WebDiagnostics diagnostics;private AlertDialog diagnosticsDialog;
+    private PageDeadline.Scheduler homeTasks;
+    private Runnable homeProbeRetry;
+    static final long HOME_LOAD_TIMEOUT_MS=12000;
+    protected WebView newWebView(){return new WebView(this);}
+    protected PageDeadline.Clock deadlineClock(){return AndroidPageDeadline.clock();}
+    protected PageDeadline.Scheduler deadlineScheduler(){return AndroidPageDeadline.scheduler();}
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state); preferences = getSharedPreferences("aperture", MODE_PRIVATE);
+        diagnostics=new WebDiagnostics(this);
+        homeTasks=deadlineScheduler();
+        homeDeadline=new PageDeadline(HOME_LOAD_TIMEOUT_MS,deadlineClock(),homeTasks,ticket->{
+            if(ticket.owner==web)failHome(web,ticket,WebDiagnostics.Reason.LOAD_TIMEOUT,false);
+        });
         destinations = new DestinationApps(this, preferences, slot -> showLobby(slot));
         assistant = new VoiceAssistant(this);
         installer = new ApkInstaller(this, () -> destinations.shortcuts());
@@ -61,9 +75,10 @@ public class MainActivity extends Activity {
         // The system sends HOME to the chosen singleTask entry. Always return to its first page.
         if(returnHomeDialog!=null)returnHomeDialog.dismiss();
         if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();
+        if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();
         destinations.dismissHomeSettings();showLobby("");
     }
-    private int webViewVersion() {
+    protected int webViewVersion() {
         try { PackageInfo provider = WebView.getCurrentWebViewPackage(); return provider != null ? Integer.parseInt(provider.versionName.split("\\.")[0]) : 0; }
         catch (RuntimeException ignored) { return 0; }
     }
@@ -85,41 +100,52 @@ public class MainActivity extends Activity {
     }
     private void destroyWeb() { destroyWeb(false); }
     private void destroyWeb(boolean rendererGone) {
+        if(homeDeadline!=null)homeDeadline.cancel();homeTicket=null;homeDocumentFinished=false;
+        if(homeProbeRetry!=null){homeTasks.cancel(homeProbeRetry);homeProbeRetry=null;}
+        homeLoading=null;
         if (weather != null) { weather.close(); weather = null; }
         if (household != null) { household.close(); household = null; }
         ambientAwake=false;getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);if(messages!=null)messages.active(false);
         ready = false; display.bind(null); WebView previous = web; web = null;
-        if (previous != null) {
-            // A dead renderer cannot be used again; detach before destroy, without stopLoading.
-            if (!rendererGone) previous.stopLoading();
-            if (previous.getParent() instanceof android.view.ViewGroup) ((android.view.ViewGroup) previous.getParent()).removeView(previous);
-            previous.destroy();
-        }
+        WebViewDisposal.release(previous,rendererGone);
     }
     private void webActive(WebView current, boolean active) {
         if (current != web) return;
+        if(lobbyMode&&homeDeadline!=null){
+            homeDeadline.active(active);
+            if(!active&&homeProbeRetry!=null){homeTasks.cancel(homeProbeRetry);homeProbeRetry=null;}
+        }
         if(messages!=null)messages.active(active&&lobbyMode);syncAmbientAwake();
         if (household != null) household.active(active);
         if (weather != null) weather.active(active);
         if (active) { current.onResume(); current.resumeTimers(); }
         // Best effort: stop carousel/media before yielding the window; never auto-resume playback.
-        current.evaluateJavascript("(function(){if(window.apertureNativeFocus)window.apertureNativeFocus(" + active + ");" + (active ? "" : "var m=document.querySelectorAll('video,audio');for(var i=0;i<m.length;i++)m[i].pause();") + "})()", null);
+        if(ready)current.evaluateJavascript("(function(){if(window.apertureNativeFocus)window.apertureNativeFocus(" + active + ");" + (active ? "" : "var m=document.querySelectorAll('video,audio');for(var i=0;i<m.length;i++)m[i].pause();") + "})()", null);
         if (!active) { current.onPause(); current.pauseTimers(); }
+        else if(lobbyMode&&homeDocumentFinished&&!ready)completeLobbyLoad(current,homeTicket,0);
     }
-    private void completeLobbyLoad(WebView current,int attempt) {
-        if(current!=web||!lobbyMode)return;
-        current.evaluateJavascript("typeof window.apertureRemoteKey==='function'&&typeof window.apertureSetViewport==='function'",result->{
-            if(current!=web)return;
+    private void completeLobbyLoad(WebView current,PageDeadline.Ticket ticket,int attempt) {
+        if(closed||!resumed||!display.active()||current!=web||!lobbyMode||!homeDeadline.waiting(ticket))return;
+        try{current.evaluateJavascript("typeof window.apertureRemoteKey==='function'&&typeof window.apertureSetViewport==='function'",result->{
+            if(closed||!resumed||!display.active()||current!=web||!homeDeadline.waiting(ticket))return;
             if("true".equals(result)){
-                ready=true;syncLobbyViewport(current);webActive(current,display.active());nasLabels();
+                if(!homeDeadline.ready(ticket))return;
+                ready=true;diagnostics.mode(WebDiagnostics.Home.GLASS_READY);diagnostics.event("home","ready",ticket.generation,null);
+                if(homeLoading!=null)homeLoading.ready();
+                syncLobbyViewport(current);webActive(current,display.active());nasLabels();
             }else if(attempt<2){
-                current.postDelayed(()->completeLobbyLoad(current,attempt+1),250);
-            }else{
-                android.util.Log.w("KaishiHome","home-initialization-incomplete; showing native home");
-                android.widget.Toast.makeText(this,"首页未能加载，已打开兼容首页",android.widget.Toast.LENGTH_LONG).show();
-                nativeLobby();
-            }
-        });
+                homeProbeRetry=()->{homeProbeRetry=null;completeLobbyLoad(current,ticket,attempt+1);};
+                homeTasks.post(homeProbeRetry,250);
+            }else failHome(current,ticket,WebDiagnostics.Reason.JS_MISSING,false);
+        });}catch(RuntimeException unavailable){failHome(current,ticket,WebDiagnostics.Reason.JS_MISSING,false);}
+    }
+    private void failHome(WebView current,PageDeadline.Ticket ticket,WebDiagnostics.Reason reason,boolean rendererGone){
+        if(closed||current!=web||!homeDeadline.current(ticket))return;
+        diagnostics.event("home",reason==WebDiagnostics.Reason.LOAD_TIMEOUT?"timeout":rendererGone?"renderer-gone":"fallback",ticket.generation,reason);
+        if(reason!=WebDiagnostics.Reason.USER_CANCEL_LOAD)lobby.webFailed();
+        destroyWeb(rendererGone);
+        nativeLobby(reason==WebDiagnostics.Reason.USER_CANCEL_LOAD?WebDiagnostics.Home.NATIVE_SELECTED:WebDiagnostics.Home.NATIVE_RECOVERY);
+        android.widget.Toast.makeText(this,reason==WebDiagnostics.Reason.LOAD_TIMEOUT?"首页加载超时，已打开本机风景首页":reason==WebDiagnostics.Reason.USER_CANCEL_LOAD?"已打开本机风景首页":"首页暂不可用，已打开本机风景首页",android.widget.Toast.LENGTH_LONG).show();
     }
     private String lastViewportReport = "";
     @SuppressWarnings("deprecation") // Called on UI thread; includes WebView's effective page zoom.
@@ -141,7 +167,10 @@ public class MainActivity extends Activity {
         });
     }
     private void createWeb(boolean lobby) {
-        destroyWeb(); scenicHome=null; lobbyMode = lobby; lastViewportReport=""; web = new WebView(this);
+        destroyWeb(); scenicHome=null; lobbyMode = lobby; lastViewportReport=""; web = newWebView();
+        final WebView created=web;
+        final PageDeadline.Ticket navigation=lobby?homeDeadline.start(created):null;homeTicket=navigation;
+        if(lobby){diagnostics.mode(WebDiagnostics.Home.GLASS_LOADING);diagnostics.event("home","loading",navigation.generation,null);}
         final WeatherProxy forecast=lobby?new WeatherProxy():null;weather=forecast;
         String householdOrigin = preferences.getString("origin", "");
         final HouseholdProxy feed = lobby && !BuildConfig.PARENTS_EDITION ? new HouseholdProxy(householdOrigin, householdOrigin.isEmpty() ? "" : CookieManager.getInstance().getCookie(householdOrigin), preferences.getBoolean("allowLanHttp", false)) : null;
@@ -170,7 +199,7 @@ public class MainActivity extends Activity {
             @Override public void onScaleChanged(WebView view,float oldScale,float newScale) {
                 if(lobby&&view==web)view.post(()->syncLobbyViewport(view));
             }
-            @Override public void onPageStarted(WebView view, String url, android.graphics.Bitmap icon) { if (view == web) ready = false; }
+            @Override public void onPageStarted(WebView view, String url, android.graphics.Bitmap icon) { if (view == web&&(!lobby||homeDeadline.waiting(navigation))) ready = false; }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl(); if (view != web || !request.isForMainFrame()) return true;
                 if (lobby) {
@@ -203,12 +232,15 @@ public class MainActivity extends Activity {
             @Override public void onPageFinished(WebView view, String url) {
                 if(view!=web)return;
                 CookieManager.getInstance().flush();
-                if(lobby)completeLobbyLoad(view,0);else ready=true;
+                if(lobby){if(!homeDeadline.waiting(navigation))return;homeDocumentFinished=true;completeLobbyLoad(view,navigation,0);}else ready=true;
             }
-            @Override public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse response) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view == web) {if(lobby)nativeLobby();else fallback("家庭服务返回错误，请核对服务地址。");} }); }
-            @Override public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view != web) return; if (lobby) nativeLobby(); else fallback("暂时连不上家庭服务。直播、影视应用和原桌面仍可使用。"); }); }
+            @Override public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse response) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view == web) {if(lobby)failHome(view,navigation,WebDiagnostics.Reason.HTTP_ERROR,false);else fallback("家庭服务返回错误，请核对服务地址。");} }); }
+            @Override public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view != web) return; if (lobby) failHome(view,navigation,WebDiagnostics.Reason.MAIN_DOCUMENT_ERROR,false); else fallback("暂时连不上家庭服务。直播、影视应用和原桌面仍可使用。"); }); }
             @Override public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
-                if (view == web) { MainActivity.this.lobby.rendererGone(); destroyWeb(true); nativeLobby(); }
+                if(view==web){
+                    if(lobby)failHome(view,navigation,WebDiagnostics.Reason.RENDERER_GONE,true);
+                    else{diagnostics.event("home","renderer-gone",0,WebDiagnostics.Reason.RENDERER_GONE);MainActivity.this.lobby.rendererGone();destroyWeb(true);nativeLobby();}
+                }else WebViewDisposal.release(view,true);
                 return true;
             }
         });
@@ -219,13 +251,17 @@ public class MainActivity extends Activity {
             // Child DOM lists retain their own scrolling; only the outer native viewport is pinned.
             web.setOnScrollChangeListener((view,x,y,oldX,oldY)->{if(view==web&&(x!=0||y!=0))view.scrollTo(0,0);});
         }
-        setContentView(web); web.requestFocus();
+        if(lobby){homeLoading=new WebLoadingView(this,created,"正在打开首页","最迟等待 12 秒，可直接使用本机首页。","使用本机首页",()->failHome(created,navigation,WebDiagnostics.Reason.USER_CANCEL_LOAD,false));setContentView(homeLoading.root);}
+        else{setContentView(web);web.requestFocus();}
         WebView current = web; display.bind(active -> webActive(current, active));
     }
     private void showLobby(String pane) {
         destinations.initializeShortcuts();
-        if (lobby.choose(webViewVersion(), preferences.getBoolean("simple_home", false)) != LobbyMode.Choice.GLASS) { nativeLobby(); return; }
-        createWeb(true);
+        LobbyMode.Choice choice=lobby.choose(webViewVersion(),preferences.getBoolean("simple_home",false));
+        if(choice!=LobbyMode.Choice.GLASS){nativeLobby(choice==LobbyMode.Choice.NATIVE_OLD_ENGINE?WebDiagnostics.Home.NATIVE_OLD_ENGINE:choice==LobbyMode.Choice.NATIVE_SELECTED?WebDiagnostics.Home.NATIVE_SELECTED:WebDiagnostics.Home.NATIVE_RECOVERY);return;}
+        try{createWeb(true);}catch(RuntimeException unavailable){
+            diagnostics.event("home","fallback",0,WebDiagnostics.Reason.WEBVIEW_CREATE_ERROR);lobby.webFailed();nativeLobby();return;
+        }
         Uri.Builder uri = Uri.parse(LOBBY).buildUpon().appendQueryParameter("edition", BuildConfig.PARENTS_EDITION ? "parents" : "standard");
         for (String slot : new String[] {"live", "cinema", "system", "quick1", "quick2", "quick3", "quick4"}) uri.appendQueryParameter(slot, destinations.label(slot));
         uri.appendQueryParameter("assistant", assistant.label());
@@ -233,7 +269,7 @@ public class MainActivity extends Activity {
         if("information".equals(pane))uri.appendQueryParameter("section","information");
         if ("quick1".equals(pane) || "quick2".equals(pane) || "quick3".equals(pane) || "quick4".equals(pane)) uri.appendQueryParameter("focus", pane);
         if ("live".equals(pane) || "cinema".equals(pane) || "system".equals(pane) || "settings".equals(pane) || "voice".equals(pane)) uri.appendQueryParameter("pane", pane);
-        web.loadUrl(uri.build().toString());
+        try{web.loadUrl(uri.build().toString());}catch(RuntimeException unavailable){failHome(web,homeTicket,WebDiagnostics.Reason.MAIN_DOCUMENT_ERROR,false);}
     }
     private void syncAmbientAwake(){if(ambientAwake&&lobbyMode&&display.active())getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);else getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);}
     private void messageSettings(){
@@ -327,14 +363,15 @@ public class MainActivity extends Activity {
     }
     private void showNative(LinearLayout layout) { ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.addView(layout); setContentView(scroll); }
     private void homeMode() {
-        String reason = lobby.recoveryRequired() ? "网页组件刚刚退出，已使用本机风景首页。关闭开视后重开，可再尝试玻璃首页。" : !lobby.glassAvailable(webViewVersion()) ? "当前网页内核较旧，已使用本机风景首页。壁纸、观看入口和常用应用仍可用。" : "玻璃首页支持家庭面板与动效；本机风景首页保留壁纸和常用入口，不运行网页。";
+        String reason = lobby.recoveryRequired() ? "网页首页本次未能正常显示，已使用本机风景首页。关闭开视后重开，可再尝试玻璃首页；原因见本机诊断。" : !lobby.glassAvailable(webViewVersion()) ? "当前网页内核较旧，已使用本机风景首页。壁纸、观看入口和常用应用仍可用。" : "玻璃首页支持家庭面板与动效；本机风景首页保留壁纸和常用入口，不运行网页。";
         new AlertDialog.Builder(this).setTitle("首页样式").setMessage(reason)
             .setPositiveButton("本机风景首页", (d,w) -> { preferences.edit().putBoolean("simple_home", true).apply(); showLobby(""); })
             .setNeutralButton(lobby.glassAvailable(webViewVersion()) ? "玻璃首页" : "保留自动选择", (d,w) -> { preferences.edit().remove("simple_home").apply(); showLobby(""); })
             .setNegativeButton("返回", null).show();
     }
-    private void nativeLobby() {
-        destroyWeb(); lobbyMode = true;
+    private void nativeLobby(){nativeLobby(WebDiagnostics.Home.NATIVE_RECOVERY);}
+    private void nativeLobby(WebDiagnostics.Home mode) {
+        destroyWeb(); lobbyMode = true;diagnostics.mode(mode);
         scenicHome=new ScenicNativeHome(this,destinations,route->{
             if("settings".equals(route))quickMenu();
             else if("apps".equals(route))destinations.all();
@@ -395,7 +432,7 @@ public class MainActivity extends Activity {
                 if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else if (which == 14) hubConnection(); else if (which == 15) TvLocalControl.open(this); else destinations.all();
             }); return;
         }
-        String[] options = {"默认桌面与开机", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "返回首页", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "首页样式", "安装应用", "直播与影视来源", "智小策 Hub", "局域网控制"};
+        String[] options = {"默认桌面与开机", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "返回首页", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "首页样式", "安装应用", "直播与影视来源", "智小策 Hub", "局域网控制", "本机诊断"};
         featureMenu("设置",options, (dialog, which) -> {
             if (which == 0) destinations.settings(true); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
             else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) showLobby(""); else if (which == 7) setup(); else if (which == 8) destinations.all();
@@ -404,7 +441,7 @@ public class MainActivity extends Activity {
             else if (which == 12) homeMode();
             else if (which == 13) installation();
             else if (which == 14) cinema("settings");
-            else if (which == 15) hubConnection(); else if (which == 16) TvLocalControl.open(this);
+            else if (which == 15) hubConnection(); else if (which == 16) TvLocalControl.open(this);else if(which==17){if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();diagnosticsDialog=diagnostics.show(this);}
             else if (BuildConfig.PARENTS_EDITION) family(null);
             else { preferences.edit().putBoolean("lite", !preferences.getBoolean("lite", false)).apply(); family(null); }
         });
@@ -445,9 +482,9 @@ public class MainActivity extends Activity {
         if(web!=null&&ready&&(keyCode==KeyEvent.KEYCODE_DPAD_LEFT||keyCode==KeyEvent.KEYCODE_DPAD_RIGHT||keyCode==KeyEvent.KEYCODE_DPAD_UP||keyCode==KeyEvent.KEYCODE_DPAD_DOWN||keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER||keyCode==KeyEvent.KEYCODE_NUMPAD_ENTER||keyCode==KeyEvent.KEYCODE_BUTTON_A||keyCode==KeyEvent.KEYCODE_MENU||keyCode==KeyEvent.KEYCODE_BACK))return true;
         return super.onKeyUp(keyCode,event);
     }
-    @Override public void onBackPressed() { if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }
-    @Override protected void onPause() { display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }
-    @Override protected void onResume() { super.onResume(); HomeGuardService.resumedHome(this); display.resumed(true); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
+    @Override public void onBackPressed() { if(web!=null&&lobbyMode&&!ready){failHome(web,homeTicket,WebDiagnostics.Reason.USER_CANCEL_LOAD,false);leavePage();return;} if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }
+    @Override protected void onPause() { resumed=false;homeDeadline.active(false);if(homeProbeRetry!=null){homeTasks.cancel(homeProbeRetry);homeProbeRetry=null;} display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }
+    @Override protected void onResume() { super.onResume();resumed=true; HomeGuardService.resumedHome(this); display.resumed(true); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
     @Override public void onWindowFocusChanged(boolean hasFocus) { super.onWindowFocusChanged(hasFocus); display.focused(hasFocus); if (display.active()) immersive(); }
-    @Override protected void onDestroy() { if(returnHomeDialog!=null)returnHomeDialog.dismiss();if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();if(destinations!=null)destinations.dismissHomeSettings();if(installer!=null)installer.destroy();if(messages!=null)messages.close(); destroyWeb(); super.onDestroy(); }
+    @Override protected void onDestroy() { closed=true;resumed=false;if(homeDeadline!=null)homeDeadline.cancel();if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();if(returnHomeDialog!=null)returnHomeDialog.dismiss();if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();if(destinations!=null)destinations.dismissHomeSettings();if(installer!=null)installer.destroy();if(messages!=null)messages.close(); destroyWeb(); super.onDestroy(); }
 }
