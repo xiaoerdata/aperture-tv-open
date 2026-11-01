@@ -1,0 +1,80 @@
+{
+  "package": "org.zhixiaoce.test.gallery39",
+  "versionCode": 39,
+  "versionName": "0.2.0-alpha.36-probe",
+  "apk": "artifacts/s96-native/probe.apk",
+  "sha256": "8194662f50821e1bf8fbfbc291e3d62eeafb32268a113444bcde60987d60eb48",
+  "controlledWebView": true,
+  "fakeUploadFactory": true,
+  "networkPermission": false,
+  "buildPassed": true,
+  "javacExitCode": 0,
+  "d8ExitCode": 0,
+  "buildExitCode": 0,
+  "executed": false,
+  "shippedInCandidate": false,
+  "runners": [
+    "org.zhixiaoce.aperture.RecoveryRunner",
+    "org.zhixiaoce.aperture.Round2Runner",
+    "org.zhixiaoce.aperture.Round3Runner",
+    "org.zhixiaoce.aperture.Round3PhotosRunner"
+  ],
+  "sources": [
+    {
+      "path": "tests/android/recovery37/ControlledWebView.java",
+      "sha256": "8552b0e9d6ee7ede4ea7bf8e08c85cd70c0162e3b783ae770da09de66d078b8a"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryClock.java",
+      "sha256": "d2535aa66dc6a133952b669e8f83391db79284ba30887f8d22d68a0098a08b60"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryGalleryProbe.java",
+      "sha256": "e8140e1ef538a1e76c6939941dbb484e783bb6fa016bc8756ba18ec026383aa9"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryHomeProbe.java",
+      "sha256": "92cb61f208cb53cd0c8119f6658bedc0bf566cbc40779fdec6a0590d1ad3d5ca"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryRunner.java",
+      "sha256": "192dd1776a05da1fb2276addb77811b0a44e4a204cf61e7968dd251458b15f5e"
+    },
+    {
+      "path": "tests/android/evidence38/EvidenceCapture.java",
+      "sha256": "3a4ad1ae7e09b3237ecd0bdb311fdea49e48e52ecbf61ace205a70a65afc26c0"
+    },
+    {
+      "path": "tests/android/evidence38/FrameEvidenceGate.java",
+      "sha256": "28694049dcb0f0224dad185ee19dca0fd3496e0e552a1d42a2cde1e39b8686fd"
+    },
+    {
+      "path": "tests/android/evidence38/R2FrameProbe.java",
+      "sha256": "caa6a60dda924a0ead3870ce226353089f693e89a6282843b4e4285cc04b9ee4"
+    },
+    {
+      "path": "tests/android/evidence38/R2GalleryProbe.java",
+      "sha256": "3cc375edc74f857e61436d9675982ae6ca59a0300202ee219fe922ff406cb6f9"
+    },
+    {
+      "path": "tests/android/evidence38/Round2Runner.java",
+      "sha256": "98e96af5e4fdfeda7e94395df0f8d6c9043ade9a97366e7a4effd535fd69fd75"
+    },
+    {
+      "path": "tests/android/gallery39/R3NativeGalleryProbe.java",
+      "sha256": "1f0d8f5136a954736ac0ebe7829705e3011457d0164ce09b96d6f02e2b60feb3"
+    },
+    {
+      "path": "tests/android/gallery39/R3WebGalleryProbe.java",
+      "sha256": "7ac686cb8f4dc83e44fd8fb5c0936f3578236700c2e5e06fcdcbc022e1c01e47"
+    },
+    {
+      "path": "tests/android/gallery39/Round3PhotosRunner.java",
+      "sha256": "6b41b49d74e25c4c91aa71e42d190f9efbff8a299233fed2e5cfcd2f966b3f52"
+    },
+    {
+      "path": "tests/android/gallery39/Round3Runner.java",
+      "sha256": "f3b4825bc6e3ef371fafb69f3e3483b8791c90494475bede8dc0545093e4063b"
+    }
+  ]
+}

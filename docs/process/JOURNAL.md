@@ -1333,3 +1333,15 @@ R2-01新增测试专用EvidenceCapture/FrameEvidenceGate，绑定活动、窗口
 协调方云端原R2失败前三项通过、ok:false，INSTRUMENTATION_CODE=0不能当通过。A/B发现sendKeyDownUpSync产生不相同的DOWN/UP.downTime；取消框不关闭但created/fakeStarts均0。同downTime的诊断对照可正常取消，未证实意外开启上传。仅修Round2Runner.key，真实单调时钟的一次downTime用于成对sendKeySync，UP.eventTime取当时实时时钟；不改取消合并断言、旧手势/长按测试和产品保护。构建器增加独立receipt参数，原回执/探针/失败证据保留，不重建产品两包。来源、A/B摘要及复建见ROUND2-V38-KEY-FIX.md；此修正仅编译待正式云端复跑。原产品提交0f09、213输入与两包SHA不变，独立冻结测试修正后停等。
 
 第一处修正冻结57172237之后，协调方继续报告诊断副本第7项失败：now-1000仍可能晚于票据openedAt，不能作为创建前手势。保留该独立冻结，追加只读取得ticket.openedAt并用openedAt-1注入的测试快照；DOWN/UP共享该时间，eventTime实际取时，产品保护和原断言不动。新增gestureEvidence同时记录真实票据时间、观测/注入事件时间及created/fakeStarts/弹窗状态。第二份编译输出和回执使用key-fix2新路径，不覆盖第一份；详见ROUND2-V38-KEY-FIX2.md。此为诊断证实的测试时序错误，不是产品漏洞或正式R2通过；本地仍不执行设备测试、不监听、不发布。
+
+## S96 · R3 / v39 标准版相册候选（私有，待云测）
+
+来源为协调任务，产品0f09与测试31a为基线，真实父提交选31a，全部旧引用/回执/包保留。R2云正式66与R1 51由协调方报告通过，但真实WebView66相册两次LOAD_TIMEOUT。当前工具无法读取所给Library，没有获取ZIP或绕道传输；只按已核摘要记录来源，不能写成亲读原日志。具体范围见ROUND3-V39.md。
+
+审查发现相册ready依赖精确URL的onPageFinished再发JS探测；无足够证据判断超时根因。新增固定词汇GalleryTrace/本地KaishiGallery记录，覆盖资源/API、文档阶段、ready、生命周期/焦点、剩余预算与实际调度回调；本地160条有界会话，成功资源按类别限量，没有原始URL/照片/console字符串或网络遥测。旧Activity日志不能覆写较新会话。快照首次实现对非armed状态保留旧dueAt可能误读延迟，按静态审阅修正为armed/dueAt与独立callbackDueAt/callbackAt；25项新增模型覆盖暂停/取消/ready/换代及迟到回调，未据此归因云超时。
+
+为真实旧内核提供NativeGallery：低于89或provider未知直接进入原生本机相册，网页失败也进入同一可操作替代。空态标题中性焦点、已存照片有界解码、上下/左右控件、全屏逐张轮播及返回；浏览不删除照片。网页模板/二维码/管理仍限制在网页路径，原生手机上传只提供确认后的临时地址手动输入；统一原生确认、取消默认、手势/owner/生命周期保护保留。未开启真实监听，也没有实际读取用户照片。
+
+18确认/16帧模型/26期限/9焦点组合/4路由及25阶段模型通过，JS2017语法审阅通过不等于旧内核真实执行。CSS clamp/inset/gap仅列待验，未改网页资产。标准ARM/x86与测试探针定向编译、既有证书签名，216输入同源指纹53c55cb4838dfeef8ecf09292becea729ae3f5b0604caa6fe43091f970d3a325。保留R1/R2完整用例及31a配对key/openedAt-1；测试只更新39元数据和受控网页路由选择。R3新增真实native/真实WebView链观察与只生成纯色照片的最后运行用例，编译通过但本机未执行；R1 51/R2 66也未在v39本机实跑。
+
+根因仍unknown，不能把原生替代当网页ready或现代玻璃验收。公开发布未进行，爸妈版暂停，完成候选后停等云端冷/暖实测和各层回归，不开始v40，不清理任何过程文件。

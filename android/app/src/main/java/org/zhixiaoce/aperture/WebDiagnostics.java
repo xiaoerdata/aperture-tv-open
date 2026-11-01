@@ -60,6 +60,7 @@ final class WebDiagnostics {
         String screen=prefs.getString("screen","");row(activity,body,"最近回退",("gallery".equals(screen)?"相册 · ":"home".equals(screen)?"首页 · ":"")+reason());
         long at=prefs.getLong("at",0);row(activity,body,"回退时间",at>0?DateFormat.getDateTimeInstance(DateFormat.MEDIUM,DateFormat.MEDIUM).format(new Date(at)):"无");
         row(activity,body,"说明","仅保存在本机，不上传。旧网页内核、手动选择本机首页和异常恢复分别显示；升级后重新记录本版本状态。此处不包含片源、照片、地址参数或配对凭证。");
+        body.addView(TvUi.button(activity,"相册加载记录",()->AndroidGalleryTrace.show(activity,activity.getCurrentFocus())));
         return TvDialogs.panel(activity,"本机诊断",body,returnFocus);
     }
     private void row(Activity a,LinearLayout parent,String name,String value){

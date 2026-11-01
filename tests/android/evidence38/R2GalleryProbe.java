@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 /** No socket creation: even an accidental confirmation can only start this in-memory fake. */
 public final class R2GalleryProbe extends GalleryActivity {
+    @Override protected boolean useWebGallery(){return true;}
     final RecoveryClock clock=new RecoveryClock();ControlledWebView view;
     volatile int created;volatile FakeSession last;boolean delay;
     @Override protected android.webkit.WebView newWebView(){return view=new ControlledWebView(this);}
