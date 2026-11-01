@@ -75,7 +75,8 @@
   window.addEventListener('pagehide',function(){disposed=true;stop();});
   window.apertureHomeSources=function(value){sources=value&&typeof value==='object'?value:{};update();};
   window.apertureHomeApps=function(value){snapshotReceived=true;apps={};slots=[];if(value&&Array.isArray(value.apps))for(var i=0;i<value.apps.length;i++)apps[value.apps[i].id]=value.apps[i];if(value&&Array.isArray(value.slots))for(i=0;i<Math.min(4,value.slots.length);i++)if(/^quick[1-4]$/.test(value.slots[i].slot))slots.push(value.slots[i]);renderApps();};
-  try{if(localStorage.getItem('kaishi-apps-v25')!=='1'){localStorage.setItem('kaishi-apps-expanded','true');localStorage.setItem('kaishi-apps-v25','1');}expanded=localStorage.getItem('kaishi-apps-expanded')!=='false';}catch(ignored){}preferredExpanded=expanded;setApps(expanded,false,false);
+  // Every home launch starts expanded; the toggle can still fold it for this session.
+  expanded=true;preferredExpanded=true;setApps(true,false,false);
   var request=new XMLHttpRequest();request.open('GET','./app-presets.json',true);request.onload=function(){try{if(request.status!==200&&request.status!==0)return;var data=JSON.parse(request.responseText);if(!Array.isArray(data)||data.length>24)return;catalog=data;renderApps();}catch(ignored){}};request.send();
   return {appsExpanded:function(){return expanded;},setApps:setApps,restoreApps:function(){setApps(preferredExpanded,false,false);},update:update,schedule:schedule,presetActions:presetActions,decorate:decorate,setMode:setMode};
  };

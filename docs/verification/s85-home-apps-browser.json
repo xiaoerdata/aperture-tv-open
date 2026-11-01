@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "standard 1280: old collapsed preference opens, remote Down selects app, manual collapse works, reload opens",
+    "standard 1920: old collapsed preference opens, remote Down selects app, manual collapse works, reload opens",
+    "parents 1920: viewing entries, app and manage shortcut visible"
+  ],
+  "syntheticApps": true,
+  "xiaomiHardware": false
+}

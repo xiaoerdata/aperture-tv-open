@@ -1,0 +1,30 @@
+{
+  "scope": "homeapps",
+  "passed": true,
+  "positions": [],
+  "checks": [
+    "native compatibility home in this emulator",
+    "first-screen shortcut or add-app entry is visible by default",
+    "remote Down from viewing entry reaches first visible app",
+    "remote Down reaches applications and tools",
+    "remote Down continues to apps and tools page",
+    "Back restores visible first-screen app entry",
+    "last-row remote Down loads next page without clicking load button",
+    "automatic loading retains focused film"
+  ],
+  "images": [
+    "home-apps-expanded",
+    "browse-auto-more"
+  ],
+  "systemInput": "UiAutomation.injectInputEvent with shared downTime / SOURCE_DPAD and sendPointerSync via Android InputManager; no Activity.dispatchKeyEvent in this runner",
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticMediaFixture": true,
+  "edition": "standard",
+  "physicalSize": [
+    1920,
+    1080
+  ],
+  "density": 320,
+  "debugApkSha256": "63472ea1d9959202147d1458cd8002bb1ba43a108924715371ee6ffe19d9f8fc"
+}

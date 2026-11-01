@@ -314,7 +314,7 @@ public final class CinemaActivity extends Activity {
     private void videos(CinemaCatalog.Site site,String category,String name,int page,String word){
         sectionFullscreen=false;sectionSite=site;sectionCategory=category;if(page==1)browseScrollY=0;browseName=name;browseWord=word;browseActive=true;
         task(name,this::home,()->catalogue(site,category,page,word,null),data->{
-            if(page==1)sectionItems=new ArrayList<>();java.util.Set<String> seen=new java.util.HashSet<>();for(CinemaCatalog.Item item:sectionItems)seen.add(item.id);for(CinemaCatalog.Item item:data.items)if(seen.add(item.id)&&sectionItems.size()<400)sectionItems.add(item);
+            if(page==1)sectionItems=new ArrayList<>();java.util.Set<String> seen=new java.util.HashSet<>();for(CinemaCatalog.Item item:sectionItems)seen.add(item.id);for(CinemaCatalog.Item item:data.items)if(seen.add(item.id)&&sectionItems.size()<2000)sectionItems.add(item);
             sectionPage=page;sectionPages=data.pages;renderBrowse();
         },site.type==5);
     }
@@ -324,10 +324,10 @@ public final class CinemaActivity extends Activity {
         status.setText("已加载 "+sectionItems.size()+" 部"+(filterYear.isEmpty()&&filterArea.isEmpty()?"":" · 筛选后 "+shown.size()+" 部")+(browseWord==null?"":" · 当前来源"));
         LinearLayout filters=new LinearLayout(this);content.addView(filters);button(filters,filterYear.isEmpty()?"年份 · 全部":filterYear,()->filter(false));button(filters,filterArea.isEmpty()?"地区 · 全部":filterArea,()->filter(true));
         GridLayout cells=new GridLayout(this);int columns=4;cells.setColumnCount(columns);content.addView(cells);
-        for(int i=0;i<shown.size();i++){CinemaCatalog.Item item=shown.get(i);View tile=poster(new Action(item,sectionSite.api,()->{}),()->{browseScrollY=((ScrollView)content.getParent()).getScrollY();details(sectionSite,item,this::renderBrowse);});GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec(i%columns,1f);p.width=0;p.height=Math.round(getResources().getDisplayMetrics().heightPixels*.51f);p.setMargins(dp(5),dp(6),dp(5),dp(8));cells.addView(tile,p);if(i%columns==0&&sectionLayout!=null)sectionLayout.linkLeft(tile);}
+        for(int i=0;i<shown.size();i++){CinemaCatalog.Item item=shown.get(i);View tile=poster(new Action(item,sectionSite.api,()->{}),()->{browseScrollY=((ScrollView)content.getParent()).getScrollY();details(sectionSite,item,this::renderBrowse);});GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec(i%columns,1f);p.width=0;p.height=Math.round(getResources().getDisplayMetrics().heightPixels*.51f);p.setMargins(dp(5),dp(6),dp(5),dp(8));cells.addView(tile,p);if(i%columns==0&&sectionLayout!=null)sectionLayout.linkLeft(tile);if(i>=(shown.size()-1)/columns*columns&&sectionPage<sectionPages&&sectionItems.size()<2000){tile.setOnKeyListener((v,key,event)->{if(key!=KeyEvent.KEYCODE_DPAD_DOWN)return false;if(event.getAction()==KeyEvent.ACTION_DOWN&&event.getRepeatCount()==0){sectionItemId=item.id;browseScrollY=((ScrollView)content.getParent()).getScrollY();videos(sectionSite,sectionCategory,browseName,sectionPage+1,browseWord);}return true;});}}
         if(shown.isEmpty())content.addView(label(sectionItems.isEmpty()?"暂无影片，可搜索或切换来源":"已加载内容中没有匹配项，可清除筛选或加载更多",22));
-        if(sectionPage<sectionPages&&sectionItems.size()<400)button(content,"加载更多",()->videos(sectionSite,sectionCategory,browseName,sectionPage+1,browseWord));
-        else if(sectionItems.size()>=400)content.addView(label("已加载400部，请按分类或关键词缩小范围",18));
+        if(sectionPage<sectionPages&&sectionItems.size()<2000)button(content,"加载更多",()->videos(sectionSite,sectionCategory,browseName,sectionPage+1,browseWord));
+        else if(sectionItems.size()>=2000)content.addView(label("已加载2000部，请按分类或关键词缩小范围",18));
         if(cells.getChildCount()>0){int selected=0;for(int i=0;i<shown.size();i++)if(shown.get(i).id.equals(sectionItemId))selected=i;View chosen=cells.getChildAt(selected);sectionLayout.linkRight(chosen);chosen.requestFocus();ScrollView list=(ScrollView)content.getParent();list.post(()->list.scrollTo(0,browseScrollY));}
     }
     private void details(CinemaCatalog.Site site,CinemaCatalog.Item item,Runnable previous){

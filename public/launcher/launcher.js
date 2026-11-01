@@ -28,6 +28,7 @@
   photosEnabled = query.photos === '1';
   if (!photosEnabled) { document.body.setAttribute('data-photos', 'off'); document.querySelectorAll('[data-section=photos]').forEach(function(node){node.hidden=true;}); $('collection-nas').hidden=true; }
   parents = query.edition === 'parents';
+  if (!parents) text('apps-title','应用');
   if (parents) {
     document.body.className = 'parents'; document.title = '开视 · 爸妈版';
     ['entry-family', 'entry-photos', 'entry-information'].forEach(function (id) { $(id).hidden = true; });
@@ -129,7 +130,7 @@
     $('pane-footnote').hidden = false;
   }
   function pageId(at) { return ['ambient-home', 'apps-home', 'content-home'][at]; }
-  function firstHomeControl(at) { return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : (photosEnabled ? 'entry-photos' : 'entry-information')); }
+  function firstHomeControl(at) { if(at===1&&!parents)return document.querySelector('.shortcuts-row button:not([hidden])');return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : (photosEnabled ? 'entry-photos' : 'entry-information')); }
   function restoreHomeFocus(at) {
     var saved = homeFocus[at];
     // Leaving the first screen folds the group. Restore its visible group target.
@@ -229,6 +230,8 @@
   var allGlyph = element('span', 'shortcut-glyph', '▦'); allGlyph.setAttribute('aria-hidden', 'true'); $('shortcut-all').insertBefore(allGlyph, $('shortcut-all').firstChild);
   $('home-app-all').onclick = function () { if (local) nativeAction('apps'); else openPane('shortcuts'); };
   $('shortcut-all').onclick = function () { if (local) nativeAction('apps'); else openPane('shortcuts'); };
+  var manageGlyph=element('span','shortcut-glyph','✎');manageGlyph.setAttribute('aria-hidden','true');$('shortcut-manage').insertBefore(manageGlyph,$('shortcut-manage').firstChild);
+  $('shortcut-manage').onclick = function () { if (local) nativeAction('choose-shortcuts'); else openPane('shortcuts'); };
 
   $('entry-family').onclick = function () { familyPage('family'); };
   $('settings-open').onclick = function () { openPane('settings'); };
@@ -493,7 +496,7 @@
       if (name === 'ArrowDown') { var appRow = Array.prototype.slice.call($('parents-shortcuts').querySelectorAll('button')).filter(function(n){return !n.hidden && n.offsetWidth;}); return focusNode(appRow[Math.round(position*(appRow.length-1)/Math.max(1,visible.length-1))]) || true; }
     }
     if (!parents && group.className.indexOf('shortcuts-row') !== -1) {
-      if (name === 'ArrowUp') { var coreRow = Array.prototype.slice.call(document.querySelectorAll('.destinations button')).filter(function (n) { return !n.hidden && n.offsetWidth; }); return focusNode(coreRow[Math.round(position*(coreRow.length-1)/Math.max(1,visible.length-1))]) || true; }
+      if (name === 'ArrowUp') { setHomePage(0); return true; }
       if (name === 'ArrowDown') { setHomePage(2); return true; }
     }
     if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode((homePage===1?document.querySelector('.shortcuts-row button:not([hidden])'):$(homePage===0?'dock-toggle':photosEnabled?'entry-photos':'entry-information'))) || true;
