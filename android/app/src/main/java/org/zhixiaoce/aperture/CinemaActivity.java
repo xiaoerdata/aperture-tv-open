@@ -123,7 +123,7 @@ public final class CinemaActivity extends Activity {
     }
     private AlertDialog settingsDialog;
     private void closeSettings(){if(settingsDialog!=null){settingsDialog.dismiss();settingsDialog=null;}}
-    private int dp(float n){return Math.round(n*getResources().getDisplayMetrics().density);}
+    private int dp(float n){return TvUi.dp(this,n);}
     private TextView label(String text,int size){TextView n=new TextView(this);n.setText(text);n.setTextColor(FG);n.setTextSize(TvUi.typeSize(size));n.setPadding(0,dp(3),0,dp(3));return n;}
     private Button button(LinearLayout parent,String text,Runnable action){
         Button b=TvUi.button(this,text,action);if(parent!=null){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-2,-2);p.setMargins(0,dp(6),0,dp(6));parent.addView(b,p);}return b;
@@ -215,7 +215,9 @@ public final class CinemaActivity extends Activity {
     }
     private void taskFailure(Exception error,Runnable retry){
         String text=message(error);if(text==null||text.trim().isEmpty())text="来源暂时不可用";String lower=text.toLowerCase(java.util.Locale.ROOT);if(lower.contains("timeout")||lower.contains("timed out"))text="来源响应超时";else if(lower.contains("unable to resolve")||lower.contains("connect"))text="暂时无法连接来源";
-        status.setText((sectionSite==null?"":sectionSite.name+" · ")+text);content.removeAllViews();content.addView(label("此来源暂时无法读取",24));button(content,"重试",retry).requestFocus();
+        status.setText((sectionSite==null?"":sectionSite.name+" · ")+text);content.removeAllViews();
+        String diagnostic=text.matches("来源请求失败（[0-9]{3}）")||"来源响应超时".equals(text)||"暂时无法连接来源".equals(text)?text:"请检查地址、网络或来源设置";
+        content.addView(label("此来源暂时无法读取\n"+diagnostic,24));button(content,"重试",retry).requestFocus();
         for(CinemaCatalog.Site local:config.sites)if(local.type==5&&local.supports(view)){button(content,"本地片单 · "+local.name,()->sectionLoad(local,null,1));break;}
         sourcesExpanded=true;refreshSectionRail();button(content,"切换来源",()->{if(sectionLayout!=null)sectionLayout.focusFirst();});button(content,"来源设置",this::settings);
     }

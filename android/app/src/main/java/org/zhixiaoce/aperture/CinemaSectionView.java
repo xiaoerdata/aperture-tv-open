@@ -12,7 +12,7 @@ final class CinemaSectionView {
     private final Activity activity;private View selection;Runnable onCollapse;
     CinemaSectionView(Activity a,String title,View body){
         activity=a;stage=new LinearLayout(a);stage.setBackground(TvUi.background());stage.setOrientation(LinearLayout.HORIZONTAL);
-        rail=new LinearLayout(a);rail.setOrientation(LinearLayout.VERTICAL);rail.setPadding(px(14),px(24),px(14),px(22));rail.setBackgroundColor(0xe80e1014);stage.addView(rail,new LinearLayout.LayoutParams(Math.round(a.getResources().getDisplayMetrics().widthPixels*.225f),-1));
+        rail=new LinearLayout(a);rail.setOrientation(LinearLayout.VERTICAL);rail.setPadding(px(14),px(24),px(14),px(22));rail.setBackgroundColor(0xe80e1014);stage.addView(rail,new LinearLayout.LayoutParams(Math.round(a.getResources().getDisplayMetrics().widthPixels*.19f),-1));
         LinearLayout top=new LinearLayout(a);top.setGravity(Gravity.CENTER_VERTICAL);rail.addView(top);heading=TvUi.text(a,title,30,false);heading.setTypeface(android.graphics.Typeface.DEFAULT,android.graphics.Typeface.BOLD);top.addView(heading,new LinearLayout.LayoutParams(0,-2,1));toggle=PlayerChrome.control(a,"‹",()->{if(onCollapse!=null)onCollapse.run();});toggle.setContentDescription("折叠侧栏");top.addView(toggle,new LinearLayout.LayoutParams(px(56),px(62)));
         list=new ScrollView(a);list.setFillViewport(false);list.setClipToPadding(false);list.setPadding(0,px(12),0,px(12));entries=new LinearLayout(a);entries.setOrientation(LinearLayout.VERTICAL);list.addView(entries);rail.addView(list,new LinearLayout.LayoutParams(-1,0,1));
         footer=new LinearLayout(a);footer.setOrientation(LinearLayout.VERTICAL);rail.addView(footer);stage.addView(body,new LinearLayout.LayoutParams(0,-1,1));

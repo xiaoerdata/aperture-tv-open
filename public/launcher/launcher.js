@@ -11,13 +11,19 @@
   function text(id, value) { $(id).textContent = value; }
   // Fit the same 16:9 composition to the WebView's actual logical viewport.
   // The canvas includes a 5% vertical / 5% horizontal television safe area.
+  var nativeViewport = null;
   function fitTelevision() {
-    var scale=Math.min(innerWidth/1920,innerHeight/1080),style=document.documentElement.style;
+    var width=nativeViewport?Math.min(innerWidth,nativeViewport.width):innerWidth,height=nativeViewport?Math.min(innerHeight,nativeViewport.height):innerHeight;
+    var scale=Math.min(width/1920,height/1080),style=document.documentElement.style;
     style.setProperty('--tv-scale',String(scale));
-    style.setProperty('--tv-left',Math.max(0,(innerWidth-1920*scale)/2)+'px');
-    style.setProperty('--tv-top',Math.max(0,(innerHeight-1080*scale)/2)+'px');
+    style.setProperty('--tv-left',Math.max(0,(width-1920*scale)/2)+'px');
+    style.setProperty('--tv-top',Math.max(0,(height-1080*scale)/2)+'px');
     resetTelevisionScroll();
   }
+  window.apertureSetViewport = function(width,height) {
+    if(typeof width!=='number'||typeof height!=='number'||!isFinite(width)||!isFinite(height)||width<320||height<180)return;
+    nativeViewport={width:width,height:height};fitTelevision();
+  };
   fitTelevision();
   window.addEventListener('resize', fitTelevision);
   location.search.slice(1).split('&').forEach(function (part) {
@@ -133,8 +139,6 @@
   function firstHomeControl(at) { if(at===1&&!parents)return document.querySelector('.shortcuts-row button:not([hidden])');return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : (photosEnabled ? 'entry-photos' : 'entry-information')); }
   function restoreHomeFocus(at) {
     var saved = homeFocus[at];
-    // Leaving the first screen folds the group. Restore its visible group target.
-    if (at === 0 && /^(dock-quick|home-app-add)/.test(saved || '')) saved = 'dock-toggle';
     if (!focusNode($(saved || ''))) focusNode(firstHomeControl(at));
   }
   function setHomePage(at, focus) {
@@ -143,7 +147,7 @@
     if (previous && previous.contains(document.activeElement) && document.activeElement.id) homeFocus[homePage] = document.activeElement.id;
     homePage = at; $('lobby').setAttribute('data-home-page', String(at));
     for (var n = 0; n < 3; n++) $(pageId(n)).hidden = section !== 'overview' || n !== at;
-    if (personal) {if(at!==0)personal.setApps(false,false,false);else personal.restoreApps();personal.schedule();}
+    if (personal) personal.schedule();
     var dots = document.querySelectorAll('[data-home-screen]');
     for (n = 0; n < dots.length; n++) dots[n].setAttribute('aria-pressed', String(Number(dots[n].getAttribute('data-home-screen')) === at));
     if (focus !== false && section === 'overview') restoreHomeFocus(at);
@@ -390,7 +394,6 @@
   function back() {
     if (window.KaishiAmbient && window.KaishiAmbient.key('BrowserBack')) return true;
     if (window.KaishiWeatherUI && window.KaishiWeatherUI.key('BrowserBack')) return true;
-    if (!pane && section==='overview' && homePage===0 && personal.appsExpanded()) {personal.setApps(false,true);return true;}
     if (closePane()) return true;
     if (section !== 'overview') { var old = section, target = sectionReturn; setSection('overview'); setHomePage(parents ? 1 : sectionHomePage, false); if (!focusNode(target && target.offsetWidth ? target : $(parents ? 'entry-live' : 'entry-' + old))) restoreHomeFocus(homePage); return true; }
     if (!parents && homePage > 0) { setHomePage(homePage - 1); return true; }
@@ -452,16 +455,11 @@
         if (inWatch) {
           var watchItems = Array.prototype.slice.call(inWatch.querySelectorAll('button')), watchIndex = watchItems.indexOf(active);
           if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(name === 'ArrowRight' && watchIndex === watchItems.length-1 && !$('personal-panel').hidden ? $('personal-open') : watchItems[watchIndex + (name === 'ArrowLeft' ? -1 : 1)]) || true;
-          if (name === 'ArrowDown') return focusNode($('dock-toggle')) || true;
+          if (name === 'ArrowDown') return focusNode($('home-apps').querySelector('button') || $('home-app-add')) || true;
           if (name === 'ArrowUp') return focusNode($('settings-open')) || true;
         }
-        if (active === $('dock-toggle')) {
-          if (name === 'ArrowDown' || name === 'ArrowRight') { personal.setApps(true,true); return true; }
-          if (name === 'ArrowUp') return focusNode($(homeWatchFocus)) || true;
-          return true;
-        }
         if (active.closest && active.closest('.home-app-list')) {
-          if (name === 'ArrowUp') return focusNode($('dock-toggle')) || true;
+          if (name === 'ArrowUp') return focusNode($(homeWatchFocus)) || true;
           if (name === 'ArrowDown')  { setHomePage(1); return true; }
           var apps = Array.prototype.slice.call($('home-app-list').querySelectorAll('button')).filter(function (n) { return n.tabIndex !== -1 && n.offsetWidth; }), appIndex = apps.indexOf(active);
           if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(apps[appIndex + (name === 'ArrowLeft' ? -1 : 1)]) || true;
@@ -499,7 +497,7 @@
       if (name === 'ArrowUp') { setHomePage(0); return true; }
       if (name === 'ArrowDown') { setHomePage(2); return true; }
     }
-    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode((homePage===1?document.querySelector('.shortcuts-row button:not([hidden])'):$(homePage===0?'dock-toggle':photosEnabled?'entry-photos':'entry-information'))) || true;
+    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode((homePage===1?document.querySelector('.shortcuts-row button:not([hidden])'):(homePage===0?($('home-apps').querySelector('button')||$('home-app-add')):$(photosEnabled?'entry-photos':'entry-information')))) || true;
     if (group.className.indexOf('destinations') !== -1 || group.className.indexOf('tools-grid') !== -1) {
       var tools = group.className.indexOf('tools-grid') !== -1;
       columns = !tools && parents ? (innerWidth / innerHeight > 4/3 ? 4 : 1) : (innerWidth / innerHeight > 4/3 ? 4 : 2);

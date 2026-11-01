@@ -163,16 +163,24 @@ final class DestinationApps {
     }
     private void launchInfo(ResolveInfo info, boolean home) {
         if(home&&(!usable(info)||ourHome(info))){pick("system",true);return;}
-        Intent intent = new Intent(Intent.ACTION_MAIN).setComponent(component(info)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | (home?Intent.FLAG_ACTIVITY_CLEAR_TOP:Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED));
-        if(home)intent.addCategory(Intent.CATEGORY_HOME);
+        Intent intent;
+        if(home){
+            // Preserve the launcher-provided category for Xiaomi's exported TV launcher fallback.
+            // Some firmware exposes that entry as LEANBACK_LAUNCHER rather than HOME.
+            Intent tv=activity.getPackageManager().getLeanbackLaunchIntentForPackage(info.activityInfo.packageName);
+            Intent app=activity.getPackageManager().getLaunchIntentForPackage(info.activityInfo.packageName);
+            Intent resolved=tv!=null&&component(info).equals(tv.getComponent())?tv:app!=null&&component(info).equals(app.getComponent())?app:null;
+            intent=resolved==null?new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setComponent(component(info)):new Intent(resolved);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }else intent=new Intent(Intent.ACTION_MAIN).setComponent(component(info)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         try {
             activity.startActivity(intent);
             if(!home){String key=info.activityInfo.packageName+"/"+info.activityInfo.name;List<String> recent=new ArrayList<>();recent.add(key);for(String old:preferences.getString("recent_apps","").split("\n"))if(!old.isEmpty()&&!old.equals(key)&&recent.size()<5)recent.add(old);preferences.edit().putString("recent_apps",String.join("\n",recent)).apply();}
-            // Do not recreate the lobby during handoff. Remove our task only after the explicit launch succeeds.
-            if(home){preferences.edit().putString("destination_system",component(info).flattenToString()).apply();activity.finishAndRemoveTask();}
+            // Finish only our activity after handoff; removing the whole task can also remove the target on OEM task stacks.
+            if(home){preferences.edit().putString("destination_system",component(info).flattenToString()).apply();activity.finish();}
         } catch (RuntimeException error) {
             if(home)new AlertDialog.Builder(activity).setTitle("原桌面暂时无法打开").setMessage("可重新选择原桌面，或到系统设置恢复默认桌面。无需重启开视。")
-                .setPositiveButton("重新选择",(d,w)->pick("system",true)).setNeutralButton("系统桌面设置",(d,w)->settings(true)).setNegativeButton("返回",null).show();
+                .setPositiveButton("重新选择",(d,w)->pick("system",true)).setNeutralButton("系统桌面设置",(d,w)->settings(true)).setNegativeButton("退出开视",(d,w)->activity.finish()).show();
             else new AlertDialog.Builder(activity).setMessage("这个入口暂时无法打开。请重新选择应用，或从原系统检查是否已停用。").setPositiveButton("知道了",null).show();
         }
     }

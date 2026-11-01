@@ -9,6 +9,7 @@ public final class ResourcePackTest {
     static void reject(Work action,String why)throws Exception{boolean failed=false;try{action.run();}catch(Exception expected){failed=true;}check(failed,why);}
     static JSONObject copy(JSONObject o)throws Exception{return new JSONObject(o.toString());}
     public static void main(String[] args)throws Exception{
+        check(CinemaCatalog.url("https://example.com/pack.json?sharecode=a%2Bb&rev=2",null,false).equals("https://example.com/pack.json?sharecode=a%2Bb&rev=2"),"HTTPS resource URL keeps encoded query");
         String raw=Files.readString(Path.of(args[0]));JSONObject data=new JSONObject(raw);CinemaCatalog.Config config=CinemaCatalog.config(raw,null,false);
         check(config.packId.equals("org.example.family")&&config.packRevision==1,"pack metadata");check(config.sites.size()==4&&config.lives.size()==1,"one file imports five heterogeneous resources");
         check(config.packSha256.equals(CinemaResourcePack.sha256(raw)),"exact original UTF8 hash");check(config.lives.get(0).key().equals("kaishi:org.example.family:live")&&config.lives.get(0).channels.get(0).id.equals("living-room"),"stable live/source identities");

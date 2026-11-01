@@ -98,6 +98,13 @@ public class MainActivity extends Activity {
         current.evaluateJavascript("(function(){if(window.apertureNativeFocus)window.apertureNativeFocus(" + active + ");" + (active ? "" : "var m=document.querySelectorAll('video,audio');for(var i=0;i<m.length;i++)m[i].pause();") + "})()", null);
         if (!active) { current.onPause(); current.pauseTimers(); }
     }
+    private void syncLobbyViewport(WebView current) {
+        if(current!=web||!lobbyMode||!ready||current.getWidth()<=0||current.getHeight()<=0)return;
+        float density=getResources().getDisplayMetrics().density;
+        if(density<=0)return;
+        double width=current.getWidth()/density,height=current.getHeight()/density;
+        current.evaluateJavascript("window.apertureSetViewport&&window.apertureSetViewport("+width+","+height+")",null);
+    }
     private void createWeb(boolean lobby) {
         destroyWeb(); scenicHome=null; lobbyMode = lobby; web = new WebView(this);
         final WeatherProxy forecast=lobby?new WeatherProxy():null;weather=forecast;
@@ -141,7 +148,7 @@ public class MainActivity extends Activity {
                 }
                 return sameOrigin(request.getUrl()) ? null : blockedAsset();
             }
-            @Override public void onPageFinished(WebView view, String url) { if (view == web) { ready = true; CookieManager.getInstance().flush(); if (lobby) { webActive(view, display.active()); nasLabels(); } } }
+            @Override public void onPageFinished(WebView view, String url) { if (view == web) { ready = true; CookieManager.getInstance().flush(); if (lobby) { syncLobbyViewport(view); webActive(view, display.active()); nasLabels(); } } }
             @Override public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse response) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view == web) {if(lobby)nativeLobby();else fallback("家庭服务返回错误，请核对服务地址。");} }); }
             @Override public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view != web) return; if (lobby) nativeLobby(); else fallback("暂时连不上家庭服务。直播、影视应用和原桌面仍可使用。"); }); }
             @Override public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
@@ -150,6 +157,7 @@ public class MainActivity extends Activity {
             }
         });
         if(lobby){
+            web.addOnLayoutChangeListener((view,l,t,r,b,ol,ot,or_,ob)->syncLobbyViewport((WebView)view));
             web.setOverScrollMode(View.OVER_SCROLL_NEVER);web.setHorizontalScrollBarEnabled(false);web.setVerticalScrollBarEnabled(false);
             // OEM WebView may scroll its native viewport during accessibility/remote focus changes.
             // Child DOM lists retain their own scrolling; only the outer native viewport is pinned.
@@ -340,12 +348,22 @@ public class MainActivity extends Activity {
             else { preferences.edit().putBoolean("lite", !preferences.getBoolean("lite", false)).apply(); family(null); }
         });
     }
+    @Override public boolean dispatchKeyEvent(KeyEvent event) {
+        int code=event.getKeyCode();
+        boolean remote=code==KeyEvent.KEYCODE_DPAD_LEFT||code==KeyEvent.KEYCODE_DPAD_RIGHT||code==KeyEvent.KEYCODE_DPAD_UP||code==KeyEvent.KEYCODE_DPAD_DOWN||code==KeyEvent.KEYCODE_DPAD_CENTER||code==KeyEvent.KEYCODE_ENTER||code==KeyEvent.KEYCODE_NUMPAD_ENTER||code==KeyEvent.KEYCODE_BUTTON_A;
+        // Handle TV remote keys before WebView consumes them; native dialogs keep their own window focus.
+        if(remote&&web!=null&&ready&&getWindow().getDecorView().hasWindowFocus()&&getCurrentFocus()==web){
+            if(event.getAction()==KeyEvent.ACTION_DOWN)return onKeyDown(code,event);
+            if(event.getAction()==KeyEvent.ACTION_UP)return onKeyUp(code,event);
+        }
+        return super.dispatchKeyEvent(event);
+    }
     @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
         // OEM assistant owns these events, including repeat/long-press and the unmodified key-up.
         if (VoiceAssistant.systemVoiceKey(keyCode)) return super.onKeyDown(keyCode, event);
         if (keyCode == KeyEvent.KEYCODE_MENU) { if (event.getRepeatCount() == 0) { if(web!=null&&ready)web.evaluateJavascript("!!((window.KaishiAmbient&&window.KaishiAmbient.key('ContextMenu'))||(window.KaishiWeatherUI&&window.KaishiWeatherUI.key('ContextMenu')))",value->{if(!"true".equals(value))quickMenu();});else quickMenu(); } return true; }
         if (keyCode == KeyEvent.KEYCODE_BACK) { if (event.getRepeatCount() == 0) onBackPressed(); return true; }
-        String key = keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? "ArrowLeft" : keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ? "ArrowRight" : keyCode == KeyEvent.KEYCODE_DPAD_UP ? "ArrowUp" : keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? "ArrowDown" : (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) ? "Enter" : null;
+        String key = keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? "ArrowLeft" : keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ? "ArrowRight" : keyCode == KeyEvent.KEYCODE_DPAD_UP ? "ArrowUp" : keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? "ArrowDown" : (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_BUTTON_A) ? "Enter" : null;
         if (key != null && web != null && ready) { if ("Enter".equals(key) && event.getRepeatCount() > 0) return true; web.evaluateJavascript("!!(window.apertureRemoteKey && window.apertureRemoteKey(" + JSONObject.quote(key) + "))", null); return true; }
         return super.onKeyDown(keyCode, event);
     }
@@ -357,7 +375,7 @@ public class MainActivity extends Activity {
     @Override public boolean onKeyUp(int keyCode,KeyEvent event){
         if(VoiceAssistant.systemVoiceKey(keyCode))return super.onKeyUp(keyCode,event);
         if(web!=null&&ready)web.evaluateJavascript("window.KaishiAmbient&&window.KaishiAmbient.releaseKey()",null);
-        if(web!=null&&ready&&(keyCode==KeyEvent.KEYCODE_DPAD_LEFT||keyCode==KeyEvent.KEYCODE_DPAD_RIGHT||keyCode==KeyEvent.KEYCODE_DPAD_UP||keyCode==KeyEvent.KEYCODE_DPAD_DOWN||keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER||keyCode==KeyEvent.KEYCODE_MENU||keyCode==KeyEvent.KEYCODE_BACK))return true;
+        if(web!=null&&ready&&(keyCode==KeyEvent.KEYCODE_DPAD_LEFT||keyCode==KeyEvent.KEYCODE_DPAD_RIGHT||keyCode==KeyEvent.KEYCODE_DPAD_UP||keyCode==KeyEvent.KEYCODE_DPAD_DOWN||keyCode==KeyEvent.KEYCODE_DPAD_CENTER||keyCode==KeyEvent.KEYCODE_ENTER||keyCode==KeyEvent.KEYCODE_NUMPAD_ENTER||keyCode==KeyEvent.KEYCODE_BUTTON_A||keyCode==KeyEvent.KEYCODE_MENU||keyCode==KeyEvent.KEYCODE_BACK))return true;
         return super.onKeyUp(keyCode,event);
     }
     @Override public void onBackPressed() { if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }

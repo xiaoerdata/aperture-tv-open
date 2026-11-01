@@ -84,3 +84,6 @@ body[data-photos="off"] .family-layout .family-daily>.quiet-action{grid-column:1
 .apps-screen .shortcut-glyph,.apps-screen .shortcut strong{flex-shrink:0}
 
 .standard #apps-home .destinations{display:none}
+
+/* Common apps are a permanent, non-interactive section heading. */
+.dock-toggle{min-height:0;padding:0;border:0;background:transparent}.dock-stack[hidden],#dock-total[hidden]{display:none}.home-dock{gap:14px}
