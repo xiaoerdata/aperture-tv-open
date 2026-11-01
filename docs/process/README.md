@@ -180,3 +180,5 @@ S79/S80（本地v30候选）：P79/P80，[九项反馈与首页回退](../V29-V3
 
 
 S81/S82：P81授权v30 / alpha.27封装公开发行，P82追加直播分组核对。见[发行说明](../RELEASE-S81.md)、[软件回执](../verification/s79-summary.json)、[第62期底稿](../../media/DEVLOG-062.md)。发行标签与APK冻结后，公开下载结果将单独回读并追加main；模拟器结果不替代小米验收。
+
+S81/S82已发布：[v30 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.27)、[匿名下载与源码回读](../verification/public-alpha-v30.json)。资源包数量上限未大幅放开；小米真机待验收。

@@ -44,3 +44,6 @@ v30沿用v18—v29的两个包名与发行证书，可在原版上更新，不�
 两版稳定发行证书和ARM32/64包的具体软件检查见[发行说明](RELEASE-S81.md)、[软件回执](verification/s79-summary.json)与[反馈处理](V29-V30-FEEDBACK-S79.md)。模拟器不是小米真机；小爱/米家、原小米桌面、OEM屏保、中文TTS、WorkBuddy客户端、真实同网发现/推包、外部点播成功率与两小时耐久仍需维护者测试。
 
 屏保、天气与网络条件见[屏保与天气](AMBIENT-WEATHER-S71.md)。[保留的v29](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.26)可继续下载。
+
+
+**资源数量说明：** v30 没有大幅放开资源包上限；单包最多 200 个直接节目、500 集、500 个频道和 512 KiB。远程采集站按页读取，最多 500 页、每页最多 120 条，单次响应最多 512 KiB。

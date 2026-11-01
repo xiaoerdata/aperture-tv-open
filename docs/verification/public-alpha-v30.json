@@ -1,0 +1,56 @@
+{
+  "verifiedAt": "2026-11-01T09:49:21.572194+00:00",
+  "versionCode": 30,
+  "version": "0.2.0-alpha.27",
+  "releaseId": 430480668,
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.27",
+  "releaseCommit": "097e9911fbc17261d14559ffa59c7c77fdb53a38",
+  "prerelease": true,
+  "anonymousReleasePage": true,
+  "anonymousAttachmentReadback": [
+    {
+      "name": "kaishi-v30-standard.apk",
+      "assetId": 697887424,
+      "bytes": 55260897,
+      "sha256": "806e402ba39fd41dc060efb66a215bbd899430179d94232d87cda3e30479c73d",
+      "anonymousFullDownload": true
+    },
+    {
+      "name": "kaishi-v30-parents.apk",
+      "assetId": 697891286,
+      "bytes": 55289569,
+      "sha256": "52479ddf5afe68c1e01b627e0792b2db571a802a4c4715078031d1f689af58f3",
+      "anonymousFullDownload": true
+    },
+    {
+      "name": "testing-manifest.json",
+      "assetId": 697892572,
+      "bytes": 48482,
+      "sha256": "b650617cbc51e56d34c7e4c1c93569ee228a6f509abe6313e8fc4d2afc89007c",
+      "anonymousFullDownload": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "assetId": 697892688,
+      "bytes": 267,
+      "sha256": "c5a3c56574117aa23843ea75c1e6bbc35e07ff15d9c147a3adff1dc927461ab0",
+      "anonymousFullDownload": true
+    }
+  ],
+  "sourceVerification": {
+    "trackedBlobDigestsVerified": 1709,
+    "treeMetadataAuthenticated": true,
+    "anonymousManifestReadback": true,
+    "fullGitHubSourceArchiveDownloaded": false
+  },
+  "oldStatePreserved": {
+    "releasesAndDrafts": 15,
+    "assets": 60,
+    "tags": 15
+  },
+  "xiaomiHardwareTested": false,
+  "workBuddyApplicationTested": false,
+  "githubHostedRunnerUsed": false,
+  "hubDeployed": false,
+  "socialMediaUploaded": false
+}

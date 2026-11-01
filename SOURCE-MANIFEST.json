@@ -46,7 +46,8 @@
         "path": "docs/process/README.md",
         "links": 1
       }
-    ]
+    ],
+    "postReleaseReceiptFor": "097e9911fbc17261d14559ffa59c7c77fdb53a38"
   },
   "files": [
     {
@@ -575,16 +576,6 @@
       "sha256": "21a02e064d8db532ecf64cbf5315eb556cb86bbcb9dd2d06a83f99507a4bcc8f"
     },
     {
-      "path": "android/app/src/main/res/drawable/banner.xml",
-      "bytes": 133,
-      "sha256": "13c74367e9ceeb7be125ce2a21f15e46792213f6dac57c92e465ee304e322f99"
-    },
-    {
-      "path": "android/app/src/main/res/drawable/ic_window.xml",
-      "bytes": 131,
-      "sha256": "d1dd3f767d6f2921364575b7beb41db39dfa800a46df6f871d1ae1770a049ddf"
-    },
-    {
       "path": "android/app/src/main/res/drawable-nodpi/kaishi_banner_v2.png",
       "bytes": 57174,
       "sha256": "2f382a514db670d046e98a46aa843b161c3697e3f95adc337141ed5e5af6f2f8"
@@ -598,6 +589,16 @@
       "path": "android/app/src/main/res/drawable-nodpi/tmdb_attribution.png",
       "bytes": 23972,
       "sha256": "915f790f22ef7135409af7d7f244479c058cc98b1a3d31bdb280e89e8de126f1"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/banner.xml",
+      "bytes": 133,
+      "sha256": "13c74367e9ceeb7be125ce2a21f15e46792213f6dac57c92e465ee304e322f99"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/ic_window.xml",
+      "bytes": 131,
+      "sha256": "d1dd3f767d6f2921364575b7beb41db39dfa800a46df6f871d1ae1770a049ddf"
     },
     {
       "path": "android/app/src/parents/res/drawable-nodpi/kaishi_banner_v2.png",
@@ -1206,8 +1207,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4905,
-      "sha256": "7d8827066110302fd24935b45999946846d095ef0bbe6f8f42504852c8b8ddf6"
+      "bytes": 5145,
+      "sha256": "cb69020b5da562a1c90f8eb90bd03cc9f7a7ee2905a4e03893c0d9c538c0b706"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -4766,18 +4767,18 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 226855,
-      "sha256": "1c521b3dad9d27467fd37ea14d33b9a5aaeb78ddb626b68332b662ec355b60e1"
+      "bytes": 227691,
+      "sha256": "29214a8c771c0f05390683ad93627062513d868494d32ba01999ff73cfa3d0a9"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 31794,
-      "sha256": "8f276f865ba467614e1ca30a9a3771d45379db33581bb5bb0bac8e1cc5e18b2c"
+      "bytes": 32185,
+      "sha256": "90bbd22c2b5e56a19c8a9ecf3bca030f240c15adf68ba73295c18b73bb3da542"
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 23242,
-      "sha256": "11afe6aef8017140bbb8bf4c182a9981c822d292d02aa900fb57eb9d803dc24b"
+      "bytes": 23494,
+      "sha256": "d06626b90c94adadd4af4e7129f985d101e540de49b921b903286631c2968ace"
     },
     {
       "path": "docs/release/README-public.md",
@@ -4998,6 +4999,11 @@
       "path": "docs/verification/public-alpha-v29.json",
       "bytes": 2471,
       "sha256": "481f07f2928fbc6391074e8cd62e996242020dd330b1a4d2db90e6d627644ef6"
+    },
+    {
+      "path": "docs/verification/public-alpha-v30.json",
+      "bytes": 1719,
+      "sha256": "6d4ddc6734ef07b83d1039faaeea6d929d336aecf17f060446f502fafd7d1a16"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -6786,8 +6792,8 @@
     },
     {
       "path": "media/DEVLOG-062.md",
-      "bytes": 1350,
-      "sha256": "bba4c353a9a54a3aa1092b7bd48adc38365efb01e5d918235c2e66c51cf18173"
+      "bytes": 1566,
+      "sha256": "8988a5eba21aed2b09a4e6dde5c9fba29bb788f91933a657bfe55974f4e8d58a"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -8120,6 +8126,16 @@
       "sha256": "d9631cff21ca6bad4a8b2be70bdc22ee3f278577f1950ee0340d54d715063545"
     },
     {
+      "path": "tests/android-abis.test.mjs",
+      "bytes": 2477,
+      "sha256": "326632b5fa579b09f627e599da946bb3d107517615738da9ded3e5f784fc87b6"
+    },
+    {
+      "path": "tests/android-source.test.mjs",
+      "bytes": 4726,
+      "sha256": "3b3e8639bfd64aa441177ea6425379274fc20fa278461ed2af5df3eae14309b2"
+    },
+    {
       "path": "tests/android/BrowseRegressionRunner.java",
       "bytes": 19685,
       "sha256": "8d316e99480794ab5900a449d70766b4484f3e7e32f837755c489ef51ddfb94f"
@@ -8178,16 +8194,6 @@
       "path": "tests/android/RevisionRunner.java",
       "bytes": 18324,
       "sha256": "acbb97691b58463fc337e176704728c7b9f235ff6abadc83aac137815d9c4eac"
-    },
-    {
-      "path": "tests/android-abis.test.mjs",
-      "bytes": 2477,
-      "sha256": "326632b5fa579b09f627e599da946bb3d107517615738da9ded3e5f784fc87b6"
-    },
-    {
-      "path": "tests/android-source.test.mjs",
-      "bytes": 4726,
-      "sha256": "3b3e8639bfd64aa441177ea6425379274fc20fa278461ed2af5df3eae14309b2"
     },
     {
       "path": "tests/app-operations-mcp.test.mjs",
