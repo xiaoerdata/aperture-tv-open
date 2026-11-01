@@ -1,0 +1,111 @@
+{
+  "version": "0.2.0-alpha.33",
+  "versionCode": 36,
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.33",
+  "published": true,
+  "prerelease": true,
+  "taggedSourceCommit": "72d24b47d81d7edc6ce41d426a892df481385da2",
+  "signedSourceInputsMatchFrozenTagAndCurrentLocalSource": true,
+  "androidInputSha256": "8aef4515777f60830de0f23a942158078cf338494b296990d781deb569483d86",
+  "assets": [
+    {
+      "name": "kaishi-v36-standard.apk",
+      "assetId": 698681277,
+      "sha256": "7016c3ca41bb4ab3a6614f807afdf5d762901b3043f5c7e9a196a23aeedf3811",
+      "currentPublishedMetadataMatchesCompletePriorReadback": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "assetId": 698683179,
+      "sha256": "f27e402e581f5ac4394587d372c9b40af4b3f2d0b6a982375413625330cbac69",
+      "currentPublishedMetadataMatchesCompletePriorReadback": true
+    },
+    {
+      "name": "testing-manifest.json",
+      "assetId": 698683141,
+      "sha256": "5423c7b24620fd1813619a15693480905f2b785dcada67044b4aa146a5e29cd3",
+      "currentPublishedMetadataMatchesCompletePriorReadback": true
+    }
+  ],
+  "scope": [
+    {
+      "prompt": "P99",
+      "feature": "Return to original desktop",
+      "code": [
+        "android/app/src/main/java/org/zhixiaoce/aperture/SystemHomeReturn.java"
+      ],
+      "evidence": "docs/verification/s91-home-return.json",
+      "deviceAcceptance": "pending",
+      "implementationIncludedInSignedRelease": true
+    },
+    {
+      "prompt": "P100",
+      "feature": "Fourth-screen local gallery, QR upload, templates, fullscreen, screensaver and delete management",
+      "code": [
+        "android/app/src/main/java/org/zhixiaoce/aperture/GalleryStore.java",
+        "android/app/src/main/java/org/zhixiaoce/aperture/GalleryUpload.java",
+        "android/app/src/main/java/org/zhixiaoce/aperture/GalleryActivity.java",
+        "public/launcher/gallery.js",
+        "public/launcher/ambient.js"
+      ],
+      "evidence": "docs/verification/s92-gallery-native.json",
+      "additionalEvidence": "docs/verification/s92-gallery-browser.json",
+      "deviceAcceptance": "pending",
+      "implementationIncludedInSignedRelease": true
+    },
+    {
+      "prompt": "P101-P102",
+      "feature": "Bidirectional four-screen remote navigation",
+      "code": [
+        "public/launcher/launcher.js",
+        "android/app/src/main/java/org/zhixiaoce/aperture/ScenicNativeHome.java"
+      ],
+      "evidence": "docs/verification/s92-gallery-browser.json",
+      "deviceAcceptance": "pending",
+      "implementationIncludedInSignedRelease": true
+    },
+    {
+      "prompt": "P103",
+      "feature": "Favorites poster and film overview, playback and saved-state preservation",
+      "code": [
+        "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelfView.java",
+        "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelf.java"
+      ],
+      "evidence": "docs/verification/s92-shelf.json",
+      "additionalEvidence": "docs/verification/s92-ui-native.json",
+      "deviceAcceptance": "pending",
+      "implementationIncludedInSignedRelease": true
+    },
+    {
+      "prompt": "P104",
+      "feature": "Left/right group switching in live channel drawer and browse sidebar",
+      "code": [
+        "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
+        "android/app/src/main/java/org/zhixiaoce/aperture/CinemaLivePanel.java",
+        "android/app/src/main/java/org/zhixiaoce/aperture/CinemaSectionView.java"
+      ],
+      "evidence": "docs/verification/s92-ui-native.json",
+      "limitation": "Native probe covered the channel drawer, not full playback or the persistent browse sidebar on Xiaomi",
+      "deviceAcceptance": "pending",
+      "implementationIncludedInSignedRelease": true
+    },
+    {
+      "prompt": "P105",
+      "feature": "Opt-in default HOME and accessibility home guard with original-desktop restore",
+      "code": [
+        "android/app/src/main/java/org/zhixiaoce/aperture/HomeEntryController.java",
+        "android/app/src/main/java/org/zhixiaoce/aperture/HomeGuardService.java",
+        "android/app/src/main/res/xml/kaishi_home_guard.xml"
+      ],
+      "evidence": "docs/verification/s92-home-guard.json",
+      "limitation": "Does not remove firmware-stage boot advertising; OEM HOME and boot behavior needs hardware acceptance",
+      "deviceAcceptance": "pending",
+      "implementationIncludedInSignedRelease": true
+    }
+  ],
+  "firmwareStageAdRemovalImplemented": false,
+  "realXiaomiAcceptanceComplete": false,
+  "parentsRelease": "paused",
+  "auditOnlyNoBinaryChanges": true,
+  "completeAnonymousDownloadEvidence": "public-alpha-v36.json"
+}

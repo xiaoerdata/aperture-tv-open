@@ -48,7 +48,7 @@
       }
     ],
     "postReleaseReceiptFor": "72d24b47d81d7edc6ce41d426a892df481385da2",
-    "publicParent": "72d24b47d81d7edc6ce41d426a892df481385da2"
+    "publicParent": "e9548c0e81ecefeeea51b8e1c3dcad208f26c852"
   },
   "files": [
     {
@@ -4853,13 +4853,13 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 246174,
-      "sha256": "52b2967397f2ac19a9381658f8e0532541189fb1acf23bcb3daca8bc9c53b8a1"
+      "bytes": 247258,
+      "sha256": "bd84bb65d392825d8fee95f536031b5b8d65bbe016513c22113eedb7635d34e4"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 37403,
-      "sha256": "d58b9c41c51f24f77fea9f2f0409107010cbd5ee8339df3491cdfd43951ee8e4"
+      "bytes": 37493,
+      "sha256": "10bdf81d69d19a789aa6a3be7b8c4c4e7b5718d98b9fabbe9c3b3a9ffb74644a"
     },
     {
       "path": "docs/process/README.md",
@@ -6487,6 +6487,11 @@
       "sha256": "eaa14924e00cc2057df61aa0a5ddbd803e60e5eae76b54be5b26530ce6d66039"
     },
     {
+      "path": "docs/verification/s93-v36-release-audit.json",
+      "bytes": 4666,
+      "sha256": "f60a42819355746853ab1decdc60cfd37ff2d6bcde20779157c7986e0aab7a13"
+    },
+    {
       "path": "docs/verification/tv-controls.json",
       "bytes": 4183,
       "sha256": "c97b19b83bba721b28023595c2a8e2ab38c166f81ba47ef87fecb7876af9a5ff"
@@ -6998,8 +7003,8 @@
     },
     {
       "path": "media/DEVLOG-068.md",
-      "bytes": 1070,
-      "sha256": "e4270084a5b423137a83fc3193f0915f2eeec88e8aee8a784861c8b47ad1f28b"
+      "bytes": 1320,
+      "sha256": "7d08d2b8c68f43f016ee77a846f9b7bead94f9500b19be6db2cb9008db94ebac"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
