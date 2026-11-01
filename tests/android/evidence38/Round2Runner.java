@@ -7,7 +7,12 @@ import java.lang.reflect.*;import java.util.concurrent.TimeUnit;import java.util
 public final class Round2Runner extends Instrumentation {
     final JSONArray checks=new JSONArray(),captures=new JSONArray();Activity open;
     private void ui(Runnable action){runOnMainSync(action);}
-    private void key(int code){sendKeyDownUpSync(code);waitForIdleSync();}
+    private void key(int code){
+        long downTime=SystemClock.uptimeMillis();
+        sendKeySync(new KeyEvent(downTime,downTime,KeyEvent.ACTION_DOWN,code,0));
+        sendKeySync(new KeyEvent(downTime,SystemClock.uptimeMillis(),KeyEvent.ACTION_UP,code,0));
+        waitForIdleSync();
+    }
     private Object field(Object target,String name){for(Class<?> c=target.getClass();c!=null;c=c.getSuperclass())try{Field f=c.getDeclaredField(name);f.setAccessible(true);return f.get(target);}catch(NoSuchFieldException ignored){}catch(Exception e){throw new RuntimeException(e);}throw new AssertionError(name);}
     private void check(boolean pass,String name){if(!pass)throw new AssertionError(name);checks.put(name);android.util.Log.i("KaishiRound2Probe","PASS "+name);}
     private <T extends Activity>T launch(Class<T> type){T a=type.cast(startActivitySync(new Intent(getTargetContext(),type).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));open=a;waitForIdleSync();return a;}

@@ -1327,3 +1327,7 @@ R2-01新增测试专用EvidenceCapture/FrameEvidenceGate，绑定活动、窗口
 标准ARM与x86分别release构建、现有证书签名，213项Android/launcher输入一致：679928fa86bf5347ec90a4ed9887b2352dddf4ed4d7be10747683e3717be0675。签名脚本保留中间包、不删除文件，并扫描测试类不进入产品。最终提交和两包SHA以ROUND2-MANIFEST为准。小米真机、现代内核、正式ARM运行与真实上传仍未验收；收口后停等云测。
 
 冻结前的完整链接检查拦截了本地旧过程索引中的private-preview下载链接，尚未创建候选提交。候选过程索引改为沿用已审阅父提交，仅追加本轮条目；保留本地原索引与首次失败日志，没有把失效私有链接重新纳入快照。最终探针另将String.repeat改为API28可用的StringBuilder，最终javac/D8 exit0；先前成功编译探针标为已被最终测试源码替代。
+
+### S95 测试修正 · 成对遥控事件
+
+协调方云端原R2失败前三项通过、ok:false，INSTRUMENTATION_CODE=0不能当通过。A/B发现sendKeyDownUpSync产生不相同的DOWN/UP.downTime；取消框不关闭但created/fakeStarts均0。同downTime的诊断对照可正常取消，未证实意外开启上传。仅修Round2Runner.key，真实单调时钟的一次downTime用于成对sendKeySync，UP.eventTime取当时实时时钟；不改取消合并断言、旧手势/长按测试和产品保护。构建器增加独立receipt参数，原回执/探针/失败证据保留，不重建产品两包。来源、A/B摘要及复建见ROUND2-V38-KEY-FIX.md；此修正仅编译待正式云端复跑。原产品提交0f09、213输入与两包SHA不变，独立冻结测试修正后停等。

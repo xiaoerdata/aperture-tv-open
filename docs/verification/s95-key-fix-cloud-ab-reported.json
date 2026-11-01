@@ -1,0 +1,50 @@
+{
+  "evidenceOrigin": "coordinator reported cloud A/B results in current task message; raw cloud files not received locally",
+  "productCandidateCommit": "0f09b9d218a0937f16c5d0418f0f546ff138174e",
+  "originalRound2Failure": {
+    "ok": false,
+    "passedChecks": 3,
+    "instrumentationCode": 0,
+    "shellSuccessIsTestAcceptance": false,
+    "rawFailureReceiptLocallyAvailable": false
+  },
+  "diagnosticA": {
+    "construction": "sendKeyDownUpSync",
+    "downDownTime": 10686047,
+    "upDownTime": 10686108,
+    "sameDownTime": false,
+    "created": 0,
+    "fakeStarts": 0,
+    "cancelDialogShowing": true,
+    "confirmationReferenceNonNull": true
+  },
+  "diagnosticB": {
+    "construction": "paired DOWN/UP with one downTime",
+    "downDownTime": 10692370,
+    "upDownTime": 10692370,
+    "sameDownTime": true,
+    "created": 0,
+    "fakeStarts": 0,
+    "cancelDialogShowing": false,
+    "confirmationReferenceNonNull": false,
+    "pending": false
+  },
+  "conclusion": "test gesture construction mismatch; no proven unintended upload start",
+  "reportedR1OnV38": {
+    "controlledChecksPassed": 51,
+    "newCaptureReceiptsValid": 4,
+    "pixelsReviewed": false,
+    "completeRound2Accepted": false
+  },
+  "realUploadListenerStarted": false,
+  "diagnosticBIsFormalCorrectedTestRerun": false,
+  "formalCorrectedTestExecutedLocally": false,
+  "onlyRound2RunnerKeyHelperChanged": true,
+  "combinedCancelAssertionPreserved": true,
+  "manualStaleAndHeldGestureTestsPreserved": true,
+  "correctedSource": {
+    "path": "tests/android/evidence38/Round2Runner.java",
+    "sha256": "dc3370cce94f9898ac6e9514d3828fc6da3a1cd11a93e4c9245d9f79ba18f17d"
+  },
+  "priorSourceSha256": "c2c10884168613f4d84325e5b0f2af9d4d8b536e7e8bcca14addd7c36401985e"
+}

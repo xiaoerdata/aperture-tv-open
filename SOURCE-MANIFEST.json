@@ -4923,8 +4923,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 254580,
-      "sha256": "c61cd1c100bdd0f046472f995d538f6ddcb389c2d6da6a81dff5dbca016a0d26"
+      "bytes": 255376,
+      "sha256": "20168ef93e5cbebc9942165f1eb06271f43449f71a7e4088fdfd6ca226c8d8d3"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -4940,6 +4940,11 @@
       "path": "docs/process/ROUND1-V37.md",
       "bytes": 2443,
       "sha256": "485ff8f20c534da1c844462388e85ecd3fda86d31f42008ab53282f2e7540d46"
+    },
+    {
+      "path": "docs/process/ROUND2-V38-KEY-FIX.md",
+      "bytes": 2423,
+      "sha256": "4e91732f0a24836907993003942f61fed4aa4c573e7e7703a058e591fa46621e"
     },
     {
       "path": "docs/process/ROUND2-V38.md",
@@ -6597,6 +6602,21 @@
       "sha256": "ae12aff7b3bd1636a6ca40d9d9345c4198a704be3df6e6b3616e898c37dfb25c"
     },
     {
+      "path": "docs/verification/s95-key-fix-cloud-ab-reported.json",
+      "bytes": 1739,
+      "sha256": "7153c3a9fbfa684101ee6e29070be1f924e0825ce0357db1607b2a8f2b497d4f"
+    },
+    {
+      "path": "docs/verification/s95-key-fix-compile.json",
+      "bytes": 2186,
+      "sha256": "f5e1c4aa63232dc2752b211148a5324b166516a3ccf841a58aa7f37c036afd31"
+    },
+    {
+      "path": "docs/verification/s95-key-fix-preservation.json",
+      "bytes": 1903,
+      "sha256": "9989ba5f9e6b78346e1626080d6349bd0793aeed50eba8ac3228bdf0c5921da9"
+    },
+    {
       "path": "docs/verification/s95-probe-compile.json",
       "bytes": 2186,
       "sha256": "caca9d17911d2d27683e4704ee5cd3ff107968fe2ec0f7f6817186039407945a"
@@ -7140,6 +7160,11 @@
       "path": "media/DEVLOG-070.md",
       "bytes": 1215,
       "sha256": "8d9068437f38abfcdd9505a0dad3847a1c5e64160135bd989bb1ef3d8324be11"
+    },
+    {
+      "path": "media/DEVLOG-071.md",
+      "bytes": 894,
+      "sha256": "22371d87a7cc1103579af011e752981c9ab89f7a736374ee4285526c983c685a"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -8373,8 +8398,8 @@
     },
     {
       "path": "scripts/s95-build-r2-probe.py",
-      "bytes": 4090,
-      "sha256": "52e683ce5e35a39b83b16593dd791e473f070043d2faff8723e43e8692bee9f6"
+      "bytes": 4412,
+      "sha256": "3c4a2ae107b0973aa3a0076a0ff37ab87c1740c0c56517c818b56d6110b3fb23"
     },
     {
       "path": "scripts/s95-final-delivery.py",
@@ -8743,8 +8768,8 @@
     },
     {
       "path": "tests/android/evidence38/Round2Runner.java",
-      "bytes": 13547,
-      "sha256": "c2c10884168613f4d84325e5b0f2af9d4d8b536e7e8bcca14addd7c36401985e"
+      "bytes": 13767,
+      "sha256": "dc3370cce94f9898ac6e9514d3828fc6da3a1cd11a93e4c9245d9f79ba18f17d"
     },
     {
       "path": "tests/android/recovery37/ControlledWebView.java",
@@ -9233,5 +9258,13 @@
     "publiclyReleased": false,
     "parentsPaused": true,
     "waitForCloudRetest": true
+  },
+  "testCorrection": {
+    "productCandidateCommit": "0f09b9d218a0937f16c5d0418f0f546ff138174e",
+    "description": "Round2Runner paired remote key events; independent compilation receipt",
+    "productChanged": false,
+    "versionChanged": false,
+    "formalDeviceRerunExecuted": false,
+    "correctedTestSourceSha256": "dc3370cce94f9898ac6e9514d3828fc6da3a1cd11a93e4c9245d9f79ba18f17d"
   }
 }
