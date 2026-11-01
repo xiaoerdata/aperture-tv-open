@@ -1,0 +1,6 @@
+{
+  "productionRoutingCode": true,
+  "androidBoundaryDoubles": true,
+  "realXiaomi": false,
+  "output": "17 system-home routing assertions passed (Android boundary doubles; Xiaomi untested)"
+}

@@ -1,14 +1,14 @@
 # 下载与版本
 
-**仅适配小米电视，Android 8+。** 当前标准版为 **v34 / 0.2.0-alpha.31 Alpha 测试版**。修复首页启动时提前跳转导致的初始化中断，更新视口约束、返回确认与默认桌面设置。小米 85 QLED 的最终效果仍需默认显示设置下复测；爸妈版暂停更新。
+**仅适配小米电视，Android 8+。** 当前标准版为 **v35 / 0.2.0-alpha.32 Alpha 测试版**。针对返回原桌面失败，优先复用系统HOME分发，旧入口失败继续尝试真实桌面入口。小米 85 QLED 的最终效果仍需默认显示设置下复测；爸妈版暂停更新。
 
-[标准版 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.31/kaishi-v34-standard.apk) · [发行页面](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.31) · [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.31/SHA256SUMS) · [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.31/testing-manifest.json)
+[标准版 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.32/kaishi-v35-standard.apk) · [发行页面](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.32) · [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.32/SHA256SUMS) · [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.32/testing-manifest.json)
 
 [历史爸妈版 v32](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.29/kaishi-v32-parents.apk)
 
-## 从v18—v33升级
+## 从v18—v34升级
 
-v34 标准版沿用 v18—v33 的标准版包名与发行证书，可在原标准版上更新，不需卸载或重新配对。安装前保留数据；本版安装包大小以测试清单为准，默认支持 ARM32/64，不需要选择CPU架构。
+v35 标准版沿用 v18—v34 的标准版包名与发行证书，可在原标准版上更新，不需卸载或重新配对。安装前保留数据；本版安装包大小以测试清单为准，默认支持 ARM32/64，不需要选择CPU架构。
 
 ## 与v17并存
 
@@ -31,7 +31,7 @@ v34 标准版沿用 v18—v33 的标准版包名与发行证书，可在原标�
 
 ## 本次改动与测试范围
 
-本版改动与真实验收边界见 [v34 发行说明](RELEASE-S90.md)。APK 与公开来源一致性见本版测试清单。仅发布标准版，沿用包名和签名，可覆盖升级保留配置。
+本版改动与真实验收边界见 [v35 发行说明](RELEASE-S91.md)。APK 与公开来源一致性见本版测试清单。仅发布标准版，沿用包名和签名，可覆盖升级保留配置。
 
 浏览器在 appassets 地址复现旧版初始化中断；单独更换屏保脚本后通过。Android28 / WebView66 隔离验证页面缩放与确认动作，省略大图和字体并绕过产品>=89内核门槛，不代表小米真机或完整应用验收。默认桌面、开机和 HOME 分发必须由小米固件提供支持。
 

@@ -1,6 +1,6 @@
 {
   "format": "aperture-public-source/v1",
-  "version": "0.2.0-alpha.31",
+  "version": "0.2.0-alpha.32",
   "source": {
     "commit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
     "workingTreeDirty": true
@@ -48,7 +48,7 @@
       }
     ],
     "postReleaseReceiptFor": null,
-    "publicParent": "a7024479461e59b28591491fcd7e7e8f94441ac3"
+    "publicParent": "1d9a3bf9b91a1e9b64fb3ee41dac628ad1277adb"
   },
   "files": [
     {
@@ -98,8 +98,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5656,
-      "sha256": "c521b2b0e74a40ac52cfb0f26eca8f3c4b033d8b897d07b197384194912161c2"
+      "bytes": 5642,
+      "sha256": "d246fca3dfb7e7dca67ca1a587892ed18164a106a0d2a5d5f038ca704c7f7d75"
     },
     {
       "path": "SECURITY.md",
@@ -119,7 +119,7 @@
     {
       "path": "android/app/build.gradle",
       "bytes": 3958,
-      "sha256": "86e7ee5310f3db7bbf59ad883a0f71722515e3a85d3f81a4b248fcc327de2177"
+      "sha256": "ea1e32d9af4733f6e257257797a6e3533b711356fdcf86906cb494fdb98b030a"
     },
     {
       "path": "android/app/src/debug/AndroidManifest.xml",
@@ -338,8 +338,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/DestinationApps.java",
-      "bytes": 19315,
-      "sha256": "4bce7b59d81c59beb3ee102a7ec089a87347a918ecbd49ff4f2c55dcd8abf8d7"
+      "bytes": 18617,
+      "sha256": "b5adaa12d060346f41200cdb1ddaab88cddf92fa937b9bb6ed313b54a740b99e"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/DisplayLifecycle.java",
@@ -535,6 +535,11 @@
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/SmbNasReader.java",
       "bytes": 6070,
       "sha256": "af5d0d324448081c164f05fbe4e75fb21d123b72cf0f22149c168bee4abace1b"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/SystemHomeReturn.java",
+      "bytes": 5831,
+      "sha256": "583a65695585e61e18bdd853ce30c8668b96cce083dfee1bc8f64ec6b496fabd"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/TvDialogs.java",
@@ -1213,8 +1218,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4167,
-      "sha256": "143d49aef8c06046f5d1710a45d3150f0688efeab560866419b4e6dcd0047300"
+      "bytes": 4159,
+      "sha256": "a6a493d2efa2f64547fa465d52074107bfa5bae8201005172099f29f97aeb675"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -1362,6 +1367,11 @@
       "sha256": "bf4078befccad4ea70976e3289c49a3f8dce8e3dfd74791f08d3595a72c23cb3"
     },
     {
+      "path": "docs/RELEASE-S91.md",
+      "bytes": 1447,
+      "sha256": "ef27a7fe52356511bc255cd22feda8d2855243708e77f854ccdb4fed699bf76c"
+    },
+    {
       "path": "docs/RESOURCE-PACK-AGENT.md",
       "bytes": 6590,
       "sha256": "8007471e0b4a399503422a138ff401d7cbc98fac2f43225a5160fb19a60fbac0"
@@ -1388,8 +1398,8 @@
     },
     {
       "path": "docs/TV-REMOTE.md",
-      "bytes": 4877,
-      "sha256": "94df60f8b5fda85796318a200c72a0f3acbd964df7bed71ab1d3f67d3eb7b95f"
+      "bytes": 5200,
+      "sha256": "41c0732d40573243df5b23c6b47d697012ce6e9cf5b5f8733ea3e0e458b48867"
     },
     {
       "path": "docs/TV-VIEWPORT.md",
@@ -1438,8 +1448,8 @@
     },
     {
       "path": "docs/XIAOMI-COMPATIBILITY.md",
-      "bytes": 6253,
-      "sha256": "738e5edb340a2e8660726adea28510e6752418bf366011dc6aaa777e2de4e3f7"
+      "bytes": 6557,
+      "sha256": "db6017d6f768fffa3ea01106a22e31326d65d5f2e828f6d06f960b44c2c33f33"
     },
     {
       "path": "docs/XIAOMI-HOME.md",
@@ -4778,13 +4788,13 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 238358,
-      "sha256": "f69f4f538092dbec2844b0a830d4a7994e47ec92d2c889b5f2ea0ff68aadb78c"
+      "bytes": 240386,
+      "sha256": "2a96b96e42afc6b49cae590fb7bae5c3555168718d5789298ffd65c30cfda58c"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 35359,
-      "sha256": "2a00a999f32c3ece1ef993aab1e0e500528d57d049f95802db860a56404447ce"
+      "bytes": 35604,
+      "sha256": "2232eee088876b4be035923f7f0f5d9d9ae5d1f2725707a090ec57831547f864"
     },
     {
       "path": "docs/process/README.md",
@@ -4793,8 +4803,8 @@
     },
     {
       "path": "docs/release/README-public.md",
-      "bytes": 5636,
-      "sha256": "16dcf4bacedea433697b70e0b87061eb036c50c871c086cd942bddef8569243b"
+      "bytes": 5622,
+      "sha256": "241ccad543aca6dbb691ad193b41a2ed56cf29157f7f25f50230de71b94e5fea"
     },
     {
       "path": "docs/schemas/message-feed-v1.schema.json",
@@ -6377,6 +6387,11 @@
       "sha256": "48815dc27a5523f8abf9c6d06e1e4dbc3238742c07be97e7f13a6b38725513cd"
     },
     {
+      "path": "docs/verification/s91-home-return.json",
+      "bytes": 193,
+      "sha256": "695bf9000579f62181c8985f6985ea3c067231f6008ef5a9b125b9ecc3708fca"
+    },
+    {
       "path": "docs/verification/tv-controls.json",
       "bytes": 4183,
       "sha256": "c97b19b83bba721b28023595c2a8e2ab38c166f81ba47ef87fecb7876af9a5ff"
@@ -6882,6 +6897,11 @@
       "sha256": "f26907c2564bb69bb0ae90fcb43233338e6534cb3a04692bb4f3d90cd5ca1df9"
     },
     {
+      "path": "media/DEVLOG-067.md",
+      "bytes": 640,
+      "sha256": "967e6335d49bc4077593c7387ac0cb57441b0efc257bfdd04ee8ef2d4583125b"
+    },
+    {
       "path": "media/GLASS-ASSET-PROMPT.md",
       "bytes": 1380,
       "sha256": "daeb021eb3ad316b9bd2aedcdd9dfe6d04e9dbeca4aff33187957a1e5d327b42"
@@ -6944,12 +6964,12 @@
     {
       "path": "package-lock.json",
       "bytes": 55465,
-      "sha256": "9ac052390a6be3250a38958d07a7d89edc5e3c489b53f64e1ae7427d7286ea4e"
+      "sha256": "13eec33a79cf13174429336ad1ee89af07f4a01d83dd5d273c7be23d10625061"
     },
     {
       "path": "package.json",
       "bytes": 1767,
-      "sha256": "d8403aca1b1497a766327e7598f9f18c30a6bac163c66c6eade00995699d1cf1"
+      "sha256": "f8e1d6e40bdba4114e7e61ae0f81dbd011a3cce225beb4d6fdb0ccfd357f4a58"
     },
     {
       "path": "public/assets/weekend.svg",
@@ -8017,6 +8037,11 @@
       "sha256": "49c3a44a6924ec58481834475a95bf1f69f07dc433ac104e61043b7796099976"
     },
     {
+      "path": "scripts/s91-home-return-test.py",
+      "bytes": 4091,
+      "sha256": "8680e9ab07fe85a3aedc23b7a4a4961cba09dd079586c592ad4c612d96ed55cb"
+    },
+    {
       "path": "scripts/seal-nas-config.mjs",
       "bytes": 1674,
       "sha256": "825b5db1ea866994c885db7f3ab57b0a73a41438c9e11d5cb8a51ba025fc1758"
@@ -8600,6 +8625,11 @@
       "path": "tests/java/ResourcePackTest.java",
       "bytes": 8302,
       "sha256": "a1ea56568bfd3657c373e7ecfcd2fe677a52210518c0fb84d03b8f0975d0762f"
+    },
+    {
+      "path": "tests/java/SystemHomeReturnTest.java",
+      "bytes": 6027,
+      "sha256": "88602912859c8442f97111e44ca9eb94ff5686a502bc17b0c8559ada4abcb404"
     },
     {
       "path": "tests/java/TvScaleTest.java",

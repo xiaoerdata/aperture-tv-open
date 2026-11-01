@@ -108,7 +108,7 @@ final class DestinationApps {
         return null;
     }
     String label(String slot) { ResolveInfo info = selected(slot); return info == null ? "" : info.loadLabel(activity.getPackageManager()).toString(); }
-    void launch(String slot) { if (!valid(slot)) return; ResolveInfo info = selected(slot); if (info == null) pick(slot, true); else launchInfo(info, "system".equals(slot)); }
+    void launch(String slot) { if (!valid(slot)) return; ResolveInfo info = selected(slot); if("system".equals(slot)){returnToSystem(info);return;}if (info == null) pick(slot, true); else launchInfo(info, false); }
     void pick(String slot, boolean openAfter) {
         if (!valid(slot)) return; List<ResolveInfo> apps = available("system".equals(slot));
         if (apps.isEmpty()) { new AlertDialog.Builder(activity).setTitle("没有找到" + title(slot)).setMessage("请先从原电视系统安装或启用应用。部分固件限制桌面入口，可在系统设置中切换。")
@@ -163,27 +163,25 @@ final class DestinationApps {
             }).setNegativeButton("返回", null).show();
     }
     private void launchInfo(ResolveInfo info, boolean home) {
-        if(home&&(!usable(info)||ourHome(info))){pick("system",true);return;}
-        Intent intent;
-        if(home){
-            // Preserve the launcher-provided category for Xiaomi's exported TV launcher fallback.
-            // Some firmware exposes that entry as LEANBACK_LAUNCHER rather than HOME.
-            Intent tv=activity.getPackageManager().getLeanbackLaunchIntentForPackage(info.activityInfo.packageName);
-            Intent app=activity.getPackageManager().getLaunchIntentForPackage(info.activityInfo.packageName);
-            Intent resolved=tv!=null&&component(info).equals(tv.getComponent())?tv:app!=null&&component(info).equals(app.getComponent())?app:null;
-            intent=resolved==null?new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setComponent(component(info)):new Intent(resolved);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        }else intent=new Intent(Intent.ACTION_MAIN).setComponent(component(info)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        if(home){returnToSystem(info);return;}
+        Intent intent=new Intent(Intent.ACTION_MAIN).setComponent(component(info)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         try {
             activity.startActivity(intent);
             if(!home){String key=info.activityInfo.packageName+"/"+info.activityInfo.name;List<String> recent=new ArrayList<>();recent.add(key);for(String old:preferences.getString("recent_apps","").split("\n"))if(!old.isEmpty()&&!old.equals(key)&&recent.size()<5)recent.add(old);preferences.edit().putString("recent_apps",String.join("\n",recent)).apply();}
-            // Finish only our activity after handoff; removing the whole task can also remove the target on OEM task stacks.
-            if(home){preferences.edit().putString("destination_system",component(info).flattenToString()).apply();activity.finish();}
         } catch (RuntimeException error) {
-            if(home)new AlertDialog.Builder(activity).setTitle("原桌面暂时无法打开").setMessage("可重新选择原桌面，或到系统设置恢复默认桌面。无需重启开视。")
-                .setPositiveButton("重新选择",(d,w)->pick("system",true)).setNeutralButton("系统桌面设置",(d,w)->settings(true)).setNegativeButton("退出开视",(d,w)->activity.finish()).show();
-            else new AlertDialog.Builder(activity).setMessage("这个入口暂时无法打开。请重新选择应用，或从原系统检查是否已停用。").setPositiveButton("知道了",null).show();
+            new AlertDialog.Builder(activity).setMessage("这个入口暂时无法打开。请重新选择应用，或从原系统检查是否已停用。").setPositiveButton("知道了",null).show();
         }
+    }
+    private void returnToSystem(ResolveInfo selected){
+        SystemHomeReturn.Result result=SystemHomeReturn.open(activity,selected,available(true));
+        if(result.component!=null){
+            preferences.edit().putString("destination_system",result.component.flattenToString()).apply();
+            activity.finish();return;
+        }
+        preferences.edit().remove("destination_system").apply();
+        new AlertDialog.Builder(activity).setTitle("未能返回系统桌面")
+            .setMessage("桌面入口启动失败（"+result.failure+"）。可按遥控器 HOME 返回，或重新选择原桌面。")
+            .setPositiveButton("重新选择",(d,w)->pick("system",true)).setNeutralButton("桌面设置",(d,w)->settings(true)).setNegativeButton("留在开视",null).show();
     }
     void settings(boolean home) {
         if (home) { if(homeEntry==null)homeEntry=new HomeEntryController(activity);homeEntry.show();return; }
