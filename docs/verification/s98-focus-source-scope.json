@@ -1,0 +1,63 @@
+{
+  "source": "coordinator reported formal cloud results and constrained direction-only device A/B; raw cloud ZIP not received",
+  "productCandidateCommit": "72afdfe44695aa2bd398315af29a762761610d86",
+  "reportedFormalRuns": {
+    "r1Passed": 51,
+    "r2": {
+      "time": "21:43:17",
+      "passedBeforeFailure": 5,
+      "failedCase": "remote Right focuses upload positive",
+      "lateExitMatrixReached": false
+    },
+    "r3": {
+      "passedBeforeFailure": 4,
+      "failedCase": "native remote Down reaches upload control",
+      "photosExecuted": false
+    }
+  },
+  "reportedDirectionOnlyDiagnostic": {
+    "interval": "21:48:59–21:49:28",
+    "originalHelperFocusAfterRight": 16908314,
+    "originalAssertion": false,
+    "downHandled": false,
+    "naturalFocusSearchCandidate": 16908313,
+    "sameRootToken": true,
+    "visibleEnabledFocusable": true,
+    "requestFocusResult": true,
+    "created": 0,
+    "fakeStarts": 0,
+    "centerSent": false
+  },
+  "diagnosticConfirmsMissingDefaultDpadFocus": true,
+  "focusFailureProvesProductRegression": false,
+  "lateExitFailureResolved": false,
+  "rawCloudArchiveReceivedLocally": false,
+  "transferRetried": false,
+  "productChanged": false,
+  "existingAssertionsAndLifecycleGatesUnchanged": true,
+  "newHelperExecutedLocally": false,
+  "publicSourceEvidence": {
+    "tag": "android-9.0.0_r1",
+    "retrievedVia": "GitHub connector",
+    "excerptPath": "artifacts/s98-focus/aosp-focus-excerpts.txt",
+    "excerptSha256": "f8b3138103f0ae825c837f9b5967cdae2a5082af222b3886754345357ad85235",
+    "isFullFile": false,
+    "references": [
+      {
+        "url": "https://raw.githubusercontent.com/aosp-mirror/platform_frameworks_base/android-9.0.0_r1/core/java/android/view/ViewRootImpl.java",
+        "lines": [
+          "4931-4995",
+          "5030-5100"
+        ]
+      },
+      {
+        "url": "https://raw.githubusercontent.com/aosp-mirror/platform_frameworks_base/android-9.0.0_r1/core/java/android/app/Dialog.java",
+        "lines": [
+          "807-816"
+        ]
+      }
+    ]
+  },
+  "inputLayer": "app-internal-window-dispatch+default-focus-navigation-simulation",
+  "completeViewRootImeOrRemoteChainAccepted": false
+}

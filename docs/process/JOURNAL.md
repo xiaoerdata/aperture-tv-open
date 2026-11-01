@@ -1355,3 +1355,11 @@ R2-01新增测试专用EvidenceCapture/FrameEvidenceGate，绑定活动、窗口
 ProbeKeys仅对有效探针Window做同downTime内部dispatch，DOWN结束目标则UP记未投递，不申请注入权限。R2 end等实际销毁/撤销，迟到用例另等生产终态记录，不把fake返回或idle当完成。保留原合并断言并拆两个观察分支，新增finish未pause、排队start/UI、晚到错误/刷新、resume不复活、owner切换、重复finish等；终态种类及fake闸门未超时也要断言。测试终态计数在完整事件入队后才发布，防止用闸门再次制造观察竞态。ProbeReport不吞teardown/写回异常。
 
 原18/16/26/9/25与路由模型通过，新增16上传代次模型通过；ARM/x86及多轮更严格测试源编译成功，早期编译制品保留，只有最终源用于交接。217输入3128e0896c95a3c7bbfc23455d269755ae8db03d7ce5a1891603cf28998e94a1，两包沿原证书；本机未执行设备矩阵，原d727通过不能冒作修订通过。源/差异/分层边界见ROUND3-V39-R1.md与CANDIDATE-V39-R3-R1.md。完成私有冻结后停等云测，爸妈版暂停，不清理、不公开发布。
+
+## S98 · v39-r1测试焦点导航（产品不变）
+
+协调方报告修订R1 51通过，正式R2只5项后Right焦点失败，R3只4项后Down焦点失败，Photos未跑；原迟到退出矩阵未到达，不能称已验收。限定方向对照确认DOWN未处理后自然focusSearch/requestFocus合法且可成功，没有Center或fake start。原云ZIP未到本机，不重试传输。
+
+通过GitHub连接器读取Android9 ViewRootImpl.performFocusNavigation/processKeyEvent及Dialog.dispatchKeyEvent，确认helper漏了默认导航。ProbeKeys补严格同Activity/Dialog/Window/root/token的未处理无修饰四方向：自然搜索、合法性验证、坐标变换、requestFocus；同root未处理移动/受限默认焦点使用公开API。已消费不再导航，UP不换目标。回执记录handled/方向/焦点候选与合法性/窗口身份/结果，输入层明确为内部dispatch加默认焦点模拟，不是完整ViewRoot/IME/遥控链。AOSP Apache许可与修改声明放测试目录，不改产品资源。
+
+原四个runner仅更新输入层报告常量，所有断言、结束/销毁/终态闸门、old=openedAt-1、长按和合并退出断言原样保留。新增通用控件安全探针；javac/D8编译通过，设备未本机执行。独立测试提交以72afd为父，原产品217指纹、两包SHA及旧回执实际核对未变，不重建产品。新patch/覆盖包/完整source SHA与probe回执另交云端，详见V39-R1-FOCUS-TEST-FIX.md。保留全部旧证据，不清理、不公开、不v40。

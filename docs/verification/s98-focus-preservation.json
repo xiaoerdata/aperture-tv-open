@@ -1,0 +1,55 @@
+{
+  "productCandidateCommit": "72afdfe44695aa2bd398315af29a762761610d86",
+  "inputSha256": "3128e0896c95a3c7bbfc23455d269755ae8db03d7ce5a1891603cf28998e94a1",
+  "inputFiles": 217,
+  "productRebuilt": false,
+  "productVersionChanged": false,
+  "productRefUnchanged": true,
+  "originalFiles": [
+    {
+      "path": "artifacts/s97-v39-r1-delivery/REVISION-MANIFEST.json",
+      "bytes": 6983,
+      "sha256": "f515d742848a0bfe875a571cd48586baeb4fa7dd578ca79701c2ba487f931e14",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s97-v39-r1-arm/manifest.json",
+      "bytes": 39441,
+      "sha256": "a014d40506650ea16fec773cdc119b9ee59e0d002b2893e8c354a68a3620a8a8",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s97-v39-r1-x86/manifest.json",
+      "bytes": 39428,
+      "sha256": "975aae19bcba3f9a2fe3a57d5ac165d561a31ee5dd181e4f6c129af8bf84ebfb",
+      "unchanged": true
+    },
+    {
+      "path": "docs/verification/s97-probe-compile-frozen.json",
+      "bytes": 3380,
+      "sha256": "808b55c695bc237382a88275df4b6eabef9fb18e8f2375866a8ef28cd7ddf692",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s97-native-frozen/probe.apk",
+      "bytes": 28442545,
+      "sha256": "0bc4a05c6ce290ec63250ff072ca7c746d68e9fb70e77bc91657d8ac14dfc8e8",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s97-v39-r1-arm/kaishi-v39-standard-arm.apk",
+      "bytes": 55339179,
+      "sha256": "9d994a8064946c02d4a846ccf45a5a440b13ca00c10d0320a4f012adfe564f01",
+      "unchanged": true
+    },
+    {
+      "path": "artifacts/s97-v39-r1-x86/kaishi-v39-standard-x86-cloud-test.apk",
+      "bytes": 44154807,
+      "sha256": "ac83ad373f2035edbf5848ae7fb6fe1e437555be7399d83248fc6dd0e434aabc",
+      "unchanged": true
+    }
+  ],
+  "compiledProbeExecuted": false,
+  "cloudFormalRerunPending": true,
+  "inputLayer": "app-internal-window-dispatch+default-focus-navigation-simulation"
+}

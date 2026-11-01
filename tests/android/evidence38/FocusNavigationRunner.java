@@ -1,0 +1,22 @@
+package org.zhixiaoce.aperture;
+import android.app.*;import android.content.*;import android.os.Bundle;import android.view.*;import org.json.*;
+/** Safety/semantic fixtures for the common helper. All input remains in the explicit test target. */
+public final class FocusNavigationRunner extends Instrumentation {
+    FocusNavigationProbe open;final JSONArray checks=new JSONArray();
+    @Override public void onCreate(Bundle args){super.onCreate(args);start();}
+    private void ui(Runnable r){runOnMainSync(r);}
+    private void check(boolean pass,String name){if(!pass)throw new AssertionError(name);checks.put(name);}
+    private FocusNavigationProbe launch(){open=(FocusNavigationProbe)startActivitySync(new Intent(getTargetContext(),FocusNavigationProbe.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));waitForIdleSync();return open;}
+    private void end(){if(open!=null){FocusNavigationProbe a=open;ui(a::finish);ProbeWait.until(a::isDestroyed,10000,"focus fixture destroyed");open=null;}}
+    private JSONObject latest(){JSONArray rows=ProbeKeys.receipts();return rows.optJSONObject(rows.length()-1);}
+    @Override public void onStart(){JSONObject result=new JSONObject();try{
+        FocusNavigationProbe a=launch();ProbeKeys.key(this,a,22);JSONObject r=latest();check(a.getCurrentFocus()==a.second,"unhandled Right uses natural focus search");check(!r.getBoolean("downHandled")&&r.getBoolean("navigationHandled")&&r.getBoolean("candidateAccepted"),"receipt separates unhandled DOWN from default navigation");check(r.getLong("downTime")==r.getLong("upDownTime")&&r.getBoolean("upDelivered"),"UP retains original downTime and captured target");end();
+        a=launch();final FocusNavigationProbe consumed=a;ui(()->consumed.consume=true);ProbeKeys.key(this,a,22);r=latest();check(a.getCurrentFocus()==a.first&&a.first.searches==0&&r.getBoolean("downHandled")&&!r.getBoolean("navigationAttempted"),"handler-consumed DOWN does not navigate again");end();
+        a=launch();ProbeKeys.key(this,a,22,KeyEvent.META_SHIFT_ON);r=latest();check(a.getCurrentFocus()==a.first&&a.first.searches==0&&!r.getBoolean("navigationAttempted"),"modified direction does not trigger default simulation");end();
+        a=launch();final FocusNavigationProbe foreign=a;ui(()->{foreign.first.overrideSearch=true;foreign.first.forced=new android.widget.Button(foreign);});ProbeKeys.key(this,a,22);r=latest();check(a.getCurrentFocus()==a.first&&!r.getBoolean("candidateAccepted")&&!r.getJSONObject("searchCandidate").getBoolean("sameRoot"),"foreign unattached candidate is rejected");end();
+        for(int kind=0;kind<3;kind++){a=launch();final FocusNavigationProbe invalid=a;final int mode=kind;ui(()->{invalid.first.overrideSearch=true;invalid.first.forced=invalid.second;if(mode==0)invalid.second.setEnabled(false);if(mode==1)invalid.second.setVisibility(View.INVISIBLE);if(mode==2)invalid.second.setFocusable(false);});ProbeKeys.key(this,a,22);r=latest();check(a.getCurrentFocus()==a.first&&!r.getBoolean("candidateAccepted"),"illegal candidate rejected mode "+kind);end();}
+        a=launch();final FocusNavigationProbe unhandled=a;ui(()->{unhandled.first.overrideSearch=true;unhandled.first.forced=null;unhandled.row.handleMove=true;});ProbeKeys.key(this,a,22);r=latest();check(r.getBoolean("unhandledMoveAttempted")&&r.getBoolean("unhandledMoveHandled")&&a.getCurrentFocus()==a.first,"same-root unhandled movement is offered without forcing a target");end();
+        a=launch();final FocusNavigationProbe changing=a;ui(()->changing.openDialog=true);ProbeKeys.key(this,a,22);r=latest();check(!r.getBoolean("upDelivered")&&"target-window-changed-not-delivered".equals(r.getString("upDisposition")),"new dialog never receives original window UP");ProbeKeys.key(this,a,4);end();
+        a=launch();ProbeKeys.key(this,a,4);r=latest();check(a.isFinishing()&&!r.getBoolean("upDelivered")&&"target-ended-not-delivered".equals(r.getString("upDisposition")),"finished Activity never forwards UP to another foreground app");end();result.put("ok",true);
+    }catch(Throwable error){try{result.put("ok",false).put("error",error.getClass().getSimpleName()+": "+error.getMessage());}catch(JSONException impossible){throw new AssertionError(impossible);}}finally{ProbeReport.finish(this,result,"s98-focus.json",this::end,report->report.put("checks",checks).put("passed",checks.length()).put("keyReceipts",ProbeKeys.receipts()).put("inputLayer",ProbeKeys.INPUT_LAYER).put("deviceSystemRemoteChainAccepted",false).put("realUploadListenerStarted",false));}}
+}

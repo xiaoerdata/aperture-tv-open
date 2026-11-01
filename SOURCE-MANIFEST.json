@@ -4953,8 +4953,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 260672,
-      "sha256": "fb21ae1f9486b1282ac84b61b7393cf88068e519dc2f8d3c64396170f4230d37"
+      "bytes": 262204,
+      "sha256": "83c3392137bf61e3c813709f047851cd205775856ad20dbafc8b94710a64417a"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -4995,6 +4995,11 @@
       "path": "docs/process/ROUND3-V39.md",
       "bytes": 1873,
       "sha256": "bb2a59de94c6a7fc97c5cb101e7a2cd92bf0b91107bae371a073068a5638a791"
+    },
+    {
+      "path": "docs/process/V39-R1-FOCUS-TEST-FIX.md",
+      "bytes": 4199,
+      "sha256": "572ad5387d1e1b68b81d69194fa320646d20ee02147cf511f6fd083c81e18213"
     },
     {
       "path": "docs/release/README-public.md",
@@ -6747,6 +6752,21 @@
       "sha256": "9dd043813831dcd61112fa0f6db74ad2f8a250096492b183eea70e7a7bc21458"
     },
     {
+      "path": "docs/verification/s98-focus-compile.json",
+      "bytes": 3759,
+      "sha256": "6cbdac6b5e2f8a7d5e42874ac129fba2605e0fe3922a9b9be2a906ff083718b0"
+    },
+    {
+      "path": "docs/verification/s98-focus-preservation.json",
+      "bytes": 1912,
+      "sha256": "9830054665c2b660d6700ed5f8bc80b9008c5ea88a4c4518a223cfe30b62a5b2"
+    },
+    {
+      "path": "docs/verification/s98-focus-source-scope.json",
+      "bytes": 2182,
+      "sha256": "d36fd1e4307fe08a9ca1c8df0c54f41041df6fc26ee573cba680802f6585cf58"
+    },
+    {
       "path": "docs/verification/tv-controls.json",
       "bytes": 4183,
       "sha256": "c97b19b83bba721b28023595c2a8e2ab38c166f81ba47ef87fecb7876af9a5ff"
@@ -7290,6 +7310,11 @@
       "path": "media/DEVLOG-074.md",
       "bytes": 1076,
       "sha256": "26310d8633250f17088316fbdfac21cbe4d2e5052c7a574d6bf66453c6717fb6"
+    },
+    {
+      "path": "media/DEVLOG-075.md",
+      "bytes": 910,
+      "sha256": "eaf08bb37e4d1e6380ec5e32626b239869ff776842ae124f3394ebe6cd854ba9"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -8607,6 +8632,16 @@
       "sha256": "0ef0f5f921732d9b1a340371fcc14d6da5ce90c072960bee7b8d068fbbe04976"
     },
     {
+      "path": "scripts/s98-build-focus-probe.py",
+      "bytes": 5393,
+      "sha256": "ffb2df353d39118edccc67d983cc92ff18bebcb5322dac21412bf8fe10fb4a42"
+    },
+    {
+      "path": "scripts/s98-freeze-test.py",
+      "bytes": 9577,
+      "sha256": "573b5d186bcf10a3054813daf278de3074c45856047e7faae00a9d4c6fc50cdd"
+    },
+    {
       "path": "scripts/seal-nas-config.mjs",
       "bytes": 1674,
       "sha256": "825b5db1ea866994c885db7f3ab57b0a73a41438c9e11d5cb8a51ba025fc1758"
@@ -8927,9 +8962,29 @@
       "sha256": "acbb97691b58463fc337e176704728c7b9f235ff6abadc83aac137815d9c4eac"
     },
     {
+      "path": "tests/android/evidence38/AOSP-FOCUS-LICENSE.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "tests/android/evidence38/AOSP-FOCUS-NOTICE.md",
+      "bytes": 1404,
+      "sha256": "ff88b67697acff0c464a37beed96f2688b1323bd82517205aeca06c3e866cc05"
+    },
+    {
       "path": "tests/android/evidence38/EvidenceCapture.java",
       "bytes": 10039,
       "sha256": "3a4ad1ae7e09b3237ecd0bdb311fdea49e48e52ecbf61ace205a70a65afc26c0"
+    },
+    {
+      "path": "tests/android/evidence38/FocusNavigationProbe.java",
+      "bytes": 1762,
+      "sha256": "7fd1f29f93ba60720fac89d388ce4e8eee88348dbb186b18bdb726dd5a09a18a"
+    },
+    {
+      "path": "tests/android/evidence38/FocusNavigationRunner.java",
+      "bytes": 4531,
+      "sha256": "636a73619b5adfe7b0d9e4be9245d71a6a93fc9f6b9985bed035c7cb53348eb2"
     },
     {
       "path": "tests/android/evidence38/FrameEvidenceGate.java",
@@ -8938,8 +8993,8 @@
     },
     {
       "path": "tests/android/evidence38/ProbeKeys.java",
-      "bytes": 4465,
-      "sha256": "f15329fdaf7baadcd7baea367f590b02e5501b0afcd18e13fe100105c5a20147"
+      "bytes": 11058,
+      "sha256": "aa131358e64c590bd7079e3d730cf28c060b10a73c744a4e48ae7173769567fa"
     },
     {
       "path": "tests/android/evidence38/ProbeReport.java",
@@ -8963,8 +9018,8 @@
     },
     {
       "path": "tests/android/evidence38/Round2Runner.java",
-      "bytes": 21378,
-      "sha256": "9a71acd63091d6da286131849bfac570ac3df5f23175ad3f793421b8c937ce4a"
+      "bytes": 21369,
+      "sha256": "2c36aa25f81ef1b1b51196457dd2793702447c22b6cd817de707bf7c1611a656"
     },
     {
       "path": "tests/android/gallery39/R3NativeGalleryProbe.java",
@@ -8978,13 +9033,13 @@
     },
     {
       "path": "tests/android/gallery39/Round3PhotosRunner.java",
-      "bytes": 4224,
-      "sha256": "336d63af2dc4b1e1e675ed309dc3bd728c65c328ba8d5d45071d051d3692b214"
+      "bytes": 4215,
+      "sha256": "c3c02551dc965c8f767cf8d8476b4e6bdbafe91cc4451c64e0a08fc150c25887"
     },
     {
       "path": "tests/android/gallery39/Round3Runner.java",
-      "bytes": 8337,
-      "sha256": "c90fc598d62cdcf1dfe048d6d26889b4716ccd6aab1d8471f1652d86d44711e3"
+      "bytes": 8328,
+      "sha256": "77f63c57ca28ee53b520c5231cc47317e248ee8e4d86a7726d587ef0ef59a216"
     },
     {
       "path": "tests/android/recovery37/ControlledWebView.java",
@@ -9008,8 +9063,8 @@
     },
     {
       "path": "tests/android/recovery37/RecoveryRunner.java",
-      "bytes": 13712,
-      "sha256": "f93fd037e560d53da6f903ca986f80d90cc52c63a2d43e5b2968bbac1f41aec0"
+      "bytes": 13703,
+      "sha256": "87fa0c0c366200446215b336cdccc833a51cebb3d464fc8f3783cccc4dfe518f"
     },
     {
       "path": "tests/android/recovery37/UpgradeRunner.java",
@@ -9497,5 +9552,14 @@
     "versionChanged": false,
     "formalDeviceRerunExecuted": false,
     "correctedTestSourceSha256": "6231a932024f129248d10512ac7a726dcd7c86940ddde57721017dc5bb985931"
+  },
+  "testCorrection": {
+    "productCandidateCommit": "72afdfe44695aa2bd398315af29a762761610d86",
+    "productChanged": false,
+    "versionChanged": false,
+    "description": "Shared unhandled DPAD default focus navigation in captured test window",
+    "inputLayer": "app-internal-window-dispatch+default-focus-navigation-simulation",
+    "actualSystemRemoteChainAccepted": false,
+    "formalCloudRerunPending": true
   }
 }
