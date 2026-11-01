@@ -1,0 +1,25 @@
+{
+  "checks": [
+    {
+      "width": 1920,
+      "upDownFourPages": true,
+      "fullscreenControls": true,
+      "previewFits": true
+    },
+    {
+      "width": 960,
+      "upDownFourPages": true,
+      "fullscreenControls": true,
+      "previewFits": true
+    },
+    {
+      "settingsGrid": true,
+      "screensaverSelected": true,
+      "qrCanvas": true,
+      "fixtureOnly": true
+    }
+  ],
+  "errors": [],
+  "syntheticPhotos": true,
+  "realXiaomi": false
+}

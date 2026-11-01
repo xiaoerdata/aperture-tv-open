@@ -13,6 +13,7 @@ final class AmbientWeb implements AutoCloseable {
         web.setWebViewClient(new WebViewClient(){
             public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request){if(request.isForMainFrame()&&"aperture://ambient/close".equals(request.getUrl().toString()))finish.run();return true;}
             public WebResourceResponse shouldInterceptRequest(WebView view,WebResourceRequest request){
+                WebResourceResponse album=new GalleryStore(context).read(request);if(album!=null)return album;
                 WeatherProxy.Reply reply=weather.read(request.getUrl().toString(),request.getMethod(),request.isForMainFrame());if(reply!=null)return response("application/json",reply.status,reply.body);
                 String file=LobbyAssets.file(request.getUrl().getScheme(),request.getUrl().getHost(),request.getUrl().getPort(),request.getUrl().getPath());
                 if("GET".equals(request.getMethod())&&file!=null&&(request.getUrl().getQuery()==null||("ambient.html".equals(file)&&request.getUrl().getQuery().matches("panel=(weather|settings)|dream=1")))&&request.getUrl().getFragment()==null&&request.getUrl().getUserInfo()==null)try{return new WebResourceResponse(LobbyAssets.mime(file),"UTF-8",200,"OK",Collections.singletonMap("Cache-Control","no-store"),context.getAssets().open(file));}catch(Exception ignored){}

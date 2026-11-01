@@ -31,6 +31,7 @@ final class CinemaSectionView {
     // Keep a stable four-column content viewport. Sources never disappear with focus changes.
     void collapsed(boolean ignored){toggle.setVisibility(View.GONE);}
     void linkLeft(View target){View left=selection!=null?selection:entries.getChildCount()>0?entries.getChildAt(0):null;if(left!=null){target.setNextFocusLeftId(left.getId());target.setOnKeyListener((v,k,e)->{if(k==KeyEvent.KEYCODE_DPAD_LEFT){if(e.getAction()==KeyEvent.ACTION_DOWN)left.requestFocus();return true;}return false;});}}
+    void focusSelected(){if(selection!=null)selection.requestFocus();else focusFirst();}
     void focusFirst(){View v=entries.getChildCount()>0?entries.getChildAt(0):toggle;v.requestFocus();}
     void linkRight(View target){if(target==null)return;if(target.getId()==View.NO_ID)target.setId(View.generateViewId());for(LinearLayout group:new LinearLayout[]{entries,footer})for(int i=0;i<group.getChildCount();i++)if(group.getChildAt(i).isFocusable())group.getChildAt(i).setNextFocusRightId(target.getId());View left=selection!=null?selection:entries.getChildCount()>0?entries.getChildAt(0):toggle;target.setNextFocusLeftId(left.getId());}
 }

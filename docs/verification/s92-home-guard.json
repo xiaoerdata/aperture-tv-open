@@ -1,0 +1,13 @@
+{
+  "policyOutput": "HomeGuardPolicy: 15 checks passed; Xiaomi hardware not tested",
+  "grantListPreservationChecks": 4,
+  "manifestCapabilityChecks": 4,
+  "backgroundActivityHandoffOnXiaomi": false,
+  "firmwareAdRemoval": false,
+  "android28NativeProbe": {
+    "requested": true,
+    "authorized": true,
+    "connected": true,
+    "realXiaomi": false
+  }
+}

@@ -22,6 +22,7 @@ final class HomeEntryController {
     private TextView status;
     private Button choose;
     private Button remove;
+    private Button guard;
     private String failureNote="";
     private static final int REQUEST_HOME = 4107;
     HomeEntryController(Activity activity) {
@@ -43,10 +44,12 @@ final class HomeEntryController {
         dismiss();
         LinearLayout body=new LinearLayout(activity);body.setOrientation(LinearLayout.VERTICAL);
         status=TvUi.text(activity,"",24,false);body.addView(status);
-        TextView help=TvUi.text(activity,"系统支持时，开机和 HOME 键打开开视；首屏按返回可回原桌面。\n\n部分小米固件限制更换默认桌面或接管 HOME 键，以电视实际设置为准。",20,true);
+        TextView help=TvUi.text(activity,"系统支持时，开机和 HOME 键进入开视；首屏返回可打开小米桌面。\n系统不支持更换默认桌面时，可授权桌面守护。固件开机广告不在此功能范围。",20,true);
         help.setPadding(0,TvUi.dp(activity,10),0,TvUi.dp(activity,18));body.addView(help);
         choose=add(body,"设为默认桌面",this::requestDefault);
-        add(body,"系统桌面设置",this::systemSettings);
+        guard=add(body,"开启桌面守护",this::toggleGuard);
+        add(body,"辅助功能授权",this::accessibilitySettings);
+        add(body,"恢复小米桌面",this::restoreSystem);
         remove=add(body,"取消桌面候选",this::removeCandidate);
         dialog=TvDialogs.panel(activity,"默认桌面与开机",body);refresh();
     }
@@ -57,6 +60,9 @@ final class HomeEntryController {
         if(dialog==null||!dialog.isShowing())return;
         boolean selected=isDefault(),candidate=enabled();
         status.setText(selected?"已设为默认桌面":(candidate?"等待在系统中选择开视":"未设为默认桌面")+(failureNote.isEmpty()?"":"\n"+failureNote));
+        boolean requested=HomeGuardService.requested(activity);
+        status.append("\n桌面守护："+(!requested?"关闭":!HomeGuardService.authorized(activity)?"等待辅助功能授权":HomeGuardService.connected()?"已连接":"已授权，等待系统连接"));
+        guard.setText(requested?"关闭桌面守护":"开启桌面守护");
         choose.setText(selected?"更换默认桌面":"设为默认桌面");
         remove.setVisibility(candidate?android.view.View.VISIBLE:android.view.View.GONE);
     }
@@ -86,6 +92,23 @@ final class HomeEntryController {
             failureNote="系统桌面授权未打开，请在系统设置中选择";refresh();
         }
         systemSettings();
+    }
+    private void toggleGuard(){
+        if(HomeGuardService.requested(activity)){HomeGuardService.setRequested(activity,false);refresh();return;}
+        showNotice(new AlertDialog.Builder(activity).setTitle("开启桌面守护？")
+            .setMessage("小米桌面出现时打开开视。只识别窗口名称，不读取屏幕、通知或按键；不拦截音量和语音键。主动返回小米桌面时放行，可随时关闭。")
+            .setPositiveButton("开启并授权",(d,w)->{HomeGuardService.setRequested(activity,true);refresh();accessibilitySettings();})
+            .setNegativeButton("返回",null).create());
+    }
+    private void accessibilitySettings(){
+        try{activity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));}
+        catch(RuntimeException error){failureNote="系统未提供辅助功能入口，可按使用说明通过已授权的 ADB 设置";refresh();}
+    }
+    private void restoreSystem(){
+        HomeGuardService.setRequested(activity,false);refresh();
+        showNotice(new AlertDialog.Builder(activity).setTitle("恢复小米桌面")
+            .setMessage("桌面守护已关闭。在系统页面选择小米桌面作为默认；也可关闭“开视桌面守护”的辅助功能授权。")
+            .setPositiveButton("选择系统桌面",(d,w)->systemSettings()).setNegativeButton("返回",null).create());
     }
     private void removeCandidate() {
         if(isDefault()){

@@ -104,7 +104,7 @@
     settings: {title:'设置', actions:[
       ['home-settings','默认桌面与开机','','primary'],
       ['cinema-settings','直播与影视来源','',''], ['nas','NAS','',''], ['choose-shortcuts','常用应用','',''],
-      ['weather','天气','',''], ['ambient-settings','屏保','',''], ['show-information','留言','',''], ['message-settings','留言源','',''], ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
+      ['gallery','相册设置','',''], ['weather','天气','',''], ['ambient-settings','屏保','',''], ['show-information','留言','',''], ['message-settings','留言源','',''], ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
       ['open-system','返回原桌面','',''], ['voice-help','小爱同学','',''], ['more-settings','更多设置','','']
     ]},
     'more-settings': {title:'更多设置', actions:[
@@ -160,23 +160,27 @@
     });
     $('pane-footnote').hidden = false;
   }
-  function pageId(at) { return ['ambient-home', 'apps-home', 'content-home'][at]; }
-  function firstHomeControl(at) { if(at===1&&!parents)return document.querySelector('.shortcuts-row button:not([hidden])');return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : (photosEnabled ? 'entry-photos' : 'entry-information')); }
+  function pageId(at) { return ['ambient-home', 'apps-home', 'content-home', 'gallery-home'][at]; }
+  function firstHomeControl(at) { if(at===3)return $('gallery-home-full');if(at===1&&!parents)return document.querySelector('.shortcuts-row button:not([hidden])');return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : (photosEnabled ? 'entry-photos' : 'entry-information')); }
   function restoreHomeFocus(at) {
     var saved = homeFocus[at];
     if (!focusNode($(saved || ''))) focusNode(firstHomeControl(at));
   }
   function setHomePage(at, focus) {
-    at = parents ? 1 : Math.max(0, Math.min(2, at));
+    at = parents ? 1 : Math.max(0, Math.min(3, at));
     var previous = $(pageId(homePage));
     if (previous && previous.contains(document.activeElement) && document.activeElement.id) homeFocus[homePage] = document.activeElement.id;
     homePage = at; $('lobby').setAttribute('data-home-page', String(at));
-    for (var n = 0; n < 3; n++) $(pageId(n)).hidden = section !== 'overview' || n !== at;
+    for (var n = 0; n < 4; n++) $(pageId(n)).hidden = section !== 'overview' || n !== at;
     if (personal) personal.schedule();
+    if(window.KaishiGallery)window.KaishiGallery.homePage(section==='overview'&&at===3);
     var dots = document.querySelectorAll('[data-home-screen]');
     for (n = 0; n < dots.length; n++) dots[n].setAttribute('aria-pressed', String(Number(dots[n].getAttribute('data-home-screen')) === at));
     if (focus !== false && section === 'overview') restoreHomeFocus(at);
   }
+  if(window.KaishiGallery)window.KaishiGallery.mount($('gallery-home-scene'),'home');
+  $('gallery-home-full').onclick=function(){if(window.KaishiGallery)window.KaishiGallery.show();};
+  $('gallery-home-manage').onclick=$('gallery-home-upload').onclick=function(){nativeAction('gallery');};
   $('apps-next').onclick = function () { setHomePage(2); };
   var screenButtons = document.querySelectorAll('[data-home-screen]');
   for (i = 0; i < screenButtons.length; i++) screenButtons[i].onclick = function () { setHomePage(Number(this.getAttribute('data-home-screen'))); };
@@ -417,6 +421,7 @@
   window.addEventListener('kaishi-messages-change',renderContent);
   renderContent(); loadContent(); contentTimer = setInterval(loadContent, virtualHome ? 5000 : 30000);
   function back() {
+    if(window.KaishiGallery&&window.KaishiGallery.close())return true;
     if (window.KaishiAmbient && window.KaishiAmbient.key('BrowserBack')) return true;
     if (window.KaishiWeatherUI && window.KaishiWeatherUI.key('BrowserBack')) return true;
     if (closePane()) return true;
@@ -475,6 +480,9 @@
     }
     var active = document.activeElement;
     if (section === 'overview' && !parents) {
+      if(homePage===2){if(name==='ArrowUp'){setHomePage(1);return true;}if(name==='ArrowDown'){setHomePage(3);return true;}}
+      if(homePage===3&&name==='ArrowUp'){setHomePage(2);return true;}
+      if(homePage===1&&name==='ArrowUp'&&(active===$('settings-open')||active===$('brand-home')||active===$('weather-home'))){setHomePage(0);return true;}
       if (homePage === 0) {
         var inWatch = active.closest && active.closest('.home-watch');
         if (inWatch) {
@@ -556,6 +564,7 @@
       // Fixed control names only: no labels, URLs, resource addresses or user data.
       if (window.console && console.info) console.info('[KaishiHome] ' + JSON.stringify({key:'Enter',active:active && known.test(active.id) ? active.id : 'other',inItems:current >= 0,disabled:!!(active && active.disabled),width:active ? active.offsetWidth : 0,height:active ? active.offsetHeight : 0,pane:!!pane}));
     }
+    if(window.KaishiGallery&&window.KaishiGallery.key(name)){event.preventDefault();return;}
     if ((window.KaishiAmbient && window.KaishiAmbient.key(name)) || (window.KaishiWeatherUI && window.KaishiWeatherUI.key(name))) { event.preventDefault(); return; }
     if (name === 'Menu' || name === 'ContextMenu' || name === 'F10') { event.preventDefault(); openPane('settings'); return; }
     if (name === 'Escape' || name === 'BrowserBack') { if (back()) event.preventDefault(); return; }
@@ -579,7 +588,7 @@
   document.addEventListener('keydown', key);
   window.apertureRemoteKey = function (name) { var handled = false; key({key: name, preventDefault: function () { handled = true; }}); return handled; };
   window.apertureBack = back;
-  window.apertureNativeFocus = function (active) { nativeActive = !!active; if(window.KaishiMessages)window.KaishiMessages.active(active); if(window.KaishiAmbient)window.KaishiAmbient.active(active); if(window.KaishiWeatherUI)window.KaishiWeatherUI.active(active); motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
+  window.apertureNativeFocus = function (active) { nativeActive = !!active; if(window.KaishiGallery)window.KaishiGallery.active(active); if(window.KaishiMessages)window.KaishiMessages.active(active); if(window.KaishiAmbient)window.KaishiAmbient.active(active); if(window.KaishiWeatherUI)window.KaishiWeatherUI.active(active); motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
   function clock() {
     if (disposed || document.hidden) return;
     var date = new Date(); text('clock', ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2));

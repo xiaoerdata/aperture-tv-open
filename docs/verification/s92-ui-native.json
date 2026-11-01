@@ -1,0 +1,19 @@
+{
+  "right": {
+    "heading": "‹  影视  ›",
+    "picked": -1
+  },
+  "left": {
+    "heading": "‹  新闻  ›",
+    "picked": -1
+  },
+  "confirm": {
+    "heading": "‹  影视  ›",
+    "picked": 2
+  },
+  "platform": "Android28 isolated emulator",
+  "actualAdbRemoteInput": true,
+  "syntheticData": true,
+  "realXiaomi": false,
+  "fullPlayerOrPersistentBrowseSidebarTested": false
+}

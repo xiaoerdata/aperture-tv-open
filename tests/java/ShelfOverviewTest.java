@@ -1,0 +1,9 @@
+package org.zhixiaoce.aperture;
+import org.json.*;
+public final class ShelfOverviewTest {
+ public static void main(String[] args)throws Exception{
+  CinemaShelf shelf=new CinemaShelf("[]");JSONObject ref=CinemaShelf.ref("vod","source","7","海边的日子","").put("poster","https://example.invalid/p.jpg").put("summary","完整影片简介").put("year","2026").put("rating","8.2");shelf.toggle(ref,"favorite");shelf.watch(ref,"线路1","第二集",42000,120000,false,1);CinemaShelf restored=new CinemaShelf(shelf.json());JSONObject saved=restored.list("vod","favorite").get(0);if(!saved.getString("poster").endsWith("p.jpg")||!saved.getString("summary").equals("完整影片简介")||saved.getLong("position")!=42000)throw new AssertionError("overview and resume persistence");
+  JSONObject newInfo=CinemaShelf.ref("vod","source","7","海边的日子","").put("summary","更新后的简介");restored.enrich(newInfo);saved=restored.get(ref);if(!saved.getString("summary").equals("更新后的简介")||!saved.getBoolean("favorite")||saved.getLong("position")!=42000)throw new AssertionError("metadata refresh must preserve state");
+  JSONObject old=CinemaShelf.ref("vod","source","legacy","旧收藏","");restored.toggle(old,"favorite");restored=new CinemaShelf(restored.json());if(restored.list("vod","favorite").size()!=2||restored.get(old).has("poster"))throw new AssertionError("legacy records remain valid");restored.enrich(CinemaShelf.ref("vod","source","missing","不应新建","").put("summary","简介"));if(restored.list("vod","favorite").size()!=2)throw new AssertionError("focus enrich cannot create records");restored.clearProgress(ref);saved=restored.get(ref);if(!saved.getBoolean("favorite")||saved.has("position"))throw new AssertionError("clear history retains favorite overview");System.out.println("5 overview persistence, enrichment, legacy and state-isolation checks passed");
+ }
+}

@@ -106,3 +106,8 @@ TVmaze资料采用其API说明的CC BY-SA条件，保留来源与归属；TMDB�
 屏保星河/流光是项目原创Canvas程序绘制，不使用下载纹理、第三方宇宙视频或真实天文观测图。字体沿用下述OFL字体。
 
 天气数据由[Open-Meteo](https://open-meteo.com/)提供，按[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)署名。界面转换天气代码、四舍五入并选取24小时/7天显示；没有声称预报由本项目观测产生。其免费API仅限非商业用途，商业API访问须遵守提供方[计划条款](https://open-meteo.com/en/pricing)，数据许可不等于无限免费API授权。城市搜索同用Open-Meteo，IP城市估算使用[IPWHOIS](https://ipwhois.io/documentation)；调用时遵守各自条款。提供方服务和数据不随本项目代码重新标为MIT。截图天气为合成测试数据，实机可用性另验，见docs/AMBIENT-WEATHER-S71.md。
+
+
+## 本机相册二维码编码器
+
+`public/launcher/gallery-qr.js` 由仓库已固定依赖 qrcode 1.5.4 与 dijkstrajs 生成，仅包含二维码编码图，不含远程服务。两者采用 MIT 许可，生成入口 `scripts/build-gallery-qr.mjs`，上游为 https://github.com/soldair/node-qrcode 与 https://github.com/andrewhayward/dijkstra。

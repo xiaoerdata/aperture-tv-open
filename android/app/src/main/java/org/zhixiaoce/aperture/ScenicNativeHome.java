@@ -58,6 +58,14 @@ final class ScenicNativeHome extends android.view.ViewGroup {
         String[] tools={"所有应用","NAS","原桌面","壁纸","天气","屏保"};String[] routes2={"apps","nas","system","wallpaper","weather","ambient"};
         for(int i=0;i<tools.length;i++){final String route=routes2[i];place(control(tools[i],()->{if(route.equals("wallpaper"))chooseWallpaper();else actions.open(route);},true),100+i*286,592,264,104,28,1);}
         place(control("返回首页  ↑",()->showPage(0),false),100,870,300,76,27,1);
+        if(!BuildConfig.PARENTS_EDITION){
+            place(label("家庭"),100,195,1000,80,48,2);
+            place(control("安排与留言",()->actions.open("information"),true),100,350,500,150,34,2);
+            place(control("相册  ↓",()->showPage(3),true),100,750,360,100,30,2);
+            place(label("相册"),100,195,1000,80,48,3);
+            place(control("打开相册",()->actions.open("gallery"),true),100,350,500,150,34,3);
+            place(label("扫码上传 · 全屏轮播 · 相册屏保"),100,550,1000,70,30,3);
+        }
         setContentDescription("风景首页 · 本机兼容模式");
     }
     private void loadWallpaper(int selected){
@@ -69,6 +77,15 @@ final class ScenicNativeHome extends android.view.ViewGroup {
     private Button control(String text,Runnable run,boolean glass){Button b=new Button(activity);b.setText(text);b.setTextColor(TvUi.INK);b.setAllCaps(false);b.setFocusableInTouchMode(true);b.setGravity(Gravity.CENTER);b.setMinHeight(0);b.setMinimumHeight(0);b.setMinWidth(0);b.setMinimumWidth(0);b.setPadding(8,0,8,0);b.setBackground(new Pane(b,glass));b.setOnFocusChangeListener((v,f)->v.invalidate());b.setOnClickListener(v->run.run());TvUi.touchClick(b);return b;}
     private void place(View v,int x,int y,int w,int h,int size,int screen){v.setId(View.generateViewId());items.add(new Item(v,x,y,w,h,size,screen));addView(v);}
     private void showPage(int value){page=value;for(Item i:items)i.view.setVisibility(i.screen<0||i.screen==page?VISIBLE:GONE);requestLayout();if(page==0){first.requestFocus();return;}for(Item i:items)if(i.screen==page&&i.view instanceof Button){i.view.requestFocus();break;}}
+    @Override public boolean dispatchKeyEvent(KeyEvent e){
+        if(!BuildConfig.PARENTS_EDITION&&e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0){
+            if(page==2&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_UP){showPage(1);return true;}
+            if(page==2&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_DOWN){showPage(3);return true;}
+            if(page==3&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_UP){showPage(2);return true;}
+            if(page==1&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_DOWN&&getFocusedChild()!=null&&getFocusedChild().getTop()>=getHeight()*.5f){showPage(2);return true;}
+            if(page==1&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_UP&&getFocusedChild()!=null&&getFocusedChild().getTop()<getHeight()*.5f){showPage(0);return true;}
+        }return super.dispatchKeyEvent(e);
+    }
     boolean back(){if(page==0)return false;showPage(0);return true;}
     boolean scenicReady(){return wallpaper!=null&&wallpaper.getWidth()>=1280;}
     @Override protected void onAttachedToWindow(){super.onAttachedToWindow();showPage(0);clockHandler.post(ticker);}

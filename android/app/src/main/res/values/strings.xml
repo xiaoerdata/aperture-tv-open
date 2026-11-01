@@ -1,0 +1,3 @@
+<resources>
+    <string name="kaishi_home_guard_description">在小米系统桌面出现时打开开视。仅识别窗口名称，不读取画面、通知或按键。需在开视设置中开启；主动返回原桌面时放行。固件开机广告不属于此功能。</string>
+</resources>

@@ -164,20 +164,25 @@ final class DestinationApps {
     }
     private void launchInfo(ResolveInfo info, boolean home) {
         if(home){returnToSystem(info);return;}
+        boolean original=("com.mitv.tvhome".equals(info.activityInfo.packageName)||"com.xiaomi.mitv.tvhome".equals(info.activityInfo.packageName))&&(info.activityInfo.applicationInfo.flags&(android.content.pm.ApplicationInfo.FLAG_SYSTEM|android.content.pm.ApplicationInfo.FLAG_UPDATED_SYSTEM_APP))!=0;
+        if(original)HomeGuardService.visitOriginal(activity);
         Intent intent=new Intent(Intent.ACTION_MAIN).setComponent(component(info)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         try {
             activity.startActivity(intent);
             if(!home){String key=info.activityInfo.packageName+"/"+info.activityInfo.name;List<String> recent=new ArrayList<>();recent.add(key);for(String old:preferences.getString("recent_apps","").split("\n"))if(!old.isEmpty()&&!old.equals(key)&&recent.size()<5)recent.add(old);preferences.edit().putString("recent_apps",String.join("\n",recent)).apply();}
         } catch (RuntimeException error) {
+            if(original)HomeGuardService.resumedHome(activity);
             new AlertDialog.Builder(activity).setMessage("这个入口暂时无法打开。请重新选择应用，或从原系统检查是否已停用。").setPositiveButton("知道了",null).show();
         }
     }
     private void returnToSystem(ResolveInfo selected){
+        HomeGuardService.visitOriginal(activity);
         SystemHomeReturn.Result result=SystemHomeReturn.open(activity,selected,available(true));
         if(result.component!=null){
             preferences.edit().putString("destination_system",result.component.flattenToString()).apply();
             activity.finish();return;
         }
+        HomeGuardService.resumedHome(activity);
         preferences.edit().remove("destination_system").apply();
         new AlertDialog.Builder(activity).setTitle("未能返回系统桌面")
             .setMessage("桌面入口启动失败（"+result.failure+"）。可按遥控器 HOME 返回，或重新选择原桌面。")

@@ -77,7 +77,7 @@ public final class CinemaActivity extends Activity {
         }
         if(live){
             LinkedHashSet<String> groups=new LinkedHashSet<>();for(CinemaCatalog.Channel c:sectionChannels)groups.add(c.group);
-            for(String group:groups){rows.add(new CinemaSectionView.Entry(group,false,()->{sectionRailMode=group;refreshSectionRail();}));if(group.equals(sectionRailMode)||groups.size()==1)for(int i=0;i<sectionChannels.size();i++)if(group.equals(sectionChannels.get(i).group)){final int at=i;rows.add(new CinemaSectionView.Entry(sectionChannels.get(i).name,playingIndex==i,()->playChannels(sectionChannels,at,0,this::finish),1));}}
+            for(String group:groups){rows.add(new CinemaSectionView.Entry(group,group.equals(sectionRailMode),()->{sectionRailMode=group;refreshSectionRail();}));if(group.equals(sectionRailMode)||groups.size()==1)for(int i=0;i<sectionChannels.size();i++)if(group.equals(sectionChannels.get(i).group)){final int at=i;rows.add(new CinemaSectionView.Entry(sectionChannels.get(i).name,playingIndex==i,()->playChannels(sectionChannels,at,0,this::finish),1));}}
         }else{
             rows.add(new CinemaSectionView.Entry((categoriesExpanded?"▾ ":"▸ ")+"分类",false,()->{categoriesExpanded=!categoriesExpanded;refreshSectionRail();}));
             if(categoriesExpanded)for(CinemaCatalog.Category category:sectionCategories)rows.add(new CinemaSectionView.Entry(category.name,category.id.equals(sectionCategory)&&browseWord==null,()->{filterYear="";filterArea="";videos(sectionSite,category.id,category.name,1,null);},1));
@@ -249,16 +249,40 @@ public final class CinemaActivity extends Activity {
     private String title(){return "live".equals(view)?"看电视":"series".equals(view)?"看电视剧":"variety".equals(view)?"看综艺":"library".equals(view)?"影视":"看电影";}
     private void nas(){Intent intent=new Intent(this,NasActivity.class);try{if(("movies".equals(view)||"series".equals(view))&&new NasVault(this).library().route(view)!=null)intent.putExtra("category",view);}catch(Exception invalid){status.setText("NAS配置无法读取，请在NAS设置中检查");return;}startActivity(intent);}
     private String source(CinemaCatalog.Site site){return site.identity.isEmpty()?site.key+"\n"+site.api:site.identity;}
-    private org.json.JSONObject vodRef(CinemaCatalog.Site site,CinemaCatalog.Item item)throws Exception{return CinemaShelf.ref("vod",source(site),item.id,item.name,"");}
+    private org.json.JSONObject vodRef(CinemaCatalog.Site site,CinemaCatalog.Item item)throws Exception{return CinemaShelf.ref("vod",source(site),item.id,item.name,"").put("poster",item.poster).put("backdrop",item.backdrop).put("summary",item.summary).put("year",item.year).put("genre",item.genre).put("area",item.area).put("duration",item.duration).put("rating",item.rating).put("ratingSource",item.ratingSource).put("director",item.director).put("actors",item.actors);}
     private org.json.JSONObject liveRef(CinemaCatalog.Live live,CinemaCatalog.Channel channel)throws Exception{return CinemaShelf.ref("live",live.key(),channel.id.isEmpty()?channel.group+"\n"+channel.name:channel.id,channel.name,channel.group);}
     private interface ShelfEdit{void apply(CinemaShelf next)throws Exception;}
     private void editShelf(ShelfEdit edit){if(!shelfWarning.isEmpty()){if(status!=null)status.setText(shelfWarning);return;}try{shelf=vault.updateShelf(edit::apply);}catch(Exception failure){if(status!=null)status.setText("记录未保存，请检查本机存储");}}
     private void saveProgress(boolean complete){if(!playingView||!prepared||player==null||!hasPlayed||queueRefs.size()<=playingIndex)return;try{long position=liveQueue?0:player.getCurrentPosition(),duration=liveQueue?0:player.getDuration();org.json.JSONObject ref=queueRefs.get(playingIndex);String episode=queue.get(playingIndex).name;boolean finished=complete||session.state()==PlaybackSession.State.COMPLETED;editShelf(next->next.watch(ref,queueLine,episode,position,duration,finished,System.currentTimeMillis()));}catch(RuntimeException ignored){}}
-    private void shelfHome(){List<Action> actions=new ArrayList<>();actions.add(new Action("最近观看",()->shelfList(null,"history")));actions.add(new Action("收藏频道",()->shelfList("live","favorite")));actions.add(new Action("收藏影片",()->shelfList("vod","favorite")));actions.add(new Action("收藏 NAS",()->shelfList("nas","favorite")));actions.add(new Action("追剧",()->shelfList("vod","follow")));grid("我的",actions,0,this::home);if(!shelfWarning.isEmpty())status.setText(shelfWarning);}
+    private String shelfSelected="";private int shelfPreviewTurn;private Runnable pendingShelfPreview;
+    private void shelfHome(){shelfList(null,"favorite");}
+    private CinemaCatalog.Item shelfMetadata(org.json.JSONObject ref)throws Exception{
+        CinemaCatalog.Item item=new CinemaCatalog.Item(ref.getString("id"),ref.getString("title"),ref.optString("remark"),java.util.Collections.emptyList());
+        item.poster=ref.optString("poster");item.backdrop=ref.optString("backdrop");item.summary=ref.optString("summary");item.year=ref.optString("year");item.genre=ref.optString("genre");item.area=ref.optString("area");item.duration=ref.optString("duration");item.rating=ref.optString("rating");item.ratingSource=ref.optString("ratingSource");return item;
+    }
     private void shelfList(String kind,String flag){
-        try{List<Action> actions=new ArrayList<>();for(org.json.JSONObject item:shelf.list(kind,flag)){String detail=flag.equals("follow")?(item.optInt("newEpisodes")>0?"新集数 +"+item.optInt("newEpisodes"):item.optString("remark",item.optString("latest"))):("nas".equals(item.optString("kind"))?"NAS":item.optString("episode"))+(item.optBoolean("complete")?" · 已看完":item.optLong("position")>0?" · "+item.optLong("position")/60000+"分钟":"");actions.add(new Action(item.optString("title")+(detail.isEmpty()?"":"\n"+detail),()->savedItem(item,()->shelfList(kind,flag))));}
-            grid(flag.equals("follow")?"追剧":flag.equals("history")?"最近观看":"收藏",actions,0,this::shelfHome);shelfRefresh=()->shelfList(kind,flag);if(flag.equals("follow"))button(content,"检查更新",this::checkFollowing);
-        }catch(Exception invalid){status.setText("观看记录无法读取");}
+        try{
+            sectionFullscreen=true;screen("我的收藏",this::home);List<org.json.JSONObject> records=shelf.list(kind,flag);final CinemaShelfView[] holder=new CinemaShelfView[1];
+            holder[0]=new CinemaShelfView(this,records,flag.equals("history")?"最近观看":flag.equals("follow")?"追剧":kind==null?"全部收藏":kind.equals("vod")?"收藏影片":kind.equals("live")?"收藏频道":"收藏NAS",record->shelfPreview(holder[0],record,kind,flag),this::home,this::shelfList,this::checkFollowing);
+            CinemaShelfView layout=holder[0];setContentView(layout.stage);shelfRefresh=()->shelfList(kind,flag);if(records.isEmpty())return;
+            org.json.JSONObject selected=records.get(0);for(org.json.JSONObject record:records)if(CinemaShelf.key(record).equals(shelfSelected))selected=record;
+            shelfPreview(layout,selected,kind,flag);layout.focus(selected);
+        }catch(Exception invalid){if(status!=null)status.setText("观看记录无法读取");}
+    }
+    private void shelfPreview(CinemaShelfView layout,org.json.JSONObject record,String kind,String flag){
+        if(layout==null)return;try{shelfSelected=CinemaShelf.key(record);}catch(Exception ignored){}final int preview=++shelfPreviewTurn,turn=generation;
+        if(pendingShelfPreview!=null)main.removeCallbacks(pendingShelfPreview);
+        try{CinemaCatalog.Site selected=null;for(CinemaCatalog.Site site:config.sites)if(source(site).equals(record.optString("source"))){selected=site;break;}final CinemaCatalog.Site site=selected;final CinemaCatalog.Item cached=shelfMetadata(record);
+            Runnable previous=()->shelfList(kind,flag),remove=()->new AlertDialog.Builder(this).setTitle(flag.equals("favorite")?"取消收藏？":flag.equals("follow")?"取消追剧？":"清除此观看记录？").setNegativeButton("保留",null).setPositiveButton("移除",(d,w)->{editShelf(next->{if(flag.equals("favorite")||flag.equals("follow"))next.toggle(record,flag);else next.clearProgress(record);});previous.run();}).show();
+            status=layout.show(cached,record,site==null?"":site.api,artwork,config.allowHttp,()->playSavedOverview(record,site,null,previous),remove,previous).credit;
+            if(site==null||!"vod".equals(record.optString("kind")))return;
+            pendingShelfPreview=()->{try{io.execute(()->{try{CinemaCatalog.Page page=catalogue(site,null,1,null,record.optString("id"));for(CinemaCatalog.Item item:page.items)if(item.id.equals(record.optString("id"))){main.post(()->{if(destroyed||turn!=generation||preview!=shelfPreviewTurn)return;status=layout.show(item,record,site.api,artwork,config.allowHttp,()->playSavedOverview(record,site,item,previous),remove,previous).credit;editShelf(next->next.enrich(vodRef(site,item)));});break;}}catch(Exception unavailable){/* Keep the saved overview when its source is offline. */}});}catch(java.util.concurrent.RejectedExecutionException busy){}};main.postDelayed(pendingShelfPreview,250);
+        }catch(Exception invalid){if(status!=null)status.setText("收藏信息无法读取");}
+    }
+    private void playSavedOverview(org.json.JSONObject ref,CinemaCatalog.Site site,CinemaCatalog.Item item,Runnable previous){
+        if(site==null||!"vod".equals(ref.optString("kind"))){openSaved(ref,previous);return;}
+        if(item==null){task(ref.optString("title"),previous,()->catalogue(site,null,1,null,ref.optString("id")),page->{for(CinemaCatalog.Item detail:page.items)if(detail.id.equals(ref.optString("id"))){playSavedOverview(ref,site,detail,previous);return;}throw new java.io.IOException("来源中已没有这部影片");});return;}
+        try{List<CinemaCatalog.Line> lines=CinemaCatalog.lines(item,config.allowHttp,site.headers,site.resolved());int line=0,episode=0;for(int l=0;l<lines.size();l++)if(lines.get(l).name.equals(ref.optString("line"))){line=l;for(int e=0;e<lines.get(l).episodes.size();e++)if(lines.get(l).episodes.get(e).name.equals(ref.optString("episode")))episode=e;}playEpisodes(site,ref,lines,line,episode,previous);}catch(Exception unavailable){if(status!=null)status.setText("此影片暂时无法播放");}
     }
     private void savedItem(org.json.JSONObject item,Runnable previous){
         TvDialogs.menu(this,item.optString("title"),new String[]{"继续观看","移除此记录"},(d,w)->{if(w==1){editShelf(next->next.remove(item));previous.run();return;}openSaved(item,previous);});
@@ -398,8 +422,8 @@ public final class CinemaActivity extends Activity {
         playerToggle=PlayerChrome.control(this,"",this::togglePlayback);PlayerChrome.transport(this,playerToggle,false);controls.addView(playerToggle,new LinearLayout.LayoutParams(dp(56),dp(52)));
         if(!live)controls.addView(timeline,new LinearLayout.LayoutParams(0,dp(52),1));else{TextView hint=label("直播",18);hint.setTextColor(TvUi.MUTED);controls.addView(hint,new LinearLayout.LayoutParams(0,-2,1));}
         if(!live){controls.addView(PlayerChrome.control(this,"选集",this::playerEpisodes),new LinearLayout.LayoutParams(dp(100),dp(52)));if(vodPlan!=null&&vodPlan.lines.size()>1)controls.addView(PlayerChrome.control(this,"线路",this::playerLines),new LinearLayout.LayoutParams(dp(100),dp(52)));}
-        if(live){programmePanel=new CinemaProgrammePanel(this,stage,playingChannels,guide,()->{if(videoSurface!=null)videoSurface.requestFocus();});livePanel=new CinemaLivePanel(this,stage,playingChannels,artwork,config.allowHttp,index->playChannels(playingChannels,index,0,playerBack),()->{if(videoSurface!=null)videoSurface.requestFocus();});livePanel.guide(guide);playerProgramme=label("",18);playerProgramme.setMaxLines(1);playerProgramme.setEllipsize(android.text.TextUtils.TruncateAt.END);playerOverlay.addView(playerProgramme);refreshGuideViews();guideLoader.load(config.epgs,config.allowHttp,(value,state)->{if(destroyed)return;updateGuide(value);});
-            controls.addView(PlayerChrome.control(this,"频道",()->{playerOverlay.setVisibility(View.GONE);livePanel.show(playingIndex);}),new LinearLayout.LayoutParams(dp(100),dp(52)));}
+        if(live){programmePanel=new CinemaProgrammePanel(this,stage,playingChannels,guide,()->{if(videoSurface!=null)videoSurface.requestFocus();});List<CinemaCatalog.Channel> pickerChannels=!playingChannels.isEmpty()&&liveAll.contains(playingChannels.get(playingIndex))?liveAll:playingChannels;livePanel=new CinemaLivePanel(this,stage,pickerChannels,artwork,config.allowHttp,index->playChannels(pickerChannels,index,0,playerBack),()->{if(videoSurface!=null)videoSurface.requestFocus();});livePanel.guide(guide);playerProgramme=label("",18);playerProgramme.setMaxLines(1);playerProgramme.setEllipsize(android.text.TextUtils.TruncateAt.END);playerOverlay.addView(playerProgramme);refreshGuideViews();guideLoader.load(config.epgs,config.allowHttp,(value,state)->{if(destroyed)return;updateGuide(value);});
+            controls.addView(PlayerChrome.control(this,"频道",()->{playerOverlay.setVisibility(View.GONE);livePanel.showChannel(playingChannels.get(playingIndex));}),new LinearLayout.LayoutParams(dp(100),dp(52)));}
         playerMore=PlayerChrome.control(this,"更多",this::playerOptions);controls.addView(playerMore,new LinearLayout.LayoutParams(dp(100),dp(52)));
         playerToggle.setNextFocusDownId(View.NO_ID);playerToggle.setOnKeyListener((v,key,event)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(event.getAction()==KeyEvent.ACTION_DOWN)playerMore.requestFocus();return true;}return false;});
         playerMore.setOnKeyListener((v,key,event)->{if(key==KeyEvent.KEYCODE_DPAD_UP){if(event.getAction()==KeyEvent.ACTION_DOWN)playerToggle.requestFocus();return true;}return false;});
@@ -519,16 +543,21 @@ public final class CinemaActivity extends Activity {
     @Override public boolean dispatchKeyEvent(KeyEvent event){
         int key=event.getKeyCode();boolean down=event.getAction()==KeyEvent.ACTION_DOWN;
         if(VoiceAssistant.systemVoiceKey(key))return super.dispatchKeyEvent(event);
-        boolean confirm=key==KeyEvent.KEYCODE_DPAD_CENTER||key==KeyEvent.KEYCODE_ENTER||key==KeyEvent.KEYCODE_NUMPAD_ENTER;
+        boolean confirm=key==KeyEvent.KEYCODE_DPAD_CENTER||key==KeyEvent.KEYCODE_ENTER||key==KeyEvent.KEYCODE_NUMPAD_ENTER||key==KeyEvent.KEYCODE_BUTTON_A;
         if(confirm){if(down&&event.getRepeatCount()==0)confirmPress.down(key,event.getDownTime(),generation);else if(!down&&!confirmPress.up(key,event.getDownTime(),generation,event.isCanceled())){controlsConfirmHeld=false;playerConfirmAction=null;if(livePanel!=null)livePanel.cancelPress();if(choicePanel!=null)choicePanel.cancelPress();return true;}}
+        if(!sectionFullscreen&&sectionLayout!=null&&"live".equals(view)&&sectionLayout.rail.hasFocus()&&(key==KeyEvent.KEYCODE_DPAD_LEFT||key==KeyEvent.KEYCODE_DPAD_RIGHT)){
+            if(down&&event.getRepeatCount()==0){List<String> groups=new ArrayList<>();for(CinemaCatalog.Channel channel:sectionChannels)if(!groups.contains(channel.group))groups.add(channel.group);if(!groups.isEmpty()){int at=groups.indexOf(sectionRailMode);sectionRailMode=groups.get((Math.max(0,at)+(key==KeyEvent.KEYCODE_DPAD_RIGHT?1:-1)+groups.size())%groups.size());refreshSectionRail();sectionLayout.focusSelected();android.util.Log.i("KaishiLive","rail-group count="+groups.size());}}
+            return true;
+        }
         if(playingView&&choicePanel!=null){if(choicePanel.key(event))return true;return super.dispatchKeyEvent(event);}
+        if(playingView&&liveQueue&&livePanel!=null&&livePanel.open()&&livePanel.key(event))return true;
         if(playingView&&programmePanel!=null&&programmePanel.key(event))return true;
         if(playingView&&programmePanel!=null&&programmePanel.open())return super.dispatchKeyEvent(event);
         if(playingView&&liveQueue&&livePanel!=null&&livePanel.key(event))return true;
         if(playingView&&confirm){
             if(down&&event.getRepeatCount()==0){controlsConfirmHeld=true;main.removeCallbacks(hidePlayerControls);View focus=getCurrentFocus();
                 if(focus!=null&&focus!=videoSurface&&playerOverlay!=null&&playerOverlay.getVisibility()==View.VISIBLE&&focus instanceof Button)playerConfirmAction=()->focus.performClick();
-                else playerConfirmAction=()->{if(liveQueue&&livePanel!=null){playerOverlay.setVisibility(View.GONE);livePanel.show(playingIndex);}else playerEpisodes();};
+                else playerConfirmAction=()->{if(liveQueue&&livePanel!=null){playerOverlay.setVisibility(View.GONE);livePanel.showChannel(playingChannels.get(playingIndex));}else playerEpisodes();};
             }else if(!down){controlsConfirmHeld=false;Runnable action=playerConfirmAction;playerConfirmAction=null;if(action!=null)action.run();}return true;
         }
         boolean videoFocus=getCurrentFocus()==videoSurface||playerOverlay==null||playerOverlay.getVisibility()!=View.VISIBLE;

@@ -189,6 +189,7 @@ public class MainActivity extends Activity {
                 if (view != web) return blockedAsset();
                 if (lobby) {
                     if (!"GET".equals(request.getMethod())) return blockedAsset();
+                    WebResourceResponse album=new GalleryStore(MainActivity.this).read(request);if(album!=null)return album;
                     Uri target=request.getUrl();
                     if("https".equals(target.getScheme())&&LobbyAssets.HOST.equals(target.getHost())&&target.getPort()==-1&&target.getUserInfo()==null&&target.getQuery()==null&&target.getFragment()==null&&"/api/messages".equals(target.getPath())&&!request.isForMainFrame())return new WebResourceResponse("application/json","UTF-8",200,"OK",householdHeaders(),new ByteArrayInputStream(messages.display()));
                     WeatherProxy.Reply climate=forecast.read(request.getUrl().toString(),request.getMethod(),request.isForMainFrame());
@@ -241,6 +242,7 @@ public class MainActivity extends Activity {
         Button save=TvUi.button(this,"保存留言源",()->{try{messages.configure(input.getText().toString());note.setText(input.getText().toString().trim().isEmpty()?"已断开留言源":"已保存，正在读取");}catch(Exception invalid){note.setText("请输入有效的 HTTPS 地址");}});form.addView(save);TvDialogs.panel(this,"留言源",form);
     }
     private void action(String path) {
+        if("/gallery".equals(path)&&!BuildConfig.PARENTS_EDITION){startActivity(new Intent(this,GalleryActivity.class));return;}
         if ("/family-live".equals(path) || "/family-series".equals(path) || "/family-movies".equals(path) || "/family-variety".equals(path)) android.util.Log.i("KaishiHome", "action=" + path.substring(1));
         if("/message-settings".equals(path)){messageSettings();return;}
         if("/ambient-awake-on".equals(path)||"/ambient-awake-off".equals(path)){ambientAwake=path.endsWith("-on");syncAmbientAwake();return;}
@@ -336,6 +338,8 @@ public class MainActivity extends Activity {
         scenicHome=new ScenicNativeHome(this,destinations,route->{
             if("settings".equals(route))quickMenu();
             else if("apps".equals(route))destinations.all();
+            else if("gallery".equals(route))action("/gallery");
+            else if("information".equals(route))messageSettings();
             else if("nas".equals(route))action("/nas");
             else if("system".equals(route))destinations.launch("system");
             else if("weather".equals(route)||"ambient".equals(route))startActivity(new Intent(this,AmbientActivity.class).putExtra("panel","weather".equals(route)?"weather":"settings"));
@@ -443,7 +447,7 @@ public class MainActivity extends Activity {
     }
     @Override public void onBackPressed() { if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }
     @Override protected void onPause() { display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }
-    @Override protected void onResume() { super.onResume(); display.resumed(true); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
+    @Override protected void onResume() { super.onResume(); HomeGuardService.resumedHome(this); display.resumed(true); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
     @Override public void onWindowFocusChanged(boolean hasFocus) { super.onWindowFocusChanged(hasFocus); display.focused(hasFocus); if (display.active()) immersive(); }
     @Override protected void onDestroy() { if(returnHomeDialog!=null)returnHomeDialog.dismiss();if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();if(destinations!=null)destinations.dismissHomeSettings();if(installer!=null)installer.destroy();if(messages!=null)messages.close(); destroyWeb(); super.onDestroy(); }
 }

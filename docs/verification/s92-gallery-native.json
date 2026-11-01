@@ -1,0 +1,9 @@
+{
+  "passed": 20,
+  "ok": true,
+  "productionGalleryStoreAndUpload": true,
+  "platform": "Android28 isolated emulator",
+  "realXiaomi": false,
+  "initialFailure": "Probe reader discarded received HTTP bytes on RST; reader corrected; first failure retained in development artifacts",
+  "syntheticPhotos": true
+}

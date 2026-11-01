@@ -1,0 +1,7 @@
+{
+  "passed": 5,
+  "productionCode": true,
+  "platform": "JVM with org.json",
+  "evidence": "5 overview persistence, enrichment, legacy and state-isolation checks passed",
+  "realXiaomi": false
+}
