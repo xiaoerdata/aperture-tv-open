@@ -201,8 +201,17 @@
               "$ref": "#/$defs/url"
             },
             "year": {
-              "type": "string",
-              "maxLength": 40
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 40
+                },
+                {
+                  "type": "integer",
+                  "minimum": 1800,
+                  "maximum": 2200
+                }
+              ]
             },
             "genre": {
               "type": "string",
@@ -229,8 +238,17 @@
               "maxLength": 60
             },
             "rating": {
-              "type": "string",
-              "maxLength": 40
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10
+                },
+                {
+                  "type": "string",
+                  "maxLength": 40
+                }
+              ]
             },
             "ratingSource": {
               "type": "string",
@@ -249,8 +267,17 @@
           "maxLength": 4000
         },
         "year": {
-          "type": "string",
-          "maxLength": 40
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 40
+            },
+            {
+              "type": "integer",
+              "minimum": 1800,
+              "maximum": 2200
+            }
+          ]
         },
         "area": {
           "type": "string",
@@ -269,8 +296,17 @@
           "maxLength": 300
         },
         "rating": {
-          "type": "string",
-          "maxLength": 40
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            },
+            {
+              "type": "string",
+              "maxLength": 40
+            }
+          ]
         },
         "ratingSource": {
           "type": "string",
@@ -282,6 +318,20 @@
         },
         "backdrop": {
           "$ref": "#/$defs/url"
+        },
+        "section": {
+          "enum": [
+            "movies",
+            "series",
+            "variety"
+          ]
+        },
+        "poster": {
+          "$ref": "#/$defs/url"
+        },
+        "summary": {
+          "type": "string",
+          "maxLength": 4000
         }
       },
       "required": [
@@ -467,10 +517,27 @@
           "const": "collection"
         },
         "section": {
-          "enum": [
-            "movies",
-            "series",
-            "variety"
+          "anyOf": [
+            {
+              "enum": [
+                "movies",
+                "series",
+                "variety"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "movies",
+                  "series",
+                  "variety"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 3,
+              "uniqueItems": true
+            }
           ]
         },
         "items": {
@@ -483,16 +550,40 @@
         },
         "headers": {
           "$ref": "#/$defs/headers"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "movies",
+              "series",
+              "variety"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true
         }
       },
       "required": [
         "id",
         "type",
         "title",
-        "section",
         "items"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "section"
+          ]
+        },
+        {
+          "required": [
+            "sections"
+          ]
+        }
+      ]
     },
     "tvbox": {
       "type": "object",

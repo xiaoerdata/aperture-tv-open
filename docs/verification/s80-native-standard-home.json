@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "positions": [],
+  "checks": [
+    "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+    "native compatibility home decodes bundled scenic wallpaper",
+    "native scenic home Down reaches apps and tools",
+    "root Back exits within two presses; Xiaomi original home remains separate hardware acceptance"
+  ],
+  "images": [
+    "scenic-home",
+    "scenic-apps"
+  ],
+  "systemInput": "UiAutomation.injectInputEvent with shared downTime / SOURCE_DPAD and sendPointerSync via Android InputManager; no Activity.dispatchKeyEvent in this runner",
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticMediaFixture": true,
+  "edition": "standard",
+  "scope": "home",
+  "physicalSize": [
+    1920,
+    1080
+  ],
+  "density": 320,
+  "debugApkSha256": "9292c7e38ba31a0bc246037b9751abe2995bc82d80a01f83f93e15043837bbe8"
+}

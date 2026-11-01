@@ -1,0 +1,70 @@
+{
+  "format": "kaishi.resource-pack",
+  "version": 1,
+  "id": "org.example.mixed",
+  "revision": 1,
+  "title": "家庭片单",
+  "resources": [
+    {
+      "id": "family",
+      "type": "collection",
+      "title": "家庭精选",
+      "sections": [
+        "movies",
+        "series",
+        "variety"
+      ],
+      "items": [
+        {
+          "id": "film",
+          "section": "movies",
+          "title": "家庭短片",
+          "poster": "https://images.example.invalid/film.jpg",
+          "summary": "资源作者填写的简介。",
+          "year": 2026,
+          "genre": "家庭",
+          "rating": 8.6,
+          "ratingSource": "来源评分",
+          "episodes": [
+            {
+              "title": "正片",
+              "url": "https://media.example.invalid/film.mp4"
+            }
+          ]
+        },
+        {
+          "id": "series",
+          "section": "series",
+          "title": "旅途记录",
+          "metadata": {
+            "poster": "https://images.example.invalid/series.webp",
+            "summary": "家庭旅行的影像记录。",
+            "year": "2026",
+            "genre": "旅行"
+          },
+          "episodes": [
+            {
+              "title": "第1集：从家出发，沿着海岸前往下一站的完整记录",
+              "url": "https://media.example.invalid/episode-1.mp4"
+            },
+            {
+              "title": "第2集",
+              "url": "https://media.example.invalid/episode-2.mp4"
+            }
+          ]
+        },
+        {
+          "id": "variety",
+          "section": "variety",
+          "title": "周末舞台",
+          "episodes": [
+            {
+              "title": "第1期",
+              "url": "https://media.example.invalid/show.mp4"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

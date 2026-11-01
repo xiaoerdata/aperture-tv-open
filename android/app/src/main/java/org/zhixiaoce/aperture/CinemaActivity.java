@@ -65,7 +65,7 @@ public final class CinemaActivity extends Activity {
         if(sectionFullscreen){sectionLayout=null;setContentView(body);return;}
         sectionLayout=new CinemaSectionView(this,title(),body);setContentView(sectionLayout.stage);refreshSectionRail();
     }
-    private boolean railCollapsed,sourcesExpanded,categoriesExpanded=true,filtersExpanded;
+    private boolean railCollapsed,sourcesExpanded=true,categoriesExpanded=true,filtersExpanded;
     private int browseScrollY;private String browseWord,browseName="片单",filterYear="",filterArea="";private boolean browseActive;
     private void refreshSectionRail(){
         if(sectionLayout==null)return;
@@ -93,7 +93,7 @@ public final class CinemaActivity extends Activity {
     }
     private static final class SectionPage {CinemaCatalog.Page page;List<CinemaCatalog.Category> categories;String category;}
     private void sectionLoad(CinemaCatalog.Site site,String category,int page){
-        sectionFullscreen=false;sectionSite=site;sectionCategory=category;sectionPage=page;browseScrollY=0;browseActive=false;sectionRailMode="programmes";
+        sectionFullscreen=false;sectionSite=site;sectionCategories=new ArrayList<>();sectionItems=new ArrayList<>();sectionCategory=category;sectionPage=page;browseScrollY=0;browseActive=false;sectionRailMode="programmes";
         task(title(),this::finish,()->{
             SectionPage result=new SectionPage();CinemaCatalog.Page home=siteHome(site);result.categories=CinemaResourcePack.categories(site,home,view);
             if(result.categories.isEmpty()&&!"variety".equals(view)&&site.sections.isEmpty())result.categories=home.categories;
@@ -104,7 +104,7 @@ public final class CinemaActivity extends Activity {
         },result->{sectionCategories=result.categories;sectionCategory=result.category;sectionItems=new ArrayList<>(result.page.items);sectionPages=result.page.pages;
             if(sectionItems.isEmpty()){status.setText("此片单暂无影片");refreshSectionRail();return;}
             browseActive=true;renderBrowse();
-        });
+        },site.type==5);
     }
     private void sectionLive(CinemaCatalog.Live source,int selected){
         sectionFullscreen=false;currentLive=source;sectionChannels=new ArrayList<>();sectionRailMode="programmes";
@@ -129,7 +129,7 @@ public final class CinemaActivity extends Activity {
         Button b=TvUi.button(this,text,action);if(parent!=null){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-2,-2);p.setMargins(0,dp(6),0,dp(6));parent.addView(b,p);}return b;
     }
     private void release(){controlsConfirmHeld=false;playerConfirmAction=null;choicePanel=null;entryIntent.cancel();playerProgramme=null;programmePanel=null;if(livePanel!=null){livePanel.close();livePanel=null;}if(timeline!=null){timeline.close();timeline=null;}main.removeCallbacks(hidePlayerControls);playerOverlay=null;videoSurface=null;playerToggle=null;playerMore=null;playerMenu=null;playerStage=null;saveProgress(false);session.reset();prepared=false;if(player!=null){player.release();player=null;}getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);playerStatus=null;}
-    private void invalidate(){generation++;if(artwork!=null)artwork.cancel();if(info!=null)info.cancel();http.cancel();http.deadline(0);if(plugins!=null)plugins.cancelPending();}
+    private void invalidate(){generation++;io.getQueue().clear();if(artwork!=null)artwork.cancel();if(info!=null)info.cancel();http.cancel();http.deadline(0);if(plugins!=null)plugins.cancelPending();}
     private void screen(String title,Runnable previous){
         closeSettings();invalidate();release();playingView=false;channelProgrammes.clear();back=previous;shelfRefresh=null;
         root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setBackground(TvUi.background());
@@ -148,12 +148,12 @@ public final class CinemaActivity extends Activity {
     }
     private void grid(String title,List<Action> actions,int page,Runnable previous,GridCursor cursor){
         screen(title,previous);int pages=Math.max(1,(actions.size()+11)/12),at=Math.max(0,Math.min(page,pages-1));
-        boolean posters=false;for(Action a:actions)if(a.item!=null){posters=true;break;}int columns=cursor.episodes?2:posters?5:3;GridLayout cells=new GridLayout(this);cells.setColumnCount(columns);cells.setClipChildren(false);content.addView(cells);
+        boolean posters=false;for(Action a:actions)if(a.item!=null){posters=true;break;}int columns=cursor.episodes?2:posters?4:3;GridLayout cells=new GridLayout(this);cells.setColumnCount(columns);cells.setClipChildren(false);content.addView(cells);
         for(int i=at*12;i<Math.min(actions.size(),at*12+12);i++){
             final int index=i;Action a=actions.get(i);View tile;
             Runnable activate=()->{cursor.selected=index;cursor.scrollY=((ScrollView)content.getParent()).getScrollY();a.run.run();};
             if(posters&&a.item!=null)tile=poster(a,activate);else if(a.channel!=null||!a.image.isEmpty())tile=channelTile(a,activate);else{Button b=button(null,a.name,activate);b.setMaxLines(cursor.episodes?Integer.MAX_VALUE:2);b.setPadding(dp(12),dp(4),dp(12),dp(4));b.setEllipsize(cursor.episodes?null:android.text.TextUtils.TruncateAt.END);if(cursor.episodes){b.setMinHeight(dp(64));b.setGravity(Gravity.START|Gravity.CENTER_VERTICAL);b.setPadding(dp(14),dp(12),dp(14),dp(12));}tile=b;}
-            GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec((i-at*12)%columns,1f);p.width=0;p.height=posters?dp(BuildConfig.PARENTS_EDITION?192:170):a.channel!=null?Math.max(dp(64),Math.round(getResources().getDisplayMetrics().heightPixels*.09f)):cursor.episodes?-2:dp(56);p.setMargins(dp(6),dp(6),dp(6),dp(6));cells.addView(tile,p);
+            GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec((i-at*12)%columns,1f);p.width=0;p.height=posters?Math.round(getResources().getDisplayMetrics().heightPixels*.51f):a.channel!=null?Math.max(dp(64),Math.round(getResources().getDisplayMetrics().heightPixels*.09f)):cursor.episodes?-2:dp(56);p.setMargins(dp(6),dp(6),dp(6),dp(6));cells.addView(tile,p);
         }
         status.setText(actions.isEmpty()?"暂无内容，请在来源中配置":actions.size()+" 项");
         LinearLayout controls=new LinearLayout(this);root.addView(controls);
@@ -165,10 +165,11 @@ public final class CinemaActivity extends Activity {
         if(cells.getChildCount()>0)cells.getChildAt(Math.max(0,Math.min(cells.getChildCount()-1,cursor.selected-at*12))).requestFocus();else sourcesFocus();ScrollView listScroll=(ScrollView)content.getParent();listScroll.post(()->listScroll.scrollTo(0,cursor.scrollY));
     }
     private android.widget.ImageView art(String image,String base){android.widget.ImageView v=new android.widget.ImageView(this);v.setScaleType(android.widget.ImageView.ScaleType.CENTER_CROP);v.setBackground(TvUi.glass(this,false));v.setClipToOutline(true);artwork.bind(v,image,base,config.allowHttp);return v;}
-    private LinearLayout focusTile(String name,Runnable run){LinearLayout tile=new LinearLayout(this);tile.setOrientation(LinearLayout.VERTICAL);tile.setPadding(dp(6),dp(6),dp(6),dp(6));tile.setBackground(TvUi.states(this));tile.setFocusable(true);tile.setFocusableInTouchMode(true);tile.setClickable(true);tile.setContentDescription(name);tile.setOnClickListener(v->run.run());tile.setOnFocusChangeListener((v,f)->{v.setScaleX(1);v.setScaleY(1);});return tile;}
+    private LinearLayout focusTile(String name,Runnable run){LinearLayout tile=new LinearLayout(this);tile.setOrientation(LinearLayout.VERTICAL);tile.setPadding(dp(6),dp(6),dp(6),dp(6));tile.setBackground(TvUi.states(this));tile.setFocusable(true);tile.setFocusableInTouchMode(true);tile.setClickable(true);tile.setContentDescription(name);tile.setOnClickListener(v->run.run());TvUi.touchClick(tile);tile.setOnFocusChangeListener((v,f)->{v.setScaleX(1);v.setScaleY(1);});return tile;}
     private View poster(Action action,Runnable run){
         LinearLayout tile=focusTile(action.name,run);CinemaPoster frame=new CinemaPoster(this,action.name);android.widget.ImageView image=frame.image;tile.addView(frame,new LinearLayout.LayoutParams(-1,0,1));
-        TextView name=label(action.name,BuildConfig.PARENTS_EDITION?22:18);name.setMaxLines(2);name.setMinLines(2);name.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(name);TextView remark=label(action.item.remark.isEmpty()?action.item.year:action.item.remark,15);remark.setTextColor(MUTED);remark.setSingleLine();remark.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(remark,new LinearLayout.LayoutParams(-1,-2));
+        TextView name=label(action.name,BuildConfig.PARENTS_EDITION?22:18);name.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,(BuildConfig.PARENTS_EDITION?32:30)*getResources().getDisplayMetrics().heightPixels/1080f);name.setMaxLines(2);name.setMinLines(2);name.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(name);TextView facts=label(String.join(" · ",nonempty(action.item.year,action.item.genre)),15);facts.setTextColor(MUTED);facts.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,23*getResources().getDisplayMetrics().heightPixels/1080f);facts.setSingleLine();facts.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(facts,new LinearLayout.LayoutParams(-1,-2));TextView remark=label(action.item.remark,15);remark.setTextColor(MUTED);remark.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,23*getResources().getDisplayMetrics().heightPixels/1080f);remark.setSingleLine();remark.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(remark,new LinearLayout.LayoutParams(-1,-2));
+        if(!action.item.rating.isEmpty()){TextView score=label(action.item.rating,17);score.setTextColor(0xffffe1a1);score.setGravity(Gravity.CENTER);score.setBackgroundColor(0xdf17191c);score.setPadding(dp(6),dp(2),dp(6),dp(2));score.setContentDescription((action.item.ratingSource.isEmpty()?"来源评分":action.item.ratingSource)+" "+action.item.rating);FrameLayout.LayoutParams badge=new FrameLayout.LayoutParams(-2,-2,Gravity.BOTTOM|Gravity.END);badge.setMargins(0,0,dp(5),dp(5));frame.addView(score,badge);}
         artwork.bind(image,action.image,action.base,config.allowHttp,()->{int turn=generation;String kind="movies".equals(view)?"movie":"series";info.lookup(action.item.name,action.item.year,kind,false,(match,candidates,state)->{if(generation!=turn||match==null)return;artwork.bind(image,match.optString("poster"),"",false);});});return tile;
     }
     private View channelTile(Action action,Runnable run){
@@ -205,14 +206,18 @@ public final class CinemaActivity extends Activity {
         button(form,"保存",()->{try{info.configure(enabled.isChecked(),token.getText().toString());closeSettings();home();}catch(Exception e){note.setText("资料设置保存失败");}});android.widget.ImageView tmdb=new android.widget.ImageView(this);tmdb.setImageResource(getResources().getIdentifier("tmdb_attribution","drawable",getPackageName()));tmdb.setScaleType(android.widget.ImageView.ScaleType.FIT_START);tmdb.setContentDescription("TMDB");form.addView(tmdb,new LinearLayout.LayoutParams(dp(150),dp(26)));form.addView(label("This product uses the TMDB API but is not endorsed or certified by TMDB.\nTVmaze 数据遵循 CC BY-SA；详情保留来源链接。联网不可用时仍可浏览和播放。",16));settingsDialog=TvDialogs.panel(this,"封面与资料",form);
     }
     private void sourcesFocus(){if(root!=null)root.getChildAt(0).requestFocus();}
-    private <T> void task(String title,Runnable previous,Work<T> work,Done<T> done){
+    private <T> void task(String title,Runnable previous,Work<T> work,Done<T> done){task(title,previous,work,done,false);}
+    private <T> void task(String title,Runnable previous,Work<T> work,Done<T> done,boolean local){
         screen(title,previous);status.setText("正在读取…");int turn=generation;
         content.addView(label("读取来源内容",22));button(content,"返回",previous);
-        try{io.execute(()->{if(destroyed||generation!=turn)return;try{T value=work.run();main.post(()->{if(destroyed||generation!=turn)return;try{done.run(value);}catch(Exception error){taskFailure(error,()->task(title,previous,work,done));}});}catch(Exception error){main.post(()->{if(!destroyed&&generation==turn){if(error instanceof PluginTrust){confirmPlugin(((PluginTrust)error).candidate,()->task(title,previous,work,done));}else taskFailure(error,()->task(title,previous,work,done));}});}});}catch(java.util.concurrent.RejectedExecutionException busy){status.setText("操作较多，请返回后重试");}
+        Runnable load=()->{if(destroyed||generation!=turn)return;try{T value=work.run();main.post(()->{if(destroyed||generation!=turn)return;try{done.run(value);}catch(Exception error){taskFailure(error,()->task(title,previous,work,done,local));}});}catch(Exception error){main.post(()->{if(!destroyed&&generation==turn){if(error instanceof PluginTrust){confirmPlugin(((PluginTrust)error).candidate,()->task(title,previous,work,done,local));}else taskFailure(error,()->task(title,previous,work,done,local));}});}};
+        try{if(local)load.run();else io.execute(load);}catch(java.util.concurrent.RejectedExecutionException busy){status.setText("操作较多，请返回后重试");}
     }
     private void taskFailure(Exception error,Runnable retry){
         String text=message(error);if(text==null||text.trim().isEmpty())text="来源暂时不可用";String lower=text.toLowerCase(java.util.Locale.ROOT);if(lower.contains("timeout")||lower.contains("timed out"))text="来源响应超时";else if(lower.contains("unable to resolve")||lower.contains("connect"))text="暂时无法连接来源";
-        status.setText(text);content.removeAllViews();content.addView(label("内容暂时无法读取",24));button(content,"重试",retry).requestFocus();button(content,"切换来源",()->{railCollapsed=false;sourcesExpanded=true;refreshSectionRail();if(sectionLayout!=null)sectionLayout.focusFirst();});button(content,"来源设置",this::settings);
+        status.setText((sectionSite==null?"":sectionSite.name+" · ")+text);content.removeAllViews();content.addView(label("此来源暂时无法读取",24));button(content,"重试",retry).requestFocus();
+        for(CinemaCatalog.Site local:config.sites)if(local.type==5&&local.supports(view)){button(content,"本地片单 · "+local.name,()->sectionLoad(local,null,1));break;}
+        sourcesExpanded=true;refreshSectionRail();button(content,"切换来源",()->{if(sectionLayout!=null)sectionLayout.focusFirst();});button(content,"来源设置",this::settings);
     }
     private static final class PluginTrust extends java.io.IOException {final CinemaPlugins.Candidate candidate;PluginTrust(CinemaPlugins.Candidate candidate){super("插件需要确认");this.candidate=candidate;}}
     private CinemaPlugins.Candidate plugin(CinemaCatalog.Site site)throws Exception {
@@ -270,7 +275,7 @@ public final class CinemaActivity extends Activity {
     private void home(){
         sectionFullscreen=false;
         if("live".equals(view)){List<CinemaCatalog.Live> lives=CinemaLiveSources.visible(config.lives);if(!lives.isEmpty()){sectionLive(currentLive!=null&&lives.contains(currentLive)?currentLive:lives.get(0),0);return;}}
-        else {for(CinemaCatalog.Site site:config.sites)if(site.supports(view)){sectionLoad(sectionSite!=null&&config.sites.contains(sectionSite)&&sectionSite.supports(view)?sectionSite:site,sectionCategory,sectionPage);return;}}
+        else {CinemaCatalog.Site chosen=CinemaBrowse.preferred(config.sites,sectionSite,view);if(chosen!=null){sectionLoad(chosen,sectionCategory,sectionPage);return;}}
         screen(title(),this::finish);status.setText("尚未配置来源");button(content,"设置来源",this::settings).requestFocus();
     }
     private void liveSources(){
@@ -311,15 +316,15 @@ public final class CinemaActivity extends Activity {
         task(name,this::home,()->catalogue(site,category,page,word,null),data->{
             if(page==1)sectionItems=new ArrayList<>();java.util.Set<String> seen=new java.util.HashSet<>();for(CinemaCatalog.Item item:sectionItems)seen.add(item.id);for(CinemaCatalog.Item item:data.items)if(seen.add(item.id)&&sectionItems.size()<400)sectionItems.add(item);
             sectionPage=page;sectionPages=data.pages;renderBrowse();
-        });
+        },site.type==5);
     }
     private void renderBrowse(){
         sectionFullscreen=false;browseActive=true;screen(browseName,this::finish);
         List<CinemaCatalog.Item> shown=CinemaBrowse.items(sectionItems,browseWord,filterYear,filterArea);
         status.setText("已加载 "+sectionItems.size()+" 部"+(filterYear.isEmpty()&&filterArea.isEmpty()?"":" · 筛选后 "+shown.size()+" 部")+(browseWord==null?"":" · 当前来源"));
         LinearLayout filters=new LinearLayout(this);content.addView(filters);button(filters,filterYear.isEmpty()?"年份 · 全部":filterYear,()->filter(false));button(filters,filterArea.isEmpty()?"地区 · 全部":filterArea,()->filter(true));
-        GridLayout cells=new GridLayout(this);int columns=5;cells.setColumnCount(columns);content.addView(cells);
-        for(int i=0;i<shown.size();i++){CinemaCatalog.Item item=shown.get(i);View tile=poster(new Action(item,sectionSite.api,()->{}),()->{browseScrollY=((ScrollView)content.getParent()).getScrollY();details(sectionSite,item,this::renderBrowse);});GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec(i%columns,1f);p.width=0;p.height=Math.round(getResources().getDisplayMetrics().heightPixels*.37f);p.setMargins(dp(5),dp(6),dp(5),dp(8));cells.addView(tile,p);if(i%columns==0&&sectionLayout!=null)sectionLayout.linkLeft(tile);}
+        GridLayout cells=new GridLayout(this);int columns=4;cells.setColumnCount(columns);content.addView(cells);
+        for(int i=0;i<shown.size();i++){CinemaCatalog.Item item=shown.get(i);View tile=poster(new Action(item,sectionSite.api,()->{}),()->{browseScrollY=((ScrollView)content.getParent()).getScrollY();details(sectionSite,item,this::renderBrowse);});GridLayout.LayoutParams p=new GridLayout.LayoutParams();p.columnSpec=GridLayout.spec(i%columns,1f);p.width=0;p.height=Math.round(getResources().getDisplayMetrics().heightPixels*.51f);p.setMargins(dp(5),dp(6),dp(5),dp(8));cells.addView(tile,p);if(i%columns==0&&sectionLayout!=null)sectionLayout.linkLeft(tile);}
         if(shown.isEmpty())content.addView(label(sectionItems.isEmpty()?"暂无影片，可搜索或切换来源":"已加载内容中没有匹配项，可清除筛选或加载更多",22));
         if(sectionPage<sectionPages&&sectionItems.size()<400)button(content,"加载更多",()->videos(sectionSite,sectionCategory,browseName,sectionPage+1,browseWord));
         else if(sectionItems.size()>=400)content.addView(label("已加载400部，请按分类或关键词缩小范围",18));
@@ -384,7 +389,7 @@ public final class CinemaActivity extends Activity {
         playerOverlay=new LinearLayout(this);playerOverlay.setOrientation(LinearLayout.VERTICAL);playerOverlay.setPadding(dp(40),dp(22),dp(40),dp(20));
         GradientDrawable fade=new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,new int[]{0x00000000,0x90000000,0xed000000});playerOverlay.setBackground(fade);stage.addView(playerOverlay,new FrameLayout.LayoutParams(-1,-2,Gravity.BOTTOM));
         org.json.JSONObject ref=refs.get(at);String name=ref.optString("title",list.get(at).name);
-        TextView title=label(name+(!live&&list.size()>1?" · 第 "+(at+1)+" 集":""),24);title.setMaxLines(1);title.setEllipsize(android.text.TextUtils.TruncateAt.END);playerOverlay.addView(title);
+        TextView title=label(name+(!live&&list.size()>1?" · "+list.get(at).name:""),24);title.setMaxLines(1);title.setEllipsize(android.text.TextUtils.TruncateAt.END);playerOverlay.addView(title);
         playerStatus=status;playerOverlay.addView(status);playerStatus.setText("正在准备…");
         if(!live){timeline=new PlayerTimeline(this,new PlayerTimeline.Media(){public long position(){return player!=null&&prepared?player.getCurrentPosition():0;}public long duration(){return player!=null&&prepared?player.getDuration():0;}public int buffered(){return bufferedPercent;}public void seek(long position){if(player!=null&&prepared)player.seekTo((int)position);}},true);}
         LinearLayout controls=new LinearLayout(this);controls.setGravity(Gravity.CENTER_VERTICAL);playerOverlay.addView(controls);
@@ -451,6 +456,7 @@ public final class CinemaActivity extends Activity {
     }
     private void adjacent(int delta){int next=playingIndex+delta;if(next>=0&&next<queue.size()){if(liveQueue)playChannels(playingChannels,next,0,playerBack);else replayVod(next,false);}}
     private void seek(int delta){if(!liveQueue&&prepared&&player!=null)try{player.seekTo(Math.max(0,Math.min(player.getDuration(),player.getCurrentPosition()+delta)));}catch(RuntimeException ignored){}}
+    boolean localPlaying(){return playingView;}
     private void settings(){
         closeSettings();if(root==null)home();
         LinearLayout form=new LinearLayout(this);form.setOrientation(LinearLayout.VERTICAL);
@@ -470,7 +476,7 @@ public final class CinemaActivity extends Activity {
         button(form,"清空观看记录",()->new AlertDialog.Builder(this).setTitle("清空观看记录？").setMessage("保留收藏和追剧。").setPositiveButton("清空",(d,w)->{editShelf(CinemaShelf::clearHistory);settings();}).setNegativeButton("返回",null).show());
         button(form,"家庭服务片库",()->{setResult(RESULT_OK,new Intent().putExtra("cinemaServer",view));finish();});
         button(form,"清除本机来源",()->new AlertDialog.Builder(this).setTitle("清除直播和影视来源？").setMessage("不删除NAS文件或第三方应用资料。").setPositiveButton("清除",(d,w)->{vault.clear();config=new CinemaCatalog.Config(false);health="尚未检查";settings();}).setNegativeButton("返回",null).show());
-        settingsDialog=TvDialogs.panel(this,"来源设置",form);
+        button(form,"局域网控制",()->TvLocalControl.open(this));settingsDialog=TvDialogs.panel(this,"来源设置",form);
     }
     private void guideSettings(){
         EditText input=new EditText(this);input.setTextColor(FG);input.setTextSize(20);input.setHint("XMLTV 或 XMLTV.gz 地址，每行一个，最多4个");input.setText(String.join("\n",config.epgs));LinearLayout form=new LinearLayout(this);form.setOrientation(LinearLayout.VERTICAL);form.addView(input);TextView error=label("使用自己的节目单来源；频道按tvg-id或名称匹配",18);form.addView(error);

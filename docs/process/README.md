@@ -173,3 +173,10 @@ S76本地完成：v29两版稳定签名候选、每版27条Android系统输入�
 S77：P77授权v29 / alpha.26公开发行，见[发行说明](../RELEASE-S77.md)及[第58期底稿](../../media/DEVLOG-058.md)。S76的“本地候选”是当时记录，公开状态以S77回读为准。
 
 S77已发布：[v29 Alpha下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.26)、[四附件匿名下载与源码回读](../verification/public-alpha-v29.json)。标签与安装包冻结，回执另追加main；小米真机待测。
+
+S78（本地清理）：P78，[清理结果与保留校验](../verification/s78-cleanup.json)、[第59期底稿](../../media/DEVLOG-059.md)。释放约4.46GiB；全部APK、稳定签名、源码/Git、独有历史与失败记录保留，公开v29不变。
+
+S79/S80（本地v30候选）：P79/P80，[九项反馈与首页回退](../V29-V30-FEEDBACK-S79.md)、[WorkBuddy局域网控制](../LOCAL-TV-CONTROL.md)、[资源包扩展](../RESOURCE-PACK.md)、[第60期](../../media/DEVLOG-060.md)/[第61期底稿](../../media/DEVLOG-061.md)。主玻璃首页保留；本机兼容路径也采用风景。最终检查状态见[回执](../verification/s79-summary.json)，公开发行仍是v29。
+
+
+S81/S82：P81授权v30 / alpha.27封装公开发行，P82追加直播分组核对。见[发行说明](../RELEASE-S81.md)、[软件回执](../verification/s79-summary.json)、[第62期底稿](../../media/DEVLOG-062.md)。发行标签与APK冻结后，公开下载结果将单独回读并追加main；模拟器结果不替代小米验收。

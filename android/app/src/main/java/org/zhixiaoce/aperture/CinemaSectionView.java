@@ -28,7 +28,7 @@ final class CinemaSectionView {
         Button b=PlayerChrome.control(activity,title,open);b.setId(View.generateViewId());b.setFocusableInTouchMode(true);b.setGravity(Gravity.START|Gravity.CENTER_VERTICAL);b.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,px(BuildConfig.PARENTS_EDITION?30:26));b.setMinHeight(px(60));b.setMinimumHeight(px(60));b.setPadding(px(12+depth*28),0,px(8),0);b.setSingleLine(true);b.setEllipsize(android.text.TextUtils.TruncateAt.END);b.setContentDescription(title);b.setSelected(selected);if(selected){b.setTextColor(0xffe8d4ae);selection=b;}
         LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(-1,px(62));lp.setMargins(0,px(2),0,px(2));parent.addView(b,lp);
     }
-    // Keep a stable five-column content viewport. Sources never disappear with focus changes.
+    // Keep a stable four-column content viewport. Sources never disappear with focus changes.
     void collapsed(boolean ignored){toggle.setVisibility(View.GONE);}
     void linkLeft(View target){View left=selection!=null?selection:entries.getChildCount()>0?entries.getChildAt(0):null;if(left!=null){target.setNextFocusLeftId(left.getId());target.setOnKeyListener((v,k,e)->{if(k==KeyEvent.KEYCODE_DPAD_LEFT){if(e.getAction()==KeyEvent.ACTION_DOWN)left.requestFocus();return true;}return false;});}}
     void focusFirst(){View v=entries.getChildCount()>0?entries.getChildAt(0):toggle;v.requestFocus();}

@@ -1,0 +1,31 @@
+{
+  "scope": "livegroups",
+  "passed": true,
+  "positions": [],
+  "checks": [
+    "live OK opens channel sidebar",
+    "system Right after touch switches to second group and its first channel",
+    "browsing group keeps current decoder and channel playing",
+    "system Left returns to first group",
+    "Left wraps from first to last group",
+    "Right wraps from last to first group",
+    "Down selects a channel inside the switched group",
+    "OK commits selected channel without changing group during browsing",
+    "reopened sidebar preserves playing channel and group",
+    "Back closes sidebar while playback continues"
+  ],
+  "images": [
+    "live-second-group"
+  ],
+  "systemInput": "UiAutomation.injectInputEvent with shared downTime / SOURCE_DPAD and sendPointerSync via Android InputManager; no Activity.dispatchKeyEvent in this runner",
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticMediaFixture": true,
+  "edition": "parents",
+  "physicalSize": [
+    1920,
+    1080
+  ],
+  "density": 320,
+  "debugApkSha256": "e439a5ab0c5af6e2037850ea92acc20091a697137ef9404ef26273e33f6c1a70"
+}

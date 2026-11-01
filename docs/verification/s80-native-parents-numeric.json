@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "positions": [],
+  "checks": [
+    "collection detail contains declared rating source",
+    "first touch into detail leaves focus on Play for the next remote OK",
+    "compact numeric picker <=34 percent with at least eight fully visible episodes",
+    "compact labels and current-episode marker fit fully inside every button",
+    "compact picker right selects adjacent episode",
+    "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+    "native compatibility home decodes bundled scenic wallpaper",
+    "native scenic home Down reaches apps and tools",
+    "root Back exits within two presses; Xiaomi original home remains separate hardware acceptance"
+  ],
+  "images": [
+    "mixed-detail",
+    "numeric-episodes",
+    "scenic-home",
+    "scenic-apps"
+  ],
+  "systemInput": "UiAutomation.injectInputEvent with shared downTime / SOURCE_DPAD and sendPointerSync via Android InputManager; no Activity.dispatchKeyEvent in this runner",
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticMediaFixture": true,
+  "edition": "parents",
+  "scope": "numeric",
+  "physicalSize": [
+    1920,
+    1080
+  ],
+  "density": 320,
+  "debugApkSha256": "e439a5ab0c5af6e2037850ea92acc20091a697137ef9404ef26273e33f6c1a70"
+}

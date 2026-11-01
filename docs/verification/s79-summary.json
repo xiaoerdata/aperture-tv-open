@@ -1,0 +1,343 @@
+{
+  "stage": "S79-S81",
+  "releaseReady": true,
+  "publicationAuthority": "P81",
+  "candidate": {
+    "version": "0.2.0-alpha.27",
+    "versionCode": 30,
+    "localOnly": true,
+    "published": false,
+    "androidInputSha256": "f73b0a47dabd87b1f3adf137a05ceefef1a994b8e24c089cbb92346bf2fa4140",
+    "editions": [
+      {
+        "applicationId": "org.zhixiaoce.kaishi",
+        "edition": "standard",
+        "version": "0.2.0-alpha.27",
+        "versionCode": 30,
+        "variant": "release",
+        "abis": [
+          "arm64-v8a",
+          "armeabi-v7a"
+        ],
+        "debuggable": false,
+        "minSdk": 26,
+        "targetSdk": 35,
+        "apk": "kaishi-v30-standard.apk",
+        "apkBytes": 55260897,
+        "sha256": "806e402ba39fd41dc060efb66a215bbd899430179d94232d87cda3e30479c73d",
+        "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+        "signatureVerified": true,
+        "androidSourceSha256": "f73b0a47dabd87b1f3adf137a05ceefef1a994b8e24c089cbb92346bf2fa4140",
+        "packagedBrandPixelsVerified": true,
+        "packagedLauncherFilesVerified": 46,
+        "xiaomiTested": false,
+        "workBuddyClientTested": false
+      },
+      {
+        "applicationId": "org.zhixiaoce.kaishi.parents",
+        "edition": "parents",
+        "version": "0.2.0-alpha.27-parents",
+        "versionCode": 30,
+        "variant": "release",
+        "abis": [
+          "arm64-v8a",
+          "armeabi-v7a"
+        ],
+        "debuggable": false,
+        "minSdk": 26,
+        "targetSdk": 35,
+        "apk": "kaishi-v30-parents.apk",
+        "apkBytes": 55289569,
+        "sha256": "52479ddf5afe68c1e01b627e0792b2db571a802a4c4715078031d1f689af58f3",
+        "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+        "signatureVerified": true,
+        "androidSourceSha256": "f73b0a47dabd87b1f3adf137a05ceefef1a994b8e24c089cbb92346bf2fa4140",
+        "packagedBrandPixelsVerified": true,
+        "packagedLauncherFilesVerified": 46,
+        "xiaomiTested": false,
+        "workBuddyClientTested": false
+      }
+    ]
+  },
+  "verification": {
+    "liveGroupSystemInput": [
+      {
+        "edition": "standard",
+        "passed": true,
+        "checks": [
+          "live OK opens channel sidebar",
+          "system Right after touch switches to second group and its first channel",
+          "browsing group keeps current decoder and channel playing",
+          "system Left returns to first group",
+          "Left wraps from first to last group",
+          "Right wraps from last to first group",
+          "Down selects a channel inside the switched group",
+          "OK commits selected channel without changing group during browsing",
+          "reopened sidebar preserves playing channel and group",
+          "Back closes sidebar while playback continues"
+        ],
+        "debugApkSha256": "9292c7e38ba31a0bc246037b9751abe2995bc82d80a01f83f93e15043837bbe8"
+      },
+      {
+        "edition": "parents",
+        "passed": true,
+        "checks": [
+          "live OK opens channel sidebar",
+          "system Right after touch switches to second group and its first channel",
+          "browsing group keeps current decoder and channel playing",
+          "system Left returns to first group",
+          "Left wraps from first to last group",
+          "Right wraps from last to first group",
+          "Down selects a channel inside the switched group",
+          "OK commits selected channel without changing group during browsing",
+          "reopened sidebar preserves playing channel and group",
+          "Back closes sidebar while playback continues"
+        ],
+        "debugApkSha256": "e439a5ab0c5af6e2037850ea92acc20091a697137ef9404ef26273e33f6c1a70"
+      }
+    ],
+    "nativeSystemInput": [
+      {
+        "edition": "parents",
+        "scope": "33 core checks before touch-focus failure plus final-source tail; not a new complete-suite pass",
+        "completeSuitePassed": false,
+        "corePrefix": {
+          "checksPassed": 33,
+          "checks": [
+            "four-column poster wall",
+            "section opens catalogue without auto-opening first detail",
+            "source dialog metadata action scrolls fully into view using remote Down",
+            "first poster Left reaches visible fixed sidebar",
+            "detail has 20 full-title episodes per group, no related film section or ellipsis",
+            "first episode Up returns to Play",
+            "short and full-title episodes share equal aligned row height",
+            "HTML and decoder-failing lines fall back serially to playable same episode",
+            "playback initially focuses video, not pause",
+            "default left/right seeks without pausing",
+            "More first row is fully visible below heading",
+            "playback line picker opens",
+            "manual line preserves playback position",
+            "OK opens episodes while playback continues",
+            "system Down selects next episode after touch",
+            "episode drawer <=34 percent at device density",
+            "episode picker stays open while reading",
+            "picker reopens on current episode",
+            "episode group navigates in place",
+            "Back closes picker before exiting playback",
+            "Play Down reaches selected line controls",
+            "line change returns episode Up to updated Play",
+            "detail selected line changes primary Play",
+            "live OK opens channels even when controls were visible",
+            "first system Down selects next channel after touch",
+            "channel picker does not auto-close while browsing",
+            "video stage fills window; aspect ratio retained",
+            "local collection preferred over first remote",
+            "load more executes on first system touch",
+            "66 native covers bind: 33 JPEG and 33 WebP",
+            "local source loads without waiting for occupied network worker",
+            "source timeout leaves local collection directly accessible",
+            "collection detail contains declared rating source"
+          ],
+          "wholeAttemptPassed": false
+        },
+        "finalTail": {
+          "passed": true,
+          "assertions": 22,
+          "checks": [
+            "collection detail contains declared rating source",
+            "first touch into detail leaves focus on Play for the next remote OK",
+            "compact numeric picker <=34 percent with at least eight fully visible episodes",
+            "compact picker right selects adjacent episode",
+            "no anonymous status or screenshot authorization",
+            "PIN alone never grants a token",
+            "physical system touch approves memory-only token",
+            "protected pairing screen cannot be controlled or read",
+            "paired HTTPS reads foreground own-app state",
+            "paired native semantic tree is available",
+            "paired key command goes through app dispatch only",
+            "system HOME injection is not exposed",
+            "HTTPS app-only screenshot is a bounded PNG",
+            "paired probe decodes a real first frame with native device decoder",
+            "direct HTTPS push reuses native resource import and revision receipt",
+            "same direct push is idempotent",
+            "TV connection can be explicitly revoked",
+            "revoked connection cannot read the next request",
+            "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+            "native compatibility home decodes bundled scenic wallpaper",
+            "native scenic home Down reaches apps and tools",
+            "root Back exits within two presses; Xiaomi original home remains separate hardware acceptance"
+          ],
+          "debugApkSha256": "57c339873b3684ee83da911105fd3575f9db239d16302ea482daa3eec520ba57"
+        },
+        "finalNumericAndHome": {
+          "passed": true,
+          "assertions": 9,
+          "checks": [
+            "collection detail contains declared rating source",
+            "first touch into detail leaves focus on Play for the next remote OK",
+            "compact numeric picker <=34 percent with at least eight fully visible episodes",
+            "compact labels and current-episode marker fit fully inside every button",
+            "compact picker right selects adjacent episode",
+            "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+            "native compatibility home decodes bundled scenic wallpaper",
+            "native scenic home Down reaches apps and tools",
+            "root Back exits within two presses; Xiaomi original home remains separate hardware acceptance"
+          ],
+          "debugApkSha256": "e439a5ab0c5af6e2037850ea92acc20091a697137ef9404ef26273e33f6c1a70"
+        }
+      },
+      {
+        "edition": "standard",
+        "scope": "segmented checks with final home and unchanged-core source comparison; not a new complete-suite pass",
+        "completeSuitePassed": false,
+        "assertionsObserved": 50,
+        "segments": [
+          {
+            "scope": "core before emulator timing guard",
+            "checksPassed": 29,
+            "checks": [
+              "four-column poster wall",
+              "section opens catalogue without auto-opening first detail",
+              "source dialog metadata action scrolls fully into view using remote Down",
+              "first poster Left reaches visible fixed sidebar",
+              "detail has 20 full-title episodes per group, no related film section or ellipsis",
+              "first episode Up returns to Play",
+              "short and full-title episodes share equal aligned row height",
+              "HTML and decoder-failing lines fall back serially to playable same episode",
+              "playback initially focuses video, not pause",
+              "default left/right seeks without pausing",
+              "More first row is fully visible below heading",
+              "playback line picker opens",
+              "manual line preserves playback position",
+              "OK opens episodes while playback continues",
+              "system Down selects next episode after touch",
+              "episode drawer <=34 percent at device density",
+              "episode picker stays open while reading",
+              "picker reopens on current episode",
+              "episode group navigates in place",
+              "Back closes picker before exiting playback",
+              "Play Down reaches selected line controls",
+              "line change returns episode Up to updated Play",
+              "detail selected line changes primary Play",
+              "live OK opens channels even when controls were visible",
+              "first system Down selects next channel after touch",
+              "channel picker does not auto-close while browsing",
+              "video stage fills window; aspect ratio retained",
+              "local collection preferred over first remote",
+              "load more executes on first system touch"
+            ],
+            "wholeAttemptPassed": false,
+            "followedByRecordedFailure": true
+          },
+          {
+            "scope": "images and deterministic IO isolation before TLS handshake failure",
+            "checksPassed": 3,
+            "checks": [
+              "66 native covers bind: 33 JPEG and 33 WebP, no rejected duplicate jobs",
+              "local source loads without waiting for occupied network worker",
+              "source timeout leaves local collection directly accessible"
+            ],
+            "wholeAttemptPassed": false,
+            "followedByRecordedFailure": true
+          },
+          {
+            "scope": "physical TLS pairing, native decoder, direct import and revocation before home focus failure",
+            "checksPassed": 16,
+            "checks": [
+              "no anonymous status or screenshot authorization",
+              "PIN alone never grants a token",
+              "physical system touch approves memory-only token",
+              "protected pairing screen cannot be controlled or read",
+              "paired HTTPS reads foreground own-app state",
+              "paired native semantic tree is available",
+              "paired key command goes through app dispatch only",
+              "system HOME injection is not exposed",
+              "HTTPS app-only screenshot is a bounded PNG",
+              "paired probe decodes a real first frame with native device decoder",
+              "direct HTTPS push reuses native resource import and revision receipt",
+              "same direct push is idempotent",
+              "TV connection can be explicitly revoked",
+              "revoked connection cannot read the next request",
+              "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+              "native compatibility home decodes bundled scenic wallpaper"
+            ],
+            "wholeAttemptPassed": false,
+            "followedByRecordedFailure": true
+          }
+        ],
+        "finalHome": {
+          "passed": true,
+          "assertions": 4,
+          "checks": [
+            "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+            "native compatibility home decodes bundled scenic wallpaper",
+            "native scenic home Down reaches apps and tools",
+            "root Back exits within two presses; Xiaomi original home remains separate hardware acceptance"
+          ],
+          "debugApkSha256": "9292c7e38ba31a0bc246037b9751abe2995bc82d80a01f83f93e15043837bbe8"
+        }
+      }
+    ],
+    "androidRuntime": {
+      "api": 28,
+      "physicalSize": [
+        1920,
+        1080
+      ],
+      "density": 320,
+      "softwareEmulation": true
+    },
+    "changedClassesAfterStandardCore": [
+      "android/app/src/main/java/org/zhixiaoce/aperture/CinemaArtwork.java",
+      "android/app/src/main/java/org/zhixiaoce/aperture/CinemaChoicePanel.java",
+      "android/app/src/main/java/org/zhixiaoce/aperture/ScenicNativeHome.java",
+      "android/app/src/main/java/org/zhixiaoce/aperture/TvLocalControl.java",
+      "android/app/src/main/java/org/zhixiaoce/aperture/TvUi.java"
+    ],
+    "changedClassesCoveredByFinalScopedChecks": true,
+    "browserTaskSets": 4,
+    "domainSuiteLogChecks": [
+      {
+        "log": "s79-final-domain-tests",
+        "passed": 13
+      },
+      {
+        "log": "s80-targeted-tests-env",
+        "passed": 6,
+        "overlapsEarlierTests": true
+      }
+    ],
+    "actualReleaseDexPolicy": true,
+    "priorV29ApksUnchanged": true,
+    "lint": [
+      {
+        "edition": "standard",
+        "errors": 0,
+        "warnings": 69
+      },
+      {
+        "edition": "parents",
+        "errors": 0,
+        "warnings": 70
+      }
+    ]
+  },
+  "limits": {
+    "xiaomiHardwareTested": false,
+    "originalXiaomiHome": false,
+    "originalEmulatorHome": true,
+    "glassLobbyAndroidRuntimeTested": false,
+    "glassAmbientWindowFlagTested": false,
+    "xiaomiProprietaryScreensaverTested": false,
+    "workBuddyApplicationTested": false,
+    "chineseTtsEngineTested": false,
+    "realNasHardwareTested": false,
+    "realLanMdnsThreeSecondsTested": false,
+    "realLanPushFiveSecondsTested": false,
+    "tenExternalVodItemsTested": false,
+    "twoHourPlaybackTested": false,
+    "anonymousOrOtherAppControl": false,
+    "realHouseholdDataUsed": false
+  },
+  "failedAttempts": "Retained privately; failures and corrections described in docs/process/JOURNAL.md. Successful prefixes are not rewritten as whole-run passes."
+}

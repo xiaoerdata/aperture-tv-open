@@ -160,3 +160,16 @@ npm run resources -- validate my-family.kaishi.json
 ## 验证边界
 
 v20 已发布，不修改其既有标签和附件。S60修复进入v21候选，发布状态以下载索引及发行回读为准；[修复对照](V20-FEEDBACK-S60.md)区分生产解析器、HTTP、浏览器和未完成的原生/小米验收。协议测试使用合成资源；用户报告中的实际资源包尚未取得，分组重复与真实海报命中问题仍需原文件复现。WorkBuddy客户端、真实账号和小米系统生态仍按既定分工由用户复测。
+
+
+## v30开发扩展：混合片单与直接资料
+
+以下字段需要versionCode30及以后，旧v29不接受；当前公开下载状态以Release为准。资源包外层仍是v1，旧文件继续兼容。使用`node scripts/resource-pack.mjs validate 文件路径`校验，校验输出新增`minimumVersionCode`，Agent先核对电视版本再导入。
+
+一个collection可用`sections:["movies","series","variety"]`声明多个栏目，每条items必须填写单个`section`。也兼容`section`为数组；`sections`和`section`同时填写时内容须一致。单栏目旧格式`section:"movies"`不变，条目不写section时继承唯一栏目。混合片单不根据集数猜分类，缺少条目分类会点名报错；筛选在分页前进行，避免剧集从电影栏漏到其他栏。
+
+资料可直接写`poster/summary/rating/year/genre/ratingSource`；已有`metadata.poster/summary/...`和`cover/plot`仍可用。数字评分必须为0至10，年份可为1800至2200的整数；旧文本评分和年份继续兼容。同一资料的别名内容必须一致。无需自建目录服务，也不要求联网补全；图片格式以具体电视解码结果为准，不能笼统把WebP视为不支持。
+
+[完整混合示例](../examples/resource-packs/mixed-v30.kaishi.json)包含电影、剧集、综艺、海报、简介和评分；地址为不可播放占位符，需替换为自己的资源。旧片单若把所有内容都写为电影，电视不能猜出真实分类，应由作者修订文件，不自动改动原数据。
+
+自动联网补全在来源有明确年份时只选择差一年以内的候选；无匹配则保留来源资料。没有指定年份时，继续优先较新的近似结果。手动更正保留人工选择与来源标识。

@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "positions": [
+    {
+      "resourcePushMs": 29478
+    }
+  ],
+  "checks": [
+    "collection detail contains declared rating source",
+    "first touch into detail leaves focus on Play for the next remote OK",
+    "compact numeric picker <=34 percent with at least eight fully visible episodes",
+    "compact picker right selects adjacent episode",
+    "no anonymous status or screenshot authorization",
+    "PIN alone never grants a token",
+    "physical system touch approves memory-only token",
+    "protected pairing screen cannot be controlled or read",
+    "paired HTTPS reads foreground own-app state",
+    "paired native semantic tree is available",
+    "paired key command goes through app dispatch only",
+    "system HOME injection is not exposed",
+    "HTTPS app-only screenshot is a bounded PNG",
+    "paired probe decodes a real first frame with native device decoder",
+    "direct HTTPS push reuses native resource import and revision receipt",
+    "same direct push is idempotent",
+    "TV connection can be explicitly revoked",
+    "revoked connection cannot read the next request",
+    "old emulator WebView uses native recovery; automatic glass ambient is not tested",
+    "native compatibility home decodes bundled scenic wallpaper",
+    "native scenic home Down reaches apps and tools",
+    "root Back exits within two presses; Xiaomi original home remains separate hardware acceptance"
+  ],
+  "images": [
+    "mixed-detail",
+    "numeric-episodes",
+    "scenic-home",
+    "scenic-apps"
+  ],
+  "systemInput": "UiAutomation.injectInputEvent with shared downTime / SOURCE_DPAD and sendPointerSync via Android InputManager; no Activity.dispatchKeyEvent in this runner",
+  "emulator": true,
+  "xiaomiHardware": false,
+  "syntheticMediaFixture": true,
+  "edition": "parents",
+  "scope": "tail",
+  "physicalSize": [
+    1920,
+    1080
+  ],
+  "density": 320,
+  "debugApkSha256": "57c339873b3684ee83da911105fd3575f9db239d16302ea482daa3eec520ba57"
+}

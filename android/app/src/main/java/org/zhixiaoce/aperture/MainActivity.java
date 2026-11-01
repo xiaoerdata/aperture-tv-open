@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
     private final DisplayLifecycle display = new DisplayLifecycle();
     private final LobbyMode lobby = new LobbyMode();
     private Uri trusted;
+    private ScenicNativeHome scenicHome;
     private boolean ready = false, lobbyMode = false;
 
     @Override public void onCreate(Bundle state) {
@@ -98,7 +99,7 @@ public class MainActivity extends Activity {
         if (!active) { current.onPause(); current.pauseTimers(); }
     }
     private void createWeb(boolean lobby) {
-        destroyWeb(); lobbyMode = lobby; web = new WebView(this);
+        destroyWeb(); scenicHome=null; lobbyMode = lobby; web = new WebView(this);
         final WeatherProxy forecast=lobby?new WeatherProxy():null;weather=forecast;
         String householdOrigin = preferences.getString("origin", "");
         final HouseholdProxy feed = lobby && !BuildConfig.PARENTS_EDITION ? new HouseholdProxy(householdOrigin, householdOrigin.isEmpty() ? "" : CookieManager.getInstance().getCookie(householdOrigin), preferences.getBoolean("allowLanHttp", false)) : null;
@@ -141,7 +142,7 @@ public class MainActivity extends Activity {
                 return sameOrigin(request.getUrl()) ? null : blockedAsset();
             }
             @Override public void onPageFinished(WebView view, String url) { if (view == web) { ready = true; CookieManager.getInstance().flush(); if (lobby) { webActive(view, display.active()); nasLabels(); } } }
-            @Override public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse response) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view == web) fallback("家庭服务返回错误，请核对服务地址。"); }); }
+            @Override public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse response) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view == web) {if(lobby)nativeLobby();else fallback("家庭服务返回错误，请核对服务地址。");} }); }
             @Override public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) { if (view == web && request.isForMainFrame()) runOnUiThread(() -> { if (view != web) return; if (lobby) nativeLobby(); else fallback("暂时连不上家庭服务。直播、影视应用和原桌面仍可使用。"); }); }
             @Override public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
                 if (view == web) { MainActivity.this.lobby.rendererGone(); destroyWeb(true); nativeLobby(); }
@@ -260,39 +261,23 @@ public class MainActivity extends Activity {
     }
     private void showNative(LinearLayout layout) { ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.addView(layout); setContentView(scroll); }
     private void homeMode() {
-        String reason = lobby.recoveryRequired() ? "网页显示组件刚刚退出，本次先使用简洁首页。完全关闭开视后重新打开，才能再尝试玻璃首页。" : !lobby.glassAvailable(webViewVersion()) ? "当前WebView版本不满足玻璃首页要求，已自动使用简洁首页。家庭轻量屏与NAS分别判断，不会清除配置。" : "玻璃首页保留观看、应用与家庭内容；简洁首页不运行网页或背景动效，适合感觉操作吃力的电视。此设置不改变系统默认桌面。";
+        String reason = lobby.recoveryRequired() ? "网页组件刚刚退出，已使用本机风景首页。关闭开视后重开，可再尝试玻璃首页。" : !lobby.glassAvailable(webViewVersion()) ? "当前网页内核较旧，已使用本机风景首页。壁纸、观看入口和常用应用仍可用。" : "玻璃首页支持家庭面板与动效；本机风景首页保留壁纸和常用入口，不运行网页。";
         new AlertDialog.Builder(this).setTitle("首页样式").setMessage(reason)
-            .setPositiveButton("简洁首页", (d,w) -> { preferences.edit().putBoolean("simple_home", true).apply(); showLobby(""); })
+            .setPositiveButton("本机风景首页", (d,w) -> { preferences.edit().putBoolean("simple_home", true).apply(); showLobby(""); })
             .setNeutralButton(lobby.glassAvailable(webViewVersion()) ? "玻璃首页" : "保留自动选择", (d,w) -> { preferences.edit().remove("simple_home").apply(); showLobby(""); })
             .setNegativeButton("返回", null).show();
     }
     private void nativeLobby() {
         destroyWeb(); lobbyMode = true;
-        LinearLayout layout = column(BuildConfig.PARENTS_EDITION ? "开视 · 爸妈版" : "开视");
-        layout.setPadding(TvUi.dp(this,48),TvUi.dp(this,30),TvUi.dp(this,48),TvUi.dp(this,30));layout.setBackground(TvUi.background());
-        LobbyMode.Choice choice = lobby.choose(webViewVersion(), preferences.getBoolean("simple_home", false));
-        layout.addView(TvUi.text(this,choice == LobbyMode.Choice.NATIVE_RECOVERY ? "网页已退出 · 简洁首页" : "简洁首页",20,true));
-        LinearLayout watch=new LinearLayout(this);watch.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams wp=new LinearLayout.LayoutParams(-1,-2);wp.setMargins(0,TvUi.dp(this,38),0,TvUi.dp(this,20));layout.addView(watch,wp);
-        String[] titles={"看电视","看电视剧","看电影","看综艺"},views={"live","series","movies","variety"};
-        Button first=null;
-        for(int i=0;i<titles.length;i++){final String view=views[i];Button entry=TvUi.button(this,titles[i],()->cinema(view));entry.setTextSize(BuildConfig.PARENTS_EDITION?22:20);LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(0,TvUi.dp(this,84),1);cp.setMargins(0,0,TvUi.dp(this,10),0);watch.addView(entry,cp);if(first==null)first=entry;}
-        destinations.homeApps();
-        LinearLayout shortcuts=new LinearLayout(this);shortcuts.setOrientation(LinearLayout.HORIZONTAL);
-        for(String slot:new String[]{"quick1","quick2","quick3","quick4"}){
-            String name=destinations.label(slot);if(name.isEmpty())continue;
-            Button shortcut=TvUi.button(this,name,()->destinations.launchShortcut(slot));shortcut.setTextSize(16);shortcut.setMaxLines(1);shortcut.setEllipsize(android.text.TextUtils.TruncateAt.END);
-            byte[] bytes=destinations.icon(slot);if(bytes!=null){android.graphics.drawable.Drawable icon=android.graphics.drawable.Drawable.createFromStream(new java.io.ByteArrayInputStream(bytes),null);if(icon!=null){icon.setBounds(0,0,TvUi.dp(this,32),TvUi.dp(this,32));shortcut.setCompoundDrawables(null,icon,null,null);shortcut.setCompoundDrawablePadding(TvUi.dp(this,6));}}
-            LinearLayout.LayoutParams sp=new LinearLayout.LayoutParams(TvUi.dp(this,136),TvUi.dp(this,84));sp.setMargins(0,0,TvUi.dp(this,10),0);shortcuts.addView(shortcut,sp);
-        }
-        if(shortcuts.getChildCount()>0){layout.addView(TvUi.text(this,"常用应用",22,true));layout.addView(shortcuts);}
-        LinearLayout actions=new LinearLayout(this);actions.setOrientation(LinearLayout.HORIZONTAL);LinearLayout.LayoutParams ap=new LinearLayout.LayoutParams(-1,-2);ap.setMargins(0,TvUi.dp(this,28),0,0);layout.addView(actions,ap);
-        nativeAction(actions,"所有应用",destinations::all);nativeAction(actions,"NAS",()->action("/nas"));
-        if(!BuildConfig.PARENTS_EDITION)nativeAction(actions,"家庭屏",()->family(null));
-        nativeAction(actions,"原桌面",()->destinations.launch("system"));nativeAction(actions,"设置",this::quickMenu);
-        LinearLayout ambientActions=new LinearLayout(this);ambientActions.setOrientation(LinearLayout.HORIZONTAL);layout.addView(ambientActions);
-        nativeAction(ambientActions,"天气",()->startActivity(new Intent(this,AmbientActivity.class).putExtra("panel","weather")));nativeAction(ambientActions,"屏保",()->startActivity(new Intent(this,AmbientActivity.class).putExtra("panel","settings")));
-        showNative(layout);if(first!=null)first.requestFocus();
+        scenicHome=new ScenicNativeHome(this,destinations,route->{
+            if("settings".equals(route))quickMenu();
+            else if("apps".equals(route))destinations.all();
+            else if("nas".equals(route))action("/nas");
+            else if("system".equals(route))destinations.launch("system");
+            else if("weather".equals(route)||"ambient".equals(route))startActivity(new Intent(this,AmbientActivity.class).putExtra("panel","weather".equals(route)?"weather":"settings"));
+            else cinema(route);
+        });
+        setContentView(scenicHome);
     }
     private void nativeAction(LinearLayout row,String title,Runnable run){Button control=TvUi.button(this,title,run);LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,TvUi.dp(this,44),1);p.setMargins(0,0,TvUi.dp(this,10),0);row.addView(control,p);}
     private void setup() {
@@ -314,8 +299,10 @@ public class MainActivity extends Activity {
         panel[0]=TvDialogs.panel(this,"家庭服务",layout); input.requestFocus();
     }
     private void fallback(String message) {
-        destroyWeb(); lobbyMode = false; LinearLayout layout = column("开视\n" + message);
-        button(layout, "返回客厅入口", () -> showLobby("")); button(layout, "重试家庭屏", () -> family(null)); button(layout, "更换家庭服务地址", this::setup); button(layout, "切回原生桌面", () -> destinations.launch("system")); showNative(layout);
+        nativeLobby();
+        new AlertDialog.Builder(this).setTitle("家庭服务暂不可用").setMessage(message)
+            .setPositiveButton("返回首页",(d,w)->showLobby(""))
+            .setNeutralButton("服务设置",(d,w)->setup()).setNegativeButton("返回",null).show();
     }
     private void installation() {
         new AlertDialog.Builder(this).setTitle("安装应用").setItems(new String[]{"选择本机APK", "从NAS选择APK", "WorkBuddy安装应用", "WorkBuddy卸载应用", "安装说明与应用管理"}, (dialog, which) -> {
@@ -335,11 +322,11 @@ public class MainActivity extends Activity {
     }
     private void quickMenu() {
         if (BuildConfig.PARENTS_EDITION) {
-            featureMenu("设置",new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", FeaturePolicy.photos()?"家人留言与相册":"安排与留言", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"}, (dialog, which) -> {
-                if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else if (which == 14) hubConnection(); else destinations.all();
+            featureMenu("设置",new String[] {"返回客厅入口", "连接 / 更换家庭服务", "切回原生桌面", "选择原生桌面", "默认桌面设置", FeaturePolicy.photos()?"家人留言与相册":"安排与留言", "小爱同学与唤醒", "管理常用应用", "所有应用", "NAS", "NAS相册", "首页样式", "安装应用", "直播与影视来源", "智小策 Hub", "局域网控制"}, (dialog, which) -> {
+                if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else if (which == 14) hubConnection(); else if (which == 15) TvLocalControl.open(this); else destinations.all();
             }); return;
         }
-        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "玻璃 / 简洁本机首页", "安装应用", "直播与影视来源", "智小策 Hub"};
+        String[] options = {"返回客厅入口", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "默认桌面设置", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "首页样式", "安装应用", "直播与影视来源", "智小策 Hub", "局域网控制"};
         featureMenu("设置",options, (dialog, which) -> {
             if (which == 0) showLobby(""); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
             else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) destinations.settings(true); else if (which == 7) setup(); else if (which == 8) destinations.all();
@@ -348,7 +335,7 @@ public class MainActivity extends Activity {
             else if (which == 12) homeMode();
             else if (which == 13) installation();
             else if (which == 14) cinema("settings");
-            else if (which == 15) hubConnection();
+            else if (which == 15) hubConnection(); else if (which == 16) TvLocalControl.open(this);
             else if (BuildConfig.PARENTS_EDITION) family(null);
             else { preferences.edit().putBoolean("lite", !preferences.getBoolean("lite", false)).apply(); family(null); }
         });
@@ -364,6 +351,7 @@ public class MainActivity extends Activity {
     }
     private void leavePage() {
         if (!lobbyMode) { showLobby(""); return; }
+        if(scenicHome!=null&&scenicHome.back())return;
         destinations.launch("system");
     }
     @Override public boolean onKeyUp(int keyCode,KeyEvent event){

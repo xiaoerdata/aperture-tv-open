@@ -1,0 +1,86 @@
+package org.zhixiaoce.aperture;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.graphics.*;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.view.*;
+import android.widget.*;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+/** Offline scenic home for old or unavailable WebView. Uses no renderer or GPU blur API. */
+final class ScenicNativeHome extends android.view.ViewGroup {
+    interface Actions { void open(String action); }
+    private final Activity activity;
+    private final DestinationApps apps;
+    private final Actions actions;
+    private final List<Item> items=new ArrayList<>();
+    private final Handler clockHandler=new Handler(android.os.Looper.getMainLooper());
+    private final Paint paint=new Paint(Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
+    private Bitmap wallpaper, softWallpaper;
+    private float scale=1,offsetX,offsetY;
+    private int page;
+    private TextView time,date,caption;
+    private Button first,dock,firstShortcut;
+    private final Runnable ticker=new Runnable(){public void run(){Date now=new Date();time.setText(new SimpleDateFormat("HH:mm",Locale.getDefault()).format(now));date.setText(new SimpleDateFormat("M月d日   EEEE",Locale.CHINA).format(now));clockHandler.postDelayed(this,1000*(60-now.getSeconds()));}};
+    private static final String[] IDS={"carezza","namib","fuji","lofoten"};
+    private static final String[] FILES={"carezza-4k.jpg","namib-4k.jpg","fuji-4k.jpg","lofoten-4k.jpg"};
+    private static final String[] PLACES={"意大利 · 卡雷扎湖","纳米比亚 · 纳米布沙漠","日本 · 富士宫云海","挪威 · 罗弗敦极光"};
+    private static final class Item {
+        final View view;final int x,y,w,h,size,screen;
+        Item(View v,int x,int y,int w,int h,int size,int screen){this.view=v;this.x=x;this.y=y;this.w=w;this.h=h;this.size=size;this.screen=screen;}
+    }
+    ScenicNativeHome(Activity activity,DestinationApps apps,Actions actions){
+        super(activity);this.activity=activity;this.apps=apps;this.actions=actions;setWillNotDraw(false);setFocusable(false);setClipChildren(false);
+        String saved=activity.getSharedPreferences("aperture",0).getString("native_wallpaper","carezza");int selected=Arrays.asList(IDS).indexOf(saved);loadWallpaper(Math.max(0,selected));
+        ImageView logo=new ImageView(activity);try(InputStream in=activity.getAssets().open(BuildConfig.PARENTS_EDITION?"brand/kaishi-parents-v2.webp":"brand/kaishi-icon-v2.webp")){logo.setImageDrawable(Drawable.createFromStream(in,null));}catch(Exception ignored){}logo.setContentDescription("开视");place(logo,100,62,52,52,0,-1);
+        place(label(BuildConfig.PARENTS_EDITION?"开视 · 爸妈版":"开视"),168,59,400,58,36,-1);
+        Button settings=control("设置",()->actions.open("settings"),false);place(settings,1692,58,128,64,26,-1);
+        time=label("");time.setTypeface(Typeface.create("serif",Typeface.NORMAL));place(time,100,205,650,176,152,0);
+        date=label("");place(date,108,399,650,58,32,0);
+        Button weather=control("天气  ›",()->actions.open("weather"),false);place(weather,762,304,232,88,30,0);
+        String[] names={"看电视","看电视剧","看电影","看综艺"},routes={"live","series","movies","variety"};
+        for(int i=0;i<names.length;i++){final String route=routes[i];Button b=control(names[i],()->actions.open(route),true);place(b,100+i*404,500,380,132,34,0);if(i==0)first=b;b.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0)((BuildConfig.PARENTS_EDITION&&firstShortcut!=null)?firstShortcut:dock).requestFocus();return true;}return false;});}
+        dock=control(BuildConfig.PARENTS_EDITION?"应用与工具   ﹀":"常用应用   ﹀",()->showPage(1),true);place(dock,100,BuildConfig.PARENTS_EDITION?870:682,300,88,27,0);dock.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0)showPage(1);return true;}if(key==KeyEvent.KEYCODE_DPAD_UP){if(e.getAction()==KeyEvent.ACTION_DOWN)first.requestFocus();return true;}return false;});
+        caption=label(PLACES[Math.max(0,selected)]);caption.setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);place(caption,1230,845,590,50,20,0);
+        place(label("↓  应用与工具"),100,978,650,50,23,0);
+        place(label("应用与工具"),100,195,1000,80,48,1);
+        apps.homeApps();int count=0;Button firstApp=null;
+        for(String slot:new String[]{"quick1","quick2","quick3","quick4"}){
+            String name=apps.label(slot);if(name.isEmpty())continue;Button b=control(name,()->apps.launchShortcut(slot),true);byte[] icon=apps.icon(slot);if(icon!=null){Drawable d=Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);if(d!=null){d.setBounds(0,0,72,72);b.setCompoundDrawables(null,d,null,null);b.setCompoundDrawablePadding(14);}}place(b,100+count*300,326,276,172,28,1);if(firstApp==null)firstApp=b;
+            if(BuildConfig.PARENTS_EDITION){Button shortcut=control(name,()->apps.launchShortcut(slot),true);if(icon!=null){Drawable d=Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);if(d!=null){d.setBounds(0,0,48,48);shortcut.setCompoundDrawables(d,null,null,null);shortcut.setCompoundDrawablePadding(12);}}place(shortcut,100+count*276,708,252,112,25,0);if(firstShortcut==null)firstShortcut=shortcut;shortcut.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN)dock.requestFocus();return true;}return false;});}count++;
+        }
+        if(count==0)place(control("添加常用应用",apps::shortcuts,true),100,326,380,132,30,1);
+        String[] tools={"所有应用","NAS","原桌面","壁纸","天气","屏保"};String[] routes2={"apps","nas","system","wallpaper","weather","ambient"};
+        for(int i=0;i<tools.length;i++){final String route=routes2[i];place(control(tools[i],()->{if(route.equals("wallpaper"))chooseWallpaper();else actions.open(route);},true),100+i*286,592,264,104,28,1);}
+        place(control("返回首页  ↑",()->showPage(0),false),100,870,300,76,27,1);
+        setContentDescription("风景首页 · 本机兼容模式");
+    }
+    private void loadWallpaper(int selected){
+        Bitmap next=null;try(InputStream in=activity.getAssets().open(FILES[selected])){BitmapFactory.Options o=new BitmapFactory.Options();o.inSampleSize=2;next=BitmapFactory.decodeStream(in,null,o);}catch(Exception ignored){}
+        if(next==null)return;Bitmap old=wallpaper,soft=softWallpaper;wallpaper=next;Bitmap tiny=Bitmap.createScaledBitmap(next,96,54,true);softWallpaper=Bitmap.createScaledBitmap(tiny,384,216,true);tiny.recycle();if(old!=null)old.recycle();if(soft!=null)soft.recycle();if(caption!=null)caption.setText(PLACES[selected]);invalidate();
+    }
+    private void chooseWallpaper(){new AlertDialog.Builder(activity).setTitle("壁纸").setItems(PLACES,(d,i)->{loadWallpaper(i);activity.getSharedPreferences("aperture",0).edit().putString("native_wallpaper",IDS[i]).apply();}).setNegativeButton("返回",null).show();}
+    private TextView label(String text){TextView v=new TextView(activity);v.setText(text);v.setTextColor(TvUi.INK);v.setIncludeFontPadding(false);v.setGravity(Gravity.CENTER_VERTICAL);v.setShadowLayer(10,0,2,0x66000000);return v;}
+    private Button control(String text,Runnable run,boolean glass){Button b=new Button(activity);b.setText(text);b.setTextColor(TvUi.INK);b.setAllCaps(false);b.setFocusableInTouchMode(true);b.setGravity(Gravity.CENTER);b.setMinHeight(0);b.setMinimumHeight(0);b.setMinWidth(0);b.setMinimumWidth(0);b.setPadding(8,0,8,0);b.setBackground(new Pane(b,glass));b.setOnFocusChangeListener((v,f)->v.invalidate());b.setOnClickListener(v->run.run());TvUi.touchClick(b);return b;}
+    private void place(View v,int x,int y,int w,int h,int size,int screen){v.setId(View.generateViewId());items.add(new Item(v,x,y,w,h,size,screen));addView(v);}
+    private void showPage(int value){page=value;for(Item i:items)i.view.setVisibility(i.screen<0||i.screen==page?VISIBLE:GONE);requestLayout();if(page==0){first.requestFocus();return;}for(Item i:items)if(i.screen==page&&i.view instanceof Button){i.view.requestFocus();break;}}
+    boolean back(){if(page==0)return false;showPage(0);return true;}
+    boolean scenicReady(){return wallpaper!=null&&wallpaper.getWidth()>=1280;}
+    @Override protected void onAttachedToWindow(){super.onAttachedToWindow();showPage(0);clockHandler.post(ticker);}
+    @Override protected void onDetachedFromWindow(){clockHandler.removeCallbacks(ticker);super.onDetachedFromWindow();}
+    @Override protected void onMeasure(int w,int h){int width=MeasureSpec.getSize(w),height=MeasureSpec.getSize(h);setMeasuredDimension(width,height);scale=Math.min(width/1920f,height/1080f);offsetX=(width-1920*scale)/2;offsetY=(height-1080*scale)/2;for(Item i:items){if(i.size>0)((TextView)i.view).setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,i.size*scale);i.view.measure(MeasureSpec.makeMeasureSpec(Math.round(i.w*scale),MeasureSpec.EXACTLY),MeasureSpec.makeMeasureSpec(Math.round(i.h*scale),MeasureSpec.EXACTLY));}}
+    @Override protected void onLayout(boolean changed,int l,int t,int r,int b){for(Item i:items){int x=Math.round(offsetX+i.x*scale),y=Math.round(offsetY+i.y*scale);i.view.layout(x,y,x+i.view.getMeasuredWidth(),y+i.view.getMeasuredHeight());}}
+    private void photo(Canvas c,Bitmap image){if(image==null||image.isRecycled())return;float s=Math.max(getWidth()/(float)image.getWidth(),getHeight()/(float)image.getHeight());float w=image.getWidth()*s,h=image.getHeight()*s;paint.setShader(null);paint.setColor(Color.WHITE);c.drawBitmap(image,null,new RectF((getWidth()-w)/2,(getHeight()-h)/2,(getWidth()+w)/2,(getHeight()+h)/2),paint);}
+    @Override protected void onDraw(Canvas c){super.onDraw(c);c.drawColor(0xff0c1115);photo(c,wallpaper);paint.setShader(new LinearGradient(0,0,0,getHeight(),new int[]{0x44050a14,0x22050a14,0xa6050a14},new float[]{0,.55f,1},Shader.TileMode.CLAMP));c.drawRect(0,0,getWidth(),getHeight(),paint);paint.setShader(null);}
+    private final class Pane extends Drawable {
+        private final View view;private final boolean glass;private final Paint p=new Paint(Paint.ANTI_ALIAS_FLAG);
+        Pane(View v,boolean glass){view=v;this.glass=glass;}
+        @Override public void draw(Canvas c){RectF rect=new RectF(getBounds());rect.inset(2,2);float radius=18*scale;boolean focused=view.isFocused()||view.isPressed();if(glass){Path path=new Path();path.addRoundRect(rect,radius,radius,Path.Direction.CW);c.save();c.clipPath(path);c.translate(-view.getLeft(),-view.getTop());photo(c,softWallpaper);c.restore();p.setShader(new LinearGradient(0,0,rect.width(),rect.height(),new int[]{0xb52c3641,0xd20c141e},null,Shader.TileMode.CLAMP));c.drawRoundRect(rect,radius,radius,p);p.setShader(null);}else if(focused){p.setColor(0x33232d36);c.drawRoundRect(rect,radius,radius,p);}if(glass||focused){p.setStyle(Paint.Style.STROKE);p.setStrokeWidth((focused?3:1)*scale);p.setColor(focused?0xfffff2da:0x60dce5ed);c.drawRoundRect(rect,radius,radius,p);p.setStyle(Paint.Style.FILL);}}
+        @Override public void setAlpha(int a){}@Override public void setColorFilter(ColorFilter f){}@Override public int getOpacity(){return PixelFormat.TRANSLUCENT;}
+        @Override public boolean isStateful(){return true;}@Override protected boolean onStateChange(int[] state){invalidateSelf();return true;}
+    }
+}

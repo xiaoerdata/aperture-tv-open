@@ -16,7 +16,7 @@ import android.widget.Button;
 /** Transparent transport controls; vector paths stay sharp at television resolutions. */
 final class PlayerChrome {
     static Button control(Activity a,String label,Runnable action){
-        Button b=new Button(a);b.setAllCaps(false);b.setText(label);b.setTextSize(BuildConfig.PARENTS_EDITION?20:18);b.setTextColor(TvUi.INK);b.setMinWidth(0);b.setMinimumWidth(0);b.setMinHeight(TvUi.dp(a,52));b.setMinimumHeight(TvUi.dp(a,52));b.setPadding(TvUi.dp(a,16),0,TvUi.dp(a,16),0);b.setGravity(Gravity.CENTER);
+        Button b=new Button(a);TvUi.touchClick(b);b.setAllCaps(false);b.setText(label);b.setTextSize(BuildConfig.PARENTS_EDITION?20:18);b.setTextColor(TvUi.INK);b.setMinWidth(0);b.setMinimumWidth(0);b.setMinHeight(TvUi.dp(a,52));b.setMinimumHeight(TvUi.dp(a,52));b.setPadding(TvUi.dp(a,16),0,TvUi.dp(a,16),0);b.setGravity(Gravity.CENTER);
         StateListDrawable states=new StateListDrawable();states.addState(new int[]{android.R.attr.state_focused},surface(a,true));states.addState(new int[]{android.R.attr.state_pressed},surface(a,true));states.addState(new int[]{},surface(a,false));b.setBackground(states);b.setOnClickListener(v->action.run());return b;
     }
     private static Drawable surface(Activity a,boolean focused){GradientDrawable d=new GradientDrawable();d.setColor(focused?0x30ffffff:0x00000000);d.setCornerRadius(TvUi.dp(a,26));if(focused)d.setStroke(TvUi.dp(a,2),0xfff4f2ed);return d;}

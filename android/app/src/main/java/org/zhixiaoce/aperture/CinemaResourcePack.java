@@ -58,8 +58,8 @@ final class CinemaResourcePack {
                 keys(r,key,"id","type","title","url","protocol","sections","categoryIds","headers");String protocol=string(r,"protocol",32,true);int kind=protocol.equals("maccms-json")?1:protocol.equals("maccms-xml")?0:protocol.equals("tvbox-type4")?4:-1;if(kind<0)throw invalid(key,"不支持的目录协议");
                 CinemaCatalog.Site site=new CinemaCatalog.Site(name,address(r,"url",allowHttp),identity,kind,headers(r));site.identity=identity;site.sections=sections(r,true);site.categoryIds=categories(r,site.sections);result.sites.add(site);
             }else if(type.equals("collection")){
-                keys(r,key,"id","type","title","section","items","headers");String section=string(r,"section",16,true);if(!SECTIONS.contains(section))throw invalid(key,"清单分类无效");
-                CinemaCatalog.Site site=new CinemaCatalog.Site(name,"",identity,5,headers(r));site.identity=identity;site.sections.add(section);site.items=collectionItems(array(r,"items",1,200),allowHttp);result.sites.add(site);itemCount+=site.items.length();for(int j=0;j<site.items.length();j++)episodeCount+=site.items.getJSONObject(j).getJSONArray("episodes").length();
+                keys(r,key,"id","type","title","section","sections","items","headers");List<String> declared=collectionSections(r);
+                CinemaCatalog.Site site=new CinemaCatalog.Site(name,"",identity,5,headers(r));site.identity=identity;site.sections.addAll(declared);site.items=collectionItems(array(r,"items",1,200),allowHttp);assignSections(site);result.sites.add(site);itemCount+=site.items.length();for(int j=0;j<site.items.length();j++)episodeCount+=site.items.getJSONObject(j).getJSONArray("episodes").length();
             }else if(type.equals("tvbox")){
                 keys(r,key,"id","type","title","config","baseUrl","sections","categoryIds");if(!(r.get("config") instanceof JSONObject))throw invalid(key,"config需要TVBox对象");JSONObject config=r.getJSONObject("config");if(config.has("format")||config.has("urls")||config.has("data")||!(config.has("sites")||config.has("lives")))throw invalid(key,"TVBox适配器需单个sites/lives配置，不能嵌套资源包或多仓");
                 if(config.optJSONArray("parses")!=null&&config.getJSONArray("parses").length()==0)config.remove("parses");
@@ -74,24 +74,50 @@ final class CinemaResourcePack {
     static JSONArray collectionItems(JSONArray input,boolean allowHttp)throws Exception{
         if(input.length()<1||input.length()>200)throw invalid("items","需为1至200项");JSONArray out=new JSONArray();Set<String> ids=new HashSet<>();int total=0;
         for(int i=0;i<input.length();i++){
-            JSONObject item=object(input,i,"items");keys(item,"items","id","title","remark","episodes","metadata","cover","plot","year","area","genre","director","actors","rating","ratingSource","duration","backdrop");String id=id(item,"id",64);if(!ids.add(id))throw invalid("items","节目编号重复");JSONObject normalized=new JSONObject().put("id",id).put("title",string(item,"title",160,true)).put("remark",string(item,"remark",200,false));JSONObject meta=metadata(item,allowHttp);if(meta.length()>0)normalized.put("metadata",meta);JSONArray episodes=array(item,"episodes",1,500),list=new JSONArray();Set<String> titles=new HashSet<>();
+            JSONObject item=object(input,i,"items");keys(item,"items","id","title","remark","episodes","metadata","cover","plot","poster","summary","section","year","area","genre","director","actors","rating","ratingSource","duration","backdrop");String id=id(item,"id",64);if(!ids.add(id))throw invalid("items","节目编号重复");JSONObject normalized=new JSONObject().put("id",id).put("title",string(item,"title",160,true)).put("remark",string(item,"remark",200,false));if(item.has("section")){String section=string(item,"section",16,true);if(!SECTIONS.contains(section))throw invalid("items.section","分类无效");normalized.put("section",section);}JSONObject meta=metadata(item,allowHttp);if(meta.length()>0)normalized.put("metadata",meta);JSONArray episodes=array(item,"episodes",1,500),list=new JSONArray();Set<String> titles=new HashSet<>();
             for(int j=0;j<episodes.length();j++){JSONObject episode=object(episodes,j,"episodes");keys(episode,"episodes","title","url","headers","cover");String title=string(episode,"title",120,true);if(!titles.add(title))throw invalid("episodes","同一节目的集名需唯一");if(++total>500)throw invalid("episodes","一个清单最多500集");JSONObject value=new JSONObject().put("title",title).put("url",address(episode,"url",allowHttp)).put("headers",new JSONObject(headers(episode)));if(episode.has("cover"))value.put("cover",address(episode,"cover",allowHttp));list.put(value);}normalized.put("episodes",list);out.put(normalized);
         }return out;
+    }
+    private static List<String> collectionSections(JSONObject resource)throws Exception{
+        List<String> declared=resource.has("sections")?sections(resource,true):new ArrayList<>();
+        if(resource.has("section")){
+            Object value=resource.get("section");List<String> legacy;
+            if(value instanceof JSONArray)legacy=sections(new JSONObject().put("sections",value),true);
+            else{String section=string(resource,"section",16,true);if(!SECTIONS.contains(section))throw invalid("section","分类无效");legacy=Arrays.asList(section);}
+            if(!declared.isEmpty()&&!new HashSet<>(declared).equals(new HashSet<>(legacy)))throw invalid("section","与sections冲突");declared=new ArrayList<>(legacy);
+        }
+        if(declared.isEmpty())throw invalid("sections","请声明片单栏目，混合片单的每条节目另填section");return declared;
+    }
+    private static void assignSections(CinemaCatalog.Site site)throws Exception{
+        for(int i=0;i<site.items.length();i++){JSONObject item=site.items.getJSONObject(i);String section=item.optString("section");
+            if(section.isEmpty()){if(site.sections.size()!=1)throw invalid("items["+i+"].section","混合片单需逐条声明movies、series或variety");section=site.sections.get(0);item.put("section",section);}
+            if(!site.sections.contains(section))throw invalid("items["+i+"].section","需先在片单sections中声明");
+        }
     }
     private static JSONObject metadata(JSONObject item,boolean allowHttp)throws Exception{
         String[] fields={"poster","year","genre","area","director","actors","summary","rating","ratingSource","duration","backdrop"};
         JSONObject nested=item.has("metadata")?item.getJSONObject("metadata"):new JSONObject(),result=new JSONObject();keys(nested,"metadata",fields);
-        for(String field:fields){String alias=field.equals("poster")?"cover":field.equals("summary")?"plot":field;if(nested.has(field)&&item.has(alias)&&!java.util.Objects.equals(nested.get(field),item.get(alias)))throw invalid("metadata."+field,"与顶层字段冲突");String value=null;for(JSONObject source:new JSONObject[]{nested,item}){String key=source==nested?field:alias;if(!source.has(key))continue;int limit=field.equals("summary")?4000:field.equals("actors")?600:field.equals("director")?300:field.equals("year")||field.equals("rating")?40:field.equals("duration")?60:field.equals("ratingSource")?80:field.equals("area")?100:160;String candidate=field.equals("poster")||field.equals("backdrop")?address(source,key,allowHttp):string(source,key,limit,false);if(value!=null&&!value.equals(candidate))throw invalid("metadata."+field,"与顶层字段冲突");value=candidate;}if(value!=null)result.put(field,value);}
-        return result;
+        for(String field:fields){String alias=field.equals("poster")?"cover":field.equals("summary")?"plot":field;String value=null;
+            for(String location:new String[]{"nested","direct","alias"}){
+                JSONObject source=location.equals("nested")?nested:item;String key=location.equals("alias")?alias:field;if(!source.has(key))continue;
+                int limit=field.equals("summary")?4000:field.equals("actors")?600:field.equals("director")?300:field.equals("year")||field.equals("rating")?40:field.equals("duration")?60:field.equals("ratingSource")?80:field.equals("area")?100:160;
+                String candidate;
+                if(field.equals("rating")&&source.get(key) instanceof Number){double score=((Number)source.get(key)).doubleValue();if(!Double.isFinite(score)||score<0||score>10)throw invalid("rating","评分需为0至10");candidate=new java.math.BigDecimal(source.get(key).toString()).stripTrailingZeros().toPlainString();}
+                else if(field.equals("year")&&source.get(key) instanceof Number)candidate=String.valueOf(integer(source,key,1800,2200));
+                else candidate=field.equals("poster")||field.equals("backdrop")?address(source,key,allowHttp):string(source,key,limit,false);
+                if(value!=null&&!value.equals(candidate))throw invalid("metadata."+field,"与顶层字段冲突");value=candidate;
+            }if(value!=null)result.put(field,value);
+        }return result;
     }
     static void restoreSite(CinemaCatalog.Site site,JSONObject data,boolean allowHttp)throws Exception{
         site.identity=CinemaCatalog.field(data.optString("identity"),200);JSONArray values=data.optJSONArray("sections");if(values!=null&&values.length()>0)site.sections=sections(data,true);site.categoryIds=categories(data,site.sections);
-        if(site.type==5){site.items=collectionItems(data.getJSONArray("items"),allowHttp);if(site.sections.size()!=1)throw invalid("sections","内置清单需一个分类");}
+        if(site.type==5){site.items=collectionItems(data.getJSONArray("items"),allowHttp);assignSections(site);}
     }
-    static CinemaCatalog.Page page(CinemaCatalog.Site site,int page,String search,String id)throws Exception{
-        if(page<1||page>500)throw invalid("page","分页无效");CinemaCatalog.Page result=new CinemaCatalog.Page();result.page=page;result.pages=1;result.categories.add(new CinemaCatalog.Category(site.sections.get(0),sectionTitle(site.sections.get(0))));List<CinemaCatalog.Item> matches=new ArrayList<>();
+    static CinemaCatalog.Page page(CinemaCatalog.Site site,int page,String search,String id)throws Exception{return page(site,null,page,search,id);}
+    static CinemaCatalog.Page page(CinemaCatalog.Site site,String category,int page,String search,String id)throws Exception{
+        if(page<1||page>500)throw invalid("page","分页无效");CinemaCatalog.Page result=new CinemaCatalog.Page();result.page=page;result.pages=1;for(String section:site.sections)result.categories.add(new CinemaCatalog.Category(section,sectionTitle(section)));List<CinemaCatalog.Item> matches=new ArrayList<>();
         for(int i=0;i<site.items.length();i++){
-            JSONObject item=site.items.getJSONObject(i);String title=item.getString("title");if(id!=null&&!id.equals(item.getString("id"))||search!=null&&!title.toLowerCase(Locale.ROOT).contains(search.toLowerCase(Locale.ROOT)))continue;
+            JSONObject item=site.items.getJSONObject(i);String title=item.getString("title");if(category!=null&&!category.equals(item.optString("section",site.sections.size()==1?site.sections.get(0):"")))continue;if(id!=null&&!id.equals(item.getString("id"))||search!=null&&!title.toLowerCase(Locale.ROOT).contains(search.toLowerCase(Locale.ROOT)))continue;
             List<CinemaCatalog.Line> lines=new ArrayList<>();CinemaCatalog.Line line=new CinemaCatalog.Line("播放");JSONArray episodes=item.getJSONArray("episodes");for(int j=0;j<episodes.length();j++){JSONObject e=episodes.getJSONObject(j);Map<String,String> headers=new LinkedHashMap<>(site.headers);headers.putAll(headers(e));line.episodes.add(new CinemaCatalog.Episode(e.getString("title"),e.getString("url"),headers));}lines.add(line);CinemaCatalog.Item value=new CinemaCatalog.Item(item.getString("id"),title,item.optString("remark"),lines);JSONObject m=item.optJSONObject("metadata");if(m!=null)value.metadata(new JSONObject().put("vod_pic",m.optString("poster")).put("vod_year",m.optString("year")).put("type_name",m.optString("genre")).put("vod_area",m.optString("area")).put("vod_director",m.optString("director")).put("vod_actor",m.optString("actors")).put("vod_content",m.optString("summary")).put("vod_score",m.optString("rating")).put("rating_source",m.optString("ratingSource")).put("vod_duration",m.optString("duration")).put("vod_backdrop",m.optString("backdrop")));matches.add(value);
         }
         result.pages=Math.max(1,(matches.size()+59)/60);for(int i=(page-1)*60;i<Math.min(matches.size(),page*60);i++)result.items.add(matches.get(i));return result;

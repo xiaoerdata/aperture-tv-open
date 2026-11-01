@@ -7,6 +7,7 @@ for edition in ['standard','parents']:
  metadata=json.loads((args.directory/edition/'manifest.json').read_text());apk=args.directory/edition/metadata['apk'];assert hashlib.sha256(apk.read_bytes()).hexdigest()==metadata['sha256']
  names=['CinemaActivity','CinemaLivePanel','CinemaChoicePanel','CinemaEpisodeGrid','ConfirmPress','FeaturePolicy','MainActivity','NasActivity'];found={};drivers=[]
  if metadata['versionCode']>=29:names+=['CinemaPlaybackPlan','CinemaHttp','MessageFeed','HomeMessages']
+ if metadata['versionCode']>=30:names+=['ScenicNativeHome','LocalControlSession','TvLocalControl','LocalControlActivity','LocalControlSemantics','LocalControlApplication']
  with tempfile.TemporaryDirectory(prefix='kaishi-release-dex-') as tmp,zipfile.ZipFile(apk) as z:
   for name in z.namelist():
    if not re.fullmatch(r'classes[0-9]*\.dex',name):continue

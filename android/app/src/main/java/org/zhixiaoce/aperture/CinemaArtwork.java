@@ -15,8 +15,15 @@ import java.util.concurrent.*;
 
 /** Bounded, credential-free image pipeline, independent of playback/catalogue requests. */
 final class CinemaArtwork implements AutoCloseable {
+    private static final class Target {
+        final java.lang.ref.WeakReference<ImageView> view;final Runnable missing;
+        Target(ImageView view,Runnable missing){this.view=new java.lang.ref.WeakReference<>(view);this.missing=missing;}
+    }
+    private static final class Batch {final int epoch;final List<Target> targets=new ArrayList<>();Batch(int epoch){this.epoch=epoch;}}
+    // Accessed on the UI thread; a repeated cover consumes one worker job, not one per tile.
+    private final Map<String,Batch> pending=new HashMap<>();
     private final Activity activity;private final Handler main=new Handler(android.os.Looper.getMainLooper());
-    private final ThreadPoolExecutor workers=new ThreadPoolExecutor(2,2,0,TimeUnit.SECONDS,new ArrayBlockingQueue<>(32));
+    private final ThreadPoolExecutor workers=new ThreadPoolExecutor(2,2,0,TimeUnit.SECONDS,new ArrayBlockingQueue<>(256));
     private final Set<HttpURLConnection> active=Collections.synchronizedSet(new HashSet<>());
     private final LruCache<String,Bitmap> memory=new LruCache<String,Bitmap>(12*1024*1024){protected int sizeOf(String k,Bitmap b){return b.getByteCount();}};
     private final File directory;private volatile int epoch;private volatile boolean closed;
@@ -25,8 +32,19 @@ final class CinemaArtwork implements AutoCloseable {
     void bind(ImageView target,String value,String base,boolean allowHttp){bind(target,value,base,allowHttp,null);}
     void bind(ImageView target,String value,String base,boolean allowHttp,Runnable missing){
         String url=address(value,base,allowHttp);target.setTag(url);if(url.isEmpty()){if(missing!=null)missing.run();return;}Bitmap saved=memory.get(url);if(saved!=null){target.setImageBitmap(saved);return;}int turn=epoch;
-        try{workers.execute(()->{if(turn!=epoch||closed)return;try{Bitmap bitmap=load(url,allowHttp);if(bitmap!=null){memory.put(url,bitmap);main.post(()->{if(!closed&&turn==epoch&&url.equals(target.getTag()))target.setImageBitmap(bitmap);});}}catch(Exception|OutOfMemoryError ignored){if(missing!=null)main.post(()->{if(!closed&&turn==epoch&&url.equals(target.getTag()))missing.run();});}});}catch(RejectedExecutionException full){}
+        Batch existing=pending.get(url);if(existing!=null){existing.targets.add(new Target(target,missing));return;}
+        Batch batch=new Batch(turn);batch.targets.add(new Target(target,missing));pending.put(url,batch);
+        try{workers.execute(()->{
+            if(turn!=epoch||closed)return;Bitmap decoded=null;
+            try{decoded=load(url,allowHttp);if(decoded!=null&&turn==epoch&&!closed)memory.put(url,decoded);}catch(Exception|OutOfMemoryError ignored){}
+            final Bitmap result=decoded;main.post(()->{
+                if(pending.get(url)!=batch)return;pending.remove(url);
+                if(closed||turn!=epoch)return;
+                for(Target binding:batch.targets){ImageView view=binding.view.get();if(view!=null&&url.equals(view.getTag())){if(result!=null)view.setImageBitmap(result);else if(binding.missing!=null)binding.missing.run();}}
+            });
+        });}catch(RejectedExecutionException full){pending.remove(url);if(missing!=null)missing.run();}
     }
+
     private Bitmap load(String url,boolean allowHttp)throws Exception{
         StringBuilder key=new StringBuilder();for(byte b:MessageDigest.getInstance("SHA-256").digest(url.getBytes("UTF-8")))key.append(String.format(java.util.Locale.ROOT,"%02x",b&255));File file=new File(directory,key.toString());byte[] data=null;
         if(file.isFile()&&file.length()<=4*1024*1024&&System.currentTimeMillis()-file.lastModified()<7L*86400000){try(InputStream in=new FileInputStream(file)){data=read(in,4*1024*1024);}file.setLastModified(System.currentTimeMillis());}
@@ -36,6 +54,6 @@ final class CinemaArtwork implements AutoCloseable {
     }
     private void trim(int bytes){File[] files=directory.listFiles();if(files==null)return;Arrays.sort(files,Comparator.comparingLong(File::lastModified));long total=bytes;for(File f:files)total+=f.length();for(File f:files){if(total<=32L*1024*1024)break;long n=f.length();if(f.delete())total-=n;}}
     private static byte[] read(InputStream in,int max)throws IOException{long deadline=android.os.SystemClock.elapsedRealtime()+12000;ByteArrayOutputStream out=new ByteArrayOutputStream();byte[] buffer=new byte[8192];int n;while((n=in.read(buffer))!=-1){if(Thread.currentThread().isInterrupted()||android.os.SystemClock.elapsedRealtime()>deadline||out.size()+n>max)throw new IOException();out.write(buffer,0,n);}return out.toByteArray();}
-    void cancel(){epoch++;workers.getQueue().clear();synchronized(active){for(HttpURLConnection c:active)c.disconnect();}main.removeCallbacksAndMessages(null);}
+    void cancel(){epoch++;pending.clear();workers.getQueue().clear();synchronized(active){for(HttpURLConnection c:active)c.disconnect();}main.removeCallbacksAndMessages(null);}
     public void close(){closed=true;cancel();workers.shutdownNow();memory.evictAll();}
 }

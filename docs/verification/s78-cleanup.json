@@ -1,0 +1,74 @@
+{
+  "stage": "S78",
+  "completed": true,
+  "planSha256": "6dd24c80a07033e9bf68ec216ea130e8f25fe662701c42c448e8a01609b28351",
+  "removedTargetCount": 12,
+  "removedFileCount": 14273,
+  "logicalBytesRemoved": 4788547880,
+  "allocatedBytesSelected": 4824408064,
+  "filesystemFreeBefore": 7876956160,
+  "filesystemFreeAfter": 12710350848,
+  "filesystemDeltaMayIncludeConcurrentWork": true,
+  "protectedApkFilesUnchanged": 205,
+  "allProtectedApksSha256Unchanged": true,
+  "signingFilesMetadataUnchanged": true,
+  "externalSymlinkTargetsUnchanged": true,
+  "publicGitHeadUnchanged": "d9539475c5bca3f230720f038fba8a6a1f07e89e",
+  "publicCheckoutStillClean": true,
+  "uniqueHistoryBackup": {
+    "path": "artifacts/s78-unique-export-history-final.tar.gz",
+    "bytes": 193767,
+    "sha256": "f914d98b9b99974cbc22ed93009293893f42f7843658437c38f2875705dc0164",
+    "rawArchiveCoverage": [
+      {
+        "stage": "s75",
+        "files": 1590,
+        "retainedInGit": 1577,
+        "retainedInCurrentSource": 9,
+        "unmatchedRetainedInBackup": 4
+      },
+      {
+        "stage": "s77",
+        "files": 1638,
+        "retainedInGit": 1625,
+        "retainedInCurrentSource": 11,
+        "unmatchedRetainedInBackup": 2
+      }
+    ]
+  },
+  "sourceArchiveAndDirectoryGitBlobsVerified": [
+    {
+      "path": "artifacts/s75-reviewed-public-source.tar.gz",
+      "kind": "duplicate frozen public source",
+      "frozenCommit": "eca34d613e0c80b28e23190ff32fecbd2c333781",
+      "gitBlobsVerified": 1590
+    },
+    {
+      "path": "artifacts/s75-reviewed-public-source",
+      "kind": "duplicate frozen public source",
+      "frozenCommit": "eca34d613e0c80b28e23190ff32fecbd2c333781",
+      "gitBlobsVerified": 1590
+    },
+    {
+      "path": "artifacts/s77-reviewed-public-source.tar.gz",
+      "kind": "duplicate frozen public source",
+      "frozenCommit": "1836e72766028b27d65dacf93ee7614383eff074",
+      "gitBlobsVerified": 1638
+    },
+    {
+      "path": "artifacts/s77-reviewed-public-source",
+      "kind": "duplicate frozen public source",
+      "frozenCommit": "1836e72766028b27d65dacf93ee7614383eff074",
+      "gitBlobsVerified": 1638
+    }
+  ],
+  "duplicateImagesRemoved": 0,
+  "regenerableDirectoriesRemoved": 6,
+  "allSmallFailureLogsAndUniqueMediaRetained": true,
+  "apkBuilt": false,
+  "remoteWrites": false,
+  "preflightIssues": [
+    "First read-only plan stopped on generated public CA bundles; verified cacert.pem certificates contain no private key before narrowing the rule. No candidates deleted.",
+    "Second read-only plan preserved an existing backup and stopped; used a new backup filename and completed the third plan. No candidates deleted before final verification."
+  ]
+}

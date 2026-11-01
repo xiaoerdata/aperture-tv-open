@@ -21,7 +21,7 @@ test('production Java imports, persists, routes and updates Resource Pack v1',{t
  const directory=await mkdtemp(join(tmpdir(),'kaishi-resources-java-')),jdk=process.env.JAVA_HOME||'/tmp/aperture-android-runtime/jdk17';try{
   const cp=(await nasClasspath())+':'+await nasTestJson(),src='android/app/src/main/java/org/zhixiaoce/aperture/';await run(join(jdk,'bin/javac'),['-cp',cp,'-d',directory,...['CinemaCatalog','CinemaFormats','CinemaResourcePack','CinemaHttp','CinemaShelf'].map(n=>src+n+'.java'),'tests/java/ResourcePackTest.java']);
   const {stdout}=await run(join(jdk,'bin/java'),['-cp',directory+':'+cp,'org.zhixiaoce.aperture.ResourcePackTest',example,'examples/resource-packs/tvbox.kaishi.json']);assert.match(stdout,/assertions passed/);console.log(stdout.trim());
-  await writeFile('docs/verification/s51-resource-pack.json',JSON.stringify({productionJavaParser:true,schemaAndCliChecked:true,sourceFile:example,example:checkPack(await readFile(example)),output:stdout.trim(),apkBuilt:false,androidActivityExecuted:false,workBuddyClientTested:false,xiaomiTested:false},null,2)+'\n');
+  await writeFile('artifacts/s79-resource-pack-regression.json',JSON.stringify({productionJavaParser:true,schemaAndCliChecked:true,sourceFile:example,example:checkPack(await readFile(example)),output:stdout.trim(),apkBuilt:false,androidActivityExecuted:false,workBuddyClientTested:false,xiaomiTested:false},null,2)+'\n');
  }finally{await rm(directory,{recursive:true,force:true});}
 });
 

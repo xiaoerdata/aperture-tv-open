@@ -23,7 +23,22 @@ final class TvUi {
     static GradientDrawable background(){return new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{0xff1b1d21,0xff0d1014,0xff080a0d});}
     static StateListDrawable states(Activity a){StateListDrawable s=new StateListDrawable();s.addState(new int[]{android.R.attr.state_focused},glass(a,true));s.addState(new int[]{android.R.attr.state_pressed},glass(a,true));s.addState(new int[]{},glass(a,false));return s;}
     static TextView text(Activity a,String text,int size,boolean muted){TextView v=new TextView(a);v.setText(text);v.setTextColor(muted?MUTED:INK);v.setTextSize(typeSize(size));v.setIncludeFontPadding(false);v.setPadding(0,dp(a,3),0,dp(a,3));return v;}
-    static void styleButton(Activity a,Button b){b.setAllCaps(false);b.setTextColor(INK);b.setTextSize(BuildConfig.PARENTS_EDITION?20:17);b.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);b.setMinHeight(dp(a,44));b.setMinimumHeight(dp(a,44));b.setMinWidth(0);b.setMinimumWidth(0);b.setPadding(dp(a,14),dp(a,10),dp(a,14),dp(a,10));b.setBackground(states(a));b.setElevation(dp(a,2));b.setGravity(Gravity.CENTER);b.setOnFocusChangeListener((v,f)->{v.animate().cancel();v.animate().scaleX(f?1.015f:1).scaleY(f?1.015f:1).setDuration(130).start();});}
+    /** Touch commits on the first tap; scroll parents still receive/intercept moves. */
+    static void touchClick(View view){
+        view.setFocusableInTouchMode(true);
+        final boolean[] held={false};
+        view.setOnTouchListener((v,e)->{
+            if(!v.isEnabled())return false;
+            switch(e.getActionMasked()){
+                case android.view.MotionEvent.ACTION_DOWN:held[0]=true;v.requestFocus();v.setPressed(true);return true;
+                case android.view.MotionEvent.ACTION_MOVE:if(e.getX()<0||e.getY()<0||e.getX()>=v.getWidth()||e.getY()>=v.getHeight()){held[0]=false;v.setPressed(false);}return true;
+                case android.view.MotionEvent.ACTION_CANCEL:held[0]=false;v.setPressed(false);return true;
+                case android.view.MotionEvent.ACTION_UP:boolean click=held[0];held[0]=false;v.setPressed(false);if(click)v.performClick();return true;
+                default:return true;
+            }
+        });
+    }
+    static void styleButton(Activity a,Button b){touchClick(b);b.setAllCaps(false);b.setTextColor(INK);b.setTextSize(BuildConfig.PARENTS_EDITION?20:17);b.setTypeface(Typeface.DEFAULT,Typeface.NORMAL);b.setMinHeight(dp(a,44));b.setMinimumHeight(dp(a,44));b.setMinWidth(0);b.setMinimumWidth(0);b.setPadding(dp(a,14),dp(a,10),dp(a,14),dp(a,10));b.setBackground(states(a));b.setElevation(dp(a,2));b.setGravity(Gravity.CENTER);b.setOnFocusChangeListener((v,f)->{v.animate().cancel();v.animate().scaleX(f?1.015f:1).scaleY(f?1.015f:1).setDuration(130).start();});}
     static Button button(Activity a,String title,Runnable run){Button b=new Button(a);styleButton(a,b);b.setText(title);b.setOnClickListener(v->run.run());return b;}
     static void showForm(Activity a,LinearLayout layout){
         android.widget.FrameLayout stage=new android.widget.FrameLayout(a);stage.setBackground(background());
