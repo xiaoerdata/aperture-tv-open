@@ -1,0 +1,55 @@
+{
+  "version": "0.2.0-alpha.33",
+  "versionCode": 36,
+  "edition": "standard",
+  "repository": "xiaoerdata/aperture-tv-open",
+  "tag": "v0.2.0-alpha.33",
+  "commit": "72d24b47d81d7edc6ce41d426a892df481385da2",
+  "sourceTree": "41b90a9fd2056fb3850b3a7913da93ba768fc6d7",
+  "androidInputSha256": "8aef4515777f60830de0f23a942158078cf338494b296990d781deb569483d86",
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v36-standard.apk",
+      "bytes": 55306411,
+      "sha256": "7016c3ca41bb4ab3a6614f807afdf5d762901b3043f5c7e9a196a23aeedf3811",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 27
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 178,
+      "sha256": "f27e402e581f5ac4394587d372c9b40af4b3f2d0b6a982375413625330cbac69",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 0
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 37416,
+      "sha256": "5423c7b24620fd1813619a15693480905f2b785dcada67044b4aa146a5e29cd3",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 0
+    }
+  ],
+  "publicSourceManifestSha256": "e979891e22f6734e8c4743df46190abe7acb007f7c3d0267484e8e71fc5140ab",
+  "tests": [
+    "Standard release build, retained certificate, packaged assets verified",
+    "20 production GalleryStore/GalleryUpload Android assertions with real sockets and codecs",
+    "Four-page navigation, gallery fullscreen and settings browser checks",
+    "5 shelf persistence and state-isolation checks",
+    "Android28 actual remote inputs in the live channel drawer with synthetic groups",
+    "15 home guard policy transitions, grant-list preservation and capability constraints",
+    "Android28 native binding of production accessibility service confirmed"
+  ],
+  "notTested": [
+    "Xiaomi original home actual foreground handoff",
+    "OEM default HOME and cold boot",
+    "Xiaomi default-density rendering, XiaoAi and Mi Home coexistence",
+    "Real household mobile upload network and photo screensaver",
+    "Full live playback and persistent browse sidebar on Xiaomi"
+  ],
+  "parentsRelease": "paused",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.33"
+}

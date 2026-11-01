@@ -47,8 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": null,
-    "publicParent": "49823055b25f3c7592e4375fb8a13cb96ed0e70b"
+    "postReleaseReceiptFor": "72d24b47d81d7edc6ce41d426a892df481385da2",
+    "publicParent": "72d24b47d81d7edc6ce41d426a892df481385da2"
   },
   "files": [
     {
@@ -4853,8 +4853,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 245517,
-      "sha256": "499ce83bd837c35f98e0e7d9511b2fd46f54a39052aa65de67fa59fcddf0dcd0"
+      "bytes": 246174,
+      "sha256": "52b2967397f2ac19a9381658f8e0532541189fb1acf23bcb3daca8bc9c53b8a1"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -5090,6 +5090,11 @@
       "path": "docs/verification/public-alpha-v30.json",
       "bytes": 1719,
       "sha256": "6d4ddc6734ef07b83d1039faaeea6d929d336aecf17f060446f502fafd7d1a16"
+    },
+    {
+      "path": "docs/verification/public-alpha-v36.json",
+      "bytes": 2220,
+      "sha256": "a11f702349544508335be233eac7e1bd4bbd1cfca9030d996f657d9b8718cdef"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
