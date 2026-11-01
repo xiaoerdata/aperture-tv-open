@@ -1,0 +1,64 @@
+{
+  "source": "coordinator verified summary only; raw diagnostic Library ZIP unavailable here",
+  "archiveBytesReported": 23613,
+  "archiveSha256Reported": "21a05a49c2355a0c48c775836e5e3e04dbfc479e45209493090264efaa73d3fd",
+  "archiveReceived": false,
+  "archiveHashVerifiedHere": false,
+  "transferRetried": false,
+  "productBase": "d72791867192394e0f121cf80583ffab1f4ad0ea",
+  "reportedActualNative": {
+    "api": 28,
+    "webView": "66",
+    "coldWarm": "ROUTE_NATIVE -> NATIVE_READY -> NATIVE_SNAPSHOT_OK",
+    "emptyNeutralFocusAndCancelBack": true,
+    "configPreserved": true,
+    "realUpload": false
+  },
+  "reportedR1": {
+    "controlledPassed": 51
+  },
+  "reportedFormalR2": {
+    "passedBeforeFailure": 21,
+    "ok": false,
+    "failedCase": "late fake startup stays closed after exit",
+    "combinedAssertion": "last.closed && !uploaded",
+    "closedBranchKnown": false,
+    "uploadedBranchKnown": false,
+    "instrumentationCode": 0,
+    "adbRcZeroIsAcceptance": false,
+    "forcedMockWeb": true,
+    "nativeFallbackEntered": false
+  },
+  "reportedIndependentFakeExitDiagnostic": {
+    "reproducedFormalFailure": false,
+    "finishReturned": {
+      "isFinishing": true,
+      "resumed": true,
+      "closed": false,
+      "fakeClosed": false
+    },
+    "endIdle": {
+      "isDestroyed": false
+    },
+    "pauseHappenedBeforeFakeRelease": true,
+    "assertionObserved": {
+      "fakeClosed": true,
+      "everSettingsUpload": false
+    },
+    "diagnosticPassOverridesFormalFailure": false
+  },
+  "reportedR3": {
+    "nativeChecksPassedBeforeFailure": 9,
+    "error": "SecurityException: Injecting to another application requires INJECT_EVENTS permission",
+    "location": "Round3Runner.key -> nativeChecks last Back",
+    "realWebPathReached": false,
+    "photosReached": false
+  },
+  "sourceReview": {
+    "asynchronousUiCallbackMissingFinishingDestroyedGuard": true,
+    "alsoPresentInV38": true,
+    "provenV39Regression": false,
+    "provenUniqueFormalFailureCause": false
+  },
+  "revisionActualAcceptance": false
+}

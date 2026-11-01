@@ -1,4 +1,4 @@
-> 私有开发候选：v39 / 0.2.0-alpha.36，未公开发布。先读 [Round3候选说明](docs/CANDIDATE-V39-R3.md)。
+> 私有开发候选：v39修订 / 0.2.0-alpha.36-r1，未公开发布。先读 [结束边界与测试修订](docs/CANDIDATE-V39-R3-R1.md)。
 
 # 开视 · Aperture TV
 

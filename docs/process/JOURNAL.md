@@ -1345,3 +1345,13 @@ R2-01新增测试专用EvidenceCapture/FrameEvidenceGate，绑定活动、窗口
 18确认/16帧模型/26期限/9焦点组合/4路由及25阶段模型通过，JS2017语法审阅通过不等于旧内核真实执行。CSS clamp/inset/gap仅列待验，未改网页资产。标准ARM/x86与测试探针定向编译、既有证书签名，216输入同源指纹53c55cb4838dfeef8ecf09292becea729ae3f5b0604caa6fe43091f970d3a325。保留R1/R2完整用例及31a配对key/openedAt-1；测试只更新39元数据和受控网页路由选择。R3新增真实native/真实WebView链观察与只生成纯色照片的最后运行用例，编译通过但本机未执行；R1 51/R2 66也未在v39本机实跑。
 
 根因仍unknown，不能把原生替代当网页ready或现代玻璃验收。公开发布未进行，爸妈版暂停，完成候选后停等云端冷/暖实测和各层回归，不开始v40，不清理任何过程文件。
+
+## S97 · v39 R3 修订：结束窗口与测试闸门（私有）
+
+协调方核旧d727真应用原生相册冷暖、取消/Back和保数据通过，R1隔离51通过；正式R2在21项后原合并退出断言失败，不能确认closed或uploaded哪支。独立纯内存诊断未复现，但finish返回仍resumed/未closed，pause后才关；不覆盖正式失败。R3在9项后全局Back UP跨应用报权限异常，未到网页/照片路径。原ZIP未到本机，不重试或绕路传输；按摘要保留来源和UNKNOWN，异步窗口在v38也存在。
+
+以d727为父，versionCode仍39、versionName alpha.36-r1，不开发v40。GalleryUploadEpoch绑定owner/显式确认/一次启动，finish/finishAndRemoveTask立即结束资格与会话，pause/owner替换撤销，resume不复活。创建前后、排队start、UI提交、错误状态、刷新和原生异步回调检查有效生命周期/当前work；真实session同样核撤销条件，关闭先发布。secure、10分钟及严格来源不变，不开启真实listener。
+
+ProbeKeys仅对有效探针Window做同downTime内部dispatch，DOWN结束目标则UP记未投递，不申请注入权限。R2 end等实际销毁/撤销，迟到用例另等生产终态记录，不把fake返回或idle当完成。保留原合并断言并拆两个观察分支，新增finish未pause、排队start/UI、晚到错误/刷新、resume不复活、owner切换、重复finish等；终态种类及fake闸门未超时也要断言。测试终态计数在完整事件入队后才发布，防止用闸门再次制造观察竞态。ProbeReport不吞teardown/写回异常。
+
+原18/16/26/9/25与路由模型通过，新增16上传代次模型通过；ARM/x86及多轮更严格测试源编译成功，早期编译制品保留，只有最终源用于交接。217输入3128e0896c95a3c7bbfc23455d269755ae8db03d7ce5a1891603cf28998e94a1，两包沿原证书；本机未执行设备矩阵，原d727通过不能冒作修订通过。源/差异/分层边界见ROUND3-V39-R1.md与CANDIDATE-V39-R3-R1.md。完成私有冻结后停等云测，爸妈版暂停，不清理、不公开发布。

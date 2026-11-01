@@ -3,7 +3,7 @@ import android.content.Context;import android.webkit.*;import android.net.Uri;im
 final class ControlledWebView extends WebView {
     WebViewClient client;String url="",answer="true";boolean hold,holdBack,throwReadiness,fullscreen,destroyed,detachedAtDestroy;int stops,destroys,evalAfterDestroy;
     final List<ValueCallback<String>> pending=new ArrayList<>();
-    final List<String> evaluated=new ArrayList<>();
+    final List<String> evaluated=Collections.synchronizedList(new ArrayList<>());
     ControlledWebView(Context c){super(c);}
     @Override public void setWebViewClient(WebViewClient c){client=c;}
     @Override public void loadUrl(String value){url=value;}
