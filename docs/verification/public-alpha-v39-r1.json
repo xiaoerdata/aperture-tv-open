@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0-alpha.36-r1",
+  "versionCode": 39,
+  "edition": "standard",
+  "tag": "v0.2.0-alpha.36-r1",
+  "commit": "2ddb6bc361dda7a124c1f97b1f5cfb0ce6af8739",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.36-r1",
+  "prerelease": true,
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v39-standard-arm.apk",
+      "bytes": 55339179,
+      "sha256": "9d994a8064946c02d4a846ccf45a5a440b13ca00c10d0320a4f012adfe564f01",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 27
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 182,
+      "sha256": "3b1ba4a5148c2d79003d3bd156988f794b681c019f03161e6e340baee2f94034",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 0
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 40949,
+      "sha256": "4bfe3ce39de7a76063cb9e8bbd3ad041b2ffd2438adca413af95bee2dc256b57",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 0
+    }
+  ],
+  "publicFrozenSourceReadback": true,
+  "androidInputSha256": "3128e0896c95a3c7bbfc23455d269755ae8db03d7ce5a1891603cf28998e94a1",
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "parentsDevelopment": "paused"
+}

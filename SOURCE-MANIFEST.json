@@ -47,7 +47,7 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": null,
+    "postReleaseReceiptFor": "2ddb6bc361dda7a124c1f97b1f5cfb0ce6af8739",
     "publicParent": "270c61a0cf55d818e8c50915ab2d590f5ad2fcfe",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
@@ -4959,8 +4959,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 264015,
-      "sha256": "6e072a4eab88650a6191aca9e0fba25fa9fe334cffb9c2853620344b2e5def18"
+      "bytes": 264713,
+      "sha256": "51fe57ecb726c96693d563d48b5c65af4e0af724ed099047ccf3c7949c42a942"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -5236,6 +5236,11 @@
       "path": "docs/verification/public-alpha-v36.json",
       "bytes": 2220,
       "sha256": "a11f702349544508335be233eac7e1bd4bbd1cfca9030d996f657d9b8718cdef"
+    },
+    {
+      "path": "docs/verification/public-alpha-v39-r1.json",
+      "bytes": 1262,
+      "sha256": "d92625b60b120ef9608c65fa233cdc03b1d70e106cf0b81d3ba6ed0161bc9c55"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
