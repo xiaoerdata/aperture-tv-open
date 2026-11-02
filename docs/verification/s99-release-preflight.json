@@ -1,0 +1,55 @@
+{
+  "versionCode": 39,
+  "version": "0.2.0-alpha.36-r1",
+  "androidInputSha256": "3128e0896c95a3c7bbfc23455d269755ae8db03d7ce5a1891603cf28998e94a1",
+  "androidInputs": 217,
+  "apkSha256": "9d994a8064946c02d4a846ccf45a5a440b13ca00c10d0320a4f012adfe564f01",
+  "retainedCertificate": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+  "sourceParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291",
+  "publicMainObserved": "270c61a0cf55d818e8c50915ab2d590f5ad2fcfe",
+  "localDeviceAttached": false,
+  "validation": {
+    "productBuildAndSignatureVerified": true,
+    "unchangedProductInputsVerified": true,
+    "localModels": {
+      "confirmation": 18,
+      "frame": 16,
+      "deadline": 26,
+      "focusComposition": 9,
+      "galleryTrace": 25,
+      "uploadEpoch": 16,
+      "routingGroups": 4,
+      "passed": true
+    },
+    "reportedCloud": {
+      "rawArchivesAvailableLocally": false,
+      "revisionR1ControlledPassed": 51,
+      "revisionR2PassedBeforeFocusFailure": 5,
+      "revisionR3PassedBeforeFocusFailure": 4
+    },
+    "latestFocusTestCorrection": {
+      "commit": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291",
+      "compiled": true,
+      "formalExecutionReceived": false,
+      "inputLayer": "app-internal-window-dispatch+default-focus-navigation-simulation"
+    },
+    "originalLateExitFailureFormallyRevalidated": false,
+    "oldWebGalleryTimeoutRootCause": "unknown",
+    "nativeFallbackDoesNotEstablishWebFix": true,
+    "fullCloudRegressionAccepted": false,
+    "xiaomiAccepted": false,
+    "armRuntimeAccepted": false,
+    "modernWebAccepted": false,
+    "realUploadAccepted": false,
+    "pending": [
+      "Final R1/R2/R3/Photos formal cloud rerun",
+      "Xiaomi 85 QLED default-density layout and native home return",
+      "HOME/cold boot/wake and XiaoAi/Mi Home coexistence",
+      "Real household upload, gallery/screensaver and media playback"
+    ],
+    "nativeGalleryLimits": [
+      "No QR upload: temporary URL entered manually",
+      "Web slideshow templates and photo management remain on web path"
+    ]
+  }
+}

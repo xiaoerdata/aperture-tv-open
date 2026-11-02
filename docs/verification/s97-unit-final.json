@@ -1,0 +1,73 @@
+{
+  "passed": true,
+  "outputs": {
+    "UploadConsentTest": "UploadConsent: 18 checks passed; no launcher or network instantiated",
+    "FrameEvidenceGateTest": "FrameEvidenceGate: 16 checks passed; modeled fences, no real frame capture",
+    "PageDeadlineTest": "PageDeadline: 26 deterministic checks passed",
+    "HomeDeadlineFocusTest": "HomeDeadlineFocus: 9 production-module composition checks passed; Android Activity adapter not executed",
+    "LobbyModeTest": "PASS legacy/missing providers use native home while capable legacy family lite remains available\nPASS modern default, explicit simple-home selection and reset do not alter family web availability\nPASS renderer exit is idempotent and blocks implicit web recreation across Home/preference changes\nPASS a newly opened Activity can retry without clearing the user's independent simple-home preference\nTRACE WebView64 -> NATIVE_OLD_ENGINE; family lite allowed\nTRACE WebView140 -> GLASS -> renderer exit -> NATIVE_RECOVERY; no automatic retry\nTRACE new Activity + simple preference -> NATIVE_SELECTED; family web allowed",
+    "GalleryTraceTest": "GalleryTrace: 25 model checks passed; no Android/WebView executed",
+    "GalleryUploadEpochTest": "GalleryUploadEpoch: 16 model checks passed; no listener or Android Activity"
+  },
+  "androidExecuted": false,
+  "realFrameCaptureExecuted": false,
+  "realUploadListenerStarted": false,
+  "sources": [
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/UploadConsent.java",
+      "sha256": "c554c500f59afe77db3580893540ea263389088ac952e230043eb79bb1ce1c5d"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/PageDeadline.java",
+      "sha256": "b71faed7d3a525834c16004ff58760b36cdc35ab7e99878e04f51296a0a3388a"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/DisplayLifecycle.java",
+      "sha256": "cb1ceb0629237e960d2b3fef178f0d4a4f404826109bc785f9d84dc5eb0ea14f"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/LobbyMode.java",
+      "sha256": "0e1e85226a976f9563e1f34ad90df5c53ac68cc526ad4c8ecc4aac72cc91fc32"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/GalleryTrace.java",
+      "sha256": "fce99672d5d59cfa9e0a2b8bb0f9b07ce0189b010c83c2e9ed0c3b7ac37aef97"
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/GalleryUploadEpoch.java",
+      "sha256": "eca0596da08eceb4048753eb19c6d7a5391a0dbf0fc5a8f928ae787c1ae8819c"
+    },
+    {
+      "path": "tests/android/evidence38/FrameEvidenceGate.java",
+      "sha256": "28694049dcb0f0224dad185ee19dca0fd3496e0e552a1d42a2cde1e39b8686fd"
+    },
+    {
+      "path": "tests/java/UploadConsentTest.java",
+      "sha256": "d82234b2b87172d2a10c80b46b33e1d689048db6eeaa19aba97c7de550ba53e0"
+    },
+    {
+      "path": "tests/java/FrameEvidenceGateTest.java",
+      "sha256": "f6a9d0ea2d550afadf97c0126c3574943befda78e8c78915f5ff01c0e24894ee"
+    },
+    {
+      "path": "tests/java/PageDeadlineTest.java",
+      "sha256": "b7f9cc0815bdb8165a9adae9542777c12b7bcf037e1ce7e79284a8c3a930e70c"
+    },
+    {
+      "path": "tests/java/HomeDeadlineFocusTest.java",
+      "sha256": "44ec63dc69fb1100e86ff871031b0817e9e658baaa1722064b9109f196967f68"
+    },
+    {
+      "path": "tests/java/LobbyModeTest.java",
+      "sha256": "62e62daa14d05e5d7b89c4d9aaed2c35a1491799cd0ccec790cd0c123b288ca6"
+    },
+    {
+      "path": "tests/java/GalleryTraceTest.java",
+      "sha256": "f0dfd2ffea309b70e9d17f0ac4d7b005d8548d72fac382bb2fc5c8264d9b70a2"
+    },
+    {
+      "path": "tests/java/GalleryUploadEpochTest.java",
+      "sha256": "9dae4deca09503f0af22223690bf58ab3136aa6641b104114b609d95e94033c7"
+    }
+  ]
+}

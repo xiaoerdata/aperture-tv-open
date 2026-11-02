@@ -1,0 +1,39 @@
+{
+  "evidenceOrigin": "coordinator message, diagnostic cloud copy; raw cloud files not received locally",
+  "priorFrozenTestCorrectionCommit": "57172237a16fb2e7383d0d9267522b114a6541a8",
+  "productCandidateCommit": "0f09b9d218a0937f16c5d0418f0f546ff138174e",
+  "reportedDiagnosticFailure": {
+    "passedBeforeFailure": 6,
+    "failedCase": "opener down and old release cannot accept native consent",
+    "openedAt": 10846027,
+    "observedAfterRight": 10848098,
+    "oldEstimateDownTime": 10847098,
+    "estimateActuallyAfterOpenedAt": true,
+    "productAcceptedFakeWasLegitimateNewGesture": true,
+    "exactCreatedAndFakeStartsNotProvided": true
+  },
+  "correction": "Read active consent ticket openedAt; use openedAt-1 for shared DOWN/UP downTime; use actual monotonic eventTime for both events",
+  "pairedKeyHelperUnchangedFromFirstCorrection": true,
+  "oldGestureAssertionPreserved": true,
+  "newObservationFields": [
+    "openedAt",
+    "observedAt",
+    "downDownTime",
+    "upDownTime",
+    "downEventTime",
+    "upEventTime",
+    "created",
+    "fakeStarts",
+    "confirmationShowing",
+    "confirmationReferenceNonNull"
+  ],
+  "emittedTo": [
+    "KaishiRound2Probe log",
+    "s95-round2.json gestureEvidence array"
+  ],
+  "onlyTestsChanged": true,
+  "realUploadListenerStarted": false,
+  "diagnosticCopyIsFormalFrozenRerun": false,
+  "formalCorrectedTestExecutedLocally": false,
+  "testSourceSha256": "6231a932024f129248d10512ac7a726dcd7c86940ddde57721017dc5bb985931"
+}

@@ -20,6 +20,14 @@ final class GalleryStore {
     JSONObject snapshot()throws Exception{synchronized(LOCK){JSONArray list=new JSONArray();long bytes=0;for(File f:files()){String id=f.getName().substring(0,32);bytes+=f.length();list.put(new JSONObject().put("id",id).put("src","/gallery/photos/"+id+".jpg").put("thumb","/gallery/thumbs/"+id+".jpg"));}android.content.SharedPreferences p=context.getSharedPreferences("local-gallery",0);return new JSONObject().put("photos",list).put("bytes",bytes).put("maxCount",MAX_COUNT).put("maxBytes",MAX_BYTES).put("template",p.getString("template","fade")).put("seconds",p.getInt("seconds",12));}}
     void option(String key,String value)throws IOException{if(key.equals("template")&&Arrays.asList("fade","drift","diptych").contains(value))context.getSharedPreferences("local-gallery",0).edit().putString(key,value).apply();else if(key.equals("seconds")&&Arrays.asList("8","12","20").contains(value))context.getSharedPreferences("local-gallery",0).edit().putInt(key,Integer.parseInt(value)).apply();else throw new IOException("设置无效");}
     void delete(String id)throws IOException{synchronized(LOCK){if(!id(id))throw new IOException("照片标识无效");File file=new File(directory,id+".jpg");if(file.exists()&&!file.delete())throw new IOException("照片未能删除");new File(new File(directory,"thumbs"),id+".jpg").delete();}}
+    /** Native read-only viewer: never modifies or cleans an existing photograph. */
+    Bitmap image(String id)throws IOException{
+        if(!id(id))throw new IOException("照片不可读取");File file=new File(directory,id+".jpg");
+        BitmapFactory.Options o=new BitmapFactory.Options();o.inJustDecodeBounds=true;BitmapFactory.decodeFile(file.getAbsolutePath(),o);
+        if(o.outWidth<=0||o.outHeight<=0||(long)o.outWidth*o.outHeight>48000000)throw new IOException("照片不可读取");
+        o.inJustDecodeBounds=false;o.inSampleSize=1;while(Math.max(o.outWidth,o.outHeight)/o.inSampleSize>1920)o.inSampleSize*=2;
+        Bitmap bitmap=BitmapFactory.decodeFile(file.getAbsolutePath(),o);if(bitmap==null)throw new IOException("照片不可读取");return bitmap;
+    }
     String add(byte[] bytes,BooleanSupplier authorized)throws Exception{
         if(!authorized.getAsBoolean())throw new IOException("上传已关闭，请重新扫码");
         if(bytes.length<16||bytes.length>MAX_UPLOAD)throw new IOException("单张照片上限12MB");

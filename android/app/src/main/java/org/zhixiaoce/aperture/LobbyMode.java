@@ -12,6 +12,7 @@ final class LobbyMode {
     }
     boolean webAvailable(int webViewMajor) { return !rendererUnavailable && webViewMajor >= 37; }
     boolean glassAvailable(int webViewMajor) { return !rendererUnavailable && webViewMajor >= 89; }
-    void rendererGone() { rendererUnavailable = true; }
+    void rendererGone() { webFailed(); }
+    void webFailed() { rendererUnavailable = true; }
     boolean recoveryRequired() { return rendererUnavailable; }
 }

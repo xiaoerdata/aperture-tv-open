@@ -1,0 +1,12 @@
+{
+  "productionCode": true,
+  "testClock": true,
+  "deviceTested": false,
+  "outputs": [
+    "PageDeadline: 26 deterministic checks passed\n",
+    "PASS legacy/missing providers use native home while capable legacy family lite remains available\nPASS modern default, explicit simple-home selection and reset do not alter family web availability\nPASS renderer exit is idempotent and blocks implicit web recreation across Home/preference changes\nPASS a newly opened Activity can retry without clearing the user's independent simple-home preference\nTRACE WebView64 -> NATIVE_OLD_ENGINE; family lite allowed\nTRACE WebView140 -> GLASS -> renderer exit -> NATIVE_RECOVERY; no automatic retry\nTRACE new Activity + simple preference -> NATIVE_SELECTED; family web allowed\n",
+    "HomeDeadlineFocus: 9 production-module composition checks passed; Android Activity adapter not executed\n"
+  ],
+  "androidInputSha256": "33756c70ba3c2295ed6f78efe65f52bdd2e4829786803a4bc797e6ac3d82b0fb",
+  "focusCompositionAndroidAdapterExecuted": false
+}

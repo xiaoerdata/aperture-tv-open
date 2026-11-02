@@ -1,0 +1,35 @@
+{
+  "javacExitCode": 0,
+  "androidInputSha256": "33756c70ba3c2295ed6f78efe65f52bdd2e4829786803a4bc797e6ac3d82b0fb",
+  "fixtureSources": [
+    {
+      "path": "tests/android/recovery37/ControlledWebView.java",
+      "sha256": "43205c95744feca82157089552a4c184e2a3cd6b7ad9080af352865005ca7750"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryClock.java",
+      "sha256": "d2535aa66dc6a133952b669e8f83391db79284ba30887f8d22d68a0098a08b60"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryGalleryProbe.java",
+      "sha256": "5999e8fd4e36d415211f8ac8b951b1f18301394cc07c638a02e1ad8802096542"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryHomeProbe.java",
+      "sha256": "92cb61f208cb53cd0c8119f6658bedc0bf566cbc40779fdec6a0590d1ad3d5ca"
+    },
+    {
+      "path": "tests/android/recovery37/RecoveryRunner.java",
+      "sha256": "f9ec30d42fc8d5303f7cd367551043aee5db3890e2368d4cbc2b412366a1374e"
+    },
+    {
+      "path": "tests/android/recovery37/UpgradeRunner.java",
+      "sha256": "f69574bfd88264c097c233521046c6aa9a6ab700866613c7dd2eb3da0840107c"
+    }
+  ],
+  "activityCasesCompiled": 51,
+  "activityCasesExecutedForFinalInput": false,
+  "priorCompileFailureRetained": "artifacts/s94-final-probe-compile/compile.log",
+  "successLog": "artifacts/s94-final-probe-compile/compile-final.log",
+  "productRebuiltForTestOnlyChange": false
+}

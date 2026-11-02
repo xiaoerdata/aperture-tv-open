@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "path": "public/launcher/gallery.js",
+      "sha256": "a79c7ec9bcc82e7ec42161b684a1f17477aee7cf867bee10aebab0e14c30873a",
+      "ecma2017ParsePassed": true
+    },
+    {
+      "path": "public/launcher/gallery-settings.js",
+      "sha256": "5458fbdf24fc6df18bdf590f370f9fdc4811333bd4964bf667e1a9c26894d1d4",
+      "ecma2017ParsePassed": true
+    },
+    {
+      "path": "public/launcher/gallery-qr.js",
+      "sha256": "93dda6e5311c89fef5eb4d115eca1f89e787a03b121521157c424d1a1009093f",
+      "ecma2017ParsePassed": true
+    }
+  ],
+  "cssReview": {
+    "clampPresent": true,
+    "insetPresent": true,
+    "gapPresent": true,
+    "oldWebViewSupportNotEstablished": true,
+    "rootCauseFromCssNotProven": true
+  },
+  "realWebView66ExecutedLocally": false,
+  "assetsModified": false,
+  "interpretation": "ECMAScript grammar audit only, not actual engine readiness or rendering acceptance"
+}

@@ -1,0 +1,31 @@
+{
+  "finalAndroidInputSha256": "33756c70ba3c2295ed6f78efe65f52bdd2e4829786803a4bc797e6ac3d82b0fb",
+  "previousAndroidInputSha256": "5cd654930eb490d2dde05b18143aa5237128ae4588bc06ca106136b248ae3515",
+  "previousNativeProbe": {
+    "passed": 48,
+    "controlledWebView": true,
+    "sourceInputSha256": "5cd654930eb490d2dde05b18143aa5237128ae4588bc06ca106136b248ae3515",
+    "acceptanceForFinalInput": false
+  },
+  "finalLocalValidation": {
+    "deterministicDeadlineChecks": 26,
+    "productionDisplayLifecycleDeadlineCompositionChecks": 9,
+    "legacyHomeRoutingGroups": 4,
+    "newActivityFocusProbeCases": 3,
+    "activityProbeSourceCompiled": true,
+    "finalActivityProbeExecuted": false,
+    "activityProbeCompileExitCode": 0,
+    "compileReceipt": "s94-focus-probe-compile.json"
+  },
+  "localUpgrade": "not-validated; stopped by coordinator request",
+  "cloudApi30WebView90": "pending",
+  "realXiaomi": "not tested",
+  "sigillRootCause": "not diagnosed",
+  "realGalleryCrash": "not reproduced",
+  "httpUploadOpenedThisRound": false,
+  "publicReleaseApproved": false,
+  "supersededArtifacts": [
+    "artifacts/s94-v37-arm",
+    "artifacts/s94-v37-x86"
+  ]
+}

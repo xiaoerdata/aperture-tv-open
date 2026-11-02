@@ -1,0 +1,25 @@
+"""Compile isolated R1+R2 tests. No emulator, listener, test execution or publication."""
+from pathlib import Path
+import argparse
+import hashlib,json,os,subprocess,zipfile
+p=argparse.ArgumentParser();p.add_argument('--output',default='artifacts/s95-native');p.add_argument('--receipt',help='New independent receipt path; must not already exist');args=p.parse_args()
+r=Path(__file__).resolve().parents[1];out=(r/args.output).resolve();assert r/'artifacts' in out.parents;sdk=r/'.android-local/android-sdk';jdk=r/'.android-local/jdk17';bt=sdk/'build-tools/35.0.0';jar=sdk/'platforms/android-35/android.jar';production=r/'android/app/build/intermediates/javac/standardRelease/compileStandardReleaseJavaWithJavac/classes'
+receipt_path=(r/args.receipt).resolve() if args.receipt else r/'docs/verification/s95-probe-compile.json'
+assert r/'docs/verification' in receipt_path.parents
+if args.receipt:assert not receipt_path.exists(),'Keep old receipts: choose an unused explicit receipt path'
+assert not out.exists(),'Keep old evidence: choose a new output for a new probe build'
+for name in ['classes','dex']:(out/name).mkdir(parents=True)
+(out/'AndroidManifest.xml').write_text('''<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.zhixiaoce.test.round2v38" android:versionCode="38" android:versionName="0.2.0-alpha.35-probe"><uses-sdk android:minSdkVersion="26" android:targetSdkVersion="28"/><application android:debuggable="true" android:hardwareAccelerated="true" android:theme="@android:style/Theme.Material.NoActionBar"><activity android:name="org.zhixiaoce.aperture.RecoveryHomeProbe" android:exported="true" android:screenOrientation="landscape"/><activity android:name="org.zhixiaoce.aperture.RecoveryGalleryProbe" android:exported="true" android:screenOrientation="landscape"/><activity android:name="org.zhixiaoce.aperture.R2GalleryProbe" android:exported="true" android:screenOrientation="landscape"/><activity android:name="org.zhixiaoce.aperture.R2FrameProbe" android:exported="true" android:screenOrientation="landscape"/></application><instrumentation android:name="org.zhixiaoce.aperture.RecoveryRunner" android:targetPackage="org.zhixiaoce.test.round2v38"/><instrumentation android:name="org.zhixiaoce.aperture.Round2Runner" android:targetPackage="org.zhixiaoce.test.round2v38"/></manifest>''')
+libs=[Path(s) for s in (r/'artifacts/nas-classpath.txt').read_text().strip().split(':')];assert all(p.is_file() for p in libs)
+sources=[p for p in sorted((r/'tests/android/recovery37').glob('*.java')) if p.name!='UpgradeRunner.java']+sorted((r/'tests/android/evidence38').glob('*.java'))
+def run(args):subprocess.run([str(s) for s in args],cwd=r,env=dict(os.environ,JAVA_HOME=str(jdk)),check=True)
+run([jdk/'bin/javac','-cp',str(jar)+':'+str(production),'-d',out/'classes',*sources])
+run([bt/'d8','--lib',jar,'--min-api','26','--output',out/'dex',*sorted(production.rglob('*.class')),*sorted((out/'classes').rglob('*.class')),*libs])
+run([bt/'aapt','package','-f','-M',out/'AndroidManifest.xml','-A',r/'public/launcher','-I',jar,'-F',out/'resources.apk'])
+with zipfile.ZipFile(out/'resources.apk') as src,zipfile.ZipFile(out/'unsigned.apk','w') as dest:
+ for name in src.namelist():dest.writestr(name,src.read(name))
+ for dex in (out/'dex').glob('*.dex'):dest.write(dex,dex.name)
+run([bt/'zipalign','4',out/'unsigned.apk',out/'aligned.apk'])
+run([bt/'apksigner','sign','--ks',r/'.android-local/android-user/debug.keystore','--ks-pass','pass:android','--v4-signing-enabled','false','--out',out/'probe.apk',out/'aligned.apk'])
+receipt={'package':'org.zhixiaoce.test.round2v38','versionCode':38,'versionName':'0.2.0-alpha.35-probe','apk':str((out/'probe.apk').relative_to(r)),'sha256':hashlib.sha256((out/'probe.apk').read_bytes()).hexdigest(),'controlledWebView':True,'fakeUploadFactory':True,'networkPermission':False,'buildPassed':True,'javacExitCode':0,'d8ExitCode':0,'buildExitCode':0,'executed':False,'shippedInCandidate':False,'runners':['org.zhixiaoce.aperture.RecoveryRunner','org.zhixiaoce.aperture.Round2Runner'],'sources':[{'path':p.relative_to(r).as_posix(),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sources]}
+(out/'probe-manifest.json').write_text(json.dumps(receipt,indent=2)+'\n');receipt_path.write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps({k:receipt[k] for k in ['buildPassed','executed','networkPermission','sha256']}))

@@ -38,12 +38,12 @@ final class ScenicNativeHome extends android.view.ViewGroup {
         String saved=activity.getSharedPreferences("aperture",0).getString("native_wallpaper","carezza");int selected=Arrays.asList(IDS).indexOf(saved);loadWallpaper(Math.max(0,selected));
         ImageView logo=new ImageView(activity);try(InputStream in=activity.getAssets().open(BuildConfig.PARENTS_EDITION?"brand/kaishi-parents-v2.webp":"brand/kaishi-icon-v2.webp")){logo.setImageDrawable(Drawable.createFromStream(in,null));}catch(Exception ignored){}logo.setContentDescription("开视");place(logo,100,62,52,52,0,-1);
         place(label(BuildConfig.PARENTS_EDITION?"开视 · 爸妈版":"开视"),168,59,400,58,36,-1);
-        Button settings=control("设置",()->actions.open("settings"),false);place(settings,1692,58,128,64,26,-1);
+        Button settings=control("设置",()->actions.open("settings"),false);place(settings,1692,58,128,64,26,-1);settings.setTag("native-settings");
         time=label("");time.setTypeface(Typeface.create("serif",Typeface.NORMAL));place(time,100,205,650,176,152,0);
         date=label("");place(date,108,399,650,58,32,0);
         Button weather=control("天气  ›",()->actions.open("weather"),false);place(weather,762,304,232,88,30,0);
         String[] names={"看电视","看电视剧","看电影","看综艺"},routes={"live","series","movies","variety"};
-        for(int i=0;i<names.length;i++){final String route=routes[i];Button b=control(names[i],()->actions.open(route),true);place(b,100+i*404,500,380,132,34,0);if(i==0)first=b;b.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0)(firstShortcut!=null?firstShortcut:dock).requestFocus();return true;}return false;});}
+        for(int i=0;i<names.length;i++){final String route=routes[i];Button b=control(names[i],()->actions.open(route),true);place(b,100+i*404,500,380,132,34,0);b.setNextFocusUpId(settings.getId());if(i==0)first=b;b.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0)(firstShortcut!=null?firstShortcut:dock).requestFocus();return true;}return false;});}
         dock=control("应用与工具   ﹀",()->showPage(1),true);place(dock,100,870,300,88,27,0);dock.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0)showPage(1);return true;}if(key==KeyEvent.KEYCODE_DPAD_UP){if(e.getAction()==KeyEvent.ACTION_DOWN)first.requestFocus();return true;}return false;});
         caption=label(PLACES[Math.max(0,selected)]);caption.setGravity(Gravity.RIGHT|Gravity.CENTER_VERTICAL);place(caption,1230,845,590,50,20,0);
         place(label("↓  应用与工具"),100,978,650,50,23,0);
@@ -55,8 +55,10 @@ final class ScenicNativeHome extends android.view.ViewGroup {
         }
         if(count==0){place(control("添加常用应用",apps::shortcuts,true),100,326,380,132,30,1);firstShortcut=control("添加常用应用",apps::shortcuts,true);place(firstShortcut,100,708,300,112,25,0);Button emptyShortcut=firstShortcut;emptyShortcut.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN)dock.requestFocus();return true;}return false;});}
         int manageX=100+Math.max(count,1)*250;Button manage=control("✎",apps::shortcuts,true);manage.setContentDescription("管理常用应用");place(manage,manageX,326,176,150,34,1);TextView manageName=label("管理应用");manageName.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);place(manageName,manageX-12,484,200,64,25,1);
+        Button diagnostics=null;if(!BuildConfig.PARENTS_EDITION){diagnostics=control("本机诊断",()->actions.open("diagnostics"),true);place(diagnostics,1460,870,360,76,27,1);diagnostics.setTag("native-diagnostics");}
+        final Button diagnosticEntry=diagnostics;
         String[] tools={"所有应用","NAS","原桌面","壁纸","天气","屏保"};String[] routes2={"apps","nas","system","wallpaper","weather","ambient"};
-        for(int i=0;i<tools.length;i++){final String route=routes2[i];place(control(tools[i],()->{if(route.equals("wallpaper"))chooseWallpaper();else actions.open(route);},true),100+i*286,592,264,104,28,1);}
+        for(int i=0;i<tools.length;i++){final String route=routes2[i];Button tool=control(tools[i],()->{if(route.equals("wallpaper"))chooseWallpaper();else actions.open(route);},true);place(tool,100+i*286,592,264,104,28,1);if(diagnosticEntry!=null&&i>=3){tool.setNextFocusDownId(diagnosticEntry.getId());if(i==tools.length-1)diagnosticEntry.setNextFocusUpId(tool.getId());}}
         place(control("返回首页  ↑",()->showPage(0),false),100,870,300,76,27,1);
         if(!BuildConfig.PARENTS_EDITION){
             place(label("家庭"),100,195,1000,80,48,2);
@@ -79,6 +81,7 @@ final class ScenicNativeHome extends android.view.ViewGroup {
     private void showPage(int value){page=value;for(Item i:items)i.view.setVisibility(i.screen<0||i.screen==page?VISIBLE:GONE);requestLayout();if(page==0){first.requestFocus();return;}for(Item i:items)if(i.screen==page&&i.view instanceof Button){i.view.requestFocus();break;}}
     @Override public boolean dispatchKeyEvent(KeyEvent e){
         if(!BuildConfig.PARENTS_EDITION&&e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0){
+            if(page==1&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_DOWN&&getFocusedChild()!=null){int id=getFocusedChild().getNextFocusDownId();View next=id==View.NO_ID?null:findViewById(id);if(next!=null&&next.isShown()){next.requestFocus();return true;}}
             if(page==2&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_UP){showPage(1);return true;}
             if(page==2&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_DOWN){showPage(3);return true;}
             if(page==3&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_UP){showPage(2);return true;}

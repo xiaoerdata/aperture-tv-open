@@ -1,0 +1,53 @@
+{
+  "source": "coordinator verified summary from v38/R2-REPORT.md and v38/R3-REQUIREMENTS.md; raw Library zip unavailable to this executor",
+  "archiveBytesReported": 11748272,
+  "archiveSha256Reported": "6727942333e1b1f4bc2118e001461d4916003d5253d6ba3daadf7ff81038ad3f",
+  "archiveReceivedLocally": false,
+  "archiveHashVerifiedLocally": false,
+  "libraryReadToolAvailable": false,
+  "transferRetried": false,
+  "parentProductCandidate": "0f09b9d218a0937f16c5d0418f0f546ff138174e",
+  "parentTestSource": "31a379a8f5c1eb9741fccc0039fc147523b5811d",
+  "reportedR2": {
+    "passed": 66,
+    "r1ControlledPassed": 51,
+    "frameCases": 9,
+    "validFrames": 3,
+    "correctlyRejected": 6,
+    "pixelsReviewedByCoordinator": true,
+    "isRealGalleryPageAcceptance": false
+  },
+  "reportedRealEnvironment": {
+    "api": 28,
+    "webView": "66.0.3359.158",
+    "dimensions": [
+      1280,
+      720
+    ],
+    "cpu": 4,
+    "ramGiB": 2,
+    "kvm": false,
+    "cloudDebugInstalledSha256": "c7fc0298392c3b2a52448886fed470eadc51865f588d6b6b7d87cc5bc1ba4c79"
+  },
+  "reportedGalleryFailures": [
+    {
+      "case": "cold",
+      "start": "19:37:04.547",
+      "timeout": "19:37:20.869",
+      "wallElapsedSeconds": 16.322,
+      "reason": "LOAD_TIMEOUT"
+    },
+    {
+      "case": "warm",
+      "start": "19:39:33.649",
+      "timeout": "19:39:44.286",
+      "wallElapsedSeconds": 10.637,
+      "reason": "LOAD_TIMEOUT"
+    }
+  ],
+  "rootCause": "unknown",
+  "wallGapsProveHandlerViolation": false,
+  "jsSyntaxErrorProven": false,
+  "realUploadConfirmationReached": false,
+  "v39Acceptance": false
+}

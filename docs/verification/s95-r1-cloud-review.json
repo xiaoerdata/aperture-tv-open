@@ -1,0 +1,100 @@
+{
+  "verifiedArchive": "artifacts/s95-v38-r2-cloud-evidence/r1-cloud-evidence-4ff9.zip",
+  "bytes": 11012842,
+  "sha256": "4c451b646ad6967dfd389802d94e61f515349960c6cd1b0e9bef797fce88a767",
+  "safeRelativeMembers": true,
+  "memberCount": 24,
+  "candidateCommit": "4ff9a8785c9990a4b0d0c1947d3acb3069f73779",
+  "sourceInputSha256": "33756c70ba3c2295ed6f78efe65f52bdd2e4829786803a4bc797e6ac3d82b0fb",
+  "cloudActualInstalledApkSha256": "79426e5d7c7488397feedf33ba94794627bedf2c15978f4d58c2a7364d71f101",
+  "api": 28,
+  "webViewMajor": 66,
+  "dimensions": [
+    1280,
+    720
+  ],
+  "controlledActivityPassed": 51,
+  "r1Scope": {
+    "commit": "4ff9a8785c9990a4b0d0c1947d3acb3069f73779",
+    "inputFingerprint": "33756c70ba3c2295ed6f78efe65f52bdd2e4829786803a4bc797e6ac3d82b0fb",
+    "activityChecksPassed": 51,
+    "instrumentRc": 0,
+    "start": "2026-11-01T18:01:15Z",
+    "end": "2026-11-01T18:04:25Z",
+    "scope": "real Android Activity execution with controlled/mock WebView callbacks and clock; separate zero-permission test package; production standardDebug classes",
+    "actualRendererKilled": false,
+    "realXiaomi": false,
+    "formalArmRuntime": false,
+    "sourceUntouched": true,
+    "productionDataUntouchedByProbe": true,
+    "noUploadStarted": true,
+    "screenshots": {
+      "s94-home-loading.png": "valid loading view",
+      "s94-home-recovery.png": "stale previous loading frame; NOT recovery visual evidence",
+      "s94-gallery-error.png": "stale previous loading frame; NOT failure visual evidence",
+      "s94-diagnostics.png": "valid scroll explanation, GLASS_READY is controlled mock status not real engine acceptance"
+    }
+  },
+  "actualOfflineWatchCases": {
+    "commit": "4ff9a8785c9990a4b0d0c1947d3acb3069f73779",
+    "sourceInputs": "33756c70ba3c2295ed6f78efe65f52bdd2e4829786803a4bc797e6ac3d82b0fb",
+    "apkSha256": "79426e5d7c7488397feedf33ba94794627bedf2c15978f4d58c2a7364d71f101",
+    "path": "API28 native actual candidate",
+    "cases": [
+      {
+        "id": "live",
+        "result": "pass",
+        "method": "single DPAD_CENTER from verified focused entry, then Back after Activity + settled screenshot verification",
+        "actual": "看电视 / 尚未配置来源; Back restores matching home focus",
+        "screens": [
+          "run/v37-final/live-empty.png",
+          "run/v37-final/live-back.png"
+        ],
+        "networkOrPlaybackTested": false
+      },
+      {
+        "id": "series",
+        "result": "pass",
+        "method": "single DPAD_CENTER from verified focused entry, then Back after Activity + settled screenshot verification",
+        "actual": "看电视剧 / 尚未配置来源; Back restores matching home focus",
+        "screens": [
+          "run/v37-final/series-empty.png",
+          "run/v37-final/series-back.png"
+        ],
+        "networkOrPlaybackTested": false
+      },
+      {
+        "id": "movie",
+        "result": "pass",
+        "method": "single DPAD_CENTER from verified focused entry, then Back after Activity + settled screenshot verification",
+        "actual": "看电影 / 尚未配置来源; Back restores matching home focus",
+        "screens": [
+          "run/v37-final/movie-empty.png",
+          "run/v37-final/movie-back.png"
+        ],
+        "networkOrPlaybackTested": false
+      },
+      {
+        "id": "variety",
+        "result": "pass",
+        "method": "single DPAD_CENTER from verified focused entry, then Back after Activity + settled screenshot verification",
+        "actual": "看综艺 / 尚未配置来源; Back restores matching home focus",
+        "screens": [
+          "run/v37-final/variety-empty.png",
+          "run/v37-final/variety-back.png"
+        ],
+        "networkOrPlaybackTested": false
+      }
+    ]
+  },
+  "round2Acceptance": false,
+  "invalidImages": [
+    "home-recovery",
+    "gallery-error"
+  ],
+  "remoteOnlyDiagnosticEntryAccepted": false,
+  "realXiaomiAccepted": false,
+  "modernGlassAccepted": false,
+  "realRendererCrashAccepted": false,
+  "uploadAccepted": false
+}

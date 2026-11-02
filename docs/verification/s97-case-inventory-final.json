@@ -1,0 +1,121 @@
+{
+  "productBase": "d72791867192394e0f121cf80583ffab1f4ad0ea",
+  "modelRegression": [
+    18,
+    16,
+    26,
+    9,
+    25
+  ],
+  "additionalUploadEpochModel": 16,
+  "runnerCaseInventory": [
+    {
+      "path": "tests/android/recovery37/RecoveryRunner.java",
+      "previousSha256": "192dd1776a05da1fb2276addb77811b0a44e4a204cf61e7968dd251458b15f5e",
+      "currentSha256": "f93fd037e560d53da6f903ca986f80d90cc52c63a2d43e5b2968bbac1f41aec0",
+      "previousLiteralLabelsRetained": true,
+      "newLiteralLabels": [
+        "Activity destroyed"
+      ],
+      "inputLayer": "app-internal-window-dispatch",
+      "executedHere": false
+    },
+    {
+      "path": "tests/android/evidence38/Round2Runner.java",
+      "previousSha256": "98e96af5e4fdfeda7e94395df0f8d6c9043ade9a97366e7a4effd535fd69fd75",
+      "currentSha256": "9a71acd63091d6da286131849bfac570ac3df5f23175ad3f793421b8c937ce4a",
+      "previousLiteralLabelsRetained": true,
+      "newLiteralLabels": [
+        "Activity destroy completion",
+        "actual failed-start result enqueued to UI",
+        "actual upload result enqueued to UI",
+        "cancel fresh confirmation creates no replacement",
+        "delayed fake UI terminal after pause",
+        "delayed fake gate did not time out",
+        "destroyed fake closed branch",
+        "destroyed fake never submitted UI branch",
+        "destroyed late URL reaches actual UI rejection branch",
+        "fake upload start queued but not entered",
+        "finish between worker return and UI dispatch blocks URL commit",
+        "finish boundary observed while resumed and before any new pause callback",
+        "finish request closes and revokes before future lifecycle callbacks",
+        "finish revokes queued worker before any fake start",
+        "finish-before-pause late URL cannot commit",
+        "finish-window callback terminal",
+        "finish-window fake URL is explicitly rejected without timeout",
+        "fresh explicitly confirmed native fake URL",
+        "fresh long-press downTime",
+        "injected failure completes only the intended failure branch",
+        "late failed-start UI terminal",
+        "late failure cannot submit URL or status after finish",
+        "late fake UI terminal after destroy",
+        "late refresh rejection",
+        "late upload refresh never evaluates destroyed web",
+        "native fallback replaces owner and closes old upload",
+        "new native owner accepts only freshly confirmed in-memory fake",
+        "old owner URL rejected after native fallback",
+        "old web request cannot submit URL to native owner",
+        "owner-switched request reports explicit UI rejection",
+        "paused late URL reaches actual rejection branch without fake timeout",
+        "positive fake UI terminal",
+        "queued UI result rejected",
+        "queued UI result reports actual rejection",
+        "queued start rejected after finish",
+        "queued worker reports actual pre-start rejection",
+        "repeat finish and rejected callback close underlying session once",
+        "resume cannot revive a request revoked by pause",
+        "resumed activity requires a fresh explicit confirmation",
+        "resumed old request rejection",
+        "resumed old request reports explicit UI rejection"
+      ],
+      "inputLayer": "app-internal-window-dispatch",
+      "executedHere": false
+    },
+    {
+      "path": "tests/android/gallery39/Round3Runner.java",
+      "previousSha256": "f3b4825bc6e3ef371fafb69f3e3483b8791c90494475bede8dc0545093e4063b",
+      "currentSha256": "c90fc598d62cdcf1dfe048d6d26889b4716ccd6aab1d8471f1652d86d44711e3",
+      "previousLiteralLabelsRetained": true,
+      "newLiteralLabels": [
+        "Activity destroyed"
+      ],
+      "inputLayer": "app-internal-window-dispatch",
+      "executedHere": false
+    },
+    {
+      "path": "tests/android/gallery39/Round3PhotosRunner.java",
+      "previousSha256": "6b41b49d74e25c4c91aa71e42d190f9efbff8a299233fed2e5cfcd2f966b3f52",
+      "currentSha256": "336d63af2dc4b1e1e675ed309dc3bd728c65c328ba8d5d45071d051d3692b214",
+      "previousLiteralLabelsRetained": true,
+      "newLiteralLabels": [
+        "photo Activity destroyed"
+      ],
+      "inputLayer": "app-internal-window-dispatch",
+      "executedHere": false
+    }
+  ],
+  "originalMergedExitInvariantRetained": true,
+  "oldBeforeOpenedAtGestureAndLongPressRetained": true,
+  "layerChangedFromGlobalInjectionToAppInternalDispatch": true,
+  "sameCountIsNotClaimedAcceptance": true,
+  "formalRemoteChainAccepted": false,
+  "newBoundaryScenarios": [
+    "finish requested while resumed and before new pause",
+    "queued start rejected after finish",
+    "queued UI URL rejected after finish",
+    "queued failed-start status rejected after finish",
+    "pause then resume without reauthorization",
+    "late callback after destroy",
+    "web to native owner switch",
+    "fresh native confirmation uses fake only",
+    "repeated finish closes session once",
+    "late refresh rejection"
+  ],
+  "uiTerminalGate": "actual expected UPLOAD_START_REJECTED/UPLOAD_UI_REJECTED/UPLOAD_*_COMMITTED/UPLOAD_UI_FAILED receipt recorded before volatile terminal signal",
+  "fakeReturnedIsCompletionGate": false,
+  "lifecycleGate": "isDestroyed + destroy callback + closed + no upload/no ticket + fake closed",
+  "fixedSleepsUsed": false,
+  "fakeGateDeadlineSeconds": 20,
+  "fakeGateTimeoutIsNotPassingLateURLBranch": true,
+  "realUploadListenerStarted": false
+}

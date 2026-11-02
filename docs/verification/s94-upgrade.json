@@ -1,0 +1,15 @@
+{
+  "ok": false,
+  "status": "not-validated-local",
+  "stoppedAtCoordinatorRequest": true,
+  "reason": "Local upgrade environment did not remain framework-ready; no successful v36-to-v37 upgrade result obtained",
+  "controlledRecoveryTestsSeparate": true,
+  "existingV32CertificateMismatchPreserved": true,
+  "fixtureV32RemovedInDiscardableRuntimeOnly": true,
+  "baseDiskSizeAndMtimeUnchanged": true,
+  "ownedEmulatorStopExit": 0,
+  "noUserDeviceTouched": true,
+  "noCredentialsCreatedOrTransferred": true,
+  "noGlobalAdbRestart": true,
+  "realXiaomi": false
+}
