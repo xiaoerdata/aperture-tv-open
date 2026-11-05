@@ -1,0 +1,68 @@
+{
+  "version": "0.2.0-alpha.37",
+  "versionCode": 40,
+  "edition": "standard",
+  "tag": "v0.2.0-alpha.37",
+  "commit": "94cf6f4fc6418b2824ea596ef6a5054139563747",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.37",
+  "prerelease": true,
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v40-standard-arm.apk",
+      "bytes": 55339179,
+      "sha256": "51eca42b75a230cb59bb3794ca63e0dbbbd0dad2c51e245b0529a35dc5ced375",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 106
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 44992,
+      "sha256": "985577d0e6c97151072b9e44f606bdcf64e429ef06dc3783415b175bb5da5582",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 182,
+      "sha256": "d4005e575ec6d2f182d8edd505da7bd233ef380c0f5603554e1d5b9cd7c81b26",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    }
+  ],
+  "publicFrozenSourceReadback": [
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "sha256": "6f6bd686e444c66fda34ce9fbed99623996b7e1ccae1bd20b1d852b4886f343d",
+      "anonymous": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "4472f8ef5c25bcc65e57793ac4a53a1fc3e6bc300a09b6ac0eef4762109c23ac",
+      "anonymous": true
+    },
+    {
+      "path": "docs/DOWNLOADS.md",
+      "sha256": "291b67fe6c9267a121831cb12d8ee02ffa078f680af921b986955acabc4302f8",
+      "anonymous": true
+    },
+    {
+      "path": "docs/RELEASE-V40.md",
+      "sha256": "b842061c04d386e0201c309b5a423c5f76820a17eb77f85550596bc928595add",
+      "anonymous": true
+    }
+  ],
+  "androidInputSha256": "354b801df1b562d46844f8fe0d39f6e1c6d68e49d8ab65972f4afabd163b201e",
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "parentsDevelopment": "paused",
+  "publicTagCommitVerified": true,
+  "androidGitTreeInputFilesVerified": 218,
+  "githubDigestMatchesAllAssets": true,
+  "publishedAt": "2026-11-05T15:28:31Z",
+  "uploadRoute": "isolated Japan proxy",
+  "globalProxySettingsModified": false,
+  "temporaryUploaderRuntimeRemoved": true
+}

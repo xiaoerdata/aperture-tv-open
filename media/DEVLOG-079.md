@@ -9,3 +9,5 @@
 过程保留两次 Git 拉取的网络失败记录，随后通过 GitHub API 同步审核后的文件；不因此切换代理节点、替换签名或省略文件校验。
 
 画面：[首页](../docs/images/s102-home/home.png)、[设置](../docs/images/s102-home/settings.png)、[相册](../docs/images/s102-home/album.png)、[管理](../docs/images/s102-home/album-settings.png)。验收范围见 [v40 说明](../docs/RELEASE-V40.md)。
+
+最终发行补记：标准版v40已公开预发布，安装包三附件完成匿名回读。上传通道断流后使用临时独立日本线路完成，未改全局代理；临时配置已移除。下载也采用更小分段逐字节比对，保留失败与最终通过两种证据，不将进度条当作上传完成。小米真机仍待复测。

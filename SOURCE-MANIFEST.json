@@ -47,7 +47,7 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": null,
+    "postReleaseReceiptFor": "94cf6f4fc6418b2824ea596ef6a5054139563747",
     "publicParent": "64a2552da0e36a3a89f99bc32ce976d0e7375506",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
@@ -5019,8 +5019,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 268370,
-      "sha256": "8d9c8acb0a1aa29f51a8038fb291345028ef8dbc5949eabd0e96d4a8c3c41786"
+      "bytes": 269550,
+      "sha256": "587f93de9cb315c4bfc7107c86a74724d0b6aea159424194ac02b99f8ba5c79b"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -5301,6 +5301,11 @@
       "path": "docs/verification/public-alpha-v39-r1.json",
       "bytes": 1262,
       "sha256": "d92625b60b120ef9608c65fa233cdc03b1d70e106cf0b81d3ba6ed0161bc9c55"
+    },
+    {
+      "path": "docs/verification/public-alpha-v40.json",
+      "bytes": 2158,
+      "sha256": "d7c80969d98e23903125cc7f48faeebb9dbe5f856c4c4357bd6b56dcbf936424"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -7449,8 +7454,8 @@
     },
     {
       "path": "media/DEVLOG-079.md",
-      "bytes": 1113,
-      "sha256": "a98786dc928f94a545dabe68531f67cec85d8efdd8dc1a7ff51a49cc3b25caa3"
+      "bytes": 1463,
+      "sha256": "7bd445e80dd19e010afed97b5dbade80197fbe3982fc446bb0ac3990506a3b11"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -9686,7 +9691,8 @@
     "prerelease": true,
     "fullCloudRegressionAccepted": false,
     "xiaomiAccepted": false,
-    "latestDocumentation": "docs/RELEASE-V40.md"
+    "latestDocumentation": "docs/RELEASE-V40.md",
+    "postPublicationReceipt": "docs/verification/public-alpha-v40.json"
   },
   "upstreamUnresolvedValidation": {
     "candidate": {
