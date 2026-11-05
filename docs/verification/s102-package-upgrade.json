@@ -1,0 +1,10 @@
+{
+  "sameApplicationId": true,
+  "versionCodeFrom": 39,
+  "versionCodeTo": 40,
+  "sameCertificate": true,
+  "oldApkSha256": "9d994a8064946c02d4a846ccf45a5a440b13ca00c10d0320a4f012adfe564f01",
+  "newApkSha256": "307fcf90edd4a7b9335a0534c078d86afab55102b3210d287c308b00d1cdfb64",
+  "upgradeInstalledOnDevice": false,
+  "dataRetentionOnDeviceTested": false
+}

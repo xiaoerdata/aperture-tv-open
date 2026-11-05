@@ -15,7 +15,9 @@ import android.widget.TextView;
 final class TvUi {
     static final int INK=0xfff4f2ed,MUTED=0xffb9b9bd;
     static int typeSize(int legacy){return Math.max(15,Math.round(legacy*.82f));}
-    static float density(Activity a){android.util.DisplayMetrics m=a.getResources().getDisplayMetrics();return TvScale.density(m.density,m.heightPixels);}
+    static int viewportWidth(Activity a){int n=a.getWindow().getDecorView().getWidth();return n>0?n:a.getResources().getDisplayMetrics().widthPixels;}
+    static int viewportHeight(Activity a){int n=a.getWindow().getDecorView().getHeight();return n>0?n:a.getResources().getDisplayMetrics().heightPixels;}
+    static float density(Activity a){return TvScale.density(a.getResources().getDisplayMetrics().density,viewportWidth(a),viewportHeight(a));}
     static int dp(Activity a,float n){return Math.round(n*density(a));}
     static void textSize(Activity a,TextView v,float size){v.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,size*density(a)*a.getResources().getConfiguration().fontScale);}
     static GradientDrawable glass(Activity a,boolean focus){

@@ -1,0 +1,42 @@
+{
+  "overallGoalProvenComplete": false,
+  "reason": "No connected Android device; native View runtime and Xiaomi original-display acceptance remain unverified. No new APK or release produced.",
+  "allCurrentSourceHashesMatchReceipts": true,
+  "browserPassed": true,
+  "nativeJavaCompiled": true,
+  "requirements": [
+    {
+      "requirement": "4K首页整体缩小一档且不依赖修改电视分辨率或density",
+      "sourceImplemented": true,
+      "browserVerified": true,
+      "nativeDeviceVerified": false
+    },
+    {
+      "requirement": "应用图标不超过容器",
+      "sourceImplemented": true,
+      "browserVerified": true,
+      "nativeDeviceVerified": false
+    },
+    {
+      "requirement": "首页/应用/相册/留言四屏顺序及双向翻屏",
+      "sourceImplemented": true,
+      "browserVerified": true,
+      "nativeDeviceVerified": false
+    },
+    {
+      "requirement": "第三屏直接轮播已上传的本机照片，确定进入管理",
+      "sourceImplemented": true,
+      "browserSyntheticPhotosVerified": true,
+      "managementIntentVerified": true,
+      "realUploadAndNativeDeviceVerified": false
+    },
+    {
+      "requirement": "设置靠右、紧凑、字体收紧、长菜单遥控可达",
+      "sourceImplemented": true,
+      "browserVerified": true,
+      "screenshotsInspected": true,
+      "nativeDeviceVerified": false
+    }
+  ],
+  "nextRequiredEvidence": "Xiaomi 85 QLED at original display settings: new-source native/web layout, actual app-icon bounds, existing local-photo autoplay, confirm opens management, upload/return refresh, four-page remote navigation and right-side menus."
+}

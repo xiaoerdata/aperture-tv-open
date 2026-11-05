@@ -2,7 +2,7 @@
   'use strict';
   var local = location.protocol === 'file:' || (location.protocol === 'https:' && location.host === 'appassets.androidplatform.net' && location.pathname === '/assets/index.html'), pane = null, prior = null, disposed = false, parents = false;
   var labels = {}, query = {}, timer, contentTimer, request = null, detailState = null;
-  var homePage = 0, homeFocus = {}, sectionReturn = null, wallpaperId = 'carezza', wallpaperLoad = 0, personal = null, sectionHomePage = 2, homeWatchFocus = 'home-live';
+  var homePage = 0, homeFocus = {}, sectionReturn = null, wallpaperId = 'carezza', wallpaperLoad = 0, personal = null, sectionHomePage = 3, homeWatchFocus = 'home-live';
   var photosEnabled = false;
   var section = 'overview', contentPage = 0, board = null;
   var virtualHome = local && location.protocol === 'https:', nativeActive = !virtualHome;
@@ -23,7 +23,9 @@
     }
     if (nativeViewport) { width = Math.min(width, nativeViewport.width); height = Math.min(height, nativeViewport.height); }
     if (!positive(width) || !positive(height)) return;
-    var scale = Math.min(width / 1920, height / 1080), style = root.style;
+    // A smaller content plane leaves the scenery visible. DPR/system density
+    // never changes the relative size of controls in the measured viewport.
+    var scale = Math.min(width / 1920, height / 1080) * (parents ? 1 : .86), style = root.style;
     style.setProperty('--tv-scale', String(scale));
     style.setProperty('--tv-left', Math.max(0, (width - 1920 * scale) / 2) + 'px');
     style.setProperty('--tv-top', Math.max(0, (height - 1080 * scale) / 2) + 'px');
@@ -73,6 +75,7 @@
     $('settings-open').setAttribute('aria-label', '设置');
   }
   if (!parents) document.body.className = 'standard';
+  fitTelevision();
   homePage = parents ? 1 : 0;
   window.apertureNasLabels = function (movies, series) { if (!parents) return; text('cinema-label', String(movies)); text('series-label', String(series)); };
   if (local) {
@@ -160,8 +163,8 @@
     });
     $('pane-footnote').hidden = false;
   }
-  function pageId(at) { return ['ambient-home', 'apps-home', 'content-home', 'gallery-home'][at]; }
-  function firstHomeControl(at) { if(at===3)return $('gallery-home-full');if(at===1&&!parents)return document.querySelector('.shortcuts-row button:not([hidden])');return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : (photosEnabled ? 'entry-photos' : 'entry-information')); }
+  function pageId(at) { return ['ambient-home', 'apps-home', 'gallery-home', 'content-home'][at]; }
+  function firstHomeControl(at) { if(at===2)return $('gallery-home-settings');if(at===1&&!parents)return document.querySelector('.shortcuts-row button:not([hidden])');return $(at === 0 ? 'home-live' : at === 1 ? 'entry-live' : 'entry-information'); }
   function restoreHomeFocus(at) {
     var saved = homeFocus[at];
     if (!focusNode($(saved || ''))) focusNode(firstHomeControl(at));
@@ -173,14 +176,16 @@
     homePage = at; $('lobby').setAttribute('data-home-page', String(at));
     for (var n = 0; n < 4; n++) $(pageId(n)).hidden = section !== 'overview' || n !== at;
     if (personal) personal.schedule();
-    if(window.KaishiGallery)window.KaishiGallery.homePage(section==='overview'&&at===3);
+    var albumVisible = section==='overview' && !parents && at===2;
+    $('gallery-home-scene').hidden = !albumVisible;
+    document.body.setAttribute('data-album-page', String(albumVisible));
+    if(window.KaishiGallery)window.KaishiGallery.homePage(albumVisible);
     var dots = document.querySelectorAll('[data-home-screen]');
     for (n = 0; n < dots.length; n++) dots[n].setAttribute('aria-pressed', String(Number(dots[n].getAttribute('data-home-screen')) === at));
     if (focus !== false && section === 'overview') restoreHomeFocus(at);
   }
   if(window.KaishiGallery)window.KaishiGallery.mount($('gallery-home-scene'),'home');
-  $('gallery-home-full').onclick=function(){if(window.KaishiGallery)window.KaishiGallery.show();};
-  $('gallery-home-manage').onclick=$('gallery-home-upload').onclick=function(){nativeAction('gallery');};
+  $('gallery-home-settings').onclick=function(){nativeAction('gallery');};
   $('apps-next').onclick = function () { setHomePage(2); };
   var screenButtons = document.querySelectorAll('[data-home-screen]');
   for (i = 0; i < screenButtons.length; i++) screenButtons[i].onclick = function () { setHomePage(Number(this.getAttribute('data-home-screen'))); };
@@ -211,7 +216,7 @@
     if (name === 'presets') { spec.actions = personal ? personal.presetActions() : []; if (!spec.actions.length) spec.actions = [['choose-shortcuts','管理常用应用','','']]; }
     if (!pane) prior = document.activeElement;
     pane = name;
-    $('pane-backdrop').className='pane-backdrop'+(name!=='presets'&&name!=='wallpapers'?' compact-pane':'');
+    $('pane-backdrop').className='pane-backdrop compact-pane';
     $('pane-backdrop').setAttribute('data-pane',name);
     text('pane-title', spec.title); text('pane-eyebrow', ''); text('pane-description', spec.description || ''); text('pane-footnote', spec.footnote || ''); text('action-status', '');
     $('pane-description').hidden = !spec.description; $('pane-footnote').hidden = !spec.footnote;
@@ -231,6 +236,7 @@
     if (name === 'wallpapers') wallpaperPane();
     if (name === 'presets' && personal) personal.decorate($('pane-actions'));
     if (personal) personal.schedule();
+    if(window.KaishiGallery)window.KaishiGallery.homePage(false);
     $('pane-backdrop').hidden = false; $('lobby').setAttribute('aria-hidden', 'true');
     material($('lobby').className.indexOf('solid') !== -1);
     var motionLabel=document.querySelector('[data-action=motion] strong');if(motionLabel)motionLabel.textContent=decorativeMotion?'关闭动画':'开启动画';
@@ -241,6 +247,7 @@
     if (pane === 'detail') { if (detailState) { var key = (detailState.metric ? 'metric:' : 'life:') + detailState.id, candidates = $('collection-body').querySelectorAll('[data-content-id]'); for (var j = 0; j < candidates.length; j++) if (candidates[j].getAttribute('data-content-id') === key) prior = candidates[j]; } detailState = null; delete specs.detail; text('pane-title', ''); text('pane-description', ''); text('pane-footnote', ''); }
     if (pane === 'wallpapers') $('pane-actions').textContent = '';
     pane = null; $('pane-backdrop').hidden = true;
+    if(window.KaishiGallery)window.KaishiGallery.homePage(section==='overview'&&!parents&&homePage===2);
     if (personal) personal.schedule(); $('lobby').removeAttribute('aria-hidden');
     if (prior && prior.focus && prior.offsetWidth) focusNode(prior); else focusNode(firstHomeControl(homePage));
     return true;
@@ -465,7 +472,7 @@
   function rowKey(name) {
     if (pane) {
       if (pane === 'wallpapers' || pane === 'presets') {
-        var choices = Array.prototype.slice.call($('pane-actions').querySelectorAll('button')), at = choices.indexOf(document.activeElement), cols = innerWidth / innerHeight > 4/3 ? 3 : 2;
+        var choices = Array.prototype.slice.call($('pane-actions').querySelectorAll('button')), at = choices.indexOf(document.activeElement), cols = 2;
         if (at < 0) return focusNode(choices[0]) || true;
         if (name === 'ArrowUp') return focusNode(at >= cols ? choices[at-cols] : $('pane-close')) || true;
         if (name === 'ArrowDown') return focusNode(choices[at+cols]) || true;
@@ -530,7 +537,7 @@
       if (name === 'ArrowUp') { setHomePage(0); return true; }
       if (name === 'ArrowDown') { setHomePage(2); return true; }
     }
-    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode((homePage===1?document.querySelector('.shortcuts-row button:not([hidden])'):(homePage===0?($('home-apps').querySelector('button')||$('home-app-add')):$(photosEnabled?'entry-photos':'entry-information')))) || true;
+    if (group.className.indexOf('screen-dots') !== -1 && name === 'ArrowUp') return focusNode(firstHomeControl(homePage)) || true;
     if (group.className.indexOf('destinations') !== -1 || group.className.indexOf('tools-grid') !== -1) {
       var tools = group.className.indexOf('tools-grid') !== -1;
       columns = !tools && parents ? (innerWidth / innerHeight > 4/3 ? 4 : 1) : (innerWidth / innerHeight > 4/3 ? 4 : 2);

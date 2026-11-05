@@ -1,0 +1,154 @@
+{
+  "passed": true,
+  "inputs": {
+    "public/launcher/index.html": "92305c177f192144e8aacd4733ea9e11628eee8e8e787f9950557d43c3507139",
+    "public/launcher/launcher.js": "bb337973df3773c1a5c9d20118d199c0b6bbad9e8be3fa698372e7701bddea77",
+    "public/launcher/style.css": "f8c77d4bb04780a4c9bde495ed6f2d8d809a99352bd22a40decccf73d825b6b4",
+    "public/launcher/gallery.js": "d9c37f66affff775591aaa8e825ec7a82833dfc46156c7ec892b9e032b0693ef",
+    "public/launcher/gallery.css": "4bd1dbd02409c815a9da057e49a65d8743a9286dedbc70e66f8cbfa847451024",
+    "public/launcher/gallery.html": "a9455d48c6702e396aa09447773afceb671cbfe91d4acca8735c4b250995e1c9",
+    "public/launcher/gallery-settings.js": "5458fbdf24fc6df18bdf590f370f9fdc4811333bd4964bf667e1a9c26894d1d4"
+  },
+  "checks": [
+    {
+      "width": 640,
+      "height": 360,
+      "dpr": 3,
+      "watchWidthRatio": 0.17020832300186156,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 960,
+      "height": 540,
+      "dpr": 1,
+      "watchWidthRatio": 0.17020835876464843,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 960,
+      "height": 540,
+      "dpr": 2,
+      "watchWidthRatio": 0.17020835876464843,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 960,
+      "height": 540,
+      "dpr": 4,
+      "watchWidthRatio": 0.17020835876464843,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 1024,
+      "height": 576,
+      "dpr": 1,
+      "watchWidthRatio": 0.17020830512046814,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "watchWidthRatio": 0.17020832300186156,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "watchWidthRatio": 0.17020835876464843,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "dpr": 2,
+      "watchWidthRatio": 0.17020835876464843,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 3840,
+      "height": 2160,
+      "dpr": 1,
+      "watchWidthRatio": 0.17020835876464843,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 3840,
+      "height": 2160,
+      "dpr": 2,
+      "watchWidthRatio": 0.17020835876464843,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 1280,
+      "height": 640,
+      "dpr": 1,
+      "watchWidthRatio": 0.1512962818145752,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    },
+    {
+      "width": 960,
+      "height": 500,
+      "dpr": 2,
+      "watchWidthRatio": 0.1576003074645996,
+      "albumFullViewport": true,
+      "autoPlayWithoutConfirm": true,
+      "pageOrderAndUpDown": true,
+      "iconsContained": true,
+      "settingsRightAndScrollable": true
+    }
+  ],
+  "confirmEmitsAlbumManagementIntent": true,
+  "albumManagementRightDrawer": true,
+  "emptyAlbum": true,
+  "nativeCssViewportMismatch": true,
+  "errors": [],
+  "realXiaomi": false,
+  "nativeActivityExecuted": false,
+  "networkListenerStarted": false
+}

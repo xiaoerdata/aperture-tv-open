@@ -23,6 +23,9 @@ final class ScenicNativeHome extends android.view.ViewGroup {
     private Bitmap wallpaper, softWallpaper;
     private float scale=1,offsetX,offsetY;
     private int page;
+    private boolean foreground=true;
+    private HomeAlbumView album;
+    private final Map<TextView,Integer> iconSizes=new IdentityHashMap<>();
     private TextView time,date,caption;
     private Button first,dock,firstShortcut;
     private final Runnable ticker=new Runnable(){public void run(){Date now=new Date();time.setText(new SimpleDateFormat("HH:mm",Locale.getDefault()).format(now));date.setText(new SimpleDateFormat("M月d日   EEEE",Locale.CHINA).format(now));clockHandler.postDelayed(this,1000*(60-now.getSeconds()));}};
@@ -50,8 +53,8 @@ final class ScenicNativeHome extends android.view.ViewGroup {
         place(label("应用与工具"),100,195,1000,80,48,1);
         apps.homeApps();int count=0;Button firstApp=null;
         for(String slot:new String[]{"quick1","quick2","quick3","quick4"}){
-            String name=apps.label(slot);if(name.isEmpty())continue;Button b=control("▦",()->apps.launchShortcut(slot),true);b.setContentDescription(name);byte[] icon=apps.icon(slot);if(icon!=null){Drawable d=Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);if(d!=null){b.setText("");d.setBounds(0,0,96,96);b.setCompoundDrawables(null,d,null,null);}}place(b,100+count*250,326,176,150,28,1);TextView appName=label(name);appName.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);appName.setMaxLines(2);place(appName,88+count*250,484,200,64,25,1);if(firstApp==null)firstApp=b;
-            {Button shortcut=control(name,()->apps.launchShortcut(slot),true);if(icon!=null){Drawable d=Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);if(d!=null){d.setBounds(0,0,48,48);shortcut.setCompoundDrawables(d,null,null,null);shortcut.setCompoundDrawablePadding(12);}}place(shortcut,100+count*276,708,252,112,25,0);if(firstShortcut==null)firstShortcut=shortcut;shortcut.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN)dock.requestFocus();return true;}return false;});}count++;
+            String name=apps.label(slot);if(name.isEmpty())continue;Button b=control("▦",()->apps.launchShortcut(slot),true);b.setContentDescription(name);byte[] icon=apps.icon(slot);if(icon!=null){Drawable d=Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);if(d!=null){b.setText("");iconSizes.put(b,96);d.setBounds(0,0,96,96);b.setCompoundDrawables(null,d,null,null);}}place(b,100+count*250,326,176,150,28,1);TextView appName=label(name);appName.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);appName.setMaxLines(2);place(appName,88+count*250,484,200,64,25,1);if(firstApp==null)firstApp=b;
+            {Button shortcut=control(name,()->apps.launchShortcut(slot),true);if(icon!=null){Drawable d=Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);if(d!=null){iconSizes.put(shortcut,48);d.setBounds(0,0,48,48);shortcut.setCompoundDrawables(d,null,null,null);shortcut.setCompoundDrawablePadding(12);}}place(shortcut,100+count*276,708,252,112,25,0);if(firstShortcut==null)firstShortcut=shortcut;shortcut.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN)dock.requestFocus();return true;}return false;});}count++;
         }
         if(count==0){place(control("添加常用应用",apps::shortcuts,true),100,326,380,132,30,1);firstShortcut=control("添加常用应用",apps::shortcuts,true);place(firstShortcut,100,708,300,112,25,0);Button emptyShortcut=firstShortcut;emptyShortcut.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN)dock.requestFocus();return true;}return false;});}
         int manageX=100+Math.max(count,1)*250;Button manage=control("✎",apps::shortcuts,true);manage.setContentDescription("管理常用应用");place(manage,manageX,326,176,150,34,1);TextView manageName=label("管理应用");manageName.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);place(manageName,manageX-12,484,200,64,25,1);
@@ -61,12 +64,10 @@ final class ScenicNativeHome extends android.view.ViewGroup {
         for(int i=0;i<tools.length;i++){final String route=routes2[i];Button tool=control(tools[i],()->{if(route.equals("wallpaper"))chooseWallpaper();else actions.open(route);},true);place(tool,100+i*286,592,264,104,28,1);if(diagnosticEntry!=null&&i>=3){tool.setNextFocusDownId(diagnosticEntry.getId());if(i==tools.length-1)diagnosticEntry.setNextFocusUpId(tool.getId());}}
         place(control("返回首页  ↑",()->showPage(0),false),100,870,300,76,27,1);
         if(!BuildConfig.PARENTS_EDITION){
-            place(label("家庭"),100,195,1000,80,48,2);
-            place(control("安排与留言",()->actions.open("information"),true),100,350,500,150,34,2);
-            place(control("相册  ↓",()->showPage(3),true),100,750,360,100,30,2);
-            place(label("相册"),100,195,1000,80,48,3);
-            place(control("打开相册",()->actions.open("gallery"),true),100,350,500,150,34,3);
-            place(label("扫码上传 · 全屏轮播 · 相册屏保"),100,550,1000,70,30,3);
+            album=new HomeAlbumView(activity,()->actions.open("gallery"));
+            place(album,0,0,1920,1080,0,2);bringChildToFront(settings);
+            place(label("留言"),100,195,1000,80,48,3);
+            place(control("安排与留言",()->actions.open("information"),true),100,350,500,150,34,3);
         }
         setContentDescription("风景首页 · 本机兼容模式");
     }
@@ -74,11 +75,11 @@ final class ScenicNativeHome extends android.view.ViewGroup {
         Bitmap next=null;try(InputStream in=activity.getAssets().open(FILES[selected])){BitmapFactory.Options o=new BitmapFactory.Options();o.inSampleSize=2;next=BitmapFactory.decodeStream(in,null,o);}catch(Exception ignored){}
         if(next==null)return;Bitmap old=wallpaper,soft=softWallpaper;wallpaper=next;Bitmap tiny=Bitmap.createScaledBitmap(next,96,54,true);softWallpaper=Bitmap.createScaledBitmap(tiny,384,216,true);tiny.recycle();if(old!=null)old.recycle();if(soft!=null)soft.recycle();if(caption!=null)caption.setText(PLACES[selected]);invalidate();
     }
-    private void chooseWallpaper(){new AlertDialog.Builder(activity).setTitle("壁纸").setItems(PLACES,(d,i)->{loadWallpaper(i);activity.getSharedPreferences("aperture",0).edit().putString("native_wallpaper",IDS[i]).apply();}).setNegativeButton("返回",null).show();}
+    private void chooseWallpaper(){new TvDialogs.SideBuilder(activity).setTitle("壁纸").setItems(PLACES,(d,i)->{loadWallpaper(i);activity.getSharedPreferences("aperture",0).edit().putString("native_wallpaper",IDS[i]).apply();}).setNegativeButton("返回",null).show();}
     private TextView label(String text){TextView v=new TextView(activity);v.setText(text);v.setTextColor(TvUi.INK);v.setIncludeFontPadding(false);v.setGravity(Gravity.CENTER_VERTICAL);v.setShadowLayer(10,0,2,0x66000000);return v;}
     private Button control(String text,Runnable run,boolean glass){Button b=new Button(activity);b.setText(text);b.setTextColor(TvUi.INK);b.setAllCaps(false);b.setFocusableInTouchMode(true);b.setGravity(Gravity.CENTER);b.setMinHeight(0);b.setMinimumHeight(0);b.setMinWidth(0);b.setMinimumWidth(0);b.setPadding(8,0,8,0);b.setBackground(new Pane(b,glass));b.setOnFocusChangeListener((v,f)->v.invalidate());b.setOnClickListener(v->run.run());TvUi.touchClick(b);return b;}
-    private void place(View v,int x,int y,int w,int h,int size,int screen){v.setId(View.generateViewId());items.add(new Item(v,x,y,w,h,size,screen));addView(v);}
-    private void showPage(int value){page=value;for(Item i:items)i.view.setVisibility(i.screen<0||i.screen==page?VISIBLE:GONE);requestLayout();if(page==0){first.requestFocus();return;}for(Item i:items)if(i.screen==page&&i.view instanceof Button){i.view.requestFocus();break;}}
+    private void place(View v,int x,int y,int w,int h,int size,int screen){v.setId(View.generateViewId());items.add(new Item(v,x,y,w,h,size,screen));addView(v,v instanceof HomeAlbumView?0:getChildCount());}
+    private void showPage(int value){page=value;if(album!=null)album.active(foreground&&page==2);for(Item i:items)i.view.setVisibility((i.screen<0&&page!=2)||i.screen==page?VISIBLE:GONE);requestLayout();if(page==0){first.requestFocus();return;}if(page==2&&album!=null){album.requestFocus();return;}for(Item i:items)if(i.screen==page&&i.view instanceof Button){i.view.requestFocus();break;}}
     @Override public boolean dispatchKeyEvent(KeyEvent e){
         if(!BuildConfig.PARENTS_EDITION&&e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0){
             if(page==1&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_DOWN&&getFocusedChild()!=null){int id=getFocusedChild().getNextFocusDownId();View next=id==View.NO_ID?null:findViewById(id);if(next!=null&&next.isShown()){next.requestFocus();return true;}}
@@ -89,12 +90,28 @@ final class ScenicNativeHome extends android.view.ViewGroup {
             if(page==1&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_UP&&getFocusedChild()!=null&&getFocusedChild().getTop()<getHeight()*.5f){showPage(0);return true;}
         }return super.dispatchKeyEvent(e);
     }
+    void active(boolean value){foreground=value;if(album!=null)album.active(value&&page==2);}
     boolean back(){if(page==0)return false;showPage(0);return true;}
     boolean scenicReady(){return wallpaper!=null&&wallpaper.getWidth()>=1280;}
     @Override protected void onAttachedToWindow(){super.onAttachedToWindow();showPage(0);clockHandler.post(ticker);}
     @Override protected void onDetachedFromWindow(){clockHandler.removeCallbacks(ticker);super.onDetachedFromWindow();}
-    @Override protected void onMeasure(int w,int h){int width=MeasureSpec.getSize(w),height=MeasureSpec.getSize(h);setMeasuredDimension(width,height);scale=Math.min(width/1920f,height/1080f);offsetX=(width-1920*scale)/2;offsetY=(height-1080*scale)/2;for(Item i:items){if(i.size>0)((TextView)i.view).setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,i.size*scale);i.view.measure(MeasureSpec.makeMeasureSpec(Math.round(i.w*scale),MeasureSpec.EXACTLY),MeasureSpec.makeMeasureSpec(Math.round(i.h*scale),MeasureSpec.EXACTLY));}}
-    @Override protected void onLayout(boolean changed,int l,int t,int r,int b){for(Item i:items){int x=Math.round(offsetX+i.x*scale),y=Math.round(offsetY+i.y*scale);i.view.layout(x,y,x+i.view.getMeasuredWidth(),y+i.view.getMeasuredHeight());}}
+    @Override protected void onMeasure(int w,int h){
+        int width=MeasureSpec.getSize(w),height=MeasureSpec.getSize(h);setMeasuredDimension(width,height);
+        scale=Math.min(width/1920f,height/1080f)*(BuildConfig.PARENTS_EDITION?1f:.86f);
+        offsetX=(width-1920*scale)/2;offsetY=(height-1080*scale)/2;
+        for(Item i:items){
+            if(i.size>0)((TextView)i.view).setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,i.size*scale);
+            if(i.view instanceof TextView&&iconSizes.containsKey(i.view)){
+                TextView v=(TextView)i.view;int size=Math.max(1,Math.round(iconSizes.get(v)*scale));
+                Drawable[] icons=v.getCompoundDrawables();for(Drawable icon:icons)if(icon!=null)icon.setBounds(0,0,size,size);
+                v.setCompoundDrawables(icons[0],icons[1],icons[2],icons[3]);v.setCompoundDrawablePadding(Math.round(10*scale));
+            }
+            boolean full=i.view==album;
+            i.view.measure(MeasureSpec.makeMeasureSpec(full?width:Math.round(i.w*scale),MeasureSpec.EXACTLY),MeasureSpec.makeMeasureSpec(full?height:Math.round(i.h*scale),MeasureSpec.EXACTLY));
+        }
+    }
+    @Override protected void onLayout(boolean changed,int l,int t,int r,int b){for(Item i:items){int x=i.view==album?0:Math.round(offsetX+i.x*scale),y=i.view==album?0:Math.round(offsetY+i.y*scale);i.view.layout(x,y,x+i.view.getMeasuredWidth(),y+i.view.getMeasuredHeight());}}
+
     private void photo(Canvas c,Bitmap image){if(image==null||image.isRecycled())return;float s=Math.max(getWidth()/(float)image.getWidth(),getHeight()/(float)image.getHeight());float w=image.getWidth()*s,h=image.getHeight()*s;paint.setShader(null);paint.setColor(Color.WHITE);c.drawBitmap(image,null,new RectF((getWidth()-w)/2,(getHeight()-h)/2,(getWidth()+w)/2,(getHeight()+h)/2),paint);}
     @Override protected void onDraw(Canvas c){super.onDraw(c);c.drawColor(0xff0c1115);photo(c,wallpaper);paint.setShader(new LinearGradient(0,0,0,getHeight(),new int[]{0x44050a14,0x22050a14,0xa6050a14},new float[]{0,.55f,1},Shader.TileMode.CLAMP));c.drawRect(0,0,getWidth(),getHeight(),paint);paint.setShader(null);}
     private final class Pane extends Drawable {

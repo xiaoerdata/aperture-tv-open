@@ -8,6 +8,7 @@
 <link rel="icon" data-kaishi-favicon type="image/webp" href="./brand/kaishi-icon-v2.webp"><link rel="stylesheet" href="./brand/identity.css"><script src="./brand/identity.js" defer></script></head>
 <body>
 <div class="scenic-background" aria-hidden="true"><div class="scenic-shade"></div><div class="scenic-blur"></div></div>
+<div id="gallery-home-scene" class="home-album-backdrop" hidden aria-hidden="true"></div>
 <div class="lobby" id="lobby" data-section="overview" data-home-page="0">
   <header class="lobby-header">
     <a class="wordmark" href="#" id="brand-home" aria-label="首页"><span class="arch-logo" aria-hidden="true"></span><span>开视<small></small></span></a>
@@ -40,23 +41,24 @@
         <button class="destination variety glass" id="entry-variety"><span class="entry-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M20 14a4 4 0 0 1 8 0v10a4 4 0 0 1-8 0Zm-4 7v3a8 8 0 0 0 16 0v-3m-8 11v8m-6 0h12"/><path d="m21 8 3-5 3 5m-11 8-5-3m26 0-5 3"/></svg></span><span class="entry-text"><strong>看综艺</strong></span></button>
       </nav>
     <section id="parents-shortcuts" class="parents-shortcuts" aria-labelledby="shortcuts-title"><div class="shortcuts-heading"><h2 id="shortcuts-title">常用应用</h2></div><nav class="shortcuts-row" aria-label="常用应用"><button id="quick1" class="shortcut glass"><strong>未设置</strong></button><button id="quick2" class="shortcut glass"><strong>未设置</strong></button><button id="quick3" class="shortcut glass"><strong>未设置</strong></button><button id="quick4" class="shortcut glass"><strong>未设置</strong></button><button id="shortcut-all" class="shortcut glass"><strong>所有应用</strong></button><button id="shortcut-manage" class="shortcut glass"><strong>管理应用</strong></button></nav></section>
-      <button id="apps-next" class="screen-next" aria-label="向下进入家庭">家庭 <span aria-hidden="true">↓</span></button>
+      <button id="apps-next" class="screen-next" aria-label="向下进入相册">相册 <span aria-hidden="true">↓</span></button>
     </section>
-    <section id="content-home" class="home-screen content-screen" aria-label="家庭" hidden>
-      <div class="screen-heading"><h1>家庭</h1><button id="entry-family" class="quiet-action">全屏查看</button></div>
+    <section id="gallery-home" class="home-screen gallery-screen" aria-label="相册" hidden><button id="gallery-home-settings" class="gallery-viewer" aria-label="相册设置"><span>确定 · 相册设置</span></button><small id="gallery-home-count" hidden></small></section>
+    <section id="content-home" class="home-screen content-screen" aria-label="留言" hidden>
+      <div class="screen-heading"><h1>留言</h1><button id="entry-family" class="quiet-action">全屏查看</button></div>
       <div class="family-layout">
         <button id="entry-photos" class="family-photo glass" data-section="photos"><img id="family-preview-photo" alt="" hidden><span class="family-photo-copy"><strong>相册</strong><span id="family-photo-caption">暂无照片</span></span></button>
         <div class="family-daily"><section aria-labelledby="family-agenda-title"><h2 id="family-agenda-title">今天</h2><div id="family-events" class="family-events"></div></section><section class="family-note" aria-labelledby="family-note-heading"><h2 id="family-note-heading">留言</h2><h3 id="note-title">暂无留言</h3><p id="note-body"></p><small id="note-time"></small></section><button id="entry-information" class="quiet-action" data-section="information">查看全部</button></div>
       </div>
     </section>
-    <section id="gallery-home" class="home-screen gallery-screen" aria-label="相册" hidden><header class="gallery-title"><h1>相册</h1><button id="gallery-home-upload">扫码上传</button><button id="gallery-home-manage">相册设置</button></header><div id="gallery-home-scene" class="gallery-scene"></div><div class="gallery-controls"><button id="gallery-home-full">全屏轮播</button><small id="gallery-home-count">照片保存在电视本机</small></div></section>
+
     <section id="collection-view" class="collection-view" hidden aria-labelledby="collection-title">
       <div class="collection-header"><div><p class="eyebrow" id="collection-kicker" hidden></p><h1 id="collection-title">相册</h1><p id="collection-description" hidden></p></div><div class="collection-controls"><button id="collection-nas" hidden>NAS 相册</button><button class="back-overview" data-section="overview">返回首页</button></div></div>
       <nav id="collection-paging" class="collection-paging" hidden aria-label="翻页"><button id="collection-prev">上一页</button><span id="collection-page" role="status"></span><button id="collection-next">下一页</button></nav>
       <div id="collection-body" class="collection-body"></div>
     </section>
   </main>
-  <footer class="lobby-footer"><span class="remote-guide">方向键选择　确定键打开</span><span id="local-note"></span><nav class="screen-dots" aria-label="首页翻屏"><button data-home-screen="0" aria-label="首页" aria-pressed="true"></button><button data-home-screen="1" aria-label="片库与应用" aria-pressed="false"></button><button data-home-screen="2" aria-label="家庭内容" aria-pressed="false"></button><button data-home-screen="3" aria-label="相册" aria-pressed="false"></button></nav></footer>
+  <footer class="lobby-footer"><span class="remote-guide">方向键选择　确定键打开</span><span id="local-note"></span><nav class="screen-dots" aria-label="首页翻屏"><button data-home-screen="0" aria-label="首页" aria-pressed="true"></button><button data-home-screen="1" aria-label="片库与应用" aria-pressed="false"></button><button data-home-screen="2" aria-label="相册" aria-pressed="false"></button><button data-home-screen="3" aria-label="留言" aria-pressed="false"></button></nav></footer>
 </div>
 <div class="pane-backdrop" id="pane-backdrop" hidden><section class="entry-pane glass" role="dialog" aria-modal="true" aria-labelledby="pane-title"><header class="pane-header"><span id="pane-kicker" hidden></span><button id="pane-close" class="pane-close">返回</button></header><div class="pane-body"><div class="pane-intro"><img id="pane-swallow" class="pane-swallow" src="./art/glass-swallow-v1.webp" alt="" aria-hidden="true" hidden><p class="eyebrow" id="pane-eyebrow" hidden></p><h2 id="pane-title">设置</h2><p id="pane-description" hidden></p><span id="pane-art" hidden></span></div><div class="pane-actions" id="pane-actions"></div></div><p class="pane-footnote" id="pane-footnote" hidden></p><p id="action-status" role="status" class="action-status"></p></section></div>
 <noscript><p>请启用 JavaScript，或使用原生简洁首页。</p></noscript>

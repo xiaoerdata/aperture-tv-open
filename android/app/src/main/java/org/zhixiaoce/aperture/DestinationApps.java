@@ -60,7 +60,7 @@ final class DestinationApps {
         final ResolveInfo app=installed(match,available(false));if(app==null){new AlertDialog.Builder(activity).setTitle(match.name).setMessage("未发现可启动的电视版应用。安装完成后返回开视即可添加。应用的地区、账号及订阅由应用本身决定。")
             .setPositiveButton("安装应用",(d,w)->installation()).setNegativeButton("返回",null).show();return;}
         String[] names=new String[4];for(int i=0;i<4;i++)names[i]="位置 "+(i+1)+" · "+(label("quick"+(i+1)).isEmpty()?"空位":label("quick"+(i+1)));
-        new AlertDialog.Builder(activity).setTitle("放到首页").setItems(names,(d,which)->{String slot="quick"+(which+1);preferences.edit().putString("destination_"+slot,component(app).flattenToString()).apply();changed.onChanged(slot);}).setNegativeButton("返回",null).show();
+        new TvDialogs.SideBuilder(activity).setTitle("放到首页").setItems(names,(d,which)->{String slot="quick"+(which+1);preferences.edit().putString("destination_"+slot,component(app).flattenToString()).apply();changed.onChanged(slot);}).setNegativeButton("返回",null).show();
     }
     private boolean quick(String slot) { return "quick1".equals(slot) || "quick2".equals(slot) || "quick3".equals(slot) || "quick4".equals(slot); }
     private boolean valid(String slot) { return quick(slot) || "live".equals(slot) || "cinema".equals(slot) || "system".equals(slot); }
@@ -114,7 +114,7 @@ final class DestinationApps {
         if (apps.isEmpty()) { new AlertDialog.Builder(activity).setTitle("没有找到" + title(slot)).setMessage("请先从原电视系统安装或启用应用。部分固件限制桌面入口，可在系统设置中切换。")
             .setPositiveButton("系统设置", (dialog, which) -> settings(false)).setNegativeButton("返回", null).show(); return; }
         String[] labels = new String[apps.size()]; for (int i = 0; i < labels.length; i++) labels[i] = apps.get(i).loadLabel(activity.getPackageManager()) + "  ·  " + apps.get(i).activityInfo.packageName;
-        new AlertDialog.Builder(activity).setTitle("选择" + title(slot)).setItems(labels, (dialog, which) -> {
+        new TvDialogs.SideBuilder(activity).setTitle("选择" + title(slot)).setItems(labels, (dialog, which) -> {
             preferences.edit().putString("destination_" + slot, component(apps.get(which)).flattenToString()).apply(); if (openAfter) launch(slot); else changed.onChanged(slot);
         }).setNegativeButton("返回", null).show();
     }
@@ -128,9 +128,9 @@ final class DestinationApps {
     void shortcuts() {
         String[] labels = new String[4];
         for (int i = 0; i < 4; i++) { String name = label("quick" + (i + 1)); labels[i] = "位置 " + (i + 1) + " · " + (name.isEmpty() ? "待添加" : name); }
-        new AlertDialog.Builder(activity).setTitle("管理首页常用应用").setItems(labels, (dialog, which) -> {
+        new TvDialogs.SideBuilder(activity).setTitle("管理首页常用应用").setItems(labels, (dialog, which) -> {
             String slot = "quick" + (which + 1);
-            new AlertDialog.Builder(activity).setTitle(title(slot)).setItems(new String[] {"选择 / 更换应用", "移除此快捷入口", "向前移动", "向后移动"}, (choice, index) -> {
+            new TvDialogs.SideBuilder(activity).setTitle(title(slot)).setItems(new String[] {"选择 / 更换应用", "移除此快捷入口", "向前移动", "向后移动"}, (choice, index) -> {
                 if (index == 0) pick(slot, false);
                 else if(index==1) { preferences.edit().putString("destination_" + slot, "").apply(); changed.onChanged(slot); }
                 else { int next=which+(index==2?-1:1);if(next>=0&&next<4){String other="quick"+(next+1),a=preferences.getString("destination_"+slot,""),b=preferences.getString("destination_"+other,"");preferences.edit().putString("destination_"+slot,b).putString("destination_"+other,a).apply();changed.onChanged(other);} }

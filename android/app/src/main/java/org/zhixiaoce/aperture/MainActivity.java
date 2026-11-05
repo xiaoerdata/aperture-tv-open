@@ -351,11 +351,11 @@ public class MainActivity extends Activity {
         JSONObject apps=destinations.homeApps();web.evaluateJavascript("(function(){if(window.apertureNasLabels)window.apertureNasLabels("+JSONObject.quote(movies)+","+JSONObject.quote(series)+");if(window.apertureHomeSources)window.apertureHomeSources("+summary+");if(window.apertureHomeApps)window.apertureHomeApps("+apps+");})()",null);
     }
     private LinearLayout column(String title) {
-        LinearLayout layout = new LinearLayout(this); layout.setOrientation(LinearLayout.VERTICAL); layout.setPadding(60, 34, 60, 34); layout.setBackgroundColor(Color.rgb(11, 16, 23));
-        TextView label = new TextView(this); label.setText(title); label.setTextSize(BuildConfig.PARENTS_EDITION ? 28 : 24); label.setTextColor(Color.rgb(240, 246, 251)); label.setPadding(0, 0, 0, 20); layout.addView(label); return layout;
+        LinearLayout layout = new LinearLayout(this); layout.setOrientation(LinearLayout.VERTICAL); layout.setPadding(TvUi.dp(this,12), TvUi.dp(this,10), TvUi.dp(this,12), TvUi.dp(this,10));
+        TextView label = TvUi.text(this,title,24,false); label.setPadding(0, 0, 0, TvUi.dp(this,12)); layout.addView(label); return layout;
     }
     private Button button(LinearLayout layout, String text, Runnable action) {
-        float density = getResources().getDisplayMetrics().density;
+        float density = TvUi.density(this);
         Button button = new Button(this); button.setText(text); button.setAllCaps(false);
         TvUi.styleButton(this,button);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2); params.setMargins(0, Math.round(6 * density), 0, Math.round(6 * density));
@@ -364,7 +364,7 @@ public class MainActivity extends Activity {
     private void showNative(LinearLayout layout) { ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.addView(layout); setContentView(scroll); }
     private void homeMode() {
         String reason = lobby.recoveryRequired() ? "网页首页本次未能正常显示，已使用本机风景首页。关闭开视后重开，可再尝试玻璃首页；原因见本机诊断。" : !lobby.glassAvailable(webViewVersion()) ? "当前网页内核较旧，已使用本机风景首页。壁纸、观看入口和常用应用仍可用。" : "玻璃首页支持家庭面板与动效；本机风景首页保留壁纸和常用入口，不运行网页。";
-        new AlertDialog.Builder(this).setTitle("首页样式").setMessage(reason)
+        new TvDialogs.SideBuilder(this).setTitle("首页样式").setMessage(reason)
             .setPositiveButton("本机风景首页", (d,w) -> { preferences.edit().putBoolean("simple_home", true).apply(); showLobby(""); })
             .setNeutralButton(lobby.glassAvailable(webViewVersion()) ? "玻璃首页" : "保留自动选择", (d,w) -> { preferences.edit().remove("simple_home").apply(); showLobby(""); })
             .setNegativeButton("返回", null).show();
@@ -393,8 +393,8 @@ public class MainActivity extends Activity {
         }
         LinearLayout layout = column("请输入电脑或 NAS 的服务地址");
         final AlertDialog[] panel=new AlertDialog[1];
-        EditText input = new EditText(this); input.setText(preferences.getString("origin", "")); input.setHint("https://screen.example.com 或局域网IP地址"); input.setSingleLine(true); input.setTextSize(20); input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_URI); layout.addView(input);
-        CheckBox lan=new CheckBox(this);lan.setText("允许家庭局域网HTTP（明文连接）");lan.setTextSize(20);lan.setTextColor(Color.WHITE);lan.setChecked(preferences.getBoolean("allowLanHttp",false));layout.addView(lan);
+        EditText input = new EditText(this); input.setText(preferences.getString("origin", "")); input.setHint("https://screen.example.com 或局域网IP地址"); input.setSingleLine(true); TvUi.textSize(this,input,17); input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_URI); layout.addView(input);
+        CheckBox lan=new CheckBox(this);lan.setText("允许家庭局域网HTTP（明文连接）");TvUi.textSize(this,lan,17);lan.setTextColor(Color.WHITE);lan.setChecked(preferences.getBoolean("allowLanHttp",false));layout.addView(lan);
         button(layout, "保存并打开家庭屏", () -> {
             String raw = input.getText().toString().trim().replaceAll("/+$", ""); Uri uri = Uri.parse(raw);
             boolean scheme = HouseholdProxy.allowedOrigin(raw,lan.isChecked());
@@ -411,7 +411,7 @@ public class MainActivity extends Activity {
             .setNeutralButton("服务设置",(d,w)->setup()).setNegativeButton("返回",null).show();
     }
     private void installation() {
-        new AlertDialog.Builder(this).setTitle("安装应用").setItems(new String[]{"选择本机APK", "从NAS选择APK", "WorkBuddy安装应用", "WorkBuddy卸载应用", "安装说明与应用管理"}, (dialog, which) -> {
+        new TvDialogs.SideBuilder(this).setTitle("安装应用").setItems(new String[]{"选择本机APK", "从NAS选择APK", "WorkBuddy安装应用", "WorkBuddy卸载应用", "安装说明与应用管理"}, (dialog, which) -> {
             if(which==0)installer.choose();else if(which==1)startActivity(new Intent(this,NasActivity.class));else if(which==2||which==3)startActivity(new Intent(this,AppAgentActivity.class).putExtra("kind",which==2?"install":"uninstall"));else destinations.installation();
         }).setNegativeButton("返回",null).show();
     }
@@ -420,7 +420,7 @@ public class MainActivity extends Activity {
         if (installer != null && installer.result(request, result, data)) return;
         super.onActivityResult(request, result, data);
     }
-    private void hubConnection(){new AlertDialog.Builder(this).setTitle("智小策 Hub").setMessage("未连接\n\n电影 · 体重 · 旅行 · 账本\n\n扫码登录服务尚未接入。连接后，由你选择允许显示的内容。").setPositiveButton("返回",null).show();}
+    private void hubConnection(){new TvDialogs.SideBuilder(this).setTitle("智小策 Hub").setMessage("未连接\n\n电影 · 体重 · 旅行 · 账本\n\n扫码登录服务尚未接入。连接后，由你选择允许显示的内容。").setPositiveButton("返回",null).show();}
     private void showDiagnostics(){
         View returnTo=settingsMenuDialog!=null&&settingsMenuDialog.isShowing()?settingsMenuDialog.getCurrentFocus():getCurrentFocus();
         if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();diagnosticsDialog=diagnostics.show(this,returnTo);
@@ -489,8 +489,8 @@ public class MainActivity extends Activity {
         return super.onKeyUp(keyCode,event);
     }
     @Override public void onBackPressed() { if(web!=null&&lobbyMode&&!ready){failHome(web,homeTicket,WebDiagnostics.Reason.USER_CANCEL_LOAD,false);leavePage();return;} if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }
-    @Override protected void onPause() { resumed=false;homeDeadline.active(false);if(homeProbeRetry!=null){homeTasks.cancel(homeProbeRetry);homeProbeRetry=null;} display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }
-    @Override protected void onResume() { super.onResume();resumed=true; HomeGuardService.resumedHome(this); display.resumed(true); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
-    @Override public void onWindowFocusChanged(boolean hasFocus) { super.onWindowFocusChanged(hasFocus); display.focused(hasFocus); if (display.active()) immersive(); }
+    @Override protected void onPause() { resumed=false;if(scenicHome!=null)scenicHome.active(false);homeDeadline.active(false);if(homeProbeRetry!=null){homeTasks.cancel(homeProbeRetry);homeProbeRetry=null;} display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }
+    @Override protected void onResume() { super.onResume();resumed=true; HomeGuardService.resumedHome(this); display.resumed(true);if(scenicHome!=null)scenicHome.active(display.active()); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
+    @Override public void onWindowFocusChanged(boolean hasFocus) { super.onWindowFocusChanged(hasFocus); display.focused(hasFocus);if(scenicHome!=null)scenicHome.active(display.active()); if (display.active()) immersive(); }
     @Override protected void onDestroy() { closed=true;resumed=false;if(homeDeadline!=null)homeDeadline.cancel();if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();if(returnHomeDialog!=null)returnHomeDialog.dismiss();if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();if(destinations!=null)destinations.dismissHomeSettings();if(installer!=null)installer.destroy();if(messages!=null)messages.close(); destroyWeb(); super.onDestroy(); }
 }
