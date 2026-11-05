@@ -48,7 +48,7 @@
       }
     ],
     "postReleaseReceiptFor": null,
-    "publicParent": "3cb50d2ebb4757861125b9d64fa4ec92b12c53b2",
+    "publicParent": "64a2552da0e36a3a89f99bc32ce976d0e7375506",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
   "files": [
@@ -1524,8 +1524,8 @@
     },
     {
       "path": "docs/RELEASE-V40.md",
-      "bytes": 3405,
-      "sha256": "3424adb498b502c0800c92f8d1843a273f7ec44d4042b17be1024f0f82349dfb"
+      "bytes": 3640,
+      "sha256": "b842061c04d386e0201c309b5a423c5f76820a17eb77f85550596bc928595add"
     },
     {
       "path": "docs/RESOURCE-PACK-AGENT.md",
@@ -1981,6 +1981,11 @@
       "path": "docs/images/s101-home/settings.png",
       "bytes": 2051381,
       "sha256": "14f5570dce8c3d42ec36c758d0100e38bef16ba95748928c350801d5d2a03eec"
+    },
+    {
+      "path": "docs/images/s102-home-final/ambient-settings.png",
+      "bytes": 2216647,
+      "sha256": "46a9866f56546eb0748d5d088c92b8b570076a8f2f8325f4402470296a8ff55a"
     },
     {
       "path": "docs/images/s102-home/album-settings.png",
@@ -5014,8 +5019,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 268103,
-      "sha256": "8dc839d9ce515931f13f486d461120c12fc8428f0cb251e5d8895b48bb423b83"
+      "bytes": 268370,
+      "sha256": "8d9c8acb0a1aa29f51a8038fb291345028ef8dbc5949eabd0e96d4a8c3c41786"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -5328,6 +5333,11 @@
       "sha256": "dfe733126b3dff61eb0c73e26658db0b22a77168faedafae651e999542197476"
     },
     {
+      "path": "docs/verification/s102-home-browser-final.json",
+      "bytes": 5330,
+      "sha256": "e7851a6e6a4f38c1729c8ac2c4a7329801809e06c80f6469f84662cceed430f1"
+    },
+    {
       "path": "docs/verification/s102-home-browser.json",
       "bytes": 4549,
       "sha256": "510827de90324d8e33df85ebda46beb281e6356caf06fa775359f6e63e90c775"
@@ -5340,7 +5350,7 @@
     {
       "path": "docs/verification/s102-package-upgrade.json",
       "bytes": 356,
-      "sha256": "526403a070fe9c628020bae2d64a7a3674f93e94b61a6a16fa5af77991003aad"
+      "sha256": "e25ff50bd4785fa2595b2d530b584e9399c29c081f9af799dfc7eb302c3f83b2"
     },
     {
       "path": "docs/verification/s30-launcher-regression.json",
@@ -7604,8 +7614,8 @@
     },
     {
       "path": "public/launcher/ambient.css",
-      "bytes": 8279,
-      "sha256": "8863bd2494051a5ed0f0cdcfa860d3b29e7931159f388ea1a98106f8f5b7d63b"
+      "bytes": 9344,
+      "sha256": "b3a5b34fc27f70c309eae0b2f98e3f8502be1c6666b93d67f6d5d0b2fd0764bb"
     },
     {
       "path": "public/launcher/ambient.html",
@@ -7614,8 +7624,8 @@
     },
     {
       "path": "public/launcher/ambient.js",
-      "bytes": 9961,
-      "sha256": "423ff2b299157d7bc67846ba122c7f4351c084091eaf41fc4a8e569361503f2b"
+      "bytes": 10081,
+      "sha256": "f611b021eeefa91442c92049c6046a8fbd9307298c2fa8672177be6395416d74"
     },
     {
       "path": "public/launcher/app-icons/appletv.png",
@@ -8554,8 +8564,8 @@
     },
     {
       "path": "scripts/s101-home-layout-test.mjs",
-      "bytes": 11049,
-      "sha256": "e8f41e76817a3a02fadff66883e4831fcafe4594cbeb3430d0f03e60a48af038"
+      "bytes": 12012,
+      "sha256": "8e885c62f4578b2b13dcda11364f82a17da587ee8020ca133bee51f8ef883b03"
     },
     {
       "path": "scripts/s101-native-compile.py",
@@ -9672,7 +9682,7 @@
     "tag": "v0.2.0-alpha.37",
     "versionCode": 40,
     "edition": "standard",
-    "androidInputSha256": "64f4277d5b7d67588cf29d19e1370d439febb295f1f8fb67c1e4fd963a8c377d",
+    "androidInputSha256": "354b801df1b562d46844f8fe0d39f6e1c6d68e49d8ab65972f4afabd163b201e",
     "prerelease": true,
     "fullCloudRegressionAccepted": false,
     "xiaomiAccepted": false,

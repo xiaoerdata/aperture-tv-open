@@ -4,7 +4,7 @@
   "versionCodeTo": 40,
   "sameCertificate": true,
   "oldApkSha256": "9d994a8064946c02d4a846ccf45a5a440b13ca00c10d0320a4f012adfe564f01",
-  "newApkSha256": "307fcf90edd4a7b9335a0534c078d86afab55102b3210d287c308b00d1cdfb64",
+  "newApkSha256": "51eca42b75a230cb59bb3794ca63e0dbbbd0dad2c51e245b0529a35dc5ced375",
   "upgradeInstalledOnDevice": false,
   "dataRetentionOnDeviceTested": false
 }

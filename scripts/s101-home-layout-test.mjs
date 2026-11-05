@@ -82,8 +82,14 @@ try{
     const mark=page.locator('.preset-grid .app-mark').first();await mark.waitFor();assert.ok(contained(await mark.boundingBox(),await page.locator('.preset-grid button').first().boundingBox()));
     await page.keyboard.press('Escape');
     if(width===1920&&dpr===1){await page.screenshot({path:out+'/home.png'});await page.locator('#settings-open').click();await page.screenshot({path:out+'/settings.png'});}
+    await page.keyboard.press('Escape');await page.evaluate(()=>KaishiAmbient.settings());
+    const ambient=await page.locator('.ambient-options .weather-sheet').boundingBox();assert.ok(ambient.x>width*.6&&ambient.width<width*.3,'screensaver settings must also be a right drawer');
+    const firstAmbient=await page.evaluate(()=>document.activeElement.textContent);assert.equal(firstAmbient,'星河');await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'静态');
+    for(let i=0;i<8;i++)await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate(()=>document.activeElement.textContent),'返回');
+    assert.ok(contained(await page.locator('.ambient-options button').last().boundingBox(),ambient));
+    if(width===1920&&dpr===1)await page.screenshot({path:out+'/ambient-settings.png'});await page.keyboard.press('Escape');
     const group=await page.locator('#home-watch').boundingBox();assert.ok(group.width<width*.74,'watch cards must leave scenery visible');
-    checks.push({width,height,dpr,watchWidthRatio:watch.width/width,albumFullViewport:true,autoPlayWithoutConfirm:true,pageOrderAndUpDown:true,iconsContained:true,settingsRightAndScrollable:true});await page.close();
+    checks.push({width,height,dpr,watchWidthRatio:watch.width/width,albumFullViewport:true,autoPlayWithoutConfirm:true,pageOrderAndUpDown:true,iconsContained:true,settingsRightAndScrollable:true,ambientSettingsRightAndNavigable:true});await page.close();
   }
   const empty=await open(1920,1080,2,0);await empty.locator('[data-home-screen="2"]').click();
   assert.equal(await empty.locator('#gallery-home-scene .gallery-empty').isVisible(),true);
@@ -103,7 +109,7 @@ try{
     await manager.close();
   }
   assert.deepEqual(errors,[]);
-  const inputs={};for(const file of ['index.html','launcher.js','style.css','gallery.js','gallery.css','gallery.html','gallery-settings.js'])inputs['public/launcher/'+file]=createHash('sha256').update(await readFile('public/launcher/'+file)).digest('hex');
+  const inputs={};for(const file of ['index.html','launcher.js','style.css','gallery.js','gallery.css','gallery.html','gallery-settings.js','ambient.css','ambient.js'])inputs['public/launcher/'+file]=createHash('sha256').update(await readFile('public/launcher/'+file)).digest('hex');
   const receipt={passed:true,inputs,checks,confirmEmitsAlbumManagementIntent:true,albumManagementRightDrawer:true,emptyAlbum:true,nativeCssViewportMismatch:true,errors,realXiaomi:false,nativeActivityExecuted:false,networkListenerStarted:false};
   await writeFile(process.env.KAISHI_LAYOUT_RECEIPT||'docs/verification/s101-home-browser.json',JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));
 }finally{await browser.close();}
