@@ -1,0 +1,14 @@
+{
+  "removedRoot": "android/app/build",
+  "files": 2983,
+  "symlinks": 4,
+  "allocatedBytesReclaimed": 290570240,
+  "sourceAndReleaseHashesPreserved": 237,
+  "signingUnchanged": true,
+  "processAudit": {
+    "hits": [],
+    "denied": 0
+  },
+  "currentReleaseAndV41CandidateRetained": true,
+  "uniqueEvidenceAndToolsRetained": true
+}

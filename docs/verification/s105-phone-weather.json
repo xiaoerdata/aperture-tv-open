@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "checks": [
+    "18 local-note CRUD, authorization, revision, expiry and cancellation checks passed; synthetic QR exported",
+    "Native QR encoder fixture independently decoded with OpenCV",
+    "Real loopback production HTTP editor: add/edit/delete, safe text rendering, 320/390/760 widths and 44px controls",
+    "Live viewport resize 1080p/540p/4K/short window preserves uniform scale; second-screen logos centered in fixed icon stages",
+    "Weather: 24h curve with missing-data gaps, independently labelled rain axis, remote hour scrolling and 7 comparable temperature-range rows at 540p/1080p/4K",
+    "City search/selection and return work; fourth-screen remote launches editor; cold forecast failure shows honest empty state"
+  ],
+  "errors": [],
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/MessageFeed.java": "f3a3ada66db3292864fe2147483d99fde2bf9abbe71e26d5c0217dc5a7bea0e4",
+    "android/app/src/main/java/org/zhixiaoce/aperture/LobbyAssets.java": "3c94c50c11593fc6a2328294b7b49388d4b87021b526ae8b31cd93584e5494e4",
+    "android/app/src/main/java/org/zhixiaoce/aperture/MessageNotes.java": "a15af1c4b52a83f082cb187ac0e6a1e6e283348ac30bd81ab8b4a8339df3cf5a",
+    "android/app/src/main/java/org/zhixiaoce/aperture/MessagePhoneSession.java": "0fcc307cbeb6bce8b4cdde054a9979c9b0924251bf6287f93fdf552c0ddfc05b",
+    "android/app/src/main/java/io/nayuki/qrcodegen/QrCode.java": "01715baeb383ec26f7c38138299a2b6e5bbfa36fa607441c79dc9cc76b107c6b",
+    "android/app/src/main/java/io/nayuki/qrcodegen/QrSegment.java": "70f10e518d3a8f1a1862e598a249abaac036a9c6fae4e5892c4b6d24995bb8d7",
+    "android/app/src/main/java/io/nayuki/qrcodegen/BitBuffer.java": "d5496452b435423beead30aa356e10a7c0ba4790b7da37ee4a1b80b4df136447",
+    "android/app/src/main/java/io/nayuki/qrcodegen/DataTooLongException.java": "7661186dde4b27334fd94f4950f58522eaab256274388152e5cb8e35ef463e1a",
+    "public/launcher/messages-edit.html": "36fe3ea50db96516c746d09a961aedc1ee0fb23b755f30f1b675e48e64e41956",
+    "public/launcher/weather.js": "3032dee1045155d1635462d6b446f3b9cdf8308ffc88c5cd656f14fde661972d",
+    "public/launcher/ambient.css": "2fe28e007438b086138ec0a29098dedac5786c482355f109a4c64ea7a5aea839",
+    "public/launcher/launcher.js": "acb1fdfedd7909b0db7fbca239d79434674d1dcb868570eb3c345442b9b523ff",
+    "public/launcher/style.css": "b2e78bbc9ad047f0b85ce6f9799a59e3bf48e251b336ddc0669c8df9088920c2",
+    "public/launcher/index.html": "b63e2a240f22c1f262a6a0ac3e019387e04193087ad36b88edf6c49027ce9b59"
+  },
+  "syntheticWeatherAndNotes": true,
+  "loopbackOnly": true,
+  "nativeActivityExecuted": false,
+  "realXiaomi": false,
+  "productionPhotosUsed": false
+}

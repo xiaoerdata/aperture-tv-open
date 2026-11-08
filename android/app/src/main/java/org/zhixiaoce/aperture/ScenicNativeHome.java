@@ -26,7 +26,7 @@ final class ScenicNativeHome extends android.view.ViewGroup {
     private boolean foreground=true;
     private HomeAlbumView album;
     private final Map<TextView,Integer> iconSizes=new IdentityHashMap<>();
-    private TextView time,date,caption;
+    private TextView time,date,caption,messagePreview;
     private Button first,dock,firstShortcut;
     private final Runnable ticker=new Runnable(){public void run(){Date now=new Date();time.setText(new SimpleDateFormat("HH:mm",Locale.getDefault()).format(now));date.setText(new SimpleDateFormat("M月d日   EEEE",Locale.CHINA).format(now));clockHandler.postDelayed(this,1000*(60-now.getSeconds()));}};
     private static final String[] IDS={"carezza","namib","fuji","lofoten"};
@@ -53,7 +53,7 @@ final class ScenicNativeHome extends android.view.ViewGroup {
         place(label("应用与工具"),100,195,1000,80,48,1);
         apps.homeApps();int count=0;Button firstApp=null;
         for(String slot:new String[]{"quick1","quick2","quick3","quick4"}){
-            String name=apps.label(slot);if(name.isEmpty())continue;Button b=control("▦",()->apps.launchShortcut(slot),true);b.setContentDescription(name);byte[] icon=apps.icon(slot);if(icon!=null){Drawable d=Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);if(d!=null){b.setText("");iconSizes.put(b,96);d.setBounds(0,0,96,96);b.setCompoundDrawables(null,d,null,null);}}place(b,100+count*250,326,176,150,28,1);TextView appName=label(name);appName.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);appName.setMaxLines(2);place(appName,88+count*250,484,200,64,25,1);if(firstApp==null)firstApp=b;
+            String name=apps.label(slot);if(name.isEmpty())continue;byte[] icon=apps.icon(slot);Drawable appIcon=icon==null?null:Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);Button b=iconControl(appIcon,()->apps.launchShortcut(slot));b.setContentDescription(name);place(b,100+count*250,326,176,150,28,1);TextView appName=label(name);appName.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL);appName.setMaxLines(2);place(appName,88+count*250,484,200,64,25,1);if(firstApp==null)firstApp=b;
             {Button shortcut=control(name,()->apps.launchShortcut(slot),true);if(icon!=null){Drawable d=Drawable.createFromStream(new java.io.ByteArrayInputStream(icon),null);if(d!=null){iconSizes.put(shortcut,48);d.setBounds(0,0,48,48);shortcut.setCompoundDrawables(d,null,null,null);shortcut.setCompoundDrawablePadding(12);}}place(shortcut,100+count*276,708,252,112,25,0);if(firstShortcut==null)firstShortcut=shortcut;shortcut.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN)dock.requestFocus();return true;}return false;});}count++;
         }
         if(count==0){place(control("添加常用应用",apps::shortcuts,true),100,326,380,132,30,1);firstShortcut=control("添加常用应用",apps::shortcuts,true);place(firstShortcut,100,708,300,112,25,0);Button emptyShortcut=firstShortcut;emptyShortcut.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN)dock.requestFocus();return true;}return false;});}
@@ -67,7 +67,8 @@ final class ScenicNativeHome extends android.view.ViewGroup {
             album=new HomeAlbumView(activity,()->actions.open("gallery"));
             place(album,0,0,1920,1080,0,2);bringChildToFront(settings);
             place(label("留言"),100,195,1000,80,48,3);
-            place(control("安排与留言",()->actions.open("information"),true),100,350,500,150,34,3);
+            messagePreview=label("暂无留言");messagePreview.setGravity(Gravity.TOP);messagePreview.setMaxLines(7);messagePreview.setEllipsize(android.text.TextUtils.TruncateAt.END);place(messagePreview,100,330,1100,400,32,3);
+            place(control("扫码编辑留言",()->actions.open("information"),true),100,790,400,88,28,3);
         }
         setContentDescription("风景首页 · 本机兼容模式");
     }
@@ -77,6 +78,11 @@ final class ScenicNativeHome extends android.view.ViewGroup {
     }
     private void chooseWallpaper(){new TvDialogs.SideBuilder(activity).setTitle("壁纸").setItems(PLACES,(d,i)->{loadWallpaper(i);activity.getSharedPreferences("aperture",0).edit().putString("native_wallpaper",IDS[i]).apply();}).setNegativeButton("返回",null).show();}
     private TextView label(String text){TextView v=new TextView(activity);v.setText(text);v.setTextColor(TvUi.INK);v.setIncludeFontPadding(false);v.setGravity(Gravity.CENTER_VERTICAL);v.setShadowLayer(10,0,2,0x66000000);return v;}
+    void messages(byte[] bytes){if(messagePreview==null)return;try{org.json.JSONArray rows=new org.json.JSONObject(new String(bytes,java.nio.charset.StandardCharsets.UTF_8)).getJSONArray("messages");StringBuilder text=new StringBuilder();for(int i=0;i<Math.min(rows.length(),3);i++){if(i>0)text.append("\n\n");text.append(rows.getJSONObject(i).optString("text"));}messagePreview.setText(text.length()==0?"暂无留言":text.toString());}catch(Exception unavailable){messagePreview.setText("留言暂时无法读取");}}
+    private Button iconControl(Drawable icon,Runnable run){
+        Button b=new Button(activity){@Override protected void onDraw(Canvas c){super.onDraw(c);if(icon!=null){int edge=Math.max(1,Math.round(Math.min(getWidth(),getHeight())*.64f));int x=(getWidth()-edge)/2,y=(getHeight()-edge)/2;icon.setBounds(x,y,x+edge,y+edge);icon.draw(c);}}};
+        b.setText(icon==null?"▦":"");b.setGravity(Gravity.CENTER);b.setMinWidth(0);b.setMinimumWidth(0);b.setMinHeight(0);b.setMinimumHeight(0);b.setPadding(0,0,0,0);b.setBackground(new Pane(b,true));b.setOnClickListener(v->run.run());TvUi.touchClick(b);return b;
+    }
     private Button control(String text,Runnable run,boolean glass){Button b=new Button(activity);b.setText(text);b.setTextColor(TvUi.INK);b.setAllCaps(false);b.setFocusableInTouchMode(true);b.setGravity(Gravity.CENTER);b.setMinHeight(0);b.setMinimumHeight(0);b.setMinWidth(0);b.setMinimumWidth(0);b.setPadding(8,0,8,0);b.setBackground(new Pane(b,glass));b.setOnFocusChangeListener((v,f)->v.invalidate());b.setOnClickListener(v->run.run());TvUi.touchClick(b);return b;}
     private void place(View v,int x,int y,int w,int h,int size,int screen){v.setId(View.generateViewId());items.add(new Item(v,x,y,w,h,size,screen));addView(v,v instanceof HomeAlbumView?0:getChildCount());}
     private void showPage(int value){page=value;if(album!=null)album.active(foreground&&page==2);for(Item i:items)i.view.setVisibility((i.screen<0&&page!=2)||i.screen==page?VISIBLE:GONE);requestLayout();if(page==0){first.requestFocus();return;}if(page==2&&album!=null){album.requestFocus();return;}for(Item i:items)if(i.screen==page&&i.view instanceof Button){i.view.requestFocus();break;}}

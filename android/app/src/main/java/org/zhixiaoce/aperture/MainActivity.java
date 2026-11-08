@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
         destinations = new DestinationApps(this, preferences, slot -> showLobby(slot));
         assistant = new VoiceAssistant(this);
         installer = new ApkInstaller(this, () -> destinations.shortcuts());
-        messages=new HomeMessages(this,()->{if(web!=null&&ready&&lobbyMode)web.evaluateJavascript("window.apertureMessagesRefresh&&window.apertureMessagesRefresh()",null);});
+        messages=new HomeMessages(this,()->{if(web!=null&&ready&&lobbyMode)web.evaluateJavascript("window.apertureMessagesRefresh&&window.apertureMessagesRefresh()",null);if(scenicHome!=null&&messages!=null)scenicHome.messages(messages.display());});
         immersive(); showLobby("");
     }
     @Override protected void onNewIntent(Intent intent) {
@@ -278,6 +278,7 @@ public class MainActivity extends Activity {
         Button save=TvUi.button(this,"保存留言源",()->{try{messages.configure(input.getText().toString());note.setText(input.getText().toString().trim().isEmpty()?"已断开留言源":"已保存，正在读取");}catch(Exception invalid){note.setText("请输入有效的 HTTPS 地址");}});form.addView(save);TvDialogs.panel(this,"留言源",form);
     }
     private void action(String path) {
+        if("/message-edit".equals(path)&&!BuildConfig.PARENTS_EDITION){startActivity(new Intent(this,MessageActivity.class));return;}
         if("/gallery".equals(path)&&!BuildConfig.PARENTS_EDITION){startActivity(new Intent(this,GalleryActivity.class));return;}
         if ("/family-live".equals(path) || "/family-series".equals(path) || "/family-movies".equals(path) || "/family-variety".equals(path)) android.util.Log.i("KaishiHome", "action=" + path.substring(1));
         if("/message-settings".equals(path)){messageSettings();return;}
@@ -377,13 +378,14 @@ public class MainActivity extends Activity {
             else if("diagnostics".equals(route))showDiagnostics();
             else if("apps".equals(route))destinations.all();
             else if("gallery".equals(route))action("/gallery");
-            else if("information".equals(route))messageSettings();
+            else if("information".equals(route))action("/message-edit");
             else if("nas".equals(route))action("/nas");
             else if("system".equals(route))destinations.launch("system");
             else if("weather".equals(route)||"ambient".equals(route))startActivity(new Intent(this,AmbientActivity.class).putExtra("panel","weather".equals(route)?"weather":"settings"));
             else cinema(route);
         });
         setContentView(scenicHome);
+        if(messages!=null)scenicHome.messages(messages.display());
     }
     private void nativeAction(LinearLayout row,String title,Runnable run){Button control=TvUi.button(this,title,run);LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,TvUi.dp(this,44),1);p.setMargins(0,0,TvUi.dp(this,10),0);row.addView(control,p);}
     private void setup() {
@@ -438,7 +440,7 @@ public class MainActivity extends Activity {
                 if (which == 0) showLobby(""); else if (which == 1) setup(); else if (which == 2) destinations.launch("system"); else if (which == 3) destinations.pick("system", false); else if (which == 4) destinations.settings(true); else if (which == 5) family(null); else if (which == 6) assistant.help(); else if (which == 7) destinations.shortcuts(); else if (which == 9) action("/nas"); else if (which == 10) action("/nas-photos"); else if (which == 11) homeMode(); else if (which == 12) installation(); else if (which == 13) cinema("settings"); else if (which == 14) hubConnection(); else if (which == 15) TvLocalControl.open(this); else destinations.all();
             }); return;
         }
-        String[] options = {"默认桌面与开机", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "返回首页", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "首页样式", "安装应用", "直播与影视来源", "智小策 Hub", "局域网控制", "本机诊断"};
+        String[] options = {"默认桌面与开机", "打开直播", "打开影视仓", "切回原生桌面", "选择直播应用", "选择影视应用", "返回首页", "更换家庭服务地址", "所有应用", FeaturePolicy.photos()?"切换轻量 / 完整窗景":"安排与留言", "小爱同学与语音唤醒", "NAS", "首页样式", "安装应用", "直播与影视来源", "智小策 Hub", "局域网控制", "本机诊断", "扫码编辑留言"};
         featureMenu("设置",options, (dialog, which) -> {
             if (which == 0) destinations.settings(true); else if (which == 1) cinema("live"); else if (which == 2) cinema("library"); else if (which == 3) destinations.launch("system");
             else if (which == 4) destinations.pick("live", false); else if (which == 5) destinations.pick("cinema", false); else if (which == 6) showLobby(""); else if (which == 7) setup(); else if (which == 8) destinations.all();
@@ -447,7 +449,7 @@ public class MainActivity extends Activity {
             else if (which == 12) homeMode();
             else if (which == 13) installation();
             else if (which == 14) cinema("settings");
-            else if (which == 15) hubConnection(); else if (which == 16) TvLocalControl.open(this);else if(which==17)showDiagnostics();
+            else if (which == 15) hubConnection(); else if (which == 16) TvLocalControl.open(this);else if(which==17)showDiagnostics();else if(which==18)action("/message-edit");
             else if (BuildConfig.PARENTS_EDITION) family(null);
             else { preferences.edit().putBoolean("lite", !preferences.getBoolean("lite", false)).apply(); family(null); }
         });

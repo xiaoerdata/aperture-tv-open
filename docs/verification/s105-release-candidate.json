@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0-alpha.38",
+  "versionCode": 41,
+  "applicationId": "org.zhixiaoce.kaishi",
+  "edition": "standard",
+  "role": "arm-candidate",
+  "apk": "kaishi-v41-standard-arm.apk",
+  "bytes": 55363900,
+  "sha256": "247f682ac417ee6037cd2bca95f7fec5a824abb4981e78b3ffefbf14ae00e9b2",
+  "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+  "abis": [
+    "armeabi-v7a",
+    "arm64-v8a"
+  ],
+  "debuggable": false,
+  "published": false,
+  "xiaomiTested": false,
+  "packagedAssetsMatchInputs": true,
+  "faultInjectionNotInProduct": true,
+  "inputFiles": 229,
+  "inputSha256": "4b6eaf6f45e24f62cf2b712ebe918c73c288b941619de48d7df43d3dc1fa454d",
+  "sameSignerAsActualV40": true,
+  "packageGrowthBytes": 24721,
+  "finalReceiptsMatchCurrentSources": true,
+  "nativeActivityExecuted": false,
+  "phoneAcrossPhysicalDevicesTested": false,
+  "existingV40ReleasePreserved": true
+}

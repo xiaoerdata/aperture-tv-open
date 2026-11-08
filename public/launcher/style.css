@@ -87,3 +87,12 @@ body[data-photos="off"] .family-layout .family-daily>.quiet-action{grid-column:1
 
 /* Common apps are a permanent, non-interactive section heading. */
 .dock-toggle{min-height:0;padding:0;border:0;background:transparent}.dock-stack[hidden],#dock-total[hidden]{display:none}.home-dock{gap:14px}
+
+/* A fixed icon stage keeps every logo centered, regardless of caption wrapping. */
+.standard .apps-screen .shortcut{width:160px;height:204px;padding:0;gap:6px;justify-content:flex-start;text-align:center}
+.standard .apps-screen .shortcut-glyph{width:144px;height:144px;min-height:144px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:#17212b70}
+.standard .apps-screen .shortcut-glyph .app-mark{width:96px;height:96px;margin:0;flex:none}
+.standard .apps-screen .shortcut strong{width:100%;height:50px;line-height:25px;font-size:24px;text-align:center}
+.message-actions{grid-column:1/-1;display:flex;gap:18px;align-items:center}.message-actions .quiet-action{margin:0}
+.standard .apps-screen .shortcut:focus{outline:none;box-shadow:none;background:transparent}
+.standard .apps-screen .shortcut:focus .shortcut-glyph{outline:3px solid var(--focus);outline-offset:3px;background-color:#e0e6df1f;box-shadow:0 0 0 1px #0004}

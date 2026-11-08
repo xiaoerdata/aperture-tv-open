@@ -1,6 +1,7 @@
 package org.zhixiaoce.aperture;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +22,9 @@ final class NativeGallery extends FrameLayout {
     private final LinearLayout body;private final ImageView picture,backgroundPicture;private final TextView heading,status,count,empty,address;private final Button stop;
     private JSONArray photos=new JSONArray();private int index,seconds=12;private long epoch;private boolean closed,active,full,paused;private Bitmap bitmap;
     private final Runnable tick=()->{if(!closed&&active&&full&&!paused&&photos.length()>1){move(1);schedule();}};
+    private AlertDialog uploadDialog;
+    private final Runnable qrExpired=this::expireQr;
+    private void expireQr(){if(usable())actions.stop();}
     NativeGallery(Activity a,GalleryStore store,Actions actions,boolean recovery){
         super(a);activity=a;this.store=store;this.actions=actions;setTag(recovery?"kaishi-gallery-error":"kaishi-gallery-native");setBackground(TvUi.background());
         backgroundPicture=new ImageView(a);backgroundPicture.setScaleType(ImageView.ScaleType.FIT_CENTER);backgroundPicture.setAlpha(.55f);addView(backgroundPicture,new FrameLayout.LayoutParams(-1,-1));
@@ -32,7 +36,7 @@ final class NativeGallery extends FrameLayout {
         LinearLayout controls=new LinearLayout(a);Button previous=TvUi.button(a,"上一张",()->move(-1)),next=TvUi.button(a,"下一张",()->move(1));Button preview=TvUi.button(a,"全屏轮播",this::fullscreen),upload=TvUi.button(a,"手机上传",actions::upload),stages=TvUi.button(a,"加载记录",actions::stages);
         upload.setTag("native-gallery-upload");preview.setTag("native-gallery-preview");upload.setId(View.generateViewId());heading.setNextFocusDownId(upload.getId());
         for(Button b:new Button[]{previous,next,preview})TvUi.addAction(a,controls,b);body.addView(controls);LinearLayout more=new LinearLayout(a);for(Button b:new Button[]{upload,stages})TvUi.addAction(a,more,b);body.addView(more);
-        TextView note=TvUi.text(a,"本机模式逐张轮播；扫码、模板和照片管理需网页相册。手机上传可手动输入临时地址。",16,true);body.addView(note);
+        TextView note=TvUi.text(a,"手机与电视连接同一网络，扫码上传照片。",16,true);body.addView(note);
         address=TvUi.text(a,"",17,false);address.setMaxLines(3);address.setVisibility(GONE);body.addView(address);stop=TvUi.button(a,"关闭上传",actions::stop);stop.setVisibility(GONE);body.addView(stop);
         if(recovery)back.requestFocus();else heading.requestFocus();refresh();
     }
@@ -55,8 +59,18 @@ final class NativeGallery extends FrameLayout {
     boolean key(KeyEvent event){if(!full)return false;int code=event.getKeyCode();if(code==KeyEvent.KEYCODE_BACK){if(event.getAction()==0&&event.getRepeatCount()==0)back();return true;}if(code==21||code==22||code==23||code==66){if(event.getAction()==0&&event.getRepeatCount()==0){if(code==21||code==22)move(code==21?-1:1);else{paused=!paused;schedule();}}return true;}return false;}
     void active(boolean value){if(!usable())return;active=value;if(!value)++epoch;else refresh();schedule();}
     void status(String text){if(usable()&&active)status.setText(text);}
-    void upload(String url){if(!usable())return;address.setText("手机浏览器输入此临时地址（10分钟）：\n"+url);address.setVisibility(VISIBLE);stop.setVisibility(VISIBLE);stop.requestFocus();}
-    void uploadClosed(){address.setText("");address.setVisibility(GONE);stop.setVisibility(GONE);}
+    void upload(String url){
+        if(!usable())return;uploadClosed();
+        LinearLayout qrBody=new LinearLayout(activity);qrBody.setOrientation(LinearLayout.VERTICAL);
+        qrBody.addView(TvUi.text(activity,"手机与电视连接同一网络\n二维码10分钟有效，离开相册即关闭",17,true));
+        PhoneQrView qr=new PhoneQrView(activity,url);qr.setTag("native-gallery-qr");
+        LinearLayout.LayoutParams size=new LinearLayout.LayoutParams(TvUi.dp(activity,220),TvUi.dp(activity,220));size.gravity=Gravity.CENTER_HORIZONTAL;size.topMargin=TvUi.dp(activity,12);qrBody.addView(qr,size);
+        TextView link=TvUi.text(activity,url,15,true);link.setMaxLines(4);link.setTextIsSelectable(true);qrBody.addView(link);
+        Button done=TvUi.button(activity,"关闭上传",actions::stop);qrBody.addView(done);
+        uploadDialog=TvDialogs.panel(activity,"扫码上传照片",qrBody);if(uploadDialog.getWindow()!=null)uploadDialog.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
+        uploadDialog.setOnDismissListener(d->{uploadDialog=null;if(usable())actions.stop();});ui.postDelayed(qrExpired,600000);done.requestFocus();
+    }
+    void uploadClosed(){ui.removeCallbacks(qrExpired);address.setText("");address.setVisibility(GONE);stop.setVisibility(GONE);if(uploadDialog!=null){AlertDialog old=uploadDialog;uploadDialog=null;old.setOnDismissListener(null);old.dismiss();}}
     private boolean usable(){return !closed&&!activity.isFinishing()&&!activity.isDestroyed();}
-    void close(){if(closed)return;closed=true;address.setText("");++epoch;ui.removeCallbacks(tick);worker.shutdownNow();picture.setImageDrawable(null);backgroundPicture.setImageDrawable(null);recycle();}
+    void close(){if(closed)return;closed=true;uploadClosed();++epoch;ui.removeCallbacks(tick);worker.shutdownNow();picture.setImageDrawable(null);backgroundPicture.setImageDrawable(null);recycle();}
 }

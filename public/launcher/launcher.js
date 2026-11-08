@@ -51,6 +51,7 @@
   };
   fitTelevision();
   window.addEventListener('resize', fitTelevision);
+  window.addEventListener('orientationchange', fitTelevision);
   if (window.visualViewport) window.visualViewport.addEventListener('resize', fitTelevision);
   location.search.slice(1).split('&').forEach(function (part) {
     var bits = part.split('=');
@@ -107,7 +108,7 @@
     settings: {title:'设置', actions:[
       ['home-settings','默认桌面与开机','','primary'],
       ['cinema-settings','直播与影视来源','',''], ['nas','NAS','',''], ['choose-shortcuts','常用应用','',''],
-      ['gallery','相册设置','',''], ['weather','天气','',''], ['ambient-settings','屏保','',''], ['show-information','留言','',''], ['message-settings','留言源','',''], ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
+      ['gallery','相册设置','',''], ['weather','天气','',''], ['ambient-settings','屏保','',''], ['show-information','留言','',''], ['message-edit','扫码编辑留言','',''], ['message-settings','留言源','',''], ['wallpapers','壁纸','',''], ['home-panels','首页轮播','',''], ['configure','家庭服务','',''],
       ['open-system','返回原桌面','',''], ['voice-help','小爱同学','',''], ['more-settings','更多设置','','']
     ]},
     'more-settings': {title:'更多设置', actions:[
@@ -186,6 +187,7 @@
   }
   if(window.KaishiGallery)window.KaishiGallery.mount($('gallery-home-scene'),'home');
   $('gallery-home-settings').onclick=function(){nativeAction('gallery');};
+  $('message-edit').onclick=$('collection-message-edit').onclick=function(){nativeAction('message-edit');};
   $('apps-next').onclick = function () { setHomePage(2); };
   var screenButtons = document.querySelectorAll('[data-home-screen]');
   for (i = 0; i < screenButtons.length; i++) screenButtons[i].onclick = function () { setHomePage(Number(this.getAttribute('data-home-screen'))); };
@@ -367,6 +369,7 @@
     if (name === 'tools') { openPane('settings'); return; }
     if (name === 'data') { var m=entries('metric')[0], signal=((board&&board.life)||[])[0]; if(m||signal)detail(m||signal,!!m); return; }
     if (['overview', 'photos', 'information'].indexOf(name) < 0) return;
+    $('collection-message-edit').hidden=name!=='information'||parents;
     if (name !== 'overview') { sectionReturn = document.activeElement; if (section === 'overview') sectionHomePage = homePage; }
     if (section !== name) contentPage = 0; section = name; $('lobby').setAttribute('data-section', name);
     $('collection-view').hidden = name === 'overview';
@@ -389,7 +392,7 @@
     agenda.slice(0,3).forEach(function(e){var row=element('div','family-event'+(e.done?' done':''));row.appendChild(element('time','',e.time));row.appendChild(element('span','',e.title));$('family-events').appendChild(row);});
     if(!agenda.length)$('family-events').appendChild(element('p','family-empty','暂无安排'));
     text('note-title', n ? n.body : '暂无留言');text('note-body',n?n.time||'':'');text('note-time','');
-    $('entry-information').hidden=parents||(photosEnabled&&!agenda.length&&!n);
+    $('entry-information').hidden=parents;
     if (pane === 'detail' && detailState) {
       var candidates = detailState.metric ? ((board && board.entries) || []).filter(function (e) { return e.type === 'metric'; }) : (board && board.life) || [];
       var currentDetail = candidates.filter(function (e) { return e.id === detailState.id; })[0];

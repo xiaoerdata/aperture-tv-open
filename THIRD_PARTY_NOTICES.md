@@ -16,6 +16,7 @@
 
 ## qrcode 1.5.4
 
+
 MIT，作者与完整许可见安装依赖中的 qrcode/license。用于在本机生成授权二维码；不向第三方二维码服务发送链接。依赖锁定于 package-lock.json，保留依赖自带许可。
 
 ## 电视首页字体
@@ -111,3 +112,8 @@ TVmaze资料采用其API说明的CC BY-SA条件，保留来源与归属；TMDB�
 ## 本机相册二维码编码器
 
 `public/launcher/gallery-qr.js` 由仓库已固定依赖 qrcode 1.5.4 与 dijkstrajs 生成，仅包含二维码编码图，不含远程服务。两者采用 MIT 许可，生成入口 `scripts/build-gallery-qr.mjs`，上游为 https://github.com/soldair/node-qrcode 与 https://github.com/andrewhayward/dijkstra。
+
+
+## Nayuki 原生二维码
+
+原生相册及家庭留言二维码另使用 Project Nayuki 的 QR Code generator（MIT），固定上游提交 `bcfe1b018cec5f1f91b5705eca5bb4cdd34e9f8d`。原始版权和完整 MIT 许可保留在 `android/app/src/main/java/io/nayuki/qrcodegen/` 四份源文件中；来源和 SHA-256 见 `android/third-party/qrcodegen-source.json`。直接本机编码，不依赖 WebView 或外部二维码服务。

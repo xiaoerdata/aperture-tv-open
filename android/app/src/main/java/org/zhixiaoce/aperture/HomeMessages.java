@@ -22,10 +22,15 @@ final class HomeMessages {
     boolean paused(){return paused;}
     void paused(boolean value){paused=value;prefs.edit().putBoolean("paused",value).apply();if(value)stop();}
     void configure(String value)throws Exception {String next=MessageFeed.source(value);generation++;http.cancel();stop();feed=null;lastPoll=0;prefs.edit().putString("source",next).remove("cache").apply();changed.run();if(active)poll();}
-    void active(boolean value){if(closed)return;active=value;main.removeCallbacks(tick);if(value){poll();main.post(tick);}else{generation++;http.cancel();stop();}}
+    void active(boolean value){if(closed)return;active=value;main.removeCallbacks(tick);if(value){changed.run();poll();main.post(tick);}else{generation++;http.cancel();stop();}}
     private final Runnable tick=new Runnable(){public void run(){if(!active||closed)return;long now=System.currentTimeMillis();if(now-lastPoll>=60000)poll();speakDue();main.postDelayed(this,1000);}};
     private void poll(){if(fetching||!active||source().isEmpty()||closed)return;fetching=true;lastPoll=System.currentTimeMillis();final int turn=generation;final String address=source();io.execute(()->{MessageFeed next=null;String json="";try{json=http.messages(address);next=new MessageFeed(json);}catch(Exception ignored){}final MessageFeed result=next;final String cache=json;main.post(()->{fetching=false;if(!closed&&active&&turn==generation&&address.equals(source())&&result!=null){feed=result;prefs.edit().putString("cache",cache).apply();changed.run();}if(!closed&&active&&turn!=generation){lastPoll=0;poll();}});});}
-    byte[] display(){try{return (feed==null?new JSONObject().put("version",1).put("messages",new JSONArray()):feed.display(Instant.now())).put("configured",!source().isEmpty()).put("paused",paused).toString().getBytes(StandardCharsets.UTF_8);}catch(Exception failure){return "{\"messages\":[]}".getBytes(StandardCharsets.UTF_8);}}
+    byte[] display(){try{
+        JSONArray local=new LocalMessageStore(activity).read().getJSONArray("messages"),rows=new JSONArray();
+        for(int i=0;i<local.length();i++)rows.put(local.getJSONObject(i));
+        if(feed!=null){JSONArray remote=feed.display(Instant.now()).getJSONArray("messages");for(int i=0;i<remote.length()&&rows.length()<100;i++)rows.put(remote.getJSONObject(i));}
+        return new JSONObject().put("version",1).put("messages",rows).put("configured",local.length()>0||!source().isEmpty()).put("paused",paused).toString().getBytes(StandardCharsets.UTF_8);
+    }catch(Exception failure){return "{\"messages\":[]}".getBytes(StandardCharsets.UTF_8);}}
     private void speakDue(){
         if(!active||closed||paused||!ready||feed==null||tts.isSpeaking()||audio.isMusicActive())return;
         Instant now=Instant.now();for(JSONObject m:feed.messages){String key=feed.due(m,now);if(key.isEmpty())continue;key=UUID.nameUUIDFromBytes(source().getBytes(StandardCharsets.UTF_8)).toString()+":"+key;if(spoken.has(key))continue;

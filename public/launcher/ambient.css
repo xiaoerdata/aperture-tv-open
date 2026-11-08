@@ -11,3 +11,31 @@
 .ambient-options .weather-sheet{position:absolute;right:4%;top:50%;width:560px;height:auto;max-height:984px;transform:translateY(-50%) scale(var(--tv-scale));transform-origin:right center;padding:26px;border-radius:20px;overflow:auto}
 .ambient-options h1{font-size:30px;margin:0 0 16px}.ambient-options .weather-status{font-size:20px;line-height:1.5;margin:0}.ambient-options .ambient-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}.ambient-options .ambient-choices button{height:72px;min-height:52px;font-size:23px;padding:10px 14px}
 @media(max-aspect-ratio:4/3){.ambient-options{padding:12px}.ambient-options .weather-sheet{position:relative;right:auto;top:auto;width:100%;height:auto;max-height:calc(100vh - 24px);transform:none;padding:20px}.ambient-options h1{font-size:28px}.ambient-options .ambient-choices button{font-size:19px;height:60px}}
+
+/* Weather is a reading surface: a trend first, then hourly values or seven aligned rows. */
+#weather-overlay{padding:40px 64px;background:#070d13ed}
+#weather-overlay .weather-sheet{padding:30px 40px;border-radius:24px;background:linear-gradient(130deg,#1e2b34f5,#101a22f5)}
+#weather-overlay .weather-header h1{font-size:32px;color:#c4ced4}
+#weather-overlay .weather-actions{gap:10px}#weather-overlay button{font-size:23px;min-height:54px;padding:10px 20px}
+#weather-overlay .weather-hero{flex:0 0 184px;gap:24px;padding:22px 0 18px}
+.weather-vector{width:52px;height:52px;display:block;flex-shrink:0;color:#e4ded0}
+#weather-overlay .weather-hero>.weather-vector{width:98px;height:98px;margin-right:8px}
+#weather-overlay .weather-current h2{font-size:44px;font-weight:400;margin:0 0 8px}
+#weather-overlay .weather-condition{font-size:26px;color:#c6cfd3}
+#weather-overlay .weather-temp{font-size:116px;line-height:1;margin:0 32px;font-variant-numeric:tabular-nums}
+#weather-overlay .weather-measures{display:flex;gap:48px;margin-left:auto}
+.weather-measures small,.weather-measures strong{display:block}.weather-measures small{font-size:21px;color:#a7b8c0;margin-bottom:9px}.weather-measures strong{font-size:29px;font-weight:400;color:#e7edec}
+#weather-overlay .weather-status{font-size:20px;min-height:30px;margin-bottom:12px;color:#acbcc5}
+#weather-overlay .weather-body{border-top:1px solid #ffffff20;padding-top:16px;outline-offset:-3px}
+#weather-overlay .weather-hours{display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.weather-trend{margin:0;flex:0 0 auto}.weather-chart-caption{display:flex;justify-content:space-between;font-size:20px;color:#aebfc6;padding:0 8px}.weather-chart-caption strong{font-weight:400;color:#ece3d2}.weather-trend>svg{display:block;width:100%;height:250px;overflow:visible}.weather-chart-grid{stroke:#c8d4d91c;stroke-width:1}.weather-axis{fill:#aebfc6;font:18px Arial,sans-serif}.weather-rain-bar{fill:#6d9dba;opacity:.3}.weather-temperature-line{stroke:#edd2a6;stroke-width:3.5;fill:none;stroke-linejoin:round;stroke-linecap:round}.weather-temperature-point{fill:#edd2a6}
+.weather-hour-strip{display:flex;overflow-x:auto;overflow-y:hidden;flex:1;min-height:166px;scrollbar-color:#8eabb5 #14212a;padding:4px 4px 10px}
+#weather-overlay .weather-hour-strip .weather-cell{flex:0 0 116px;border:0;border-right:1px solid #ffffff16;gap:8px;padding:7px 8px;justify-content:flex-start}.weather-hour-strip .weather-vector{width:36px;height:36px;margin:2px 0}
+#weather-overlay .weather-hour-strip h3{font-size:21px}#weather-overlay .weather-hour-strip strong{font-size:30px}#weather-overlay .weather-hour-strip small{font-size:18px;color:#9db9c9}
+.weather-scroll-hint{margin:3px 0 0;font-size:18px;color:#98adb8}
+#weather-overlay .weather-days{display:flex;flex-direction:column;gap:0;overflow:auto}
+.weather-day-row{display:grid;grid-template-columns:210px 72px 160px 66px minmax(120px,1fr) 66px 150px;align-items:center;column-gap:22px;flex:1;min-height:71px;border-bottom:1px solid #ffffff12;padding:5px 12px}
+.weather-day-row h3{font-size:25px;font-weight:400;margin:0}.weather-day-row .weather-vector{width:42px;height:42px}.weather-day-condition{font-size:23px;color:#bfccd1}.weather-day-low,.weather-day-high{font-size:27px;text-align:center;font-weight:400;font-variant-numeric:tabular-nums}.weather-day-low{color:#aec4d1}.weather-day-high{color:#edd2a6}.weather-day-row small{font-size:21px;color:#a8c1ce;text-align:right}
+.weather-temperature-track{height:7px;border-radius:8px;background:#ffffff0c;position:relative}.weather-temperature-range{position:absolute;height:100%;min-width:4px;border-radius:inherit;background:linear-gradient(90deg,#98c0d1,#edd2a6)}
+#weather-overlay .weather-credit{margin-top:12px;font-size:17px;color:#8fa5af}
+#weather-overlay .weather-days{align-items:stretch}
