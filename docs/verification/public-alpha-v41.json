@@ -1,0 +1,69 @@
+{
+  "version": "0.2.0-alpha.38",
+  "versionCode": 41,
+  "edition": "standard",
+  "tag": "v0.2.0-alpha.38",
+  "commit": "0e9c37975c4f82572c7e93baeabe2f262e358ec1",
+  "tree": "30087416ddde73ffaefb1561aae8cad722a06ed3",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.38",
+  "prerelease": true,
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v41-standard-arm.apk",
+      "bytes": 55363900,
+      "sha256": "247f682ac417ee6037cd2bca95f7fec5a824abb4981e78b3ffefbf14ae00e9b2",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 106
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 47472,
+      "sha256": "ff52b980a55c47a5ccbbf9534f26007081401c19e3d48189a53ca04ca080768d",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 182,
+      "sha256": "0e32e4debf9b728d9a30a4858530844cd16d98bfd5a645bcb570a84c10b35db2",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    }
+  ],
+  "publicFrozenSourceReadback": [
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "sha256": "c0d9d2327f6b299a505935bd9d44a156104efe54b63081d984933aee809f6656",
+      "anonymous": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "2cdda6636e6d708437f54748aacd71393ec2eeee0c44f3a55b9d1c360dddd711",
+      "anonymous": true
+    },
+    {
+      "path": "docs/DOWNLOADS.md",
+      "sha256": "51543c389dedb3149862a7e12729ea62d43b09c72dbf559b34fd5e36a2c08d6e",
+      "anonymous": true
+    },
+    {
+      "path": "docs/RELEASE-V41.md",
+      "sha256": "166cbc7212810a5fa7d8663f50d1ac1556d6701f265eac85e010ece1332cca63",
+      "anonymous": true
+    }
+  ],
+  "androidInputSha256": "4b6eaf6f45e24f62cf2b712ebe918c73c288b941619de48d7df43d3dc1fa454d",
+  "androidGitTreeInputFilesVerified": 229,
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "phoneAcrossPhysicalDevicesTested": false,
+  "parentsDevelopment": "paused",
+  "publicTagCommitVerified": true,
+  "githubDigestMatchesAllAssets": true,
+  "publishedAt": "2026-11-08T12:07:39Z",
+  "temporaryUploaderRuntimeRemoved": true,
+  "globalProxySettingsModified": false
+}
