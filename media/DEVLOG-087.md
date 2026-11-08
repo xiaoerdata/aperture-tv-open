@@ -8,3 +8,5 @@
 4. 发布页、附件摘要和匿名下载读回，在实际完成后补入。准备上传时不使用“已上线”字幕。
 
 提示词保存在P127，过程见S112与 `docs/RELEASE-V43.md`。无新增个人照片、未授权肖像或有效二维码素材。
+
+S112发布记录：v43/alpha.40标准版已公开预发布，三个实际附件完整匿名下载一致；小米真机仍待验。发行页：https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.40

@@ -47,8 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": null,
-    "publicParent": "057ac8e912f5f464a56c66ccc93de231337523f5",
+    "postReleaseReceiptFor": "38047154826689944a970766bf63d06b79ffba66",
+    "publicParent": "38047154826689944a970766bf63d06b79ffba66",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
   "files": [
@@ -5219,8 +5219,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 284041,
-      "sha256": "257d5b96c261729ed20ff284a47786b4f61453b5428bdabb64a70afb89057ac2"
+      "bytes": 284931,
+      "sha256": "ee05482f02b2f3d9d15f23cc4bf353e2489dfbd704afd8e8e02ccf8a78777ed9"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -5513,6 +5513,11 @@
       "sha256": "7fbe06c16a98e788462b8c0998606bd9c597256bc8337a3045a11459720e6a12"
     },
     {
+      "path": "docs/verification/public-alpha-v43.json",
+      "bytes": 2216,
+      "sha256": "f923c6aebc1c21745c0516e8582f818d8b93eade48fb3a89365a7501ad32e2cf"
+    },
+    {
       "path": "docs/verification/public-source-v13-r2.json",
       "bytes": 3710,
       "sha256": "2a9c3b33c4f005a115bfaf9b5eeab53692559822e0d88e2c526ad5849a2030e8"
@@ -5656,6 +5661,11 @@
       "path": "docs/verification/s111-native-compile.json",
       "bytes": 17987,
       "sha256": "773750fa5d6e4aa16be00ec471fb188cb1506240ae2b6e14c64e3f838910e35a"
+    },
+    {
+      "path": "docs/verification/s112-cleanup.json",
+      "bytes": 724,
+      "sha256": "901f83695fa4667b7da148752373f047b793511a9c7e062c8dd6a033bc31058a"
     },
     {
       "path": "docs/verification/s112-home-browser.json",
@@ -7804,8 +7814,8 @@
     },
     {
       "path": "media/DEVLOG-087.md",
-      "bytes": 1030,
-      "sha256": "2145c5ec58df5ed1c7aadafdeb51556b1cc78e459a88c71ba6a8d5307234f8e1"
+      "bytes": 1249,
+      "sha256": "4348a79c844cd60fd1e9dcaaf4b3a77b2dd0304a3fbf977a1f6ad87c62ef3c0d"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -10151,7 +10161,9 @@
     "prerelease": true,
     "fullCloudRegressionAccepted": false,
     "xiaomiAccepted": false,
-    "latestDocumentation": "docs/RELEASE-V43.md"
+    "latestDocumentation": "docs/RELEASE-V43.md",
+    "publishedAt": "2026-11-08T17:29:46Z",
+    "anonymousDownloadVerified": true
   },
   "upstreamUnresolvedValidation": {
     "candidate": {

@@ -1,0 +1,21 @@
+{
+  "removedDirectories": [
+    "android/app/build",
+    "artifacts/s112-release/source-overlay",
+    "artifacts/s112-release/delivery",
+    "artifacts/current-release-v41-retired",
+    "artifacts/v41-candidate",
+    "artifacts/v42-candidate"
+  ],
+  "removedFiles": 3124,
+  "removedSymlinks": 4,
+  "freedAllocatedBytesEstimate": 422936576,
+  "productInputsUnchanged": 236,
+  "privateSigningFilesAndPermissionsUnchanged": true,
+  "currentReleaseVersionCode": 43,
+  "currentReleaseSha256": "e33ff9510d208c08b9a1cb64d96469d2905b7830e0bda722fba8f68105fff111",
+  "previousV41RecoverableFromPublicRelease": true,
+  "previousCandidateMetadataRetained": true,
+  "runtimeToolchainUntouched": true,
+  "activeFileReferencesFound": 0
+}
