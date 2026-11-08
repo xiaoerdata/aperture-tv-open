@@ -4,22 +4,22 @@
 
 智小策的首个开源项目，当前为 **Alpha 测试版**：保留原桌面、小爱同学与原系统账号，在电视上增加日程、留言、数据、NAS资源和可定制入口。
 
-当前标准版 **v41 / 0.2.0-alpha.38**：应用图标居中、首页等比缩放，原生相册补上二维码，家庭留言支持扫码增删改，天气增加24小时曲线和七日温区。**这是预发布测试版，小米真机验收未完成**，详见[本版说明](docs/RELEASE-V41.md)。
+当前标准版 **v43 / 0.2.0-alpha.40**：大屏Logo等比放大，片单原位加载、播放进度与线路记忆、天气返回修复，第二屏可添加128个应用，相册支持20MiB上传和原亮度屏保。**这是预发布测试版，小米真机验收未完成**，详见[本版说明](docs/RELEASE-V43.md)。
 
-**v41可更新v18—v40标准版，保留配置；与v17并存。** 从v17首次使用新包名需重新配对和配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，用户可在设置首项申请默认桌面或明确授权守护。
+**v43可更新v18—v42标准版，保留配置；与v17并存。** 从v17首次使用新包名需重新配对和配置NAS；请先读[迁移说明](docs/MIGRATION-V18.md)。默认作为普通应用安装，用户可在设置首项申请默认桌面或明确授权守护。
 
 ## 版本
 
 - 标准版：首屏看电视、看电视剧、看电影、看综艺、常用应用；向下依次进入应用、相册和留言。深色玻璃、4K摄影背景和遥控焦点。
 - 爸妈版（暂停开发，保留历史版本）：看电视、看电视剧、看电影、看综艺，以及常用应用快捷入口。安装和来源配置留在家人设置。
 
-![标准版首页（浏览器、合成应用状态，非真机）](docs/images/s102-home/home.png)
+![标准版首页（浏览器、合成应用状态，非真机）](docs/images/s112/home-regression/home.png)
 
 ![爸妈版首页（浏览器、合成留言，非真机）](docs/images/s79-parents-1920.png)
 
 ## 安装与使用
 
-按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.38)提供标准版和源码，爸妈版保留历史版本；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](INSTALL.md)开始。[下载与版本](docs/DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.40)提供标准版和源码，爸妈版保留历史版本；也可[免费本地构建](docs/ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](docs/EMBEDDED-CINEMA.md)与[插件说明](docs/PLUGIN-ENGINE.md)；没有预置影视来源。
 

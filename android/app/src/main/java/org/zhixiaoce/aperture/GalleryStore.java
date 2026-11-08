@@ -12,7 +12,7 @@ import java.util.function.BooleanSupplier;
 
 /** App-private, bounded photographs. Originals and EXIF are discarded after normalization. */
 final class GalleryStore {
-    static final int MAX_UPLOAD=12*1024*1024,MAX_COUNT=300;static final long MAX_BYTES=512L*1024*1024;
+    static final int MAX_UPLOAD=20*1024*1024,MAX_COUNT=300;static final long MAX_BYTES=512L*1024*1024;
     private static final Object LOCK=new Object();private final Context context;private final File directory;
     GalleryStore(Context context){this.context=context.getApplicationContext();directory=new File(this.context.getFilesDir(),"local-gallery");}
     static boolean id(String id){return id!=null&&id.matches("[a-f0-9]{32}");}
@@ -30,7 +30,7 @@ final class GalleryStore {
     }
     String add(byte[] bytes,BooleanSupplier authorized)throws Exception{
         if(!authorized.getAsBoolean())throw new IOException("上传已关闭，请重新扫码");
-        if(bytes.length<16||bytes.length>MAX_UPLOAD)throw new IOException("单张照片上限12MB");
+        if(bytes.length<16||bytes.length>MAX_UPLOAD)throw new IOException("单张照片上限20MB");
         BitmapFactory.Options bounds=new BitmapFactory.Options();bounds.inJustDecodeBounds=true;BitmapFactory.decodeByteArray(bytes,0,bytes.length,bounds);
         if(bounds.outWidth<=0||bounds.outHeight<=0||(long)bounds.outWidth*bounds.outHeight>48000000||!Arrays.asList("image/jpeg","image/png","image/webp").contains(bounds.outMimeType))throw new IOException("请选择JPEG、PNG或WebP照片，最大4800万像素");
         BitmapFactory.Options options=new BitmapFactory.Options();options.inSampleSize=1;while(Math.max(bounds.outWidth,bounds.outHeight)/options.inSampleSize>2560)options.inSampleSize*=2;

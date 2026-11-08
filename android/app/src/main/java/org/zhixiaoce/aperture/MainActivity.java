@@ -258,7 +258,7 @@ public class MainActivity extends Activity {
     private void showLobby(String pane) {
         destinations.initializeShortcuts();
         LobbyMode.Choice choice=lobby.choose(webViewVersion(),preferences.getBoolean("simple_home",false));
-        if(choice!=LobbyMode.Choice.GLASS){nativeLobby(choice==LobbyMode.Choice.NATIVE_OLD_ENGINE?WebDiagnostics.Home.NATIVE_OLD_ENGINE:choice==LobbyMode.Choice.NATIVE_SELECTED?WebDiagnostics.Home.NATIVE_SELECTED:WebDiagnostics.Home.NATIVE_RECOVERY);return;}
+        if(choice!=LobbyMode.Choice.GLASS){nativeLobby(choice==LobbyMode.Choice.NATIVE_OLD_ENGINE?WebDiagnostics.Home.NATIVE_OLD_ENGINE:choice==LobbyMode.Choice.NATIVE_SELECTED?WebDiagnostics.Home.NATIVE_SELECTED:WebDiagnostics.Home.NATIVE_RECOVERY);if("apps".equals(pane)&&scenicHome!=null)scenicHome.showApps();return;}
         try{createWeb(true);}catch(RuntimeException unavailable){
             diagnostics.event("home","fallback",0,WebDiagnostics.Reason.WEBVIEW_CREATE_ERROR);lobby.webFailed();nativeLobby();return;
         }
@@ -266,6 +266,7 @@ public class MainActivity extends Activity {
         for (String slot : new String[] {"live", "cinema", "system", "quick1", "quick2", "quick3", "quick4"}) uri.appendQueryParameter(slot, destinations.label(slot));
         uri.appendQueryParameter("assistant", assistant.label());
         uri.appendQueryParameter("photos",FeaturePolicy.photos()?"1":"0");
+        if("apps".equals(pane))uri.appendQueryParameter("screen","apps");
         if("information".equals(pane))uri.appendQueryParameter("section","information");
         if ("quick1".equals(pane) || "quick2".equals(pane) || "quick3".equals(pane) || "quick4".equals(pane)) uri.appendQueryParameter("focus", pane);
         if ("live".equals(pane) || "cinema".equals(pane) || "system".equals(pane) || "settings".equals(pane) || "voice".equals(pane)) uri.appendQueryParameter("pane", pane);
@@ -279,6 +280,8 @@ public class MainActivity extends Activity {
     }
     private void action(String path) {
         if("/message-edit".equals(path)&&!BuildConfig.PARENTS_EDITION){startActivity(new Intent(this,MessageActivity.class));return;}
+        if("/wall-edit".equals(path)&&!BuildConfig.PARENTS_EDITION){destinations.editWall();return;}
+        if(path!=null&&path.startsWith("/open-wall")&&!BuildConfig.PARENTS_EDITION){destinations.launchWall(path.substring(6));return;}
         if("/gallery".equals(path)&&!BuildConfig.PARENTS_EDITION){startActivity(new Intent(this,GalleryActivity.class));return;}
         if ("/family-live".equals(path) || "/family-series".equals(path) || "/family-movies".equals(path) || "/family-variety".equals(path)) android.util.Log.i("KaishiHome", "action=" + path.substring(1));
         if("/message-settings".equals(path)){messageSettings();return;}

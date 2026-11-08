@@ -256,6 +256,24 @@
             },
             "backdrop": {
               "$ref": "#/$defs/url"
+            },
+            "updatedAt": {
+              "type": "string",
+              "maxLength": 80,
+              "description": "来源提供的更新时间，用于最新时间排序"
+            },
+            "doubanRating": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 10
+                },
+                {
+                  "type": "string",
+                  "maxLength": 40
+                }
+              ]
             }
           }
         },
@@ -332,6 +350,24 @@
         "summary": {
           "type": "string",
           "maxLength": 4000
+        },
+        "updatedAt": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "来源提供的更新时间，用于最新时间排序"
+        },
+        "doubanRating": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            },
+            {
+              "type": "string",
+              "maxLength": 40
+            }
+          ]
         }
       },
       "required": [

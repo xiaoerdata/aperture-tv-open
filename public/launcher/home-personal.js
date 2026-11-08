@@ -2,7 +2,7 @@
 (function () {
  'use strict';
  window.KaishiHome = function (options) {
-  var catalog=[], apps={}, slots=[], sources={}, slides=[], index=0, timer=null, mode='auto', current='', disposed=false, expanded=true, preferredExpanded=true, foldTimer=null, snapshotReceived=false;
+  var catalog=[], apps={}, slots=[], sources={}, slides=[], index=0, timer=null, mode='auto', current='', disposed=false, expanded=true, preferredExpanded=true, foldTimer=null, snapshotReceived=false,wall=null;
   var panel=document.getElementById('personal-panel'), dock=document.getElementById('home-dock');
   function node(tag,cls,value){var n=document.createElement(tag);n.className=cls||'';if(value!==undefined)n.textContent=value;return n;}
   function id(name){return document.getElementById(name);}
@@ -49,9 +49,18 @@
    var buttons=list.querySelectorAll('button');for(var b=0;b<buttons.length;b++)buttons[b].tabIndex=0;
    if(focus)options.focus(id('home-apps').querySelector('button')||id('home-app-add'));
   }
+  function renderWall(){
+   if(wall===null||document.body.classList.contains('parents'))return;
+   var grid=document.querySelector('.shortcuts-row'),old=document.activeElement.id,inside=grid.contains(document.activeElement);grid.textContent='';grid.setAttribute('data-wall','true');
+   function tile(key,name,entry,icon,run,glyph){var b=node('button','shortcut glass');b.id=key;b.setAttribute('aria-label',name);var stage=node('span','shortcut-glyph');stage.setAttribute('aria-hidden','true');if(glyph)stage.textContent=glyph;else{stage.appendChild(mark(entry,icon));var image=stage.querySelector('img');if(image){image.loading='lazy';image.decoding='async';}}b.appendChild(stage);b.appendChild(node('strong','',name));b.onclick=run;grid.appendChild(b);}
+   tile('wall-add','添加应用',null,'',function(){options.action('wall-edit');},'＋');
+   wall.forEach(function(item){if(!item||!/^wall[a-f0-9]{16}$/.test(item.key)||!item.name)return;tile('wall-'+item.key,item.name,info(item.id),item.icon,function(){options.action('open-'+item.key);});});
+   tile('wall-all','所有应用',null,'',function(){options.action('apps');},'▦');tile('wall-manage','管理应用',null,'',function(){options.action('wall-edit');},'✎');
+   if(inside)options.focus(id(old)||grid.querySelector('button'));
+  }
   function renderApps(){
    var old=document.activeElement.id;id('home-apps').textContent='';
-   for(var q=1;snapshotReceived&&q<=4;q++){var empty=id('quick'+q);empty.hidden=slots.some(function(s){return !!s.name;})||q>1;empty.className='shortcut glass';empty.querySelector('strong').textContent='添加应用';empty.querySelector('.shortcut-glyph').textContent='+';empty.setAttribute('aria-label','常用应用 '+q+'，未设置');empty.onclick=options.presets;}
+   for(var q=1;snapshotReceived&&q<=4;q++){var empty=id('quick'+q);if(!empty)continue;empty.hidden=slots.some(function(s){return !!s.name;})||q>1;empty.className='shortcut glass';empty.querySelector('strong').textContent='添加应用';empty.querySelector('.shortcut-glyph').textContent='+';empty.setAttribute('aria-label','常用应用 '+q+'，未设置');empty.onclick=options.presets;}
    for(var i=0;i<slots.length;i++){(function(slot){if(!slot.name)return;var item=info(slot.id),button=node('button','dock-app');button.id='dock-'+slot.slot;button.appendChild(mark(item,slot.icon));button.appendChild(node('span','dock-label',item&&item.name||slot.name));button.onclick=function(){options.action('open-'+slot.slot);};id('home-apps').appendChild(button);
     var quick=id(slot.slot);if(quick){quick.hidden=false;quick.querySelector('strong').textContent=item&&item.name||slot.name;quick.setAttribute('aria-label','打开常用应用 '+slot.name);quick.className='shortcut glass has-app-icon';var glyph=quick.querySelector('.shortcut-glyph');if(glyph){glyph.textContent='';glyph.appendChild(mark(item,slot.icon));}quick.onclick=function(){options.action('open-'+slot.slot);};}
    }(slots[i]));}
@@ -61,6 +70,7 @@
    var appButtons=id('home-app-list').querySelectorAll('button');for(n=0;n<appButtons.length;n++)appButtons[n].tabIndex=expanded?0:-1;
    dock.setAttribute('data-populated',String(id('home-apps').children.length>0));
    if(/^dock-quick/.test(old)){var target=id(old);options.focus(target||id('home-app-add'));}
+   renderWall();
   }
   function presetActions(){var out=[];for(var i=0;i<catalog.length;i++){var c=catalog[i],app=apps[c.id];out.push(['preset-'+c.id,c.name,app&&app.installed?'已安装 · 添加到首页':c.tvName+(snapshotReceived?' · 未安装':' · 待检测'),'']);}return out;}
   function decorate(root){root.className='preset-grid';var buttons=root.querySelectorAll('button');for(var i=0;i<buttons.length;i++){var key=buttons[i].getAttribute('data-action').slice(7),entry=info(key),app=apps[key];buttons[i].insertBefore(mark(entry,app&&app.icon),buttons[i].firstChild);}}
@@ -72,7 +82,7 @@
   document.addEventListener('focusin',schedule);document.addEventListener('visibilitychange',schedule);
   window.addEventListener('pagehide',function(){disposed=true;stop();});
   window.apertureHomeSources=function(value){sources=value&&typeof value==='object'?value:{};update();};
-  window.apertureHomeApps=function(value){snapshotReceived=true;apps={};slots=[];if(value&&Array.isArray(value.apps))for(var i=0;i<value.apps.length;i++)apps[value.apps[i].id]=value.apps[i];if(value&&Array.isArray(value.slots))for(i=0;i<Math.min(4,value.slots.length);i++)if(/^quick[1-4]$/.test(value.slots[i].slot))slots.push(value.slots[i]);renderApps();};
+  window.apertureHomeApps=function(value){snapshotReceived=true;wall=value&&Array.isArray(value.wall)?value.wall.slice(0,128):null;apps={};slots=[];if(value&&Array.isArray(value.apps))for(var i=0;i<value.apps.length;i++)apps[value.apps[i].id]=value.apps[i];if(value&&Array.isArray(value.slots))for(i=0;i<Math.min(4,value.slots.length);i++)if(/^quick[1-4]$/.test(value.slots[i].slot))slots.push(value.slots[i]);renderApps();};
   // The home shortcuts remain visible; there is no fold state.
   expanded=true;preferredExpanded=true;setApps(true,false,false);
   var request=new XMLHttpRequest();request.open('GET','./app-presets.json',true);request.onload=function(){try{if(request.status!==200&&request.status!==0)return;var data=JSON.parse(request.responseText);if(!Array.isArray(data)||data.length>24)return;catalog=data;renderApps();}catch(ignored){}};request.send();

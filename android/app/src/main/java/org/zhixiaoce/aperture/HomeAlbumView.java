@@ -21,12 +21,15 @@ final class HomeAlbumView extends FrameLayout {
     private final ExecutorService worker=Executors.newSingleThreadExecutor();
     private final ImageView[] pictures=new ImageView[2];
     private final Bitmap[] bitmaps=new Bitmap[2];
-    private final TextView empty;
+    private final TextView empty,hint;
     private JSONArray photos=new JSONArray();
     private int index,seconds=12,current;
     private long generation;
     private boolean active,closed;
     private final Runnable next=()->move(1);
+    private final Runnable hideHint=()->hintVisible(false);
+    private void hintVisible(boolean visible){if(hint!=null)hint.setVisibility(visible?VISIBLE:INVISIBLE);}
+    private void revealHint(){ui.removeCallbacks(hideHint);if(active&&!closed){hintVisible(true);ui.postDelayed(hideHint,10000);}}
 
     HomeAlbumView(Activity activity,Runnable settings){
         super(activity);store=new GalleryStore(activity);setTag("native-home-album");
@@ -38,7 +41,7 @@ final class HomeAlbumView extends FrameLayout {
         }
         empty=TvUi.text(activity,"暂无照片\n确定键打开相册设置",24,true);empty.setGravity(Gravity.CENTER);
         addView(empty,new FrameLayout.LayoutParams(-1,-1));
-        TextView hint=TvUi.text(activity,"确定 · 相册设置",16,true);hint.setGravity(Gravity.CENTER);
+        hint=TvUi.text(activity,"确定 · 相册设置",16,true);hint.setTag("native-home-album-hint");hint.setGravity(Gravity.CENTER);
         FrameLayout.LayoutParams label=new FrameLayout.LayoutParams(-1,TvUi.dp(activity,48),Gravity.BOTTOM);
         label.bottomMargin=TvUi.dp(activity,28);addView(hint,label);
     }
@@ -46,7 +49,7 @@ final class HomeAlbumView extends FrameLayout {
         if(closed)return;
         if(active==value)return;
         active=value;++generation;ui.removeCallbacks(next);cancelAnimations();
-        if(value)refresh();else releasePictures();
+        if(value){revealHint();refresh();}else{ui.removeCallbacks(hideHint);hintVisible(false);releasePictures();}
     }
     private void refresh(){
         final long expected=++generation;
@@ -86,11 +89,12 @@ final class HomeAlbumView extends FrameLayout {
     private boolean valid(long expected){return !closed&&active&&expected==generation;}
     private void move(int delta){if(!active||photos.length()==0)return;index=(index+delta+photos.length())%photos.length();display();}
     @Override public boolean onKeyDown(int code,KeyEvent event){
+        if(event.getRepeatCount()==0&&(code==KeyEvent.KEYCODE_DPAD_LEFT||code==KeyEvent.KEYCODE_DPAD_RIGHT||code==KeyEvent.KEYCODE_DPAD_CENTER||code==KeyEvent.KEYCODE_ENTER))revealHint();
         if(code==KeyEvent.KEYCODE_DPAD_LEFT||code==KeyEvent.KEYCODE_DPAD_RIGHT){if(event.getRepeatCount()==0)move(code==KeyEvent.KEYCODE_DPAD_LEFT?-1:1);return true;}
         return super.onKeyDown(code,event);
     }
     @Override public boolean onKeyUp(int code,KeyEvent event){return code==KeyEvent.KEYCODE_DPAD_LEFT||code==KeyEvent.KEYCODE_DPAD_RIGHT||super.onKeyUp(code,event);}
     private void cancelAnimations(){for(ImageView v:pictures)v.animate().cancel();}
     private void releasePictures(){for(int i=0;i<2;i++){pictures[i].setImageDrawable(null);pictures[i].setAlpha(0);if(bitmaps[i]!=null){bitmaps[i].recycle();bitmaps[i]=null;}}}
-    @Override protected void onDetachedFromWindow(){closed=true;active=false;++generation;ui.removeCallbacks(next);cancelAnimations();releasePictures();worker.shutdownNow();super.onDetachedFromWindow();}
+    @Override protected void onDetachedFromWindow(){closed=true;active=false;++generation;ui.removeCallbacks(next);ui.removeCallbacks(hideHint);cancelAnimations();releasePictures();worker.shutdownNow();super.onDetachedFromWindow();}
 }

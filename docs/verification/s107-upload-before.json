@@ -1,0 +1,12 @@
+{
+  "normalLength200": true,
+  "chunkedConnectionDropped": true,
+  "savedButRefreshErrorDroppedResponse": true,
+  "androidStorageExecuted": false,
+  "loopbackOnly": true,
+  "originalSourceSha256": "df791b2622f8c8bd73c5a200a3b8cde356d19eb8842212b38637e0621a89979a",
+  "originalPublicRelease": "v0.2.0-alpha.38",
+  "originalPublicFrozenCommit": "0e9c37975c4f82572c7e93baeabe2f262e358ec1",
+  "androidImageStorageStubbed": true,
+  "reportedPhoneSpecificCauseProven": false
+}

@@ -38,8 +38,10 @@ function contained(inner,outer){return inner.x>=outer.x-.5&&inner.y>=outer.y-.5&
 try{
   for(const [width,height,dpr] of [[640,360,3],[960,540,1],[960,540,2],[960,540,4],[1024,576,1],[1280,720,1.5],[1920,1080,1],[1920,1080,2],[3840,2160,1],[3840,2160,2],[1280,640,1],[960,500,2]]){
     const page=await open(width,height,dpr);
+    const logo=await page.locator('.arch-logo').boundingBox(),brand=await page.locator('#brand-home').boundingBox();
+    assert.ok(Math.abs(logo.width-88*.86*Math.min(width/1920,height/1080))<1,'brand must scale with the actual viewport');assert.ok(Math.abs(logo.width-logo.height)<1);assert.ok(contained(logo,brand));
     const watch=await page.locator('#home-live').boundingBox();
-    assert.ok(Math.abs(watch.width-(380*.86*Math.min(width/1920,height/1080)))<1,'controls must be smaller at every density');
+    assert.ok(Math.abs(watch.width-(304*.86*Math.min(width/1920,height/1080)))<1,'controls must be smaller at every density');
     for(const id of ['home-live','home-series','home-movies','home-variety'])assert.ok(contained(await page.locator('#'+id).boundingBox(),{x:0,y:0,width,height}),id);
     for(const selector of ['#dock-quick1','#dock-quick2']){
       const box=await page.locator(selector).boundingBox(),icon=await page.locator(selector+' .app-mark').boundingBox();assert.ok(contained(icon,box),'home icon overflow');
@@ -97,7 +99,7 @@ try{
   const confirm=await open(1920,1080,1);await confirm.locator('[data-home-screen="2"]').click();await confirm.keyboard.press('Enter');
   await assert.doesNotReject(async()=>{for(let i=0;i<30&&!bridges.includes('/gallery');i++)await new Promise(r=>setTimeout(r,20));assert.ok(bridges.includes('/gallery'));});await confirm.close();
   const mismatch=await open(1920,1080,2);await mismatch.evaluate(()=>apertureSetViewport(960,540));
-  assert.ok(Math.abs((await mismatch.locator('#home-live').boundingBox()).width-380*.43)<1);await mismatch.close();
+  assert.ok(Math.abs((await mismatch.locator('#home-live').boundingBox()).width-304*.43)<1);await mismatch.close();
   for(const width of [960,1920,3840]){
     const manager=await open(width,width*9/16,1,13,'gallery.html');
     const sheet=await manager.locator('.gallery-settings-sheet').boundingBox();assert.ok(sheet.x>width*.5&&sheet.width<width*.45);

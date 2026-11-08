@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "checks": [
+    "Embedded home: ten native-bridge Back cycles restore weather focus without navigation; 7-day view and on-screen Return also retain app home",
+    "Offline weather closes to the same home and keeps focus",
+    "Standalone weather: browser/native JS Return emits one child-close action only, never an original-desktop action; repeated close is ignored"
+  ],
+  "errors": [],
+  "sources": {
+    "public/launcher/weather.js": "3032dee1045155d1635462d6b446f3b9cdf8308ffc88c5cd656f14fde661972d",
+    "public/launcher/ambient.js": "d1a145441c73120f03bf2f8b5f90b0b8ad1cc28b3ceadf14e98e7d1a69250c13",
+    "public/launcher/ambient.html": "b6ca48b1da39b33171ddacda7269e001b7c9c933bd0fed50af9c270e363c286a",
+    "public/launcher/launcher.js": "7f62272d5916da11d7a8a47e8221e4b23166a03d00e7c8cb70fd20a5cb7af342"
+  },
+  "syntheticWeather": true,
+  "realAndroidExecuted": false,
+  "realXiaomi": false
+}

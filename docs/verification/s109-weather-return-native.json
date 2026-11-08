@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "output": "25 production weather-return lifecycle assertions passed with JVM framework doubles; Xiaomi task manager and renderer not executed",
+  "before": {
+    "taskRootFinishesWithoutHome": true,
+    "backDispatchedToFocusedWebView": true,
+    "deadWebViewUsedOnPause": true,
+    "rendererNotDisposedInCallback": true
+  },
+  "baselineCommit": "0e9c37975c4f82572c7e93baeabe2f262e358ec1",
+  "baselineSources": {
+    "tests/fixtures/weather-return-v41/AmbientActivity.java": "5c17f822e712cde8c1431a94258448fa3c15816398839d8e13b546961cc4de8d",
+    "tests/fixtures/weather-return-v41/AmbientWeb.java": "12a942c6d900819c68cf9aac3fb6811ad37fe5bfd25ed4c469355ab67cb5e1e4"
+  },
+  "productionActivityAndWebWrapper": true,
+  "androidFrameworkDoubles": true,
+  "weatherTransportDouble": true,
+  "galleryStoreDouble": true,
+  "realAndroidExecuted": false,
+  "realXiaomi": false,
+  "reportedDeviceRootCauseProven": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/AmbientActivity.java": "da6d885af5e189962fed4282c7a4aa25ac0e296f16f41e5e5d854e8f189966ba",
+    "android/app/src/main/java/org/zhixiaoce/aperture/AmbientWeb.java": "fd5458874e3ed7d9ae373d3d0322ca82d469f6822d6ac934a5f30514c23d4186",
+    "android/app/src/main/java/org/zhixiaoce/aperture/WebViewDisposal.java": "5e799ab58d54d687566513746d447475080f331179dcf0f0a7cdf987d0f479c8",
+    "tests/java/AmbientReturnTest.java": "87c60fbe720a3491bda61901e502ca67bf3900d35c4d6d9e0631154662194764",
+    "tests/java/AmbientReturnBeforeTest.java": "45f593e43198eb7db2a4beaae33a79bcbe0dcd5aff4d3ac8e378b72a2c8f87de",
+    "scripts/s109-weather-return-test.py": "a2a95e39532c815bf7ba2e03c5a1a579313fe3f639378da0e6f9b0eb2a41c6b4"
+  }
+}

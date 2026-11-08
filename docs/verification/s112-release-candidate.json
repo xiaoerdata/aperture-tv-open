@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "versionCode": 43,
+  "apkBytes": 55380284,
+  "apkSha256": "e33ff9510d208c08b9a1cb64d96469d2905b7830e0bda722fba8f68105fff111",
+  "androidInputSha256": "3e0dcc2cbfee75c4ba9bd914b68313e9d807e129c0effcd3bfc1179afafb65b4",
+  "androidInputFiles": 236,
+  "signedWithCurrentCertificate": true,
+  "releaseBuildPassed": true,
+  "checks": [
+    {
+      "path": "docs/verification/s108-home-updates.json",
+      "sha256": "7962c55a5a73963eb0226cc461230d1e5042156809a3441066c8b81d3275aa47"
+    },
+    {
+      "path": "docs/verification/s109-weather-return-native.json",
+      "sha256": "d7bae9359b1d3cc8cebe03c7d586fd0f41987898eb094580dfdd4797b9b39915"
+    },
+    {
+      "path": "docs/verification/s109-weather-return-browser.json",
+      "sha256": "553ab61d4de7fe0878974b9ce73071fdc789aff7f30956ebd1b79ea4f31f0b0c"
+    },
+    {
+      "path": "docs/verification/s110-playback-memory.json",
+      "sha256": "c05b3f4be047f0d99190597ce4f9f382f150e5db1f6ba4731e467621e4ad7b44"
+    },
+    {
+      "path": "docs/verification/s111-browse-append.json",
+      "sha256": "d12dd1716f7d7d9e533611a32635ea5c8be077534cd0a8811afb845e22f544bf"
+    },
+    {
+      "path": "docs/verification/s112-home-browser.json",
+      "sha256": "cc42cf47a3cb59c35533c81df9d0989fd69f4a5ca8bc7dc6091682a34ba19590"
+    },
+    {
+      "path": "docs/verification/s112-native-compile.json",
+      "sha256": "041637728944a63c4a4438e6aef9b6d0491f2e83b54fbd2217b85110a7d8c1ad"
+    }
+  ],
+  "realXiaomi": false,
+  "published": false
+}

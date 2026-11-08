@@ -52,7 +52,8 @@ final class DestinationApps {
         initializeShortcuts();org.json.JSONObject snapshot=new org.json.JSONObject();org.json.JSONArray appsJson=new org.json.JSONArray(),slots=new org.json.JSONArray();java.util.Map<String,byte[]> cache=new java.util.HashMap<>();List<ResolveInfo> apps=available(false);
         try{for(AppPresets.Entry e:presets()){ResolveInfo app=installed(e,apps);cacheIcon(cache,e.id,app);appsJson.put(new org.json.JSONObject().put("id",e.id).put("installed",app!=null).put("icon",cache.containsKey(e.id)?"/apps/icons/"+e.id+".png":""));}
             for(int i=1;i<=4;i++){String slot="quick"+i;ResolveInfo app=selected(slot);cacheIcon(cache,slot,app);String id="";if(app!=null)for(AppPresets.Entry e:presets())if(e.packages.contains(app.activityInfo.packageName))id=e.id;slots.put(new org.json.JSONObject().put("slot",slot).put("id",id).put("name",app==null?"":app.loadLabel(activity.getPackageManager()).toString()).put("icon",cache.containsKey(slot)?"/apps/icons/"+slot+".png":""));}
-            snapshot.put("apps",appsJson).put("slots",slots);
+            org.json.JSONArray wall=new org.json.JSONArray();for(String saved:wallComponents())for(ResolveInfo app:apps)if(component(app).flattenToString().equals(saved)){String key=AppWall.key(saved),id="";for(AppPresets.Entry e:presets())if(e.packages.contains(app.activityInfo.packageName))id=e.id;cacheIcon(cache,key,app);wall.put(new org.json.JSONObject().put("key",key).put("id",id).put("name",app.loadLabel(activity.getPackageManager()).toString()).put("icon",cache.containsKey(key)?"/apps/icons/"+key+".png":""));break;}
+            snapshot.put("apps",appsJson).put("slots",slots).put("wall",wall).put("wallMax",AppWall.MAX);
         }catch(Exception ignored){}icons=java.util.Collections.unmodifiableMap(cache);return snapshot;
     }
     void addPreset(String id){
@@ -124,6 +125,21 @@ final class DestinationApps {
         if (info != null) { launchInfo(info, false); return; }
         new AlertDialog.Builder(activity).setTitle("这个常用应用还没准备好").setMessage("应用可能尚未添加、已卸载或停用。请家人在首页的家人设置里选择「管理常用应用」。")
             .setPositiveButton("知道了", null).show();
+    }
+    private List<String> wallComponents(){List<String> defaults=new ArrayList<>();for(int i=1;i<=4;i++){String saved=preferences.getString("destination_quick"+i,"");if(!saved.isEmpty())defaults.add(saved);}return AppWall.read(preferences.contains("app_wall")?preferences.getString("app_wall","[]"):null,defaults);}
+    void launchWall(String key){if(key==null||!key.matches("wall[a-f0-9]{16}"))return;for(String saved:wallComponents())if(AppWall.key(saved).equals(key))for(ResolveInfo app:available(false))if(component(app).flattenToString().equals(saved)){launchInfo(app,false);return;}}
+    void editWall(){
+        List<ResolveInfo> apps=available(false);List<String> current=wallComponents();boolean[] checked=new boolean[apps.size()];String[] names=new String[apps.size()];
+        for(int i=0;i<apps.size();i++){names[i]=apps.get(i).loadLabel(activity.getPackageManager()).toString();checked[i]=current.contains(component(apps.get(i)).flattenToString());}
+        if(apps.isEmpty()){new TvDialogs.SideBuilder(activity).setTitle("添加应用").setMessage("请先从原系统安装或启用电视应用。").setPositiveButton("返回",null).show();return;}
+        new TvDialogs.SideBuilder(activity).setTitle("第二屏应用 · 最多128个").setMultiChoiceItems(names,checked,(dialog,index,value)->{
+            if(value){int count=0;for(boolean selected:checked)if(selected)count++;if(count>AppWall.MAX){checked[index]=false;((AlertDialog)dialog).getListView().setItemChecked(index,false);}}
+        }).setPositiveButton("保存",(dialog,which)->{
+            try{List<String> selected=new ArrayList<>();for(String saved:current)for(int i=0;i<apps.size();i++)if(checked[i]&&component(apps.get(i)).flattenToString().equals(saved)){selected.add(saved);break;}
+                for(int i=0;i<apps.size();i++)if(checked[i]){String saved=component(apps.get(i)).flattenToString();if(!selected.contains(saved))selected.add(saved);}
+                if(!preferences.edit().putString("app_wall",AppWall.encode(selected)).commit())throw new java.io.IOException();changed.onChanged("apps");
+            }catch(Exception failure){new TvDialogs.SideBuilder(activity).setMessage("应用列表未能保存，请重试。").setPositiveButton("返回",null).show();}
+        }).setNegativeButton("取消",null).show();
     }
     void shortcuts() {
         String[] labels = new String[4];

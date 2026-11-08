@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0-alpha.39",
+  "versionCode": 42,
+  "applicationId": "org.zhixiaoce.kaishi",
+  "edition": "standard",
+  "apk": "kaishi-v42-standard-arm.apk",
+  "bytes": 55363900,
+  "sha256": "db4b2f4c9f45447cd602f4a46f2029ce8a778b1897313b5400e2f78dd5826d34",
+  "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+  "abis": [
+    "armeabi-v7a",
+    "arm64-v8a"
+  ],
+  "published": false,
+  "packagedAssetsMatchInputs": true,
+  "faultInjectionNotInProduct": true,
+  "inputFiles": 230,
+  "inputSha256": "1a756deece7488dc7b60716eba82c885ca80c4eaf667e67dce3da835266afcbc",
+  "oldFailureReproducedWithStorageFixture": true,
+  "transportChecks": 24,
+  "loopbackBrowserUploadPassed": true,
+  "androidImageStorageExecuted": false,
+  "realXiaomi": false,
+  "reportedPhoneSpecificCauseProven": false,
+  "sameCertificateAsV41": true
+}

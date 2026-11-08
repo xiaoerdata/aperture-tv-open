@@ -18,6 +18,7 @@ button:focus,a:focus,[tabindex='0']:focus{outline:3px solid var(--focus);outline
 .wordmark small{font-size:21px;font-weight:400;color:var(--muted);margin-left:14px}.wordmark small:empty{display:none}
 .arch-logo{display:block;width:48px;height:48px;flex:0 0 48px;border-radius:12px;background:url('./brand/kaishi-icon-v2.webp') center/contain no-repeat}
 .parents .arch-logo{background-image:url('./brand/kaishi-parents-v2.webp')}
+@media(min-aspect-ratio:4/3){.standard .wordmark{font-size:44px;gap:18px;min-height:96px}.standard .arch-logo{width:88px;height:88px;flex-basis:88px;border-radius:20px}}
 .section-nav{display:flex;gap:4px;padding:3px;border-radius:14px}.section-nav button{min-width:88px;height:52px;padding:8px 16px;text-align:center;border-radius:10px;font-size:24px;white-space:nowrap}
 .section-nav button[aria-pressed='true']{background:#f8faffdd;color:#18232b}
 .lobby[data-section='overview'] .section-nav{display:none}
@@ -96,3 +97,21 @@ body[data-photos="off"] .family-layout .family-daily>.quiet-action{grid-column:1
 .message-actions{grid-column:1/-1;display:flex;gap:18px;align-items:center}.message-actions .quiet-action{margin:0}
 .standard .apps-screen .shortcut:focus{outline:none;box-shadow:none;background:transparent}
 .standard .apps-screen .shortcut:focus .shortcut-glyph{outline:3px solid var(--focus);outline-offset:3px;background-color:#e0e6df1f;box-shadow:0 0 0 1px #0004}
+
+/* Weather follows the four viewing entries; the total row keeps its former width. */
+@media(min-aspect-ratio:4/3){
+ .standard .home-watch{gap:20px}.standard .home-watch .watch-entry{width:304px}
+ .standard .lobby[data-section='overview'][data-home-page='0'] .home-watch .weather-home{position:static;left:auto;top:auto;width:300px;height:132px;min-width:0;min-height:0;gap:16px;padding:14px 20px;justify-content:center;white-space:normal}
+ .standard .home-watch .weather-home .weather-mark{font-size:44px;flex:none}
+ .standard .home-watch .weather-home strong{font-size:28px}.standard .home-watch .weather-home small{font-size:19px;white-space:nowrap}
+}
+@media(max-aspect-ratio:4/3){.standard .lobby[data-section='overview'][data-home-page='0'] .home-watch .weather-home{position:static;left:auto;top:auto;width:auto;min-width:0;min-height:74px;gap:10px;padding:10px}.standard .home-watch .weather-home strong{font-size:21px}.standard .home-watch .weather-home small{font-size:15px}}
+@media(min-aspect-ratio:4/3){
+ .standard .lobby[data-section='overview'][data-home-page='0'] .home-watch .weather-home .weather-mark{font-size:44px}
+ .standard .lobby[data-section='overview'][data-home-page='0'] .home-watch .weather-home strong{font-size:28px}
+ .standard .lobby[data-section='overview'][data-home-page='0'] .home-watch .weather-home small{font-size:19px}
+}
+
+.standard .shortcuts-row[data-wall=true]{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:18px;max-height:460px;overflow-y:auto;overflow-x:hidden;padding:6px;scrollbar-color:#a0b1b9 #17212b}
+.standard .apps-screen .shortcuts-row[data-wall=true] .shortcut{width:100%;min-width:0}
+@media(max-aspect-ratio:4/3){.standard .shortcuts-row[data-wall=true]{grid-template-columns:repeat(3,minmax(0,1fr));max-height:460px}.standard .apps-screen .shortcuts-row[data-wall=true] .shortcut-glyph{width:90px;height:90px;min-height:90px}.standard .apps-screen .shortcuts-row[data-wall=true] .shortcut{height:150px}.standard .apps-screen .shortcuts-row[data-wall=true] .app-mark{width:64px;height:64px}.standard .apps-screen .shortcuts-row[data-wall=true] .shortcut strong{font-size:18px;line-height:24px}}

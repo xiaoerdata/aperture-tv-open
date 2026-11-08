@@ -39,3 +39,14 @@
 .weather-temperature-track{height:7px;border-radius:8px;background:#ffffff0c;position:relative}.weather-temperature-range{position:absolute;height:100%;min-width:4px;border-radius:inherit;background:linear-gradient(90deg,#98c0d1,#edd2a6)}
 #weather-overlay .weather-credit{margin-top:12px;font-size:17px;color:#8fa5af}
 #weather-overlay .weather-days{align-items:stretch}
+
+/* Photos retain their original brightness; only the lower-left information is overlaid. */
+.ambient-view[data-mode=album] .ambient-shade,.ambient-view[data-mode=album] .ambient-canvas{display:none;background:none}
+.ambient-view[data-mode=album] .ambient-content{left:4%;bottom:5%;top:auto;width:auto;max-width:88%;height:auto;transform:none;padding:0;justify-content:flex-end;z-index:1;text-shadow:0 1px 6px #0009}
+.ambient-view[data-mode=album] .ambient-brand,.ambient-view[data-mode=album] .ambient-hint{display:none}
+.ambient-view[data-mode=album] .ambient-clock{font-size:calc(88px * var(--tv-scale));letter-spacing:-1px;line-height:1;color:#fff}
+.ambient-view[data-mode=album] .ambient-date{font-size:calc(30px * var(--tv-scale));letter-spacing:1px;margin:12px 0 16px;color:#fff}
+.ambient-view[data-mode=album] .ambient-weather{gap:14px;max-width:none;color:#fff}
+.ambient-view[data-mode=album] .ambient-weather strong{font-size:calc(28px * var(--tv-scale))}
+.ambient-view[data-mode=album] .ambient-weather-icon{font-size:calc(34px * var(--tv-scale));color:#fff}
+.ambient-view[data-mode=album] .ambient-weather small{font-size:calc(20px * var(--tv-scale));margin-left:0;color:#e4e8e9}

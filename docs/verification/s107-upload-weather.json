@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    "24 production HTTP transport checks passed; binary PNG preserved; Android image store not executed",
+    "Phone browser uploads binary photo successfully even when TV refresh callback throws; network loss shows actionable Chinese feedback",
+    "Weather entry is right of variety at 540p/1080p/4K/short windows; Left/Right/OK/Back focus work; row keeps uniform scale"
+  ],
+  "errors": [],
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/GalleryUploadHttp.java": "b7a739414b0f3cb7e15813b02dc4c148644ddd5c911aecb66139be058f67c9e2",
+    "tests/java/GalleryUploadHttpTest.java": "fb81cc326ccccd288b1dc6fc62f375ac0778adc33c01423ec8d7d272113f3c94",
+    "tests/java/GalleryUploadHttpFixture.java": "691ce257d76bedc8e02bc3b033f93c7f7c64873638c55e0d5e543080062857c1",
+    "public/launcher/gallery-upload.html": "89c4f779983f967233f3ac88d69a59c1c88b19ac99526176586d9beea1533fdb",
+    "public/launcher/launcher.js": "2c81b0bf9726faf422402940372a0ed62b137c93ece932d1d1a36edecde766d6",
+    "public/launcher/style.css": "d0ff2a89a4c8294bfe8e5d50369550e1eff28ea382d7aff313985da890733afb",
+    "android/app/src/main/java/org/zhixiaoce/aperture/GalleryUpload.java": "deb9bab77abca8fc5033e641846d52d600164c6fa9f749e0944ad980e6125705",
+    "android/app/src/main/java/org/zhixiaoce/aperture/ScenicNativeHome.java": "343271b7d1853e3e76744c49acf45ea18853b1931e9c45b15296381509d336c5"
+  },
+  "loopbackOnly": true,
+  "syntheticPhotos": true,
+  "androidImageStoreExecuted": false,
+  "nativeActivityExecuted": false,
+  "realXiaomi": false,
+  "reportedPhoneSpecificCauseProven": false
+}

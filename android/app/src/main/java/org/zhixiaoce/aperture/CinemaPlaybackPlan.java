@@ -23,7 +23,7 @@ final class CinemaPlaybackPlan {
         m=Pattern.compile("第0*([0-9]+)(?:集|期|话|回)(?:$|[:：·（(])").matcher(s);
         return m.find()?"episode:"+m.group(1):s;
     }
-    private static boolean filmLabel(String key){return key.matches("(?:正片|播放|完整版|高清|蓝光|中字|hd|sd|fhd|uhd|4k|720p|1080p|2160p)(?:中字|国语|粤语)?");}
+    static boolean filmLabel(String key){return key.matches("(?:正片|播放|完整版|高清|蓝光|中字|hd|sd|fhd|uhd|4k|720p|1080p|2160p)(?:中字|国语|粤语)?");}
     int match(int target){
         CinemaCatalog.Line to=lines.get(target);int found=-1;
         for(int i=0;i<to.episodes.size();i++)if(key(to.episodes.get(i).name).equals(selectedKey)){if(found>=0)return -1;found=i;}

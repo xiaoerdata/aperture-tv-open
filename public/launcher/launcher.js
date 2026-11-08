@@ -75,7 +75,7 @@
     $('settings-open').textContent = '设置';
     $('settings-open').setAttribute('aria-label', '设置');
   }
-  if (!parents) document.body.className = 'standard';
+  if (!parents) { document.body.className = 'standard'; $('home-watch').appendChild($('weather-home')); $('weather-home').classList.add('glass'); }
   fitTelevision();
   homePage = parents ? 1 : 0;
   window.apertureNasLabels = function (movies, series) { if (!parents) return; text('cinema-label', String(movies)); text('series-label', String(series)); };
@@ -462,6 +462,7 @@
       else{
         // scrollIntoView also scrolls hidden ancestors in WebView. Only move the actual list.
         if(pane){revealInside($('pane-actions'),node);revealInside(document.querySelector('.entry-pane'),node);}
+        revealInside(document.querySelector('.shortcuts-row[data-wall=true]'),node);
         var tile=node.closest('.collection-tile');if(tile)revealInside(tile,node);
         resetTelevisionScroll();
       }
@@ -516,7 +517,7 @@
         }
         if (active === $('weather-home')) { if(name==='ArrowRight')return focusNode($('settings-open'))||true;if(name==='ArrowLeft')return focusNode($('brand-home'))||true;if(name==='ArrowDown')return focusNode(firstHomeControl(homePage))||true; }
         if (active === $('settings-open')) {
-          if (name === 'ArrowLeft') return focusNode($('weather-home')) || true;
+          if (name === 'ArrowLeft') return focusNode($('brand-home')) || true;
           if (name === 'ArrowDown') return focusNode($(homeWatchFocus)) || true;
         }
         if (active === $('brand-home')) {
@@ -535,6 +536,13 @@
       if (name === 'ArrowLeft' || name === 'ArrowRight') return focusNode(visible[position + (name === 'ArrowLeft' ? -1 : 1)]) || true;
       if (name === 'ArrowUp') { setHomePage(0); return true; }
       if (name === 'ArrowDown') { var appRow = Array.prototype.slice.call($('parents-shortcuts').querySelectorAll('button')).filter(function(n){return !n.hidden && n.offsetWidth;}); return focusNode(appRow[Math.round(position*(appRow.length-1)/Math.max(1,visible.length-1))]) || true; }
+    }
+    if (!parents && group.getAttribute('data-wall')==='true') {
+      var cols=8;if(innerWidth/innerHeight<=4/3)cols=3;
+      if(name==='ArrowDown'){if(position+cols<visible.length)return focusNode(visible[position+cols])||true;setHomePage(2);return true;}
+      if(name==='ArrowUp'){if(position>=cols)return focusNode(visible[position-cols])||true;setHomePage(0);return true;}
+      if(name==='ArrowLeft')return (position%cols?focusNode(visible[position-1]):false)||true;
+      if(name==='ArrowRight')return (position%cols<cols-1?focusNode(visible[position+1]):false)||true;
     }
     if (!parents && group.className.indexOf('shortcuts-row') !== -1) {
       if (name === 'ArrowUp') { setHomePage(0); return true; }
@@ -574,6 +582,7 @@
       // Fixed control names only: no labels, URLs, resource addresses or user data.
       if (window.console && console.info) console.info('[KaishiHome] ' + JSON.stringify({key:'Enter',active:active && known.test(active.id) ? active.id : 'other',inItems:current >= 0,disabled:!!(active && active.disabled),width:active ? active.offsetWidth : 0,height:active ? active.offsetHeight : 0,pane:!!pane}));
     }
+    if(window.KaishiGallery&&window.KaishiGallery.hintActivity)window.KaishiGallery.hintActivity(name);
     if(window.KaishiGallery&&window.KaishiGallery.key(name)){event.preventDefault();return;}
     if ((window.KaishiAmbient && window.KaishiAmbient.key(name)) || (window.KaishiWeatherUI && window.KaishiWeatherUI.key(name))) { event.preventDefault(); return; }
     if (name === 'Menu' || name === 'ContextMenu' || name === 'F10') { event.preventDefault(); openPane('settings'); return; }
@@ -613,7 +622,8 @@
   document.addEventListener('visibilitychange', function () { clock(); if (!document.hidden) loadContent(); });
   window.addEventListener('pagehide', function () { disposed = true; clearInterval(timer); clearInterval(contentTimer); if (request) { var pending = request; request = null; pending.abort(); } });
   window.addEventListener('pageshow', function (event) { if (event.persisted) location.reload(); });
-  if (/^quick[1-4]$/.test(query.focus || '')) { setHomePage(1, false); focusNode($(query.focus)); }
+  if(query.screen==='apps'&&!parents){setHomePage(1,false);restoreHomeFocus(1);}
+  else if (/^quick[1-4]$/.test(query.focus || '')) { setHomePage(1, false); focusNode($(query.focus)); }
   else if (specs[query.pane] && !parents) { setHomePage(query.pane === 'system' ? 2 : query.pane === 'live' || query.pane === 'cinema' ? 1 : 0, false); focusNode($(query.pane === 'system' ? 'settings-open' : query.pane === 'live' ? 'entry-live' : query.pane === 'cinema' ? 'entry-cinema' : 'settings-open')); openPane(query.pane); }
   else if(query.section==='information'){setSection('information');focusNode(document.querySelector('.back-overview'));}
   else focusNode(firstHomeControl(homePage));
