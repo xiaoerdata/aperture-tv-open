@@ -1,0 +1,79 @@
+{
+  "version": "0.2.0-alpha.41",
+  "versionCode": 44,
+  "edition": "standard",
+  "tag": "v0.2.0-alpha.41",
+  "commit": "7e261271498d329450f5fc307203877e428be7c1",
+  "tree": "b21f52127ad06cefd639994323a1118c8a128e50",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.41",
+  "prerelease": true,
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v44-standard-arm.apk",
+      "bytes": 55380284,
+      "sha256": "224685d61844d4b9d3291e18c9da77a8816549422fa36483f1a3ba4aafb9352b",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 106
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 44757,
+      "sha256": "5eeccf14543ebdd93499359be0add3b36daf1d7e775af095ebcb1182f7a89e1e",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 182,
+      "sha256": "7665d87d2d5423b3c46affdd82fc802ca2aa9d19caf283aa7008c5e7f4f5f113",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    }
+  ],
+  "publicFrozenSourceReadback": [
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
+      "sha256": "a2479128bf8fc1877b7a0efb3b852bb6d0d70820fb40f898f06a5b84a6d343cc",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaSectionView.java",
+      "sha256": "cd4b52adc98432217ec98eb444a77c84121ac560dbea02b7db1c681a37faefac",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java",
+      "sha256": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/InstalledApps.java",
+      "sha256": "b8ddf1967c953ae48ee624c05ec7d68ba7b14f8e6e9be239cc2e54b8798b41dd",
+      "anonymous": true
+    },
+    {
+      "path": "public/launcher/launcher.js",
+      "sha256": "ffd3ccb8bb790913a76d2539573512073face3154c0724097c857f8d85b33268",
+      "anonymous": true
+    },
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "sha256": "de0c1a26c581c79925575835e987caf6653aacc5a86fd4837d79ad46548e2c00",
+      "anonymous": true
+    }
+  ],
+  "androidInputSha256": "ac4c8f0c58398c689ebcc88e68592ac443cf5a99b0a73e49e6be250fb008199b",
+  "androidGitTreeInputFilesVerified": 238,
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "phoneAcrossPhysicalDevicesTested": false,
+  "parentsDevelopment": "paused",
+  "publicTagCommitVerified": true,
+  "githubDigestMatchesAllAssets": true,
+  "publishedAt": "2026-11-09T13:05:21Z",
+  "temporaryUploaderRuntimeRemoved": true,
+  "globalProxySettingsModified": false
+}

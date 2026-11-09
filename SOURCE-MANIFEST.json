@@ -47,8 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": null,
-    "publicParent": "7052823361e00281944048eaae562f2ff5e7efbc",
+    "postReleaseReceiptFor": "7e261271498d329450f5fc307203877e428be7c1",
+    "publicParent": "7e261271498d329450f5fc307203877e428be7c1",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
   "files": [
@@ -5259,8 +5259,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 287329,
-      "sha256": "480e654ecb6fb07c1d1f6497e6cf270438182ff7eb88e8e16371c66891fd0833"
+      "bytes": 288084,
+      "sha256": "acb3bb207dc94bfc2f864d9a5ce24efd5f500f73621b860b1c84c5095ada51fd"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -5556,6 +5556,11 @@
       "path": "docs/verification/public-alpha-v43.json",
       "bytes": 2216,
       "sha256": "f923c6aebc1c21745c0516e8582f818d8b93eade48fb3a89365a7501ad32e2cf"
+    },
+    {
+      "path": "docs/verification/public-alpha-v44.json",
+      "bytes": 2747,
+      "sha256": "2a642d798e4e5fd423ffec0d8e7fa90e3a3b0a704df4da0e337cd94c3443c498"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -7889,8 +7894,8 @@
     },
     {
       "path": "media/DEVLOG-088.md",
-      "bytes": 982,
-      "sha256": "f65aa6a7eef0ec1cbe489e277d1105660a850affa1f0042038ecddca50f306b5"
+      "bytes": 1201,
+      "sha256": "b3ebfae36ecd0729513b427d4e46e663311dda9e0ed3a66d5c85e6b25fda3ea4"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -10276,7 +10281,9 @@
     "prerelease": true,
     "fullCloudRegressionAccepted": false,
     "xiaomiAccepted": false,
-    "latestDocumentation": "docs/RELEASE-V44.md"
+    "latestDocumentation": "docs/RELEASE-V44.md",
+    "publishedAt": "2026-11-09T13:05:21Z",
+    "anonymousDownloadVerified": true
   },
   "upstreamUnresolvedValidation": {
     "candidate": {
