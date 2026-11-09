@@ -15,7 +15,7 @@ try{
  const jdk=resolve('.android-local/jdk17/bin'),jsonRoot=resolve('.android-local/gradle-user/caches/modules-2/files-2.1/org.json/json/20160810');let lib;
  for(const d of await readdir(jsonRoot)){const p=join(jsonRoot,d,'json-20160810.jar');try{await readFile(p);lib=p;break;}catch{}}
  const src='android/app/src/main/java/org/zhixiaoce/aperture/';
- sources.push(...['AppWall','CinemaOrder','CinemaCatalog','CinemaResourcePack','CinemaFormats','GalleryUploadHttp'].map(x=>src+x+'.java'),...['HomeUpdatesTest','GalleryUploadHttpTest','GalleryUploadLimitTest'].map(x=>'tests/java/'+x+'.java'));
+ sources.push(...['AppWall','CinemaOrder','CinemaCatalog','CinemaDates','CinemaResourcePack','CinemaFormats','GalleryUploadHttp'].map(x=>src+x+'.java'),...['HomeUpdatesTest','GalleryUploadHttpTest','GalleryUploadLimitTest'].map(x=>'tests/java/'+x+'.java'));
  await run(join(jdk,'javac'),['-encoding','UTF-8','-cp',lib,'-d',temp,...sources]);
  for(const name of ['HomeUpdatesTest','GalleryUploadHttpTest','GalleryUploadLimitTest'])checks.push((await run(join(jdk,'java'),['-cp',temp+':'+lib,'org.zhixiaoce.aperture.'+name])).stdout.trim());
  const pack=JSON.parse(await readFile('examples/resource-packs/family.kaishi.json','utf8'));

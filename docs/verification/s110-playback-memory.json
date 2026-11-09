@@ -13,9 +13,10 @@
   "apkBuilt": false,
   "published": false,
   "sources": {
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "1f6d02491e8d084d4093e35c23c93417f9a7d19aaf0ea6997e2e1d0faee80949",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "b48ace04465e8693d1cfedace5a9a17dca344f15a6734a8c40bcdac131c3b239",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "a066babb82f8ca1f674701746b5ffde79b43475ae131a15a2a8f1dea14439ef6",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "f6b77efcce916fc46c69eeb34ae0679b3788928b9663bb2a8aa4fffcc1fbe8b7",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "d03ac1de0500552b42766992f41a2b17164eb3da534a9d5169aa8954b0c562e1",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "ec4af0eead5a6d5e1c3cbdb0b6bd473505f5dd904b67e098907f40919724312d",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelf.java": "7d84f83b8f7892846d5b3e3b358b2283556e3a2aecdf0e967a8ab4271a79d280",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelfStore.java": "139c27cadd0c3c79f24288fb43812f3d1c62a308af474a03ba24a42d5d47b8fb",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCipher.java": "ce8a9349779a30d48cbf40c9b78283ab6cf3b4c9a896bdd65e42a4c5971af6cb",
@@ -29,9 +30,9 @@
     "tests/java/PlaybackMemoryTest.java": "8840e7d94b99e874c3488d834f339cc62bd8090b1ac1dcbe00e8cb2a22dd983e",
     "tests/java/ShelfOverviewTest.java": "4e04bc9da1717d31fe49103123e6b33cfcf4a76d7ae641b14312d8645adeaec2",
     "tests/java/NasViewingTest.java": "c30e69495116fe2e48dd41b5d412fe63e26b53d68592ab549272f789a6fb8460",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "273080e2dca08f121f6c83ef89797d343fc8289237077636b275eaa9d21fdc60",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "a2479128bf8fc1877b7a0efb3b852bb6d0d70820fb40f898f06a5b84a6d343cc",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaVault.java": "b8217d0ecb91f8e15d398d34d17390a5d156382a26d8ad008ffa7ecc881d36e9",
     "android/app/src/main/java/org/zhixiaoce/aperture/NasActivity.java": "0c06d9f6b8f070864d47631866172d2cf561cc12c072235ba92910ef5f4a683f",
-    "scripts/s110-playback-memory-test.py": "47dabe2ffc76c23136c616bfe3632c47f61a5d69747d7f3ab5aadba5f751e42a"
+    "scripts/s110-playback-memory-test.py": "3780118b8c49be48606647e3def180902131150036095ed48201861e66e46517"
   }
 }

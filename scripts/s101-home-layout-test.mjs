@@ -80,9 +80,6 @@ try{
     assert.equal(await page.evaluate(()=>document.activeElement.getAttribute('data-action')),'more-settings');
     const last=await page.locator('#pane-actions button').last().boundingBox();assert.ok(contained(last,pane),'settings must scroll to the final entry');
     await page.keyboard.press('Escape');assert.equal(await page.locator('#pane-backdrop').isVisible(),false);
-    await page.locator('#home-app-add').click();
-    const mark=page.locator('.preset-grid .app-mark').first();await mark.waitFor();assert.ok(contained(await mark.boundingBox(),await page.locator('.preset-grid button').first().boundingBox()));
-    await page.keyboard.press('Escape');
     if(width===1920&&dpr===1){await page.screenshot({path:out+'/home.png'});await page.locator('#settings-open').click();await page.screenshot({path:out+'/settings.png'});}
     await page.keyboard.press('Escape');await page.evaluate(()=>KaishiAmbient.settings());
     const ambient=await page.locator('.ambient-options .weather-sheet').boundingBox();assert.ok(ambient.x>width*.6&&ambient.width<width*.3,'screensaver settings must also be a right drawer');
@@ -110,6 +107,13 @@ try{
     if(width===1920)await manager.screenshot({path:out+'/album-settings.png'});
     await manager.close();
   }
+  const installed=await open(1920,1080,1);
+  await installed.evaluate(()=>apertureHomeApps({apps:[],slots:[{slot:'quick1',id:'bilibili',name:'电视实际应用名称'}]}));
+  assert.equal(await installed.locator('#dock-quick1 .dock-label').textContent(),'电视实际应用名称');
+  const addBefore=bridges.filter(p=>p==='/add-shortcut').length;await installed.locator('#home-app-add').click();
+  await assert.doesNotReject(async()=>{for(let n=0;n<30&&bridges.filter(p=>p==='/add-shortcut').length===addBefore;n++)await new Promise(r=>setTimeout(r,20));assert.equal(bridges.filter(p=>p==='/add-shortcut').length,addBefore+1);});
+  assert.equal(await installed.locator('#pane-backdrop').isVisible(),false);assert.equal(await installed.locator('.preset-grid button').count(),0);
+  await installed.close();
   assert.deepEqual(errors,[]);
   const inputs={};for(const file of ['index.html','launcher.js','style.css','gallery.js','gallery.css','gallery.html','gallery-settings.js','ambient.css','ambient.js'])inputs['public/launcher/'+file]=createHash('sha256').update(await readFile('public/launcher/'+file)).digest('hex');
   const receipt={passed:true,inputs,checks,confirmEmitsAlbumManagementIntent:true,albumManagementRightDrawer:true,emptyAlbum:true,nativeCssViewportMismatch:true,errors,realXiaomi:false,nativeActivityExecuted:false,networkListenerStarted:false};

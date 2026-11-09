@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "output": "13 production installed-app discovery assertions passed with PackageManager doubles; Android device not executed",
+  "productionDiscoveryExecuted": true,
+  "packageManagerDouble": true,
+  "realAndroidExecuted": false,
+  "realXiaomi": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/InstalledApps.java": "b8ddf1967c953ae48ee624c05ec7d68ba7b14f8e6e9be239cc2e54b8798b41dd",
+    "tests/java/InstalledAppsTest.java": "9e3fbe491a31a93706b5ddbbe0ce333528171efbb1d3f6122ae89ef503684680",
+    "scripts/s113-installed-apps-test.py": "5730c304cc3067eb8a540aba7e2792bc49097c14a6aac6e8d9088b46bb95c8e3"
+  }
+}

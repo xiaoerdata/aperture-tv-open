@@ -2,7 +2,7 @@
 (function () {
  'use strict';
  window.KaishiHome = function (options) {
-  var catalog=[], apps={}, slots=[], sources={}, slides=[], index=0, timer=null, mode='auto', current='', disposed=false, expanded=true, preferredExpanded=true, foldTimer=null, snapshotReceived=false,wall=null;
+  var catalog=[], slots=[], sources={}, slides=[], index=0, timer=null, mode='auto', current='', disposed=false, expanded=true, preferredExpanded=true, foldTimer=null, snapshotReceived=false,wall=null;
   var panel=document.getElementById('personal-panel'), dock=document.getElementById('home-dock');
   function node(tag,cls,value){var n=document.createElement(tag);n.className=cls||'';if(value!==undefined)n.textContent=value;return n;}
   function id(name){return document.getElementById(name);}
@@ -61,8 +61,8 @@
   function renderApps(){
    var old=document.activeElement.id;id('home-apps').textContent='';
    for(var q=1;snapshotReceived&&q<=4;q++){var empty=id('quick'+q);if(!empty)continue;empty.hidden=slots.some(function(s){return !!s.name;})||q>1;empty.className='shortcut glass';empty.querySelector('strong').textContent='添加应用';empty.querySelector('.shortcut-glyph').textContent='+';empty.setAttribute('aria-label','常用应用 '+q+'，未设置');empty.onclick=options.presets;}
-   for(var i=0;i<slots.length;i++){(function(slot){if(!slot.name)return;var item=info(slot.id),button=node('button','dock-app');button.id='dock-'+slot.slot;button.appendChild(mark(item,slot.icon));button.appendChild(node('span','dock-label',item&&item.name||slot.name));button.onclick=function(){options.action('open-'+slot.slot);};id('home-apps').appendChild(button);
-    var quick=id(slot.slot);if(quick){quick.hidden=false;quick.querySelector('strong').textContent=item&&item.name||slot.name;quick.setAttribute('aria-label','打开常用应用 '+slot.name);quick.className='shortcut glass has-app-icon';var glyph=quick.querySelector('.shortcut-glyph');if(glyph){glyph.textContent='';glyph.appendChild(mark(item,slot.icon));}quick.onclick=function(){options.action('open-'+slot.slot);};}
+   for(var i=0;i<slots.length;i++){(function(slot){if(!slot.name)return;var item=info(slot.id),button=node('button','dock-app');button.id='dock-'+slot.slot;button.appendChild(mark(item,slot.icon));button.appendChild(node('span','dock-label',slot.name));button.onclick=function(){options.action('open-'+slot.slot);};id('home-apps').appendChild(button);
+    var quick=id(slot.slot);if(quick){quick.hidden=false;quick.querySelector('strong').textContent=slot.name;quick.setAttribute('aria-label','打开常用应用 '+slot.name);quick.className='shortcut glass has-app-icon';var glyph=quick.querySelector('.shortcut-glyph');if(glyph){glyph.textContent='';glyph.appendChild(mark(item,slot.icon));}quick.onclick=function(){options.action('open-'+slot.slot);};}
    }(slots[i]));}
    id('dock-stack').textContent='';for(var n=0;n<slots.length&&id('dock-stack').children.length<3;n++)if(slots[n].name)id('dock-stack').appendChild(mark(info(slots[n].id),slots[n].icon));
    if(!id('dock-stack').children.length)id('dock-stack').appendChild(node('span','dock-empty-mark','＋'));
@@ -72,8 +72,6 @@
    if(/^dock-quick/.test(old)){var target=id(old);options.focus(target||id('home-app-add'));}
    renderWall();
   }
-  function presetActions(){var out=[];for(var i=0;i<catalog.length;i++){var c=catalog[i],app=apps[c.id];out.push(['preset-'+c.id,c.name,app&&app.installed?'已安装 · 添加到首页':c.tvName+(snapshotReceived?' · 未安装':' · 待检测'),'']);}return out;}
-  function decorate(root){root.className='preset-grid';var buttons=root.querySelectorAll('button');for(var i=0;i<buttons.length;i++){var key=buttons[i].getAttribute('data-action').slice(7),entry=info(key),app=apps[key];buttons[i].insertBefore(mark(entry,app&&app.icon),buttons[i].firstChild);}}
   try{mode=localStorage.getItem('kaishi-home-panels')||'auto';}catch(ignored){}if(['auto','static','hidden'].indexOf(mode)<0)mode='auto';
   function setMode(value){mode=value;try{localStorage.setItem('kaishi-home-panels',mode);}catch(ignored){}update();}
   id('personal-open').onclick=function(){var slide=slides[index];if(slide)options.open(slide.action);};
@@ -82,10 +80,10 @@
   document.addEventListener('focusin',schedule);document.addEventListener('visibilitychange',schedule);
   window.addEventListener('pagehide',function(){disposed=true;stop();});
   window.apertureHomeSources=function(value){sources=value&&typeof value==='object'?value:{};update();};
-  window.apertureHomeApps=function(value){snapshotReceived=true;wall=value&&Array.isArray(value.wall)?value.wall.slice(0,128):null;apps={};slots=[];if(value&&Array.isArray(value.apps))for(var i=0;i<value.apps.length;i++)apps[value.apps[i].id]=value.apps[i];if(value&&Array.isArray(value.slots))for(i=0;i<Math.min(4,value.slots.length);i++)if(/^quick[1-4]$/.test(value.slots[i].slot))slots.push(value.slots[i]);renderApps();};
+  window.apertureHomeApps=function(value){snapshotReceived=true;wall=value&&Array.isArray(value.wall)?value.wall.slice(0,128):null;slots=[];if(value&&Array.isArray(value.slots))for(var i=0;i<Math.min(4,value.slots.length);i++)if(/^quick[1-4]$/.test(value.slots[i].slot))slots.push(value.slots[i]);renderApps();};
   // The home shortcuts remain visible; there is no fold state.
   expanded=true;preferredExpanded=true;setApps(true,false,false);
   var request=new XMLHttpRequest();request.open('GET','./app-presets.json',true);request.onload=function(){try{if(request.status!==200&&request.status!==0)return;var data=JSON.parse(request.responseText);if(!Array.isArray(data)||data.length>24)return;catalog=data;renderApps();}catch(ignored){}};request.send();
-  return {appsExpanded:function(){return expanded;},setApps:setApps,restoreApps:function(){setApps(preferredExpanded,false,false);},update:update,schedule:schedule,presetActions:presetActions,decorate:decorate,setMode:setMode};
+  return {appsExpanded:function(){return expanded;},setApps:setApps,restoreApps:function(){setApps(preferredExpanded,false,false);},update:update,schedule:schedule,setMode:setMode};
  };
 }());

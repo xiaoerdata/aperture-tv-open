@@ -279,6 +279,7 @@ public class MainActivity extends Activity {
         Button save=TvUi.button(this,"保存留言源",()->{try{messages.configure(input.getText().toString());note.setText(input.getText().toString().trim().isEmpty()?"已断开留言源":"已保存，正在读取");}catch(Exception invalid){note.setText("请输入有效的 HTTPS 地址");}});form.addView(save);TvDialogs.panel(this,"留言源",form);
     }
     private void action(String path) {
+        if("/add-shortcut".equals(path)&&!BuildConfig.PARENTS_EDITION){destinations.addShortcut();return;}
         if("/message-edit".equals(path)&&!BuildConfig.PARENTS_EDITION){startActivity(new Intent(this,MessageActivity.class));return;}
         if("/wall-edit".equals(path)&&!BuildConfig.PARENTS_EDITION){destinations.editWall();return;}
         if(path!=null&&path.startsWith("/open-wall")&&!BuildConfig.PARENTS_EDITION){destinations.launchWall(path.substring(6));return;}

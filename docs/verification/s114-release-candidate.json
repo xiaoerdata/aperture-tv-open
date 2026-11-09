@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "versionCode": 44,
+  "apkBytes": 55380284,
+  "apkSha256": "224685d61844d4b9d3291e18c9da77a8816549422fa36483f1a3ba4aafb9352b",
+  "androidInputSha256": "ac4c8f0c58398c689ebcc88e68592ac443cf5a99b0a73e49e6be250fb008199b",
+  "androidInputFiles": 238,
+  "signedWithCurrentCertificate": true,
+  "releaseBuildPassed": true,
+  "checks": [
+    {
+      "path": "docs/verification/s113-installed-apps.json",
+      "sha256": "878274ddd415a7ae9768b1819193c154035acc0dfd06b2ebf87c42495f1fbcc6"
+    },
+    {
+      "path": "docs/verification/s114-cinema-dates.json",
+      "sha256": "56d78f686e7db6e61ee287bccd1bb833b7ce13ba5d674b5b1cdeef52d77e6593"
+    },
+    {
+      "path": "docs/verification/s114-sort-rail.json",
+      "sha256": "c4bc9ca7c82c7d500234c1288b47c14757d34027e4ce8984aa2dfb52102766f3"
+    },
+    {
+      "path": "docs/verification/s110-playback-memory.json",
+      "sha256": "bece4df5cdbbf91de1dee32a75a025f812ca5784267f61a753d2ac7c49d7a8ee"
+    },
+    {
+      "path": "docs/verification/s111-browse-append.json",
+      "sha256": "ea4415a56808d80a94b1c1db554ca6d623095dfee6781f56f8942e3742e1c8e6"
+    },
+    {
+      "path": "docs/verification/s114-home-browser.json",
+      "sha256": "079cb84dce516fdab52faf90b2fcfc350c13bfe69eba74bd14044e8ad722ee33"
+    },
+    {
+      "path": "docs/verification/s114-native-compile.json",
+      "sha256": "95e0647e46e2cefcdbc96d06028b0f11376c65e1672a2b7b48a50f58f2ac0ca2"
+    }
+  ],
+  "dexNewPathsPresent": true,
+  "realXiaomi": false,
+  "published": false
+}

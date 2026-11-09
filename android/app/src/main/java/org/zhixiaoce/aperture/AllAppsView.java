@@ -9,13 +9,17 @@ import java.util.*;
 final class AllAppsView {
     interface Open {void run(ResolveInfo app);}
     static Dialog show(Activity a,List<ResolveInfo> apps,String recent,Open launch,Open options){
+        return show(a,apps,recent,"所有应用",launch,options);
+    }
+    static Dialog show(Activity a,List<ResolveInfo> apps,String recent,String heading,Open launch,Open options){
         LinearLayout body=new LinearLayout(a);body.setOrientation(LinearLayout.VERTICAL);body.setPadding(px(a,40),px(a,24),px(a,40),px(a,30));body.setBackground(TvUi.background());
-        TextView title=TvUi.text(a,"所有应用",32,false);body.addView(title);
+        TextView title=TvUi.text(a,heading,32,false);body.addView(title);
         ScrollView scroll=new ScrollView(a);scroll.setClipToPadding(false);scroll.setPadding(px(a,6),px(a,12),px(a,6),px(a,12));body.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));LinearLayout groups=new LinearLayout(a);groups.setOrientation(LinearLayout.VERTICAL);scroll.addView(groups);
         Dialog dialog=new Dialog(a);dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);dialog.setContentView(body,new ViewGroup.LayoutParams(-1,-1));
         List<ResolveInfo> last=new ArrayList<>();for(String key:recent.split("\\n"))for(ResolveInfo app:apps)if((app.activityInfo.packageName+"/"+app.activityInfo.name).equals(key)&&!last.contains(app))last.add(app);
         if(!last.isEmpty())group(a,groups,"最近使用",last,dialog,launch,options);
-        group(a,groups,"全部应用 · "+apps.size(),apps,dialog,launch,options);
+        group(a,groups,"已安装应用 · "+apps.size(),apps,dialog,launch,options);
+        if(apps.isEmpty())groups.addView(TvUi.text(a,"暂无可添加的应用",25,true));
         Button back=PlayerChrome.control(a,"返回",dialog::dismiss);body.addView(back);
         dialog.setOnShowListener(d->{if(dialog.getWindow()!=null){dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);dialog.getWindow().setLayout(Math.round(a.getResources().getDisplayMetrics().widthPixels*.92f),Math.round(a.getResources().getDisplayMetrics().heightPixels*.90f));}View first=findTile(groups);if(first!=null)first.requestFocus();else back.requestFocus();});dialog.show();return dialog;
     }

@@ -50,7 +50,7 @@ final class DestinationApps {
     byte[] icon(String key){return icons.get(key);}
     org.json.JSONObject homeApps(){
         initializeShortcuts();org.json.JSONObject snapshot=new org.json.JSONObject();org.json.JSONArray appsJson=new org.json.JSONArray(),slots=new org.json.JSONArray();java.util.Map<String,byte[]> cache=new java.util.HashMap<>();List<ResolveInfo> apps=available(false);
-        try{for(AppPresets.Entry e:presets()){ResolveInfo app=installed(e,apps);cacheIcon(cache,e.id,app);appsJson.put(new org.json.JSONObject().put("id",e.id).put("installed",app!=null).put("icon",cache.containsKey(e.id)?"/apps/icons/"+e.id+".png":""));}
+        try{for(AppPresets.Entry e:presets()){ResolveInfo app=installed(e,apps);if(app==null)continue;cacheIcon(cache,e.id,app);appsJson.put(new org.json.JSONObject().put("id",e.id).put("installed",true).put("icon",cache.containsKey(e.id)?"/apps/icons/"+e.id+".png":""));}
             for(int i=1;i<=4;i++){String slot="quick"+i;ResolveInfo app=selected(slot);cacheIcon(cache,slot,app);String id="";if(app!=null)for(AppPresets.Entry e:presets())if(e.packages.contains(app.activityInfo.packageName))id=e.id;slots.put(new org.json.JSONObject().put("slot",slot).put("id",id).put("name",app==null?"":app.loadLabel(activity.getPackageManager()).toString()).put("icon",cache.containsKey(slot)?"/apps/icons/"+slot+".png":""));}
             org.json.JSONArray wall=new org.json.JSONArray();for(String saved:wallComponents())for(ResolveInfo app:apps)if(component(app).flattenToString().equals(saved)){String key=AppWall.key(saved),id="";for(AppPresets.Entry e:presets())if(e.packages.contains(app.activityInfo.packageName))id=e.id;cacheIcon(cache,key,app);wall.put(new org.json.JSONObject().put("key",key).put("id",id).put("name",app.loadLabel(activity.getPackageManager()).toString()).put("icon",cache.containsKey(key)?"/apps/icons/"+key+".png":""));break;}
             snapshot.put("apps",appsJson).put("slots",slots).put("wall",wall).put("wallMax",AppWall.MAX);
@@ -58,10 +58,24 @@ final class DestinationApps {
     }
     void addPreset(String id){
         AppPresets.Entry match=null;for(AppPresets.Entry e:presets())if(e.id.equals(id))match=e;if(match==null)return;
-        final ResolveInfo app=installed(match,available(false));if(app==null){new AlertDialog.Builder(activity).setTitle(match.name).setMessage("未发现可启动的电视版应用。安装完成后返回开视即可添加。应用的地区、账号及订阅由应用本身决定。")
-            .setPositiveButton("安装应用",(d,w)->installation()).setNegativeButton("返回",null).show();return;}
+        final ResolveInfo app=installed(match,available(false));if(app==null){missingInstalled();return;}placeShortcut(app);
+    }
+    void addShortcut(){
+        if(appsDialog!=null)appsDialog.dismiss();
+        appsDialog=AllAppsView.show(activity,available(false),preferences.getString("recent_apps",""),"添加应用",this::placeShortcut,this::placeShortcut);
+        final android.app.Dialog shown=appsDialog;shown.setOnDismissListener(d->{if(appsDialog==shown)appsDialog=null;});
+    }
+    private void missingInstalled(){new AlertDialog.Builder(activity).setMessage("应用已卸载或停用，请重新选择。")
+        .setPositiveButton("重新选择",(d,w)->addShortcut()).setNegativeButton("返回",null).show();}
+    private boolean stillInstalled(ResolveInfo app){for(ResolveInfo current:available(false))if(component(current).equals(component(app)))return true;return false;}
+    private void placeShortcut(ResolveInfo app){
+        if(!stillInstalled(app)){missingInstalled();return;}
         String[] names=new String[4];for(int i=0;i<4;i++)names[i]="位置 "+(i+1)+" · "+(label("quick"+(i+1)).isEmpty()?"空位":label("quick"+(i+1)));
-        new TvDialogs.SideBuilder(activity).setTitle("放到首页").setItems(names,(d,which)->{String slot="quick"+(which+1);preferences.edit().putString("destination_"+slot,component(app).flattenToString()).apply();changed.onChanged(slot);}).setNegativeButton("返回",null).show();
+        new TvDialogs.SideBuilder(activity).setTitle("放到首页").setItems(names,(d,which)->{
+            if(!stillInstalled(app)){missingInstalled();return;}String slot="quick"+(which+1);
+            if(preferences.edit().putString("destination_"+slot,component(app).flattenToString()).commit())changed.onChanged(slot);
+            else new AlertDialog.Builder(activity).setMessage("应用入口未保存，请重试。").setPositiveButton("返回",null).show();
+        }).setNegativeButton("返回",null).show();
     }
     private boolean quick(String slot) { return "quick1".equals(slot) || "quick2".equals(slot) || "quick3".equals(slot) || "quick4".equals(slot); }
     private boolean valid(String slot) { return quick(slot) || "live".equals(slot) || "cinema".equals(slot) || "system".equals(slot); }
@@ -77,6 +91,7 @@ final class DestinationApps {
         ResolveInfo original=selected("system");if(original!=null)preferences.edit().putString("destination_system",component(original).flattenToString()).apply();
     }
     private List<ResolveInfo> available(boolean homes) {
+        if(!homes)return InstalledApps.read(activity);
         LinkedHashMap<String, ResolveInfo> result = new LinkedHashMap<>();
         String[] categories = homes ? new String[] {Intent.CATEGORY_HOME} : new String[] {Intent.CATEGORY_LEANBACK_LAUNCHER, Intent.CATEGORY_LAUNCHER};
         for (String category : categories) for (ResolveInfo info : activity.getPackageManager().queryIntentActivities(new Intent(Intent.ACTION_MAIN).addCategory(category), 0)) {

@@ -64,18 +64,17 @@ public final class CinemaActivity extends Activity {
         if(sectionFullscreen){sectionLayout=null;setContentView(body);return;}
         sectionLayout=new CinemaSectionView(this,title(),body);setContentView(sectionLayout.stage);refreshSectionRail();
     }
-    private boolean railCollapsed,sourcesExpanded=true,categoriesExpanded=true,filtersExpanded,sortExpanded=true;private String browseSort="latest";
+    private boolean railCollapsed,sourcesExpanded=true,categoriesExpanded=true,filtersExpanded;private String browseSort="latest";
     private int browseScrollY;private String browseWord,browseName="片单",filterYear="",filterArea="";private boolean browseActive;
     private final CinemaPaging browsePaging=new CinemaPaging();private CinemaBrowsePanel browsePanel;
     private void refreshSectionRail(){
         if(sectionLayout==null)return;
-        boolean live="live".equals(view);List<CinemaSectionView.Entry> rows=new ArrayList<>();
+        boolean live="live".equals(view);sectionLayout.sort(browseSort,live?null:this::chooseBrowseSort);List<CinemaSectionView.Entry> rows=new ArrayList<>();
         rows.add(new CinemaSectionView.Entry((sourcesExpanded?"▾ ":"▸ ")+"来源",false,()->{sourcesExpanded=!sourcesExpanded;refreshSectionRail();}));
         if(sourcesExpanded){
             if(live){for(CinemaCatalog.Live source:CinemaLiveSources.visible(config.lives))rows.add(new CinemaSectionView.Entry(source.name,source==currentLive,()->sectionLive(source,0),1));}
             else for(CinemaCatalog.Site site:config.sites)if(site.supports(view))rows.add(new CinemaSectionView.Entry(site.name,site==sectionSite,()->{browseWord=null;filterYear="";filterArea="";sectionCategory=null;sectionLoad(site,null,1);},1));
         }
-        if(!live){rows.add(new CinemaSectionView.Entry((sortExpanded?"▾ ":"▸ ")+"排序",false,()->{sortExpanded=!sortExpanded;refreshSectionRail();}));if(sortExpanded){rows.add(new CinemaSectionView.Entry("最新时间 ↓","latest".equals(browseSort),()->sortBrowse("latest"),1));rows.add(new CinemaSectionView.Entry("豆瓣评分 ↓","douban".equals(browseSort),()->sortBrowse("douban"),1));}}
         if(live){
             LinkedHashSet<String> groups=new LinkedHashSet<>();for(CinemaCatalog.Channel c:sectionChannels)groups.add(c.group);
             for(String group:groups){rows.add(new CinemaSectionView.Entry(group,group.equals(sectionRailMode),()->{sectionRailMode=group;refreshSectionRail();}));if(group.equals(sectionRailMode)||groups.size()==1)for(int i=0;i<sectionChannels.size();i++)if(group.equals(sectionChannels.get(i).group)){final int at=i;rows.add(new CinemaSectionView.Entry(sectionChannels.get(i).name,playingIndex==i,()->playChannels(sectionChannels,at,-1,this::finish),1));}}
@@ -88,6 +87,7 @@ public final class CinemaActivity extends Activity {
         sectionLayout.render(rows,live?null:()->{if(sectionSite!=null)search(sectionSite);},live?null:()->{if(sectionSite!=null){browseActive=true;renderBrowse();}},this::settings,this::shelfHome);
         sectionLayout.collapsed(railCollapsed);sectionLayout.onCollapse=()->{railCollapsed=!railCollapsed;if(browseActive)renderBrowse();else sectionLayout.collapsed(railCollapsed);};
     }
+    private void chooseBrowseSort(){TvDialogs.menu(this,"片单排序",new String[]{"日期降序"+("latest".equals(browseSort)?" · 当前":""),"豆瓣评分降序"+("douban".equals(browseSort)?" · 当前":"")},(dialog,at)->sortBrowse(at==1?"douban":"latest"));}
     private void sortBrowse(String mode){browseSort=mode;browseScrollY=0;sectionItemId="";if(sectionSite!=null&&browseActive)renderBrowse();else refreshSectionRail();}
     private void filter(boolean area){
         LinkedHashSet<String> values=new LinkedHashSet<>();values.add("全部");for(CinemaCatalog.Item item:sectionItems){String value=area?item.area:item.year;if(!value.isEmpty())values.add(value);}
@@ -169,7 +169,7 @@ public final class CinemaActivity extends Activity {
     private LinearLayout focusTile(String name,Runnable run){LinearLayout tile=new LinearLayout(this);tile.setOrientation(LinearLayout.VERTICAL);tile.setPadding(dp(6),dp(6),dp(6),dp(6));tile.setBackground(TvUi.states(this));tile.setFocusable(true);tile.setFocusableInTouchMode(true);tile.setClickable(true);tile.setContentDescription(name);tile.setOnClickListener(v->run.run());TvUi.touchClick(tile);tile.setOnFocusChangeListener((v,f)->{v.setScaleX(1);v.setScaleY(1);});return tile;}
     private View poster(Action action,Runnable run){
         LinearLayout tile=focusTile(action.name,run);CinemaPoster frame=new CinemaPoster(this,action.name);android.widget.ImageView image=frame.image;tile.addView(frame,new LinearLayout.LayoutParams(-1,0,1));
-        TextView name=label(action.name,BuildConfig.PARENTS_EDITION?22:18);name.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,(BuildConfig.PARENTS_EDITION?32:30)*getResources().getDisplayMetrics().heightPixels/1080f);name.setMaxLines(2);name.setMinLines(2);name.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(name);TextView facts=label(String.join(" · ",nonempty(action.item.year,action.item.genre)),15);facts.setTextColor(MUTED);facts.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,23*getResources().getDisplayMetrics().heightPixels/1080f);facts.setSingleLine();facts.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(facts,new LinearLayout.LayoutParams(-1,-2));TextView remark=label(action.item.remark,15);remark.setTextColor(MUTED);remark.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,23*getResources().getDisplayMetrics().heightPixels/1080f);remark.setSingleLine();remark.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(remark,new LinearLayout.LayoutParams(-1,-2));
+        TextView name=label(action.name,BuildConfig.PARENTS_EDITION?22:18);name.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,(BuildConfig.PARENTS_EDITION?32:30)*getResources().getDisplayMetrics().heightPixels/1080f);name.setMaxLines(2);name.setMinLines(2);name.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(name);TextView facts=label(String.join(" · ",nonempty(CinemaDates.label(action.item),action.item.genre)),15);facts.setTextColor(MUTED);facts.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,23*getResources().getDisplayMetrics().heightPixels/1080f);facts.setSingleLine();facts.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(facts,new LinearLayout.LayoutParams(-1,-2));TextView remark=label(action.item.remark,15);remark.setTextColor(MUTED);remark.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,23*getResources().getDisplayMetrics().heightPixels/1080f);remark.setSingleLine();remark.setEllipsize(android.text.TextUtils.TruncateAt.END);tile.addView(remark,new LinearLayout.LayoutParams(-1,-2));
         if(!action.item.rating.isEmpty()){TextView score=label(action.item.rating,17);score.setTextColor(0xffffe1a1);score.setGravity(Gravity.CENTER);score.setBackgroundColor(0xdf17191c);score.setPadding(dp(6),dp(2),dp(6),dp(2));score.setContentDescription((action.item.ratingSource.isEmpty()?"来源评分":action.item.ratingSource)+" "+action.item.rating);FrameLayout.LayoutParams badge=new FrameLayout.LayoutParams(-2,-2,Gravity.BOTTOM|Gravity.END);badge.setMargins(0,0,dp(5),dp(5));frame.addView(score,badge);}
         artwork.bind(image,action.image,action.base,config.allowHttp,()->{int turn=generation;String kind="movies".equals(view)?"movie":"series";info.lookup(action.item.name,action.item.year,kind,false,(match,candidates,state)->{if(generation!=turn||match==null)return;artwork.bind(image,match.optString("poster"),"",false);});});return tile;
     }
@@ -348,7 +348,7 @@ public final class CinemaActivity extends Activity {
     }
     private List<CinemaCatalog.Item> browseItems(){return CinemaOrder.sorted(CinemaBrowse.items(sectionItems,browseWord,filterYear,filterArea),browseSort);}
     private String browseEmpty(){return sectionItems.isEmpty()?"暂无影片，可搜索或切换来源":"已加载内容中没有匹配项";}
-    private void browseStatus(int visible){status.setText("已加载 "+sectionItems.size()+" 部 · "+("douban".equals(browseSort)?"豆瓣评分 ↓":"最新时间 ↓")+(filterYear.isEmpty()&&filterArea.isEmpty()?"":" · 筛选后 "+visible+" 部")+(browseWord==null?"":" · 当前来源"));}
+    private void browseStatus(int visible){status.setText("已加载 "+sectionItems.size()+" 部 · "+("douban".equals(browseSort)?"豆瓣评分 ↓":"日期 ↓")+(filterYear.isEmpty()&&filterArea.isEmpty()?"":" · 筛选后 "+visible+" 部")+(browseWord==null?"":" · 当前来源"));}
     private boolean browseHasMore(){return CinemaPaging.more(sectionPage,sectionPages,sectionItems.size());}
     private void renderBrowse(){
         sectionFullscreen=false;browseActive=true;screen(browseName,this::finish);List<CinemaCatalog.Item> rows=browseItems();browseStatus(rows.size());

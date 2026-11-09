@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "output": "33 production date, sort and resource import assertions passed",
+  "productionJsonXmlExecuted": true,
+  "syntheticMetadata": true,
+  "realXiaomi": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "f6b77efcce916fc46c69eeb34ae0679b3788928b9663bb2a8aa4fffcc1fbe8b7",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaOrder.java": "ece31327ebcd84cfd5cb5b424131187ae6140e717879e006b6172e9961b9ac4c",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "d03ac1de0500552b42766992f41a2b17164eb3da534a9d5169aa8954b0c562e1",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "ec4af0eead5a6d5e1c3cbdb0b6bd473505f5dd904b67e098907f40919724312d",
+    "tests/java/CinemaDatesTest.java": "d4b94723678c935513ede3a85cba0b4dba2687875164c324ccb90d877ac8d033"
+  }
+}

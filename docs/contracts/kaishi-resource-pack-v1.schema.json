@@ -274,6 +274,10 @@
                   "maxLength": 40
                 }
               ]
+            },
+            "releaseDate": {
+              "type": "string",
+              "maxLength": 80
             }
           }
         },
@@ -368,6 +372,10 @@
               "maxLength": 40
             }
           ]
+        },
+        "releaseDate": {
+          "type": "string",
+          "maxLength": 80
         }
       },
       "required": [

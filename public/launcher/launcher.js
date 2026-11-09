@@ -215,15 +215,16 @@
   }
   function openPane(name) {
     var spec = specs[name]; if (!spec) return;
-    if (name === 'presets') { spec.actions = personal ? personal.presetActions() : []; if (!spec.actions.length) spec.actions = [['choose-shortcuts','管理常用应用','','']]; }
+    if(name==='presets'&&local&&!parents){closePane();nativeAction('add-shortcut');return;}
+    if(name==='presets'){spec.actions=[];spec.description='请在电视上添加已安装的应用。';}
     if (!pane) prior = document.activeElement;
     pane = name;
     $('pane-backdrop').className='pane-backdrop compact-pane';
     $('pane-backdrop').setAttribute('data-pane',name);
     text('pane-title', spec.title); text('pane-eyebrow', ''); text('pane-description', spec.description || ''); text('pane-footnote', spec.footnote || ''); text('action-status', '');
     $('pane-description').hidden = !spec.description; $('pane-footnote').hidden = !spec.footnote;
-    $('pane-swallow').hidden = name !== 'presets';
-    $('pane-swallow').parentNode.className='pane-intro'+(name==='presets'?' preset-intro':'');
+    $('pane-swallow').hidden = true;
+    $('pane-swallow').parentNode.className='pane-intro';
     $('pane-art').setAttribute('data-pane', name); $('pane-actions').textContent = '';
     for (var i = 0; i < spec.actions.length; i++) {
       (function (entry) {
@@ -236,7 +237,6 @@
     $('pane-actions').className = 'pane-actions';
     if (name === 'hub') {var pending=document.querySelector('[data-action=hub-connect]');pending.disabled=true;pending.setAttribute('aria-disabled','true');}
     if (name === 'wallpapers') wallpaperPane();
-    if (name === 'presets' && personal) personal.decorate($('pane-actions'));
     if (personal) personal.schedule();
     if(window.KaishiGallery)window.KaishiGallery.homePage(false);
     $('pane-backdrop').hidden = false; $('lobby').setAttribute('aria-hidden', 'true');

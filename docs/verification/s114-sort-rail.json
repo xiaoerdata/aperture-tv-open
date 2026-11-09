@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "output": "9 fixed-sort placement, visibility, confirm and focus assertions passed with JVM UI doubles",
+  "jvmViewDoubles": true,
+  "realAndroidRendering": false,
+  "realXiaomi": false,
+  "sourceSha256": "cd4b52adc98432217ec98eb444a77c84121ac560dbea02b7db1c681a37faefac"
+}

@@ -27,7 +27,7 @@ stubs={
  'org/zhixiaoce/aperture/TvUi.java':'''package org.zhixiaoce.aperture;class TvUi {static int dp(android.app.Activity a,float v){return Math.round(v*a.getResources().getDisplayMetrics().heightPixels/675f);}static android.widget.TextView text(android.app.Activity a,String value,int size,boolean muted){android.widget.TextView v=new android.widget.TextView();v.setText(value);return v;}static android.widget.Button button(android.app.Activity a,String value,Runnable action){android.widget.Button b=new android.widget.Button();b.setText(value);b.setOnClickListener(v->action.run());return b;}static Object states(android.app.Activity a){return new Object();}}''',
 }
 base=root/'android/app/src/main/java/org/zhixiaoce/aperture'
-sources=[base/(n+'.java') for n in ['CinemaCatalog','CinemaResourcePack','CinemaFormats','CinemaBrowse','CinemaOrder','CinemaPaging','CinemaBrowsePanel']]
+sources=[base/(n+'.java') for n in ['CinemaCatalog','CinemaDates','CinemaResourcePack','CinemaFormats','CinemaBrowse','CinemaOrder','CinemaPaging','CinemaBrowsePanel']]
 tests=[root/'tests/java'/(n+'.java') for n in ['CinemaPagingTest','CinemaBrowsePanelTest','CinemaBrowseTest']]
 outputs=[]
 with tempfile.TemporaryDirectory(prefix='kaishi-s111-browse-') as directory:

@@ -13,17 +13,18 @@
   "apkBuilt": false,
   "published": false,
   "sources": {
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "1f6d02491e8d084d4093e35c23c93417f9a7d19aaf0ea6997e2e1d0faee80949",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "b48ace04465e8693d1cfedace5a9a17dca344f15a6734a8c40bcdac131c3b239",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "a066babb82f8ca1f674701746b5ffde79b43475ae131a15a2a8f1dea14439ef6",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "f6b77efcce916fc46c69eeb34ae0679b3788928b9663bb2a8aa4fffcc1fbe8b7",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "d03ac1de0500552b42766992f41a2b17164eb3da534a9d5169aa8954b0c562e1",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "ec4af0eead5a6d5e1c3cbdb0b6bd473505f5dd904b67e098907f40919724312d",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaBrowse.java": "3a4e7cef32f1f655d7010abef0d19af342de5b37b04a1cb9b8db75cc21b72372",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaOrder.java": "b042ae273b873b96aa70bb8900eb4582b5647e8af73ec43873f1da45d5dfd24b",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaOrder.java": "ece31327ebcd84cfd5cb5b424131187ae6140e717879e006b6172e9961b9ac4c",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaPaging.java": "16f19f9c981c52089bedc224ad905a4c57eaac6b3e7294d0bed5aaf68fa6fa57",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaBrowsePanel.java": "6e9ae043bc4fe9612b216320e8b2379f136e8d3e0c155be1c4b340a37cc80ac5",
     "tests/java/CinemaPagingTest.java": "03629669bbc475fc7cfbb03d072536dc518dda2cd143df4e5ced23cb502cea16",
     "tests/java/CinemaBrowsePanelTest.java": "84df55fce6aedb4d3928f7651feb3e6da3fc70b5d10a718c401a7bed33664c9a",
     "tests/java/CinemaBrowseTest.java": "78348c64e607dad2c52ee9d7e0fab6723826f65278cf3bacc34ff2796528aa50",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "273080e2dca08f121f6c83ef89797d343fc8289237077636b275eaa9d21fdc60",
-    "scripts/s111-browse-append-test.py": "81c297cdf6a6bc07810a75fc37cd42816d631a83403d765f898fdd2724a3e9d9"
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "a2479128bf8fc1877b7a0efb3b852bb6d0d70820fb40f898f06a5b84a6d343cc",
+    "scripts/s111-browse-append-test.py": "a5f115ccbfd2de93b07514d888959d4d9a6f4f346f64e70ee2752e7a6e45de6a"
   }
 }
