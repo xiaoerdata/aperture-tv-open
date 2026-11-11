@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "versionCode": 45,
+  "edition": "parents",
+  "actualParentsReleaseBuilt": true,
+  "parentsBuildConfigTrue": true,
+  "apkBytes": 55408956,
+  "apkSha256": "8d54b5e301e8d3663d59f8803f826bccd64941c0efdb5773f97e9ee8d0d751b0",
+  "same239ProductInputsAsStandardV45": true,
+  "sourceCommit": "861bac52ef79c1f2f7eba382469596034882ed4a",
+  "certificateMatchesPublicParentsV32": true,
+  "publicParentsV32Certificate": {
+    "versionCode": 32,
+    "applicationId": "org.zhixiaoce.kaishi.parents",
+    "sha256": "fbf03c013596c5e107a4ff9eaff56d4463fa5ff47d24356575acae56b994f604",
+    "certificateSha256": "8176c1580418563f290e57d6f4b3f05ed6e1503748f52feca0a0c437da87ec33",
+    "githubDigestMatches": true
+  },
+  "browserReceiptSha256": "08240256cc30a78d14ff26c58c0b33d5dc3cff2b4f6b1c3438b38ad08aacddc0",
+  "assetsMatchInputs": true,
+  "testClassesNotInProduct": true,
+  "realXiaomi": false,
+  "published": false
+}

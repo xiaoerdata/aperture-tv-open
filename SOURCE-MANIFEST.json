@@ -47,8 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": "861bac52ef79c1f2f7eba382469596034882ed4a",
-    "publicParent": "861bac52ef79c1f2f7eba382469596034882ed4a",
+    "postReleaseReceiptFor": null,
+    "publicParent": "eaddc2ecac489ed4400010a63b51c06828f26d96",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
   "files": [
@@ -99,8 +99,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5732,
-      "sha256": "4085ffd92bf57979455c690f8edda731f931a0c7cc85100ff3cb93236d85a0ea"
+      "bytes": 5706,
+      "sha256": "61779e228f94a4123875376289d9e321e1263686bbeaf0a679972da1ee05c503"
     },
     {
       "path": "SECURITY.md",
@@ -1449,8 +1449,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4417,
-      "sha256": "a59c3b0f023cd588f2e6be62971ab58e3b8e0954271d6a81d8c3d94618c5f4e9"
+      "bytes": 4616,
+      "sha256": "7ece5ffc85e482b07025269da5128be16cf68f3e9a6005dac57694fc5f7d4523"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -1668,9 +1668,14 @@
       "sha256": "06e3978d683b609b086e47aea0ec83a4bd2be6e8d4d08bd72bc33d7704a02d23"
     },
     {
+      "path": "docs/RELEASE-V45-PARENTS.md",
+      "bytes": 2612,
+      "sha256": "d8f211dedc7bef0381c2e095cc20c2f12581da65d830e2f5d37ab39c45b30fcd"
+    },
+    {
       "path": "docs/RELEASE-V45.md",
-      "bytes": 2880,
-      "sha256": "c472709de6c8d9834ce0db292bfd28ac5fc1ee2939ad3ace9e32ca439b260446"
+      "bytes": 2942,
+      "sha256": "a84be5f004dd09836588ac32dd2391ff250c7c47381d2a112259504e22af9f49"
     },
     {
       "path": "docs/RESOURCE-PACK-AGENT.md",
@@ -2276,6 +2281,11 @@
       "path": "docs/images/s115-home-weather/home-weather.png",
       "bytes": 3111521,
       "sha256": "39f5ca73f4f790a194443578f4f1df9ae8a7b47bd3e8c1ed5fdfa15fe8845314"
+    },
+    {
+      "path": "docs/images/s117-parents/home.png",
+      "bytes": 3009436,
+      "sha256": "685eb65db92c9e64d13eb651102edd84a7f54d7ff6cf83982abb2abcd83a121b"
     },
     {
       "path": "docs/images/s18-cinema-phone.png",
@@ -5289,18 +5299,18 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 292179,
-      "sha256": "444d41cb0a6b1a35c3e71628253f4bca8ab5bc6fdfa60bcba32351787441f115"
+      "bytes": 293813,
+      "sha256": "073d5a5e2437913f5df6b77f7c7798f75c218dd7764047909a952d7ef240a9d7"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 43165,
-      "sha256": "01d609e0651c2706b9828e794d4ddff5746e71978a19c7afd4589bac4f7a07a3"
+      "bytes": 43272,
+      "sha256": "c1d8157b731e705785b392df00b7096b945946eb0a3ff16f0cb8b4cf6b13e370"
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 26494,
-      "sha256": "b4db5c660c2a11a7c3cc17ed1455283e99fa8c6060152de8838ef8a3553e2bec"
+      "bytes": 26755,
+      "sha256": "a3343fe05310bf8bb19d4e68b01d78bbd32ae761ef3ecbdbe0dc66e713b7b47e"
     },
     {
       "path": "docs/process/ROUND1-V37.md",
@@ -5339,8 +5349,8 @@
     },
     {
       "path": "docs/release/README-public.md",
-      "bytes": 5714,
-      "sha256": "aa84d51a25db351003c9d816a4f1588af9dbba92c21d21dc3487f52a9f26f958"
+      "bytes": 5688,
+      "sha256": "00efc37e07177ca9ff1474458102779070e9dc8170a700ea362bd0f6d07c2065"
     },
     {
       "path": "docs/schemas/message-feed-v1.schema.json",
@@ -5826,6 +5836,16 @@
       "path": "docs/verification/s116-release-candidate.json",
       "bytes": 1236,
       "sha256": "5ab62429f76848f414e26f5459bd8c8a854ea8ef445db99d2b22da10b077b95f"
+    },
+    {
+      "path": "docs/verification/s117-parents-browser.json",
+      "bytes": 1580,
+      "sha256": "08240256cc30a78d14ff26c58c0b33d5dc3cff2b4f6b1c3438b38ad08aacddc0"
+    },
+    {
+      "path": "docs/verification/s117-parents-candidate.json",
+      "bytes": 923,
+      "sha256": "2fa8f98554fc71ec15d56d735f5ea2f3f600b39915f95415cc1125b6583b656b"
     },
     {
       "path": "docs/verification/s30-launcher-regression.json",
@@ -7978,6 +7998,11 @@
       "sha256": "ec5a3efcdb194076deb2fe53bf9eabeceb48201efb4f72d14191ed54da6a9deb"
     },
     {
+      "path": "media/DEVLOG-091.md",
+      "bytes": 820,
+      "sha256": "0e302f75c5f816d98557d4bd3d0f7e39110dd741a162294621b75c4b37bde77b"
+    },
+    {
       "path": "media/GLASS-ASSET-PROMPT.md",
       "bytes": 1380,
       "sha256": "daeb021eb3ad316b9bd2aedcdd9dfe6d04e9dbeca4aff33187957a1e5d327b42"
@@ -9198,6 +9223,26 @@
       "sha256": "5b9ee9a5f8d4272b7b5f86bb6938539b4d64a3030ed92355be4fbf31347b8d7a"
     },
     {
+      "path": "scripts/s117-build-parents.py",
+      "bytes": 5093,
+      "sha256": "573237317cbf9f588db517c602f4d7032a81206328452e1715fe36eb32596d51"
+    },
+    {
+      "path": "scripts/s117-parents-test.mjs",
+      "bytes": 7301,
+      "sha256": "484c2c4d5b557b7b52e5593b8961eb1b1d19bde9fffad2c7bc5c1786727e284c"
+    },
+    {
+      "path": "scripts/s117-prepare-source.py",
+      "bytes": 5176,
+      "sha256": "5c4b36bc923528258b5122700d897add6b00b33481e274b518f8cb85f2e78526"
+    },
+    {
+      "path": "scripts/s117-upload-source.py",
+      "bytes": 2012,
+      "sha256": "f53ac4a4e05acfe117ee928927a4c4a4078d377a4d30740cfc2c271b1352f0a5"
+    },
+    {
       "path": "scripts/s70-media-fixture.mjs",
       "bytes": 4962,
       "sha256": "0e67342768886e460f2b4c278b10368e16ae309f2161c1f8e9d63245de8eb331"
@@ -10393,7 +10438,23 @@
     "xiaomiAccepted": false,
     "latestDocumentation": "docs/RELEASE-V45.md",
     "publishedAt": "2026-11-11T04:14:03Z",
-    "anonymousDownloadVerified": true
+    "anonymousDownloadVerified": true,
+    "editions": [
+      "standard",
+      "parents"
+    ],
+    "parents": {
+      "version": "0.2.0-alpha.42-parents",
+      "versionCode": 45,
+      "apk": "kaishi-v45-parents-arm.apk",
+      "sha256": "8d54b5e301e8d3663d59f8803f826bccd64941c0efdb5773f97e9ee8d0d751b0",
+      "bytes": 55408956,
+      "sourceCommit": "861bac52ef79c1f2f7eba382469596034882ed4a",
+      "sameProductInputsAsStandard": true,
+      "status": "candidate",
+      "xiaomiAccepted": false,
+      "documentation": "docs/RELEASE-V45-PARENTS.md"
+    }
   },
   "upstreamUnresolvedValidation": {
     "candidate": {

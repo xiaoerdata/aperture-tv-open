@@ -1,10 +1,10 @@
 # 下载与版本
 
-**仅适配小米电视，Android 8+。** 当前标准版为 **v45 / 0.2.0-alpha.42**，预发布测试版。时钟旁常显大字天气，右侧独立“看天气”入口；本机兼容首页同步，保留真实应用库、片单排序、观看记忆与20MiB相册上传。12组浏览器适配检查与标准版构建签名通过；小米真机待复测，爸妈版暂停更新。
+**仅适配小米电视，Android 8+。** 当前标准版为 **v45 / 0.2.0-alpha.42**，预发布测试版。时钟旁常显大字天气，右侧独立“看天气”入口；本机兼容首页同步，保留真实应用库、片单排序、观看记忆与20MiB相册上传。12组浏览器适配检查与标准版构建签名通过；小米真机待复测，爸妈版已同步v45，继续保留简化布局。
 
 [标准版 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.42/kaishi-v45-standard-arm.apk) · [发行页面](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.42) · [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.42/SHA256SUMS) · [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.42/testing-manifest.json)
 
-[历史爸妈版 v32](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.29/kaishi-v32-parents.apk)
+[爸妈版 v45 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.42/kaishi-v45-parents-arm.apk) · [爸妈版校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.42/SHA256SUMS-parents) · [爸妈版说明](RELEASE-V45-PARENTS.md)
 
 ## 从v18—v44升级
 

@@ -11,15 +11,15 @@
 ## 版本
 
 - 标准版：首屏看电视、看电视剧、看电影、看综艺、常用应用；向下依次进入应用、相册和留言。深色玻璃、4K摄影背景和遥控焦点。
-- 爸妈版（暂停开发，保留历史版本）：看电视、看电视剧、看电影、看综艺，以及常用应用快捷入口。安装和来源配置留在家人设置。
+- 爸妈版（已同步v45）：看电视、看电视剧、看电影、看综艺，以及常用应用快捷入口。安装和来源配置留在家人设置。
 
 ![标准版首页（浏览器、合成应用状态，非真机）](../images/s112/home-regression/home.png)
 
-![爸妈版首页（浏览器、合成留言，非真机）](../images/s79-parents-1920.png)
+![爸妈版v45首页（浏览器、合成天气与应用，非真机）](../images/s117-parents/home.png)
 
 ## 安装与使用
 
-按[小米电视安装说明](../../INSTALL.md)开始。[下载与版本](../DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.42)提供标准版和源码，爸妈版保留历史版本；也可[免费本地构建](../ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
+按[小米电视安装说明](../../INSTALL.md)开始。[下载与版本](../DOWNLOADS.md)说明两版选择和校验方法；[Alpha测试下载](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.42)提供标准版、爸妈版和源码；也可[免费本地构建](../ANDROID-LOCAL.md)。不需要Root、刷固件或停用原桌面，默认作为普通应用启动。
 
 直播与影视支持M3U/TXT、XML/JSON、多仓与type4播放解析；type3支持经用户确认的JAR/Dex、JavaScript/drpy和Python插件。插件兼容有边界，见[内嵌影院](../EMBEDDED-CINEMA.md)与[插件说明](../PLUGIN-ENGINE.md)；没有预置影视来源。
 

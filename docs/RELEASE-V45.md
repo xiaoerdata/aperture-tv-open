@@ -1,6 +1,6 @@
 # v45 · 时钟旁看天气
 
-标准版 **0.2.0-alpha.42 / versionCode 45**，仅适配小米电视 Android 8+。爸妈版暂停。仍为预发布测试版，小米真机验收待完成。发布状态以[发行页](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.42)为准。
+标准版 **0.2.0-alpha.42 / versionCode 45**，仅适配小米电视 Android 8+。爸妈版随后已[同步v45](RELEASE-V45-PARENTS.md)，提供独立安装包。仍为预发布测试版，小米真机验收待完成。发布状态以[发行页](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.42)为准。
 
 - 时钟旁独立显示城市、温度、天气状况和矢量图标。主文字38、状况28设计像素，随实际窗口等比缩放，不更改电视全局分辨率/density。家庭NAS面板配置后仍保留独立空间。
 - “看综艺”右侧固定为“看天气”，不再把摘要挤在按钮内。向右、确定进入24小时和未来7天预报，返回恢复到按钮；天气摘要不占遥控焦点。
