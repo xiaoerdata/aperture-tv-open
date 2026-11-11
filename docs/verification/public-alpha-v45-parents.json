@@ -1,0 +1,70 @@
+{
+  "version": "0.2.0-alpha.42-parents",
+  "versionCode": 45,
+  "edition": "parents",
+  "tag": "v0.2.0-alpha.42",
+  "commit": "5760a22739077b11944767fab3d905a0ac92c8ff",
+  "tree": "e94fca322c2facb7ea35b0994fc615d25a57f29c",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.42",
+  "productSourceCommit": "861bac52ef79c1f2f7eba382469596034882ed4a",
+  "standardAssetsUnchanged": true,
+  "prerelease": true,
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v45-parents-arm.apk",
+      "bytes": 55408956,
+      "sha256": "8d54b5e301e8d3663d59f8803f826bccd64941c0efdb5773f97e9ee8d0d751b0",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 106
+    },
+    {
+      "name": "parents-testing-manifest.json",
+      "bytes": 44541,
+      "sha256": "9095242fdfc2a646d0cb819d0e4e3e260a4ef0c6e42b7e69b0d1c76a9697a8c3",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    },
+    {
+      "name": "SHA256SUMS-parents",
+      "bytes": 189,
+      "sha256": "b3fee761ed46b8e248ec32611a0635a491ffd3c38c5d2fafa34684d1e2f0c3a2",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    }
+  ],
+  "publicFrozenSourceReadback": [
+    {
+      "path": "docs/RELEASE-V45-PARENTS.md",
+      "sha256": "d8f211dedc7bef0381c2e095cc20c2f12581da65d830e2f5d37ab39c45b30fcd",
+      "anonymous": true
+    },
+    {
+      "path": "scripts/s117-build-parents.py",
+      "sha256": "573237317cbf9f588db517c602f4d7032a81206328452e1715fe36eb32596d51",
+      "anonymous": true
+    },
+    {
+      "path": "docs/verification/s117-parents-candidate.json",
+      "sha256": "2fa8f98554fc71ec15d56d735f5ea2f3f600b39915f95415cc1125b6583b656b",
+      "anonymous": true
+    },
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "sha256": "60c5c5c2ba98f8a0e7e4d2eb11ae4c096773b7e78ed699879ab64a06f219458c",
+      "anonymous": true
+    }
+  ],
+  "androidInputSha256": "b556cff7e8209d23b608e1d408a8211df18c83b51101e23bc41faa723e283225",
+  "androidGitTreeInputFilesVerified": 239,
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "phoneAcrossPhysicalDevicesTested": false,
+  "parentsDevelopment": "resumed-for-v45",
+  "publicTagCommitVerified": true,
+  "allSixAssetDigestsVerified": true,
+  "parentsApkUploadedAt": "2026-11-11T04:30:44Z",
+  "temporaryUploaderRuntimeRemoved": true
+}

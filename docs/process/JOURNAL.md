@@ -1540,3 +1540,5 @@ S116发布完成：v45/alpha.42标准版已公开预发布，冻结源码861bac5
 实际下载公开v32爸妈版并核对GitHub摘要，解析包名org.zhixiaoce.kaishi.parents与原发行证书，同签名可覆盖升级。离线Gradle assembleParentsRelease通过，生成BuildConfig.PARENTS_EDITION=true；新包45/0.2.0-alpha.42-parents为55,408,956字节，SHA-256 8d54b5e301e8d3663d59f8803f826bccd64941c0efdb5773f97e9ee8d0d751b0。ARM32/64、Android8+、非调试、应用名、资源与新增生产类均核对，测试类未打入。4组浏览器分辨率/密度检查四入口、方向键、综艺确定桥接、天气打开和返回与应用图标通过；实际查看截图，画面为合成天气/应用，不能当作小米真机验收。
 
 爸妈版作为v45既有发行页的三个独立附件补充：kaishi-v45-parents-arm.apk、parents-testing-manifest.json、SHA256SUMS-parents。标准版三个附件保留原字节与摘要，标签仍指向同一产品源码；文档与过程通过新提交补充。上传、匿名下载和收尾清理完成后另记。见[爸妈版说明](../RELEASE-V45-PARENTS.md)、[第91期底稿](../../media/DEVLOG-091.md)。
+
+S117发布完成：爸妈版v45/alpha.42-parents已加入既有v45发行页，源码239项输入与标准版冻结提交861bac52ef79c1f2f7eba382469596034882ed4a一致。包名org.zhixiaoce.kaishi.parents，原发行证书与公开v32爸妈版匹配，SHA-256 8d54b5e301e8d3663d59f8803f826bccd64941c0efdb5773f97e9ee8d0d751b0。三个新附件完整匿名下载逐字节一致，四份固定文档匿名读回一致；标准版三个附件字节摘要、原产品标签与源码保持。清理本次构建、下载用于签名比对的v32包和重复传输树，按实际分配块估算释放350085120字节；当前两版、源码、签名与必要截图记录保留。小米真机仍待复测。

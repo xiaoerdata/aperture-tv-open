@@ -47,8 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": null,
-    "publicParent": "eaddc2ecac489ed4400010a63b51c06828f26d96",
+    "postReleaseReceiptFor": "861bac52ef79c1f2f7eba382469596034882ed4a",
+    "publicParent": "5760a22739077b11944767fab3d905a0ac92c8ff",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
   "files": [
@@ -5299,8 +5299,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 293813,
-      "sha256": "073d5a5e2437913f5df6b77f7c7798f75c218dd7764047909a952d7ef240a9d7"
+      "bytes": 294510,
+      "sha256": "c25d67dce3446df034e80d6c88bb7e0f74761362bc5199ff98f9d4ecea8be62e"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -5603,6 +5603,11 @@
       "sha256": "2a642d798e4e5fd423ffec0d8e7fa90e3a3b0a704df4da0e337cd94c3443c498"
     },
     {
+      "path": "docs/verification/public-alpha-v45-parents.json",
+      "bytes": 2374,
+      "sha256": "d09da1499ae7293bfd0b32f0012a2a191022039c531c9efad02904039fccc456"
+    },
+    {
       "path": "docs/verification/public-alpha-v45.json",
       "bytes": 2710,
       "sha256": "9951bd752f77e7c2a44232b14b57dfed687ec37e394f0866c08cf6e20f9847cb"
@@ -5846,6 +5851,11 @@
       "path": "docs/verification/s117-parents-candidate.json",
       "bytes": 923,
       "sha256": "2fa8f98554fc71ec15d56d735f5ea2f3f600b39915f95415cc1125b6583b656b"
+    },
+    {
+      "path": "docs/verification/s117-parents-cleanup.json",
+      "bytes": 495,
+      "sha256": "95c2a888485b3c3cc38684b9c449a838d608d8cfb1abb324fa06495d810fb0c9"
     },
     {
       "path": "docs/verification/s30-launcher-regression.json",
@@ -7999,8 +8009,8 @@
     },
     {
       "path": "media/DEVLOG-091.md",
-      "bytes": 820,
-      "sha256": "0e302f75c5f816d98557d4bd3d0f7e39110dd741a162294621b75c4b37bde77b"
+      "bytes": 1517,
+      "sha256": "9d96b9bd9d18624440f229ea5c9d9086774de9dabebb1cb3ec225dcdcdb90e31"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -10451,9 +10461,12 @@
       "bytes": 55408956,
       "sourceCommit": "861bac52ef79c1f2f7eba382469596034882ed4a",
       "sameProductInputsAsStandard": true,
-      "status": "candidate",
+      "status": "published",
       "xiaomiAccepted": false,
-      "documentation": "docs/RELEASE-V45-PARENTS.md"
+      "documentation": "docs/RELEASE-V45-PARENTS.md",
+      "anonymousDownloadVerified": true,
+      "uploadedAt": "2026-11-11T04:30:44Z",
+      "verification": "docs/verification/public-alpha-v45-parents.json"
     }
   },
   "upstreamUnresolvedValidation": {

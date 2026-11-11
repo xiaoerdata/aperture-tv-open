@@ -1,0 +1,17 @@
+{
+  "applied": true,
+  "deletedGeneratedPaths": [
+    "android/app/build",
+    "artifacts/s117-parents/prior",
+    "artifacts/s117-parents/source-overlay",
+    "artifacts/s117-parents/delivery"
+  ],
+  "estimatedFreedAllocatedBytes": 350085120,
+  "bothCurrentApksVerified": true,
+  "standardMetadataUnchanged": true,
+  "all239ProductInputsUnchanged": true,
+  "signingAndToolchainPreserved": true,
+  "mountsWithinTargets": false,
+  "openFilesWithinTargets": false,
+  "symlinksNotFollowed": true
+}
