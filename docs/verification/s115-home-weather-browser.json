@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 960,
+      "height": 540,
+      "dpr": 4,
+      "summaryByClock": true,
+      "largeFonts": {
+        "main": 38,
+        "detail": 28,
+        "focusable": false
+      },
+      "watchWeatherEntry": true,
+      "remoteOpenAndReturn": true,
+      "nasPanelClear": true
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "dpr": 1,
+      "summaryByClock": true,
+      "largeFonts": {
+        "main": 38,
+        "detail": 28,
+        "focusable": false
+      },
+      "watchWeatherEntry": true,
+      "remoteOpenAndReturn": true,
+      "nasPanelClear": true
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "summaryByClock": true,
+      "largeFonts": {
+        "main": 38,
+        "detail": 28,
+        "focusable": false
+      },
+      "watchWeatherEntry": true,
+      "remoteOpenAndReturn": true,
+      "nasPanelClear": true
+    },
+    {
+      "width": 3840,
+      "height": 2160,
+      "dpr": 2,
+      "summaryByClock": true,
+      "largeFonts": {
+        "main": 38,
+        "detail": 28,
+        "focusable": false
+      },
+      "watchWeatherEntry": true,
+      "remoteOpenAndReturn": true,
+      "nasPanelClear": true
+    }
+  ],
+  "offlineAndRecovery": true,
+  "disabledSummary": true,
+  "syntheticWeatherAndNas": true,
+  "realNetworkForecast": false,
+  "realXiaomi": false,
+  "errors": [],
+  "sources": {
+    "public/launcher/index.html": "79277c659bba70739f299112222684123a4ee366fd91f59faad83f22640a0491",
+    "public/launcher/launcher.js": "51a9059d3c5b88a8479c0f8deeeaeff1c2172223e579d4e043a0fa21e519261f",
+    "public/launcher/style.css": "84baba8a41fb1d97c13d73a74bceb3aac2c1905b44b1ec72385e2d75bf85976a",
+    "public/launcher/weather.js": "03f44989a5fb507c0942a2741c47bd9c06aab283061bba341bd42b89a3d90254",
+    "public/launcher/weather-model.js": "f095d3f328e419d45f86e24e71ad45ccecc1fd1ba2cab211a3bd8fb55b6e1fdc"
+  }
+}

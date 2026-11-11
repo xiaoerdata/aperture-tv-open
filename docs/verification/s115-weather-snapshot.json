@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "output": "13 native weather snapshot and freshness assertions passed; synthetic readings",
+  "syntheticProviderReadings": true,
+  "realXiaomi": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/HomeWeatherSnapshot.java": "9087d3ae782e66b6f5f2e37907b32b289b8496173e9f339eaf29a01b74705f40",
+    "tests/java/HomeWeatherSnapshotTest.java": "e1d3db9c5a309123992a42277c1a85eae290788fff4d10de7993b55413c922b2"
+  }
+}

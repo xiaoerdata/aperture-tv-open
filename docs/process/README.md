@@ -206,3 +206,5 @@ S106：P115推送v41标准版，见[发行说明](../RELEASE-V41.md)。产品输
 S107—S112：[v43汇总](../RELEASE-V43.md)、[相册与应用](../HOME-UPDATES-S108.md)、[天气返回](../WEATHER-RETURN-S109.md)、[观看记忆](../PLAYBACK-MEMORY-S110.md)、[片单追加](../BROWSE-APPEND-S111.md)。原文P116—P127、日志S107—S112和第82—87期底稿同步保留；真机验收与公开发布分别记载。
 
 S113—S114：[v44说明](../RELEASE-V44.md)、[第88期底稿](../../media/DEVLOG-088.md)。P128—P129原文与应用发现、日期排序的验证分别记录，真机验收待完成。
+
+S115—S116：[首页天气](../HOME-WEATHER-S115.md)、[v45说明](../RELEASE-V45.md)、[第89期](../../media/DEVLOG-089.md)与[第90期底稿](../../media/DEVLOG-090.md)。P130—P131原文、天气验证与封装发布分别记录；真机验收待完成。

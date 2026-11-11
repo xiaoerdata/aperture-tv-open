@@ -26,7 +26,9 @@ final class ScenicNativeHome extends android.view.ViewGroup {
     private boolean foreground=true;
     private HomeAlbumView album;private AppWallView appWall;private Button firstTool;
     private final Map<TextView,Integer> iconSizes=new IdentityHashMap<>();
-    private TextView time,date,caption,messagePreview;
+    private TextView time,date,caption,messagePreview,weatherTitle,weatherDetail;
+    private WeatherProxy homeWeather;private java.util.concurrent.ExecutorService weatherIo;private int weatherEpoch;
+    private final Runnable weatherRefresh=()->refreshWeather();
     private Button first,dock,firstShortcut;
     private final Runnable ticker=new Runnable(){public void run(){Date now=new Date();time.setText(new SimpleDateFormat("HH:mm",Locale.getDefault()).format(now));date.setText(new SimpleDateFormat("M月d日   EEEE",Locale.CHINA).format(now));clockHandler.postDelayed(this,1000*(60-now.getSeconds()));}};
     private static final String[] IDS={"carezza","namib","fuji","lofoten"};
@@ -44,7 +46,8 @@ final class ScenicNativeHome extends android.view.ViewGroup {
         Button settings=control("设置",()->actions.open("settings"),false);place(settings,1692,58,128,64,26,-1);settings.setTag("native-settings");
         time=label("");time.setTypeface(Typeface.create("serif",Typeface.NORMAL));place(time,100,205,650,176,152,0);
         date=label("");place(date,108,399,650,58,32,0);
-        Button weather=control("天气  ›",()->actions.open("weather"),!BuildConfig.PARENTS_EDITION);place(weather,BuildConfig.PARENTS_EDITION?762:1396,BuildConfig.PARENTS_EDITION?304:500,BuildConfig.PARENTS_EDITION?232:300,BuildConfig.PARENTS_EDITION?88:132,30,0);weather.setNextFocusUpId(settings.getId());
+        if(!BuildConfig.PARENTS_EDITION){weatherTitle=label("正在读取天气");weatherTitle.setSingleLine();weatherTitle.setEllipsize(android.text.TextUtils.TruncateAt.END);weatherTitle.setTag("native-weather-summary");place(weatherTitle,800,268,680,62,38,0);weatherDetail=label("按 IP 定位");weatherDetail.setTextColor(TvUi.MUTED);weatherDetail.setSingleLine();place(weatherDetail,800,340,680,48,28,0);}
+        Button weather=control(BuildConfig.PARENTS_EDITION?"天气  ›":"看天气",()->actions.open("weather"),!BuildConfig.PARENTS_EDITION);place(weather,BuildConfig.PARENTS_EDITION?762:1396,BuildConfig.PARENTS_EDITION?304:500,BuildConfig.PARENTS_EDITION?232:300,BuildConfig.PARENTS_EDITION?88:132,30,0);weather.setNextFocusUpId(settings.getId());
         String[] names={"看电视","看电视剧","看电影","看综艺"},routes={"live","series","movies","variety"};
         for(int i=0;i<names.length;i++){final String route=routes[i];Button b=control(names[i],()->actions.open(route),true);place(b,100+i*(BuildConfig.PARENTS_EDITION?404:324),500,BuildConfig.PARENTS_EDITION?380:304,132,34,0);if(i==3){b.setNextFocusRightId(weather.getId());weather.setNextFocusLeftId(b.getId());}b.setNextFocusUpId(settings.getId());if(i==0)first=b;b.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0)(firstShortcut!=null?firstShortcut:dock).requestFocus();return true;}return false;});}
         if(!BuildConfig.PARENTS_EDITION)weather.setOnKeyListener((v,key,e)->{if(key==KeyEvent.KEYCODE_DPAD_DOWN){if(e.getAction()==KeyEvent.ACTION_DOWN&&e.getRepeatCount()==0)(firstShortcut!=null?firstShortcut:dock).requestFocus();return true;}return false;});
@@ -100,11 +103,27 @@ final class ScenicNativeHome extends android.view.ViewGroup {
             if(page==1&&e.getKeyCode()==KeyEvent.KEYCODE_DPAD_UP&&getFocusedChild()!=null&&getFocusedChild().getTop()<getHeight()*.5f){showPage(0);return true;}
         }return super.dispatchKeyEvent(e);
     }
-    void active(boolean value){foreground=value;if(album!=null)album.active(value&&page==2);}
+    void active(boolean value){foreground=value;if(album!=null)album.active(value&&page==2);if(value&&isAttachedToWindow())refreshWeather();else stopWeather();}
     boolean back(){if(page==0)return false;showPage(0);return true;}
     boolean scenicReady(){return wallpaper!=null&&wallpaper.getWidth()>=1280;}
-    @Override protected void onAttachedToWindow(){super.onAttachedToWindow();showPage(entryPage);clockHandler.post(ticker);}
-    @Override protected void onDetachedFromWindow(){clockHandler.removeCallbacks(ticker);super.onDetachedFromWindow();}
+    @Override protected void onAttachedToWindow(){super.onAttachedToWindow();showPage(entryPage);clockHandler.post(ticker);refreshWeather();}
+    @Override protected void onDetachedFromWindow(){clockHandler.removeCallbacks(ticker);stopWeather();super.onDetachedFromWindow();}
+    private void stopWeather(){weatherEpoch++;clockHandler.removeCallbacks(weatherRefresh);if(homeWeather!=null){homeWeather.close();homeWeather=null;}if(weatherIo!=null){weatherIo.shutdownNow();weatherIo=null;}}
+    private void weatherSnapshot(String raw){if(weatherTitle==null)return;long now=System.currentTimeMillis();weatherTitle.setText(HomeWeatherSnapshot.title(raw,now));weatherDetail.setText(HomeWeatherSnapshot.detail(raw,now));}
+    private void refreshWeather(){
+        if(weatherTitle==null||!foreground||!isAttachedToWindow()||homeWeather!=null)return;
+        android.content.SharedPreferences prefs=activity.getSharedPreferences("aperture",0);String saved=prefs.getString("home_weather_snapshot","");weatherSnapshot(saved);
+        clockHandler.removeCallbacks(weatherRefresh);clockHandler.postDelayed(weatherRefresh,30*60*1000L);
+        if(HomeWeatherSnapshot.fresh(saved,System.currentTimeMillis()))return;
+        if(saved.isEmpty()){weatherTitle.setText("正在读取天气");weatherDetail.setText("按 IP 定位");}
+        final int turn=++weatherEpoch;final WeatherProxy proxy=new WeatherProxy();homeWeather=proxy;proxy.active(true);weatherIo=java.util.concurrent.Executors.newSingleThreadExecutor();final java.util.concurrent.ExecutorService worker=weatherIo;
+        worker.execute(()->{String snapshot="";try{
+            WeatherProxy.Reply located=proxy.read("https://"+LobbyAssets.HOST+"/weather/location","GET",false);if(located==null||located.status!=200)throw new java.io.IOException();org.json.JSONObject place=new org.json.JSONObject(new String(located.body,java.nio.charset.StandardCharsets.UTF_8)).getJSONObject("data");double lat=place.getDouble("latitude"),lon=place.getDouble("longitude");String query=String.format(Locale.ROOT,"?lat=%.4f&lon=%.4f",lat,lon);
+            WeatherProxy.Reply forecast=proxy.read("https://"+LobbyAssets.HOST+"/weather/forecast"+query,"GET",false);if(forecast!=null&&forecast.status==200)snapshot=HomeWeatherSnapshot.capture(new org.json.JSONObject(new String(forecast.body,java.nio.charset.StandardCharsets.UTF_8)));
+        }catch(Exception unavailable){}finally{proxy.close();worker.shutdown();}
+            final String result=snapshot;clockHandler.post(()->{if(turn!=weatherEpoch||!foreground||!isAttachedToWindow())return;homeWeather=null;weatherIo=null;if(!result.isEmpty())prefs.edit().putString("home_weather_snapshot",result).apply();weatherSnapshot(result.isEmpty()?saved:result);if(result.isEmpty()){clockHandler.removeCallbacks(weatherRefresh);clockHandler.postDelayed(weatherRefresh,60000);}});
+        });
+    }
     @Override protected void onMeasure(int w,int h){
         int width=MeasureSpec.getSize(w),height=MeasureSpec.getSize(h);setMeasuredDimension(width,height);
         scale=Math.min(width/1920f,height/1080f)*(BuildConfig.PARENTS_EDITION?1f:.86f);

@@ -13,6 +13,10 @@ import org.json.*;
 final class WeatherProxy implements AutoCloseable {
     static final class Reply {final int status;final byte[] body;Reply(int status,JSONObject value){this.status=status;body=value.toString().getBytes(StandardCharsets.UTF_8);}}
     private static final class Cached {final long until;final Reply reply;Cached(long until,Reply reply){this.until=until;this.reply=reply;}}
+    private final java.util.function.Consumer<JSONObject> forecastObserver;
+    WeatherProxy(){this(null);}
+    WeatherProxy(java.util.function.Consumer<JSONObject> observer){forecastObserver=observer;}
+    private void observed(String path,Reply reply){if(forecastObserver!=null&&"/weather/forecast".equals(path)&&reply.status==200)try{forecastObserver.accept(new JSONObject(new String(reply.body,StandardCharsets.UTF_8)));}catch(Exception ignored){}}
     private final OkHttpClient client=new OkHttpClient.Builder().followRedirects(false).followSslRedirects(false).connectTimeout(5,TimeUnit.SECONDS).readTimeout(6,TimeUnit.SECONDS).callTimeout(8,TimeUnit.SECONDS).build();
     private final Map<String,Cached> cache=new LinkedHashMap<>();private final AtomicInteger inflight=new AtomicInteger();private volatile boolean active,closed;
     static String target(String path,String rawQuery)throws Exception {
@@ -30,13 +34,13 @@ final class WeatherProxy implements AutoCloseable {
         if(!"https".equals(uri.getScheme())||!LobbyAssets.HOST.equals(uri.getHost())||uri.getPort()!=-1||uri.getUserInfo()!=null||uri.getFragment()!=null||!Arrays.asList("/weather/location","/weather/search","/weather/forecast").contains(uri.getRawPath()))return null;
         if(mainFrame||!"GET".equals(method))return error(403);
         String target;try{target=target(uri.getRawPath(),uri.getRawQuery());}catch(Exception invalid){return error(400);}
-        if(!active||closed)return error(503);long now=System.currentTimeMillis();synchronized(cache){Cached hit=cache.get(target);if(hit!=null&&hit.until>now)return hit.reply;}
+        if(!active||closed)return error(503);long now=System.currentTimeMillis();synchronized(cache){Cached hit=cache.get(target);if(hit!=null&&hit.until>now){observed(uri.getPath(),hit.reply);return hit.reply;}}
         if(inflight.incrementAndGet()>4){inflight.decrementAndGet();return error(429);}
         try(Response response=client.newCall(new Request.Builder().url(target).header("Accept","application/json").build()).execute()){
             if(!response.isSuccessful()||response.body()==null)throw new java.io.IOException();java.io.ByteArrayOutputStream out=new java.io.ByteArrayOutputStream();try(java.io.InputStream input=response.body().byteStream()){byte[] buffer=new byte[8192];int count;while((count=input.read(buffer))!=-1){if(out.size()+count>512000)throw new java.io.IOException();out.write(buffer,0,count);}}
             JSONObject data=new JSONObject(out.toString("UTF-8"));if(data.optBoolean("error")||(data.has("success")&&!data.optBoolean("success")))throw new java.io.IOException();
             if("/weather/location".equals(uri.getPath()))data=new JSONObject().put("city",data.optString("city",data.optString("region"))).put("country",data.optString("country")).put("latitude",data.opt("latitude")).put("longitude",data.opt("longitude")).put("scope","device-egress");
-            if(!active||closed)return error(503);Reply reply=new Reply(200,new JSONObject().put("data",data).put("fetchedAt",System.currentTimeMillis()));synchronized(cache){if(cache.size()>=32)cache.remove(cache.keySet().iterator().next());cache.put(target,new Cached(now+("/weather/location".equals(uri.getPath())?21600000:600000),reply));}return reply;
+            if(!active||closed)return error(503);Reply reply=new Reply(200,new JSONObject().put("data",data).put("fetchedAt",System.currentTimeMillis()));synchronized(cache){if(cache.size()>=32)cache.remove(cache.keySet().iterator().next());cache.put(target,new Cached(now+("/weather/location".equals(uri.getPath())?21600000:600000),reply));}observed(uri.getPath(),reply);return reply;
         }catch(Exception unavailable){return error(503);}finally{inflight.decrementAndGet();}
     }
     void active(boolean value){active=value;if(!value)client.dispatcher().cancelAll();}

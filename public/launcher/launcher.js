@@ -75,7 +75,7 @@
     $('settings-open').textContent = '设置';
     $('settings-open').setAttribute('aria-label', '设置');
   }
-  if (!parents) { document.body.className = 'standard'; $('home-watch').appendChild($('weather-home')); $('weather-home').classList.add('glass'); }
+  if (!parents) { document.body.className = 'standard'; $('home-watch').appendChild($('weather-home')); $('weather-home').classList.add('glass'); if(window.KaishiWeatherUI)window.KaishiWeatherUI.home(); }
   fitTelevision();
   homePage = parents ? 1 : 0;
   window.apertureNasLabels = function (movies, series) { if (!parents) return; text('cinema-label', String(movies)); text('series-label', String(series)); };

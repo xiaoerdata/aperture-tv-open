@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "versionCode": 45,
+  "apkBytes": 55380284,
+  "apkSha256": "fb1ea1f6255988b6fe709741c4bdfa296d4827620e087fb02150c1dbd9a64d6a",
+  "androidInputSha256": "b556cff7e8209d23b608e1d408a8211df18c83b51101e23bc41faa723e283225",
+  "androidInputFiles": 239,
+  "signedWithCurrentCertificate": true,
+  "releaseBuildPassed": true,
+  "checks": [
+    {
+      "path": "docs/verification/s115-home-weather-browser.json",
+      "sha256": "6871a446a03d5a3c07821c31eeeea89857ffeccd3d55ec42319eecd9bb5719be"
+    },
+    {
+      "path": "docs/verification/s115-weather-snapshot.json",
+      "sha256": "de4316fde9fa181ef261c8b997a7c13f18195a2e896ae3dcda2bb43c666ac2f4"
+    },
+    {
+      "path": "docs/verification/s115-weather-return-native.json",
+      "sha256": "95978bbd3d6f7a455c322d7492aa4f58eee9288e7a9daba5f77d6b9b7dfb37c5"
+    },
+    {
+      "path": "docs/verification/s115-native-compile.json",
+      "sha256": "a511f6c8c548b2bc683250fcd7063c6f078ab47e80cba432388e8d935901a0ff"
+    },
+    {
+      "path": "docs/verification/s115-home-regression.json",
+      "sha256": "83fe8b88b8a35360f25ceb019fcca804d9b70d4d316214f66d691f43bca8d53b"
+    }
+  ],
+  "dexAndWeatherAssetsPresent": true,
+  "realXiaomi": false,
+  "published": false
+}

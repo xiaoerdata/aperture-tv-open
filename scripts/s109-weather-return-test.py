@@ -4,14 +4,15 @@ The doubles reject calls after renderer death/destruction. This exercises produc
 control flow, not Android's renderer or Xiaomi's task manager.
 """
 from pathlib import Path
-import hashlib,json,subprocess,tempfile
+import hashlib,json,os,subprocess,tempfile
 
 root=Path(__file__).resolve().parents[1]
 jdk=root/'.android-local/jdk17/bin'
 android=root/'.android-local/android-sdk/platforms/android-35/android.jar'
 jsonlib=next((root/'.android-local/gradle-user/caches/modules-2/files-2.1/org.json/json/20160810').rglob('*.jar'))
 stubs={
- 'android/content/Context.java':'''package android.content; public class Context {public android.content.res.AssetManager getAssets(){return new android.content.res.AssetManager();}}''',
+ 'android/content/SharedPreferences.java':'''package android.content;public class SharedPreferences {public Editor edit(){return new Editor();}public static class Editor {public Editor putString(String k,String v){return this;}public void apply(){}}}''',
+ 'android/content/Context.java':'''package android.content; public class Context {public SharedPreferences getSharedPreferences(String name,int mode){return new SharedPreferences();}public android.content.res.AssetManager getAssets(){return new android.content.res.AssetManager();}}''',
  'android/content/res/AssetManager.java':'''package android.content.res; public class AssetManager {public java.io.InputStream open(String file)throws java.io.IOException{return new java.io.ByteArrayInputStream(new byte[0]);}}''',
  'android/content/Intent.java':'''package android.content; public class Intent {public static final int FLAG_ACTIVITY_CLEAR_TOP=0x04000000,FLAG_ACTIVITY_SINGLE_TOP=0x20000000;public Class<?> target;public int flags;private String panel;public Intent(){}public Intent(Context c,Class<?> target){this.target=target;}public Intent addFlags(int flags){this.flags|=flags;return this;}public Intent putExtra(String key,String value){panel=value;return this;}public String getStringExtra(String key){return panel;}}''',
  'android/os/Bundle.java':'''package android.os; public class Bundle {}''',
@@ -27,13 +28,13 @@ stubs={
  'android/webkit/CookieManager.java':'''package android.webkit;public class CookieManager {public static CookieManager getInstance(){return new CookieManager();}public void setAcceptThirdPartyCookies(WebView w,boolean b){}}''',
  'android/webkit/WebViewClient.java':'''package android.webkit; public class WebViewClient {public boolean shouldOverrideUrlLoading(WebView v,WebResourceRequest r){return false;}public boolean shouldOverrideUrlLoading(WebView v,String u){return false;}public WebResourceResponse shouldInterceptRequest(WebView v,WebResourceRequest r){return null;}public boolean onRenderProcessGone(WebView v,RenderProcessGoneDetail d){return false;}public void onPageFinished(WebView v,String u){}}''',
  'android/webkit/WebView.java':'''package android.webkit;import java.util.*;public class WebView extends android.view.View {public WebViewClient client;public boolean dead,destroyed,hold,throwEval,detachedAtDestroy;public int illegal,stops,destroys,evaluations,globalPauses;public String url;public final List<ValueCallback<String>> pending=new ArrayList<>();public WebView(android.content.Context c){}void live(){if(dead||destroyed){illegal++;throw new IllegalStateException("synthetic dead WebView access");}}public void setBackgroundColor(int c){}public WebSettings getSettings(){return new WebSettings();}public void setWebViewClient(WebViewClient c){client=c;}public void loadUrl(String u){url=u;}public void evaluateJavascript(String s,ValueCallback<String> cb){live();evaluations++;if(throwEval)throw new IllegalStateException("synthetic JS failure");if(cb!=null){if(hold)pending.add(cb);else cb.onReceiveValue("false");}}public void onResume(){live();}public void onPause(){live();}public void resumeTimers(){live();}public void pauseTimers(){live();globalPauses++;}public void stopLoading(){live();stops++;}public void destroy(){destroys++;detachedAtDestroy=parent==null;destroyed=true;}public void rendererGone(){dead=true;client.onRenderProcessGone(this,null);}public void late(){for(ValueCallback<String> c:new ArrayList<>(pending))c.onReceiveValue("false");pending.clear();}}''',
- 'org/zhixiaoce/aperture/WeatherProxy.java':'''package org.zhixiaoce.aperture;class WeatherProxy {static class Reply {int status;byte[] body;}boolean active;int closes;Reply read(String u,String m,boolean f){return null;}void active(boolean v){active=v;}void close(){closes++;active=false;}}''',
+ 'org/zhixiaoce/aperture/WeatherProxy.java':'''package org.zhixiaoce.aperture;class WeatherProxy {WeatherProxy(){}WeatherProxy(java.util.function.Consumer<org.json.JSONObject> c){}static class Reply {int status;byte[] body;}boolean active;int closes;Reply read(String u,String m,boolean f){return null;}void active(boolean v){active=v;}void close(){closes++;active=false;}}''',
  'org/zhixiaoce/aperture/GalleryStore.java':'''package org.zhixiaoce.aperture;class GalleryStore {GalleryStore(android.content.Context c){}android.webkit.WebResourceResponse read(android.webkit.WebResourceRequest r){return null;}}''',
  'org/zhixiaoce/aperture/LobbyAssets.java':'''package org.zhixiaoce.aperture;class LobbyAssets {static final String HOST="appassets.androidplatform.net";static String file(String s,String h,int p,String path){return null;}static String mime(String f){return "text/plain";}}''',
  'org/zhixiaoce/aperture/VoiceAssistant.java':'''package org.zhixiaoce.aperture;class VoiceAssistant {static boolean systemVoiceKey(int code){return code==219||code==231||code==84||code==79;}}''',
  'org/zhixiaoce/aperture/MainActivity.java':'''package org.zhixiaoce.aperture;public class MainActivity extends android.app.Activity {}''',
 }
-sources=[root/'android/app/src/main/java/org/zhixiaoce/aperture'/name for name in ['AmbientActivity.java','AmbientWeb.java','WebViewDisposal.java']]
+sources=[root/'android/app/src/main/java/org/zhixiaoce/aperture'/name for name in ['AmbientActivity.java','AmbientWeb.java','WebViewDisposal.java','HomeWeatherSnapshot.java']]
 test=root/'tests/java/AmbientReturnTest.java'
 with tempfile.TemporaryDirectory(prefix='kaishi-s109-lifecycle-') as directory:
  temp=Path(directory);files=[]
@@ -47,5 +48,5 @@ with tempfile.TemporaryDirectory(prefix='kaishi-s109-lifecycle-') as directory:
  subprocess.run([str(jdk/'javac'),'-encoding','UTF-8','-cp',f'{classes}:{cp}','-d',str(before),*[str(p) for p in [*baseline,before_test]]],check=True,cwd=root)
  previous=subprocess.run([str(jdk/'java'),'-cp',f'{before}:{classes}:{cp}','org.zhixiaoce.aperture.AmbientReturnBeforeTest'],check=True,capture_output=True,text=True)
  receipt={'passed':True,'output':result.stdout.strip(),'before':json.loads(previous.stdout),'baselineCommit':'0e9c37975c4f82572c7e93baeabe2f262e358ec1','baselineSources':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in baseline},'productionActivityAndWebWrapper':True,'androidFrameworkDoubles':True,'weatherTransportDouble':True,'galleryStoreDouble':True,'realAndroidExecuted':False,'realXiaomi':False,'reportedDeviceRootCauseProven':False,'sources':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [*sources,test,before_test,Path(__file__).resolve()]}}
- (root/'docs/verification/s109-weather-return-native.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+ (root/os.environ.get('KAISHI_WEATHER_RETURN_RECEIPT','docs/verification/s109-weather-return-native.json')).write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
  print('v41 baseline: '+previous.stdout.strip());print(result.stdout.strip())

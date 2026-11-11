@@ -171,7 +171,7 @@ public class MainActivity extends Activity {
         final WebView created=web;
         final PageDeadline.Ticket navigation=lobby?homeDeadline.start(created):null;homeTicket=navigation;
         if(lobby){diagnostics.mode(WebDiagnostics.Home.GLASS_LOADING);diagnostics.event("home","loading",navigation.generation,null);}
-        final WeatherProxy forecast=lobby?new WeatherProxy():null;weather=forecast;
+        final WeatherProxy forecast=lobby?new WeatherProxy(value->{String snapshot=HomeWeatherSnapshot.capture(value);if(!snapshot.isEmpty())preferences.edit().putString("home_weather_snapshot",snapshot).apply();}):null;weather=forecast;
         String householdOrigin = preferences.getString("origin", "");
         final HouseholdProxy feed = lobby && !BuildConfig.PARENTS_EDITION ? new HouseholdProxy(householdOrigin, householdOrigin.isEmpty() ? "" : CookieManager.getInstance().getCookie(householdOrigin), preferences.getBoolean("allowLanHttp", false)) : null;
         household = feed;

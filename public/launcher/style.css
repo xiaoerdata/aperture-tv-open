@@ -115,3 +115,14 @@ body[data-photos="off"] .family-layout .family-daily>.quiet-action{grid-column:1
 .standard .shortcuts-row[data-wall=true]{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:18px;max-height:460px;overflow-y:auto;overflow-x:hidden;padding:6px;scrollbar-color:#a0b1b9 #17212b}
 .standard .apps-screen .shortcuts-row[data-wall=true] .shortcut{width:100%;min-width:0}
 @media(max-aspect-ratio:4/3){.standard .shortcuts-row[data-wall=true]{grid-template-columns:repeat(3,minmax(0,1fr));max-height:460px}.standard .apps-screen .shortcuts-row[data-wall=true] .shortcut-glyph{width:90px;height:90px;min-height:90px}.standard .apps-screen .shortcuts-row[data-wall=true] .shortcut{height:150px}.standard .apps-screen .shortcuts-row[data-wall=true] .app-mark{width:64px;height:64px}.standard .apps-screen .shortcuts-row[data-wall=true] .shortcut strong{font-size:18px;line-height:24px}}
+
+.standard .home-watch .weather-mark.weather-vector{width:44px;height:44px;flex:0 0 44px}
+/* The clock-side summary is information; the watch-row control is the entry. */
+.weather-summary{display:none}
+.standard .lobby[data-section='overview'][data-home-page='0'] .weather-summary{position:absolute;left:800px;top:268px;width:540px;min-height:116px;display:flex;align-items:center;gap:24px;pointer-events:none;text-shadow:0 2px 14px #0009}
+.weather-summary .weather-vector{width:74px;height:74px;flex:0 0 74px;color:var(--ink)}
+.weather-summary-copy{min-width:0;display:flex;flex-direction:column;gap:12px}
+.weather-summary-copy strong{font-size:38px;font-weight:400;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.weather-summary-copy>span{font-size:28px;color:var(--muted);line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.standard .lobby[data-section='overview'][data-home-page='0'] .home-watch .weather-home strong{font-size:34px}
+@media(max-aspect-ratio:4/3){.standard .lobby[data-section='overview'][data-home-page='0'] .weather-summary{left:28px;top:320px;width:calc(100% - 56px);min-height:60px;gap:12px}.weather-summary .weather-vector{width:40px;height:40px;flex-basis:40px}.weather-summary-copy{gap:4px}.weather-summary-copy strong{font-size:24px}.weather-summary-copy>span{font-size:20px}.standard .lobby[data-section='overview'][data-home-page='0'] .home-watch .weather-home strong{font-size:21px}}

@@ -1,6 +1,6 @@
 {
   "format": "aperture-public-source/v1",
-  "version": "0.2.0-alpha.41",
+  "version": "0.2.0-alpha.42",
   "source": {
     "commit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
     "workingTreeDirty": true
@@ -47,8 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": "7e261271498d329450f5fc307203877e428be7c1",
-    "publicParent": "7e261271498d329450f5fc307203877e428be7c1",
+    "postReleaseReceiptFor": null,
+    "publicParent": "001875fdae961804c9f9bd356bdebf3d0245379e",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
   "files": [
@@ -99,8 +99,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5737,
-      "sha256": "7c5c00ba8e56b16e7631c6da4b68a0e39ac189f1932132fa21f5cdcabc075b9e"
+      "bytes": 5732,
+      "sha256": "4085ffd92bf57979455c690f8edda731f931a0c7cc85100ff3cb93236d85a0ea"
     },
     {
       "path": "SECURITY.md",
@@ -120,7 +120,7 @@
     {
       "path": "android/app/build.gradle",
       "bytes": 3958,
-      "sha256": "829ae43634a6e75cde08488fddc555188f8b9d9d8efdff046526ea704c717c70"
+      "sha256": "4d822095fc1f3a2847d85d5abaaaf2591e4ce75332ba3e7700e6ee6623af4f63"
     },
     {
       "path": "android/app/src/debug/AndroidManifest.xml",
@@ -179,8 +179,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/AmbientWeb.java",
-      "bytes": 4486,
-      "sha256": "fd5458874e3ed7d9ae373d3d0322ca82d469f6822d6ac934a5f30514c23d4186"
+      "bytes": 4679,
+      "sha256": "2d1e51aeef7c8819106c57ed0383e1649589e0a5f7063196a90181b61066fddf"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/AndroidGalleryTrace.java",
@@ -483,6 +483,11 @@
       "sha256": "d0915d342a8d2fadbe82895479797ed18f756010b7fd961cc5ffbba1105ba3ea"
     },
     {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/HomeWeatherSnapshot.java",
+      "bytes": 2041,
+      "sha256": "9087d3ae782e66b6f5f2e37907b32b289b8496173e9f339eaf29a01b74705f40"
+    },
+    {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/HouseholdCommandClient.java",
       "bytes": 3900,
       "sha256": "cc812ad0c23aad7a113179dc9eee800589848248b01884be41f0e7a9516f28e6"
@@ -544,8 +549,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java",
-      "bytes": 48469,
-      "sha256": "c06ce8abe2fc0a4be9283fb045d9012fd71e1ee286829bec73b745f96ccbb0b9"
+      "bytes": 48623,
+      "sha256": "7c865061b5d8c8919859a7408eaa1e4868c6b1e308d2d42e7325328739a4f66e"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/MessageActivity.java",
@@ -694,8 +699,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/ScenicNativeHome.java",
-      "bytes": 18384,
-      "sha256": "4ed71461a1b66ca02b98e7be3471bc391a372d1c2c4b2f398ddf58bba79d2477"
+      "bytes": 21739,
+      "sha256": "977c163534ddad99a1af05b4412a892767c9f7fcbc48f5a2e78d724da50b94c1"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/SmbNasReader.java",
@@ -739,8 +744,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/WeatherProxy.java",
-      "bytes": 6001,
-      "sha256": "1dc74d1c61e39510d8a2562bc1f006fb7d46a61d03563b4e7467e69162e6db01"
+      "bytes": 6520,
+      "sha256": "8c750027e72ba65492ef312bf0adb1ae36a68aac8003f1bad4939f17d02c4892"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/WebDiagnostics.java",
@@ -1444,8 +1449,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4429,
-      "sha256": "666b9591064e9b2a8b88df3e5a1f8d8edc0c95b49beed7b56a2cc0373c023220"
+      "bytes": 4417,
+      "sha256": "a59c3b0f023cd588f2e6be62971ab58e3b8e0954271d6a81d8c3d94618c5f4e9"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -1491,6 +1496,11 @@
       "path": "docs/HOME-UPDATES-S108.md",
       "bytes": 3740,
       "sha256": "c2211b5d171fd3c6b1b32ca39939c77cf23aa47ad1ca80b1a0c61c088cf388a3"
+    },
+    {
+      "path": "docs/HOME-WEATHER-S115.md",
+      "bytes": 3036,
+      "sha256": "7c016df71da50ba6eda20bc281c985cf4dbb6a56f0fd142f626464644fc0d52a"
     },
     {
       "path": "docs/HUB-DISPLAY.md",
@@ -1656,6 +1666,11 @@
       "path": "docs/RELEASE-V44.md",
       "bytes": 3402,
       "sha256": "06e3978d683b609b086e47aea0ec83a4bd2be6e8d4d08bd72bc33d7704a02d23"
+    },
+    {
+      "path": "docs/RELEASE-V45.md",
+      "bytes": 2880,
+      "sha256": "c472709de6c8d9834ce0db292bfd28ac5fc1ee2939ad3ace9e32ca439b260446"
     },
     {
       "path": "docs/RESOURCE-PACK-AGENT.md",
@@ -2246,6 +2261,21 @@
       "path": "docs/images/s114/home-regression/settings.png",
       "bytes": 2055974,
       "sha256": "874ee8d71ced6d5ad0e3c32161e6ab41c53e0ba0fab857b43aeaf96f2259566c"
+    },
+    {
+      "path": "docs/images/s115-home-weather/home-weather-nas.png",
+      "bytes": 3054094,
+      "sha256": "a6c56bcdce82af4dfe96f11385ac1a71e77455b3ca948142296e419d4d9418bd"
+    },
+    {
+      "path": "docs/images/s115-home-weather/home-weather-offline.png",
+      "bytes": 3114102,
+      "sha256": "23ae9023070263063b933ff63c95ed7b09c562e11ad95709332b0b801aa83434"
+    },
+    {
+      "path": "docs/images/s115-home-weather/home-weather.png",
+      "bytes": 3111521,
+      "sha256": "39f5ca73f4f790a194443578f4f1df9ae8a7b47bd3e8c1ed5fdfa15fe8845314"
     },
     {
       "path": "docs/images/s18-cinema-phone.png",
@@ -5259,18 +5289,18 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 288084,
-      "sha256": "acb3bb207dc94bfc2f864d9a5ce24efd5f500f73621b860b1c84c5095ada51fd"
+      "bytes": 291375,
+      "sha256": "6ab34c95740883bea1b5159f8ef4e2e33431c8af98f44fa533efbdb99edfed5c"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 42846,
-      "sha256": "76e84d695e8e96318d910747d14f4723391e880d2ef0a84c1ec57e062662a29c"
+      "bytes": 43165,
+      "sha256": "01d609e0651c2706b9828e794d4ddff5746e71978a19c7afd4589bac4f7a07a3"
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 26231,
-      "sha256": "7b44f1ca2f0b2f8adecebc249bb10ff9c0d4402d65396fa36f0c5a33a5ec1f9e"
+      "bytes": 26494,
+      "sha256": "b4db5c660c2a11a7c3cc17ed1455283e99fa8c6060152de8838ef8a3553e2bec"
     },
     {
       "path": "docs/process/ROUND1-V37.md",
@@ -5309,8 +5339,8 @@
     },
     {
       "path": "docs/release/README-public.md",
-      "bytes": 5719,
-      "sha256": "28ca406f394314785d6ba962558e868abfce61bfb940cf3d592c2f7d1566c90d"
+      "bytes": 5714,
+      "sha256": "aa84d51a25db351003c9d816a4f1588af9dbba92c21d21dc3487f52a9f26f958"
     },
     {
       "path": "docs/schemas/message-feed-v1.schema.json",
@@ -5756,6 +5786,36 @@
       "path": "docs/verification/s114-sort-rail.json",
       "bytes": 296,
       "sha256": "c4bc9ca7c82c7d500234c1288b47c14757d34027e4ce8984aa2dfb52102766f3"
+    },
+    {
+      "path": "docs/verification/s115-home-regression.json",
+      "bytes": 5332,
+      "sha256": "83fe8b88b8a35360f25ceb019fcca804d9b70d4d316214f66d691f43bca8d53b"
+    },
+    {
+      "path": "docs/verification/s115-home-weather-browser.json",
+      "bytes": 1925,
+      "sha256": "6871a446a03d5a3c07821c31eeeea89857ffeccd3d55ec42319eecd9bb5719be"
+    },
+    {
+      "path": "docs/verification/s115-native-compile.json",
+      "bytes": 18420,
+      "sha256": "a511f6c8c548b2bc683250fcd7063c6f078ab47e80cba432388e8d935901a0ff"
+    },
+    {
+      "path": "docs/verification/s115-weather-return-native.json",
+      "bytes": 1867,
+      "sha256": "95978bbd3d6f7a455c322d7492aa4f58eee9288e7a9daba5f77d6b9b7dfb37c5"
+    },
+    {
+      "path": "docs/verification/s115-weather-snapshot.json",
+      "bytes": 458,
+      "sha256": "de4316fde9fa181ef261c8b997a7c13f18195a2e896ae3dcda2bb43c666ac2f4"
+    },
+    {
+      "path": "docs/verification/s116-release-candidate.json",
+      "bytes": 1236,
+      "sha256": "5ab62429f76848f414e26f5459bd8c8a854ea8ef445db99d2b22da10b077b95f"
     },
     {
       "path": "docs/verification/s30-launcher-regression.json",
@@ -7898,6 +7958,16 @@
       "sha256": "b3ebfae36ecd0729513b427d4e46e663311dda9e0ed3a66d5c85e6b25fda3ea4"
     },
     {
+      "path": "media/DEVLOG-089.md",
+      "bytes": 812,
+      "sha256": "dd0ad6946b2c6fe648da99d908a47c099b590af0c0abfa56f3f378cc27bce322"
+    },
+    {
+      "path": "media/DEVLOG-090.md",
+      "bytes": 863,
+      "sha256": "70f7a0f644af2e949525c462acb203d673594bd854b45a2221d74e936774109f"
+    },
+    {
       "path": "media/GLASS-ASSET-PROMPT.md",
       "bytes": 1380,
       "sha256": "daeb021eb3ad316b9bd2aedcdd9dfe6d04e9dbeca4aff33187957a1e5d327b42"
@@ -7960,12 +8030,12 @@
     {
       "path": "package-lock.json",
       "bytes": 55465,
-      "sha256": "3b091afd63072d3e376e2b0eff45f422cf58e66610c021b02200fa1080ce3564"
+      "sha256": "b646b93326c1ceb527e837164b63b92492e9ab41a4c9df14e882459e7bd3c784"
     },
     {
       "path": "package.json",
       "bytes": 1767,
-      "sha256": "9baf7324a34b73e1fc489aea286c205691c973b37e9bf93772f2d6ff781265c4"
+      "sha256": "9cab0ba29299f1c2cbfd6d34c9acc9ff19ef10222bec2b5accb9925977a02ec4"
     },
     {
       "path": "public/assets/weekend.svg",
@@ -8259,13 +8329,13 @@
     },
     {
       "path": "public/launcher/index.html",
-      "bytes": 11444,
-      "sha256": "b63e2a240f22c1f262a6a0ac3e019387e04193087ad36b88edf6c49027ce9b59"
+      "bytes": 11552,
+      "sha256": "79277c659bba70739f299112222684123a4ee366fd91f59faad83f22640a0491"
     },
     {
       "path": "public/launcher/launcher.js",
-      "bytes": 52322,
-      "sha256": "ffd3ccb8bb790913a76d2539573512073face3154c0724097c857f8d85b33268"
+      "bytes": 52379,
+      "sha256": "51a9059d3c5b88a8479c0f8deeeaeff1c2172223e579d4e043a0fa21e519261f"
     },
     {
       "path": "public/launcher/living-room.svg",
@@ -8304,8 +8374,8 @@
     },
     {
       "path": "public/launcher/style.css",
-      "bytes": 29560,
-      "sha256": "82af80e3818b2635f657c8c79acb5a5eacf5908bfc715ec50a282ac01c43b506"
+      "bytes": 31027,
+      "sha256": "84baba8a41fb1d97c13d73a74bceb3aac2c1905b44b1ec72385e2d75bf85976a"
     },
     {
       "path": "public/launcher/weather-model.js",
@@ -8314,8 +8384,8 @@
     },
     {
       "path": "public/launcher/weather.js",
-      "bytes": 17702,
-      "sha256": "3032dee1045155d1635462d6b446f3b9cdf8308ffc88c5cd656f14fde661972d"
+      "bytes": 18820,
+      "sha256": "03f44989a5fb507c0942a2741c47bd9c06aab283061bba341bd42b89a3d90254"
     },
     {
       "path": "public/life/catalog.js",
@@ -9044,8 +9114,8 @@
     },
     {
       "path": "scripts/s109-weather-return-test.py",
-      "bytes": 10427,
-      "sha256": "a2a95e39532c815bf7ba2e03c5a1a579313fe3f639378da0e6f9b0eb2a41c6b4"
+      "bytes": 10942,
+      "sha256": "40b40ec635c74d86e5b6442ee25b3461cc6f257fb9bdfdac2ef0ce34af68e020"
     },
     {
       "path": "scripts/s110-playback-memory-test.py",
@@ -9093,6 +9163,31 @@
       "sha256": "5f297b08991a437e08a888ac0cff24b3a868e6e95b0e9a4fb02ccc3a891eeb9a"
     },
     {
+      "path": "scripts/s115-home-weather-test.mjs",
+      "bytes": 9005,
+      "sha256": "eced3deb5086c3fa6950da333a482aa9c33546894cf3fb83270c207f9ad42fb8"
+    },
+    {
+      "path": "scripts/s115-weather-snapshot-test.py",
+      "bytes": 1150,
+      "sha256": "00689228de65ddc0ff792ea314a91bdfd6ed80f3c73f81925d0b0a9cb362be6e"
+    },
+    {
+      "path": "scripts/s116-build-candidate.py",
+      "bytes": 3982,
+      "sha256": "04a10c01d71dfc8323c71f81da2b9ed9ce72da24d918602f2fcb8721b3c7dcb9"
+    },
+    {
+      "path": "scripts/s116-prepare-source.py",
+      "bytes": 5546,
+      "sha256": "57ae42450aae0fd9318b45017f3916ae95d1080a31dbdd4265e17ff703a752b9"
+    },
+    {
+      "path": "scripts/s116-upload-source.py",
+      "bytes": 2012,
+      "sha256": "5b9ee9a5f8d4272b7b5f86bb6938539b4d64a3030ed92355be4fbf31347b8d7a"
+    },
+    {
       "path": "scripts/s70-media-fixture.mjs",
       "bytes": 4962,
       "sha256": "0e67342768886e460f2b4c278b10368e16ae309f2161c1f8e9d63245de8eb331"
@@ -9124,8 +9219,8 @@
     },
     {
       "path": "scripts/s87-weather-startup-test.mjs",
-      "bytes": 2485,
-      "sha256": "12a5ac75834f498b59dd54e966f0c415592daa279ea906c3c36648496bc23b66"
+      "bytes": 2492,
+      "sha256": "a71e390fb6dccc7fc8d94a0d738eccf4e3a2a0ab02cd50ca8e12048ee405db10"
     },
     {
       "path": "scripts/s90-home-settings-test.mjs",
@@ -10003,6 +10098,11 @@
       "sha256": "fb5522d86501703d33c0c15159d4b8d67d757a2576c7e7d2d7e4d2ffee1da944"
     },
     {
+      "path": "tests/java/HomeWeatherSnapshotTest.java",
+      "bytes": 2083,
+      "sha256": "e1d3db9c5a309123992a42277c1a85eae290788fff4d10de7993b55413c922b2"
+    },
+    {
       "path": "tests/java/HouseholdProxyHarness.java",
       "bytes": 2214,
       "sha256": "0a9fe9286034d2472addd9592e82a433497a8b0374698995e1cfe8f7cbca9725"
@@ -10264,8 +10364,8 @@
     },
     {
       "path": "tests/weather-native.test.mjs",
-      "bytes": 1185,
-      "sha256": "13451ac0f9e9c0ef574b6bcf2c69e92fdbaff8892a621ae4304f93c50864d16a"
+      "bytes": 1234,
+      "sha256": "7ac644253d3000863ffb55ccab6de7cd9a0ba9fb9287c26ee79a4931c2bba4d4"
     },
     {
       "path": "tests/weather.test.mjs",
@@ -10274,16 +10374,14 @@
     }
   ],
   "release": {
-    "tag": "v0.2.0-alpha.41",
-    "versionCode": 44,
+    "tag": "v0.2.0-alpha.42",
+    "versionCode": 45,
     "edition": "standard",
-    "androidInputSha256": "ac4c8f0c58398c689ebcc88e68592ac443cf5a99b0a73e49e6be250fb008199b",
+    "androidInputSha256": "b556cff7e8209d23b608e1d408a8211df18c83b51101e23bc41faa723e283225",
     "prerelease": true,
     "fullCloudRegressionAccepted": false,
     "xiaomiAccepted": false,
-    "latestDocumentation": "docs/RELEASE-V44.md",
-    "publishedAt": "2026-11-09T13:05:21Z",
-    "anonymousDownloadVerified": true
+    "latestDocumentation": "docs/RELEASE-V45.md"
   },
   "upstreamUnresolvedValidation": {
     "candidate": {

@@ -7,10 +7,10 @@ import java.util.Collections;
 
 /** Isolated shared screensaver page; only packaged assets and the fixed weather transport. */
 final class AmbientWeb implements AutoCloseable {
-    final WebView web;private final WeatherProxy weather=new WeatherProxy();private final Runnable finish;
+    final WebView web;private final WeatherProxy weather;private final Runnable finish;
     private boolean active,closed,dead,leaving,disposed;
     AmbientWeb(Context context,String panel,Runnable finish){
-        this.finish=finish;
+        this.finish=finish;weather=new WeatherProxy(value->{String snapshot=HomeWeatherSnapshot.capture(value);if(!snapshot.isEmpty())context.getSharedPreferences("aperture",0).edit().putString("home_weather_snapshot",snapshot).apply();});
         web=new WebView(context);web.setBackgroundColor(0xff020409);WebSettings settings=web.getSettings();settings.setJavaScriptEnabled(true);settings.setDomStorageEnabled(true);settings.setAllowFileAccess(false);settings.setAllowContentAccess(false);settings.setAllowFileAccessFromFileURLs(false);settings.setAllowUniversalAccessFromFileURLs(false);settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);settings.setTextZoom(100);settings.setSupportZoom(false);settings.setMediaPlaybackRequiresUserGesture(true);CookieManager.getInstance().setAcceptThirdPartyCookies(web,false);
         web.setWebViewClient(new WebViewClient(){
             public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request){if(view==web&&request.isForMainFrame()&&"aperture://ambient/close".equals(request.getUrl().toString()))leave();return true;}
