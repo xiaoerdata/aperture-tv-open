@@ -1,0 +1,79 @@
+{
+  "version": "0.2.0-alpha.42",
+  "versionCode": 45,
+  "edition": "standard",
+  "tag": "v0.2.0-alpha.42",
+  "commit": "861bac52ef79c1f2f7eba382469596034882ed4a",
+  "tree": "07e1d8e21677a446f664ebf54c126e1b4f11f52f",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.42",
+  "prerelease": true,
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v45-standard-arm.apk",
+      "bytes": 55380284,
+      "sha256": "fb1ea1f6255988b6fe709741c4bdfa296d4827620e087fb02150c1dbd9a64d6a",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 106
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 44657,
+      "sha256": "b465da7531dba6e91df0dfdd9a746a10a2e08c3a8169c60d50859e67fb970baf",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 182,
+      "sha256": "1ae11e755d604d620092364d18db20024e2581b3d3125440d1fd781be21e8a47",
+      "anonymous": true,
+      "streamCompared": true,
+      "rangeRequests": 1
+    }
+  ],
+  "publicFrozenSourceReadback": [
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/WeatherProxy.java",
+      "sha256": "8c750027e72ba65492ef312bf0adb1ae36a68aac8003f1bad4939f17d02c4892",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/ScenicNativeHome.java",
+      "sha256": "977c163534ddad99a1af05b4412a892767c9f7fcbc48f5a2e78d724da50b94c1",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/HomeWeatherSnapshot.java",
+      "sha256": "9087d3ae782e66b6f5f2e37907b32b289b8496173e9f339eaf29a01b74705f40",
+      "anonymous": true
+    },
+    {
+      "path": "public/launcher/weather.js",
+      "sha256": "03f44989a5fb507c0942a2741c47bd9c06aab283061bba341bd42b89a3d90254",
+      "anonymous": true
+    },
+    {
+      "path": "public/launcher/index.html",
+      "sha256": "79277c659bba70739f299112222684123a4ee366fd91f59faad83f22640a0491",
+      "anonymous": true
+    },
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "sha256": "a267c6fb8b2308a52a217e75cf80916f4a58fea9f6eb8c0997f4c7b918bdd956",
+      "anonymous": true
+    }
+  ],
+  "androidInputSha256": "b556cff7e8209d23b608e1d408a8211df18c83b51101e23bc41faa723e283225",
+  "androidGitTreeInputFilesVerified": 239,
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "phoneAcrossPhysicalDevicesTested": false,
+  "parentsDevelopment": "paused",
+  "publicTagCommitVerified": true,
+  "githubDigestMatchesAllAssets": true,
+  "publishedAt": "2026-11-11T04:14:03Z",
+  "temporaryUploaderRuntimeRemoved": true,
+  "globalProxySettingsModified": false
+}

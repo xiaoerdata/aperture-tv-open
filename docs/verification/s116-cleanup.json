@@ -1,0 +1,47 @@
+{
+  "targets": [
+    {
+      "path": "android/app/build",
+      "files": 3015
+    },
+    {
+      "path": "artifacts/s116-release/source-overlay",
+      "files": 41
+    },
+    {
+      "path": "artifacts/s116-release/delivery",
+      "files": 3
+    },
+    {
+      "path": "artifacts/current-release/kaishi-v44-standard-arm.apk",
+      "files": 1
+    },
+    {
+      "path": "artifacts/v44-candidate/kaishi-v44-standard-arm.apk",
+      "files": 1
+    },
+    {
+      "path": "artifacts/current-tests/gallery-focus-probe.apk",
+      "files": 1
+    },
+    {
+      "path": "artifacts/current-tests/kaishi-v39-standard-x86-cloud-test.apk",
+      "files": 1
+    },
+    {
+      "path": "docs/images/s115-home-regression",
+      "files": 5
+    }
+  ],
+  "mountsWithinTargets": [],
+  "openFilesWithinTargets": [],
+  "symlinksWillNotBeFollowed": true,
+  "currentReleaseAndSigningPreserved": true,
+  "estimatedFreedAllocatedBytes": 439214080,
+  "applied": true,
+  "currentApkVerified": true,
+  "all239ProductInputsUnchanged": true,
+  "signingFilesPreserved": true,
+  "toolchainPreserved": true,
+  "publicRecoveryRelease": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.42"
+}
