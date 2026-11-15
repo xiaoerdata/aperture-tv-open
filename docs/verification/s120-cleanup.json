@@ -1,0 +1,25 @@
+{
+  "applied": true,
+  "deletedGeneratedPaths": [
+    "android/app/build",
+    "artifacts/s120-release/source-overlay",
+    "artifacts/s120-release/delivery",
+    "artifacts/s120-release/anonymous-downloads",
+    "docs/images/s119-home-regression",
+    "artifacts/photo-fix-20261114/apk/kaishi-photo-test-v45-20261114-arm.apk",
+    "artifacts/photo-fix-20261114/before",
+    "artifacts/current-release/kaishi-v45-standard-arm.apk",
+    "artifacts/v45-candidate/kaishi-v45-standard-arm.apk",
+    "artifacts/current-release/kaishi-v45-parents-arm.apk",
+    "artifacts/v45-parents-candidate/kaishi-v45-parents-arm.apk"
+  ],
+  "estimatedFreedAllocatedBytes": 859164672,
+  "bothCurrentV46ApksVerified": true,
+  "previousV45RemoteAssetsVerified": true,
+  "all239ProductInputsUnchanged": true,
+  "signingAndToolchainPreserved": true,
+  "symlinksNotFollowed": true,
+  "openFilesWithinTargets": false,
+  "mountsWithinTargets": false,
+  "scope": "this project only; previous global maintenance archive preserved"
+}
