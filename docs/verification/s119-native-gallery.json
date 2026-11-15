@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "output": "18 production native gallery menu, cancellation and stale-callback assertions passed with JVM UI/store doubles",
+  "productionMenuCallbacksExecuted": true,
+  "jvmFrameworkAndStoreDoubles": true,
+  "androidRenderingExecuted": false,
+  "realXiaomi": false,
+  "realUserPhotosUsed": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/NativeGallery.java": "29a20c71cdd62b43b178a868f087151ddff52d5014e6eec59399065be8384194",
+    "tests/java/NativeGalleryManagementTest.java": "66701e3586ee7388c266b4be811532f59fb59d2bcfd78dd8e2e17ef11cbd6767",
+    "scripts/s119-native-gallery-test.py": "c788ff661de2391eaebd4a36109909b001f8814eac4b35ceaf754704eed75fde"
+  }
+}

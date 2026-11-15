@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 960,
+      "variant": "before",
+      "rect": {
+        "width": 0,
+        "height": 0
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 960,
+      "variant": "after",
+      "rect": {
+        "width": 960,
+        "height": 540
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 1920,
+      "variant": "before",
+      "rect": {
+        "width": 0,
+        "height": 0
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 1920,
+      "variant": "after",
+      "rect": {
+        "width": 1920,
+        "height": 1080
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 3840,
+      "variant": "before",
+      "rect": {
+        "width": 0,
+        "height": 0
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 3840,
+      "variant": "after",
+      "rect": {
+        "width": 3840,
+        "height": 2160
+      },
+      "oldInsetEmulated": true
+    }
+  ],
+  "nativeManagementSourceChecks": true,
+  "nativeUIExecuted": false,
+  "realTV": false,
+  "photosSynthetic": true,
+  "networkListener": false
+}

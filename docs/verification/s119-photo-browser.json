@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "sources": {
+    "public/launcher/gallery.css": "4c041194d7921de22239651bea958beee8048364f70a9229a7555182f849184a",
+    "public/launcher/gallery.js": "5e2459b75796d2b090998d5e34a6aec7fac338616724db418a7a5dcb74fe6c19",
+    "tests/fixtures/photo-v45/gallery.css": "00dcdeccf6ba2b139b48722ca039bb0dcc7018403bd10c8e4d5f44e2c174841a",
+    "android/app/src/main/java/org/zhixiaoce/aperture/NativeGallery.java": "29a20c71cdd62b43b178a868f087151ddff52d5014e6eec59399065be8384194"
+  },
+  "checks": [
+    {
+      "width": 960,
+      "variant": "before",
+      "rect": {
+        "width": 0,
+        "height": 0
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 960,
+      "variant": "after",
+      "rect": {
+        "width": 960,
+        "height": 540
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 1920,
+      "variant": "before",
+      "rect": {
+        "width": 0,
+        "height": 0
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 1920,
+      "variant": "after",
+      "rect": {
+        "width": 1920,
+        "height": 1080
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 3840,
+      "variant": "before",
+      "rect": {
+        "width": 0,
+        "height": 0
+      },
+      "oldInsetEmulated": true
+    },
+    {
+      "width": 3840,
+      "variant": "after",
+      "rect": {
+        "width": 3840,
+        "height": 2160
+      },
+      "oldInsetEmulated": true
+    }
+  ],
+  "nativeManagementSourceChecks": true,
+  "nativeUIExecuted": false,
+  "realTV": false,
+  "photosSynthetic": true,
+  "networkListener": false
+}

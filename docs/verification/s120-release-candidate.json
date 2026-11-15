@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "versionCode": 46,
+  "editions": [
+    "standard",
+    "parents"
+  ],
+  "androidInputSha256": "79832c9fc0b78d742a13f6a048a93203f6b52c9b69bb3259ad4efa7507559676",
+  "androidInputFiles": 239,
+  "bothReleaseBuildsPassed": true,
+  "bothSignaturesMatchCorrespondingV45": true,
+  "photoAssetsAndNativeManagementPresent": true,
+  "checks": [
+    {
+      "path": "docs/verification/s119-photo-browser.json",
+      "sha256": "f7a82a9e799417d9b58f5dc1013a2aca518ea5fe8a78dd6e45dec304ef4a8d3b"
+    },
+    {
+      "path": "docs/verification/s119-native-gallery.json",
+      "sha256": "93a879b500e7ee0c422e39d32a36461299fc1f41a980fbb8adcccd5eac004a74"
+    },
+    {
+      "path": "docs/verification/s119-native-compile.json",
+      "sha256": "8e9e0c6a362404a77a6ca95f6c9ea7df07a18adefa909a0f167845bda60ecdbf"
+    },
+    {
+      "path": "docs/verification/s119-home-regression.json",
+      "sha256": "66e4eeb7f6a62a993e2220fc6f6e5d5daa1d3d209ff7be587442d877fe76c259"
+    },
+    {
+      "path": "docs/verification/s119-parents-browser.json",
+      "sha256": "08240256cc30a78d14ff26c58c0b33d5dc3cff2b4f6b1c3438b38ad08aacddc0"
+    }
+  ],
+  "apks": [
+    {
+      "edition": "standard",
+      "apk": "kaishi-v46-standard-arm.apk",
+      "bytes": 55380284,
+      "sha256": "2a514c2cf1402608f0acbf038ab290f93afeecd72787ce9b3053755fe84f1286"
+    },
+    {
+      "edition": "parents",
+      "apk": "kaishi-v46-parents-arm.apk",
+      "bytes": 55408956,
+      "sha256": "661a48d1b4dfcd5f6ac2714130903c34896e64770f331a0c20f1e75da1a86032"
+    }
+  ],
+  "realXiaomi": false,
+  "published": false
+}

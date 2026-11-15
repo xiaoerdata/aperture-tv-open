@@ -1,6 +1,6 @@
 {
   "format": "aperture-public-source/v1",
-  "version": "0.2.0-alpha.42",
+  "version": "0.2.0-alpha.43",
   "source": {
     "commit": "62f73bfcc7e73b514382637260ddddd78b17ce5e",
     "workingTreeDirty": true
@@ -47,8 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": "861bac52ef79c1f2f7eba382469596034882ed4a",
-    "publicParent": "5760a22739077b11944767fab3d905a0ac92c8ff",
+    "postReleaseReceiptFor": null,
+    "publicParent": "8b2fb1e8f5f724f03a94a1000416f270c83d722a",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
   "files": [
@@ -99,8 +99,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5706,
-      "sha256": "61779e228f94a4123875376289d9e321e1263686bbeaf0a679972da1ee05c503"
+      "bytes": 5664,
+      "sha256": "828d4d83410e69ad7d4e10e45b8dc5ecd0bec01dc8053ec2e436dd2f4d2625d0"
     },
     {
       "path": "SECURITY.md",
@@ -120,7 +120,7 @@
     {
       "path": "android/app/build.gradle",
       "bytes": 3958,
-      "sha256": "4d822095fc1f3a2847d85d5abaaaf2591e4ce75332ba3e7700e6ee6623af4f63"
+      "sha256": "9fb01281fdbbbe6f491e6fc25c641b6033209c742ade50d2036f857a9d29edf5"
     },
     {
       "path": "android/app/src/debug/AndroidManifest.xml",
@@ -644,8 +644,8 @@
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/NativeGallery.java",
-      "bytes": 9605,
-      "sha256": "872d1c5e9d306e1112042a2388ac6577aeadd069b2ffe6a8c26c2eb7132c978f"
+      "bytes": 11922,
+      "sha256": "29a20c71cdd62b43b178a868f087151ddff52d5014e6eec59399065be8384194"
     },
     {
       "path": "android/app/src/main/java/org/zhixiaoce/aperture/PageDeadline.java",
@@ -1449,8 +1449,8 @@
     },
     {
       "path": "docs/DOWNLOADS.md",
-      "bytes": 4616,
-      "sha256": "7ece5ffc85e482b07025269da5128be16cf68f3e9a6005dac57694fc5f7d4523"
+      "bytes": 4468,
+      "sha256": "22af86c89cd0643662af034ddd2e69bd80cfe7c55cc725ef8acfed91161c0571"
     },
     {
       "path": "docs/EMBEDDED-CINEMA.md",
@@ -1568,6 +1568,11 @@
       "sha256": "fa1e55fdb43e118027863cb0e0293fe009eefb026c02a8e41cb6cae4f7dcb6a4"
     },
     {
+      "path": "docs/PHOTO-FIX-S119.md",
+      "bytes": 2561,
+      "sha256": "2f19a17b29c13c3dabcd7eea32dbef950719e3f8018105f9dc85ce2683bf1ab0"
+    },
+    {
       "path": "docs/PHOTO-UPLOAD-S107.md",
       "bytes": 3804,
       "sha256": "88d1d7ef8a9609cc5810ff5160938fe7d61dfaa68570142b485dab070b3d9b27"
@@ -1676,6 +1681,11 @@
       "path": "docs/RELEASE-V45.md",
       "bytes": 2942,
       "sha256": "a84be5f004dd09836588ac32dd2391ff250c7c47381d2a112259504e22af9f49"
+    },
+    {
+      "path": "docs/RELEASE-V46.md",
+      "bytes": 2998,
+      "sha256": "41d0e18f879627b0d4b740ac10d1510171cd18cf32c8fcbc0d130e8ee47e81d1"
     },
     {
       "path": "docs/RESOURCE-PACK-AGENT.md",
@@ -2286,6 +2296,26 @@
       "path": "docs/images/s117-parents/home.png",
       "bytes": 3009436,
       "sha256": "685eb65db92c9e64d13eb651102edd84a7f54d7ff6cf83982abb2abcd83a121b"
+    },
+    {
+      "path": "docs/images/s119-parents/home.png",
+      "bytes": 3009000,
+      "sha256": "0d38cadd4f3e70866f740793692148201f337f7a2510659c7fd3b544880c755d"
+    },
+    {
+      "path": "docs/images/s119-photo-fix/home-1920.png",
+      "bytes": 8591,
+      "sha256": "74c2ddf98e1c97bc4bb6dfa93e0e38b6d557bc7f05556cf0597d64b26b43aee1"
+    },
+    {
+      "path": "docs/images/s119-photo-fix/home-3840.png",
+      "bytes": 29422,
+      "sha256": "8a256a925fb6841036af441446741f4359dc9d26637abbd0481e802660bc8a02"
+    },
+    {
+      "path": "docs/images/s119-photo-fix/home-960.png",
+      "bytes": 2738,
+      "sha256": "173654e4b4dc8389c9ea8bb2dec66a64c79d9c4bc435fa8323e851846938d28d"
     },
     {
       "path": "docs/images/s18-cinema-phone.png",
@@ -5299,18 +5329,18 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 294510,
-      "sha256": "c25d67dce3446df034e80d6c88bb7e0f74761362bc5199ff98f9d4ecea8be62e"
+      "bytes": 299618,
+      "sha256": "fbea6733d1dd351ebbf324eee3182e72f8edef0c231340e7163957d227284612"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
-      "bytes": 43272,
-      "sha256": "c1d8157b731e705785b392df00b7096b945946eb0a3ff16f0cb8b4cf6b13e370"
+      "bytes": 43865,
+      "sha256": "5e6ebb76d0d412c62aec9e47cebf9772c837f07a9427b731ab7c60ab72c35cde"
     },
     {
       "path": "docs/process/README.md",
-      "bytes": 26755,
-      "sha256": "a3343fe05310bf8bb19d4e68b01d78bbd32ae761ef3ecbdbe0dc66e713b7b47e"
+      "bytes": 27093,
+      "sha256": "cdcbb4866f2c1417e340c961ff86b9a0b1b6e849233375ab7da170f5c96ba20d"
     },
     {
       "path": "docs/process/ROUND1-V37.md",
@@ -5349,8 +5379,8 @@
     },
     {
       "path": "docs/release/README-public.md",
-      "bytes": 5688,
-      "sha256": "00efc37e07177ca9ff1474458102779070e9dc8170a700ea362bd0f6d07c2065"
+      "bytes": 5646,
+      "sha256": "999b7424f0136277d109f54e7ab3902a77ea3742494c4decfa38846fa10aaf74"
     },
     {
       "path": "docs/schemas/message-feed-v1.schema.json",
@@ -5486,6 +5516,16 @@
       "path": "docs/verification/parents-media.json",
       "bytes": 6886,
       "sha256": "3ab36b415ae6363f4885a0890cc8f202333dd2811116e1357b7ebeebcc1c8a58"
+    },
+    {
+      "path": "docs/verification/photo-fix-20261114-browser.json",
+      "bytes": 1135,
+      "sha256": "c58f8fff180ba1e6600c3c6204c889d7e4dff8cf2cba77148565d622ccb5f56f"
+    },
+    {
+      "path": "docs/verification/photo-fix-20261114-native.json",
+      "bytes": 18420,
+      "sha256": "70a7d8ac705a162915b48d20c9e83eb91a3fc7bba34cb8dfe48a4e28188f7854"
     },
     {
       "path": "docs/verification/playback-focus-media.json",
@@ -5856,6 +5896,36 @@
       "path": "docs/verification/s117-parents-cleanup.json",
       "bytes": 495,
       "sha256": "95c2a888485b3c3cc38684b9c449a838d608d8cfb1abb324fa06495d810fb0c9"
+    },
+    {
+      "path": "docs/verification/s119-home-regression.json",
+      "bytes": 5332,
+      "sha256": "66e4eeb7f6a62a993e2220fc6f6e5d5daa1d3d209ff7be587442d877fe76c259"
+    },
+    {
+      "path": "docs/verification/s119-native-compile.json",
+      "bytes": 18420,
+      "sha256": "8e9e0c6a362404a77a6ca95f6c9ea7df07a18adefa909a0f167845bda60ecdbf"
+    },
+    {
+      "path": "docs/verification/s119-native-gallery.json",
+      "bytes": 712,
+      "sha256": "93a879b500e7ee0c422e39d32a36461299fc1f41a980fbb8adcccd5eac004a74"
+    },
+    {
+      "path": "docs/verification/s119-parents-browser.json",
+      "bytes": 1580,
+      "sha256": "08240256cc30a78d14ff26c58c0b33d5dc3cff2b4f6b1c3438b38ad08aacddc0"
+    },
+    {
+      "path": "docs/verification/s119-photo-browser.json",
+      "bytes": 1614,
+      "sha256": "f7a82a9e799417d9b58f5dc1013a2aca518ea5fe8a78dd6e45dec304ef4a8d3b"
+    },
+    {
+      "path": "docs/verification/s120-release-candidate.json",
+      "bytes": 1590,
+      "sha256": "d1790b4bd46741deb573474404f4addd55f4347a790d4375fbd449702690502f"
     },
     {
       "path": "docs/verification/s30-launcher-regression.json",
@@ -8013,6 +8083,16 @@
       "sha256": "9d96b9bd9d18624440f229ea5c9d9086774de9dabebb1cb3ec225dcdcdb90e31"
     },
     {
+      "path": "media/DEVLOG-092.md",
+      "bytes": 754,
+      "sha256": "df732026fc2b0d72a1ff00d2d54720b444d86b611c7292a4bd17033be767acfa"
+    },
+    {
+      "path": "media/DEVLOG-093.md",
+      "bytes": 676,
+      "sha256": "68c19278061d8c8a5b2fee9751b1fd2a07b43a05e58758867922e6569b46bd95"
+    },
+    {
       "path": "media/GLASS-ASSET-PROMPT.md",
       "bytes": 1380,
       "sha256": "daeb021eb3ad316b9bd2aedcdd9dfe6d04e9dbeca4aff33187957a1e5d327b42"
@@ -8075,12 +8155,12 @@
     {
       "path": "package-lock.json",
       "bytes": 55465,
-      "sha256": "b646b93326c1ceb527e837164b63b92492e9ab41a4c9df14e882459e7bd3c784"
+      "sha256": "8a47d6e51ada07ef9b3a6b52c890719541665f623c8d7e55ec0cc2a47f55a21d"
     },
     {
       "path": "package.json",
       "bytes": 1767,
-      "sha256": "9cab0ba29299f1c2cbfd6d34c9acc9ff19ef10222bec2b5accb9925977a02ec4"
+      "sha256": "398659f0a89825d69fed492cb6a952d6a4b572ff1e2b1f2168379ccb9469c4cf"
     },
     {
       "path": "public/assets/weekend.svg",
@@ -8354,8 +8434,8 @@
     },
     {
       "path": "public/launcher/gallery.css",
-      "bytes": 5898,
-      "sha256": "00dcdeccf6ba2b139b48722ca039bb0dcc7018403bd10c8e4d5f44e2c174841a"
+      "bytes": 6269,
+      "sha256": "4c041194d7921de22239651bea958beee8048364f70a9229a7555182f849184a"
     },
     {
       "path": "public/launcher/gallery.html",
@@ -9253,6 +9333,36 @@
       "sha256": "f53ac4a4e05acfe117ee928927a4c4a4078d377a4d30740cfc2c271b1352f0a5"
     },
     {
+      "path": "scripts/s119-native-gallery-test.py",
+      "bytes": 8608,
+      "sha256": "c788ff661de2391eaebd4a36109909b001f8814eac4b35ceaf754704eed75fde"
+    },
+    {
+      "path": "scripts/s119-parents-test.mjs",
+      "bytes": 7301,
+      "sha256": "3a90c4359d1812ff235bb3ec86022661cca675db974d5990c3f04ef54dbbd116"
+    },
+    {
+      "path": "scripts/s119-photo-test.mjs",
+      "bytes": 4250,
+      "sha256": "b3268d2f522b74cd5817e110052c5ce7c13598fef2c23eced87a997aefc964a8"
+    },
+    {
+      "path": "scripts/s120-build-candidates.py",
+      "bytes": 5443,
+      "sha256": "78dce2b945e3580149ad195a5b2603c922ee68bcc756a9c03c6212a0dfe89ece"
+    },
+    {
+      "path": "scripts/s120-prepare-source.py",
+      "bytes": 5714,
+      "sha256": "d80fc9dbfd035618cfc6a4abe84f5b08004a55f31d85543deca1443c7ae7f021"
+    },
+    {
+      "path": "scripts/s120-upload-source.py",
+      "bytes": 2012,
+      "sha256": "4e8a41a70a33ed7a61d93cd5ce2f73743d0904c8c082da6c3809c199f851374c"
+    },
+    {
       "path": "scripts/s70-media-fixture.mjs",
       "bytes": 4962,
       "sha256": "0e67342768886e460f2b4c278b10368e16ae309f2161c1f8e9d63245de8eb331"
@@ -9983,6 +10093,11 @@
       "sha256": "d7e3bd523e08847628252dc5712e12a4de19e44b61e1e43a664eb752fae488bf"
     },
     {
+      "path": "tests/fixtures/photo-v45/gallery.css",
+      "bytes": 5898,
+      "sha256": "00dcdeccf6ba2b139b48722ca039bb0dcc7018403bd10c8e4d5f44e2c174841a"
+    },
+    {
       "path": "tests/fixtures/plugins/Fixture.java",
       "bytes": 1855,
       "sha256": "343375e5e26b564467299804d068eabf83870ad281cf8dd5c7e5047737bea03e"
@@ -10213,6 +10328,11 @@
       "sha256": "62e5e517730abe1429ee35153aea8cfc63e3cda764cc7bdca7f7e42cff0f12e2"
     },
     {
+      "path": "tests/java/NativeGalleryManagementTest.java",
+      "bytes": 3208,
+      "sha256": "66701e3586ee7388c266b4be811532f59fb59d2bcfd78dd8e2e17ef11cbd6767"
+    },
+    {
       "path": "tests/java/PageDeadlineTest.java",
       "bytes": 4033,
       "sha256": "b7f9cc0815bdb8165a9adae9542777c12b7bcf037e1ce7e79284a8c3a930e70c"
@@ -10439,35 +10559,18 @@
     }
   ],
   "release": {
-    "tag": "v0.2.0-alpha.42",
-    "versionCode": 45,
+    "tag": "v0.2.0-alpha.43",
+    "versionCode": 46,
     "edition": "standard",
-    "androidInputSha256": "b556cff7e8209d23b608e1d408a8211df18c83b51101e23bc41faa723e283225",
-    "prerelease": true,
-    "fullCloudRegressionAccepted": false,
-    "xiaomiAccepted": false,
-    "latestDocumentation": "docs/RELEASE-V45.md",
-    "publishedAt": "2026-11-11T04:14:03Z",
-    "anonymousDownloadVerified": true,
     "editions": [
       "standard",
       "parents"
     ],
-    "parents": {
-      "version": "0.2.0-alpha.42-parents",
-      "versionCode": 45,
-      "apk": "kaishi-v45-parents-arm.apk",
-      "sha256": "8d54b5e301e8d3663d59f8803f826bccd64941c0efdb5773f97e9ee8d0d751b0",
-      "bytes": 55408956,
-      "sourceCommit": "861bac52ef79c1f2f7eba382469596034882ed4a",
-      "sameProductInputsAsStandard": true,
-      "status": "published",
-      "xiaomiAccepted": false,
-      "documentation": "docs/RELEASE-V45-PARENTS.md",
-      "anonymousDownloadVerified": true,
-      "uploadedAt": "2026-11-11T04:30:44Z",
-      "verification": "docs/verification/public-alpha-v45-parents.json"
-    }
+    "androidInputSha256": "79832c9fc0b78d742a13f6a048a93203f6b52c9b69bb3259ad4efa7507559676",
+    "prerelease": true,
+    "fullCloudRegressionAccepted": false,
+    "xiaomiAccepted": false,
+    "latestDocumentation": "docs/RELEASE-V46.md"
   },
   "upstreamUnresolvedValidation": {
     "candidate": {

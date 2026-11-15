@@ -22,7 +22,7 @@ final class NativeGallery extends FrameLayout {
     private final LinearLayout body;private final ImageView picture,backgroundPicture;private final TextView heading,status,count,empty,address;private final Button stop;
     private JSONArray photos=new JSONArray();private int index,seconds=12;private long epoch;private boolean closed,active,full,paused;private Bitmap bitmap;
     private final Runnable tick=()->{if(!closed&&active&&full&&!paused&&photos.length()>1){move(1);schedule();}};
-    private AlertDialog uploadDialog;
+    private AlertDialog uploadDialog,manageDialog;
     private final Runnable qrExpired=this::expireQr;
     private void expireQr(){if(usable())actions.stop();}
     NativeGallery(Activity a,GalleryStore store,Actions actions,boolean recovery){
@@ -33,9 +33,9 @@ final class NativeGallery extends FrameLayout {
         status=TvUi.text(a,recovery?"网页暂不可用，已切到本机相册。":"本机相册",18,true);body.addView(status);
         FrameLayout scene=new FrameLayout(a);scene.setBackgroundColor(0xff05090c);picture=new ImageView(a);picture.setTag("native-gallery-picture");picture.setScaleType(ImageView.ScaleType.FIT_CENTER);scene.addView(picture,new FrameLayout.LayoutParams(-1,-1));empty=TvUi.text(a,"暂无照片\n手机上传后即可在电视查看",25,true);empty.setTag("native-gallery-empty");empty.setGravity(Gravity.CENTER);scene.addView(empty,new FrameLayout.LayoutParams(-1,-1));body.addView(scene,new LinearLayout.LayoutParams(-1,0,1));
         count=TvUi.text(a,"正在读取本机照片…",18,true);count.setTag("native-gallery-count");body.addView(count);
-        LinearLayout controls=new LinearLayout(a);Button previous=TvUi.button(a,"上一张",()->move(-1)),next=TvUi.button(a,"下一张",()->move(1));Button preview=TvUi.button(a,"全屏轮播",this::fullscreen),upload=TvUi.button(a,"手机上传",actions::upload),stages=TvUi.button(a,"加载记录",actions::stages);
-        upload.setTag("native-gallery-upload");preview.setTag("native-gallery-preview");upload.setId(View.generateViewId());heading.setNextFocusDownId(upload.getId());
-        for(Button b:new Button[]{previous,next,preview})TvUi.addAction(a,controls,b);body.addView(controls);LinearLayout more=new LinearLayout(a);for(Button b:new Button[]{upload,stages})TvUi.addAction(a,more,b);body.addView(more);
+        LinearLayout controls=new LinearLayout(a);Button previous=TvUi.button(a,"上一张",()->move(-1)),next=TvUi.button(a,"下一张",()->move(1));Button preview=TvUi.button(a,"全屏轮播",this::fullscreen),upload=TvUi.button(a,"手机上传",actions::upload),manage=TvUi.button(a,"管理照片",this::manage),stages=TvUi.button(a,"加载记录",actions::stages);
+        manage.setTag("native-gallery-manage");upload.setTag("native-gallery-upload");preview.setTag("native-gallery-preview");upload.setId(View.generateViewId());heading.setNextFocusDownId(upload.getId());
+        for(Button b:new Button[]{previous,next,preview})TvUi.addAction(a,controls,b);body.addView(controls);LinearLayout more=new LinearLayout(a);for(Button b:new Button[]{upload,manage,stages})TvUi.addAction(a,more,b);body.addView(more);
         TextView note=TvUi.text(a,"手机与电视连接同一网络，扫码上传照片。",16,true);body.addView(note);
         address=TvUi.text(a,"",17,false);address.setMaxLines(3);address.setVisibility(GONE);body.addView(address);stop=TvUi.button(a,"关闭上传",actions::stop);stop.setVisibility(GONE);body.addView(stop);
         if(recovery)back.requestFocus();else heading.requestFocus();refresh();
@@ -50,6 +50,30 @@ final class NativeGallery extends FrameLayout {
         String id=photos.optJSONObject(index).optString("id");final long expected=++epoch;
         worker.execute(()->{Bitmap decoded=null;try{decoded=store.image(id);}catch(Exception ignored){}final Bitmap image=decoded;ui.post(()->{if(!usable()||!active||epoch!=expected){if(image!=null)image.recycle();return;}picture.setImageBitmap(image);backgroundPicture.setImageBitmap(image);recycle();bitmap=image;if(image==null){empty.setText("这张照片暂时无法读取，可切换其他照片");empty.setVisibility(VISIBLE);}schedule();});});
     }
+    private void dismissManage(){if(manageDialog!=null){AlertDialog old=manageDialog;manageDialog=null;old.dismiss();}}
+    private boolean managing(android.content.DialogInterface dialog){return usable()&&active&&dialog==manageDialog&&manageDialog.isShowing();}
+    private void showManage(){final AlertDialog shown=manageDialog;shown.setOnDismissListener(dialog->{if(manageDialog==shown)manageDialog=null;});shown.show();}
+    private void manage(){
+        if(!usable()||!active)return;dismissManage();
+        final String photoId=photos.length()>0?photos.optJSONObject(index).optString("id"):null;
+        String title=photoId==null?"相册设置":"管理照片 · "+(index+1)+" / "+photos.length();
+        String[] options=photoId==null?new String[]{"每 8 秒切换","每 12 秒切换","每 20 秒切换"}:new String[]{"删除当前照片","每 8 秒切换","每 12 秒切换","每 20 秒切换"};
+        manageDialog=new AlertDialog.Builder(activity).setTitle(title).setItems(options,(dialog,which)->{
+            if(!managing(dialog))return;
+            if(photoId!=null&&which==0){confirmDelete(photoId);return;}
+            int choice=which-(photoId==null?0:1);int[] values={8,12,20};
+            try{store.option("seconds",String.valueOf(values[choice]));seconds=values[choice];schedule();status("已设为每 "+seconds+" 秒切换");}catch(Exception error){status("设置未能保存，请重试");}
+        }).setNegativeButton("返回",null).create();showManage();
+    }
+    private void confirmDelete(String id){
+        if(!usable()||!active||!GalleryStore.id(id))return;dismissManage();
+        manageDialog=new AlertDialog.Builder(activity).setTitle("删除这张照片？")
+            .setMessage("仅从电视相册移除，手机原图不受影响。")
+            .setNegativeButton("保留",null).setPositiveButton("删除",(dialog,which)->{
+                if(!managing(dialog))return;
+                try{store.delete(id);refresh();status("照片已从电视相册移除");}catch(Exception error){status("删除失败，请重试");}
+            }).create();showManage();manageDialog.getButton(AlertDialog.BUTTON_NEGATIVE).requestFocus();
+    }
     private void recycle(){if(bitmap!=null){bitmap.recycle();bitmap=null;}}
     private void move(int delta){if(photos.length()==0)return;index=(index+delta+photos.length())%photos.length();display();}
     private void schedule(){ui.removeCallbacks(tick);if(active&&full&&!paused&&photos.length()>1)ui.postDelayed(tick,Math.max(8,Math.min(20,seconds))*1000L);}
@@ -57,7 +81,7 @@ final class NativeGallery extends FrameLayout {
     private void fullscreen(){if(photos.length()==0){status("暂无照片");return;}full=true;paused=false;sheet(true);body.setPadding(0,0,0,0);for(int i=0;i<body.getChildCount();i++)if(i!=2)body.getChildAt(i).setVisibility(GONE);schedule();}
     boolean back(){if(!full)return false;full=false;paused=false;sheet(false);int pad=TvUi.dp(activity,14);body.setPadding(pad,pad,pad,pad);for(int i=0;i<body.getChildCount();i++)if(body.getChildAt(i)!=address&&body.getChildAt(i)!=stop)body.getChildAt(i).setVisibility(VISIBLE);heading.requestFocus();schedule();return true;}
     boolean key(KeyEvent event){if(!full)return false;int code=event.getKeyCode();if(code==KeyEvent.KEYCODE_BACK){if(event.getAction()==0&&event.getRepeatCount()==0)back();return true;}if(code==21||code==22||code==23||code==66){if(event.getAction()==0&&event.getRepeatCount()==0){if(code==21||code==22)move(code==21?-1:1);else{paused=!paused;schedule();}}return true;}return false;}
-    void active(boolean value){if(!usable())return;active=value;if(!value)++epoch;else refresh();schedule();}
+    void active(boolean value){if(!usable())return;active=value;if(!value){++epoch;dismissManage();}else refresh();schedule();}
     void status(String text){if(usable()&&active)status.setText(text);}
     void upload(String url){
         if(!usable())return;uploadClosed();
@@ -72,5 +96,5 @@ final class NativeGallery extends FrameLayout {
     }
     void uploadClosed(){ui.removeCallbacks(qrExpired);address.setText("");address.setVisibility(GONE);stop.setVisibility(GONE);if(uploadDialog!=null){AlertDialog old=uploadDialog;uploadDialog=null;old.setOnDismissListener(null);old.dismiss();}}
     private boolean usable(){return !closed&&!activity.isFinishing()&&!activity.isDestroyed();}
-    void close(){if(closed)return;closed=true;uploadClosed();++epoch;ui.removeCallbacks(tick);worker.shutdownNow();picture.setImageDrawable(null);backgroundPicture.setImageDrawable(null);recycle();}
+    void close(){if(closed)return;closed=true;dismissManage();uploadClosed();++epoch;ui.removeCallbacks(tick);worker.shutdownNow();picture.setImageDrawable(null);backgroundPicture.setImageDrawable(null);recycle();}
 }
