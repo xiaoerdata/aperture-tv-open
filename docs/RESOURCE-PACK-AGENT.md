@@ -46,7 +46,7 @@ npm run resources -- verify-url https://example.invalid/family.kaishi.json \
   --sha256 REPLACE_WITH_64_LOWERCASE_HEX
 ```
 
-`verify-url`有512KiB大小限制、请求超时和有限重定向，摘要一致后再交给电视。发布文件改变时提高revision并重新校验，不能复用旧摘要。
+`verify-url`按原始文件4 MiB限制、请求超时和有限重定向进行校验，摘要一致后再交给电视。V47取消资源站点等导入总数配额；制作工具会为超过V46数量限制的包标明 `minimumVersionCode:47`，需使用V47或以上APK，发行状态见下载索引。电视还会检查展开后的配置是否在4 MiB内，详见[容量规则](RESOURCE-CAPACITY-S121.md)。发布文件改变时提高revision并重新校验，不能复用旧摘要。
 
 ## 3. 连接电视
 

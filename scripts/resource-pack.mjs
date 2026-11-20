@@ -37,9 +37,9 @@ export function checkPack(bytes,{allowHttp=false}={}){
   }
  }
  if(!sites&&!lives)throw Error('资源包至少需要一个直播或影视资源');
- if(sites>12||lives>12||channels>2000||items>2000||episodes>10000)throw Error('资源包超过12站点/12直播来源/2000频道/2000节目/10000集的限制');
  const extended=pack.resources.some(r=>r.type==='collection'&&(r.sections||Array.isArray(r.section)||r.items.some(i=>i.section||i.poster||i.summary||typeof i.rating==='number'||typeof i.year==='number')));
- return {minimumVersionCode:pack.resources.some(r=>r.type==='collection'&&r.items.some(i=>i.releaseDate!==undefined||i.metadata?.releaseDate!==undefined))?44:(bytes.length>524288||channels>500||items>200||episodes>500)?31:extended?30:21,format:pack.format,version:pack.version,id:pack.id,revision:pack.revision,title:pack.title,sha256:sha(bytes),bytes:bytes.length,resources:pack.resources.length,sites,lives,channels,items,episodes,sections:[...new Set(pack.resources.flatMap(r=>r.sections||[].concat(r.section||[])))],nativeImportValidationRequired:true};
+ const expandedCapacity=sites>12||lives>12||pack.resources.length>24||channels>2000||items>2000||episodes>10000;
+ return {minimumVersionCode:expandedCapacity?47:pack.resources.some(r=>r.type==='collection'&&r.items.some(i=>i.releaseDate!==undefined||i.metadata?.releaseDate!==undefined))?44:(bytes.length>524288||channels>500||items>200||episodes>500)?31:extended?30:21,format:pack.format,version:pack.version,id:pack.id,revision:pack.revision,title:pack.title,sha256:sha(bytes),bytes:bytes.length,resources:pack.resources.length,sites,lives,channels,items,episodes,sections:[...new Set(pack.resources.flatMap(r=>r.sections||[].concat(r.section||[])))],nativeImportValidationRequired:true};
 }
 async function fetchPack(address,{allowHttp=false}={}){
  let current=url(address,allowHttp);for(let i=0;i<=3;i++){

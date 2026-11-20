@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 /** Bounded catalogue formats; executable sites are dispatched through the opt-in plugin engine. */
 final class CinemaCatalog {
-    static final int MAX_BYTES = 4 * 1024 * 1024, MAX_CHANNELS = 2000;
+    static final int MAX_BYTES = 4 * 1024 * 1024;
     static final class Site {
         final String name, api, key, ext, jar, spider, base;final int type;final java.util.Map<String,String> headers;
         Site(String name,String api){this(name,api,api,1,java.util.Collections.emptyMap());}
@@ -86,6 +86,12 @@ final class CinemaCatalog {
         }catch(Exception invalid){throw new IOException("仅支持已允许的 HTTP(S) 地址，不支持脚本、代理协议或网址中的账号");}
     }
     static Config config(String raw,String base,boolean allowHttp) throws Exception {
+        Config result=parseConfig(raw,base,allowHttp);
+        // Check expansion before preview/save as well as the encrypted storage boundary.
+        if(result.json().getBytes(java.nio.charset.StandardCharsets.UTF_8).length>MAX_BYTES)throw new IOException("展开后的配置超过4MiB");
+        return result;
+    }
+    private static Config parseConfig(String raw,String base,boolean allowHttp) throws Exception {
         if(raw==null||raw.getBytes(java.nio.charset.StandardCharsets.UTF_8).length>MAX_BYTES)throw new IOException("来源配置超过4MiB");
         Config result=new Config(allowHttp);
         String text=raw.replaceFirst("^\\uFEFF","").trim();if(text.startsWith("//")||text.startsWith("/*"))text=CinemaFormats.json(text).trim();
@@ -99,23 +105,21 @@ final class CinemaCatalog {
         if(cache){result.packId=root.optString("packId");result.packTitle=root.optString("packTitle");result.packRevision=root.optInt("packRevision");result.packSha256=root.optString("packSha256");JSONArray guides=root.optJSONArray("epgs");if(guides!=null){if(guides.length()>4)throw new IOException("节目单来源超过4项");for(int e=0;e<guides.length();e++)result.epgs.add(url(guides.getString(e),null,allowHttp));}}
         if(root.has("list")&&!root.has("sites")){page(text,1);if(base==null)throw new IOException("采集目录需要网络API地址");result.sites.add(new Site("影视",url(base,null,allowHttp)));return result;}
         JSONArray feeds=root.optJSONArray("urls");if(feeds==null)feeds=root.optJSONArray("data");
-        if(feeds!=null&&!root.has("sites")&&!root.has("lives")){if(feeds.length()>64)throw new IOException("仓库超过64项");for(int i=0;i<feeds.length();i++){JSONObject feed=feeds.optJSONObject(i);if(feed==null)continue;try{result.warehouses.add(new Site(field(feed.optString("name",feed.optString("sourceName","配置")),120),url(feed.optString("url",feed.optString("sourceUrl")),base,allowHttp)));}catch(IOException invalid){result.skipped.add("一个仓库地址不支持");}}if(result.warehouses.isEmpty())throw new IOException("没有可读取的仓库地址");return result;}
+        if(feeds!=null&&!root.has("sites")&&!root.has("lives")){for(int i=0;i<feeds.length();i++){JSONObject feed=feeds.optJSONObject(i);if(feed==null)continue;try{result.warehouses.add(new Site(field(feed.optString("name",feed.optString("sourceName","配置")),120),url(feed.optString("url",feed.optString("sourceUrl")),base,allowHttp)));}catch(IOException invalid){result.skipped.add("一个仓库地址不支持");}}if(result.warehouses.isEmpty())throw new IOException("没有可读取的仓库地址");return result;}
         JSONObject video=root.optJSONObject("video");
         JSONArray sites=(video==null?root:video).optJSONArray("sites");
-        if(sites!=null){if(sites.length()>100)throw new IOException("站点超过100项");for(int i=0;i<sites.length();i++){
+        if(sites!=null){for(int i=0;i<sites.length();i++){
             JSONObject s=sites.optJSONObject(i);if(s==null)continue;String name=field(s.optString("name","站点"),120);
             if(s.optInt("type",-1)!=0&&s.optInt("type",-1)!=1&&s.optInt("type",-1)!=3&&s.optInt("type",-1)!=4&&!(cache&&s.optInt("type",-1)==5)){result.skipped.add(name+"：当前未接入该站点类型");continue;}
-            if(result.sites.size()>=12){result.skipped.add(name+"：超过12个站点");continue;}
             try{int type=s.optInt("type",1);String sourceBase=field(s.optString("base",base==null?"":base),4096);String api=type==5?"":type==3?field(s.optString("api"),4096):url(s.optString("api"),sourceBase,allowHttp);if(api.isEmpty()&&type!=5)throw new IOException("站点缺少API");Site site=new Site(name,api,field(s.optString("key",s.optString("api")),4096),type,CinemaFormats.headers(s),extension(s.optString("ext"),65536),field(s.optString("jar"),4096),field(s.optString("spider",root.optString("spider")),4096),sourceBase);if(cache)CinemaResourcePack.restoreSite(site,s,allowHttp);result.sites.add(site);}catch(IOException unsupported){result.skipped.add(name+"：地址类型不支持");}
         }}
-        JSONArray lives=root.optJSONArray("lives");int total=0;
-        if(lives!=null){if(lives.length()>100)throw new IOException("直播来源超过100项");for(int i=0;i<lives.length();i++){
+        JSONArray lives=root.optJSONArray("lives");
+        if(lives!=null){for(int i=0;i<lives.length();i++){
             JSONObject l=lives.optJSONObject(i);if(l==null)continue;String name=field(l.optString("name",l.optString("group","直播")),120);
-            if(result.lives.size()>=12){result.skipped.add(name+"：超过12个直播来源");continue;}
             String feed=l.optString("url");if(!feed.isEmpty()){try{Live live=new Live(name,url(feed,base,allowHttp),new ArrayList<>(),CinemaFormats.headers(l));if(cache)live.identity=field(l.optString("identity"),200);result.lives.add(live);}catch(IOException invalid){result.skipped.add(name+"：地址类型不支持");}continue;}
             JSONArray entries=l.optJSONArray("channels");List<Channel> channels=new ArrayList<>();
             if(entries!=null)for(int j=0;j<entries.length();j++){
-                if(++total>MAX_CHANNELS)throw new IOException("内置频道超过2000项");JSONObject c=entries.optJSONObject(j);if(c==null)continue;
+                JSONObject c=entries.optJSONObject(j);if(c==null)continue;
                 List<String> urls=new ArrayList<>();List<java.util.Map<String,String>> requests=new ArrayList<>();java.util.Map<String,String> header=new java.util.LinkedHashMap<>(CinemaFormats.headers(l));header.putAll(CinemaFormats.headers(c));JSONArray array=c.optJSONArray("urls");if(array==null&&c.has("url"))array=new JSONArray().put(c.optString("url"));
                 JSONArray savedHeaders=c.optJSONArray("requestHeaders");
                 if(array!=null)for(int k=0;k<Math.min(8,array.length());k++)try{java.util.Map<String,String> specific=new java.util.LinkedHashMap<>(header);if(savedHeaders!=null&&savedHeaders.optJSONObject(k)!=null)specific.putAll(CinemaFormats.headers(new JSONObject().put("header",savedHeaders.getJSONObject(k))));urls.add(CinemaFormats.stream(array.optString(k),base,allowHttp,specific));requests.add(specific);}catch(IOException invalid){}

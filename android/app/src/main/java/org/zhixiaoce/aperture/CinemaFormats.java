@@ -52,7 +52,7 @@ final class CinemaFormats {
             if(v.startsWith("#EXTVLCOPT:http-referrer=")){header(headers,"Referer",v.substring("#EXTVLCOPT:http-referrer=".length()));continue;}
             if(v.startsWith("#"))continue;
             if(!m3u){int comma=v.indexOf(',');if(comma<1)continue;name=CinemaCatalog.field(v.substring(0,comma),120);v=v.substring(comma+1).trim();if(v.equalsIgnoreCase("#genre#")){group=name;continue;}headers=new LinkedHashMap<>(defaults);}
-            if(++rows>CinemaCatalog.MAX_CHANNELS)throw new IOException("频道超过2000项");List<String> urls=new ArrayList<>();List<Map<String,String>> requests=new ArrayList<>();
+            rows++;List<String> urls=new ArrayList<>();List<Map<String,String>> requests=new ArrayList<>();
             for(String stream:m3u?new String[]{v}:v.split("#")){if(urls.size()>=8)break;try{int alias=stream.lastIndexOf('$');String value=alias<0?stream:stream.substring(0,alias);Map<String,String> specific=new LinkedHashMap<>(headers);urls.add(stream(value,base,allowHttp,specific));requests.add(specific);}catch(IOException invalid){}}
             if(!urls.isEmpty()){CinemaCatalog.Channel channel=new CinemaCatalog.Channel(name.isEmpty()?"频道 "+rows:name,group,urls,new LinkedHashMap<>(headers),requests);channel.logo=artwork(logo,base,allowHttp);channel.epgId=epgId;channel.number=number;result.add(channel);}name="";logo="";epgId="";number=0;
         }

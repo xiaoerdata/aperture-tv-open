@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "test": "ResourcePackTest",
+      "output": "Resource packs: 45 assertions passed; no Android runtime or media decoding claim",
+      "passed": true
+    },
+    {
+      "test": "EmbeddedCinemaTest",
+      "output": "Embedded cinema: 51 parser/HTTP assertions passed; no device playback claim",
+      "passed": true
+    }
+  ],
+  "productionJavaAndHttp": true,
+  "isolatedLocalHttpOnly": true,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "e1f72624e7c4ba0ad23bfb8986b1e35920b3b7fb260705879eb1b255c0d2f769",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "c46e9a2f3adcd6a008014ff45b513313d6a4c1474c103e0ab0f1e764742f6f0e",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "24a268510c7c7d09c7d0e60d956a513f59a00772d6babebf38d07832fa30ddaf",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaHttp.java": "01c59bb92b8e150118ae4df3904a955600058772cc491478ff6828db84293be2",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelf.java": "7d84f83b8f7892846d5b3e3b358b2283556e3a2aecdf0e967a8ab4271a79d280",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCipher.java": "ce8a9349779a30d48cbf40c9b78283ab6cf3b4c9a896bdd65e42a4c5971af6cb",
+    "tests/java/ResourcePackTest.java": "ff30cdf8c863b5732f3b5ec3095d45bb41ce603dfd7e91f8f5c2d44cc7d99e53",
+    "tests/java/EmbeddedCinemaTest.java": "38a742f272df530930692b946d1b278c18fa9a9c8ed6a50201104eb80272c755"
+  },
+  "libraries": {
+    "json-20160810.jar": "bf51c9013128cb15201225e51476f60ad9116813729040655a238d2829aef8b8",
+    "okhttp-4.12.0.jar": "b1050081b14bb7a3a7e55a4d3ef01b5dcfabc453b4573a4fc019767191d5f4e0",
+    "okio-jvm-3.6.0.jar": "67543f0736fc422ae927ed0e504b98bc5e269fda0d3500579337cb713da28412",
+    "kotlin-stdlib-1.9.10.jar": "55e989c512b80907799f854309f3bc7782c5b3d13932442d0379d5c472711504"
+  },
+  "apkBuilt": false,
+  "published": false,
+  "realXiaomi": false
+}

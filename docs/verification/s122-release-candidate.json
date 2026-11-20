@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "versionCode": 47,
+  "editions": [
+    "standard",
+    "parents"
+  ],
+  "androidInputSha256": "7706221e7a9989c3ba4f23df86865ed225b2651a6c7c7528d72bf0d67e0dd8f0",
+  "androidInputFiles": 239,
+  "bothReleaseBuildsPassed": true,
+  "bothSignaturesMatchCorrespondingV46": true,
+  "resourceSizeBoundAndOldSourceCapsRemovedInApk": true,
+  "photoFixPreserved": true,
+  "checks": [
+    {
+      "path": "docs/verification/s121-resource-capacity.json",
+      "sha256": "027921e03bb92aa287156a0a90e105436f64ded2731869b964b38861dce02d26"
+    },
+    {
+      "path": "docs/verification/s121-resource-regression.json",
+      "sha256": "dd3cfe5eaed8eb886ad68dce9fb9327685a229b45edbab65247c90ee5ceb43a2"
+    }
+  ],
+  "apks": [
+    {
+      "edition": "standard",
+      "apk": "kaishi-v47-standard-arm.apk",
+      "bytes": 55380284,
+      "sha256": "d322023dbd2d36a2f97718960b695105a6463b555e1a1092612ea1b0b7001280"
+    },
+    {
+      "edition": "parents",
+      "apk": "kaishi-v47-parents-arm.apk",
+      "bytes": 55408956,
+      "sha256": "dd1648936493df11e59cea6887c6f3aa032bd606402e3b60aa4f7bcfcbe476b3"
+    }
+  ],
+  "realXiaomi": false,
+  "published": false
+}

@@ -21,6 +21,8 @@ final class CinemaResourcePack {
     private static String id(JSONObject o,String key,int max)throws Exception{String value=string(o,key,max,true);if(!value.matches("[a-z0-9][a-z0-9._-]*"))throw invalid(key,"仅使用小写字母、数字、点、短横线和下划线");return value;}
     private static int integer(JSONObject o,String key,int min,int max)throws Exception{Object n=o.get(key);if(!(n instanceof Number)||((Number)n).doubleValue()!=((Number)n).intValue())throw invalid(key,"需要整数");int value=((Number)n).intValue();if(value<min||value>max)throw invalid(key,"超出范围");return value;}
     private static JSONArray array(JSONObject o,String key,int min,int max)throws Exception{Object v=o.get(key);if(!(v instanceof JSONArray))throw invalid(key,"需要数组");JSONArray a=(JSONArray)v;if(a.length()<min||a.length()>max)throw invalid(key,"数量需在"+min+"至"+max+"之间");return a;}
+    // Collection sizes are bounded by input and normalized bytes, not entry quotas.
+    private static JSONArray array(JSONObject o,String key,int min)throws Exception{return array(o,key,min,Integer.MAX_VALUE);}
     private static JSONObject object(JSONArray a,int at,String path)throws Exception{Object v=a.get(at);if(!(v instanceof JSONObject))throw invalid(path+"["+at+"]","需要对象");return (JSONObject)v;}
     private static String address(JSONObject o,String key,boolean allowHttp)throws Exception{return CinemaCatalog.url(string(o,key,4096,true),null,allowHttp);}
     private static Map<String,String> headers(JSONObject o)throws Exception{
@@ -42,16 +44,16 @@ final class CinemaResourcePack {
         keys(root,"pack","format","version","id","revision","title","description","author","resources");
         if(!FORMAT.equals(string(root,"format",64,true))||integer(root,"version",1,1)!=1)throw invalid("version","不支持的资源包版本");
         CinemaCatalog.Config result=new CinemaCatalog.Config(allowHttp);result.packId=id(root,"id",96);result.packTitle=string(root,"title",120,true);result.packRevision=integer(root,"revision",1,Integer.MAX_VALUE);result.packSha256=sha256(raw);
-        string(root,"description",500,false);string(root,"author",120,false);JSONArray resources=array(root,"resources",1,24);Set<String> ids=new HashSet<>();int channelCount=0,itemCount=0,episodeCount=0;
+        string(root,"description",500,false);string(root,"author",120,false);JSONArray resources=array(root,"resources",1);Set<String> ids=new HashSet<>();
         for(int i=0;i<resources.length();i++){
             JSONObject r=object(resources,i,"resources");String key=id(r,"id",64),name=string(r,"title",120,true),type=string(r,"type",32,true);if(!ids.add(key))throw invalid("resources."+key,"资源编号重复");String identity="kaishi:"+result.packId+":"+key;
             if(type.equals("live")){
                 keys(r,key,"id","type","title","url","channels","headers");Map<String,String> header=headers(r);if(r.has("url")==r.has("channels"))throw invalid(key,"直播需选择url或channels之一");CinemaCatalog.Live live;
                 if(r.has("url"))live=new CinemaCatalog.Live(name,address(r,"url",allowHttp),new ArrayList<>(),header);
-                else{JSONArray values=array(r,"channels",1,2000);List<CinemaCatalog.Channel> channels=new ArrayList<>();Set<String> channelIds=new HashSet<>();Set<Integer> numbers=new HashSet<>();for(int j=0;j<values.length();j++){
+                else{JSONArray values=array(r,"channels",1);List<CinemaCatalog.Channel> channels=new ArrayList<>();Set<String> channelIds=new HashSet<>();Set<Integer> numbers=new HashSet<>();for(int j=0;j<values.length();j++){
                     JSONObject c=object(values,j,key+".channels");keys(c,key+".channels","id","title","group","urls","headers","logo","number","epgId");String channelId=id(c,"id",64);if(!channelIds.add(channelId))throw invalid(key,"频道编号重复");String title=string(c,"title",120,true),group=string(c,"group",80,false);Map<String,String> h=new LinkedHashMap<>(header);h.putAll(headers(c));JSONArray urls=array(c,"urls",1,8);List<String> links=new ArrayList<>();for(int n=0;n<urls.length();n++){if(!(urls.get(n) instanceof String))throw invalid(key,"频道地址需要文本");links.add(CinemaCatalog.url(urls.getString(n),null,allowHttp));}CinemaCatalog.Channel channel=new CinemaCatalog.Channel(title,group.isEmpty()?name:group,links,h);channel.id=channelId;channel.logo=c.has("logo")?address(c,"logo",allowHttp):"";channel.number=c.has("number")?integer(c,"number",1,9999):0;channel.epgId=string(c,"epgId",128,false);if(c.has("epgId")&&channel.epgId.isEmpty())throw invalid(key,"节目单频道编号不能为空");if(channel.number>0&&!numbers.add(channel.number))throw invalid(key,"频道号重复");channels.add(channel);
                 }live=new CinemaCatalog.Live(name,"",channels,header);}
-                live.identity=identity;result.lives.add(live);channelCount+=live.channels.size();
+                live.identity=identity;result.lives.add(live);
             }else if(type.equals("epg")){
                 keys(r,key,"id","type","title","url");if(result.epgs.size()>=4)throw invalid(key,"最多4个节目单来源");result.epgs.add(address(r,"url",allowHttp));
             }else if(type.equals("catalog")){
@@ -59,23 +61,22 @@ final class CinemaResourcePack {
                 CinemaCatalog.Site site=new CinemaCatalog.Site(name,address(r,"url",allowHttp),identity,kind,headers(r));site.identity=identity;site.sections=sections(r,true);site.categoryIds=categories(r,site.sections);result.sites.add(site);
             }else if(type.equals("collection")){
                 keys(r,key,"id","type","title","section","sections","items","headers");List<String> declared=collectionSections(r);
-                CinemaCatalog.Site site=new CinemaCatalog.Site(name,"",identity,5,headers(r));site.identity=identity;site.sections.addAll(declared);site.items=collectionItems(array(r,"items",1,2000),allowHttp);assignSections(site);result.sites.add(site);itemCount+=site.items.length();for(int j=0;j<site.items.length();j++)episodeCount+=site.items.getJSONObject(j).getJSONArray("episodes").length();
+                CinemaCatalog.Site site=new CinemaCatalog.Site(name,"",identity,5,headers(r));site.identity=identity;site.sections.addAll(declared);site.items=collectionItems(array(r,"items",1),allowHttp);assignSections(site);result.sites.add(site);
             }else if(type.equals("tvbox")){
                 keys(r,key,"id","type","title","config","baseUrl","sections","categoryIds");if(!(r.get("config") instanceof JSONObject))throw invalid(key,"config需要TVBox对象");JSONObject config=r.getJSONObject("config");if(config.has("format")||config.has("urls")||config.has("data")||!(config.has("sites")||config.has("lives")))throw invalid(key,"TVBox适配器需单个sites/lives配置，不能嵌套资源包或多仓");
                 if(config.optJSONArray("parses")!=null&&config.getJSONArray("parses").length()==0)config.remove("parses");
                 String base=r.has("baseUrl")?address(r,"baseUrl",allowHttp):null;CinemaCatalog.Config legacy=CinemaCatalog.config(config.toString(),base,allowHttp);if(!legacy.warehouses.isEmpty())throw invalid(key,"请先选择一个TVBox配置，资源包不嵌套多仓选择");if(!legacy.skipped.isEmpty())throw invalid(key,"含未支持的TVBox项："+legacy.skipped.get(0));
-                List<String> sections=sections(r,false);JSONObject categoryIds=categories(r,sections);for(CinemaCatalog.Site site:legacy.sites){site.sections=new ArrayList<>(sections);site.categoryIds=categoryIds;result.sites.add(site);}for(CinemaCatalog.Live live:legacy.lives){result.lives.add(live);channelCount+=live.channels.size();}
+                List<String> sections=sections(r,false);JSONObject categoryIds=categories(r,sections);for(CinemaCatalog.Site site:legacy.sites){site.sections=new ArrayList<>(sections);site.categoryIds=categoryIds;result.sites.add(site);}for(CinemaCatalog.Live live:legacy.lives){result.lives.add(live);}
             }else throw invalid(key,"不支持的资源类型："+type);
-            if(result.sites.size()>12||result.lives.size()>12||channelCount>2000||itemCount>2000||episodeCount>10000)throw invalid("resources","超过12站点/12直播来源/2000频道/2000节目/10000集的上限");
         }
         if(result.sites.isEmpty()&&result.lives.isEmpty())throw invalid("resources","至少需要一个直播或影视资源");
-        if(result.json().getBytes(StandardCharsets.UTF_8).length>CinemaCatalog.MAX_BYTES)throw invalid("resources","展开后的配置超过4MiB");return result;
+        return result;
     }
     static JSONArray collectionItems(JSONArray input,boolean allowHttp)throws Exception{
-        if(input.length()<1||input.length()>2000)throw invalid("items","需为1至2000项");JSONArray out=new JSONArray();Set<String> ids=new HashSet<>();int total=0;
+        if(input.length()<1)throw invalid("items","至少需要1项");JSONArray out=new JSONArray();Set<String> ids=new HashSet<>();
         for(int i=0;i<input.length();i++){
-            JSONObject item=object(input,i,"items");keys(item,"items","id","title","remark","episodes","metadata","cover","plot","poster","summary","section","year","area","genre","director","actors","rating","ratingSource","duration","backdrop","updatedAt","releaseDate","doubanRating");String id=id(item,"id",64);if(!ids.add(id))throw invalid("items","节目编号重复");JSONObject normalized=new JSONObject().put("id",id).put("title",string(item,"title",160,true)).put("remark",string(item,"remark",200,false));if(item.has("section")){String section=string(item,"section",16,true);if(!SECTIONS.contains(section))throw invalid("items.section","分类无效");normalized.put("section",section);}JSONObject meta=metadata(item,allowHttp);if(meta.length()>0)normalized.put("metadata",meta);JSONArray episodes=array(item,"episodes",1,10000),list=new JSONArray();Set<String> titles=new HashSet<>();
-            for(int j=0;j<episodes.length();j++){JSONObject episode=object(episodes,j,"episodes");keys(episode,"episodes","title","url","headers","cover");String title=string(episode,"title",120,true);if(!titles.add(title))throw invalid("episodes","同一节目的集名需唯一");if(++total>10000)throw invalid("episodes","一个清单最多10000集");JSONObject value=new JSONObject().put("title",title).put("url",address(episode,"url",allowHttp)).put("headers",new JSONObject(headers(episode)));if(episode.has("cover"))value.put("cover",address(episode,"cover",allowHttp));list.put(value);}normalized.put("episodes",list);out.put(normalized);
+            JSONObject item=object(input,i,"items");keys(item,"items","id","title","remark","episodes","metadata","cover","plot","poster","summary","section","year","area","genre","director","actors","rating","ratingSource","duration","backdrop","updatedAt","releaseDate","doubanRating");String id=id(item,"id",64);if(!ids.add(id))throw invalid("items","节目编号重复");JSONObject normalized=new JSONObject().put("id",id).put("title",string(item,"title",160,true)).put("remark",string(item,"remark",200,false));if(item.has("section")){String section=string(item,"section",16,true);if(!SECTIONS.contains(section))throw invalid("items.section","分类无效");normalized.put("section",section);}JSONObject meta=metadata(item,allowHttp);if(meta.length()>0)normalized.put("metadata",meta);JSONArray episodes=array(item,"episodes",1),list=new JSONArray();Set<String> titles=new HashSet<>();
+            for(int j=0;j<episodes.length();j++){JSONObject episode=object(episodes,j,"episodes");keys(episode,"episodes","title","url","headers","cover");String title=string(episode,"title",120,true);if(!titles.add(title))throw invalid("episodes","同一节目的集名需唯一");JSONObject value=new JSONObject().put("title",title).put("url",address(episode,"url",allowHttp)).put("headers",new JSONObject(headers(episode)));if(episode.has("cover"))value.put("cover",address(episode,"cover",allowHttp));list.put(value);}normalized.put("episodes",list);out.put(normalized);
         }return out;
     }
     private static List<String> collectionSections(JSONObject resource)throws Exception{

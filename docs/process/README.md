@@ -212,3 +212,5 @@ S115—S116：[首页天气](../HOME-WEATHER-S115.md)、[v45说明](../RELEASE-V
 S117：P132恢复爸妈版本轮同步，从标准版v45相同冻结源构建独立parents APK。见[爸妈版v45说明](../RELEASE-V45-PARENTS.md)、[第91期底稿](../../media/DEVLOG-091.md)。标准版附件与产品标签保留；小米真机待复测。
 
 S118—S120：P133—P134收口未发布照片兼容补丁，正式V46两版升级并随后清理。见[照片修复](../PHOTO-FIX-S119.md)、[V46说明](../RELEASE-V46.md)、[第92期](../../media/DEVLOG-092.md)和[第93期底稿](../../media/DEVLOG-093.md)。历史独立phototest包不作为正式升级包；真机验收待完成。
+
+S121—S122：P135—P136资源容量调整与V47双版发行。见[容量规则](../RESOURCE-CAPACITY-S121.md)、[V47说明](../RELEASE-V47.md)、[第94期](../../media/DEVLOG-094.md)和[第95期底稿](../../media/DEVLOG-095.md)。按4 MiB文件及展开预算管理来源，取消导入总数配额；真机仍待复测。

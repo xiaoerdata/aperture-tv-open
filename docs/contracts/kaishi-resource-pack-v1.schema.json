@@ -55,8 +55,7 @@
           }
         ]
       },
-      "minItems": 1,
-      "maxItems": 24
+      "minItems": 1
     }
   },
   "required": [
@@ -190,8 +189,7 @@
           "items": {
             "$ref": "#/$defs/episode"
           },
-          "minItems": 1,
-          "maxItems": 10000
+          "minItems": 1
         },
         "metadata": {
           "type": "object",
@@ -460,8 +458,7 @@
           "items": {
             "$ref": "#/$defs/channel"
           },
-          "minItems": 1,
-          "maxItems": 2000
+          "minItems": 1
         },
         "headers": {
           "$ref": "#/$defs/headers"
@@ -589,8 +586,7 @@
           "items": {
             "$ref": "#/$defs/item"
           },
-          "minItems": 1,
-          "maxItems": 2000
+          "minItems": 1
         },
         "headers": {
           "$ref": "#/$defs/headers"

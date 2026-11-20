@@ -1,0 +1,124 @@
+{
+  "passed": true,
+  "maxInputBytes": 4194304,
+  "maxNormalizedBytes": 4194304,
+  "sourceCountQuotas": false,
+  "fixtures": [
+    {
+      "name": "threefold.json",
+      "bytes": 8487,
+      "sites": 36,
+      "lives": 36,
+      "authoringChecked": true
+    },
+    {
+      "name": "catalogs.json",
+      "bytes": 34353,
+      "sites": 240,
+      "authoringChecked": true
+    },
+    {
+      "name": "tvbox.json",
+      "bytes": 29615,
+      "sites": 240,
+      "lives": 144,
+      "authoringChecked": false
+    },
+    {
+      "name": "adapter.json",
+      "bytes": 29794,
+      "sites": 240,
+      "lives": 144,
+      "authoringChecked": true
+    },
+    {
+      "name": "warehouses.json",
+      "bytes": 12142,
+      "warehouses": 193,
+      "authoringChecked": false
+    },
+    {
+      "name": "channels.json",
+      "bytes": 518941,
+      "lives": 1,
+      "channels": 6001,
+      "authoringChecked": true
+    },
+    {
+      "name": "legacy-channels.json",
+      "bytes": 399889,
+      "lives": 1,
+      "channels": 6001,
+      "authoringChecked": false
+    },
+    {
+      "name": "channels.m3u",
+      "bytes": 333843,
+      "lives": 1,
+      "channels": 6001,
+      "authoringChecked": false
+    },
+    {
+      "name": "channels.txt",
+      "bytes": 267824,
+      "lives": 1,
+      "channels": 6001,
+      "authoringChecked": false
+    },
+    {
+      "name": "items.json",
+      "bytes": 1006157,
+      "sites": 1,
+      "items": 6001,
+      "authoringChecked": true
+    },
+    {
+      "name": "episodes.json",
+      "bytes": 1958101,
+      "sites": 1,
+      "items": 1,
+      "episodes": 30001,
+      "authoringChecked": true
+    },
+    {
+      "name": "exact-limit.json",
+      "bytes": 4194304,
+      "sites": 1,
+      "minimumVersionCode": 31,
+      "authoringChecked": true
+    },
+    {
+      "name": "too-big.json",
+      "bytes": 4194305,
+      "reject": true,
+      "error": "超过4MiB",
+      "authoringChecked": false
+    },
+    {
+      "name": "expanded-too-big.json",
+      "bytes": 83397,
+      "reject": true,
+      "error": "展开后的配置超过4MiB",
+      "authoringChecked": false
+    }
+  ],
+  "productionJavaExecuted": true,
+  "encryptedPersistenceRoundTrip": true,
+  "javaHeapBudgetMiB": 256,
+  "output": "capacity import, encrypted persistence, page 501 and overflow passed; 14 byte-budget fixtures",
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "e1f72624e7c4ba0ad23bfb8986b1e35920b3b7fb260705879eb1b255c0d2f769",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "24a268510c7c7d09c7d0e60d956a513f59a00772d6babebf38d07832fa30ddaf",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "c46e9a2f3adcd6a008014ff45b513313d6a4c1474c103e0ab0f1e764742f6f0e",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCipher.java": "ce8a9349779a30d48cbf40c9b78283ab6cf3b4c9a896bdd65e42a4c5971af6cb",
+    "tests/java/ResourceCapacityTest.java": "90384ae3620980028cdfe88adbe907335137101d6d57a153d2620e9aa275ed5e",
+    "tests/resource-capacity.test.mjs": "cba939d776e71cc1f04e4965f7e611ee6b722d68fcaa983f151931ab8559c806",
+    "scripts/resource-pack.mjs": "e26489d2a3cc4ee6e9f75b9c8625a06737efdeb998cfc83b6971862b54c6bd08",
+    "docs/contracts/kaishi-resource-pack-v1.schema.json": "c5ac0358150c42563d811800287022dac49827663e996c72a37a32869b147551"
+  },
+  "apkBuilt": false,
+  "published": false,
+  "realXiaomi": false,
+  "remoteProvidersTested": false
+}
