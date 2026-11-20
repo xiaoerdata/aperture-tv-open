@@ -1,0 +1,20 @@
+{
+  "applied": true,
+  "deletedGeneratedPaths": [
+    "android/app/build",
+    "artifacts/s122-release/source-overlay",
+    "artifacts/s122-release/delivery",
+    "artifacts/s122-release/anonymous-downloads",
+    "artifacts/current-release/kaishi-v46-standard-arm.apk",
+    "artifacts/current-release/kaishi-v46-parents-arm.apk"
+  ],
+  "estimatedFreedAllocatedBytes": 790392832,
+  "bothCurrentV47ApksVerified": true,
+  "previousV46RemoteAssetsVerified": true,
+  "all239ProductInputsUnchanged": true,
+  "signingAndToolchainPreserved": true,
+  "symlinksNotFollowed": true,
+  "openFilesWithinTargets": false,
+  "mountsWithinTargets": false,
+  "scope": "this project only; previous global maintenance archive preserved"
+}
