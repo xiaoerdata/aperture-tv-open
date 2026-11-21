@@ -1,14 +1,14 @@
 # 下载与版本
 
-**仅适配小米电视，Android 8+。** 当前标准版与爸妈版为 **V48 / 0.2.0-alpha.45**（爸妈版带-parents后缀），预发布测试版。修复直播侧栏换组、一级换线路、连续选集、年份优先排序和同名综艺切线；保留原有资源容量与照片修复。小米真机待复测。
+**仅适配小米电视，Android 8+。** 当前标准版与爸妈版为 **V49 / 0.2.0-alpha.46**（爸妈版带-parents后缀），预发布测试版。修复直播侧栏换组、一级换线路、连续选集、年份优先排序和同名综艺切线；保留原有资源容量与照片修复。小米真机待复测。
 
-[标准版 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.45/kaishi-v48-standard-arm.apk) · [发行页面](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.45) · [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.45/SHA256SUMS) · [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.45/testing-manifest.json)
+[标准版 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.46/kaishi-v49-standard-arm.apk) · [发行页面](https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.46) · [校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.46/SHA256SUMS) · [测试清单](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.46/testing-manifest.json)
 
-[爸妈版 v48 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.45/kaishi-v48-parents-arm.apk) · [爸妈版校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.45/SHA256SUMS-parents) · [爸妈版说明](RELEASE-V48.md)
+[爸妈版 v49 APK](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.46/kaishi-v49-parents-arm.apk) · [爸妈版校验和](https://github.com/xiaoerdata/aperture-tv-open/releases/download/v0.2.0-alpha.46/SHA256SUMS-parents) · [爸妈版说明](RELEASE-V49.md)
 
-## 从v18—v47升级
+## 从v18—v48升级
 
-v48 沿用 v18—v47 的标准版包名与发行证书，可在原标准版上更新，不需卸载或重新配对。安装前保留数据；本版安装包大小以测试清单为准，默认支持 ARM32/64，不需要选择CPU架构。
+v49 沿用 v18—v48 的标准版包名与发行证书，可在原标准版上更新，不需卸载或重新配对。安装前保留数据；本版安装包大小以测试清单为准，默认支持 ARM32/64，不需要选择CPU架构。
 
 ## 与v17并存
 
@@ -25,15 +25,15 @@ v48 沿用 v18—v47 的标准版包名与发行证书，可在原标准版上�
 
 ## 安装与校验
 
-完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v48-standard-arm.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
+完整下载所需附件后，可用 `sha256sum -c SHA256SUMS`（Linux）或 `shasum -a 256 -c SHA256SUMS`（macOS）核对。只下载一个APK时，对照该文件对应行。Windows使用 `Get-FileHash .\kaishi-v49-standard-arm.apk -Algorithm SHA256`。摘要相同只证明文件一致，不等于完成真机验收。
 
 安装路径见[小米安装说明](../INSTALL.md)。默认作为普通应用，保留原桌面、小爱和小米账号。本机应用、内嵌影院、手输NAS不依赖电脑家庭服务；日程、统一片库和WorkBuddy另需运行家庭服务；本机相册上传和扫码留言不需要电脑服务；旧家庭服务相册仍关闭，新增独立[本机相册](LOCAL-GALLERY.md)。家庭服务默认HTTPS；选择私网IP的HTTP时，须在电视明确开启，CLI另加 `--allow-lan-http`。NAS凭证交接与Agent安装卸载仍要求可信HTTPS。
 
 ## 本次改动与测试范围
 
-已安装 v47 或更早标准版时，用 v48 同签名覆盖更新；versionCode 为 48，不需卸载或清数据。
+已安装 v47 或更早标准版时，用 v49 同签名覆盖更新；versionCode 为 48，不需卸载或清数据。
 
-本版改动与真实验收边界见 [v48 发行说明](RELEASE-V48.md)。APK 与公开来源一致性见本版测试清单。标准版与爸妈版分别使用原包名和签名，可覆盖对应版本保留配置。
+本版改动与真实验收边界见 [v49 发行说明](RELEASE-V49.md)。APK 与公开来源一致性见本版测试清单。标准版与爸妈版分别使用原包名和签名，可覆盖对应版本保留配置。
 
 浏览器在 appassets 地址复现旧版初始化中断；单独更换屏保脚本后通过。Android28 / WebView66 隔离验证页面缩放与确认动作，省略大图和字体并绕过产品>=89内核门槛，不代表小米真机或完整应用验收。默认桌面、开机和 HOME 分发必须由小米固件提供支持。
 

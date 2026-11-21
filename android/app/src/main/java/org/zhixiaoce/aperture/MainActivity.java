@@ -44,6 +44,8 @@ public class MainActivity extends Activity {
     private final LobbyMode lobby = new LobbyMode();
     private Uri trusted;
     private ScenicNativeHome scenicHome;
+    private boolean homeAlbumOpen;private int albumReturnPage=-1;
+    private static final int HOME_ALBUM_REQUEST=4603;
     private AlertDialog returnHomeDialog;
     private AlertDialog settingsMenuDialog;
     private boolean ready = false, lobbyMode = false;
@@ -76,7 +78,7 @@ public class MainActivity extends Activity {
         if(returnHomeDialog!=null)returnHomeDialog.dismiss();
         if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();
         if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();
-        destinations.dismissHomeSettings();showLobby("");
+        destinations.dismissHomeSettings();homeAlbumOpen=false;albumReturnPage=-1;showLobby("");
     }
     protected int webViewVersion() {
         try { PackageInfo provider = WebView.getCurrentWebViewPackage(); return provider != null ? Integer.parseInt(provider.versionName.split("\\.")[0]) : 0; }
@@ -130,7 +132,7 @@ public class MainActivity extends Activity {
             if(closed||!resumed||!display.active()||current!=web||!homeDeadline.waiting(ticket))return;
             if("true".equals(result)){
                 if(!homeDeadline.ready(ticket))return;
-                ready=true;diagnostics.mode(WebDiagnostics.Home.GLASS_READY);diagnostics.event("home","ready",ticket.generation,null);
+                ready=true;applyAlbumReturn();diagnostics.mode(WebDiagnostics.Home.GLASS_READY);diagnostics.event("home","ready",ticket.generation,null);
                 if(homeLoading!=null)homeLoading.ready();
                 syncLobbyViewport(current);webActive(current,display.active());nasLabels();
             }else if(attempt<2){
@@ -278,7 +280,18 @@ public class MainActivity extends Activity {
         CheckBox pause=new CheckBox(this);pause.setText("暂停播报");pause.setTextColor(TvUi.INK);pause.setChecked(messages.paused());pause.setOnCheckedChangeListener((v,checked)->messages.paused(checked));form.addView(pause);
         Button save=TvUi.button(this,"保存留言源",()->{try{messages.configure(input.getText().toString());note.setText(input.getText().toString().trim().isEmpty()?"已断开留言源":"已保存，正在读取");}catch(Exception invalid){note.setText("请输入有效的 HTTPS 地址");}});form.addView(save);TvDialogs.panel(this,"留言源",form);
     }
+    private void openHomeAlbum(){
+        if(BuildConfig.PARENTS_EDITION||homeAlbumOpen||!lobbyMode||web==null||!ready||isFinishing())return;
+        homeAlbumOpen=true;
+        try{startActivityForResult(new Intent(this,HomeAlbumActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION),HOME_ALBUM_REQUEST);}
+        catch(RuntimeException unavailable){homeAlbumOpen=false;albumReturnPage=1;applyAlbumReturn();new AlertDialog.Builder(this).setMessage("照片屏暂时无法打开，可进入相册查看。").setPositiveButton("相册",(d,w)->action("/gallery")).setNegativeButton("返回",null).show();}
+    }
+    private void applyAlbumReturn(){
+        if(albumReturnPage<0||web==null||!ready||!lobbyMode||!display.active())return;
+        int page=albumReturnPage;albumReturnPage=-1;web.evaluateJavascript("window.apertureSetHomePage&&window.apertureSetHomePage("+page+")",null);
+    }
     private void action(String path) {
+        if("/home-album".equals(path)){openHomeAlbum();return;}
         if("/add-shortcut".equals(path)&&!BuildConfig.PARENTS_EDITION){destinations.addShortcut();return;}
         if("/message-edit".equals(path)&&!BuildConfig.PARENTS_EDITION){startActivity(new Intent(this,MessageActivity.class));return;}
         if("/wall-edit".equals(path)&&!BuildConfig.PARENTS_EDITION){destinations.editWall();return;}
@@ -422,6 +435,7 @@ public class MainActivity extends Activity {
         }).setNegativeButton("返回",null).show();
     }
     @Override protected void onActivityResult(int request, int result, Intent data) {
+        if(request==HOME_ALBUM_REQUEST){homeAlbumOpen=false;int page=data==null?0:data.getIntExtra("homePage",0);albumReturnPage=page==1||page==3?page:0;applyAlbumReturn();return;}
         if(request==4602&&result==RESULT_OK&&data!=null){String view=data.getStringExtra("cinemaServer");if("live".equals(view)||"series".equals(view)||"movies".equals(view)||"variety".equals(view)||"library".equals(view))familyServer(view);return;}
         if (installer != null && installer.result(request, result, data)) return;
         super.onActivityResult(request, result, data);
@@ -496,7 +510,7 @@ public class MainActivity extends Activity {
     }
     @Override public void onBackPressed() { if(web!=null&&lobbyMode&&!ready){failHome(web,homeTicket,WebDiagnostics.Reason.USER_CANCEL_LOAD,false);leavePage();return;} if (web != null && ready) { WebView current = web; current.evaluateJavascript("!!(window.apertureBack && window.apertureBack())", result -> { if (current == web && !"true".equals(result)) leavePage(); }); } else leavePage(); }
     @Override protected void onPause() { resumed=false;if(scenicHome!=null)scenicHome.active(false);homeDeadline.active(false);if(homeProbeRetry!=null){homeTasks.cancel(homeProbeRetry);homeProbeRetry=null;} display.resumed(false); if (web != null) CookieManager.getInstance().flush(); super.onPause(); }
-    @Override protected void onResume() { super.onResume();resumed=true; HomeGuardService.resumedHome(this); display.resumed(true);if(scenicHome!=null)scenicHome.active(display.active()); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
-    @Override public void onWindowFocusChanged(boolean hasFocus) { super.onWindowFocusChanged(hasFocus); display.focused(hasFocus);if(scenicHome!=null)scenicHome.active(display.active()); if (display.active()) immersive(); }
+    @Override protected void onResume() { super.onResume();resumed=true; HomeGuardService.resumedHome(this); display.resumed(true);applyAlbumReturn();if(scenicHome!=null)scenicHome.active(display.active()); nasLabels();if(destinations!=null)destinations.refreshHomeSettings(); if (display.active()) immersive(); }
+    @Override public void onWindowFocusChanged(boolean hasFocus) { super.onWindowFocusChanged(hasFocus); display.focused(hasFocus);applyAlbumReturn();if(scenicHome!=null)scenicHome.active(display.active()); if (display.active()) immersive(); }
     @Override protected void onDestroy() { closed=true;resumed=false;if(homeDeadline!=null)homeDeadline.cancel();if(diagnosticsDialog!=null)diagnosticsDialog.dismiss();if(returnHomeDialog!=null)returnHomeDialog.dismiss();if(settingsMenuDialog!=null)settingsMenuDialog.dismiss();if(destinations!=null)destinations.dismissHomeSettings();if(installer!=null)installer.destroy();if(messages!=null)messages.close(); destroyWeb(); super.onDestroy(); }
 }

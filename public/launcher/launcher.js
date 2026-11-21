@@ -5,6 +5,7 @@
   var homePage = 0, homeFocus = {}, sectionReturn = null, wallpaperId = 'carezza', wallpaperLoad = 0, personal = null, sectionHomePage = 3, homeWatchFocus = 'home-live';
   var photosEnabled = false;
   var section = 'overview', contentPage = 0, board = null;
+  var nativeAlbumRequested=false;
   var virtualHome = local && location.protocol === 'https:', nativeActive = !virtualHome;
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function $(id) { return document.getElementById(id); }
@@ -178,9 +179,12 @@
     for (var n = 0; n < 4; n++) $(pageId(n)).hidden = section !== 'overview' || n !== at;
     if (personal) personal.schedule();
     var albumVisible = section==='overview' && !parents && at===2;
-    $('gallery-home-scene').hidden = !albumVisible;
+    $('gallery-home-scene').hidden = !albumVisible || virtualHome;
     document.body.setAttribute('data-album-page', String(albumVisible));
-    if(window.KaishiGallery)window.KaishiGallery.homePage(albumVisible);
+    if(window.KaishiGallery)window.KaishiGallery.homePage(albumVisible&&!virtualHome);
+    var openNativeAlbum=albumVisible&&virtualHome;
+    if(openNativeAlbum&&!nativeAlbumRequested)nativeAction('home-album');
+    nativeAlbumRequested=openNativeAlbum;
     var dots = document.querySelectorAll('[data-home-screen]');
     for (n = 0; n < dots.length; n++) dots[n].setAttribute('aria-pressed', String(Number(dots[n].getAttribute('data-home-screen')) === at));
     if (focus !== false && section === 'overview') restoreHomeFocus(at);
@@ -250,7 +254,7 @@
     if (pane === 'detail') { if (detailState) { var key = (detailState.metric ? 'metric:' : 'life:') + detailState.id, candidates = $('collection-body').querySelectorAll('[data-content-id]'); for (var j = 0; j < candidates.length; j++) if (candidates[j].getAttribute('data-content-id') === key) prior = candidates[j]; } detailState = null; delete specs.detail; text('pane-title', ''); text('pane-description', ''); text('pane-footnote', ''); }
     clearSettingsHold();if (pane === 'wallpapers') $('pane-actions').textContent = '';
     pane = null; $('pane-backdrop').hidden = true;
-    if(window.KaishiGallery)window.KaishiGallery.homePage(section==='overview'&&!parents&&homePage===2);
+    if(window.KaishiGallery)window.KaishiGallery.homePage(section==='overview'&&!parents&&homePage===2&&!virtualHome);
     if (personal) personal.schedule(); $('lobby').removeAttribute('aria-hidden');
     if (prior && prior.focus && prior.offsetWidth) focusNode(prior); else focusNode(firstHomeControl(homePage));
     return true;
@@ -616,6 +620,7 @@
   }
   document.addEventListener('keydown', key);
   window.apertureRemoteKey = function (name,repeat,held) { var handled = false; key({key: name, kaishiRepeat:repeat,kaishiHeld:held,preventDefault: function () { handled = true; }}); return handled; };
+  window.apertureSetHomePage = function(at){if(at===0||at===1||at===3)setHomePage(at);};
   window.apertureBack = back;
   window.apertureNativeFocus = function (active) { if(!active)clearSettingsHold();nativeActive = !!active; if(window.KaishiGallery)window.KaishiGallery.active(active); if(window.KaishiMessages)window.KaishiMessages.active(active); if(window.KaishiAmbient)window.KaishiAmbient.active(active); if(window.KaishiWeatherUI)window.KaishiWeatherUI.active(active); motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
   function clock() {

@@ -19,11 +19,11 @@ final class HomeAlbumView extends FrameLayout {
     private final GalleryStore store;
     private final Handler ui=new Handler(Looper.getMainLooper());
     private final ExecutorService worker=Executors.newSingleThreadExecutor();
-    private final ImageView[] pictures=new ImageView[2];
-    private final Bitmap[] bitmaps=new Bitmap[2];
+    private final ImageView picture;
+    private Bitmap bitmap;
     private final TextView empty,hint;
     private JSONArray photos=new JSONArray();
-    private int index,seconds=12,current;
+    private int index,seconds=12;
     private long generation,frame;
     private String snapshot="";
     private boolean refreshing;
@@ -38,11 +38,10 @@ final class HomeAlbumView extends FrameLayout {
         super(activity);store=new GalleryStore(activity);setTag("native-home-album");
         setBackgroundColor(0xff05090c);setFocusableInTouchMode(true);setClickable(true);
         setContentDescription("相册，确定键打开相册设置");setOnClickListener(v->settings.run());TvUi.touchClick(this);
-        for(int i=0;i<2;i++){
-            pictures[i]=new ImageView(activity);pictures[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
-            pictures[i].setAlpha(0);addView(pictures[i],new FrameLayout.LayoutParams(-1,-1));
-        }
-        empty=TvUi.text(activity,"暂无照片\n确定键打开相册设置",24,true);empty.setGravity(Gravity.CENTER);
+        // Match the working native album viewer: one opaque ImageView, no alpha layers.
+        picture=new ImageView(activity);picture.setTag("native-home-photo");picture.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        addView(picture,new FrameLayout.LayoutParams(-1,-1));
+        empty=TvUi.text(activity,"正在读取照片…",24,true);empty.setGravity(Gravity.CENTER);
         addView(empty,new FrameLayout.LayoutParams(-1,-1));
         hint=TvUi.text(activity,"确定 · 相册设置",16,true);hint.setTag("native-home-album-hint");hint.setGravity(Gravity.CENTER);
         FrameLayout.LayoutParams label=new FrameLayout.LayoutParams(-1,TvUi.dp(activity,48),Gravity.BOTTOM);
@@ -51,7 +50,7 @@ final class HomeAlbumView extends FrameLayout {
     void active(boolean value){
         if(closed)return;
         if(active==value){if(value)refresh();return;}
-        active=value;++generation;++frame;refreshing=false;ui.removeCallbacks(next);ui.removeCallbacks(poll);cancelAnimations();
+        active=value;++generation;++frame;refreshing=false;ui.removeCallbacks(next);ui.removeCallbacks(poll);
         if(value){revealHint();refresh();}else{ui.removeCallbacks(hideHint);hintVisible(false);releasePictures();}
     }
     private void refresh(){
@@ -64,7 +63,7 @@ final class HomeAlbumView extends FrameLayout {
                     if(!valid(expected))return;
                     refreshing=false;ui.postDelayed(poll,5000);
                     String latest=state.toString();
-                    if(latest.equals(snapshot)&&bitmaps[current]!=null)return;
+                    if(latest.equals(snapshot)&&bitmap!=null)return;
                     snapshot=latest;photos=state.optJSONArray("photos");if(photos==null)photos=new JSONArray();
                     seconds=Math.max(8,Math.min(20,state.optInt("seconds",12)));
                     index=photos.length()==0?0:index%photos.length();display();
@@ -82,16 +81,11 @@ final class HomeAlbumView extends FrameLayout {
             final Bitmap image=decoded;
             ui.post(()->{
                 if(!valid(expected)||render!=frame){if(image!=null)image.recycle();return;}
-                if(image==null){if(bitmaps[current]==null){empty.setText("这张照片暂时无法读取");empty.setVisibility(VISIBLE);}}
+                if(image==null){if(bitmap==null){empty.setText("这张照片暂时无法读取");empty.setVisibility(VISIBLE);}}
                 else{
-                    cancelAnimations();int target=1-current;
-                    // A submitted bitmap can still belong to an OEM RenderThread display list.
-                    // Drop references; never recycle an image that has reached an ImageView.
-                    pictures[target].setImageDrawable(null);bitmaps[target]=image;
-                    pictures[target].setImageBitmap(image);pictures[target].setAlpha(1);
-                    empty.setVisibility(GONE);
-                    // The incoming frame is visible even when property animations are disabled.
-                    pictures[current].animate().alpha(0).setDuration(900).start();current=target;
+                    // Submitted images are owned jointly with Android's render thread.
+                    // Replace references, never recycle them while a display list may use them.
+                    bitmap=image;picture.setImageBitmap(image);picture.setContentDescription("相册照片，已解码");empty.setVisibility(GONE);
                 }
                 if(photos.length()>1)ui.postDelayed(next,seconds*1000L);
             });
@@ -105,7 +99,6 @@ final class HomeAlbumView extends FrameLayout {
         return super.onKeyDown(code,event);
     }
     @Override public boolean onKeyUp(int code,KeyEvent event){return code==KeyEvent.KEYCODE_DPAD_LEFT||code==KeyEvent.KEYCODE_DPAD_RIGHT||super.onKeyUp(code,event);}
-    private void cancelAnimations(){for(ImageView v:pictures)v.animate().cancel();}
-    private void releasePictures(){for(int i=0;i<2;i++){pictures[i].setImageDrawable(null);pictures[i].setAlpha(0);bitmaps[i]=null;}}
-    @Override protected void onDetachedFromWindow(){closed=true;active=false;++generation;ui.removeCallbacks(next);ui.removeCallbacks(poll);ui.removeCallbacks(hideHint);cancelAnimations();releasePictures();worker.shutdownNow();super.onDetachedFromWindow();}
+    private void releasePictures(){picture.setImageDrawable(null);picture.setContentDescription("相册照片，未载入");bitmap=null;}
+    @Override protected void onDetachedFromWindow(){closed=true;active=false;++generation;ui.removeCallbacks(next);ui.removeCallbacks(poll);ui.removeCallbacks(hideHint);releasePictures();worker.shutdownNow();super.onDetachedFromWindow();}
 }

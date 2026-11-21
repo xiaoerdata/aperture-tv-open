@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "outputs": [
+    "16 production photo-page lifecycle/navigation assertions passed with JVM doubles",
+    "4 actual Main queued-return assertions passed"
+  ],
+  "productionActivityExecutedWithLifecycleDoubles": true,
+  "actualMainReturnMethodExtracted": true,
+  "realAndroidRenderer": false,
+  "hisenseHardware": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/HomeAlbumActivity.java": "03c13151cbe8e3e900d1f80e52d97a37e909a28eb270771bad02e682184afd68",
+    "tests/java/HomeAlbumActivityTest.java": "a20c9176f43cb1afe1beb4b5ccc5b59fcef59c642da0d0bc9939d68234896d28",
+    "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java": "66bea8677338e70cbddfd632a72a497bd596aa7b462a9f56f59b19546684a672",
+    "android/app/src/main/java/org/zhixiaoce/aperture/HomeAlbumView.java": "0a87876626ea539419c511e112883a7d913dde7f168ef2d98b292972c6684ae4",
+    "android/app/src/main/java/org/zhixiaoce/aperture/TvLocalControl.java": "a59c85f88766fc47a9c9b141e06873de7ccd9dc232b06f16cfa0474fb8998a71",
+    "android/app/src/main/AndroidManifest.xml": "12f698ba59c18da9ef1be501f410f65a095527e8244db52fbe989a7ae3964d02",
+    "scripts/s136-home-album-test.py": "08a46d9b9b57e23c45567a2332c2c86fac7c3a6b0a59612160ca0f4287ff72eb"
+  }
+}

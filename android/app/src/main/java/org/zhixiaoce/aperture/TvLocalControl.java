@@ -109,7 +109,7 @@ final class TvLocalControl implements Application.ActivityLifecycleCallbacks {
         throw new IllegalArgumentException("不存在此接口");
     }
     private void require(String token){if(listener==null||!session.authorized(token))throw new SecurityException("请在电视开启并确认限时连接");}
-    private Activity active(){Activity a=foreground.get();if(!(a instanceof MainActivity||a instanceof CinemaActivity)||a.isFinishing()||!a.hasWindowFocus()||(a.getWindow().getAttributes().flags&WindowManager.LayoutParams.FLAG_SECURE)!=0)throw new SecurityException("仅允许开视前台非敏感页面");return a;}
+    private Activity active(){Activity a=foreground.get();if(!(a instanceof MainActivity||a instanceof CinemaActivity||a instanceof HomeAlbumActivity)||a.isFinishing()||!a.hasWindowFocus()||(a.getWindow().getAttributes().flags&WindowManager.LayoutParams.FLAG_SECURE)!=0)throw new SecurityException("仅允许开视前台非敏感页面");return a;}
     private <T>T ui(Callable<T> work)throws Exception{return ui(work,4000);}
     private <T>T ui(Callable<T> work,int milliseconds)throws Exception{FutureTask<T> task=new FutureTask<>(work);main.post(task);try{return task.get(milliseconds,TimeUnit.MILLISECONDS);}catch(Exception failure){task.cancel(false);throw failure;}}
     private static boolean secretInput(EditText text){int input=text.getInputType(),variation=input&0xff0;return text.getTransformationMethod() instanceof android.text.method.PasswordTransformationMethod||variation==0x80||variation==0x90||variation==0xe0||(input&15)==2&&variation==0x10;}

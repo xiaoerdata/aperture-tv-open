@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 960,
+      "target": 1,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    },
+    {
+      "width": 960,
+      "target": 3,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    },
+    {
+      "width": 960,
+      "target": 0,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    },
+    {
+      "width": 1920,
+      "target": 1,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    },
+    {
+      "width": 1920,
+      "target": 3,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    },
+    {
+      "width": 1920,
+      "target": 0,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    },
+    {
+      "width": 3840,
+      "target": 1,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    },
+    {
+      "width": 3840,
+      "target": 3,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    },
+    {
+      "width": 3840,
+      "target": 0,
+      "nativeRequestOnce": true,
+      "noWebPhotoLayer": true,
+      "focusRestoreDoesNotReenter": true
+    }
+  ],
+  "errors": [],
+  "realLauncherBrowser": true,
+  "nativeTransportDouble": true,
+  "nativeActivityAndImageRendering": false,
+  "hisenseHardware": false,
+  "sources": {
+    "public/launcher/launcher.js": "ea1250a96c8f88004749555300ce829f8db5d4fb1810f1a52f2a1ce2e2cbe65b",
+    "public/launcher/gallery.js": "b634dc9bacbdb3ea09caeb3d0eecab635d07ed540cebf1c39542b936b1e85510",
+    "public/launcher/index.html": "79277c659bba70739f299112222684123a4ee366fd91f59faad83f22640a0491",
+    "scripts/s136-home-album-browser.mjs": "7134d967650182e9b14a12d518772df5572cdcf2abda68fdc7ef7027468ae1b8"
+  }
+}

@@ -11,6 +11,7 @@
             <intent-filter><action android:name="android.accessibilityservice.AccessibilityService"/></intent-filter>
             <meta-data android:name="android.accessibilityservice" android:resource="@xml/kaishi_home_guard"/>
         </service>
+        <activity android:name=".HomeAlbumActivity" android:exported="false" android:screenOrientation="landscape" android:excludeFromRecents="true"/>
         <activity android:name=".GalleryActivity" android:exported="false" android:screenOrientation="landscape" android:excludeFromRecents="true"/>
         <activity android:name=".MessageActivity" android:exported="false" android:screenOrientation="landscape" android:excludeFromRecents="true"/>
         <activity android:name=".AmbientActivity" android:exported="false" android:screenOrientation="landscape" android:excludeFromRecents="true"/>

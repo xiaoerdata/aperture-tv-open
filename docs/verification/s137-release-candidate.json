@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "versionCode": 49,
+  "editions": [
+    "standard",
+    "parents"
+  ],
+  "androidInputSha256": "214db049f950aab755d8c577ac86cf7c9f4ab493ecacb246716da6752230ae1d",
+  "androidInputFiles": 247,
+  "changedProductFiles": [
+    "android/app/build.gradle",
+    "android/app/src/main/AndroidManifest.xml",
+    "android/app/src/main/java/org/zhixiaoce/aperture/HomeAlbumActivity.java",
+    "android/app/src/main/java/org/zhixiaoce/aperture/HomeAlbumView.java",
+    "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java",
+    "android/app/src/main/java/org/zhixiaoce/aperture/TvLocalControl.java",
+    "public/launcher/launcher.js"
+  ],
+  "unchangedV48ProductFiles": 240,
+  "unchangedV48MediaAndWeatherPaths": true,
+  "checks": [
+    {
+      "path": "docs/verification/s131-album-native.json",
+      "sha256": "e26ef617ab4b5a672ad8ec759872b525337e98a3a7a11de8fe4ce8fd1e48f674"
+    },
+    {
+      "path": "docs/verification/s136-home-album-native.json",
+      "sha256": "558a159beaa8dcef2112da26525e77a95f87c0e730f14892955267d44e9722fa"
+    },
+    {
+      "path": "docs/verification/s136-home-album-browser.json",
+      "sha256": "6e41a224a4ee7b9b903fe9bce8b765a367fa6d758e169857f9b6caf2eeaea135"
+    },
+    {
+      "path": "docs/verification/s136-native-compile.json",
+      "sha256": "926f541c282272db62b131c8ff9e229b385f4cea173fbe4537c88ec488bf3a43"
+    }
+  ],
+  "apks": [
+    {
+      "edition": "standard",
+      "apk": "kaishi-v49-standard-arm.apk",
+      "bytes": 57905755,
+      "sha256": "2f01b2b9ff6a6629e5dd89bdef94dd98a2fb5d8c85a38889de06e7717f5654b4"
+    },
+    {
+      "edition": "parents",
+      "apk": "kaishi-v49-parents-arm.apk",
+      "bytes": 57934427,
+      "sha256": "4e99eeeb394316aafa250e3503d939b0ee5ef5d2e6ab17fbda31efd40baa0a00"
+    }
+  ],
+  "samePermissionsAndCorrespondingV48Certificates": true,
+  "homeAlbumActivityNotExported": true,
+  "hisenseAccepted": false,
+  "xiaomiAccepted": false,
+  "realAndroidRendererExecuted": false
+}

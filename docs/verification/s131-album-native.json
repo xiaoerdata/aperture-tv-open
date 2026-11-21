@@ -1,14 +1,14 @@
 {
   "passed": true,
-  "output": "10 native album assertions passed with stalled animations and store/UI doubles",
+  "output": "10 native album assertions passed with single opaque image and store/UI doubles",
   "actualHomeAlbumView": true,
   "stalledAnimationDouble": true,
   "galleryStoreDouble": true,
   "realAndroidRenderer": false,
   "hisenseTested": false,
   "sources": {
-    "android/app/src/main/java/org/zhixiaoce/aperture/HomeAlbumView.java": "46aab0b216c3ea8b30fe2ee9a62a4b267e7b09bea4ba0cbb1bfb2529a134110f",
-    "tests/java/HomeAlbumTest.java": "8a55e8bf092801b5791117e37d87c5a5661270f03c8b82281baaee11b209959b",
+    "android/app/src/main/java/org/zhixiaoce/aperture/HomeAlbumView.java": "0a87876626ea539419c511e112883a7d913dde7f168ef2d98b292972c6684ae4",
+    "tests/java/HomeAlbumTest.java": "92f69829ab7706bf1ccb095a39542811a28f2b7690294077c8c7ca4242e4b015",
     "scripts/s131-album-test.py": "d2774211a3c5b14d5cff38033f99124038b7dabee1285f4eb8d8e60ee8ca5b6d"
   }
 }
