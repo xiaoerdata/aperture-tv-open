@@ -47,8 +47,8 @@
         "links": 1
       }
     ],
-    "postReleaseReceiptFor": null,
-    "publicParent": "c02b310d12322b9b8f4e71d2d5a61f957e37fd70",
+    "postReleaseReceiptFor": "3d6b1339c35da026cb4b1f62896535108d8c3cef",
+    "publicParent": "3d6b1339c35da026cb4b1f62896535108d8c3cef",
     "candidateParent": "8e2dbb605b0ad3beb26e312fe4d9ed2dc722f291"
   },
   "files": [
@@ -5459,8 +5459,8 @@
     },
     {
       "path": "docs/process/JOURNAL.md",
-      "bytes": 320984,
-      "sha256": "e2cc06eea4e3024708a20809581f88bd9d2b28cb2c7aac4b16db2f03e7292cc5"
+      "bytes": 322488,
+      "sha256": "f347cfdf1c1d220f852168429995fe682f5b02333b6944b3f05983f8eb3b2b87"
     },
     {
       "path": "docs/process/PROMPTS-001.md",
@@ -5796,6 +5796,11 @@
       "path": "docs/verification/public-alpha-v48.json",
       "bytes": 4292,
       "sha256": "0744223cdc42dc09c1583442728340508136fd728b560fa2489c561d84cfd1ee"
+    },
+    {
+      "path": "docs/verification/public-alpha-v49.json",
+      "bytes": 3499,
+      "sha256": "9ed91279ff70ad34e58bd771d655c44584952b9276801c4128c6f9741bdb2a89"
     },
     {
       "path": "docs/verification/public-source-v13-r2.json",
@@ -6201,6 +6206,11 @@
       "path": "docs/verification/s136-native-compile.json",
       "bytes": 19294,
       "sha256": "926f541c282272db62b131c8ff9e229b385f4cea173fbe4537c88ec488bf3a43"
+    },
+    {
+      "path": "docs/verification/s137-cleanup.json",
+      "bytes": 848,
+      "sha256": "c840d2d2d6130c8428e621aa91b8f80e3b7890c79b109bcccd60be66bd355e78"
     },
     {
       "path": "docs/verification/s137-release-candidate.json",
@@ -8389,8 +8399,8 @@
     },
     {
       "path": "media/DEVLOG-097.md",
-      "bytes": 994,
-      "sha256": "e10a4d923bf64552457d03cff54b74bd87d591e22acff27a625068e12cb95150"
+      "bytes": 2498,
+      "sha256": "45fd7fa8133dcf54beb41def05c7b4a890a147be615b07ccdfd4a6164a27b7b4"
     },
     {
       "path": "media/GLASS-ASSET-PROMPT.md",
@@ -11065,7 +11075,23 @@
     "prerelease": true,
     "fullCloudRegressionAccepted": false,
     "xiaomiAccepted": false,
-    "latestDocumentation": "docs/RELEASE-V49.md"
+    "latestDocumentation": "docs/RELEASE-V49.md",
+    "publishedAt": "2026-11-21T10:12:24Z",
+    "anonymousDownloadVerified": true,
+    "apks": [
+      {
+        "edition": "standard",
+        "apk": "kaishi-v49-standard-arm.apk",
+        "bytes": 57905755,
+        "sha256": "2f01b2b9ff6a6629e5dd89bdef94dd98a2fb5d8c85a38889de06e7717f5654b4"
+      },
+      {
+        "edition": "parents",
+        "apk": "kaishi-v49-parents-arm.apk",
+        "bytes": 57934427,
+        "sha256": "4e99eeeb394316aafa250e3503d939b0ee5ef5d2e6ab17fbda31efd40baa0a00"
+      }
+    ]
   },
   "upstreamUnresolvedValidation": {
     "candidate": {
