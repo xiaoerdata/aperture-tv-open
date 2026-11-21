@@ -24,7 +24,10 @@ final class HomeAlbumView extends FrameLayout {
     private final TextView empty,hint;
     private JSONArray photos=new JSONArray();
     private int index,seconds=12,current;
-    private long generation;
+    private long generation,frame;
+    private String snapshot="";
+    private boolean refreshing;
+    private final Runnable poll=()->refresh();
     private boolean active,closed;
     private final Runnable next=()->move(1);
     private final Runnable hideHint=()->hintVisible(false);
@@ -47,41 +50,49 @@ final class HomeAlbumView extends FrameLayout {
     }
     void active(boolean value){
         if(closed)return;
-        if(active==value)return;
-        active=value;++generation;ui.removeCallbacks(next);cancelAnimations();
+        if(active==value){if(value)refresh();return;}
+        active=value;++generation;++frame;refreshing=false;ui.removeCallbacks(next);ui.removeCallbacks(poll);cancelAnimations();
         if(value){revealHint();refresh();}else{ui.removeCallbacks(hideHint);hintVisible(false);releasePictures();}
     }
     private void refresh(){
-        final long expected=++generation;
+        if(!active||closed||refreshing)return;
+        refreshing=true;ui.removeCallbacks(poll);final long expected=generation;
         worker.execute(()->{
             try{
                 JSONObject state=store.snapshot();
                 ui.post(()->{
                     if(!valid(expected))return;
-                    photos=state.optJSONArray("photos");if(photos==null)photos=new JSONArray();
+                    refreshing=false;ui.postDelayed(poll,5000);
+                    String latest=state.toString();
+                    if(latest.equals(snapshot)&&bitmaps[current]!=null)return;
+                    snapshot=latest;photos=state.optJSONArray("photos");if(photos==null)photos=new JSONArray();
                     seconds=Math.max(8,Math.min(20,state.optInt("seconds",12)));
                     index=photos.length()==0?0:index%photos.length();display();
                 });
-            }catch(Exception unavailable){ui.post(()->{if(valid(expected)){empty.setText("相册暂时无法读取\n确定键打开相册设置");empty.setVisibility(VISIBLE);}});}
+            }catch(Exception unavailable){ui.post(()->{if(valid(expected)){refreshing=false;ui.postDelayed(poll,5000);empty.setText("相册暂时无法读取\n确定键打开相册设置");empty.setVisibility(VISIBLE);}});}
         });
     }
     private void display(){
         if(!active||closed)return;
-        ui.removeCallbacks(next);final long expected=++generation;
+        ui.removeCallbacks(next);final long expected=generation,render=++frame;
         if(photos.length()==0){releasePictures();empty.setText("暂无照片\n确定键打开相册设置");empty.setVisibility(VISIBLE);return;}
         String id=photos.optJSONObject(index).optString("id");
         worker.execute(()->{
-            Bitmap decoded=null;try{decoded=store.image(id);}catch(Exception unavailable){}
+            Bitmap decoded=null;try{decoded=store.image(id);}catch(Exception|OutOfMemoryError unavailable){}
             final Bitmap image=decoded;
             ui.post(()->{
-                if(!valid(expected)){if(image!=null)image.recycle();return;}
-                cancelAnimations();int target=1-current;
-                pictures[target].setImageDrawable(null);if(bitmaps[target]!=null)bitmaps[target].recycle();
-                bitmaps[target]=image;pictures[target].setImageBitmap(image);
-                empty.setVisibility(image==null?VISIBLE:GONE);
-                if(image==null)empty.setText("这张照片暂时无法读取");
-                pictures[target].setAlpha(0);pictures[target].animate().alpha(1).setDuration(900).start();
-                pictures[current].animate().alpha(0).setDuration(900).start();current=target;
+                if(!valid(expected)||render!=frame){if(image!=null)image.recycle();return;}
+                if(image==null){if(bitmaps[current]==null){empty.setText("这张照片暂时无法读取");empty.setVisibility(VISIBLE);}}
+                else{
+                    cancelAnimations();int target=1-current;
+                    // A submitted bitmap can still belong to an OEM RenderThread display list.
+                    // Drop references; never recycle an image that has reached an ImageView.
+                    pictures[target].setImageDrawable(null);bitmaps[target]=image;
+                    pictures[target].setImageBitmap(image);pictures[target].setAlpha(1);
+                    empty.setVisibility(GONE);
+                    // The incoming frame is visible even when property animations are disabled.
+                    pictures[current].animate().alpha(0).setDuration(900).start();current=target;
+                }
                 if(photos.length()>1)ui.postDelayed(next,seconds*1000L);
             });
         });
@@ -95,6 +106,6 @@ final class HomeAlbumView extends FrameLayout {
     }
     @Override public boolean onKeyUp(int code,KeyEvent event){return code==KeyEvent.KEYCODE_DPAD_LEFT||code==KeyEvent.KEYCODE_DPAD_RIGHT||super.onKeyUp(code,event);}
     private void cancelAnimations(){for(ImageView v:pictures)v.animate().cancel();}
-    private void releasePictures(){for(int i=0;i<2;i++){pictures[i].setImageDrawable(null);pictures[i].setAlpha(0);if(bitmaps[i]!=null){bitmaps[i].recycle();bitmaps[i]=null;}}}
-    @Override protected void onDetachedFromWindow(){closed=true;active=false;++generation;ui.removeCallbacks(next);ui.removeCallbacks(hideHint);cancelAnimations();releasePictures();worker.shutdownNow();super.onDetachedFromWindow();}
+    private void releasePictures(){for(int i=0;i<2;i++){pictures[i].setImageDrawable(null);pictures[i].setAlpha(0);bitmaps[i]=null;}}
+    @Override protected void onDetachedFromWindow(){closed=true;active=false;++generation;ui.removeCallbacks(next);ui.removeCallbacks(poll);ui.removeCallbacks(hideHint);cancelAnimations();releasePictures();worker.shutdownNow();super.onDetachedFromWindow();}
 }

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "output": "10 production read/cancel/return scheduler assertions passed",
+  "taskAndReadSourceExtractedVerbatim": true,
+  "explicitSchedulerUiDoubles": true,
+  "androidInputExecuted": false,
+  "realXiaomi": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "b7aef339fba88f44ce1cdc136e4564c40dd792456cda5f20a89ba217e3f2edde",
+    "scripts/s130-source-return-test.py": "dd0acc123aa6fa669cb13aabca23b05136ddcf4d4bfa06447ea1853cddc2a767"
+  }
+}

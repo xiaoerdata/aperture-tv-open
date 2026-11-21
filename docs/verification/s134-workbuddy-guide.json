@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "relativePublicLinksChecked": 14,
+  "actualTemplateAndValidateExecuted": true,
+  "cliCommandsAndLimitsComparedWithProductionSource": true,
+  "workbuddyClientExecuted": false,
+  "realLanPairingExecuted": false,
+  "documentationOnly": true,
+  "sources": {
+    "docs/WORKBUDDY-QUICKSTART-V48.md": "55822ea64ad545ebe5c5fbd11b56be41573eea8052cccaa83b544f994198e74d",
+    "docs/WORKBUDDY.md": "cdc3afe38973f9b325723f04645b5b20db2c409a5a282826e49aacc89ec6b206",
+    "docs/LOCAL-TV-CONTROL.md": "3671d48fbb313a7a6947c2c5e5d25a34a8830651ce62a77f4ffdcc42beb4fe7f"
+  }
+}

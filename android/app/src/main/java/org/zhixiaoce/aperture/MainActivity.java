@@ -474,7 +474,7 @@ public class MainActivity extends Activity {
         if (keyCode == KeyEvent.KEYCODE_MENU) { if (event.getRepeatCount() == 0) { if(web!=null&&ready)web.evaluateJavascript("!!((window.KaishiAmbient&&window.KaishiAmbient.key('ContextMenu'))||(window.KaishiWeatherUI&&window.KaishiWeatherUI.key('ContextMenu')))",value->{if(!"true".equals(value))quickMenu();});else quickMenu(); } return true; }
         if (keyCode == KeyEvent.KEYCODE_BACK) { if (event.getRepeatCount() == 0) onBackPressed(); return true; }
         String key = keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? "ArrowLeft" : keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ? "ArrowRight" : keyCode == KeyEvent.KEYCODE_DPAD_UP ? "ArrowUp" : keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? "ArrowDown" : (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_BUTTON_A) ? "Enter" : null;
-        if (key != null && web != null && ready) { if ("Enter".equals(key) && event.getRepeatCount() > 0) return true; web.evaluateJavascript("!!(window.apertureRemoteKey && window.apertureRemoteKey(" + JSONObject.quote(key) + "))", null); return true; }
+        if (key != null && web != null && ready) { if ("Enter".equals(key) && event.getRepeatCount() > 0) return true; web.evaluateJavascript("!!(window.apertureRemoteKey && window.apertureRemoteKey(" + JSONObject.quote(key) + ","+event.getRepeatCount()+","+Math.max(0,event.getEventTime()-event.getDownTime())+"))", null); return true; }
         return super.onKeyDown(keyCode, event);
     }
     private void leavePage() {

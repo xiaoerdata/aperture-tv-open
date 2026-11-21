@@ -30,7 +30,8 @@ final class AmbientWeb implements AutoCloseable {
     }
     private WebResourceResponse response(String mime,int status,byte[] bytes){return new WebResourceResponse(mime,"UTF-8",status,status==200?"OK":"Unavailable",Collections.singletonMap("Cache-Control","no-store"),new ByteArrayInputStream(bytes));}
     boolean available(){return !closed&&!dead&&!leaving;}
-    private void leave(){if(closed||leaving)return;leaving=true;active=false;weather.active(false);finish.run();}
+    void exit(){if(closed||leaving)return;leaving=true;active=false;weather.active(false);}
+    private void leave(){if(closed||leaving)return;exit();finish.run();}
     boolean evaluate(String script,ValueCallback<String> callback){
         if(!available())return false;
         try{web.evaluateJavascript(script,value->{if(available()&&callback!=null)callback.onReceiveValue(value);});return true;}

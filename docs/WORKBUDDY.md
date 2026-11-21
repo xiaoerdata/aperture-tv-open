@@ -1,5 +1,7 @@
 # WorkBuddy 官方使用指引
 
+**V48快速配置先看[WorkBuddy配置与操作规则](WORKBUDDY-QUICKSTART-V48.md)。** 直接局域网控制使用5分钟配对码，批准后30分钟会话；下面的手机授权/stdio MCP属于自托管家庭服务，是另一条连接方式，凭证不能混用。
+
 本项目仅适配小米电视。官方安装与Agent示例统一以WorkBuddy为例，通用MCP协议仍保留扩展性。
 
 日常内容由自己的助手通过受限 MCP 调整，手机负责初次授权与撤销，也保留手工编辑，双方共用同一家庭领域服务。用户口述的 WorkBody 按支持 MCP 的个人助手实现；已核查 [腾讯 WorkBuddy 官方 MCP 指引](https://www.workbuddy.ai/docs/zh/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/MCP-Guide)，采用通用 stdio 桥接。尚未在 WorkBuddy 应用内现场验收，不假装已安装或自动修改用户配置。

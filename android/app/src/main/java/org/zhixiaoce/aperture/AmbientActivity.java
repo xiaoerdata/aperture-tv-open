@@ -12,18 +12,18 @@ import org.json.JSONObject;
 public final class AmbientActivity extends Activity {
     private AmbientWeb page;
     private final Handler main=new Handler(Looper.getMainLooper());
-    private boolean weatherPanel,resumed,closed,leaving,backPending;
+    private boolean weatherPanel,settingsPanel,resumed,closed,leaving,backPending;
     private int backGeneration;
     private final Runnable backTimeout=()->finishScreen();
 
     @Override public void onCreate(Bundle state){
         super.onCreate(state);getWindow().getDecorView().setSystemUiVisibility(5894);
-        String panel=getIntent().getStringExtra("panel");weatherPanel="weather".equals(panel);
+        String panel=getIntent().getStringExtra("panel");weatherPanel="weather".equals(panel);settingsPanel="settings".equals(panel);
         page=new AmbientWeb(this,panel,this::finishScreen);setContentView(page.web);page.web.requestFocus();
     }
     private void cancelBack(){main.removeCallbacks(backTimeout);backPending=false;backGeneration++;}
     private void finishScreen(){
-        if(closed||leaving)return;leaving=true;cancelBack();
+        if(closed||leaving)return;leaving=true;cancelBack();if(page!=null)page.exit();
         // An OEM task restore can leave this private child as the task root.
         // Rebuild the app home in that case instead of revealing the Xiaomi launcher.
         if(isTaskRoot())startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP));
@@ -35,8 +35,8 @@ public final class AmbientActivity extends Activity {
 
     @Override public void onBackPressed(){
         if(closed||leaving)return;
-        // Back from weather has a fixed native destination, even before JS is ready.
-        if(weatherPanel||page==null||!page.available()||backPending){finishScreen();return;}
+        // Weather and settings are child screens with a fixed native Back destination.
+        if(weatherPanel||settingsPanel||page==null||!page.available()||backPending){finishScreen();return;}
         backPending=true;final int turn=++backGeneration;main.postDelayed(backTimeout,600);
         if(!page.evaluate("!!(window.apertureBack&&window.apertureBack())",value->{
             if(closed||leaving||!backPending||turn!=backGeneration)return;

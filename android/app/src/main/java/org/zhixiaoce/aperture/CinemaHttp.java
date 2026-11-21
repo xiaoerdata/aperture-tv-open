@@ -71,7 +71,7 @@ final class CinemaHttp {
         if(body.bytes.length==0||type.contains("text/html")||type.contains("application/json")||text.startsWith("<")||text.startsWith("{")||text.startsWith("["))throw new IOException("该线路未返回媒体");
         boolean magic=text.startsWith("#extm3u")||body.bytes.length>=8&&new String(body.bytes,4,4,StandardCharsets.US_ASCII).equals("ftyp")||body.bytes.length>=4&&(body.bytes[0]&255)==0x1a&&(body.bytes[1]&255)==0x45||body.bytes.length>=188&&body.bytes[0]==0x47||text.startsWith("flv");
         if(!magic&&!type.startsWith("video/")&&!type.startsWith("audio/")&&!type.contains("mpegurl")&&!type.contains("octet-stream"))throw new IOException("该线路未返回可识别媒体");
-        return new CinemaCatalog.Episode(episode.name,body.url,body.headers);
+        CinemaCatalog.Episode media=new CinemaCatalog.Episode(episode.name,body.url,body.headers);if(text.startsWith("#extm3u"))media.mime="application/x-mpegURL";else if(type.startsWith("video/"))media.mime=body.type.split(";",2)[0];return media;
     }
     String probe(String url,boolean allowHttp)throws Exception{return probe(url,allowHttp,Collections.emptyMap());}
     String probe(String url,boolean allowHttp,Map<String,String> headers)throws Exception {

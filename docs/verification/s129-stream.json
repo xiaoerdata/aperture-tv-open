@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "output": "44 production streaming budget/cache-key and local HTTP/range assertions passed",
+  "productionStreamingPolicyAndHttp": true,
+  "realLocalHttpRangeAndRedirects": true,
+  "cacheAndDecoderWiringSourceAssertions": true,
+  "media3Decoded": false,
+  "realXiaomi": false,
+  "realNetworkThroughputMeasured": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "a08a6d9e87936bff15bc4599c698f1ea8951ca1032655b06f27bc49076d7fde3",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "24a268510c7c7d09c7d0e60d956a513f59a00772d6babebf38d07832fa30ddaf",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "c46e9a2f3adcd6a008014ff45b513313d6a4c1474c103e0ab0f1e764742f6f0e",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaHttp.java": "d99656c6da9d645837cf95fe07f7bddba998f8e68b3e82483d9c473bfc77d3c6",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaStreamPolicy.java": "5b637e75919d63eb9ecd2a5cd19c960013c7e6af5e0027ca0317bd94ee3a6e2a",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaStreamHttp.java": "8972f1ffad9a21cb97b651bbc4ec9727697c2bae9d17954b7def268baadf3950",
+    "tests/java/CinemaStreamTest.java": "596dba9d92a17fba5cd26f25dd4b163dcf26e3cb2dd8be119b004bb42a5be65d",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaPlayer.java": "f14a809d394040a16fc63f411dbdada304b5873252c5f9f77ca7e3fc3bc10758",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaStreamCache.java": "5cf731f8a1c07b67557b23b11bd35dc0392e83e0cb631beadbc1086081223524",
+    "scripts/s129-stream-test.py": "5a4c0dcce0d2a0b1b93e2cb17c4daf7e0ad47b3fc0a49786c440a2ac035322cc"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "outputs": {
+    "before": "V47 reproduced: picker sees only current source; RIGHT remains in its sole group",
+    "after": "34 production live-picker assertions passed with explicit JVM UI/HTTP doubles",
+    "lineMenu": "3 production line-menu callbacks passed"
+  },
+  "productionPickerKeyCallbacksExecuted": true,
+  "lineMenuMethodExtractedVerbatim": true,
+  "primaryToolbarAndRoutingSourceAssertions": true,
+  "jvmUiAndHttpDoubles": true,
+  "androidRenderingExecuted": false,
+  "realXiaomi": false,
+  "actualRemoteProvidersTested": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaLivePanel.java": "10486965be21966a0ad3e6af1fbfaa4459cce0e602f1b7ccec49cf7d935d42ca",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "b7aef339fba88f44ce1cdc136e4564c40dd792456cda5f20a89ba217e3f2edde",
+    "tests/java/LivePanelTest.java": "78cb58c9a0377f7a69f8e482fadf3bbcdfe5f5fb1269f159a38dd2e0a2e857b0",
+    "tests/java/LivePanelBeforeTest.java": "0a06cead0f14f946ef5df4fe29276294098cbdbec5108686671de4f9fef732f9",
+    "tests/fixtures/live-v47/CinemaLivePanel.java": "87b9b68087499a101a91303dc7bbf6baf68d497b91b5dfd918ebed6dd1a807e5",
+    "scripts/s123-live-test.py": "bde606c29642963cb75ef8d04729e1c592415e57a7231f00f0dc68f47d163a0b"
+  }
+}

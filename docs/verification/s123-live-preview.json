@@ -1,0 +1,18 @@
+{
+  "generated": true,
+  "browserIllustration": true,
+  "nativeAndroidRendered": false,
+  "realXiaomi": false,
+  "primaryLabels": [
+    "频道",
+    "换线路",
+    "更多"
+  ],
+  "images": [
+    "docs/images/s123-live-controls/toolbar-1920.png",
+    "docs/images/s123-live-controls/groups-1920.png",
+    "docs/images/s123-live-controls/toolbar-3840.png",
+    "docs/images/s123-live-controls/groups-3840.png"
+  ],
+  "sourceSha256": "b7aef339fba88f44ce1cdc136e4564c40dd792456cda5f20a89ba217e3f2edde"
+}

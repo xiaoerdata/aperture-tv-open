@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "output": "13 pairing window boundary/approval/expiry/revocation assertions passed",
+  "productionSessionExecuted": true,
+  "listenerTimerAndUiSourceAssertions": true,
+  "realLanHandshakeExecuted": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/LocalControlSession.java": "da16680cbaf0a92c4e74fc7a800fdcfd55156c333f4cc9ed58c17dd8f473451e",
+    "android/app/src/main/java/org/zhixiaoce/aperture/TvLocalControl.java": "18f2b68360ffb4a1ce467182aa43559a5bf41a07ae223211cce9410a87f79808",
+    "android/app/src/main/java/org/zhixiaoce/aperture/LocalControlActivity.java": "d1cda802c2230a4d9c0fa70445d246593ef1ee51c3d33c0367f5ed20d5589c9a",
+    "tests/java/PairWindowTest.java": "77ecc61a0169cf732b1c818935066498e4a00f6226ffaeb339c9efccb27897c0",
+    "scripts/s133-pair-test.py": "89b0e1bbd3b7163efbadf92bc61e63df270674bd239bfbfc540cfdc09ccff576"
+  }
+}

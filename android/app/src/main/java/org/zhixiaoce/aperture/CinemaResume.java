@@ -6,15 +6,7 @@ import org.json.JSONObject;
 /** Restore by source/item identity plus line/episode names, never a signed media URL or an index. */
 final class CinemaResume {
     static final class Selection {int line,episode;boolean continuing;}
-    static int episode(CinemaCatalog.Line line,String name){
-        if(name.isEmpty())return -1;int exact=-1;
-        for(int i=0;i<line.episodes.size();i++)if(line.episodes.get(i).name.equals(name)){if(exact>=0)return -1;exact=i;}
-        if(exact>=0)return exact;
-        String key=CinemaPlaybackPlan.key(name);int found=-1;
-        for(int i=0;i<line.episodes.size();i++)if(CinemaPlaybackPlan.key(line.episodes.get(i).name).equals(key)){if(found>=0)return -1;found=i;}
-        if(found>=0)return found;
-        return line.episodes.size()==1&&CinemaPlaybackPlan.filmLabel(key)&&CinemaPlaybackPlan.filmLabel(CinemaPlaybackPlan.key(line.episodes.get(0).name))?0:-1;
-    }
+    static int episode(CinemaCatalog.Line line,String name){return CinemaPlaybackPlan.matchEpisode(line,name,true);}
     static Selection select(List<CinemaCatalog.Line> lines,JSONObject saved){
         Selection result=new Selection();if(lines.isEmpty()||saved==null||saved.optLong("watchedAt")<=0)return result;
         int preferred=-1;

@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 960,
+      "firstUploadViaPoll": true,
+      "visibleWithoutOpacityAnimation": true,
+      "fullViewport": {
+        "x": 0,
+        "y": 0,
+        "width": 960,
+        "height": 540
+      },
+      "failedImagePreservesFrame": true,
+      "lastDeletionClearsFrame": true
+    },
+    {
+      "width": 1920,
+      "firstUploadViaPoll": true,
+      "visibleWithoutOpacityAnimation": true,
+      "fullViewport": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "failedImagePreservesFrame": true,
+      "lastDeletionClearsFrame": true
+    },
+    {
+      "width": 3840,
+      "firstUploadViaPoll": true,
+      "visibleWithoutOpacityAnimation": true,
+      "fullViewport": {
+        "x": 0,
+        "y": 0,
+        "width": 3840,
+        "height": 2160
+      },
+      "failedImagePreservesFrame": true,
+      "lastDeletionClearsFrame": true
+    }
+  ],
+  "standaloneSettingsButtonBackPreviewReturn": true,
+  "rotationContinuesThroughUnchangedPolling": true,
+  "errors": [],
+  "syntheticPhotos": true,
+  "fullLauncherBrowser": true,
+  "realAndroid": false,
+  "hisenseTested": false,
+  "sources": {
+    "public/launcher/launcher.js": "499736d8dc9d684a1d625ee143abec071c3269d6c9bec4b8569e6f9c69df0f12",
+    "public/launcher/gallery.js": "b634dc9bacbdb3ea09caeb3d0eecab635d07ed540cebf1c39542b936b1e85510",
+    "public/launcher/gallery.css": "d73a49e8aa262fd2709dd964b851637d12101d9fe82ce5e16567fcf5ef490466",
+    "public/launcher/ambient.js": "d1a145441c73120f03bf2f8b5f90b0b8ad1cc28b3ceadf14e98e7d1a69250c13",
+    "scripts/s131-album-browser.mjs": "1cae3cd2fa7e4882a8a0846fbe901f246b1e1e109e7cd7349df14628bcca97fa"
+  }
+}

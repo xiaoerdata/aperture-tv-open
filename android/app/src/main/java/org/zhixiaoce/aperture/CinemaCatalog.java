@@ -66,7 +66,7 @@ final class CinemaCatalog {
         final List<Category> categories=new ArrayList<>();final List<Item> items=new ArrayList<>();int page,pages;
     }
     static final class Episode {
-        final String name,url;final java.util.Map<String,String> headers;
+        final String name,url;String mime="";final java.util.Map<String,String> headers;
         Episode(String name,String url){this(name,url,java.util.Collections.emptyMap());}
         Episode(String name,String url,java.util.Map<String,String> headers){this.name=name;this.url=url;this.headers=headers;}
     }

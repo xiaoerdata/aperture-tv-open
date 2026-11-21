@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "outputs": [
+    "11 production full-title line matching assertions passed",
+    "36 production playback-memory assertions passed; real disk reopen, line reorder/fallback, metadata isolation, legacy migration and live-line memory; Android decoder not executed"
+  ],
+  "productionPlanResumeAndDiskStore": true,
+  "syntheticTitlesAndUrls": true,
+  "mediaDecoded": false,
+  "realXiaomi": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "a08a6d9e87936bff15bc4599c698f1ea8951ca1032655b06f27bc49076d7fde3",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "c46e9a2f3adcd6a008014ff45b513313d6a4c1474c103e0ab0f1e764742f6f0e",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "24a268510c7c7d09c7d0e60d956a513f59a00772d6babebf38d07832fa30ddaf",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaPlaybackPlan.java": "548c68c76f7ebcbf2ce90a3b7f1ad9543a31602915ceec9400ec79a2f6219527",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResume.java": "ca8ee314739632a69285b68070869459977454b35733105ab99655c120054cc7",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelf.java": "7d84f83b8f7892846d5b3e3b358b2283556e3a2aecdf0e967a8ab4271a79d280",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaShelfStore.java": "139c27cadd0c3c79f24288fb43812f3d1c62a308af474a03ba24a42d5d47b8fb",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCipher.java": "ce8a9349779a30d48cbf40c9b78283ab6cf3b4c9a896bdd65e42a4c5971af6cb",
+    "tests/java/PlaybackLineMatchTest.java": "b4918f761284e7b4cf07f3698f81e301f5892cdfab75c6223c7e9f0abe81e0d7",
+    "tests/java/PlaybackMemoryTest.java": "8840e7d94b99e874c3488d834f339cc62bd8090b1ac1dcbe00e8cb2a22dd983e",
+    "scripts/s127-line-match-test.py": "35fb8ad8d6922b0cce7c09e0812e350f98dae9b8db80340cf804d8ac68c2e0a6"
+  }
+}

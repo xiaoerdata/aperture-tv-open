@@ -14,12 +14,12 @@ final class CinemaSectionView {
         activity=a;stage=new LinearLayout(a);stage.setBackground(TvUi.background());stage.setOrientation(LinearLayout.HORIZONTAL);
         rail=new LinearLayout(a);rail.setOrientation(LinearLayout.VERTICAL);rail.setPadding(px(14),px(24),px(14),px(22));rail.setBackgroundColor(0xe80e1014);stage.addView(rail,new LinearLayout.LayoutParams(Math.round(a.getResources().getDisplayMetrics().widthPixels*.19f),-1));
         LinearLayout top=new LinearLayout(a);top.setGravity(Gravity.CENTER_VERTICAL);rail.addView(top);heading=TvUi.text(a,title,30,false);heading.setTypeface(android.graphics.Typeface.DEFAULT,android.graphics.Typeface.BOLD);top.addView(heading,new LinearLayout.LayoutParams(0,-2,1));toggle=PlayerChrome.control(a,"‹",()->{if(onCollapse!=null)onCollapse.run();});toggle.setContentDescription("折叠侧栏");top.addView(toggle,new LinearLayout.LayoutParams(px(56),px(62)));
-        sort=PlayerChrome.control(a,"排序 · 日期 ↓",()->{if(onSort!=null)onSort.run();});sort.setId(View.generateViewId());sort.setTag("cinema-sort");sort.setGravity(Gravity.START|Gravity.CENTER_VERTICAL);sort.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,px(26));sort.setSingleLine(true);sort.setVisibility(View.GONE);rail.addView(sort,new LinearLayout.LayoutParams(-1,px(62)));
+        sort=PlayerChrome.control(a,"排序 · 年份 · 评分 ↓",()->{if(onSort!=null)onSort.run();});sort.setId(View.generateViewId());sort.setTag("cinema-sort");sort.setGravity(Gravity.START|Gravity.CENTER_VERTICAL);sort.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX,px(26));sort.setSingleLine(true);sort.setVisibility(View.GONE);rail.addView(sort,new LinearLayout.LayoutParams(-1,px(62)));
         list=new ScrollView(a);list.setFillViewport(false);list.setClipToPadding(false);list.setPadding(0,px(12),0,px(12));entries=new LinearLayout(a);entries.setOrientation(LinearLayout.VERTICAL);list.addView(entries);rail.addView(list,new LinearLayout.LayoutParams(-1,0,1));
         footer=new LinearLayout(a);footer.setOrientation(LinearLayout.VERTICAL);rail.addView(footer);stage.addView(body,new LinearLayout.LayoutParams(0,-1,1));
     }
     private int px(float value){return Math.round(value*activity.getResources().getDisplayMetrics().heightPixels/1080f);}
-    void sort(String mode,Runnable open){onSort=open;sort.setText("排序 · "+("douban".equals(mode)?"豆瓣评分 ↓":"日期 ↓"));sort.setContentDescription(sort.getText());sort.setVisibility(open==null?View.GONE:View.VISIBLE);}
+    void sort(String mode,Runnable open){onSort=open;sort.setText("排序 · "+("douban".equals(mode)?"年份 · 豆瓣 ↓":"年份 · 评分 ↓"));sort.setContentDescription(sort.getText());sort.setVisibility(open==null?View.GONE:View.VISIBLE);}
     void render(List<Entry> rows,Runnable search,Runnable browse,Runnable settings,Runnable saved){
         entries.removeAllViews();footer.removeAllViews();selection=null;
         for(Entry row:rows)add(entries,row.title,row.open,row.selected,row.depth);

@@ -117,3 +117,8 @@ TVmaze资料采用其API说明的CC BY-SA条件，保留来源与归属；TMDB�
 ## Nayuki 原生二维码
 
 原生相册及家庭留言二维码另使用 Project Nayuki 的 QR Code generator（MIT），固定上游提交 `bcfe1b018cec5f1f91b5705eca5bb4cdd34e9f8d`。原始版权和完整 MIT 许可保留在 `android/app/src/main/java/io/nayuki/qrcodegen/` 四份源文件中；来源和 SHA-256 见 `android/third-party/qrcodegen-source.json`。直接本机编码，不依赖 WebView 或外部二维码服务。
+
+
+## V48 · 网络播放器
+
+AndroidX Media3 1.6.1（ExoPlayer、HLS、OkHttp数据源、数据库及其AndroidX传递模块）与Guava运行依赖使用Apache-2.0；不是本项目MIT代码。上游[固定版本](https://github.com/androidx/media/tree/1.6.1)，完整许可、实际运行依赖摘要和嵌入声明保存在[Android资源](android/third-party/media3-dependencies.json)及[许可文本](android/third-party/media3-Apache-2.0.txt)，随APK资源一起分发。没有嵌入FFmpeg或第三方品牌登录SDK，解码使用设备系统支持。

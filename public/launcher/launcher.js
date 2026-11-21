@@ -214,6 +214,7 @@
     nativeAction(action);
   }
   function openPane(name) {
+    clearSettingsHold();
     var spec = specs[name]; if (!spec) return;
     if(name==='presets'&&local&&!parents){closePane();nativeAction('add-shortcut');return;}
     if(name==='presets'){spec.actions=[];spec.description='请在电视上添加已安装的应用。';}
@@ -247,7 +248,7 @@
   function closePane() {
     if (!pane) return false;
     if (pane === 'detail') { if (detailState) { var key = (detailState.metric ? 'metric:' : 'life:') + detailState.id, candidates = $('collection-body').querySelectorAll('[data-content-id]'); for (var j = 0; j < candidates.length; j++) if (candidates[j].getAttribute('data-content-id') === key) prior = candidates[j]; } detailState = null; delete specs.detail; text('pane-title', ''); text('pane-description', ''); text('pane-footnote', ''); }
-    if (pane === 'wallpapers') $('pane-actions').textContent = '';
+    clearSettingsHold();if (pane === 'wallpapers') $('pane-actions').textContent = '';
     pane = null; $('pane-backdrop').hidden = true;
     if(window.KaishiGallery)window.KaishiGallery.homePage(section==='overview'&&!parents&&homePage===2);
     if (personal) personal.schedule(); $('lobby').removeAttribute('aria-hidden');
@@ -473,6 +474,14 @@
   document.addEventListener('focusin',resetTelevisionScroll);
   window.addEventListener('scroll',resetTelevisionScroll);
   // Menus are linear lists; home entries are rows. Do not jump to a diagonal control.
+  var settingsDownAt=0,settingsRepeats=0;
+  function settingsSteps(event){
+    var repeat=event.kaishiRepeat,held=event.kaishiHeld;
+    if(typeof repeat!=='number'){if(!event.repeat||!settingsDownAt){settingsDownAt=Date.now();settingsRepeats=0;}else settingsRepeats++;repeat=settingsRepeats;held=Date.now()-settingsDownAt;}
+    if(repeat<=0)return 1;return held>=1800||repeat>=18?4:held>=700||repeat>=6?2:1;
+  }
+  function clearSettingsHold(){settingsDownAt=0;settingsRepeats=0;}
+  document.addEventListener('keyup',clearSettingsHold);window.addEventListener('blur',clearSettingsHold);
   function rowKey(name) {
     if (pane) {
       if (pane === 'wallpapers' || pane === 'presets') {
@@ -592,6 +601,7 @@
     if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(name) < 0) return;
     event.preventDefault(); if (!nodes.length) return;
     if (current < 0) { focusNode(nodes[0]); return; }
+    if(pane==='settings'&&name==='ArrowDown'){var steps=settingsSteps(event);for(var hop=0;hop<steps;hop++)rowKey(name);return;}
     if (rowKey(name)) return;
     var a = nodes[current].getBoundingClientRect(), ax = a.left + a.width / 2, ay = a.top + a.height / 2, best = null, score = Infinity;
     for (var k = 0; k < nodes.length; k++) {
@@ -605,9 +615,9 @@
     if (best) focusNode(best);
   }
   document.addEventListener('keydown', key);
-  window.apertureRemoteKey = function (name) { var handled = false; key({key: name, preventDefault: function () { handled = true; }}); return handled; };
+  window.apertureRemoteKey = function (name,repeat,held) { var handled = false; key({key: name, kaishiRepeat:repeat,kaishiHeld:held,preventDefault: function () { handled = true; }}); return handled; };
   window.apertureBack = back;
-  window.apertureNativeFocus = function (active) { nativeActive = !!active; if(window.KaishiGallery)window.KaishiGallery.active(active); if(window.KaishiMessages)window.KaishiMessages.active(active); if(window.KaishiAmbient)window.KaishiAmbient.active(active); if(window.KaishiWeatherUI)window.KaishiWeatherUI.active(active); motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
+  window.apertureNativeFocus = function (active) { if(!active)clearSettingsHold();nativeActive = !!active; if(window.KaishiGallery)window.KaishiGallery.active(active); if(window.KaishiMessages)window.KaishiMessages.active(active); if(window.KaishiAmbient)window.KaishiAmbient.active(active); if(window.KaishiWeatherUI)window.KaishiWeatherUI.active(active); motionState(); if(personal)personal.schedule(); if (!active) { if (request) { var pending = request; request = null; pending.abort(); } } else loadContent(); };
   function clock() {
     if (disposed || document.hidden) return;
     var date = new Date(); text('clock', ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2));

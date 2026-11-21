@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "versionCode": 48,
+  "editions": [
+    "standard",
+    "parents"
+  ],
+  "androidInputSha256": "82f58ebf975941fa1530d8955b76a9f9fa7f35ff612298f014d75603ccc20e57",
+  "androidInputFiles": 246,
+  "bothReleaseBuildsPassed": true,
+  "bothSignaturesMatchCorrespondingV47": true,
+  "allP137ThroughP149InApk": true,
+  "checks": [
+    {
+      "path": "docs/verification/s123-live-controls.json",
+      "sha256": "764f8ba1a6681a05756c5fc303e4ca12751819e3a674252cb56ab364eb61544c"
+    },
+    {
+      "path": "docs/verification/s125-episode-append.json",
+      "sha256": "0284e59c68ec70ca5ab625c96611597ae2c9c94c012ce15109fd6da61468801f"
+    },
+    {
+      "path": "docs/verification/s126-year-score-sort.json",
+      "sha256": "c8ea0ed9edf2a44f0e87ed88141c57d169637ab8342b892978379709d59da490"
+    },
+    {
+      "path": "docs/verification/s127-line-match.json",
+      "sha256": "569c518c8f5ce7df9d827863dc6873fc2c607047cec3fdfeb3ca47e99de90d8d"
+    },
+    {
+      "path": "docs/verification/s129-stream.json",
+      "sha256": "7bd1a2ac6af3f1ff47247514ced7f10678ea663dca7a6128f99a0c7cce5484ac"
+    },
+    {
+      "path": "docs/verification/s130-source-return.json",
+      "sha256": "2b968f630ea4afd2fe43ddaf666a4a849530cc328063d8982516889313ca7095"
+    },
+    {
+      "path": "docs/verification/s131-album-native.json",
+      "sha256": "1313890ce9f9e704e7adc60fd6ba7d51f96ddb69aee9d600483916caf235c8b0"
+    },
+    {
+      "path": "docs/verification/s131-album-browser.json",
+      "sha256": "e3d4deac362eb8287d48d7e04f796a9ab9e9005f574b501e00aa334fdfd0433c"
+    },
+    {
+      "path": "docs/verification/s132-screensaver-return.json",
+      "sha256": "b5b0887614224784177838f93ce499bff89bc7b33707fbb20052ab1957a0315f"
+    },
+    {
+      "path": "docs/verification/s133-pair-window.json",
+      "sha256": "bcb7c682e94fc491e11263a3830de4507c9c4c366baf4e9e8e34c6df974fa757"
+    },
+    {
+      "path": "docs/verification/s134-workbuddy-guide.json",
+      "sha256": "5351d86b78214398dd5098a1e7e6517be8a04851514a3575d4270761b44d2bd1"
+    },
+    {
+      "path": "docs/verification/s135-settings-scroll.json",
+      "sha256": "aa602f78b2010f58d224aeedcdb76193b53eb5cda6335d393f64939a0d0bff95"
+    },
+    {
+      "path": "docs/verification/s129-native-compile.json",
+      "sha256": "217430048c084017b60ba44f3179dc092da1a8321f98c0fe66754344522151ee"
+    },
+    {
+      "path": "docs/verification/s123-live-preview.json",
+      "sha256": "756e6d9fbedf3665b43980c11580458e9f7f3a632ecc6f6bbb349f4e112560d7"
+    },
+    {
+      "path": "docs/verification/s125-episode-sort-preview.json",
+      "sha256": "13d5c507228e960f5e884991fb4850b4f15411e2ae03801b23644df4c251f344"
+    }
+  ],
+  "apks": [
+    {
+      "edition": "standard",
+      "apk": "kaishi-v48-standard-arm.apk",
+      "bytes": 57905755,
+      "sha256": "a308dde818e3a8055cc19c5b3fee4dc69fb8e867814f0f4002cfea96cb30cf81"
+    },
+    {
+      "edition": "parents",
+      "apk": "kaishi-v48-parents-arm.apk",
+      "bytes": 57934427,
+      "sha256": "a064cb7ace271d6fddc17ae4542448d3466b767a70f2c5e4f782675eb072aa3e"
+    }
+  ],
+  "permissions": [
+    {
+      "edition": "standard",
+      "added": [
+        "android.permission.ACCESS_NETWORK_STATE"
+      ],
+      "removed": []
+    },
+    {
+      "edition": "parents",
+      "added": [
+        "android.permission.ACCESS_NETWORK_STATE"
+      ],
+      "removed": []
+    }
+  ],
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "hisenseAccepted": false,
+  "decoderPlaybackMeasured": false
+}

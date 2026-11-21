@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "outputs": [
+    "87 production year-first sorting and multi-page focus assertions passed",
+    "33 production date, sort and resource import assertions passed",
+    "18 app-wall persistence, safe launch key, sorting provenance and resource-format assertions passed",
+    "18 production browse-panel assertions passed with JVM UI doubles; no Android rendering or Xiaomi remote executed"
+  ],
+  "sourceAppendResortsAllLoadedItems": true,
+  "productionUiWithJvmDoubles": true,
+  "actualAndroidRendering": false,
+  "realXiaomi": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaCatalog.java": "a08a6d9e87936bff15bc4599c698f1ea8951ca1032655b06f27bc49076d7fde3",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaDates.java": "089c028230ce79bde401ad3ddf6918f5803dec731af18c6498f480aeb3d13cc9",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "24a268510c7c7d09c7d0e60d956a513f59a00772d6babebf38d07832fa30ddaf",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "c46e9a2f3adcd6a008014ff45b513313d6a4c1474c103e0ab0f1e764742f6f0e",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaOrder.java": "9497bcd0b9439072c7155f8c162db3b140e6983003e9cd674b4536401d97de8a",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaBrowse.java": "3a4e7cef32f1f655d7010abef0d19af342de5b37b04a1cb9b8db75cc21b72372",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaPaging.java": "16f19f9c981c52089bedc224ad905a4c57eaac6b3e7294d0bed5aaf68fa6fa57",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaBrowsePanel.java": "6e9ae043bc4fe9612b216320e8b2379f136e8d3e0c155be1c4b340a37cc80ac5",
+    "android/app/src/main/java/org/zhixiaoce/aperture/AppWall.java": "b756e960f2fef0977194fdb10ec8ca10645dda45b661b1010617a59ecc765bdf",
+    "tests/java/YearScoreAppendTest.java": "048d3e94b779bc886b920c07bb12e68d82a949d84f3894f23a3b0b807b40024b",
+    "tests/java/CinemaDatesTest.java": "ddc3ee4d938a2f4603cbafb32eea7f70c3104aba9de38afe5940189cc86afc4a",
+    "tests/java/HomeUpdatesTest.java": "9e41b431131f73da1a603222f5f8016b8b3b8283098320d00ad5a33c5a952eb2",
+    "tests/java/CinemaBrowsePanelTest.java": "84df55fce6aedb4d3928f7651feb3e6da3fc70b5d10a718c401a7bed33664c9a",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "b7aef339fba88f44ce1cdc136e4564c40dd792456cda5f20a89ba217e3f2edde",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaSectionView.java": "64c0069fcd24fe7710ae382ef07e042e4db5dcc3265bd3865c8aa86d4eeaa759",
+    "scripts/s126-sort-test.py": "579d8608ca666b5011715c3d759acb693cd70d4aab4cbc7fa0d9ee5f0492acdd"
+  }
+}

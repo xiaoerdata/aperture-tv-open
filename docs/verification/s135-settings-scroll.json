@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "output": "13 production settings speed/focus assertions passed with JVM UI doubles",
+  "productionPolicyAndScrollExecuted": true,
+  "explicitFocusGeometryDoubles": true,
+  "realTV": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/SettingsScroll.java": "3cd0c1d4d7be9ced2c478dc15c382dea248fcd287e8d86b8999211dee280aa52",
+    "android/app/src/main/java/org/zhixiaoce/aperture/RemoteScrollView.java": "8da3d8a7ed6985cce4902012dfd8bd01763c316c0d17fbc770a97285072c4cd1",
+    "tests/java/SettingsScrollTest.java": "cc169cf937f65fe31f98d1c7cd5501ed033308ac3068f884e7895d200b0bd3b2",
+    "android/app/src/main/java/org/zhixiaoce/aperture/TvDialogs.java": "23635fc7fd6dd6a83ccde8666831e73529522784d158bb33eb06b2826e9ee996",
+    "android/app/src/main/java/org/zhixiaoce/aperture/MainActivity.java": "6178e7bdf55cc487664d70d084b04e3433e94a76c920b43c89c162cefe7f3e05",
+    "public/launcher/launcher.js": "499736d8dc9d684a1d625ee143abec071c3269d6c9bec4b8569e6f9c69df0f12",
+    "scripts/s135-settings-test.py": "854e72cced89d540968a4c3b5150bbb47526293b2c20060333edbfe6ca213c83",
+    "scripts/s135-settings-browser.mjs": "8a1e15b0b7c6f61fff5da370c09c8510de34066f3d3f4e9b5cb756d55624fef1"
+  },
+  "browser": {
+    "passed": true,
+    "checks": [
+      "native bridge metadata produces 1/2/4 steps in actual settings pane",
+      "fresh physical key resets speed immediately",
+      "hold clamps at last item without activating it",
+      "real browser key-up clears hold state",
+      "up stays one item even with long-hold metadata"
+    ],
+    "errors": [],
+    "actualLauncher": true,
+    "androidRenderer": false
+  }
+}

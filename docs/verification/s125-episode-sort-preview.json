@@ -1,0 +1,18 @@
+{
+  "generated": true,
+  "browserIllustration": true,
+  "actualAndroidRendering": false,
+  "realXiaomi": false,
+  "images": [
+    "docs/images/s125-episodes-sort/episodes-1920.png",
+    "docs/images/s125-episodes-sort/year-score-1920.png",
+    "docs/images/s125-episodes-sort/episodes-3840.png",
+    "docs/images/s125-episodes-sort/year-score-3840.png"
+  ],
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpisodeGrid.java": "aa95456c7b221c0ca94cea6955bb0301e6715e559e7be93985262db0dd5d6e63",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaChoicePanel.java": "9b7618adc62f4daa6bd5d4e7719045292e2bfb99795887e6db32df06ed27c964",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaOrder.java": "9497bcd0b9439072c7155f8c162db3b140e6983003e9cd674b4536401d97de8a",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "b7aef339fba88f44ce1cdc136e4564c40dd792456cda5f20a89ba217e3f2edde"
+  }
+}
