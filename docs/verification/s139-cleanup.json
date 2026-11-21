@@ -1,0 +1,22 @@
+{
+  "applied": true,
+  "deletedGeneratedPaths": [
+    "android/app/build",
+    "artifacts/s139-release/source-overlay",
+    "artifacts/s139-release/delivery",
+    "artifacts/s139-release/anonymous-downloads",
+    "artifacts/current-release/kaishi-v49-standard-arm.apk",
+    "artifacts/v49-standard-candidate/kaishi-v49-standard-arm.apk",
+    "artifacts/current-release/kaishi-v49-parents-arm.apk",
+    "artifacts/v49-parents-candidate/kaishi-v49-parents-arm.apk"
+  ],
+  "estimatedFreedAllocatedBytes": 848384000,
+  "bothCurrentV50ApksVerified": true,
+  "previousV49RemoteAssetsVerified": true,
+  "allProductInputsUnchanged": 247,
+  "signingAndToolchainPreserved": true,
+  "symlinksNotFollowed": true,
+  "openFilesWithinTargets": false,
+  "mountsWithinTargets": false,
+  "scope": "this project only; previous global maintenance archive preserved"
+}

@@ -1,0 +1,106 @@
+{
+  "version": "0.2.0-alpha.47",
+  "versionCode": 50,
+  "editions": [
+    "standard",
+    "parents"
+  ],
+  "tag": "v0.2.0-alpha.47",
+  "commit": "caaf430fd030aab68e00708fc96fd01802188e51",
+  "tree": "e83f4236a07a22e55fa1d12fb56db4ba5ba4c789",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.47",
+  "prerelease": true,
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v50-standard-arm.apk",
+      "bytes": 57905755,
+      "sha256": "411dbea58845f792610822093e2b1732cfeb80b8c2a81f3d8a840dfc3af87e0d",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 46883,
+      "sha256": "816f69bb2f4a5e399c12150b9c9e061c0c0230cbc243f2f80ff40eb4056ff405",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 182,
+      "sha256": "0a36e307a117c250f05eba5875ad14e2fac41c75dac86537a5ccffbec7fa0516",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "kaishi-v50-parents-arm.apk",
+      "bytes": 57934427,
+      "sha256": "479c2cfc1ca2cdc3e297b53bf15d2f8ae0173164c4f1f7607df106a419e42280",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "parents-testing-manifest.json",
+      "bytes": 46897,
+      "sha256": "4c7433cbcee49e337a8e79a4f64db49eb2644b5b81541c33e86cabd9235408ff",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "SHA256SUMS-parents",
+      "bytes": 189,
+      "sha256": "09d9d661bdbee69fb342dc62de1a9cad733ffc92be7ea952bc48fd4d99b719a9",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    }
+  ],
+  "publicFrozenSourceReadback": [
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
+      "sha256": "1254fc2d38c8b7b9754fc9e340ca066505e13b4a82d46d91659fe3e8137ae2c0",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/NasActivity.java",
+      "sha256": "a7544343e99653edab55f7baed7e513f540d6619f892b1bd570afe18ba06834d",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/PlayerTimeline.java",
+      "sha256": "8120ecf79cd051df54f9e573ed323983f6392f178d89a7ca07ea52eddeae361d",
+      "anonymous": true
+    },
+    {
+      "path": "docs/PLAYER-KEYS-S138.md",
+      "sha256": "2cd45acbbad2d9934267531f73e8acf0ecddeeaf597a60b1296f5e4af810b026",
+      "anonymous": true
+    },
+    {
+      "path": "docs/RELEASE-V50.md",
+      "sha256": "26d1670f91caa2c6959e50cfd47b52cd35d39a41520bb97ad3c97c95ed85fe1e",
+      "anonymous": true
+    },
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "sha256": "e922fda4c4f962d937866a91e4679fa7fed76d8aed9b359be0d00c8c6006adfe",
+      "anonymous": true
+    }
+  ],
+  "androidInputSha256": "d83e8b671c436c3f26e75219012219ee69296e2dfdb017d818ca7d529a421039",
+  "androidGitTreeInputFilesVerified": 247,
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "phoneAcrossPhysicalDevicesTested": false,
+  "anonymousDestinationAuthenticationUsed": false,
+  "publicTagCommitVerified": true,
+  "allSixAssetDigestsVerified": true,
+  "publishedAt": "2026-11-21T10:29:58Z",
+  "previousV49AssetsUnchanged": true,
+  "temporaryUploaderRuntimeRemoved": true
+}
