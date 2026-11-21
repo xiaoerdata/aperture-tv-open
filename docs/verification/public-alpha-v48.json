@@ -1,0 +1,121 @@
+{
+  "version": "0.2.0-alpha.45",
+  "versionCode": 48,
+  "editions": [
+    "standard",
+    "parents"
+  ],
+  "tag": "v0.2.0-alpha.45",
+  "commit": "e36f049b45af37e9b8757477193461134ffd3d98",
+  "tree": "3ebc4b6a864b7da7449b6a519666a1f27376d545",
+  "releaseUrl": "https://github.com/xiaoerdata/aperture-tv-open/releases/tag/v0.2.0-alpha.45",
+  "prerelease": true,
+  "anonymousDownloads": [
+    {
+      "name": "kaishi-v48-standard-arm.apk",
+      "bytes": 57905755,
+      "sha256": "a308dde818e3a8055cc19c5b3fee4dc69fb8e867814f0f4002cfea96cb30cf81",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "testing-manifest.json",
+      "bytes": 48656,
+      "sha256": "6237871ce82f7cffdbdb4edb1d132d846c62e365f8ec007872991e9ca36c5334",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 182,
+      "sha256": "58c585aba8a7fe40432f3f043783e754b719f07a0efaf97c1b98eecb586f6a2d",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "kaishi-v48-parents-arm.apk",
+      "bytes": 57934427,
+      "sha256": "a064cb7ace271d6fddc17ae4542448d3466b767a70f2c5e4f782675eb072aa3e",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "parents-testing-manifest.json",
+      "bytes": 48670,
+      "sha256": "6f71c45a023c14e8e35c2f0f7e989b2be815f56661b96354e802ca3f08a146ac",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    },
+    {
+      "name": "SHA256SUMS-parents",
+      "bytes": 189,
+      "sha256": "9227b443317c5d640322a896590b4d8a4ec50aced838c4da116a15b06571e948",
+      "anonymous": true,
+      "streamCompared": true,
+      "transport": "curl HTTP/1.1, no curlrc/netrc/auth headers"
+    }
+  ],
+  "publicFrozenSourceReadback": [
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/CinemaPlaybackPlan.java",
+      "sha256": "548c68c76f7ebcbf2ce90a3b7f1ad9543a31602915ceec9400ec79a2f6219527",
+      "anonymous": true
+    },
+    {
+      "path": "docs/LIVE-REMOTE-S123.md",
+      "sha256": "7f75ab01a0ae18e30572351d51906d1c834ea19d1b649b4ccc8d81cccec3faea",
+      "anonymous": true
+    },
+    {
+      "path": "docs/RELEASE-V48.md",
+      "sha256": "56c32ff721a67b70b172b6e14ef478783299e5821f599632bc3f8ecb96e2ce0b",
+      "anonymous": true
+    },
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "sha256": "88ac216f2fb82a9ea7b3a0c896a5bd4e2e046f0c99754c891d7375c66b920af3",
+      "anonymous": true
+    },
+    {
+      "path": "docs/WORKBUDDY-QUICKSTART-V48.md",
+      "sha256": "55822ea64ad545ebe5c5fbd11b56be41573eea8052cccaa83b544f994198e74d",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/SettingsScroll.java",
+      "sha256": "3cd0c1d4d7be9ced2c478dc15c382dea248fcd287e8d86b8999211dee280aa52",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/HomeAlbumView.java",
+      "sha256": "46aab0b216c3ea8b30fe2ee9a62a4b267e7b09bea4ba0cbb1bfb2529a134110f",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/AmbientActivity.java",
+      "sha256": "89c3a549a279d31faa65e20a43132bb378283d224833a5281897a6301a2da926",
+      "anonymous": true
+    },
+    {
+      "path": "android/app/src/main/java/org/zhixiaoce/aperture/LocalControlSession.java",
+      "sha256": "da16680cbaf0a92c4e74fc7a800fdcfd55156c333f4cc9ed58c17dd8f473451e",
+      "anonymous": true
+    }
+  ],
+  "androidInputSha256": "82f58ebf975941fa1530d8955b76a9f9fa7f35ff612298f014d75603ccc20e57",
+  "androidGitTreeInputFilesVerified": 246,
+  "fullCloudRegressionAccepted": false,
+  "xiaomiAccepted": false,
+  "phoneAcrossPhysicalDevicesTested": false,
+  "anonymousDestinationAuthenticationUsed": false,
+  "publicTagCommitVerified": true,
+  "allSixAssetDigestsVerified": true,
+  "publishedAt": "2026-11-21T09:16:46Z",
+  "previousV47AssetsUnchanged": true,
+  "temporaryUploaderRuntimeRemoved": true
+}

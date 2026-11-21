@@ -63,3 +63,5 @@ PATH="$PWD/.venv/bin:$PATH" npm run start:checked
 ![影片详情（API28模拟器、合成资料与配图，非小米真机）](docs/images/s80-native-parents-mixed-detail.png)
 
 ![旧网页内核的风景兼容首页（Android28模拟器，非小米真机）](docs/images/s80-native-standard-scenic-home.png)
+
+[WorkBuddy V48 配置与规则](docs/WORKBUDDY-QUICKSTART-V48.md)
