@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "versionCode": 50,
+  "editions": [
+    "standard",
+    "parents"
+  ],
+  "androidInputSha256": "d83e8b671c436c3f26e75219012219ee69296e2dfdb017d818ca7d529a421039",
+  "androidInputFiles": 247,
+  "changedProductFiles": [
+    "android/app/build.gradle",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
+    "android/app/src/main/java/org/zhixiaoce/aperture/NasActivity.java",
+    "android/app/src/main/java/org/zhixiaoce/aperture/PlayerTimeline.java"
+  ],
+  "unchangedV49ProductFiles": 243,
+  "nativePhotoAndWeatherPathsUnchanged": true,
+  "checks": [
+    {
+      "path": "docs/verification/s138-player-keys.json",
+      "sha256": "9f42f70ad2022960aa8ba8a65ed96f2e2eed5bc6ced2b9f65e6b148bac0db23a"
+    },
+    {
+      "path": "docs/verification/s123-live-controls.json",
+      "sha256": "29935b3ae24a08adb927c1589c74bd7c17411dd3fa7e53075222f60969ae994b"
+    },
+    {
+      "path": "docs/verification/s138-native-compile.json",
+      "sha256": "70aa837e2fa0cc5fd7d16d5556892a4aa91635683f4990bdf2c283a8fec911c3"
+    }
+  ],
+  "apks": [
+    {
+      "edition": "standard",
+      "apk": "kaishi-v50-standard-arm.apk",
+      "bytes": 57905755,
+      "sha256": "411dbea58845f792610822093e2b1732cfeb80b8c2a81f3d8a840dfc3af87e0d"
+    },
+    {
+      "edition": "parents",
+      "apk": "kaishi-v50-parents-arm.apk",
+      "bytes": 57934427,
+      "sha256": "479c2cfc1ca2cdc3e297b53bf15d2f8ae0173164c4f1f7607df106a419e42280"
+    }
+  ],
+  "samePermissionsAndCorrespondingV49Certificates": true,
+  "homeAlbumActivityNotExported": true,
+  "hisenseAccepted": false,
+  "xiaomiAccepted": false,
+  "realAndroidRendererExecuted": false
+}

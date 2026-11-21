@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 /** Native direct NAS entry. Works without a computer, WebView or household service. */
 public final class NasActivity extends Activity {
-    private PlayerTimeline timeline;
+    private PlayerTimeline timeline;private boolean controlsNavigation;
     private final ExecutorService io = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(android.os.Looper.getMainLooper());
     private CinemaArtwork artwork;private CinemaInfo info;
@@ -65,7 +65,7 @@ public final class NasActivity extends Activity {
     private boolean prepared;
     private PlaybackSession session;
     private TextView playback;private LinearLayout videoOverlay;private SurfaceView videoSurface;private Button videoToggle;
-    private final Runnable hideControls=()->{if(mode.equals("video")&&session!=null&&session.state()==PlaybackSession.State.PLAYING&&(timeline==null||!timeline.interacting())&&videoOverlay!=null){videoOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();}};
+    private final Runnable hideControls=()->{if(mode.equals("video")&&session!=null&&session.state()==PlaybackSession.State.PLAYING&&(timeline==null||!timeline.interacting())&&videoOverlay!=null){controlsNavigation=false;videoOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();}};
     private void showControls(){if(videoOverlay==null)return;videoOverlay.setVisibility(View.VISIBLE);main.removeCallbacks(hideControls);main.postDelayed(hideControls,5500);}
     private Bitmap shownPhoto;
     private static final int INK = Color.rgb(241,244,248), MUTED = Color.rgb(177,190,205);
@@ -354,12 +354,27 @@ public final class NasActivity extends Activity {
     private void closeLater(java.io.Closeable object){if(object==null)return;try{io.execute(()->quietClose(object));}catch(RejectedExecutionException stopped){Thread closer=new Thread(()->quietClose(object),"nas-close");closer.setDaemon(true);closer.start();}}
     private static void quietClose(java.io.Closeable object){try{if(object!=null)object.close();}catch(Exception ignored){}}
     private void disconnect(){NasReader old=reader;reader=null;if(old!=null)closeLater(old);}
-    private void release(){if(timeline!=null){timeline.close();timeline=null;}main.removeCallbacks(hideControls);videoOverlay=null;videoSurface=null;videoToggle=null;saveProgress(false);if(session!=null)session.reset();prepared=false;hasPlayed=false;watching=null;playingEntry=null;resumePosition=0;favorite=null;if(player!=null){player.release();player=null;}playback=null;NasReader.Resource old=resource;resource=null;if(old!=null)closeLater(old);}
-    @Override public boolean dispatchKeyEvent(android.view.KeyEvent event){if(VoiceAssistant.systemVoiceKey(event.getKeyCode()))return super.dispatchKeyEvent(event);if(mode.equals("video")&&event.getKeyCode()==android.view.KeyEvent.KEYCODE_BACK){if(event.getAction()==android.view.KeyEvent.ACTION_UP)onBackPressed();return true;}if(mode.equals("video")&&event.getAction()==android.view.KeyEvent.ACTION_DOWN){int key=event.getKeyCode();if(key>=19&&key<=23){boolean hidden=videoOverlay!=null&&videoOverlay.getVisibility()!=View.VISIBLE;showControls();if(hidden){if(videoToggle!=null)videoToggle.requestFocus();return true;}}if(key==android.view.KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE){if(session.state()==PlaybackSession.State.PLAYING)session.pause();else session.play();return true;}if(key==android.view.KeyEvent.KEYCODE_MEDIA_REWIND){seek(-30000);showControls();return true;}if(key==android.view.KeyEvent.KEYCODE_MEDIA_FAST_FORWARD){seek(30000);showControls();return true;}}return super.dispatchKeyEvent(event);}
+    private void release(){controlsNavigation=false;if(timeline!=null){timeline.close();timeline=null;}main.removeCallbacks(hideControls);videoOverlay=null;videoSurface=null;videoToggle=null;saveProgress(false);if(session!=null)session.reset();prepared=false;hasPlayed=false;watching=null;playingEntry=null;resumePosition=0;favorite=null;if(player!=null){player.release();player=null;}playback=null;NasReader.Resource old=resource;resource=null;if(old!=null)closeLater(old);}
+    @Override public boolean dispatchKeyEvent(android.view.KeyEvent event){
+        int key=event.getKeyCode();boolean down=event.getAction()==android.view.KeyEvent.ACTION_DOWN;
+        if(VoiceAssistant.systemVoiceKey(key))return super.dispatchKeyEvent(event);
+        if(mode.equals("video")){
+            if((key==android.view.KeyEvent.KEYCODE_DPAD_LEFT||key==android.view.KeyEvent.KEYCODE_DPAD_RIGHT)&&!controlsNavigation){showControls();return timeline==null||timeline.remoteKey(event);}
+            if(key==android.view.KeyEvent.KEYCODE_BACK){if(!down){if(timeline!=null)timeline.cancelEdit();if(controlsNavigation){controlsNavigation=false;if(videoOverlay!=null)videoOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();}else onBackPressed();}return true;}
+            if(down){
+                if((key==19||key==20||key==82)&&!controlsNavigation){controlsNavigation=true;showControls();if(videoToggle!=null)videoToggle.requestFocus();return true;}
+                if(key>=19&&key<=23)showControls();
+                if(key==android.view.KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE){if(session.state()==PlaybackSession.State.PLAYING)session.pause();else session.play();return true;}
+                if(key==android.view.KeyEvent.KEYCODE_MEDIA_REWIND){seek(-30000);showControls();return true;}
+                if(key==android.view.KeyEvent.KEYCODE_MEDIA_FAST_FORWARD){seek(30000);showControls();return true;}
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
     @Override public void onBackPressed(){if(mode.equals("video")||mode.equals("photo")||mode.equals("loading-folder")){invalidate();release();listing();}else if(mode.equals("listing")){String parent=navigation.parent(folder);if(parent==null)exitLibrary();else load(parent);}else if(mode.equals("connections"))finish();else exitLibrary();}
     @Override protected void onResume(){super.onResume();display.resumed(true);}
-    @Override protected void onPause(){display.resumed(false);saveProgress(false);super.onPause();}
-    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);display.focused(focus);}
+    @Override protected void onPause(){controlsNavigation=false;if(timeline!=null)timeline.cancelEdit();display.resumed(false);saveProgress(false);super.onPause();}
+    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);if(!focus){controlsNavigation=false;if(timeline!=null)timeline.cancelEdit();}display.focused(focus);}
     @Override protected void onStop(){resumeId=connection==null?"":connection.optString("id");if(connection!=null)navigation.save(folder,page,focusedPath);invalidate();release();disconnect();connection=null;super.onStop();}
     @Override protected void onActivityResult(int request,int result,Intent data){if(installer!=null&&installer.result(request,result,data))return;super.onActivityResult(request,result,data);}
     @Override protected void onRestart(){super.onRestart();if(!category.isEmpty()){launchCategory();return;}try{JSONObject saved=vault.library().find(resumeId);if(saved!=null){connection=saved;connect(false);return;}if(savedLaunch){savedUnavailable(new IOException("原 NAS 连接已移除，请重新添加并从片库打开影片"));return;}}catch(Exception invalid){if(savedLaunch){savedUnavailable(invalid);return;}}connections();}

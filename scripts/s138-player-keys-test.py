@@ -1,0 +1,46 @@
+"""Execute actual Cinema/NAS dispatch methods and shared timeline with explicit JVM UI doubles."""
+from pathlib import Path
+import hashlib,json,subprocess,tempfile
+r=Path(__file__).resolve().parents[1];base=r/'android/app/src/main/java/org/zhixiaoce/aperture';jdk=r/'.android-local/jdk17/bin'
+ns={'__file__':str(r/'scripts/s123-live-test.py')};raw=(r/'scripts/s123-live-test.py').read_text();exec(compile(raw[:raw.index("base=r/'android/app/")],'ui-double-definitions','exec'),ns);stubs=ns['stubs']
+for n in ['CinemaHttp','CinemaEpg','CinemaArtwork']:stubs.pop('org/zhixiaoce/aperture/'+n+'.java',None)
+stubs['android/view/View.java']=stubs['android/view/View.java'].replace('public interface OnKeyListener','public int getWindowVisibility(){return VISIBLE;}public boolean isEnabled(){return true;}public void setEnabled(boolean v){}public interface OnKeyListener')
+stubs['android/view/ViewGroup.java']=stubs['android/view/ViewGroup.java'].replace('public int getChildCount()','public void removeView(View v){children.remove(v);v.parent=null;}public int getChildCount()')
+stubs['android/widget/TextView.java']=stubs['android/widget/TextView.java'].replace('public String text;','public String text;public void setBackground(Object o){}')
+stubs['android/widget/SeekBar.java']='''package android.widget;public class SeekBar extends android.view.View {public SeekBar(android.app.Activity a){}public void setMax(int n){}public void setProgress(int n){}public void setSecondaryProgress(int n){}public void setProgressTintList(Object o){}public void setSecondaryProgressTintList(Object o){}public void setProgressBackgroundTintList(Object o){}public void setThumbTintList(Object o){}public interface OnSeekBarChangeListener{void onStartTrackingTouch(SeekBar b);void onProgressChanged(SeekBar b,int v,boolean user);void onStopTrackingTouch(SeekBar b);}public void setOnSeekBarChangeListener(OnSeekBarChangeListener l){}}'''
+stubs['android/content/res/ColorStateList.java']='package android.content.res;public class ColorStateList {public static ColorStateList valueOf(int c){return new ColorStateList();}}'
+stubs['android/widget/LinearLayout.java']=stubs['android/widget/LinearLayout.java'].replace('VERTICAL=1','VERTICAL=1,HORIZONTAL=0')
+stubs['android/view/KeyEvent.java']=stubs['android/view/KeyEvent.java'].replace('KEYCODE_BUTTON_A=96','KEYCODE_BUTTON_A=96,KEYCODE_MENU=82,KEYCODE_MEDIA_PLAY_PAUSE=85,KEYCODE_MEDIA_PLAY=126,KEYCODE_MEDIA_PAUSE=127,KEYCODE_MEDIA_REWIND=89,KEYCODE_MEDIA_FAST_FORWARD=90,KEYCODE_CHANNEL_UP=166,KEYCODE_CHANNEL_DOWN=167')
+stubs['android/app/Activity.java']='''package android.app;public class Activity {public int defaults;public android.view.View focus;public android.content.res.Resources getResources(){return new android.content.res.Resources();}public boolean dispatchKeyEvent(android.view.KeyEvent e){defaults++;return false;}public android.view.View getCurrentFocus(){return focus;}}'''
+stubs['org/zhixiaoce/aperture/VoiceAssistant.java']='package org.zhixiaoce.aperture;class VoiceAssistant{static boolean systemVoiceKey(int k){return k==231;}}'
+stubs['org/zhixiaoce/aperture/PlaybackSession.java']='package org.zhixiaoce.aperture;class PlaybackSession {enum State{PLAYING,PAUSED,PREPARING}State state=State.PLAYING;State state(){return state;}void play(){state=State.PLAYING;}void pause(){state=State.PAUSED;}}'
+common='''package org.zhixiaoce.aperture;import java.util.*;import android.view.*;import android.widget.*;
+class RoutingHarness extends android.app.Activity {
+ boolean playingView=true,liveQueue,sectionFullscreen=true,playerControlsNavigation,controlsNavigation,controlsConfirmHeld;int generation,playingIndex,backs,shown,seeks,adjacents,options;String view="movies",mode="video",sectionRailMode="组";Runnable playerConfirmAction;
+ final android.os.Handler main=new android.os.Handler(android.os.Looper.getMainLooper());final Runnable hidePlayerControls=()->{};final View videoSurface=new View();final Button playerToggle=new Button(),videoToggle=playerToggle;final View playerOverlay=new View(),videoOverlay=playerOverlay,playerLine=new View();
+ final PlaybackSession session=new PlaybackSession();final PlaybackEntryIntent entryIntent=new PlaybackEntryIntent();PlayerTimeline timeline;Panel choicePanel,livePanel,programmePanel;final Press confirmPress=new Press();final Rail sectionLayout=new Rail();List<CinemaCatalog.Channel> sectionChannels=new ArrayList<>(),playingChannels=new ArrayList<>();
+ static class Press{void down(int a,long b,int c){}boolean up(int a,long b,int c,boolean d){return true;}}static class CinemaCatalog{static class Channel{String group="组";}}
+ static class Rail{View rail=new View();void focusSelected(){}}static class Panel{boolean opened;int keys;boolean key(KeyEvent e){keys++;return opened;}boolean open(){return opened;}void cancelPress(){}void hide(){opened=false;}void showChannel(Object o){opened=true;}}
+ void refreshSectionRail(){}void showPlayerControls(){shown++;playerOverlay.setVisibility(View.VISIBLE);}void showControls(){showPlayerControls();}void playerEpisodes(){options++;}void playerOptions(){options++;}void adjacent(int n){adjacents++;}void onBackPressed(){backs++;}void togglePlayback(){}void seek(int n){seeks++;}
+'''
+cinema=(base/'CinemaActivity.java').read_text();method=cinema[cinema.index('    @Override public boolean dispatchKeyEvent('):cinema.index('    @Override public void onBackPressed()')]
+nas=(base/'NasActivity.java').read_text();nasmethod=nas[nas.index('    @Override public boolean dispatchKeyEvent('):nas.index('    @Override public void onBackPressed()')]
+with tempfile.TemporaryDirectory(prefix='kaishi-s138-') as d:
+ temp=Path(d);files=[]
+ for n,b in stubs.items():p=temp/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(b);files.append(p)
+ cp=[base/'PlayerTimeline.java',base/'PlaybackTimeline.java',base/'PlaybackEntryIntent.java',r/'tests/java/PlayerSeekKeysTest.java']
+ subprocess.run([str(jdk/'javac'),'-encoding','UTF-8','-d',d,*map(str,[*files,*cp])],check=True)
+ outputs=[subprocess.check_output([str(jdk/'java'),'-cp',d,'org.zhixiaoce.aperture.PlayerSeekKeysTest'],text=True).strip()]
+ for label,body in [('Cinema',method),('NAS',nasmethod)]:
+  tests='''static int checks;static void check(boolean b,String s){checks++;if(!b)throw new AssertionError(s);}static KeyEvent key(int action,int code){return new KeyEvent(10,action,code,0,false);}static class Media implements PlayerTimeline.Media{long position=60000;int commits;public long position(){return position;}public long duration(){return 300000;}public int buffered(){return 0;}public void seek(long p){position=p;commits++;}}
+ public static void main(String[] a){RoutingHarness h=new RoutingHarness();Media m=new Media();h.timeline=new PlayerTimeline(h,m,true);h.focus=h.playerToggle;
+ h.dispatchKeyEvent(key(0,22));check(m.commits==0,"default right previews without committing");h.dispatchKeyEvent(key(1,22));check(m.position==70000&&m.commits==1&&h.defaults==0,"default focused button still seeks right on release");h.playerOverlay.setVisibility(View.GONE);h.focus=null;h.dispatchKeyEvent(key(0,21));h.dispatchKeyEvent(key(1,21));check(m.position==60000&&m.commits==2,"hidden controls / no surface focus still seek left");
+ h.dispatchKeyEvent(key(0,20));check(h.playerControlsNavigation||h.controlsNavigation,"down explicitly enters controls");int before=h.defaults;h.dispatchKeyEvent(key(0,22));check(h.defaults==before+1&&m.commits==2,"explicit controls preserve button navigation");h.dispatchKeyEvent(key(0,4));h.dispatchKeyEvent(key(1,4));check(h.backs==0&&!h.playerControlsNavigation&&!h.controlsNavigation,"Back first leaves controls");h.dispatchKeyEvent(key(0,4));h.dispatchKeyEvent(key(1,4));check(h.backs==1,"next Back exits playback");before=h.defaults;h.dispatchKeyEvent(key(0,231));check(h.defaults==before+1,"voice key delegated unchanged");
+ '''
+  if label=='Cinema':tests+='''h.choicePanel=new Panel();h.choicePanel.opened=true;h.dispatchKeyEvent(key(0,22));h.dispatchKeyEvent(key(1,22));check(m.commits==2&&h.choicePanel.keys==2,"open choice drawer owns both arrow edges");h.choicePanel=null;h.liveQueue=true;h.livePanel=new Panel();h.livePanel.opened=true;h.dispatchKeyEvent(key(0,21));check(h.livePanel.keys==1&&m.commits==2,"live groups keep left/right without VOD seeking");'''
+  tests+='''h.timeline.close();System.out.println(checks+" actual '''+label+''' dispatch assertions passed with JVM collaborators");}}
+'''
+  p=temp/'RoutingHarness.java';p.write_text(common+body+tests);subprocess.run([str(jdk/'javac'),'-cp',d,'-d',d,str(p)],check=True);outputs.append(subprocess.check_output([str(jdk/'java'),'-cp',d,'org.zhixiaoce.aperture.RoutingHarness'],text=True).strip())
+ for output in outputs:print(output)
+ tracked=[base/(n+'.java') for n in ['CinemaActivity','NasActivity','PlayerTimeline','PlaybackTimeline','PlaybackEntryIntent']]+[r/'tests/java/PlayerSeekKeysTest.java',Path(__file__).resolve()]
+ (r/'docs/verification/s138-player-keys.json').write_text(json.dumps({'passed':True,'outputs':outputs,'actualDispatchMethodsExtractedVerbatim':True,'actualPlayerTimelineExecuted':True,'jvmUiAndMediaDoubles':True,'realAndroidRemoteOrDecoder':False,'sources':{str(p.relative_to(r)):hashlib.sha256(p.read_bytes()).hexdigest() for p in tracked}},indent=2)+'\n')

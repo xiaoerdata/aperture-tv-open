@@ -4,7 +4,7 @@
 
 ## 先装开视
 
-1. 标准版和爸妈版均已同步至V49。[下载与版本](docs/DOWNLOADS.md)列出包名和校验方法。内测候选见仓库的[下载索引](docs/DOWNLOADS.md)，公开源码不包含该私有目录；没有发行包时可按[免费本地构建](docs/ANDROID-LOCAL.md)自己生成。
+1. 标准版和爸妈版均已同步至V50。[下载与版本](docs/DOWNLOADS.md)列出包名和校验方法。内测候选见仓库的[下载索引](docs/DOWNLOADS.md)，公开源码不包含该私有目录；没有发行包时可按[免费本地构建](docs/ANDROID-LOCAL.md)自己生成。
 2. 核对版本、包名与签名，按具体小米机型支持的U盘或ADB流程安装。v18使用新包名与v17并存；保留旧版与旧数据，新版重新配对并配置NAS，见[迁移说明](docs/MIGRATION-V18.md)。今后同包名同证书升级才可直接覆盖。签名不一致时先核对来源，不自动清除旧数据。
 3. 从原桌面应用列表打开。默认作为普通应用，不替换小米桌面；需要时在默认桌面设置主动开启，再由系统选择。原桌面、小爱按键和小米账号继续由原系统管理。
 4. 先试方向、确认、返回、原桌面与原有直播/影视应用。本机应用或NAS直连不需要先启动电脑家庭服务。
@@ -39,7 +39,7 @@ WorkBuddy客户端与小米真机由项目维护者测试。建议记录型号�
 
 ## v29 Alpha
 
-当前版本为 versionCode48 / 0.2.0-alpha.46。公开安装包见[下载与版本](docs/DOWNLOADS.md)，摘要和设备待测项以 testing-manifest.json / [发行说明](docs/RELEASE-V49.md)为准。v18及以后保留相同包名和发行签名，可按正常流程升级；v17继续保留并存。新增留言源用法见[留言源v1](docs/MESSAGE-SOURCE.md)，电视只显示和播报，Agent更新已配置的HTTPS文件。
+当前版本为 versionCode48 / 0.2.0-alpha.47。公开安装包见[下载与版本](docs/DOWNLOADS.md)，摘要和设备待测项以 testing-manifest.json / [发行说明](docs/RELEASE-V50.md)为准。v18及以后保留相同包名和发行签名，可按正常流程升级；v17继续保留并存。新增留言源用法见[留言源v1](docs/MESSAGE-SOURCE.md)，电视只显示和播报，Agent更新已配置的HTTPS文件。
 
 
 ## v30 Alpha：WorkBuddy同网连接

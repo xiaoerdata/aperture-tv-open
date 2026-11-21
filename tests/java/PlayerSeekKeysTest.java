@@ -1,0 +1,11 @@
+package org.zhixiaoce.aperture;
+import android.view.KeyEvent;
+public class PlayerSeekKeysTest {
+ static int checks;static void ok(boolean b,String s){checks++;if(!b)throw new AssertionError(s);}static KeyEvent k(long t,int a,int c,int r,boolean canceled){return new KeyEvent(t,a,c,r,canceled);}
+ static class Media implements PlayerTimeline.Media{long position=60000,duration=300000;int commits;public long position(){return position;}public long duration(){return duration;}public int buffered(){return 70;}public void seek(long p){position=p;commits++;}}
+ public static void main(String[] a){for(boolean compact:new boolean[]{false,true}){Media m=new Media();PlayerTimeline p=new PlayerTimeline(new android.app.Activity(),m,compact);
+ p.remoteKey(k(1,0,22,0,false));ok(m.commits==0,"Down previews");p.remoteKey(k(1,1,22,0,false));ok(m.position==70000&&m.commits==1,"release commits ten-second forward without confirm");p.remoteKey(k(2,0,21,0,false));p.remoteKey(k(2,1,21,0,false));ok(m.position==60000&&m.commits==2,"left rewinds ten seconds");
+ p.remoteKey(k(3,0,22,0,false));p.remoteKey(k(3,0,22,5,false));p.remoteKey(k(3,0,22,12,false));p.remoteKey(k(3,1,22,0,false));ok(m.position==130000&&m.commits==3,"hold previews accelerated 10+20+40 seconds and commits once");
+ p.remoteKey(k(4,0,21,0,false));p.remoteKey(k(4,1,21,0,true));ok(m.position==130000&&m.commits==3,"canceled release never seeks");p.remoteKey(k(5,0,22,0,false));p.cancelEdit();p.remoteKey(k(5,1,22,0,false));ok(m.commits==3,"focus-loss cancellation rejects late release");
+ p.remoteKey(k(6,0,22,0,false));p.remoteKey(k(1,1,22,0,false));ok(m.commits==3,"stale key-up cannot commit new preview");p.remoteKey(k(6,1,22,0,false));ok(m.position==140000&&m.commits==4,"matching key-up still commits");m.position=295000;p.remoteKey(k(7,0,22,0,false));p.remoteKey(k(7,1,22,0,false));ok(m.position==300000,"clamp end");m.position=5000;p.remoteKey(k(8,0,21,0,false));p.remoteKey(k(8,1,21,0,false));ok(m.position==0,"clamp beginning");m.duration=0;p.remoteKey(k(9,0,22,0,false));p.remoteKey(k(9,1,22,0,false));ok(m.commits==6&&!p.interacting(),"unknown duration does not seek or stay editing");p.close();}System.out.println(checks+" production compact/NAS timeline key/seek assertions passed");}
+}
