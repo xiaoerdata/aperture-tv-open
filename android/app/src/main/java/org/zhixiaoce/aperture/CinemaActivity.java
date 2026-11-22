@@ -53,12 +53,13 @@ public final class CinemaActivity extends Activity {
     private volatile int generation;private boolean destroyed,playingView,prepared;private String view="movies",health="尚未检查";
     private Runnable shelfRefresh;private Runnable back;private Runnable sourceReturn=this::home;private CinemaPlayer player;private PlaybackSession session;private TextView playerStatus;
     private List<CinemaCatalog.Episode> queue=new ArrayList<>();private int playingIndex;private boolean liveQueue;private Runnable playerBack;
-    private final ConfirmPress confirmPress=new ConfirmPress();private CinemaChoicePanel choicePanel;private Runnable playerConfirmAction;private boolean controlsConfirmHeld;private boolean fileAllowHttp;private int healthCursor;
+    private final ConfirmPress backPress=new ConfirmPress();private final ConfirmPress confirmPress=new ConfirmPress();private CinemaChoicePanel choicePanel;private Runnable playerConfirmAction;private boolean controlsConfirmHeld;private boolean fileAllowHttp;private int healthCursor;
     private CinemaShelf shelf;private String shelfWarning="";private CinemaCatalog.Live currentLive;
     private List<org.json.JSONObject> queueRefs=new ArrayList<>();private String queueLine="";private boolean hasPlayed;
     private final Runnable checkpoint=new Runnable(){public void run(){if(!destroyed){saveProgress(false);main.postDelayed(this,15000);}}};
     private final Runnable periodic=new Runnable(){public void run(){if(!destroyed){if(display.active()&&!playingView)checkSources(false);main.postDelayed(this,900000);}}};
     private static final class GridCursor { int selected,scrollY; boolean episodes; GridCursor(int selected){this.selected=selected;} GridCursor(int selected,boolean episodes){this.selected=selected;this.episodes=episodes;} }
+    private static final class DetailCursor {int scrollY;boolean episodes,fullscreen;}
     private static final class Action{final String name;final Runnable run;CinemaCatalog.Item item;String image="",base="";CinemaCatalog.Channel channel;Action(String name,Runnable run){this.name=name;this.run=run;}Action(CinemaCatalog.Item item,String base,Runnable run){this(item.name,run);this.item=item;this.image=item.poster;this.base=base;}Action(String name,String image,String base,Runnable run){this(name,run);this.image=image;this.base=base;}Action(CinemaCatalog.Channel channel,String base,Runnable run){this(channel.name,channel.logo,base,run);this.channel=channel;}}
     private boolean sectionFullscreen;private CinemaSectionView sectionLayout;private CinemaCatalog.Site sectionSite;private List<CinemaCatalog.Item> sectionItems=new ArrayList<>();private List<CinemaCatalog.Category> sectionCategories=new ArrayList<>();private List<CinemaCatalog.Channel> sectionChannels=new ArrayList<>();private String sectionRailMode="programmes",sectionCategory,sectionItemId="";private int sectionPage=1,sectionPages=1;
     private void showSectionContent(View body){
@@ -188,17 +189,21 @@ public final class CinemaActivity extends Activity {
     }
     private void updateGuide(CinemaEpg value){if(value==guide){refreshGuideViews();return;}guide=value;refreshGuideViews();if(livePanel!=null)livePanel.guide(value);if(programmePanel!=null)programmePanel.guide(value);}
 
-    private void detailPanel(CinemaCatalog.Site site,CinemaCatalog.Item item,List<Action> actions,List<CinemaCatalog.Line> lines,org.json.JSONObject ref,Runnable previous,CinemaResume.Selection selection){
-        screen("影片详情",previous);sourceReturn=()->detailPanel(site,item,actions,lines,ref,previous,selection);CinemaDetailView layout=new CinemaDetailView(this,item,previous,!sectionFullscreen);showSectionContent(layout.stage);content=layout.body;status=layout.credit;
+    private void detailPanel(CinemaCatalog.Site site,CinemaCatalog.Item item,List<Action> actions,List<CinemaCatalog.Line> lines,org.json.JSONObject ref,Runnable previous,CinemaResume.Selection selection,DetailCursor cursor){
+        screen("影片详情",previous);sourceReturn=()->cachedDetails(site,item,lines,ref,previous,selection,cursor);CinemaDetailView layout=new CinemaDetailView(this,item,previous,!sectionFullscreen);showSectionContent(layout.stage);content=layout.body;status=layout.credit;
         artwork.bind(layout.poster.image,item.poster,site.api,config.allowHttp);artwork.bind(layout.backdrop,item.backdrop.isEmpty()?item.poster:item.backdrop,site.api,config.allowHttp);
         String kind="movies".equals(view)?"movie":"series";int turn=generation;
         info.lookup(item.name,item.year,kind,false,(match,candidates,state)->{if(turn!=generation||match==null)return;if(item.poster.isEmpty())artwork.bind(layout.poster.image,match.optString("poster"),"",false);if(item.backdrop.isEmpty()&&item.poster.isEmpty())artwork.bind(layout.backdrop,match.optString("backdrop",match.optString("poster")),"",false);if(item.summary.isEmpty())layout.summary.setText(match.optString("summary","暂无简介"));List<String> facts=nonempty(item.year.isEmpty()?match.optString("year"):item.year,item.genre.isEmpty()?match.optString("genre"):item.genre,item.duration,item.area);layout.facts.setText(String.join(" · ",facts));layout.facts.setVisibility(facts.isEmpty()?View.GONE:View.VISIBLE);layout.credit.setText("资料："+match.optString("provider"));layout.credit.setContentDescription("资料："+match.optString("provider")+" "+match.optString("url"));});
         LinearLayout row=null;Button first=null;for(int i=0;i<actions.size();i++){if(i%3==0){row=new LinearLayout(this);layout.actions.addView(row);}Button b=layout.action(row,actions.get(i).name,actions.get(i).run,i==0);if(first==null)first=b;}
         if(!item.director.isEmpty()||!item.actors.isEmpty()){TextView people=label((item.director.isEmpty()?"":"导演  "+item.director+"  ")+item.actors,19);people.setMaxLines(2);layout.copy.addView(people);}
         final Button playAction=first;
-        if(!lines.isEmpty()){layout.body.addView(label("选集",24));layout.body.addView(new CinemaEpisodeGrid(this,lines,selection.line,selection.episode,first,(line,at)->{selection.line=line;selection.episode=at;if(playAction!=null)playAction.setText("播放");},(line,at)->playEpisodes(site,ref,lines,line,at,()->details(site,item,previous))),new LinearLayout.LayoutParams(-1,-2));}
-        button(layout.body,"更正资料",()->info.lookup(item.name,item.year,kind,true,(match,candidates,state)->{if(turn!=generation)return;if(!info.enabled()){metadataSettings();return;}if(candidates.isEmpty()){layout.credit.setText("暂无可选资料");return;}List<String> names=new ArrayList<>();for(org.json.JSONObject candidate:candidates)names.add(candidate.optString("title")+" · "+candidate.optString("year"));names.add("保留来源资料");TvDialogs.menu(this,"选择资料",names.toArray(new String[0]),(d,at)->{try{info.choose(item.name,item.year,kind,at<candidates.size()?candidates.get(at):null);detailPanel(site,item,actions,lines,ref,previous,selection);}catch(Exception error){layout.credit.setText("资料选择未保存");}});}));
+        CinemaEpisodeGrid episodeGrid=null;
+        if(!lines.isEmpty()){layout.body.addView(label("选集",24));episodeGrid=new CinemaEpisodeGrid(this,lines,selection.line,selection.episode,first,(line,at)->{selection.line=line;selection.episode=at;if(playAction!=null)playAction.setText("播放");},(line,at)->{captureDetailCursor(cursor,true);playEpisodes(site,ref,lines,line,at,()->restoreDetails(site,item,lines,ref,previous,selection,cursor));});layout.body.addView(episodeGrid,new LinearLayout.LayoutParams(-1,-2));}
+        button(layout.body,"更正资料",()->info.lookup(item.name,item.year,kind,true,(match,candidates,state)->{if(turn!=generation)return;if(!info.enabled()){metadataSettings();return;}if(candidates.isEmpty()){layout.credit.setText("暂无可选资料");return;}List<String> names=new ArrayList<>();for(org.json.JSONObject candidate:candidates)names.add(candidate.optString("title")+" · "+candidate.optString("year"));names.add("保留来源资料");TvDialogs.menu(this,"选择资料",names.toArray(new String[0]),(d,at)->{try{info.choose(item.name,item.year,kind,at<candidates.size()?candidates.get(at):null);cachedDetails(site,item,lines,ref,previous,selection,cursor);}catch(Exception error){layout.credit.setText("资料选择未保存");}});}));
         if(first!=null){if(sectionLayout!=null)sectionLayout.linkRight(first);first.requestFocus();}
+        if(cursor.episodes&&episodeGrid!=null)episodeGrid.restoreFocus();
+        ScrollView detailScroll=(ScrollView)layout.body.getParent();final boolean reveal=cursor.episodes;
+        detailScroll.post(()->{if(turn==generation&&!destroyed&&!reveal)detailScroll.scrollTo(0,cursor.scrollY);});
     }
     private static List<String> nonempty(String... values){List<String> out=new ArrayList<>();for(String v:values)if(v!=null&&!v.isEmpty())out.add(v);return out;}
     private void metadataSettings(){
@@ -287,7 +292,7 @@ public final class CinemaActivity extends Activity {
     private void playSavedOverview(org.json.JSONObject ref,CinemaCatalog.Site site,CinemaCatalog.Item item,Runnable previous){
         if(site==null||!"vod".equals(ref.optString("kind"))){openSaved(ref,previous);return;}
         if(item==null){task(ref.optString("title"),previous,()->catalogue(site,null,1,null,ref.optString("id")),page->{for(CinemaCatalog.Item detail:page.items)if(detail.id.equals(ref.optString("id"))){playSavedOverview(ref,site,detail,previous);return;}throw new java.io.IOException("来源中已没有这部影片");});return;}
-        try{List<CinemaCatalog.Line> lines=CinemaCatalog.lines(item,config.allowHttp,site.headers,site.resolved());CinemaResume.Selection saved=CinemaResume.select(lines,shelf.get(ref));playEpisodes(site,ref,lines,saved.line,saved.episode,previous);}catch(Exception unavailable){if(status!=null)status.setText("此影片暂时无法播放");}
+        try{List<CinemaCatalog.Line> lines=CinemaCatalog.lines(item,config.allowHttp,site.headers,site.resolved());CinemaResume.Selection saved=CinemaResume.select(lines,shelf.get(ref));DetailCursor cursor=new DetailCursor();cursor.fullscreen=true;playEpisodes(site,ref,lines,saved.line,saved.episode,()->restoreDetails(site,item,lines,ref,previous,saved,cursor));}catch(Exception unavailable){if(status!=null)status.setText("此影片暂时无法播放");}
     }
     private void savedItem(org.json.JSONObject item,Runnable previous){
         TvDialogs.menu(this,item.optString("title"),new String[]{"继续观看","移除此记录"},(d,w)->{if(w==1){editShelf(next->next.remove(item));previous.run();return;}openSaved(item,previous);});
@@ -382,13 +387,29 @@ public final class CinemaActivity extends Activity {
     }
     private void details(CinemaCatalog.Site site,CinemaCatalog.Item item,Runnable previous){
         sectionFullscreen=false;sectionItemId=item.id;
-        task(item.name,previous,()->catalogue(site,null,1,null,item.id),data->{CinemaCatalog.Item found=null;for(CinemaCatalog.Item candidate:data.items)if(candidate.id.equals(item.id)){found=candidate;break;}if(found==null)throw new java.io.IOException("来源没有返回所选影片详情");final CinemaCatalog.Item detail=found;List<CinemaCatalog.Line> lines=CinemaCatalog.lines(detail,config.allowHttp,site.headers,site.resolved());org.json.JSONObject ref=vodRef(site,detail),saved=shelf.get(ref);List<Action> actions=new ArrayList<>();
+        task(item.name,previous,()->catalogue(site,null,1,null,item.id),data->{CinemaCatalog.Item found=null;for(CinemaCatalog.Item candidate:data.items)if(candidate.id.equals(item.id)){found=candidate;break;}if(found==null)throw new java.io.IOException("来源没有返回所选影片详情");final CinemaCatalog.Item detail=found;List<CinemaCatalog.Line> lines=CinemaCatalog.lines(detail,config.allowHttp,site.headers,site.resolved());org.json.JSONObject ref=vodRef(site,detail),saved=shelf.get(ref);
             CinemaResume.Selection selection=CinemaResume.select(lines,saved);
-            if(!lines.isEmpty())actions.add(new Action(selection.continuing?"继续播放":"播放",()->playEpisodes(site,ref,lines,selection.line,selection.episode,()->details(site,item,previous))));
-            actions.add(new Action(saved!=null&&saved.optBoolean("favorite")?"取消收藏":"收藏影片",()->{editShelf(next->next.toggle(ref,"favorite"));details(site,item,previous);}));
-            if(!"movies".equals(view))actions.add(new Action(saved!=null&&saved.optBoolean("follow")?"取消追剧":"追剧",()->{editShelf(next->{next.toggle(ref,"follow");updateLatest(next,site,detail);});details(site,item,previous);}));
-            editShelf(next->{updateLatest(next,site,detail);next.seen(ref);});detailPanel(site,detail,actions,lines,ref,previous,selection);
+            editShelf(next->{updateLatest(next,site,detail);next.seen(ref);});cachedDetails(site,detail,lines,ref,previous,selection,new DetailCursor());
         });
+    }
+    private void captureDetailCursor(DetailCursor cursor,boolean episodes){
+        cursor.episodes=episodes;if(content!=null&&content.getParent() instanceof ScrollView)cursor.scrollY=((ScrollView)content.getParent()).getScrollY();
+    }
+    private void restoreDetails(CinemaCatalog.Site site,CinemaCatalog.Item item,List<CinemaCatalog.Line> lines,org.json.JSONObject ref,Runnable previous,CinemaResume.Selection selection,DetailCursor cursor){
+        rememberVodPosition();saveProgress(false);
+        if(vodReference==ref&&vodPlan!=null&&vodPlan.line>=0&&vodPlan.line<lines.size()&&vodPlan.episode>=0&&vodPlan.episode<lines.get(vodPlan.line).episodes.size()){
+            selection.line=vodPlan.line;selection.episode=vodPlan.episode;
+            try{selection.continuing=CinemaResume.position(lines,selection.line,selection.episode,shelf.get(ref))>0;}catch(Exception ignored){}
+        }
+        cachedDetails(site,item,lines,ref,previous,selection,cursor);
+    }
+    private void cachedDetails(CinemaCatalog.Site site,CinemaCatalog.Item item,List<CinemaCatalog.Line> lines,org.json.JSONObject ref,Runnable previous,CinemaResume.Selection selection,DetailCursor cursor){
+        if(destroyed)return;sectionFullscreen=cursor.fullscreen;sectionItemId=item.id;org.json.JSONObject saved=null;try{saved=shelf.get(ref);}catch(Exception ignored){}List<Action> actions=new ArrayList<>();
+        Runnable restore=()->restoreDetails(site,item,lines,ref,previous,selection,cursor);
+        if(!lines.isEmpty())actions.add(new Action(selection.continuing?"继续播放":"播放",()->{captureDetailCursor(cursor,false);playEpisodes(site,ref,lines,selection.line,selection.episode,restore);}));
+        actions.add(new Action(saved!=null&&saved.optBoolean("favorite")?"取消收藏":"收藏影片",()->{captureDetailCursor(cursor,false);editShelf(next->next.toggle(ref,"favorite"));cachedDetails(site,item,lines,ref,previous,selection,cursor);}));
+        if(!"movies".equals(view))actions.add(new Action(saved!=null&&saved.optBoolean("follow")?"取消追剧":"追剧",()->{captureDetailCursor(cursor,false);editShelf(next->{next.toggle(ref,"follow");updateLatest(next,site,item);});cachedDetails(site,item,lines,ref,previous,selection,cursor);}));
+        detailPanel(site,item,actions,lines,ref,previous,selection,cursor);
     }
     private void playEpisodes(CinemaCatalog.Site site,org.json.JSONObject ref,CinemaCatalog.Line line,int at,Runnable previous){playEpisodes(site,ref,java.util.Collections.singletonList(line),0,at,previous);}
     private void playEpisodes(CinemaCatalog.Site site,org.json.JSONObject ref,List<CinemaCatalog.Line> lines,int line,int at,Runnable previous){
@@ -570,9 +591,15 @@ public final class CinemaActivity extends Activity {
         super.onActivityResult(request,result,data);if(request==4603){try{config=vault.read();candidates.clear();plugins.clear();home();}catch(Exception failure){status.setText("来源无法重新读取");}return;}if(request!=PICK||result!=RESULT_OK||data==null||data.getData()==null)return;Uri uri=data.getData();if(!"content".equals(uri.getScheme()))return;boolean policy=fileAllowHttp;
         readSource("读取配置文件",()->{try(InputStream stream=getContentResolver().openInputStream(uri);ByteArrayOutputStream out=new ByteArrayOutputStream()){if(stream==null)throw new java.io.IOException("文件不可读取");byte[] buffer=new byte[8192];int n;while((n=stream.read(buffer))!=-1){if(out.size()+n>CinemaCatalog.MAX_BYTES)throw new java.io.IOException("配置超过4MiB");out.write(buffer,0,n);}return CinemaCatalog.config(new String(out.toByteArray(),java.nio.charset.StandardCharsets.UTF_8),null,policy);}},this::preview);
     }
+    private boolean backKey(KeyEvent event){
+        if(event.getAction()==KeyEvent.ACTION_DOWN){if(event.getRepeatCount()==0)backPress.down(KeyEvent.KEYCODE_BACK,event.getDownTime(),generation);}
+        else if(event.getAction()==KeyEvent.ACTION_UP&&backPress.up(KeyEvent.KEYCODE_BACK,event.getDownTime(),generation,event.isCanceled()))onBackPressed();
+        return true;
+    }
     @Override public boolean dispatchKeyEvent(KeyEvent event){
         int key=event.getKeyCode();boolean down=event.getAction()==KeyEvent.ACTION_DOWN;
         if(VoiceAssistant.systemVoiceKey(key))return super.dispatchKeyEvent(event);
+        if(key==KeyEvent.KEYCODE_BACK)return backKey(event);
         boolean confirm=key==KeyEvent.KEYCODE_DPAD_CENTER||key==KeyEvent.KEYCODE_ENTER||key==KeyEvent.KEYCODE_NUMPAD_ENTER||key==KeyEvent.KEYCODE_BUTTON_A;
         if(confirm){if(down&&event.getRepeatCount()==0)confirmPress.down(key,event.getDownTime(),generation);else if(!down&&!confirmPress.up(key,event.getDownTime(),generation,event.isCanceled())){controlsConfirmHeld=false;playerConfirmAction=null;if(livePanel!=null)livePanel.cancelPress();if(choicePanel!=null)choicePanel.cancelPress();return true;}}
         if(playingView&&choicePanel!=null){if(choicePanel.key(event))return true;return super.dispatchKeyEvent(event);}
@@ -599,7 +626,6 @@ public final class CinemaActivity extends Activity {
         boolean videoFocus=liveQueue?(getCurrentFocus()==videoSurface||playerOverlay==null||playerOverlay.getVisibility()!=View.VISIBLE):!playerControlsNavigation;
         if(playingView&&!liveQueue&&timeline!=null&&(key==KeyEvent.KEYCODE_DPAD_LEFT||key==KeyEvent.KEYCODE_DPAD_RIGHT)&&videoFocus){showPlayerControls();return timeline.remoteKey(event);}
         if(playingView&&liveQueue&&videoFocus&&(key==KeyEvent.KEYCODE_DPAD_UP||key==KeyEvent.KEYCODE_DPAD_DOWN)){if(down&&event.getRepeatCount()==0)adjacent(key==KeyEvent.KEYCODE_DPAD_DOWN?1:-1);return true;}
-        if(playingView&&key==KeyEvent.KEYCODE_BACK){if(!down){if(timeline!=null)timeline.cancelEdit();if(!liveQueue&&playerControlsNavigation){playerControlsNavigation=false;if(playerOverlay!=null)playerOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();}else onBackPressed();}return true;}
         if(playingView&&(key==KeyEvent.KEYCODE_MENU||key==KeyEvent.KEYCODE_DPAD_UP||key==KeyEvent.KEYCODE_DPAD_DOWN)&&videoFocus){if(down){if(!liveQueue)playerControlsNavigation=true;showPlayerControls();if(playerToggle!=null)playerToggle.requestFocus();}return true;}
         if(playingView&&key==KeyEvent.KEYCODE_MENU){if(down&&event.getRepeatCount()==0)playerOptions();return true;}
         if(playingView&&(key==KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE||key==KeyEvent.KEYCODE_MEDIA_PLAY||key==KeyEvent.KEYCODE_MEDIA_PAUSE||key==KeyEvent.KEYCODE_MEDIA_REWIND||key==KeyEvent.KEYCODE_MEDIA_FAST_FORWARD||key==KeyEvent.KEYCODE_CHANNEL_UP||key==KeyEvent.KEYCODE_CHANNEL_DOWN)){
@@ -608,9 +634,18 @@ public final class CinemaActivity extends Activity {
         if(playingView&&down&&key>=KeyEvent.KEYCODE_DPAD_UP&&key<=KeyEvent.KEYCODE_DPAD_RIGHT)showPlayerControls();
         return super.dispatchKeyEvent(event);
     }
-    @Override public void onBackPressed(){if(back!=null)back.run();else finish();}
+    @Override public void onBackPressed(){
+        if(destroyed)return;
+        if(playingView&&choicePanel!=null){closePlayerMenu();return;}
+        if(playingView&&livePanel!=null&&livePanel.open()){livePanel.cancelPress();livePanel.hide();return;}
+        if(playingView&&programmePanel!=null&&programmePanel.open()){programmePanel.hide();return;}
+        if(timeline!=null)timeline.cancelEdit();
+        if(playingView&&!liveQueue&&playerControlsNavigation){playerControlsNavigation=false;if(playerOverlay!=null)playerOverlay.setVisibility(View.GONE);if(videoSurface!=null)videoSurface.requestFocus();return;}
+        if(playingView){Runnable destination=playerBack!=null?playerBack:back;if(destination!=null)destination.run();else if(sectionSite!=null)renderBrowse();else home();return;}
+        if(back!=null)back.run();else home();
+    }
     @Override protected void onResume(){super.onResume();display.resumed(true);if(vault!=null)try{shelf=vault.shelf();shelfWarning="";if(shelfRefresh!=null)shelfRefresh.run();}catch(Exception invalid){shelfWarning="观看记录无法读取，旧记录未覆盖";}}
-    @Override protected void onPause(){playerControlsNavigation=false;if(timeline!=null)timeline.cancelEdit();if(browsePanel!=null&&browsePaging.loading()){browsePaging.cancel();http.cancel();browsePanel.state(false,browseHasMore(),false,sectionItems.size());}saveProgress(false);confirmPress.cancel();controlsConfirmHeld=false;playerConfirmAction=null;entryIntent.cancel();display.resumed(false);if(plugins!=null)plugins.cancelPending();super.onPause();}
-    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);if(!focus){playerControlsNavigation=false;if(timeline!=null)timeline.cancelEdit();if(livePanel!=null)livePanel.cancelPress();if(choicePanel!=null)choicePanel.cancelPress();confirmPress.cancel();controlsConfirmHeld=false;playerConfirmAction=null;entryIntent.cancel();}display.focused(focus);if(focus&&prepared&&entryIntent.take(display.active()))session.play();}
-    @Override protected void onDestroy(){closeSettings();destroyed=true;invalidate();main.removeCallbacksAndMessages(null);release();io.shutdownNow();if(artwork!=null)artwork.close();if(info!=null)info.close();if(guideLoader!=null)guideLoader.close();if(plugins!=null)plugins.clear();super.onDestroy();}
+    @Override protected void onPause(){backPress.cancel();playerControlsNavigation=false;if(timeline!=null)timeline.cancelEdit();if(browsePanel!=null&&browsePaging.loading()){browsePaging.cancel();http.cancel();browsePanel.state(false,browseHasMore(),false,sectionItems.size());}saveProgress(false);confirmPress.cancel();controlsConfirmHeld=false;playerConfirmAction=null;entryIntent.cancel();display.resumed(false);if(plugins!=null)plugins.cancelPending();super.onPause();}
+    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);if(!focus){backPress.cancel();playerControlsNavigation=false;if(timeline!=null)timeline.cancelEdit();if(livePanel!=null)livePanel.cancelPress();if(choicePanel!=null)choicePanel.cancelPress();confirmPress.cancel();controlsConfirmHeld=false;playerConfirmAction=null;entryIntent.cancel();}display.focused(focus);if(focus&&prepared&&entryIntent.take(display.active()))session.play();}
+    @Override protected void onDestroy(){backPress.cancel();closeSettings();destroyed=true;invalidate();main.removeCallbacksAndMessages(null);release();io.shutdownNow();if(artwork!=null)artwork.close();if(info!=null)info.close();if(guideLoader!=null)guideLoader.close();if(plugins!=null)plugins.clear();super.onDestroy();}
 }

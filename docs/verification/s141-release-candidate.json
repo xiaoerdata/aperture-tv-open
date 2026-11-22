@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "versionCode": 51,
+  "editions": [
+    "standard",
+    "parents"
+  ],
+  "androidInputSha256": "094aa25fd6f587ddce0d15dd0e2805d93b45d9c2ea244056e7f782abed2b7bd9",
+  "androidInputFiles": 247,
+  "changedProductFiles": [
+    "android/app/build.gradle",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpisodeGrid.java"
+  ],
+  "unchangedV50ProductFiles": 244,
+  "nativePhotoAndWeatherPathsUnchanged": true,
+  "checks": [
+    {
+      "path": "docs/verification/s140-back-navigation.json",
+      "sha256": "8d58d25b0699141fe4cbaee218f927b1eb9824cfb913efc6bfa009851bbddaf9"
+    },
+    {
+      "path": "docs/verification/s125-episode-append.json",
+      "sha256": "0c004c06cbcde7026d6881a6201a803f72f40a467fe191ad4750be8fde3a3d9a"
+    },
+    {
+      "path": "docs/verification/s130-source-return.json",
+      "sha256": "982d39c4c6d662a5bc732efc6142d2b9b6d342adf8893caa0acad24f20b63fbf"
+    },
+    {
+      "path": "docs/verification/s138-player-keys.json",
+      "sha256": "ab020e2893d5473bc360903c20dc2ae7571ed36fdbe1dc596436cc16781b9039"
+    },
+    {
+      "path": "docs/verification/s123-live-controls.json",
+      "sha256": "050ca5764e7955740e7d50225217280a1b9be2cf3915c08a14f1667a3edeeeb7"
+    },
+    {
+      "path": "docs/verification/s140-native-compile.json",
+      "sha256": "e82870b996a1db92dc03106183bee9275d2ee7650879d9f39610f1b20976661a"
+    }
+  ],
+  "apks": [
+    {
+      "edition": "standard",
+      "apk": "kaishi-v51-standard-arm.apk",
+      "bytes": 57905755,
+      "sha256": "1d5aca8ecfbfc4181a58e4eb80f89a007ea0f1b3c17bdedb4b8ed51d5acfb6c0"
+    },
+    {
+      "edition": "parents",
+      "apk": "kaishi-v51-parents-arm.apk",
+      "bytes": 57934427,
+      "sha256": "efbb8a7a3e0f95ed3b47ace71263a4f1d8ca27a4afb90d3bf145c001ce8cdbaa"
+    }
+  ],
+  "samePermissionsAndCorrespondingV50Certificates": true,
+  "homeAlbumActivityNotExported": true,
+  "hisenseAccepted": false,
+  "xiaomiAccepted": false,
+  "realAndroidRendererExecuted": false
+}

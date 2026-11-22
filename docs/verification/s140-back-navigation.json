@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "output": "23 production Back/cached-details/offline/favorite/selection assertions passed with explicit JVM collaborators",
+  "productionDispatchDetailsRestoreCallbacksExtractedVerbatim": true,
+  "realCataloguePlanResumeAndShelfClasses": true,
+  "uiNetworkPlaybackStartDoubles": true,
+  "androidBackDispatcherExecuted": false,
+  "physicalTV": false,
+  "sources": {
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "edf3977620f329808672a2b7dbc4cb44d5e521d6301e9b66bbb2cc0a1d8814c3",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpisodeGrid.java": "635c6bf0df08a3a325e75b3be851ac5f6149d351ba3a3106d361c45e1f0d8b97",
+    "tests/java/BackNavigationTest.java": "b15b159440b1db2811e5bb227c0862456a2621d6c841233fb890f01c14fbbc5c",
+    "scripts/s140-back-test.py": "42e3478a004ad9e991194eba83ef1a6c996e26c3b2e3b8e1f4e91aeb5167362c",
+    "scripts/s138-player-keys-test.py": "271ca5e78624aa8a9e7962a88ee9826b3f83f4df4b752c5706e810b5a350eeab",
+    "android/app/src/main/java/org/zhixiaoce/aperture/ConfirmPress.java": "0166e0f96da5ccfbe1558355fa781861cc7acd3c0c1acc2dd4f9c1644bf11a86"
+  }
+}

@@ -11,24 +11,26 @@ stubs['android/widget/SeekBar.java']='''package android.widget;public class Seek
 stubs['android/content/res/ColorStateList.java']='package android.content.res;public class ColorStateList {public static ColorStateList valueOf(int c){return new ColorStateList();}}'
 stubs['android/widget/LinearLayout.java']=stubs['android/widget/LinearLayout.java'].replace('VERTICAL=1','VERTICAL=1,HORIZONTAL=0')
 stubs['android/view/KeyEvent.java']=stubs['android/view/KeyEvent.java'].replace('KEYCODE_BUTTON_A=96','KEYCODE_BUTTON_A=96,KEYCODE_MENU=82,KEYCODE_MEDIA_PLAY_PAUSE=85,KEYCODE_MEDIA_PLAY=126,KEYCODE_MEDIA_PAUSE=127,KEYCODE_MEDIA_REWIND=89,KEYCODE_MEDIA_FAST_FORWARD=90,KEYCODE_CHANNEL_UP=166,KEYCODE_CHANNEL_DOWN=167')
-stubs['android/app/Activity.java']='''package android.app;public class Activity {public int defaults;public android.view.View focus;public android.content.res.Resources getResources(){return new android.content.res.Resources();}public boolean dispatchKeyEvent(android.view.KeyEvent e){defaults++;return false;}public android.view.View getCurrentFocus(){return focus;}}'''
+stubs['android/app/Activity.java']='''package android.app;public class Activity {public int defaults;public android.view.View focus;public android.content.res.Resources getResources(){return new android.content.res.Resources();}public boolean dispatchKeyEvent(android.view.KeyEvent e){defaults++;return false;}public android.view.View getCurrentFocus(){return focus;}public void onBackPressed(){}}'''
 stubs['org/zhixiaoce/aperture/VoiceAssistant.java']='package org.zhixiaoce.aperture;class VoiceAssistant{static boolean systemVoiceKey(int k){return k==231;}}'
 stubs['org/zhixiaoce/aperture/PlaybackSession.java']='package org.zhixiaoce.aperture;class PlaybackSession {enum State{PLAYING,PAUSED,PREPARING}State state=State.PLAYING;State state(){return state;}void play(){state=State.PLAYING;}void pause(){state=State.PAUSED;}}'
 common='''package org.zhixiaoce.aperture;import java.util.*;import android.view.*;import android.widget.*;
 class RoutingHarness extends android.app.Activity {
- boolean playingView=true,liveQueue,sectionFullscreen=true,playerControlsNavigation,controlsNavigation,controlsConfirmHeld;int generation,playingIndex,backs,shown,seeks,adjacents,options;String view="movies",mode="video",sectionRailMode="组";Runnable playerConfirmAction;
+ boolean playingView=true,liveQueue,sectionFullscreen=true,playerControlsNavigation,controlsNavigation,controlsConfirmHeld,destroyed,browseActive;Object sectionSite;final ConfirmPress backPress=new ConfirmPress();Runnable back=()->this.backs++,playerBack=back;int homes,browses;int generation,playingIndex,backs,shown,seeks,adjacents,options;String view="movies",mode="video",sectionRailMode="组";Runnable playerConfirmAction;
  final android.os.Handler main=new android.os.Handler(android.os.Looper.getMainLooper());final Runnable hidePlayerControls=()->{};final View videoSurface=new View();final Button playerToggle=new Button(),videoToggle=playerToggle;final View playerOverlay=new View(),videoOverlay=playerOverlay,playerLine=new View();
  final PlaybackSession session=new PlaybackSession();final PlaybackEntryIntent entryIntent=new PlaybackEntryIntent();PlayerTimeline timeline;Panel choicePanel,livePanel,programmePanel;final Press confirmPress=new Press();final Rail sectionLayout=new Rail();List<CinemaCatalog.Channel> sectionChannels=new ArrayList<>(),playingChannels=new ArrayList<>();
  static class Press{void down(int a,long b,int c){}boolean up(int a,long b,int c,boolean d){return true;}}static class CinemaCatalog{static class Channel{String group="组";}}
  static class Rail{View rail=new View();void focusSelected(){}}static class Panel{boolean opened;int keys;boolean key(KeyEvent e){keys++;return opened;}boolean open(){return opened;}void cancelPress(){}void hide(){opened=false;}void showChannel(Object o){opened=true;}}
- void refreshSectionRail(){}void showPlayerControls(){shown++;playerOverlay.setVisibility(View.VISIBLE);}void showControls(){showPlayerControls();}void playerEpisodes(){options++;}void playerOptions(){options++;}void adjacent(int n){adjacents++;}void onBackPressed(){backs++;}void togglePlayback(){}void seek(int n){seeks++;}
+ void home(){homes++;}void renderBrowse(){browses++;}void closePlayerMenu(){choicePanel=null;playerControlsNavigation=false;}void rememberVodPosition(){}void saveProgress(boolean complete){}void refreshSectionRail(){}void showPlayerControls(){shown++;playerOverlay.setVisibility(View.VISIBLE);}void showControls(){showPlayerControls();}void playerEpisodes(){options++;}void playerOptions(){options++;}void adjacent(int n){adjacents++;}public void onBackPressed(){backs++;}void togglePlayback(){}void seek(int n){seeks++;}
 '''
 cinema=(base/'CinemaActivity.java').read_text();method=cinema[cinema.index('    @Override public boolean dispatchKeyEvent('):cinema.index('    @Override public void onBackPressed()')]
+helpers=cinema[cinema.index('    private boolean backKey('):cinema.index('    @Override public boolean dispatchKeyEvent(')]
+backMethod=cinema[cinema.index('    @Override public void onBackPressed()'):cinema.index('    @Override protected void onResume()')]
 nas=(base/'NasActivity.java').read_text();nasmethod=nas[nas.index('    @Override public boolean dispatchKeyEvent('):nas.index('    @Override public void onBackPressed()')]
 with tempfile.TemporaryDirectory(prefix='kaishi-s138-') as d:
  temp=Path(d);files=[]
  for n,b in stubs.items():p=temp/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(b);files.append(p)
- cp=[base/'PlayerTimeline.java',base/'PlaybackTimeline.java',base/'PlaybackEntryIntent.java',r/'tests/java/PlayerSeekKeysTest.java']
+ cp=[base/'PlayerTimeline.java',base/'PlaybackTimeline.java',base/'PlaybackEntryIntent.java',base/'ConfirmPress.java',r/'tests/java/PlayerSeekKeysTest.java']
  subprocess.run([str(jdk/'javac'),'-encoding','UTF-8','-d',d,*map(str,[*files,*cp])],check=True)
  outputs=[subprocess.check_output([str(jdk/'java'),'-cp',d,'org.zhixiaoce.aperture.PlayerSeekKeysTest'],text=True).strip()]
  for label,body in [('Cinema',method),('NAS',nasmethod)]:
@@ -40,7 +42,9 @@ with tempfile.TemporaryDirectory(prefix='kaishi-s138-') as d:
   if label=='Cinema':tests+='''h.choicePanel=new Panel();h.choicePanel.opened=true;h.dispatchKeyEvent(key(0,22));h.dispatchKeyEvent(key(1,22));check(m.commits==2&&h.choicePanel.keys==2,"open choice drawer owns both arrow edges");h.choicePanel=null;h.liveQueue=true;h.livePanel=new Panel();h.livePanel.opened=true;h.dispatchKeyEvent(key(0,21));check(h.livePanel.keys==1&&m.commits==2,"live groups keep left/right without VOD seeking");'''
   tests+='''h.timeline.close();System.out.println(checks+" actual '''+label+''' dispatch assertions passed with JVM collaborators");}}
 '''
-  p=temp/'RoutingHarness.java';p.write_text(common+body+tests);subprocess.run([str(jdk/'javac'),'-cp',d,'-d',d,str(p)],check=True);outputs.append(subprocess.check_output([str(jdk/'java'),'-cp',d,'org.zhixiaoce.aperture.RoutingHarness'],text=True).strip())
+  header=common if label=='NAS' else common.replace('public void onBackPressed(){backs++;}','')
+  production=body if label=='NAS' else helpers+body+backMethod
+  p=temp/'RoutingHarness.java';p.write_text(header+production+tests);subprocess.run([str(jdk/'javac'),'-cp',d,'-d',d,str(p)],check=True);outputs.append(subprocess.check_output([str(jdk/'java'),'-cp',d,'org.zhixiaoce.aperture.RoutingHarness'],text=True).strip())
  for output in outputs:print(output)
  tracked=[base/(n+'.java') for n in ['CinemaActivity','NasActivity','PlayerTimeline','PlaybackTimeline','PlaybackEntryIntent']]+[r/'tests/java/PlayerSeekKeysTest.java',Path(__file__).resolve()]
  (r/'docs/verification/s138-player-keys.json').write_text(json.dumps({'passed':True,'outputs':outputs,'actualDispatchMethodsExtractedVerbatim':True,'actualPlayerTimelineExecuted':True,'jvmUiAndMediaDoubles':True,'realAndroidRemoteOrDecoder':False,'sources':{str(p.relative_to(r)):hashlib.sha256(p.read_bytes()).hexdigest() for p in tracked}},indent=2)+'\n')

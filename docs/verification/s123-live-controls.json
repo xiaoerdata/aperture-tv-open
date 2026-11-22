@@ -14,7 +14,7 @@
   "actualRemoteProvidersTested": false,
   "sources": {
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaLivePanel.java": "10486965be21966a0ad3e6af1fbfaa4459cce0e602f1b7ccec49cf7d935d42ca",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "1254fc2d38c8b7b9754fc9e340ca066505e13b4a82d46d91659fe3e8137ae2c0",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaActivity.java": "edf3977620f329808672a2b7dbc4cb44d5e521d6301e9b66bbb2cc0a1d8814c3",
     "tests/java/LivePanelTest.java": "78cb58c9a0377f7a69f8e482fadf3bbcdfe5f5fb1269f159a38dd2e0a2e857b0",
     "tests/java/LivePanelBeforeTest.java": "0a06cead0f14f946ef5df4fe29276294098cbdbec5108686671de4f9fef732f9",
     "tests/fixtures/live-v47/CinemaLivePanel.java": "87b9b68087499a101a91303dc7bbf6baf68d497b91b5dfd918ebed6dd1a807e5",

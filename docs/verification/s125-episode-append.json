@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "output": "19 production episode append, full-title and focus assertions passed",
+  "output": "20 production episode append, full-title and focus assertions passed",
   "productionEpisodeGridAndChoicePanelExecuted": true,
   "jvmFocusViewDoubles": true,
   "realAndroidRendering": false,
@@ -11,8 +11,8 @@
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaFormats.java": "24a268510c7c7d09c7d0e60d956a513f59a00772d6babebf38d07832fa30ddaf",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaResourcePack.java": "c46e9a2f3adcd6a008014ff45b513313d6a4c1474c103e0ab0f1e764742f6f0e",
     "android/app/src/main/java/org/zhixiaoce/aperture/CinemaChoicePanel.java": "9b7618adc62f4daa6bd5d4e7719045292e2bfb99795887e6db32df06ed27c964",
-    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpisodeGrid.java": "aa95456c7b221c0ca94cea6955bb0301e6715e559e7be93985262db0dd5d6e63",
-    "tests/java/EpisodeAppendTest.java": "57171b9667610fcd72b37d3e391acfed70303e08a8075b1951282dbb5f798fcc",
+    "android/app/src/main/java/org/zhixiaoce/aperture/CinemaEpisodeGrid.java": "635c6bf0df08a3a325e75b3be851ac5f6149d351ba3a3106d361c45e1f0d8b97",
+    "tests/java/EpisodeAppendTest.java": "7d63999ed7611f226580b823cf4b76d2cd7f48062dd53ef642182be254597c80",
     "scripts/s125-episodes-test.py": "6b656cbd7a9a19f748f2d5fbae7f07de5f61b991597855925bc1e7578f23cb0e"
   }
 }

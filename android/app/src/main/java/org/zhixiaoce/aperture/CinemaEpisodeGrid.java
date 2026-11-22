@@ -38,5 +38,6 @@ final class CinemaEpisodeGrid extends LinearLayout {
         });
     }
     private void focus(int at){Button target=cards.get(at);if(target==null)return;episode=at;final int turn=++focusEpoch;target.requestFocus();target.post(()->{if(turn==focusEpoch&&target.getParent()==grid){target.requestFocus();target.requestRectangleOnScreen(new android.graphics.Rect(0,0,target.getWidth(),target.getHeight()));}});}
+    void restoreFocus(){focus(episode);}
     private Button episodeButton(String title,Runnable action){Button b=TvUi.button(activity,title,action);b.setFocusableInTouchMode(true);b.setSingleLine(false);b.setMaxLines(Integer.MAX_VALUE);b.setEllipsize(null);b.setGravity(Gravity.START|Gravity.CENTER_VERTICAL);b.setMinHeight(TvUi.dp(activity,64));b.setPadding(TvUi.dp(activity,14),TvUi.dp(activity,12),TvUi.dp(activity,14),TvUi.dp(activity,12));return b;}
 }
